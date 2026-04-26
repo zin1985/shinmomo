@@ -1,0 +1,5 @@
+﻿step,opcode,input,output,meaning
+1,0x1C,"$195E, candidate table 10..13","$1958, $1957",find next entity candidate
+2,0x18,$1958,$1569 logical object list,spawn entity into logical object manager
+3,0x1B,$1923/$1924,$195E,mark candidate consumed
+4,0x1E,$195E,$1957,all candidates consumed?

@@ -1,0 +1,23 @@
+﻿op,ptr,length,count,names,embedded_A0_ptrs,A4_values,bytes
+82,CB:0408,5,234,dummy/zero / 木刀 / 刀 / 木の葉切りの刀 / 竹割りの刀,,,b1 db 03 cb b0
+84,CB:03DB,6,231,dummy/zero / 木刀 / 刀 / 木の葉切りの刀 / 竹割りの刀,CA:DCE2,,a0 e2 dc ca b6 b5
+84,CB:051C,6,1,朱雀の刀,CA:FB4E,,a0 4e fb ca b6 b5
+84,CB:074B,6,1,夕凪のモリ,CA:DDE9,,a0 e9 dd ca b6 b5
+84,CB:078F,6,1,朝凪のモリ,CA:E364,,a0 64 e3 ca b6 b5
+C1,CB:04B8,33,1,玄武の刀,"CA:DD11,CB:1AA4","03,1A",a0 11 dd ca b6 b4 04 c0 b5 50 00 a4 03 69 46 ce 22 d5 3b 19 e0 d0 86 19 d5 8b 19 e0 a0 a4 1a cb b0
+C1,CB:04EE,33,1,白虎の刀,"CA:DD11,CB:1A67",05,a0 11 dd ca b6 b4 04 c0 b5 69 46 50 00 a4 05 ce 21 d5 3b 19 e0 d0 86 19 d5 8b 19 e0 a0 67 1a cb b0
+C1,CB:052A,32,1,朱雀の刀,CA:DD11,07,5d 03 b4 06 b1 34 85 cb a0 11 dd ca b6 b4 04 c0 b5 a4 07 69 41 ce 15 d5 3b 19 e0 b1 ef 15 cb b0
+C1,CB:055F,32,1,青龍の刀,CA:DD11,09,5d 08 b4 06 b1 34 85 cb a0 11 dd ca b6 b4 04 c0 b5 69 45 a4 09 ce 4b d5 3b 19 e0 b1 ef 15 cb b0
+C1,CB:0759,38,1,夕凪のモリ,"CA:DD11,CB:07C2",0C,70 8b 19 b4 06 b1 34 85 cb a0 11 dd ca b6 b4 04 c0 b5 69 4f 51 00 a4 0c 4f 02 23 19 02 dd 6e 1d e0 a0 c2 07 cb b0
+C1,CB:079D,37,1,朝凪のモリ,"CA:DD11,CB:7F5C",0E,a0 11 dd ca 69 4f 61 00 00 00 01 a4 0e 5d 0b e0 4f 02 23 19 02 dd 6e 1d e0 6b 9e 19 7f 07 cb c2 a0 5c 7f cb b0
+C2,CB:07C2,8,1,朝凪のモリ,CB:7FF5,,8d 1a a0 f5 7f cb 8e b0
+C2,CB:0AE8,5,1,ドス,CB:7FF5,,a0 f5 7f cb b0
+C8,CB:0594,36,1,酒呑の剣,CB:7FF5,,39 0f c2 ef b3 03 b0 4f 02 23 19 02 dd 6e 1d e0 22 13 00 e0 69 2f d0 86 19 d5 8b 19 e0 2e 01 a0 f5 7f cb b0
+C8,CB:09E7,30,4,出刃包丁 / 葉切り包丁 / 切り出し包丁 / 団十郎,CB:7FF5,10,39 03 b3 03 b0 4f 02 23 19 02 dd 6e 1d e0 69 2f 5d 09 e0 2e 01 51 00 a4 10 a0 f5 7f cb b0
+C8,CB:0A1A,9,4,小出刃包丁 / 合出刃包丁 / 隼のドス / 村正,CB:6D9F,,5d 06 b3 06 a0 9f 6d cb b0
+C8,CB:0A38,24,4,薄切り包丁 / 柳刃包丁 / 長ドス / 孫六,,13,70 8b 19 39 03 c0 ec e7 b3 0f 51 00 a4 13 69 26 2e 01 62 8b 19 08 e0 b0
+C8,CB:0AC0,40,2,ドス / 村雨,CB:7F5C,17,39 03 b3 03 b0 4f 02 23 19 02 dd 6e 1d e0 69 2f 5d 0b e0 61 00 00 00 01 a4 17 2e 01 6b 9e 19 a8 0a cb c2 a0 5c 7f cb b0
+C8,CB:0D7C,31,1,きんたんの錫杖,CB:7FF5,1B,39 07 b3 03 b0 4f 02 23 19 02 dd 6e 1d e0 69 2f 5d 09 e0 2e 01 a4 1b 8d 1a a0 f5 7f cb 8e b0
+C8,CB:0DB0,30,1,稲妻の錫杖,,1D,39 07 b3 03 b0 5d 06 b4 03 b0 5d 03 e0 2e 01 a4 1d 69 42 ce 0e d5 3b 19 e0 b1 ef 15 cb b0
+C8,CB:0DE3,20,1,魔よけの錫杖,,1F,39 07 b3 03 b0 69 4f ce 37 d5 3b 19 e0 a4 1f b1 bc 20 cb b0
+C8,CB:0E08,24,1,鹿角の錫杖,,"21,22",39 0f b3 03 b0 69 40 ce 1b d5 3b 19 e0 a4 21 50 00 a4 22 b1 da 18 cb b0

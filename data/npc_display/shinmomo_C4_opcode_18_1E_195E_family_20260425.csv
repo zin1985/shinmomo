@@ -1,0 +1,8 @@
+﻿opcode,handler,table_entry_offset,role,confidence
+0x18,C4:C85A,C4:C30D,spawn $1958 via C1:944B,high
+0x19,C4:C864,C4:C30F,remove $1958 via C1:94D7,high
+0x1A,C4:C826,C4:C311,$1958/$195F related helper predicate,medium
+0x1B,C4:C86E,C4:C313,mark current candidate consumed in $195E,high
+0x1C,C4:C8AA,C4:C315,find next available candidate and set $1958,high
+0x1D,C4:C8F8,C4:C317,candidate unconsumed predicate,high
+0x1E,C4:C89B,C4:C319,all four candidates consumed predicate,high

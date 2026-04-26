@@ -1,0 +1,18 @@
+﻿address,asm,meaning
+C4:C8AA,LDX #$00,candidate index init
+C4:C8AC,LDA $195E,processed candidate bitmask
+C4:C8AF,"AND $84:C8F4,X",test candidate bit
+C4:C8B3,BNE C4:C8E8,skip if already processed
+C4:C8B5,"LDA $84:C8F0,X",load candidate 0x10..0x13
+C4:C8B9,STA $1923,candidate key
+C4:C8BE,STA $1924,subkey/type = 1
+C4:C8C1,JSL $80:DA57,resolve pair to entity
+C4:C8C5,BCS C4:C8CA,continue if found
+C4:C8D3,STA $1620,set current entity
+C4:C8D6,STA $1958,feeder output entity
+C4:C8DB,STA $1E,mask=0x80
+C4:C8DD,LDA #$3A,condition id
+C4:C8DF,JSL $85:86AC,condition evaluator
+C4:C8E3,BCC C4:C8E8,skip if condition false
+C4:C8E5,JMP C4:C357,success exit
+C4:C8ED,JMP C4:C366,failure exit

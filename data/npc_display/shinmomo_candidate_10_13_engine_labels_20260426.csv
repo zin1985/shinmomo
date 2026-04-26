@@ -1,0 +1,5 @@
+﻿candidate_key,engine_label,bit_195E,status
+0x10,relation_candidate_slot_0,0x01,engine-level label confirmed; game label requires runtime $192A
+0x11,relation_candidate_slot_1,0x02,engine-level label confirmed; game label requires runtime $192A
+0x12,relation_candidate_slot_2,0x04,engine-level label confirmed; game label requires runtime $192A
+0x13,relation_candidate_slot_3,0x08,engine-level label confirmed; game label requires runtime $192A

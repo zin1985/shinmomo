@@ -1,0 +1,28 @@
+﻿caller,call,sort_key_source,post_call_destination,classification,notes
+C1:8E7F,JSL $80:AF33,immediate #$38,"STA $1591,X",logical actor -> visible object allocation,Loop near $1569. Likely creates visible object work for entries in logical actor list.
+C1:917E,JSL $80:AF33,A = X + #$50 when $1619 != 0,"STA $159B,X",actor-index dependent allocation,Sort key includes X offset; probably depth/priority band for an indexed actor/object.
+C1:9258,JSL $80:AF33,immediate #$2E,"STA $15AF,X",event/object allocation,"Uses $1834,Y guard and writes handle to $15AF,X."
+C1:92D4,JSL $80:AF33,immediate #$40,"STA $15A5,X",event/object allocation,After C1:913D predicate and object setup constants $0A1E=04/$035F=05.
+C1:93FE,JSL $80:AF33,immediate #$20,STA $15C9,single event/display object allocation,After C1:913D and CMP #$0C; stores one handle.
+C1:AE04,JSL $80:AF33,immediate #$38,handle used immediately,effect/object allocation,Guarded by $0A19 < #$3C and helper $80:AC1E.
+C1:B583,JSL $80:AF33,immediate #$48,"STA $18D3,X",pooled effect/object allocation,"Finds free negative slot in $18D3[0..15], stores new object handle."
+C1:B99C,JSL $80:AF33,immediate #$48,"STA $1913,X",pooled effect/object allocation,"Finds free negative slot in $1913[0..15], stores new object handle."
+C1:E3A8,JSL $80:AF33,immediate #$20,"STA $05D9,X",low-priority effect/object allocation,"After $80:A3B9; stores handle to $05D9,X."
+C1:F459,JSL $80:AF33,immediate #$08,STA $1F9F,UI/facility/cursor-ish allocation,Very low sort key band. Nearby $1F9D/$035F/$0A1E UI work.
+C2:DB8A,JSL $80:AF33,immediate #$3A,"STA $05D9,X",effect/object allocation,"Stores handle in $05D9,X; nearby saves source ID in $1B85,X."
+C2:DF96,JSL $80:AF33,immediate #$28,"STA $0619,X candidate",effect/object allocation,After $80:ACE8; then uses $0067 as index and writes object work.
+C2:DFCC,JSL $80:AF33,immediate #$28,"STA $0619,X candidate",effect/object allocation,Sibling of C2:DF96 after $80:AD35 path.
+C2:E0F4,JSL $80:AF33,"A = [$E2],Y stream/table byte","STA $0619,X candidate",data-driven effect/object allocation,Sort key is read from a data stream via direct indirect addressing.
+C2:FA23,JSL $80:AF33,immediate #$28,branch on carry,effect/object allocation,"If allocation fails, jumps/branches to fallback path."
+C3:9259,JSL $80:AF33,A = ($92) indirect stream/table byte,branch on carry,data-driven object allocation,Pointer $92/$93 built immediately before; zero is skipped.
+C5:9850,JSL $80:AF33,immediate #$48,STA long work candidate,event/object allocation,Sets $0A1E=05/$035F=05 first; likely scene/event sprite.
+C5:CC9A,JSL $80:AF33,immediate #$20,TAY then init work,object/effect allocation,Called after saving A; low-priority object band.
+C5:CF9A,JSL $80:AF33,immediate #$38,TAY then restore/setup,object/effect allocation,Preserves $1569 and $035F; likely temporary display object.
+C5:D4AB,JSL $80:AF33,immediate #$20,TAY then setup,object/effect allocation,Low-priority object allocation around data table C5:C0BF..C6.
+C5:DC10,JSL $80:AF33,"A = long table $85:DC32,X",TAY then setup,data-driven object allocation,Sort key is table-driven; good target for later table decode.
+C6:8798,JSL $80:AF33,immediate #$0B,"STA $05D9,X",low-priority effect/object allocation,After $80:AC1E; very low sort key band.
+C6:8831,JSL $80:AF33,immediate #$28,"STA $0619,X candidate",effect/object allocation,Clears $1D64/$1D65 before allocation path.
+C6:8A61,JSL $80:AF33,immediate #$28,"STA $0619,X candidate",effect/object allocation,Sibling of C6:8831 with $1FC8/$1FC9 clear.
+C6:8EB1,JSL $80:AF33,immediate #$38,"STA $0619,X candidate",effect/object allocation,After $80:AC14 source setup and $1B85 save.
+C6:9D9D,JSL $80:AF33,immediate #$38,"STA $0619,X candidate",effect/object allocation,After $80:AD35; writes $1FA5 on branch path.
+C6:A00A,JSL $80:AF33,immediate #$2C,branch on carry,effect/object allocation,Guarded by $19xx state checks; retry/fallback on carry.

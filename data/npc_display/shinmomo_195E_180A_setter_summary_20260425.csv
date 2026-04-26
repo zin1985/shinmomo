@@ -1,0 +1,7 @@
+﻿target,address,operation,meaning,confidence
+$195E,C4:C87A,TSB $195E,candidate 0x10..0x13 の該当bitを処理済みとしてset,high
+$195E,C4:C89B,LDA $195E; AND #$0F,candidate bitmaskが全部立っているか確認する系,medium-high
+$195E,C4:C8AC,"LDA $195E; AND C4:C8F4,X",C4:C8AA candidate feederで既処理candidateをskip,high
+$180A+entity,C5:8964,condition 0x38,$180A[entity-1] |= $1E,high
+$180A+entity,C5:8973,condition 0x39,$180A[entity-1] &= ~$1E,high
+$180A+entity,C5:8952,condition 0x3A,($180A[entity-1] & $1E)==0 をcarry setで返す,high

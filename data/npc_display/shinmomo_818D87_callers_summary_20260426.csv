@@ -1,0 +1,8 @@
+﻿caller,uses,meaning,confidence
+C4:8D50,$09,script wrapper returns visible/available normal actor count,high
+C4:8D60,$0A,script wrapper returns normal actor count,high
+C4:8D6B,$0C,script wrapper returns total logical object count,high
+C4:8D76,$0D,script wrapper returns special object count,high
+C1:D64A,$0A,branch on normal actor count == 1,medium-high
+C3:A050,$0A,"branch on normal actor count == 1, event/display context",medium-high
+C5:9C5D,$0D,branch on special object count 0 / <2,medium-high

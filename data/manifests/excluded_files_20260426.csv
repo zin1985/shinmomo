@@ -1,0 +1,5 @@
+﻿file,reason
+Shin Momotarou Densetsu (J).smc,ROM本体のため除外
+Shin Momotarou Densetsu (J) (1).smc,ROM本体のため除外
+image.png,ゲーム画面スクリーンショットのため除外
+[L5 C0-CF] Shin Momotarou Densetsu (J) (1).txt,逆アセンブル元の巨大テキスト。必要なら別管理。今回ZIPでは生成成果物優先で除外
