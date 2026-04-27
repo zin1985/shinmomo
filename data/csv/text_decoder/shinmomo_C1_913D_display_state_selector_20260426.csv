@@ -1,0 +1,8 @@
+﻿condition_order,test,result_selector,meaning
+1,"$1569,X == 0",return 0,no logical actor
+2,"$1569,X >= 0x17",return 0,"special object, not normal logical actor"
+3,$180A[entity-1] bit7 set,0x1A,hidden/suppressed/unavailable actor display state
+4,$192F == 0x07,0x2D,global/event state override
+5,$030A != 0,0x24,global mode override
+6,$1561 != 0,0x0E,global actor/display mode override
+7,none of above,"$1569,X",normal entity id as state selector

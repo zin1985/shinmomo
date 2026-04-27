@@ -1,0 +1,12 @@
+﻿field,address,operation,source,meaning
+"$15FD,X",C1:9A8B,STZ,C1:9A79 snapshot reset,clear state dispatch delay when current coords are snapshotted
+"$15FD,X",C1:9B03,DEC,C1:9AFB,"count down state dispatch delay; while nonzero, skip state dispatch"
+"$15FD,X",C1:9BFE,STA #05,movement target blocked path,short delay after failed/blocked movement target
+"$15FD,X",C1:9CC4,STA #40,special idle/random path,long delay/cooldown
+"$15FD,X",C1:9F1F,"STA table[$15D5,X]",C1:9F18 delay table,derive animation/state delay from movement step count
+"$15D5,X",C1:9A8E,STZ,C1:9A79 snapshot reset,clear movement/projection step count on coordinate snapshot
+"$15D5,X",C1:9BA5,STZ,selector 15/16 handler,clear movement/projection step count
+"$15D5,X",C1:9BAC,STA $1559,selector 1A handler,load movement/projection step count from global/actor parameter $1559
+"$15D5,X",C1:9BB4,STA $1511,selector 00/01 handler,load movement/projection step count from global/actor parameter $1511
+"$15D5,X",C1:9DD8,STA A/$1559,helper $9DD5/$9DD8,"set movement/projection step count, often before/after path update"
+"$15D5,X",C1:9F3E,LDA,C1:9F35,used as local loop count for projection/application work

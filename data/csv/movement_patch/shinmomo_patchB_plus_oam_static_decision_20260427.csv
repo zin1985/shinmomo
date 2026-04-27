@@ -1,0 +1,4 @@
+﻿item,decision,reason,file
+Patch B depth_reorder_skip v2,apply,profile log shows depth_same_key_slots is almost always 10/10,shinmomo_apply_depth_reorder_skip_v2_ONLY_recommended_20260427.ips
+OAM/static object per-object skip,do_not_apply_yet,B03D/B100 rebuilds OAM sequentially; skipping one object can desync OAM write index and cause flicker/remnants,
+OAM/static full-frame skip,candidate_after_probe,"safer than per-object skip, but needs all_static and OAM index stability evidence",shinmomo_oam_static_guard_probe_v1_snes9x_20260427.lua

@@ -1,0 +1,1 @@
+ROM image files (.smc/.sfc) were intentionally excluded from this package. Use your own legally obtained ROM when running Lua tracers or applying IPS patches.

@@ -1,0 +1,17 @@
+﻿field,role,note
+$1569[X],logical object/entity id list,0=empty。IDを格納する10本の論理slot。spawn/despawn/compactの中心。
+$1591[X],main object handle,OAM/object work側の本体handle。$0BA7等へアクセスするためのslot。
+$15B9[X],base animation state / static state seed,C1:8F00/9090で$0E27へ渡るstate元。flag bit0x10時は動的baseとして直接使用。
+$159B[X],auxiliary handle A,$1619条件のclone/mirror系補助object。
+$15AF[X],auxiliary handle B,$1834[id-1]条件で出る補助object。state 1/3/4。
+$15A5[X],auxiliary handle C,$155C条件で出る補助object。state 2、anchor揺れ。
+$15C9,global companion handle,semantic state 0x0C時のglobal clone。
+$0B27[object],sprite group/attr/draw skip,下位4bit group、0x30 attr overlay、0x40 draw skip。
+$0BA7/$0BE7,object X coordinate,OAM builderへ渡るX座標 low/high。
+$0C67/$0CA7,object Y coordinate,OAM builderへ渡るY座標 low/high。
+$0CE7,vertical anchor / pivot,sprite piece y_offsetから引かれる基準点。C1で初期化・コピー・反転・揺れ設定。
+$0E27,animation state number,B2C1 animation script tableのstate index。
+$0EA7,animation script cursor,frame/duration script内の読み位置。
+$0E67,duration / wait counter,次frameへ進むまでの残り時間。
+$0AE7,current frame / pattern,B294 sprite frame definitionを選ぶframe番号。
+$0D27/$0D67/$0DA7/$0DE7,resource/asset handles,clone/transfer時にコピーされ、cleanup時に$0D27/$0D67をFFへ落とす。

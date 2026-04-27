@@ -1,0 +1,7 @@
+﻿step,routine,description
+1,state handler,choose candidate direction/motion pattern A or $15F3
+2,C1:9ED9,generate candidate next coords in $030B/$030D from render cache $15DF/$15E9 plus delta table
+3,C1:9EAD,run six movement/collision/terrain probes against candidate coords
+4,C1:9E9A,"if accepted, store direction to $15F3 and commit candidate coords to $15DF/$15E9 render cache"
+5,C1:9F18,convert movement step count $15D5 to state dispatch delay $15FD
+6,C1:9F35,project render cache to screen/object work repeatedly based on $15D5

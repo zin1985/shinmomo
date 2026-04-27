@@ -1,0 +1,10 @@
+﻿address,bytes,source,meaning
+C1:9C38,9D F3 15,A = ($80:BB68 & 03) + 1,random cardinal direction/motion pattern 1..4
+C1:9C64,9D F3 15,table C1:9CAA indexed from $160B high bits,direction from global/object movement bits
+C1:9CBF,9D F3 15,immediate #02,force direction/motion pattern 02
+C1:9D12,9D F3 15,A derived from $0038 high bits + 1,direction from controller/global/random high bits
+C1:9D22,9D F3 15,immediate #02 when $15FD==05,force direction/motion pattern 02
+C1:9D5B,9D F3 15,A = ($80:BB68 & 03)+1 if changed,random new direction different from current $15F3
+C1:9DE1,9D F3 15,A = $1587 & 07,direction/motion pattern from actor flags low3
+C1:9DEA,9D F3 15,"A = $1587,X & 07",direction/motion pattern from per-actor flags low3
+C1:9E9A,9D F3 15,A input to C1:9E9A,commit selected movement direction/pattern and render-cache target coords

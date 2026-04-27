@@ -1,0 +1,28 @@
+﻿selector,handler,rough_role
+00,C1:9BB1,set $15D5 from $1511 then snapshot coords
+01,C1:9BB1,same as selector 00
+02,C1:9BC7,random/direction movement path
+03,C1:9C02,directed movement/path update
+04,C1:9C0F,input/global movement flag path
+05,C1:9BE0,common movement toward target/check path
+06,C1:9BE0,common movement path
+07,C1:9BE0,common movement path
+08,C1:9BE0,common movement path
+09,C1:9BE0,common movement path
+0A,C1:9BE0,common movement path
+0B,C1:9CB2,"special random/idle path, sets $15FD=40"
+0C,C1:9BE0,common movement path
+0D,C1:9CC8,directed path with $9E22 then common target check
+0E,C1:9CD6,state-specific compare current/cache coords
+0F,C1:9CFF,state-specific animation direction update
+10,C1:9D16,state-specific animation direction update
+11,C1:9D26,selector 06 path
+12,C1:9BE0,common movement path
+13,C1:9D2B,distance/random direction path
+14,C1:9D70,selector = X then directed path
+15,C1:9BA5,clear $15D5
+16,C1:9BA5,clear $15D5
+17,C1:9BE0,common movement path
+18,C1:9D74,random/path special path
+19,C1:9D88,distance/approach special path
+1A,C1:9BA9,set $15D5 from $1559 then snapshot coords

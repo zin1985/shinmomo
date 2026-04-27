@@ -1,0 +1,11 @@
+﻿address,bytes,mnemonic_guess,meaning
+CB:03E1,02 35,mode/guard prefix,op83 body前段の条件モード候補
+CB:03E3,4F 02 23 19 08 D5 64 03 E0 1A 64 03 00,context/table check A,$1923 and CB:0364 related check
+CB:03F0,4F 02 23 19 07 D5 64 03 E0 D0 64 03 C0,context/table check B,second context/table check
+CB:03FD,EC B3 06,predicate/helper,selector選択前の条件生成候補
+CB:0400,A4 00,result_selector 00,fallback/no-effect候補
+CB:0402,B2 04,conditional relative branch +4,target CB:0408 default op82 body
+CB:0404,A4 01,result_selector 01,standard/default effect selector
+CB:0406,C0,commit/finalize,result selector commit候補
+CB:0407,B5,return/end,op83 body return
+CB:0408,B1 DB 03 CB B0,default op82 body,B2 04 branch target

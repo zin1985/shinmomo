@@ -1,0 +1,12 @@
+﻿token,jp,type,confidence,note
+02A0,桃太郎,dict02,known,existing dictionary
+02AC,オニ,dict02,known,existing dictionary
+029B,旅の人,dict02,strong_tentative,observed rev 9B02 in logs
+0284,行く,dict02,tentative,observed 0284 near 行くのか
+1800,桃,kanji,known,momo table
+1801,太,kanji,known,momo table
+1802,郎,kanji,known,momo table
+188F,火,kanji,known,momo table
+18DB,鬼,kanji,known,momo table
+19EB,穴,kanji,known,momo table
+1A1A,言,kanji,known,momo table

@@ -1,0 +1,10 @@
+﻿address,rel,bytes,mnemonic_hypothesis,meaning,confidence
+CB:03E1,+00,02 35,prefix/guard,"mode/condition prefix for following 4F block. Only seen here with 4F 02 23 19, so exact mnemonic unknown.",medium
+CB:03E3,+02,4F 02 23 19 08 D5 64 03 E0 1A 64 03 00,condition/table block A,references WRAM $1923 and table CB:0364. Likely common validity/effect-context check before default selector.,medium-high
+CB:03F0,+0F,4F 02 23 19 07 D5 64 03 E0 D0 64 03 C0,condition/table block B,"second $1923/table CB:0364 based check. Same family as block A, but terminal byte C0.",medium-high
+CB:03FD,+1C,EC B3 06,predicate/helper,very common prefix before A4 selector writes. Likely evaluates/normalizes effect condition.,medium
+CB:0400,+1F,A4 00,selector write,"sets effect selector/result to 00, likely no-effect/fallback before branch selection.",high
+CB:0402,+21,B2 04,conditional branch/skip,selects between selector 00 and selector 01. Branch unit/condition still unknown.,medium
+CB:0404,+23,A4 01,selector write,sets default selector/result to 01. Standard weapon effect selector.,high
+CB:0406,+25,C0,commit/return control,commits selected result or exits current conditional block before final return.,medium
+CB:0407,+26,B5,script return/end,terminates op83 body.,high

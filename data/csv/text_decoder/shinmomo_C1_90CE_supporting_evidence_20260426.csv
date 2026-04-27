@@ -1,0 +1,17 @@
+﻿address,bytes,instruction,evidence
+C1:8E7D,A9 38,LDA #$38,logical actor visible object allocation sort key
+C1:8E7F,22 33 AF 80,JSL $80:AF33,allocate object through active list insert
+C1:8E83,9D 91 15,"STA $1591,X",store returned object handle to logical actor handle table
+C1:8E86,A8,TAY,use returned handle for object work update
+C1:900A,...,"LDY $1591,X -> JSL $80:AE75 -> JSR $913D",$1591 handle used for animation/state setup
+C1:90FB,BC 91 15,"LDY $1591,X",load each handle
+C1:9100,99 E7 0C,"STA $0CE7,Y",set anchor/pivot/work value for each logical actor object
+C1:9A7C,BD 73 15,"LDA $1573,X",current X array read
+C1:9A7F,9D DF 15,"STA $15DF,X",snapshot/cache X
+C1:9A82,BD 7D 15,"LDA $157D,X",current Y/depth array read
+C1:9A85,9D E9 15,"STA $15E9,X",snapshot/cache Y/depth
+C1:936B,AD 7D 15,LDA $157D,copy leader/current Y/depth to actor slot
+C1:9371,9D E9 15,"STA $15E9,X",also update cached/base Y/depth
+C0:AF77,CA CA,DEX; DEX,AF33 converts physical slot to external handle = slot-2 before init/return
+C0:AF9F,8A,TXA,AF33 returns external handle
+C0:AFEC,A6 6A E8 E8,LDX $6A; INX; INX,AFEC converts external handle back to physical linked-list slot

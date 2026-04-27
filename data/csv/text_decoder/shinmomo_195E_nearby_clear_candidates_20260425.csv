@@ -1,0 +1,8 @@
+﻿routine,operation,range,includes_195E,note
+C5:9505,"STZ $1931,X, X<4",$1931..$1934,no,"bit table clear, unrelated"
+C5:97F9,"STZ $193D,X, X<0x15",$193D..$1951,no,near miss; stops before $195E
+C5:B298,STZ $1952,$1952 only,no,single flag clear
+C3:D203系,STZ $196D..$1970 etc,$196D+,no,after $195E
+C4:C357/C366,STA/STZ $1957,$1957 only,no,predicate return
+C4:C85A/C867/C8D6,STA $1958,$1958 only,no,current candidate
+C4:C81E,STA $195F,$195F only,no,neighbor field

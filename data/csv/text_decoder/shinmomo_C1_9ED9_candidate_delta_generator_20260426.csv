@@ -1,0 +1,20 @@
+﻿address,bytes,instruction,meaning
+C1:9ED9,5A,PHY,preserve Y
+C1:9EDA,DA,PHX,preserve X = logical actor index
+C1:9EDB,0A,ASL A,direction/motion pattern * 2 for delta table
+C1:9EDC,DA,PHX,push original X again
+C1:9EDD,7A,PLY,Y = original logical actor index
+C1:9EDE,AA,TAX,X = direction/motion pattern table offset
+C1:9EDF,B9 DF 15,"LDA $15DF,Y",base render_cache_map_x
+C1:9EE2,18,CLC,prepare add
+C1:9EE3,7F D3 81 81,"ADC $81:81D3,X",add signed/relative X delta from movement delta table
+C1:9EE7,8D 0B 03,STA $030B,candidate projected/map X low/current work
+C1:9EEA,8D 13 03,STA $0313,duplicate candidate X for later helper
+C1:9EED,B9 E9 15,"LDA $15E9,Y",base render_cache_map_y_depth
+C1:9EF0,18,CLC,prepare add
+C1:9EF1,7F D4 81 81,"ADC $81:81D4,X",add signed/relative Y/depth delta from movement delta table
+C1:9EF5,8D 0D 03,STA $030D,candidate projected/map Y/depth current work
+C1:9EF8,8D 14 03,STA $0314,duplicate candidate Y/depth for later helper
+C1:9EFB,FA,PLX,restore X
+C1:9EFC,7A,PLY,restore Y
+C1:9EFD,60,RTS,return

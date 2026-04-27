@@ -1,0 +1,8 @@
+﻿routine,role,key_operations,confidence
+C0:AE59,active list initialization,"$0A61[0]=01, $0A61[1]=FF, $0AA3[0]=01, $0AA3[1]=FF",high
+C0:AF33,object allocate + sorted insert,find free $0AA3==0; insert by $0AA3 sort key; init object work,high
+C0:AFAA,object remove / unlink,"prev=$0A1F[X], next=$0A61[X], prev.next=next, next.prev=prev",high
+C0:AFEC,existing object reorder / sort-key update,remove and reinsert X by new sort key A/$1E,high
+C0:B03D,active chain walk + OAM build,"LDX $0A61; loop via $0A61,X; JSR B100 if frame nonzero",high
+C0:B100,one object to OAM mirror,"B294 group/frame -> $0EE9 x,y,tile,attr; decrements $0A1C",medium-high
+C0:B0C7,OAM DMA transfer,if $0A1B then DMA from $0EE9 to OAM and clear $0A1B,high

@@ -1,0 +1,8 @@
+﻿address,operation,meaning,is_persistent
+C0:CB0A,STA $1569,"initializes slot0 = 1, likely leader/main actor",yes
+C0:CB0F,"STZ $1569,X",clears slot1..9,yes
+C1:94AE,"STA $1569,X",insertion core,yes
+C1:9504,"STA $1569,X",slot transfer destination,yes
+C1:9509,"STA $1569,Y",slot transfer source cleared,yes
+C5:CFA3,STA $1569,temporary actor display setup,"no, restored at C5:D008"
+C5:D008,STA $1569,restore saved $1569 after temporary display,restores

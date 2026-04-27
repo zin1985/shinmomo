@@ -1,0 +1,15 @@
+﻿type,key_or_pattern,value,confidence,note
+dict02,029B,旅の人,strong_tentative,current screenshot/log alignment
+dict02,02A0,桃太郎,known,existing dictionary
+dict02,02AC,オニ,known,existing dictionary
+kanji,1800,桃,known,momo table
+kanji,1801,太,known,momo table
+kanji,1802,郎,known,momo table
+kanji,18DB,鬼,known,momo table
+kanji,19EB,穴,known,momo table
+kanji,1A1A,言,known,momo table
+correction,^さん,桃太郎さん,heuristic,if line starts with さん and window has 桃/known speaker context
+correction,えらこちゃ,えらいこっちゃ,screen_context,missing い/っ from raw stream
+correction,おむすびこりのがぢににに,おむすびころりんの穴が 鬼に,screen_context,raw misses ろ/ん/穴/鬼 and has noise ぢににに
+correction,おそわた,おそわれたと,screen_context,raw misses れ/と
+correction,旅の人がてただ,旅の人が 言ってただ,screen_context,window token 1A1A=言 appears before て

@@ -1,0 +1,13 @@
+﻿field,final_label,meaning,confidence,evidence
+"$1573,X",logical_actor_map_x,logical actor coarse map/grid X coordinate or target X,high,"C1:9A79 copies to $15DF,X; C1:9F7F uses $15DF,X - $1573 as projection delta"
+"$157D,X",logical_actor_map_y_depth,logical actor coarse map/grid Y/depth row or target Y,high,"C1:9A79 copies to $15E9,X; C1:9FB6 uses $15E9,X - $157D as projection delta; C1:90CE uses $157D - $15E9,X for sort key"
+"$15DF,X",render_cache_map_x,render/cache X coordinate used for screen projection,high,"written from $1573,X at C1:9A79; used by C1:9F7F to compute $030B"
+"$15E9,X",render_cache_map_y_depth,render/cache Y/depth coordinate used for screen projection and depth sort,high,"written from $157D,X at C1:9A79; used by C1:9FB6 and C1:90CE"
+"$1591,X",visible_object_handle,logical actor X -> visible object external handle,high,AF33 return stored at C1:8E83; loaded by C1:8F40/90CE/938C
+"$1569,X",logical_actor_entity_id,logical actor/entity id list,high,C1:913D checks id and $180A state; C1:8F40 uses nonzero as update gate
+$030B/$030C,projected_screen_x,projected screen X low/high for current actor/object,medium-high,"computed by C1:9F7F, then copied to $0BA7/$0BE7 by C1:938C"
+$030D/$030E,projected_screen_y,projected screen Y low/high for current actor/object,medium-high,"computed by C1:9FB6, then copied to $0C67/$0CA7 by C1:938C"
+"$15FD,X",movement/interpolation counter candidate,"reset by C1:9A79, checked/decremented in C1:9AFB",medium,needs full 9AFB decode
+"$15D5,X",movement/update pending flag candidate,"reset by C1:9A79, checked by C1:9F35",medium,needs full 9F35 decode
+$157D,reference_actor_map_y_depth,"slot0/reference actor Y/depth, likely leader/player row",high,absolute $157D used as projection origin and C1:90CE sort reference
+$1573,reference_actor_map_x,"slot0/reference actor X, likely leader/player column",high,absolute $1573 used as projection origin

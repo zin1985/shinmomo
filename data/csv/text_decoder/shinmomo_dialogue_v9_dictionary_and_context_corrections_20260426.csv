@@ -1,0 +1,9 @@
+﻿type,key_or_pattern,value,confidence,note
+kanji,188F,火,known,追加。たき火の火
+dict02,02A0,桃太郎,known,既知辞書
+dict02,02AC,オニ,known,既知辞書
+dict02,029B,旅の人,strong_tentative,現ログ位置から暫定
+correction_context,^！ん！,桃太郎さん！,screen_context,たき火会話冒頭補正
+correction_context,き?にににに,たき火に,screen_context,火と重複に補正
+correction_context,あたっ いきよ,あたって いきなよ,screen_context,欠落て/なを補正
+correction_context,あったいよー,あったかいよー,screen_context,欠落かを補正

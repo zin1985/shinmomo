@@ -1,0 +1,6 @@
+﻿caller,call,new_sort_key_source,target_slot_source,classification,notes
+C1:90ED,JSL $80:AFEC,"A = clamp($157D - $15E9,X + #$38, #$38..#$48)",STY $6A before call,main depth/Y-sort reorder,Strongest caller. Computes sort key from vertical relation and clamps to 0x38..0x48. Likely moving actor depth ordering.
+C1:BD37,JSL $80:AFEC,immediate #$2C,STY $6A before call,fixed-priority reorder,"After clearing bit in $0759,X and calling $80:AE88. Repositions current object to fixed band 0x2C."
+C3:9B96,JSL $80:AFEC,A = ($94) stream/table byte,implicit current $6A,data-driven reorder command,Same dispatcher also writes to $0D27/$0B27 depending branch; here stream byte drives reorder.
+C3:F1B2,JSL $80:AFEC,"A = table C3:F1CB,X",implicit current $6A,table-driven cutscene/object reorder,Immediately after writing object coordinates based on $150C/$150D; table supplies sort key.
+C5:E8EF,JSL $80:AFEC,"A = long table $85:E8F8,X",implicit/current $6A,table-driven reorder,Similar table-driven reorder. Likely maps object/state to priority band.

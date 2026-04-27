@@ -1,0 +1,4 @@
+﻿issue,fix,note
+direct_line nil in string.find,Use _G.direct_line and nil guard,Lua lexical scoping bug
+window kanji false positives,Ignore some high-noise address/key pairs,window_tokens remains exploratory
+fixed phrase replacement risk,Not used,compound candidates are based on observed tokens

@@ -1,0 +1,8 @@
+﻿rank,candidate,target_area,expected_gain,risk,needs_before_patch,patch_feasibility
+1,OAM/object static-frame skip,C0:B03D/B100 + object work $0BA7/$0C67/$0AE5/$0B25,中〜大。表示物が多い場面で、座標/フレーム不変objectの再構築を減らせる可能性,高。OAMは毎フレーム再構築前提の可能性があり、消え残り/ちらつきリスク,object_static_slots が高く、かつ描画が破綻しない再利用条件を特定,まだパッチ化しない方が良い
+2,offscreen object早期skip強化,"$0BA7/$0C67 screen position, C0 OAM builder",中。画面外NPC/待機objectが多い場合に効く,中。画面端での出現、影、背面pieceの欠落リスク,offscreen_like_slots が多いこと。既存clip処理位置の確定,候補。C0:B100完全分解後
+3,animation unchanged skip,$0AE5 frame / $0B25 sprite group / B2C1 animation scripts,小〜中。待機NPCが多い場面で効く可能性,中。瞬き/足踏み/イベント演出の停止リスク,$0AE5が連続不変のslot比率、animation script tickのsetter確認,条件付きで可能
+4,inactive actor slot full skip,"$1569 actor id / $1591 handle / C1:8F40, C1:9AF1",小〜中。空slotや非表示slotが多い場合に効く,中〜高。非表示でも内部タイマー/イベントが進む可能性,actor_empty_slots と handle状態、$180A hidden flagとの対応確認,慎重に可能
+5,collision/probe frequency削減,C1:9EAD probes $81:81DD/B232/B14F/A0C4/BA0E/B68E,中。移動NPCが多い場面で効く可能性,高。通行判定バグ、NPCすり抜け、イベント不発リスク,移動中NPCのprobe呼び出し実測。Snes9x pollingでは難しいのでBizHawk推奨,現時点では非推奨
+6,depth reorder already optimized further tuning,C1:90CE / $0AA3 sort key / $0A61 list,小〜中。v2のskip率次第,中。重なり順バグ,depth_same_key_slotsが高いこと。上下移動時の見た目確認,v2で様子見
+7,source text/debug unrelated no effect,C9 text reader,なし,なし,対象外,やらない

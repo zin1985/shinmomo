@@ -1,0 +1,9 @@
+﻿step,routine,flow
+1,C1:8E7B,"AF33(#$38) allocates visible object; returned external handle stored to $1591,X"
+2,C1:900A,"sets initial animation/group via AE75/B445/B477 and writes $0B27,Y"
+3,C1:9031,"regular update for logical actor visible object; calls $9090, $9419, $9186, $9296, $9303"
+4,C1:913D,returns display/state selector from entity and global conditions
+5,C1:9A79,copies $1573/$157D current logical coordinates to $15DF/$15E9 render cache and clears motion counters
+6,C1:9F78,projects render cache relative to reference $1573/$157D into screen coordinates $030B/$030D
+7,C1:938C,"writes projected $030B/$030D into object work $0BA7/$0C67 for object handle $1591,X"
+8,C1:90CE,reorders visible object in $0A61 active list by sort key from reference Y minus cached/render Y

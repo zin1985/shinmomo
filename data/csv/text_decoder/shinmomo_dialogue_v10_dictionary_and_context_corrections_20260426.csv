@@ -1,0 +1,7 @@
+﻿type,key_or_pattern,value,confidence,note
+dict02,0284,行く,tentative,current dialogue window_tokens showed 0284 near 行くのか
+correction_context,ぢたいじ,体で 鬼たいじに,screen_context,raw misses 体で/鬼/に
+correction_context,くのか??ぅを,行くのか? 無理を,screen_context,raw misses 行/無理
+correction_context,とっも,と言っても,screen_context,raw misses 言/て
+correction_context,もももことじ,桃太郎のことじゃ,screen_context,raw misses 桃太郎/の/じゃ
+correction_context,むだじゃな,むだじゃろうな…,screen_context,raw misses ろう/ellipsis

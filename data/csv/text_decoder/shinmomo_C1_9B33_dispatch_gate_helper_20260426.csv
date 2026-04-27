@@ -1,0 +1,8 @@
+﻿condition,return,meaning
+X == 0,"A=00, CLC",leader/reference actor uses selector0 path; no forced C1:913D
+$0307 bit40 clear,"A=00, CLC",state dispatch not forced when global display flag not active
+$DE bit18 set,"A=FF, CLC",suppress dispatch this frame
+$0309 != 0,SEC,force C1:913D selector
+($DE & 04) OR $1563 OR $1543 OR $160C OR $1562 != 0,"A=00, CLC",use selector0/default path under blocking/global modes
+"($1587,X & 40) OR $1268 != 0","A=FF, CLC",suppress dispatch under actor/global lock flag
+otherwise,SEC,force C1:913D selector

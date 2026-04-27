@@ -1,0 +1,5 @@
+﻿kind,address,bytes,meaning
+read,C4:C89B,AD 5E 19,all consumed check
+read,C4:C8AC,AD 5E 19,feeder skip consumed candidates
+write,C4:C87A,0C 5E 19,"TSB $195E, set consumed bit"
+read,C4:C911,2C 5E 19,"BIT $195E, unconsumed predicate"

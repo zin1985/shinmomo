@@ -1,0 +1,9 @@
+﻿jp,bytes,type,confidence,rom_count,first_offsets
+銀次,18 50 18 51,character,known,17,0x70ced 0x73ff7 0x7482d 0x7487c 0x80944 0x80962 0x81c89 0x81cd8 0xa5712 0xa92f4
+銀次の,18 50 18 51 A8,phrase,known,1,0x80962
+そうび,9E 92 DF,kana_phrase,known,2,0x82719 0x82908
+着流し,1A 59 1A 5F 9B,equipment_name,confirmed_rom,6,0x72553 0x7255d 0x72567 0x72572 0x7257b 0x72585
+はちまき,A9 A0 AE 96,equipment_name,confirmed_rom,2,0x72815 0x7282e
+わらじ,BB B6 D6,equipment_name,confirmed_rom,2,0x72847 0x730fc
+桃太郎,18 00 18 01 18 02,character,known,2,0x5df5c 0x702ef
+いっしょ,91 F5 9B F8,kana_phrase,confirmed_rom,8,0x7b693 0x7bdde 0x7fe52 0x81c44 0x8e11e 0x8f979 0xa42af 0xa7d08

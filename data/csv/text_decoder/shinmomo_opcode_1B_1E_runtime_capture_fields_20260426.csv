@@ -1,0 +1,7 @@
+﻿opcode,handler,engine_label,runtime_fields_to_capture
+0x18,C4:C85A,spawn_current_candidate,"$1958,$1569"
+0x19,C4:C864,remove_current_candidate,"$1958,$1569"
+0x1B,C4:C86E,mark_candidate_consumed,"$1923,$1924,$195E"
+0x1C,C4:C8AA,find_next_candidate,"$1923,$1924,$192A,$1958,$195E,$180A+entity"
+0x1D,C4:C8F8,candidate_unconsumed_predicate,"$1923,$1924,$195E,$1957"
+0x1E,C4:C89B,all_candidates_consumed_predicate,"$195E,$1957"

@@ -1,0 +1,23 @@
+﻿op,ptr,count,examples,names,selector_hex,selector_dec,form,bytes
+83,CB:03E1,204,"0,1,2,3,4,5,6,7,8,9",dummy/zero / 木刀 / 刀 / 木の葉切りの刀 / 竹割りの刀,01,1,A4 xx C0 B5,02 35 4f 02 23 19 08 d5 64 03 e0 1a 64 03 00 4f 02 23 19 07 d5 64 03 e0 d0 64 03 c0 ec b3 06 a4 00 b2 04 a4 01 c0 b5
+83,CB:04B0,1,16,玄武の刀,02,2,call_default_03E1 + selector,a0 e1 03 cb a4 02 c0 b5
+83,CB:04E6,1,17,白虎の刀,04,4,call_default_03E1 + selector,a0 e1 03 cb a4 04 c0 b5
+83,CB:0522,1,18,朱雀の刀,06,6,call_default_03E1 + selector,a0 e1 03 cb a4 06 c0 b5
+83,CB:0557,1,19,青龍の刀,08,8,call_default_03E1 + selector,a0 e1 03 cb a4 08 c0 b5
+83,CB:058C,1,20,酒呑の剣,0A,10,call_default_03E1 + selector,a0 e1 03 cb a4 0a c0 b5
+83,CB:0751,1,60,夕凪のモリ,0B,11,call_default_03E1 + selector,a0 e1 03 cb a4 0b c0 b5
+83,CB:0795,1,61,朝凪のモリ,0D,13,call_default_03E1 + selector,a0 e1 03 cb a4 0d c0 b5
+83,CB:09DF,2,"114,118",出刃包丁 / 葉切り包丁,0F,15,call_default_03E1 + selector,a0 e1 03 cb a4 0f c0 b5
+83,CB:0A12,4,"115,119,125,128",小出刃包丁 / 合出刃包丁 / 隼のドス / 村正,11,17,call_default_03E1 + selector,a0 e1 03 cb a4 11 c0 b5
+83,CB:0A30,4,"116,120,124,129",薄切り包丁 / 柳刃包丁 / 長ドス / 孫六,12,18,call_default_03E1 + selector,a0 e1 03 cb a4 12 c0 b5
+83,CB:0A5A,3,"117,121,130",牛切り包丁 / 骨切り包丁 / 菊一文字,14,20,call_default_03E1 + selector,a0 e1 03 cb a4 14 c0 b5
+83,CB:0AA0,1,122,切り出し包丁,15,21,call_default_03E1 + selector,a0 e1 03 cb a4 15 c0 b5
+83,CB:0AB8,1,123,ドス,16,22,call_default_03E1 + selector,a0 e1 03 cb a4 16 c0 b5
+83,CB:0B14,1,126,団十郎,18,24,call_default_03E1 + selector,a0 e1 03 cb a4 18 c0 b5
+83,CB:0B29,1,127,村雨,19,25,call_default_03E1 + selector,a0 e1 03 cb a4 19 c0 b5
+83,CB:0D74,1,184,きんたんの錫杖,1A,26,call_default_03E1 + selector,a0 e1 03 cb a4 1a c0 b5
+83,CB:0DA8,1,185,稲妻の錫杖,1C,28,call_default_03E1 + selector,a0 e1 03 cb a4 1c c0 b5
+83,CB:0DDB,1,186,魔よけの錫杖,1E,30,call_default_03E1 + selector,a0 e1 03 cb a4 1e c0 b5
+83,CB:0E04,1,187,鹿角の錫杖,20,32,selector_only,a4 20 c0 b5
+83,CB:0EE8,1,207,なし,23,35,call_default_03E1 + selector,a0 e1 03 cb a4 23 c0 b5
+83,CB:0F04,1,209,鬼のかぎづめ,24,36,call_default_03E1 + selector,a0 e1 03 cb a4 24 c0 b5

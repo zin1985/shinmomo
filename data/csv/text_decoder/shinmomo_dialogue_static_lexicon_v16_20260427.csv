@@ -1,0 +1,32 @@
+﻿token,jp,type,confidence,static_evidence
+02A0,桃太郎,dict02,known,既存DICT02
+029B,旅の人,dict02,strong_tentative,v7/v8ログ位置と画面文脈
+0284,行く,dict02,tentative,v10ログ window_tokens 0284
+02D7,入れ,dict02,strong_tentative,北西の穴ログ {02D7}+ません
+1800,桃,kanji,known,MOMO3 table
+1801,太,kanji,known,MOMO3 table
+1802,郎,kanji,known,MOMO3 table
+1803,金,kanji,known,MOMO3 table
+1804,浦,kanji,known,MOMO3 table
+1805,島,kanji,known,MOMO3 table
+1808,夜,kanji,known,MOMO3 table
+1809,叉,kanji,known,MOMO3 table
+180A,姫,kanji,known,MOMO3 table
+1811,西,kanji,known,MOMO3 table
+1813,北,kanji,known,MOMO3 table
+1815,体,kanji,known,MOMO3 table
+181F,装,kanji,known,MOMO3 table
+1820,備,kanji,known,MOMO3 table
+1847,人,kanji,known,MOMO3 table
+184C,刀,kanji,known,MOMO3 table
+1850,銀,kanji,known,MOMO3 table; ROMに銀次 sequence 17件
+1851,次,kanji,known,MOMO3 table; ROMに銀次 sequence 17件
+188F,火,kanji,known,MOMO3 table
+18DB,鬼,kanji,known,MOMO3 table
+18F2,無,kanji,known,MOMO3 table
+199B,旅,kanji,known,MOMO3 table
+19BF,行,kanji,known,MOMO3 table
+19D7,入,kanji,known,MOMO3 table
+19EB,穴,kanji,known,MOMO3 table
+1A1A,言,kanji,known,MOMO3 table
+1A31,理,kanji,known,MOMO3 table

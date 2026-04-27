@@ -1,0 +1,8 @@
+﻿address,bytes,instruction,meaning
+C1:9E9A,9D F3 15,"STA $15F3,X",store selected direction/motion pattern for logical actor X
+C1:9E9D,20 D9 9E,JSR $9ED9,compute candidate next map/depth coordinate from pattern A/$15F3-like direction
+C1:9EA0,AD 0B 03,LDA $030B,load candidate X/column
+C1:9EA3,9D DF 15,"STA $15DF,X",commit candidate X to render_cache_map_x
+C1:9EA6,AD 0D 03,LDA $030D,load candidate Y/depth row
+C1:9EA9,9D E9 15,"STA $15E9,X",commit candidate Y/depth to render_cache_map_y_depth
+C1:9EAC,60,RTS,return

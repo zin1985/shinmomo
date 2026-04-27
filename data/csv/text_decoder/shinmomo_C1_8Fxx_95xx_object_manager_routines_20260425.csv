@@ -1,0 +1,39 @@
+﻿range,label,inputs,outputs_or_side_effects,analysis
+C1:8F00..8F14,single visual slot initialize/restart,"X=logical object slot, A/DP06 context","calls 80:B25E/80:BC89, sets animation state from $15B9,X via 80:AE88",低層初期化。すでに割当済みobject handleに対して、表示資材設定とanimation state開始を行う。
+C1:8F15..8F38,all logical object refresh two-pass,none,active $1569[0..9]を2回走査,第1passで旧補助object/資源を掃除し、第2passで本体objectと補助objectを再構築する全体更新入口。
+C1:8F39..8F3F,single logical object refresh,X=logical object slot,8FAC cleanup -> 8F40 rebuild,単一slotだけ再構築する入口。
+C1:8F40..8FAB,main object rebuild/update,"X=logical object slot, $1569,X active id","$1591,X main object handle; $0E27=0; group/state/clone/effect routines",本体objectの表示状態を作り直す中核。semantic state(913D)、group/attr(900A)、補助object生成(9175/923E/92BB/93F5)、clone更新(9186/9296/9303/9419)を呼ぶ。
+C1:8FAC..8FF6,logical object cleanup,X=logical object slot,release main resource handles $0D27/$0D67 and secondary handles $159B/$15A5/$15AF,slotに紐づく補助object・資源を解放し、handleをFFへ戻す。despawn前処理。
+C1:8FF7..9009,free object handle helper,A=object handle,$0D27/$0D67=FF; JSL 80:AFAA,handleが負でなければobject work側を無効化して allocator/free へ渡す。
+C1:900A..9030,main object group/attr refresh,"X=logical slot; Y=$1591,X","$0E67=1; $0B27,Y = group/attr",semantic id(913D)を81:B445/B477へ渡し、OAM builder用のsprite group/attrを再設定する。
+C1:9031..908F,conditional state/visibility update,X=logical slot,$0E27 state; $0B27 bit6 draw skip; clone refreshes,停止条件・イベント条件に応じてstate=0、draw skip bitを切替。動的state更新(9090)後、補助cloneを更新する。
+C1:9090..90CD,dynamic animation state calculator,A=direction/state seed; X logical; Y object,AE79 if computed state differs; optional 80:AF0C update,方向/pose baseを合成して$0E27と比較し、差分があればcursor維持型AE79でstate差し替え。
+C1:90CE..90F6,bulk depth/priority-ish updater,all slots,"calls 80:AFEC after clamped delta from $157D-$15E9,X",各objectの相対位置差から0x38..0x48範囲の値を作り、80:AFECに渡す。奥行き/表示優先度/高さ補正候補。
+C1:90F7..910A,bulk anchor initializer,all $1591 handles,"$0CE7,Y = 0x10",全objectに標準vertical anchor 16pxを設定する入口。
+C1:910B..913C,orientation/state transform helper,A=input state seed; X logical slot,A=adjusted low state,"$1587 flags, $1551 global flags, frame counter $0038 によりstate seedを反転・固定・周期化する。"
+C1:913D..9174,semantic actor id -> base state helper,X logical slot,A=base semantic state,"$1569,XのIDを、状態フラグ/イベント変数に応じて0x1A/0x2D/0x24/0x0E等へ置換。animation stateの土台。"
+C1:9175..9185,allocate extra handle $159B,X logical slot,"$159B,X = 80:AF33(X+0x50) if $1619!=0",条件付き補助object slotを確保。後続9186で親から表示状態を派生させる。
+C1:9186..91E2,update $159B clone/mirror,X logical; Y parent object; $159B child,child group/state/coords/resources,親objectから座標・duration・resourceをコピーし、stateを+4派生または0へ。anchorは符号反転。mirror/companion表示候補。
+C1:91E3..9201,copy position + anchor,"X source object, Y dest object",$0BA7/$0BE7/$0C67/$0CA7/$0CE7 copied,object座標とvertical anchorのコピー。clone/state transferの基礎部品。
+C1:9202..920E,copy animation cursor/wait,"X source, Y dest",$0E67/$0EA7 copied,animation duration/cursorをコピー。
+C1:920F..9227,copy resource fields,"X source, Y dest",$0D27/$0D67/$0DA7/$0DE7 copied,tile/asset/resource handle系と思われる4列をコピー。
+C1:9228..923D,clone visibility from parent state,"X source, Y dest",dest $0B27 bit6 updated,親stateが0なら子objectにdraw skip bitを立て、そうでなければ消す。補助objectの表示抑制。
+C1:923E..9295,spawn/update $15AF auxiliary object,X logical slot,"$15AF,X handle; group=0x24; state=1/3/4",$1834[id-1]がある時だけ補助objectを確保。semantic state 0x0C/0x0B/0x09でstateを分岐。
+C1:9296..92BA,refresh $15AF auxiliary object,"X logical; Y=$15AF,X","copy parent attr/coords, skip if parent state 0",$15AF補助objectを親に追随させる。
+C1:92BB..9302,spawn $15A5 auxiliary object,X logical slot,"$15A5,X handle; group=0x24; state=2; parent anchor=0",$155C条件で追加補助objectを出す。親anchorを0にするため、表示基準補正を変える演出候補。
+C1:9303..934E,refresh $15A5 auxiliary object,"X logical; Y=$15A5,X",copy attr/coords; set $0CE7 from oscillating table; skip if parent state 0,$15A5補助objectを親に追随。$934F tableとframe counterでvertical anchorを揺らす/変化させる。
+C1:934F..9356,anchor oscillation table,data,04 05 06 07 08 07 06 05,$15A5系補助object用の縦基準補正テーブル。
+C1:9357..938B,bulk world->screen coordinate update,all logical slots,updates $1573/$15DF/$157D/$15E9/$1587; calls 938C for coords,全objectの基礎座標/状態を更新し、active main objectへ画面座標を反映。
+C1:938C..93AC,project coords into object work,Y object handle,$0BA7/$0C67/$0BE7/$0CA7 from $030B/$030D/$030C/$030E,81:9A79/9F78の結果をobject座標配列へ保存。world/map座標からOAM座標への前段。
+C1:93AD..93D1,bulk flag lowbits + duration nudge,A=flag bits,$1587 lowbits; $0E67=1; $15C8=A,全logical slotにflag低位を反映し、animation durationを1にして再評価を促す。
+C1:93D2..93F4,bulk $0B27 group/attr rebuild,all slots,"$0B27,Y from 913D + 81:B445/B477",全objectのsprite group/attr再計算入口。
+C1:93F5..9405,allocate global extra $15C9,X logical slot,$15C9=80:AF33(0x20) when semantic state 0x0C,特定semantic state用のglobal companion objectを確保。
+C1:9406..9418,release global extra $15C9,X logical slot,free $15C9 via 8FF7 then FF,semantic state 0x0C終了時のglobal companion cleanup。
+C1:9419..944A,refresh global companion clone $15C9,X logical; Y likely $15C9,$0B27 OR 0x30; copy coords/cursor/resources; state=parent+4,state 0x0C用の伴走object。OAM attr overlay 0x30を加え、親state+4へ派生。
+C1:944B..9470,sync special ids 17/18/19,"data table C1:9471=17,18,19",exists? remove/add/sync via 958C/94D7/9474,3種類の特殊object IDを外部状態と同期する管理入口。
+C1:9474..94BA,ensure logical entity id in $1569 list,A=id after 81:A91D,"insert into empty slot, then 8F40+900A",logical object listへIDを追加/再利用するspawn入口。id<17は主に前4slot制限、id>=17は後続slotも許可。
+C1:94BB..94D6,make room / compact helper,"X insertion index, $1E saved index",calls 94FF shifting slots,低IDを前方slotへ入れるため、空きslotを探してlogical slot群を移動する補助。
+C1:94D7..94FE,remove logical entity id,A=id after 81:A91D,cleanup matching slot then shift later slots left,despawn入口。対象IDを見つけて8FACで解放し、94FFで後続slotを詰める。
+C1:94FF..958B,logical slot transfer and object state migration,"Y=source logical, X=dest logical",copies $1569/$15B9/$159B/$15A5/$15AF and object work; clears old slot/state,logical slot移動の本丸。animation state/cursor/duration/current frameまで完全移管し、旧objectをstate0/frame0へ落とす。
+C1:958C..959E,logical entity existence test,A=id,Carry set if $1569 contains A,IDがlogical object listに存在するか確認する小ルーチン。
+C1:959F..95E0,snapshot / restore / bulk remove logical list,A=mode 0/1/2,mode0 save $1569 to 7E:3F93; mode1 restore via 944B; mode2 remove all via 94D7,object listの退避・復元・全削除。scene transition/特殊イベント用候補。

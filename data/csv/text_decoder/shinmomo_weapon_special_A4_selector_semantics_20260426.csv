@@ -1,0 +1,12 @@
+﻿selector,meaning_candidate,examples
+00,fallback/no-effect/default-fail candidate,CB:03E1 internal before B2
+01,standard/default weapon effect,default op83 body
+02,"special selector, 四神刀系",玄武の刀
+04,"special selector, 四神刀系",白虎の刀
+06,"special selector, 四神刀系",朱雀の刀
+08,"special selector, 四神刀系",青龍の刀
+0A,酒呑の剣 selector,酒呑の剣
+0B/0D,モリ系 selector,夕凪のモリ/朝凪のモリ
+0F..19,包丁/ドス/名刀系 selector,包丁/ドス/村正/村雨など
+1A/1C/1E/20,錫杖系 selector,きんたん/稲妻/魔よけ/鹿角
+24,鬼のかぎづめ selector,鬼のかぎづめ

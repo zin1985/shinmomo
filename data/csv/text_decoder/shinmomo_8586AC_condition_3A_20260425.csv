@@ -1,0 +1,2 @@
+﻿condition_id,handler,base,computed_address,mask,carry_set_when,meaning
+0x3A,C5:8952,0x01E7,$180A + ($1620-1),0x80,bit clear,entity availability / not hidden / not processed flag check

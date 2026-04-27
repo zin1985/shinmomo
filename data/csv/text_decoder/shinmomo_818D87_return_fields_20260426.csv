@@ -1,0 +1,5 @@
+﻿field,meaning,formula,confidence
+$09,visible/available normal actor count,count(id in $1569[0..9] where id!=0 and id<0x17 and $180A[id-1]&0x80 == 0),high
+$0A,normal actor count,count(id in $1569[0..9] where id!=0 and id<0x17),high
+$0C,total logical object count,count(id in $1569[0..9] where id!=0),high
+$0D,special object count,$0C - $0A,high

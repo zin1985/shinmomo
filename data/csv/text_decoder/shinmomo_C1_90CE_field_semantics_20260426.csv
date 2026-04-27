@@ -1,0 +1,8 @@
+﻿field,meaning_after_this_analysis,confidence,notes
+"$1591,X",visible object external handle for logical actor X,high,AF33 return stored here; external handle = physical slot - 2
+"$157D,X",current Y/depth array for logical actors,medium-high,slot0 $157D used as base/leader Y in C1:90CE; indexed reads elsewhere
+"$15E9,X",cached/base Y/depth array for logical actors,medium-high,"snapshot from $157D,X; subtracted in C1:90CE"
+$6A,external object handle argument for AFEC,high,caller writes $1591-derived handle; AFEC adds +2
+$0A61[physical_slot],active linked-list next pointer,high,physical slot = external handle + 2
+$0A1F[physical_slot],active linked-list prev pointer,high,paired with $0A61
+$0AA3[physical_slot],sort key / priority / depth key,high,updated by AF33/AFEC

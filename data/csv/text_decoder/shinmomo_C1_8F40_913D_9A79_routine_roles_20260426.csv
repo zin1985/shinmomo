@@ -1,0 +1,7 @@
+﻿routine,role,key_inputs,key_outputs,confidence
+C1:8F40,logical actor visible-object update pipeline,"X=logical actor index; $1569,X actor/entity id; $1591,X visible object handle",updates object animation/state/group/coords and calls subhelpers,high
+C1:913D,logical actor display-state selector,"$1569,X, $180A[entity-1] bit7, $192F, $030A, $1561","A=display/state selector such as entity id, hidden=1A, special states 2D/24/0E",high
+C1:9A79,coordinate snapshot / render-cache reset,"$1573,X/$157D,X for X=0..9","$15DF,X/$15E9,X copied; $15FD,X/$15D5,X cleared",high
+C1:90CE,depth reorder for logical actor visible objects,"$1591,X handle; $157D reference Y; $15E9,X cached/render Y",calls $80:AFEC with sort key derived from Y/depth difference,high
+C1:9F78,coordinate-to-screen projection helper,"$15DF/$15E9 render coords, $1573/$157D reference coords, $150C/$150D scroll, $1609/$160A suboffset",$030B/$030D/$030C/$030E screen coordinate pair,medium-high
+C1:938C,write projected screen coordinates to object work,"Y=$1591,X handle","$0BA7/$0C67/$0BE7/$0CA7,Y from $030B/$030D/$030C/$030E",high

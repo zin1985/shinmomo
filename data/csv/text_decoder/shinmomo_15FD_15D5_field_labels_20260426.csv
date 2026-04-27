@@ -1,0 +1,7 @@
+﻿field,final_label,meaning,confidence
+"$15FD,X",actor_state_dispatch_delay,per logical actor countdown that suppresses C1:9AFB selector dispatch while nonzero; also feeds animation/state delay behavior,high
+"$15D5,X",actor_movement_projection_step_count,per logical actor movement/projection loop count used by C1:9F35; also used by C1:9F18 to derive $15FD delay,high
+$00DF,global_projection_step_override,"if nonzero, C1:9F35 uses this instead of $15D5,X as loop count",medium-high
+"$15F3,X",actor_direction_or_motion_pattern,direction/pattern value set by several jump handlers and helpers,medium-high
+$1609/$160A,subtile_projection_offset_x/y,projection offset added before screen coordinate conversion,medium-high
+$0311/$0312,projected_screen_delta_flags,set by C1:A080 family when object screen position changed; gates $80BBEC/$80BC21,medium-high

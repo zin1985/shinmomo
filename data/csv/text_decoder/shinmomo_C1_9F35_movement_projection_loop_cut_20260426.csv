@@ -1,0 +1,20 @@
+﻿address,bytes,instruction,meaning
+C1:9F35,8B DA 4B AB,PHB; PHX; PHK; PLB,"set DBR=C1, preserve X"
+C1:9F39,AD DF 00,LDA $00DF,load global projection/movement step override
+C1:9F3C,D0 05,BNE $9F43,if nonzero use global count
+C1:9F3E,BD D5 15,"LDA $15D5,X",else load per-actor movement/projection step count
+C1:9F41,F0 32,BEQ $9F75,"if zero, no projection work"
+C1:9F43,85 0C,STA $0C,local loop counter
+C1:9F45,22 78 9F 81,JSL $81:9F78,project map/depth coords to screen coords $030B/$030D
+C1:9F49,20 80 A0,JSR $A080,apply projected coords to current visible object and compute deltas $0311/$0312
+C1:9F4C,AD 11 03 / 0D 12 03,LDA $0311; ORA $0312,check if projected screen coord changed
+C1:9F52,F0 21,BEQ $9F75,"if no delta, finish"
+C1:9F54,AD 11 03,LDA $0311,horizontal delta flag/value
+C1:9F59,22 EC BB 80,JSL $80:BBEC,apply horizontal/related visible-object update if X delta exists
+C1:9F5D,AD 12 03,LDA $0312,vertical delta flag/value
+C1:9F62,22 21 BC 80,JSL $80:BC21,apply vertical/related visible-object update if Y delta exists
+C1:9F66,AD 51 15 / 89 0F,LDA $1551; BIT #0F,check low-nibble movement/camera/party flags
+C1:9F6D,22 0C AF 80,JSL $80:AF0C,additional object update when $1551 low bits present
+C1:9F71,C6 0C,DEC $0C,decrement local loop counter
+C1:9F73,D0 D4,BNE $9F49,repeat apply/update loop
+C1:9F75,FA AB 60,PLX; PLB; RTS,return

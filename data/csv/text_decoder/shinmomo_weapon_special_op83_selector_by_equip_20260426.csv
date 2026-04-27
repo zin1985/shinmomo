@@ -1,0 +1,41 @@
+﻿equip_id,name,op83_ptr,selector_hex,selector_dec,form
+0,dummy/zero,CB:03E1,01,1,A4 xx C0 B5
+1,木刀,CB:03E1,01,1,A4 xx C0 B5
+2,刀,CB:03E1,01,1,A4 xx C0 B5
+3,木の葉切りの刀,CB:03E1,01,1,A4 xx C0 B5
+4,竹割りの刀,CB:03E1,01,1,A4 xx C0 B5
+5,瓦割りの刀,CB:03E1,01,1,A4 xx C0 B5
+6,岩切りの刀,CB:03E1,01,1,A4 xx C0 B5
+7,鎖切りの刀,CB:03E1,01,1,A4 xx C0 B5
+8,釜割りの刀,CB:03E1,01,1,A4 xx C0 B5
+9,兜割りの刀,CB:03E1,01,1,A4 xx C0 B5
+16,玄武の刀,CB:04B0,02,2,call_default_03E1 + selector
+17,白虎の刀,CB:04E6,04,4,call_default_03E1 + selector
+18,朱雀の刀,CB:0522,06,6,call_default_03E1 + selector
+19,青龍の刀,CB:0557,08,8,call_default_03E1 + selector
+20,酒呑の剣,CB:058C,0A,10,call_default_03E1 + selector
+60,夕凪のモリ,CB:0751,0B,11,call_default_03E1 + selector
+61,朝凪のモリ,CB:0795,0D,13,call_default_03E1 + selector
+114,出刃包丁,CB:09DF,0F,15,call_default_03E1 + selector
+118,葉切り包丁,CB:09DF,0F,15,call_default_03E1 + selector
+115,小出刃包丁,CB:0A12,11,17,call_default_03E1 + selector
+119,合出刃包丁,CB:0A12,11,17,call_default_03E1 + selector
+125,隼のドス,CB:0A12,11,17,call_default_03E1 + selector
+128,村正,CB:0A12,11,17,call_default_03E1 + selector
+116,薄切り包丁,CB:0A30,12,18,call_default_03E1 + selector
+120,柳刃包丁,CB:0A30,12,18,call_default_03E1 + selector
+124,長ドス,CB:0A30,12,18,call_default_03E1 + selector
+129,孫六,CB:0A30,12,18,call_default_03E1 + selector
+117,牛切り包丁,CB:0A5A,14,20,call_default_03E1 + selector
+121,骨切り包丁,CB:0A5A,14,20,call_default_03E1 + selector
+130,菊一文字,CB:0A5A,14,20,call_default_03E1 + selector
+122,切り出し包丁,CB:0AA0,15,21,call_default_03E1 + selector
+123,ドス,CB:0AB8,16,22,call_default_03E1 + selector
+126,団十郎,CB:0B14,18,24,call_default_03E1 + selector
+127,村雨,CB:0B29,19,25,call_default_03E1 + selector
+184,きんたんの錫杖,CB:0D74,1A,26,call_default_03E1 + selector
+185,稲妻の錫杖,CB:0DA8,1C,28,call_default_03E1 + selector
+186,魔よけの錫杖,CB:0DDB,1E,30,call_default_03E1 + selector
+187,鹿角の錫杖,CB:0E04,20,32,selector_only
+207,なし,CB:0EE8,23,35,call_default_03E1 + selector
+209,鬼のかぎづめ,CB:0F04,24,36,call_default_03E1 + selector

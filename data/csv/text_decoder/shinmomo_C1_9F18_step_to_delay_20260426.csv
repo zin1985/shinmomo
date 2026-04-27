@@ -1,0 +1,7 @@
+﻿address,bytes,instruction,meaning
+C1:9F18,5A,PHY,preserve Y
+C1:9F19,BC D5 15,"LDY $15D5,X",Y = actor_movement_projection_step_count
+C1:9F1C,B9 24 9F,"LDA $9F24,Y",read delay value from step-count-to-delay table
+C1:9F1F,9D FD 15,"STA $15FD,X",set actor_state_dispatch_delay
+C1:9F22,7A,PLY,restore Y
+C1:9F23,60,RTS,return

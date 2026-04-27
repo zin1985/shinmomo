@@ -1,0 +1,10 @@
+﻿routine,role,key_code,meaning
+C9:9DD2,reader state reset,STZ $1274/$12A8/$1272,nested stack and source reader state clear
+C9:9DE5,next display token reader,JSR $9E10; STA $12B2; if 18..1F then STA $12B3 and read next,feeds display window but not raw source
+C9:9E03,kanji prefix predicate,CMP #$18; CMP #$20,carry set if 0x18..0x1F
+C9:9E10,main source reader,if $12A8 then indirect buffer else $9E34,dispatches source modes and controls
+C9:9E34,source mode entry,$12AA selects source mode,mode 0 uses raw pointer; mode 1/2 calls dictionary/control helpers
+C9:9E57,raw byte reader,LDA [$B1]; INC $B1/$B2/$B3,original text stream byte read
+C9:9E64,source context pop,DEC $1274; restore $B1-$B3/$12AA/$12A9,returns from nested dictionary/source stream
+C9:9F34,02xx dictionary handler,read next byte; SBC #$A0; JSR $9F8D,enters dictionary/nested source
+C9:9F8D,source context push,"store $B1-$B3, $12AA, $12A9 to $1275..",nested source stack push

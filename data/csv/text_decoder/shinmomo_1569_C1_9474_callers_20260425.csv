@@ -1,0 +1,13 @@
+﻿kind,caller,input_source,target,meaning,confidence
+add,C4:8C97,script pointer -> ($0F) -> $1929,C1:944B -> C1:9474,presence bit set + logical object spawn,high
+add,C4:8D0F,script arg / $07,C1:944B -> C1:9474,presence bit set + logical object spawn,high
+add,C4:8D8D,$07,C1:944B -> C1:9474,direct logical object spawn without presence bit update,high
+add,C4:C85D,$1958,C1:944B -> C1:9474,spawn current candidate ID,high
+add,C5:C9F6,$1929,C1:944B -> C1:9474,transition/replacement add,medium-high
+add,C1:95C6,"$7E3F93,X snapshot",C1:944B -> C1:9474,restore saved logical list,high
+remove,C4:8CEB,$07,C1:94D7,presence bit clear + logical object remove,high
+remove,C4:8D16,$07,C1:94D7,logical object remove,high
+remove,C4:8D20,script pointer -> ($0F),C1:94D7,logical object remove,high
+remove,C4:C867,$1958,C1:94D7,remove current candidate ID,high
+remove,C5:C9ED,$0356[0],C1:94D7,transition remove old actor,medium-high
+bulk-remove,C1:95D8,$1569[9..0],C1:94D7,clear logical list,high

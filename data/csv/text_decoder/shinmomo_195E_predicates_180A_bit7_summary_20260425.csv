@@ -1,0 +1,7 @@
+﻿target,routine,address,operation,meaning,confidence
+$195E,set consumed bit,C4:C86E..C87D,TSB $195E,current candidate 10..13/type1 のbitをset,high
+$195E,is unconsumed,C4:C8F8..C91E,BIT $195E,candidate bitが立っていればfailure,high
+$195E,all consumed,C4:C89B..C8A7,AND #0F; CMP #0F,4候補すべて消費済みならsuccess,high
+$180A bit7,set/clear/test,C5:8952/8964/8973,condition 38/39/3A,entity hidden/suppressed系flag候補,high
+$1957,success result,C4:C357,STA $1957,script predicate success,high
+$1957,failure result,C4:C366,STZ $1957,script predicate failure,high

@@ -1,0 +1,5 @@
+﻿item,old,new,reason
+screen_text,鋼のそうび / 鋼なら刀も,銀次のそうび / 銀次は刀も,user correction from screenshot
+1850 handling,ignore at $12B3,observe as 銀,actual text contains 銀次
+compound,銀 only,銀次 if 1850+1851; 銀次? if 1850 + の/は,avoid fixed phrase replacement
+next target,$12B2/$12C4 window only,source reader/pointer still needed,刀/次 may not always appear in work window

@@ -1,0 +1,17 @@
+﻿index_15D5,delay_15FD,interpretation
+00,0F,long delay for zero/minimal movement step
+01,0F,long delay
+02,07,medium delay
+03,07,medium delay
+04,03,short delay
+05,03,short delay
+06,03,short delay
+07,03,short delay
+08,01,minimum delay
+09,01,minimum delay
+0A,01,minimum delay
+0B,01,minimum delay
+0C,01,minimum delay
+0D,01,minimum delay
+0E,01,minimum delay
+0F,01,minimum delay

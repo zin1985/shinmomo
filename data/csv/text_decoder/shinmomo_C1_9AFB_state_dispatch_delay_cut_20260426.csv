@@ -1,0 +1,27 @@
+﻿address,bytes,instruction,meaning
+C1:9AF1,20 FB 9A,JSR $9AFB,run actor state/animation dispatch gate
+C1:9AF4,20 35 9F,JSR $9F35,apply/project movement interpolation steps
+C1:9AF7,20 31 90,JSR $9031,continue normal visible-object update
+C1:9AFB,8B 4B AB,PHB; PHK; PLB,set DBR=C1 for local jump table/data
+C1:9AFE,BD FD 15,"LDA $15FD,X",load actor state dispatch delay/cooldown
+C1:9B01,F0 05,BEQ $9B08,"if no cooldown, evaluate next state"
+C1:9B03,DE FD 15,"DEC $15FD,X",cooldown active: decrement it
+C1:9B06,80 26,BRA $9B2E,skip state dispatch this frame
+C1:9B08,20 33 9B,JSR $9B33,evaluate state dispatch eligibility / forced selector
+C1:9B0B,B0 06,BCS $9B13,carry set: use C1:913D display-state selector
+C1:9B0D,C9 00,CMP #$00,carry clear: inspect helper A
+C1:9B0F,10 0D,BPL $9B1E,A>=0: use A as selector; usually selector 0
+C1:9B11,80 1B,BRA $9B2E,"A negative, usually FF: suppress dispatch"
+C1:9B13,20 3D 91,JSR $913D,get display-state selector from entity/global state
+C1:9B16,C9 1A,CMP #$1A,cap selector for this dispatch table
+C1:9B18,90 04,BCC $9B1E,if <1A keep selector
+C1:9B1A,A9 1A,LDA #$1A,else clamp to selector 1A
+C1:9B1E,0A,ASL A,selector * 2
+C1:9B1F,DA AA,PHX; TAX,use selector*2 as jump-table index
+C1:9B21,C2 20,REP #$20,16-bit A for pointer read
+C1:9B23,BD 6F 9B,"LDA $9B6F,X",read handler pointer
+C1:9B26,85 2A,STA $2A,store indirect jump pointer
+C1:9B28,E2 20,SEP #$20,back to 8-bit A
+C1:9B2A,FA,PLX,restore logical actor index
+C1:9B2B,20 30 9B,JSR $9B30,jump to selected handler
+C1:9B30,6C 2A 00,JMP ($002A),dispatch to selector handler

@@ -1,0 +1,18 @@
+﻿address,bytes,instruction,meaning
+C1:9EAD,20 D9 9E,JSR $9ED9,compute candidate next coords into $030B/$030D and $0313/$0314
+C1:9EB0,22 DD 81 81,JSL $81:81DD,movement/collision/terrain probe #1
+C1:9EB4,B0 21,BCS blocked,"if helper reports carry set, return CLC = blocked"
+C1:9EB6,22 32 B2 81,JSL $81:B232,movement/collision/terrain probe #2
+C1:9EBA,B0 1B,BCS blocked,"if carry set, blocked"
+C1:9EBC,22 4F B1 81,JSL $81:B14F,movement/collision/terrain probe #3
+C1:9EC0,B0 15,BCS blocked,"if carry set, blocked"
+C1:9EC2,22 C4 A0 81,JSL $81:A0C4,movement/collision/terrain probe #4
+C1:9EC6,B0 0F,BCS blocked,"if carry set, blocked"
+C1:9EC8,22 0E BA 81,JSL $81:BA0E,movement/collision/terrain probe #5
+C1:9ECC,B0 09,BCS blocked,"if carry set, blocked"
+C1:9ECE,22 8E B6 81,JSL $81:B68E,movement/collision/terrain probe #6
+C1:9ED2,B0 03,BCS blocked,"if carry set, blocked"
+C1:9ED4,38,SEC,all probes clear: movement candidate allowed
+C1:9ED5,80 01,BRA return,skip blocked return
+C1:9ED7,18,CLC,blocked / invalid movement candidate
+C1:9ED8,60,RTS,return carry = allowed flag

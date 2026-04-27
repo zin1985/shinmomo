@@ -1,0 +1,11 @@
+﻿field,meaning,confidence,note
+$0A61[slot],next pointer in active linked list,high,slot0/1 are sentinel-like
+$0A1F[slot],previous pointer in active linked list,high,paired with $0A61
+$0AA3[slot],sort key / priority / depth key,high,used for sorted insertion/reorder
+$0AE5 absolute,active object count,high,"INC on allocate, DEC on remove"
+$0A1D,default $0B27 group/attr seed,medium-high,init value 0x20
+$0A1C,OAM remaining sprite-piece budget,high,"starts 0x80, DEC per piece"
+$0A1B,OAM dirty flag,high,"set after build, cleared after DMA"
+$0EE9..,"OAM mirror x,y,tile,attr",high,hidden entry 00 E0 00 00
+$1109,OAM mirror write index,medium-high,increments by 4 per visible piece
+$110B/$110C,OAM high table packing work,medium,tracks 4 sprites per high-table byte

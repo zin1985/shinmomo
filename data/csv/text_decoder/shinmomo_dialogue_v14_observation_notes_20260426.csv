@@ -1,0 +1,5 @@
+﻿item,value,note
+active_phase,$12B4=50 and $12AD=00,Only append direct_line in this phase
+exclude_direct,$12C5 not 00/02,Avoid c5=01/04 startup/control staging
+source_state,$1264..$1286 words,Added to help find original stream/pointer
+known_limit,$12B2/$12C4 are display work windows,Cannot fully decode missing compound tokens like 鋼/刀 if not visible there
