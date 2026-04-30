@@ -1,0 +1,12 @@
+Shin Momotarou Densetsu (J).smc	excluded ROM/archive/binary-state or nested zip
+Shin Momotarou Densetsu (J)_original.smc	excluded ROM/archive/binary-state or nested zip
+shinmomo_39850_39993_instruction_split_v1.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_graphics_probe_v1_out.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_static_push_vol013.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_v33_test_outputs.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_vol013_mode02_initial_package.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_vol013_mode02_mass_dump_v33.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_vol013_v29_fixed_v30_standalone.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_vol013_v29_quiet_patch.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_vol013_v31_chain_decoder.zip	excluded ROM/archive/binary-state or nested zip
+shinmomo_vol013_v32_chain_force.zip	excluded ROM/archive/binary-state or nested zip

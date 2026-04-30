@@ -1,0 +1,56 @@
+# $82:8000 opcode >= $50 special VM handler
+
+## Caller side: $84:87A2 dispatcher fragment
+
+84:87A2  8B          PHB
+84:87A3  5A          PHY
+84:87A4  DA          PHX
+84:87A5  4B          PHK
+84:87A6  AB          PLB
+84:87A7  C9 50       CMP #$50
+84:87A9  90 0B       BCC $87B6/$87B7      ; if opcode < $50, use normal dispatcher
+84:87AB  AC 98 13    LDY $1398
+84:87AE  F0 06       BEQ normal_dispatch  ; if $1398 == 0, do not use special bank82 dispatch
+84:87B0  22 00 80 82 JSL $82:8000
+84:87B4  80 03       BRA done
+84:87B6  20 BD 87    JSR $87BD            ; normal opcode dispatch
+84:87B9  FA          PLX
+84:87BA  7A          PLY
+84:87BB  AB          PLB
+84:87BC  60          RTS
+
+## $82:8000 body
+
+82:8000  8B          PHB
+82:8001  4B          PHK
+82:8002  AB          PLB                 ; DB = $82
+82:8003  C2 30       REP #$30
+82:8005  29 FF 00    AND #$00FF
+82:8008  38          SEC
+82:8009  E9 50 00    SBC #$0050          ; opcode - $50
+82:800C  10 05       BPL ok              ; dispatcher caller should guarantee this
+82:800E  00 EA       BRK/Escape guard
+82:8010  A9 00 00    LDA #$0000
+82:8013  0A          ASL A
+82:8014  A8          TAY
+82:8015  B9 31 80    LDA $8031,Y         ; 16-bit handler pointer in bank $82
+82:8018  85 06       STA $06
+82:801A  E2 30       SEP #$30
+82:801C  20 21 80    JSR $8021
+82:801F  AB          PLB
+82:8020  6B          RTL
+
+82:8021  A0 01       LDY #$01
+82:8023  6C 06 00    JMP ($0006)         ; jump to selected handler in bank $82
+
+## Table range
+
+The table begins at $82:8031.
+The first real handler begins at $82:80B7.
+Therefore the contiguous 16-bit table has 67 entries:
+
+- valid special opcodes: $50..$92
+- bytes after $82:80B7 are handler code, not table entries
+
+This is important because candidate bytes like 9A F0 / DB F0 / C6 F0 / CD F0 / D4 F0 from the 0x39850 macro area are outside the valid $82:8000 table range.
+They should not be treated as normal opcode >= $50 special VM instructions unless another dispatch mode/table is found.

@@ -1,0 +1,247 @@
+﻿address_or_range,status_hint,bucket,comment,source
+0x004370,有力,予想,| `0x4EC51` | 有力 | DMA設定/転送準備 | `0x4370..4374` をセットして `JSL $80A474`。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:52
+0x026A60,有力,予想,| `0x26A60..0x26C3F` | 有力 | UI/描画/表示定義寄りのデータ群 | 以前は店在庫候補と見たが、`0x4EA30 → 0x4EC51` の流れからDMA/画面転送寄りと判断修正。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:48
+0x026A60,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x026A60,未確認/候補,予想,| `0x26A60..0x26C3F` | 店在庫マスタ候補 | UI/描画/表示定義データ寄り。店在庫本体説は後退 |,shinmomo_handover_summary.md:43
+0x026A60..0x026C3F,有力,予想,| `0x26A60..0x26C3F` | 有力 | UI/描画/表示定義寄りのデータ群 | 以前は店在庫候補と見たが、`0x4EA30 → 0x4EC51` の流れからDMA/画面転送寄りと判断修正。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:48
+0x026A60..0x026C3F,未確認/候補,予想,| `0x26A60..0x26C3F` | 店在庫マスタ候補 | UI/描画/表示定義データ寄り。店在庫本体説は後退 |,shinmomo_handover_summary.md:43
+0x026ABC,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x026B18,メモ,予想,- `0x26B18系` は UI/表示束,shinmomo_handover_full_addresses_with_weapon_skill.md:212
+0x026B18,有力,予想,| `0x26B18 / 0x26B74 / 0x26BD0 / 0x26BFF` | 有力 | FF終端のレコード群だが、店在庫本体とは限らない | 店在庫マスタ本命説は後退。表示束 / UI定義束の可能性が高い。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:49
+0x026B18,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x026B18,除外寄り,調査済み（除外寄り）,| `0x26B18系 = 店在庫本体` | 低下 | UI/描画/表示定義寄りの可能性が高い。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:174
+0x026B74,有力,予想,| `0x26B18 / 0x26B74 / 0x26BD0 / 0x26BFF` | 有力 | FF終端のレコード群だが、店在庫本体とは限らない | 店在庫マスタ本命説は後退。表示束 / UI定義束の可能性が高い。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:49
+0x026B74,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x026BD0,有力,予想,| `0x26B18 / 0x26B74 / 0x26BD0 / 0x26BFF` | 有力 | FF終端のレコード群だが、店在庫本体とは限らない | 店在庫マスタ本命説は後退。表示束 / UI定義束の可能性が高い。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:49
+0x026BD0,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x026BFF,有力,予想,| `0x26B18 / 0x26B74 / 0x26BD0 / 0x26BFF` | 有力 | FF終端のレコード群だが、店在庫本体とは限らない | 店在庫マスタ本命説は後退。表示束 / UI定義束の可能性が高い。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:49
+0x026BFF,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x026C3F,有力,予想,| `0x26A60..0x26C3F` | 有力 | UI/描画/表示定義寄りのデータ群 | 以前は店在庫候補と見たが、`0x4EA30 → 0x4EC51` の流れからDMA/画面転送寄りと判断修正。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:48
+0x026C3F,未確認/候補,予想,| `0x26A60..0x26C3F` | 店在庫マスタ候補 | UI/描画/表示定義データ寄り。店在庫本体説は後退 |,shinmomo_handover_summary.md:43
+0x02F807,未確認/候補,予想,| `0x2F807` | 未確認 | `A*4 + subindex` 補助表候補 |,shinmomo_handover_full_addresses_with_weapon_skill.md:126
+0x02F81A,未確認/候補,予想,| `0x2F81A` | 未確認 | `A*9` 補助表候補 |,shinmomo_handover_full_addresses_with_weapon_skill.md:127
+0x02FD68,メモ,予想,- raw `0x2FD68..0x2FDB2` に、**24bitポインタ + 記述テーブル方式の汎用読取ルーチン** がある,shinmomo_handover_20260313_latest.md:120
+0x02FD68..0x02FDB2,メモ,予想,- raw `0x2FD68..0x2FDB2` に、**24bitポインタ + 記述テーブル方式の汎用読取ルーチン** がある,shinmomo_handover_20260313_latest.md:120
+0x02FDB2,メモ,予想,- raw `0x2FD68..0x2FDB2` に、**24bitポインタ + 記述テーブル方式の汎用読取ルーチン** がある,shinmomo_handover_20260313_latest.md:120
+0x030000,メモ,予想,- `target` は **`0x30000 + target`** とみると自然につながる,shinmomo_handover_20260313_latest.md:35
+0x030000,メモ,予想,- `target` = `0x30000` 台スクリプト先頭,shinmomo_handover_20260313_latest.md:97
+0x030048,メモ,予想,- これは単独ではなく、**`0x30048` から続く35件の8バイト束** の一要素,shinmomo_handover_20260313_latest.md:114
+0x030048,未確認/候補,予想,- `0x30048..0x30168` の 8バイト束を読む側も候補,shinmomo_handover_20260313_latest.md:273
+0x030048..0x030168,未確認/候補,予想,- `0x30048..0x30168` の 8バイト束を読む側も候補,shinmomo_handover_20260313_latest.md:273
+0x0300D3,メモ,予想,- `0x300D3` に **`88:9A05` を指す 24bitポインタ** がある,shinmomo_handover_20260313_latest.md:113
+0x0300D3,メモ,予想,- `shinmomo_0x300d3_generic_reader_hunt.md`,shinmomo_handover_20260313_latest.md:309
+0x030168,メモ,予想,- さらに `0x30168` にも **同型の小束** がある,shinmomo_handover_20260313_latest.md:115
+0x030168,未確認/候補,予想,- `0x30048..0x30168` の 8バイト束を読む側も候補,shinmomo_handover_20260313_latest.md:273
+0x031C68,メモ,予想,- `0x31C68` 一致,shinmomo_handover_20260313_latest.md:17
+0x031C68,メモ,予想,- `0x31C68` への直結は未発見,shinmomo_handover_20260313_latest.md:47
+0x031C68,メモ,予想,- `0x31C68` への直結ルート,shinmomo_handover_20260313_latest.md:259
+0x031C68,メモ,予想,5. **`0x31C68` 接続の追跡**,shinmomo_handover_20260313_latest.md:292
+0x031C68,メモ,予想,3. **`0x31C68 / 0x31DF8 / 0x320C8` 周辺**,shinmomo_handover_full_addresses_with_weapon_skill.md:190
+0x031C68,未確認/候補,予想,- `0x31C68 / 0x31DF8 / 0x320C8` = 店/施設スクリプト帯候補,shinmomo_handover_20260313_latest.md:28
+0x031C68,未確認/候補,予想,| `0x31C68` | 未確認 | 店メッセージ候補 |,shinmomo_handover_full_addresses_with_weapon_skill.md:121
+0x031C68,未確認/候補,予想,3. 店メッセージ候補 (`0x31C68` / `0x31DF8` / `0x320C8`) 周辺から本線追跡,shinmomo_handover_summary.md:111
+0x031C68,確定,調査済み,| 店メッセージ候補 | `0x31C68` / `0x31DF8` / `0x320C8` | 未確定 | 店会話/店処理入口の本線候補 |,shinmomo_handover_summary.md:52
+0x031DDF,メモ,予想,- 例: `1DDF -> 0x31DDF`,shinmomo_handover_20260313_latest.md:36
+0x031DDF,メモ,予想,"- `0x31DDF`, `0x320A4` などのスクリプト帯へ飛ぶ",shinmomo_handover_20260313_latest.md:40
+0x031DDF,メモ,予想,- **`0x31DDF` に接続するレコードあり**,shinmomo_handover_20260313_latest.md:43
+0x031DDF,メモ,予想,- `0x31DF8` へは、現状は **`0x31DDF` に入った後の同ストリーム途中** と見るのが自然,shinmomo_handover_20260313_latest.md:46
+0x031DDF,メモ,予想,"- `target` は bank83 のスクリプト帯へ飛ぶ (`0x31DDF`, `0x320A4` 等)",shinmomo_handover_20260313_latest.md:248
+0x031DDF,メモ,予想,- `0x31DDF / 0x320A4` 以外の `target` レコードとの接続を広げる,shinmomo_handover_20260313_latest.md:293
+0x031DDF,メモ,予想,- 店会話スクリプト帯（`0x31DDF / 0x31DF8 / 0x320C8`）とは別系統,shinmomo_handover_full_addresses_with_weapon_skill.md:230
+0x031DDF,メモ,予想,| `0x31DDF / 0x31DF8 / 0x320C8` 施設スクリプト帯 | 中 | 別VMだが、「小命令列VMを多用する」設計理解を補強。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:272
+0x031DF8,メモ,予想,- `0x31DF8` 一致,shinmomo_handover_20260313_latest.md:18
+0x031DF8,メモ,予想,- `0x31DF8` へは、現状は **`0x31DDF` に入った後の同ストリーム途中** と見るのが自然,shinmomo_handover_20260313_latest.md:46
+0x031DF8,メモ,予想,3. **`0x31C68 / 0x31DF8 / 0x320C8` 周辺**,shinmomo_handover_full_addresses_with_weapon_skill.md:190
+0x031DF8,メモ,予想,- 店会話スクリプト帯（`0x31DDF / 0x31DF8 / 0x320C8`）とは別系統,shinmomo_handover_full_addresses_with_weapon_skill.md:230
+0x031DF8,メモ,予想,| `0x31DDF / 0x31DF8 / 0x320C8` 施設スクリプト帯 | 中 | 別VMだが、「小命令列VMを多用する」設計理解を補強。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:272
+0x031DF8,未確認/候補,予想,- `0x31C68 / 0x31DF8 / 0x320C8` = 店/施設スクリプト帯候補,shinmomo_handover_20260313_latest.md:28
+0x031DF8,未確認/候補,予想,| `0x31DF8` | 未確認 | 店メッセージ候補 |,shinmomo_handover_full_addresses_with_weapon_skill.md:122
+0x031DF8,未確認/候補,予想,3. 店メッセージ候補 (`0x31C68` / `0x31DF8` / `0x320C8`) 周辺から本線追跡,shinmomo_handover_summary.md:111
+0x031DF8,確定,調査済み,| 店メッセージ候補 | `0x31C68` / `0x31DF8` / `0x320C8` | 未確定 | 店会話/店処理入口の本線候補 |,shinmomo_handover_summary.md:52
+0x0320A4,メモ,予想,- 例: `20A4 -> 0x320A4`,shinmomo_handover_20260313_latest.md:37
+0x0320A4,メモ,予想,"- `0x31DDF`, `0x320A4` などのスクリプト帯へ飛ぶ",shinmomo_handover_20260313_latest.md:40
+0x0320A4,メモ,予想,- **`0x320A4` に接続するレコードあり**,shinmomo_handover_20260313_latest.md:44
+0x0320A4,メモ,予想,- `0x320A4` 先を読むと `0x320C8` を内包する流れがある,shinmomo_handover_20260313_latest.md:45
+0x0320A4,メモ,予想,"- `target` は bank83 のスクリプト帯へ飛ぶ (`0x31DDF`, `0x320A4` 等)",shinmomo_handover_20260313_latest.md:248
+0x0320A4,メモ,予想,- `0x31DDF / 0x320A4` 以外の `target` レコードとの接続を広げる,shinmomo_handover_20260313_latest.md:293
+0x0320C8,メモ,予想,- `0x320C8` 一致,shinmomo_handover_20260313_latest.md:19
+0x0320C8,メモ,予想,- `0x320A4` 先を読むと `0x320C8` を内包する流れがある,shinmomo_handover_20260313_latest.md:45
+0x0320C8,メモ,予想,3. **`0x31C68 / 0x31DF8 / 0x320C8` 周辺**,shinmomo_handover_full_addresses_with_weapon_skill.md:190
+0x0320C8,メモ,予想,- 店会話スクリプト帯（`0x31DDF / 0x31DF8 / 0x320C8`）とは別系統,shinmomo_handover_full_addresses_with_weapon_skill.md:230
+0x0320C8,メモ,予想,| `0x31DDF / 0x31DF8 / 0x320C8` 施設スクリプト帯 | 中 | 別VMだが、「小命令列VMを多用する」設計理解を補強。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:272
+0x0320C8,未確認/候補,予想,- `0x31C68 / 0x31DF8 / 0x320C8` = 店/施設スクリプト帯候補,shinmomo_handover_20260313_latest.md:28
+0x0320C8,未確認/候補,予想,| `0x320C8` | 未確認 | 店メッセージ候補 |,shinmomo_handover_full_addresses_with_weapon_skill.md:123
+0x0320C8,未確認/候補,予想,3. 店メッセージ候補 (`0x31C68` / `0x31DF8` / `0x320C8`) 周辺から本線追跡,shinmomo_handover_summary.md:111
+0x0320C8,確定,調査済み,| 店メッセージ候補 | `0x31C68` / `0x31DF8` / `0x320C8` | 未確定 | 店会話/店処理入口の本線候補 |,shinmomo_handover_summary.md:52
+0x03E0B8,未確認/候補,予想,| `0x3E0B8` | 未確認 | `id*3` の24bitポインタ表ディスパッチ候補 |,shinmomo_handover_full_addresses_with_weapon_skill.md:125
+0x03E480,メモ,予想,- `0x3E480` 近傍:,shinmomo_handover_20260313_latest.md:66
+0x041A10,メモ,予想,### `0x41A10..` の正体,shinmomo_handover_20260313_latest.md:30
+0x041A10,メモ,予想,- 少なくとも **`0x41A10` から同型8バイトレコードが連続**,shinmomo_handover_20260313_latest.md:32
+0x041A10,メモ,予想,- **`0x41A10..` は施設/店/イベント/会話の分岐表本命**,shinmomo_handover_20260313_latest.md:39
+0x041A10,メモ,予想,### `0x41A10..` とスクリプト接続,shinmomo_handover_20260313_latest.md:42
+0x041A10,メモ,予想,- `0x41A10..` の `c1/c2` は、この変換後値を見ている可能性が高い,shinmomo_handover_20260313_latest.md:80
+0x041A10,メモ,予想,※ ただし **`0x41A10..` を実際に走査比較するコード本体は未発見**。,shinmomo_handover_20260313_latest.md:99
+0x041A10,メモ,予想,## 3. `0x41A10..` を読むコードについて,shinmomo_handover_20260313_latest.md:103
+0x041A10,メモ,予想,- `0x41A10` / `0x41AC0` を bank88側コードが **直接 indexed 参照する痕跡** は未発見,shinmomo_handover_20260313_latest.md:106
+0x041A10,メモ,予想,- ただし、これは **`0x41A10..` の8バイト条件表マッチャー本体ではなさそう**,shinmomo_handover_20260313_latest.md:125
+0x041A10,メモ,予想,- `0x41A10..` = 8バイト固定長の条件分岐表本命,shinmomo_handover_20260313_latest.md:247
+0x041A10,メモ,予想,- **`0x41A10..` を実際に走査して条件比較し、末尾2バイト target を抜く本体コード**,shinmomo_handover_20260313_latest.md:257
+0x041A10,メモ,予想,1. **`0x41A10..` 条件表を読む本体コードの発見**,shinmomo_handover_20260313_latest.md:266
+0x041A10,メモ,予想,- `0x41AC0` だけを切り出して扱うと誤認しやすい。**表本体は `0x41A10` から見ること**,shinmomo_handover_20260313_latest.md:298
+0x041A10,未確認/候補,予想,- `$1FAA` 自体、または `$1FAC..` に展開された内容が `0x41A10..` の `c3..c5` 候補,shinmomo_handover_20260313_latest.md:91
+0x041AC0,メモ,予想,- **`0x41AC0` 周辺に規則的差分あり**,shinmomo_handover_20260313_latest.md:22
+0x041AC0,メモ,予想,- 以前 `0x41AC0` と呼んでいたものは、実際には **より大きい 8バイト固定長表の途中**,shinmomo_handover_20260313_latest.md:31
+0x041AC0,メモ,予想,- `0x41AC0` 周辺の先頭数件で、主に **`c1/c2` が `FF FF -> 実値`** に変化,shinmomo_handover_20260313_latest.md:50
+0x041AC0,メモ,予想,- `0x41A10` / `0x41AC0` を bank88側コードが **直接 indexed 参照する痕跡** は未発見,shinmomo_handover_20260313_latest.md:106
+0x041AC0,メモ,予想,- `0x41AC0` だけを切り出して扱うと誤認しやすい。**表本体は `0x41A10` から見ること**,shinmomo_handover_20260313_latest.md:298
+0x041AC0,メモ,予想,4. **`0x41AC0`**,shinmomo_handover_full_addresses_with_weapon_skill.md:193
+0x041AC0,メモ,予想,| `0x41AC0` 施設/店/イベント分岐表 | 弱い | 系統が別。直接関係はまだ見えない。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:271
+0x041AC0,未確認/候補,予想,- `0x41AC0` = 分岐ディスパッチ表候補（後述。実際は中腹）,shinmomo_handover_20260313_latest.md:27
+0x041AC0,未確認/候補,予想,| `0x41AC0` | 未確認 | 分岐ディスパッチ表候補（店/施設/イベント分岐マスタ寄り） |,shinmomo_handover_full_addresses_with_weapon_skill.md:124
+0x041AC0,未確認/候補,予想,4. `0x41AC0` 分岐ディスパッチ候補の実体確認,shinmomo_handover_summary.md:112
+0x041AC0,確定,調査済み,| 分岐ディスパッチ候補 | `0x41AC0` 付近 | 未確定 | 店/施設/イベント分岐マスタ候補 |,shinmomo_handover_summary.md:53
+0x0442BF,メモ,予想,- `0x442BF` 一致,shinmomo_handover_20260313_latest.md:20
+0x0442BF,メモ,予想,2. **`0x449D0` / `0x442BF` を実際に読むコード**,shinmomo_handover_full_addresses_with_weapon_skill.md:187
+0x0442BF,メモ,予想,- `0x442BF` 道具表,shinmomo_handover_full_addresses_with_weapon_skill.md:205
+0x0442BF,メモ,予想,| `0x442BF` 道具表本命 | 弱い | 現時点では直接接続は薄い。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:270
+0x0442BF,メモ,予想,2. `0x449D0` / `0x442BF` の実参照ルート捕捉,shinmomo_handover_summary.md:110
+0x0442BF,仮説,予想,- `0x442BF` = 道具表候補（11バイト固定長仮説）,shinmomo_handover_20260313_latest.md:25
+0x0442BF,有力,予想,| 回復系 | `0x442BF` 先頭付近 | 有力 |,shinmomo_handover_summary.md:34
+0x0442BF,未確認/候補,予想,| `0x442BF` 参照コード | 未確認 | 直接/間接の価格読みルートがまだ未捕捉。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:134
+0x0442BF,確定,調査済み,| `0x442BF` 周辺 | 確定 | 道具表本命 | 11バイト固定長。`+03..04` 買値、`+05..06` 売値、`+07..08` 効果量候補、`+00..02` 分類候補。仙豆系や高額道具が強く一致。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:17
+0x0442BF,確定,調査済み,| 道具表 | `0x442BF` 付近 | ほぼ確定 | 11バイト固定長。`+03..04=買値`、`+05..06=売値`、`+07..08=効果量候補`、`+00..02=分類候補` |,shinmomo_handover_summary.md:10
+0x0442BF,確定,調査済み,| 価格読込本線 | 未捕捉 | 未確定 | `0x449D0` / `0x442BF` を間接参照している可能性大 |,shinmomo_handover_summary.md:55
+0x044300,有力,予想,| 異常回復系 | `0x44300..0x44480` 周辺 | 有力 |,shinmomo_handover_summary.md:35
+0x044300..0x044480,有力,予想,| 異常回復系 | `0x44300..0x44480` 周辺 | 有力 |,shinmomo_handover_summary.md:35
+0x044317,有力,予想,| 高額特殊道具 | `0x44317` / `0x4436F` / `0x44385` など | 有力 |,shinmomo_handover_summary.md:37
+0x04436F,有力,予想,| 高額特殊道具 | `0x44317` / `0x4436F` / `0x44385` など | 有力 |,shinmomo_handover_summary.md:37
+0x044385,有力,予想,| 高額特殊道具 | `0x44317` / `0x4436F` / `0x44385` など | 有力 |,shinmomo_handover_summary.md:37
+0x044480,有力,予想,| 異常回復系 | `0x44300..0x44480` 周辺 | 有力 |,shinmomo_handover_summary.md:35
+0x0446A8,確定,調査済み,| 仙豆系 | `0x446A8..0x446DF` | 強く確定 |,shinmomo_handover_summary.md:36
+0x0446A8..0x0446DF,確定,調査済み,| 仙豆系 | `0x446A8..0x446DF` | 強く確定 |,shinmomo_handover_summary.md:36
+0x0446DF,確定,調査済み,| 仙豆系 | `0x446A8..0x446DF` | 強く確定 |,shinmomo_handover_summary.md:36
+0x0449D0,メモ,予想,- `0x449D0` 一致,shinmomo_handover_20260313_latest.md:21
+0x0449D0,メモ,予想,2. **`0x449D0` / `0x442BF` を実際に読むコード**,shinmomo_handover_full_addresses_with_weapon_skill.md:187
+0x0449D0,メモ,予想,- `0x449D0` 装備表,shinmomo_handover_full_addresses_with_weapon_skill.md:204
+0x0449D0,メモ,予想,- 武器効果側から **装備表の買値** を読む可能性があり、`0x449D0` 系の裏取り材料になる,shinmomo_handover_full_addresses_with_weapon_skill.md:232
+0x0449D0,メモ,予想,| `0x449D0` 装備表本命 | 強い | 武器効果が買値参照を行う可能性があり、`+03..04` 買値の裏取りになる。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:269
+0x0449D0,メモ,予想,| 店価格本線 | 中 | 価格参照が武器効果側からも起きるなら、別ルートから `0x449D0` 参照を捕まえられる可能性。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:273
+0x0449D0,メモ,予想,3. 武器効果側から `0x449D0` 買値列を引いている痕跡があるか,shinmomo_handover_full_addresses_with_weapon_skill.md:287
+0x0449D0,メモ,予想,- **装備表 `0x449D0` の買値参照を別ルートから裏取りできる可能性がある**,shinmomo_handover_full_addresses_with_weapon_skill.md:292
+0x0449D0,メモ,予想,2. `0x449D0` / `0x442BF` の実参照ルート捕捉,shinmomo_handover_summary.md:110
+0x0449D0,仮説,予想,- `0x449D0` = 装備表候補（16バイト固定長仮説）,shinmomo_handover_20260313_latest.md:26
+0x0449D0,未確認/候補,予想,| `0x449D0` 参照コード | 未確認 | 直接/間接の価格読みルートがまだ未捕捉。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:133
+0x0449D0,未確認/候補,予想,3. 既存の `0x449D0` 参照候補との接続確認,shinmomo_handover_full_addresses_with_weapon_skill.md:281
+0x0449D0,確定,調査済み,| `0x449D0` 周辺 | 確定 | 装備表本命 | 16バイト固定長。`+03..04` 買値、`+05..06` 売値、`+0E` 装備種別候補、`+0F` 上昇値。刀・胴・杖・バラ系などが実データと一致。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:18
+0x0449D0,確定,調査済み,| `0x449D0..0x44A80` | 確定 | 桃太郎武器帯 | 木刀→刀→木の葉切り→竹割り→瓦割り→岩切り→鎖切り→釜割り→兜割り→鬼切り丸→百鬼切り丸→毘沙門の剣 が整列。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:19
+0x0449D0,確定,調査済み,| 装備表 | `0x449D0` 付近 | ほぼ確定 | 16バイト固定長。`+03..04=買値`、`+05..06=売値`、`+0E=装備種別候補`、`+0F=上昇値` |,shinmomo_handover_summary.md:11
+0x0449D0,確定,調査済み,| 刀系 | `0x449D0..0x44A80` | 強く確定 |,shinmomo_handover_summary.md:23
+0x0449D0,確定,調査済み,| 価格読込本線 | 未捕捉 | 未確定 | `0x449D0` / `0x442BF` を間接参照している可能性大 |,shinmomo_handover_summary.md:55
+0x0449D0..0x044A80,確定,調査済み,| `0x449D0..0x44A80` | 確定 | 桃太郎武器帯 | 木刀→刀→木の葉切り→竹割り→瓦割り→岩切り→鎖切り→釜割り→兜割り→鬼切り丸→百鬼切り丸→毘沙門の剣 が整列。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:19
+0x0449D0..0x044A80,確定,調査済み,| 刀系 | `0x449D0..0x44A80` | 強く確定 |,shinmomo_handover_summary.md:23
+0x044A80,確定,調査済み,| `0x449D0..0x44A80` | 確定 | 桃太郎武器帯 | 木刀→刀→木の葉切り→竹割り→瓦割り→岩切り→鎖切り→釜割り→兜割り→鬼切り丸→百鬼切り丸→毘沙門の剣 が整列。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:19
+0x044A80,確定,調査済み,| 刀系 | `0x449D0..0x44A80` | 強く確定 |,shinmomo_handover_summary.md:23
+0x044B20,確定,調査済み,| `0x44B20` 周辺 | 確定 | 胴装備帯 | 木の皮の胴、麻糸の胴、竹の胴、一枚胴、二枚胴、三枚胴、鎧、大鎧、武者鎧 の価格列と一致。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:20
+0x044B20,確定,調査済み,| 胴装備系 | `0x44B20` 以降 | 強く確定 |,shinmomo_handover_summary.md:24
+0x044BF0,有力,予想,| `0x44BF0..0x44C30` | 有力 | 金太郎系まさかり帯 | まさかり系価格列と近い。Beta差分の可能性あり。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:21
+0x044BF0,有力,予想,| まさかり系 | `0x44BF0..0x44C30` | 有力 |,shinmomo_handover_summary.md:25
+0x044BF0..0x044C30,有力,予想,| `0x44BF0..0x44C30` | 有力 | 金太郎系まさかり帯 | まさかり系価格列と近い。Beta差分の可能性あり。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:21
+0x044BF0..0x044C30,有力,予想,| まさかり系 | `0x44BF0..0x44C30` | 有力 |,shinmomo_handover_summary.md:25
+0x044C30,有力,予想,| `0x44BF0..0x44C30` | 有力 | 金太郎系まさかり帯 | まさかり系価格列と近い。Beta差分の可能性あり。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:21
+0x044C30,有力,予想,| まさかり系 | `0x44BF0..0x44C30` | 有力 |,shinmomo_handover_summary.md:25
+0x044D00,有力,予想,| `0x44D00..0x44D60` | 有力 | 浦島系モリ帯 | モリ→小波→白波→大波→津波→大津波。中間にBeta差分らしき1本あり。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:22
+0x044D00,有力,予想,| モリ系 | `0x44D00..0x44D60` | 有力 |,shinmomo_handover_summary.md:26
+0x044D00..0x044D60,有力,予想,| `0x44D00..0x44D60` | 有力 | 浦島系モリ帯 | モリ→小波→白波→大波→津波→大津波。中間にBeta差分らしき1本あり。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:22
+0x044D00..0x044D60,有力,予想,| モリ系 | `0x44D00..0x44D60` | 有力 |,shinmomo_handover_summary.md:26
+0x044D60,有力,予想,| `0x44D00..0x44D60` | 有力 | 浦島系モリ帯 | モリ→小波→白波→大波→津波→大津波。中間にBeta差分らしき1本あり。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:22
+0x044D60,有力,予想,| モリ系 | `0x44D00..0x44D60` | 有力 |,shinmomo_handover_summary.md:26
+0x044E50,確定,調査済み,| `0x44E50..0x44EC0` | 確定 | 杖帯 | サンゴの杖→ひすい→めのう→琥珀→真珠→銀→金→流星の杖。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:23
+0x044E50,確定,調査済み,| 杖系 | `0x44E50..0x44EC0` | 強く確定 |,shinmomo_handover_summary.md:27
+0x044E50..0x044EC0,確定,調査済み,| `0x44E50..0x44EC0` | 確定 | 杖帯 | サンゴの杖→ひすい→めのう→琥珀→真珠→銀→金→流星の杖。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:23
+0x044E50..0x044EC0,確定,調査済み,| 杖系 | `0x44E50..0x44EC0` | 強く確定 |,shinmomo_handover_summary.md:27
+0x044EC0,確定,調査済み,| `0x44E50..0x44EC0` | 確定 | 杖帯 | サンゴの杖→ひすい→めのう→琥珀→真珠→銀→金→流星の杖。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:23
+0x044EC0,確定,調査済み,| 杖系 | `0x44E50..0x44EC0` | 強く確定 |,shinmomo_handover_summary.md:27
+0x044FA0,確定,調査済み,| `0x44FA0..0x45020` | 確定 | バラ帯 | 赤いバラ→青いバラ→琥珀→べっこう→象牙→ギヤマン→銅→銀→金のバラ。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:24
+0x044FA0,確定,調査済み,| バラ系 | `0x44FA0..0x45020` | 強く確定 |,shinmomo_handover_summary.md:28
+0x044FA0..0x045020,確定,調査済み,| `0x44FA0..0x45020` | 確定 | バラ帯 | 赤いバラ→青いバラ→琥珀→べっこう→象牙→ギヤマン→銅→銀→金のバラ。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:24
+0x044FA0..0x045020,確定,調査済み,| バラ系 | `0x44FA0..0x45020` | 強く確定 |,shinmomo_handover_summary.md:28
+0x045020,確定,調査済み,| `0x44FA0..0x45020` | 確定 | バラ帯 | 赤いバラ→青いバラ→琥珀→べっこう→象牙→ギヤマン→銅→銀→金のバラ。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:24
+0x045020,確定,調査済み,| バラ系 | `0x44FA0..0x45020` | 強く確定 |,shinmomo_handover_summary.md:28
+0x04CD2E,有力,予想,| `0x04CD2E` 前後 | 有力 | `84:CFFB` と `84:CF6A` を WRAM にセット | 表示資材/制御資材の可能性。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:67
+0x04CD5E,有力,予想,| `0x04CD5E` | 有力 | 薄いUIオープナー | `JSL $80B340` / `JSL $80B572` で窓を開くだけ。商品/価格本丸ではない。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:66
+0x04DCC8,メモ,予想,- `0x04DCC8` / `0x0683B9` に入る前段で、店種別や画面種別が決まるルート,shinmomo_handover_full_addresses_with_weapon_skill.md:197
+0x04DCC8,メモ,予想,- `0x04DCC8` / `0x0683B9` が店画面兄弟モード,shinmomo_handover_full_addresses_with_weapon_skill.md:211
+0x04DCC8,有力,予想,"| `0x04DCC8` | 有力 | 店画面系の本格初期化ルート | mode `1D`, window `34/30`, `84:D9EC` と `83:8DE0` を用いる。 |",shinmomo_handover_full_addresses_with_weapon_skill.md:70
+0x04DCC8,有力,予想,"| `0x0683B9` | 有力 | `0x04DCC8` の兄弟モード | mode `14`, window `33/30`, `84:D9EC` と `83:8443` を用いる。 |",shinmomo_handover_full_addresses_with_weapon_skill.md:71
+0x04DCC8,未確認/候補,予想,| 店/施設マップID → UIモード対応表 | 未確認 | `0x04DCC8` / `0x0683B9` のさらに前段に存在する可能性。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:140
+0x04EA30,メモ,予想,| `0x4EA30..0x4EC51` | 店在庫グループ読込 | 3バイトポインタ表 + DMA/画面転送準備寄り |,shinmomo_handover_summary.md:44
+0x04EA30,有力,予想,| `0x26A60..0x26C3F` | 有力 | UI/描画/表示定義寄りのデータ群 | 以前は店在庫候補と見たが、`0x4EA30 → 0x4EC51` の流れからDMA/画面転送寄りと判断修正。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:48
+0x04EA30,有力,予想,| `0x4EA30` | 有力 | ポインタ表経由でデータ塊を選び、後段へ渡す中継 | 以前は在庫グループ読込本命と見たが、現状はUIデータ塊選択寄り。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:50
+0x04EA30,有力,予想,| `0x69FA7` | 有力 | `$1F9D` → 変換表 → `0x4EA30` | 店在庫より、画面用段階切替寄り。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:54
+0x04EA30,除外寄り,調査済み（除外寄り）,| `0x4EA30 = 店在庫読込本線` | 低下 | UIデータ塊選択 + DMA準備寄り。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:175
+0x04EA30..0x04EC51,メモ,予想,| `0x4EA30..0x4EC51` | 店在庫グループ読込 | 3バイトポインタ表 + DMA/画面転送準備寄り |,shinmomo_handover_summary.md:44
+0x04EA4E,有力,予想,| `0x4EA4E` | 有力 | 3バイトポインタ表 | index 0〜5 で `0x26A60/0x26ABC/0x26B18/0x26B74/0x26BD0/0x26BFF` を指す。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:51
+0x04EC51,メモ,予想,| `0x4EA30..0x4EC51` | 店在庫グループ読込 | 3バイトポインタ表 + DMA/画面転送準備寄り |,shinmomo_handover_summary.md:44
+0x04EC51,有力,予想,| `0x26A60..0x26C3F` | 有力 | UI/描画/表示定義寄りのデータ群 | 以前は店在庫候補と見たが、`0x4EA30 → 0x4EC51` の流れからDMA/画面転送寄りと判断修正。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:48
+0x04EC51,有力,予想,| `0x4EC51` | 有力 | DMA設定/転送準備 | `0x4370..4374` をセットして `JSL $80A474`。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:52
+0x04EFF0,メモ,予想,- `0x4EFF0` 近傍:,shinmomo_handover_20260313_latest.md:68
+0x0683B9,メモ,予想,- `0x04DCC8` / `0x0683B9` に入る前段で、店種別や画面種別が決まるルート,shinmomo_handover_full_addresses_with_weapon_skill.md:197
+0x0683B9,メモ,予想,- `0x04DCC8` / `0x0683B9` が店画面兄弟モード,shinmomo_handover_full_addresses_with_weapon_skill.md:211
+0x0683B9,有力,予想,"| `0x0683B9` | 有力 | `0x04DCC8` の兄弟モード | mode `14`, window `33/30`, `84:D9EC` と `83:8443` を用いる。 |",shinmomo_handover_full_addresses_with_weapon_skill.md:71
+0x0683B9,未確認/候補,予想,| 店/施設マップID → UIモード対応表 | 未確認 | `0x04DCC8` / `0x0683B9` のさらに前段に存在する可能性。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:140
+0x069FA7,メモ,予想,- `0x69FA7` 系で `$1F9D` を変換している,shinmomo_handover_20260313_latest.md:76
+0x069FA7,有力,予想,| `$1F9D` | 有力 | 店フェーズ / グループ段階入力値 | `0x69FA7` で変換表に入る。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:38
+0x069FA7,有力,予想,| `0x69FA7` | 有力 | `$1F9D` → 変換表 → `0x4EA30` | 店在庫より、画面用段階切替寄り。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:54
+0x069FB6,メモ,予想,- `0x69FB6 = FF 03 00 00 01 02 01 02`,shinmomo_handover_20260313_latest.md:78
+0x069FB6,有力,予想,| `0x69FB6` | 有力 | 変換表 `FF 03 00 00 01 02 01 02` | `$1F9D` を入力にグループ/段階を返す表っぽい。商品ID表ではない。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:53
+0x069FB6,有力,予想,| グループ切替表 | `0x69FB6` | 有力 | `FF 03 00 00 01 02 01 02`。`$1F9D` を入力にグループ段階へ変換する表候補 |,shinmomo_handover_summary.md:15
+0x069FEF,有力,予想,| `0x69FEF / 0x69FF1` | 有力 | `$F1` 経由で bank86 固定レコードを読む | 商品価格表ではなくUI項目定義。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:55
+0x069FEF,未確認/候補,予想,| `0x69FEF..0x69FF1` | 価格判定本線候補 | bank86固定レコード読込。価格本線ではない |,shinmomo_handover_summary.md:45
+0x069FEF..0x069FF1,未確認/候補,予想,| `0x69FEF..0x69FF1` | 価格判定本線候補 | bank86固定レコード読込。価格本線ではない |,shinmomo_handover_summary.md:45
+0x069FF1,有力,予想,| `0x69FEF / 0x69FF1` | 有力 | `$F1` 経由で bank86 固定レコードを読む | 商品価格表ではなくUI項目定義。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:55
+0x069FF1,未確認/候補,予想,| `0x69FEF..0x69FF1` | 価格判定本線候補 | bank86固定レコード読込。価格本線ではない |,shinmomo_handover_summary.md:45
+0x069FF1,除外寄り,調査済み（除外寄り）,| `0x69FF1 = 価格参照本線` | 低下 | bank86固定レコード読込で、価格本線ではない。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:176
+0x06A13E,メモ,予想,- `0x6A13E` 付近で:,shinmomo_handover_20260313_latest.md:84
+0x06A14D,有力,予想,| `$1FAA` | 有力 | サブ機能セット番号 | `0x6A14D` で 8バイト刻み固定表を引く。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:40
+0x06A14D,有力,予想,| `0x6A14D` | 有力 | `$1FAA` による 8バイト刻み固定表読込 | 店在庫ではなく、店/施設のサブ機能セット読込寄り。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:56
+0x06A1B9,有力,予想,| `0x6A1B9` | 有力 | 8バイト固定表 | UI/サブ機能構成用。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:57
+0x06B340,確定,調査済み,| `0x6B340..0x6B629` | 確定 | bank86 共通UI状態機械 | 店専用ではなく、通常メニュー・店画面・特殊画面・一部表示帯で共有。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:27
+0x06B340,確定,調査済み,| UI状態機械 | `0x6B340..0x6B629` | かなり確定 | 店専用ではなく、通常メニュー・店画面・特殊画面で共有される共通UIフレームワーク |,shinmomo_handover_summary.md:12
+0x06B340..0x06B629,確定,調査済み,| `0x6B340..0x6B629` | 確定 | bank86 共通UI状態機械 | 店専用ではなく、通常メニュー・店画面・特殊画面・一部表示帯で共有。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:27
+0x06B340..0x06B629,確定,調査済み,| UI状態機械 | `0x6B340..0x6B629` | かなり確定 | 店専用ではなく、通常メニュー・店画面・特殊画面で共有される共通UIフレームワーク |,shinmomo_handover_summary.md:12
+0x06B37F,有力,予想,| `0x6B37F` | 有力 | `0x6B3B6` を選ぶ強調表示状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:94
+0x06B37F,有力,予想,| `0x6B37F -> 0x6B3B6` | 全幅強調枠 | 有力 |,shinmomo_handover_summary.md:68
+0x06B3B6,有力,予想,| `0x6B3B6` | 有力 | 全幅・強調ウィンドウ用10バイト構造体 | `00 B8 C0 1F 00 01 20 00 90 02` |,shinmomo_handover_full_addresses_with_weapon_skill.md:28
+0x06B3B6,有力,予想,| `0x6B37F` | 有力 | `0x6B3B6` を選ぶ強調表示状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:94
+0x06B3B6,有力,予想,| `0x6B37F -> 0x6B3B6` | 全幅強調枠 | 有力 |,shinmomo_handover_summary.md:68
+0x06B3B6,確定,調査済み,| UI構造体群 | `0x6B3B6` / `0x6B40A` / `0x6B460` / `0x6B4CF` / `0x6B64A` | かなり確定 | ウィンドウ/帯/枠の開閉・表示アニメ用パラメータ |,shinmomo_handover_summary.md:14
+0x06B3CD,有力,予想,| `0x6B3CD` | 有力 | `0x6B40A` を選ぶベース表示状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:95
+0x06B3CD,確定,調査済み,| `0x6B3CD -> 0x6B40A` | 全幅ベース枠 | かなり確定 |,shinmomo_handover_summary.md:66
+0x06B40A,有力,予想,| `0x6B40A` | 有力 | 全幅・静的ベース枠用10バイト構造体 | `00 B8 40 00 00 00 A0 00 00 00` |,shinmomo_handover_full_addresses_with_weapon_skill.md:29
+0x06B40A,有力,予想,| `0x6B3CD` | 有力 | `0x6B40A` を選ぶベース表示状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:95
+0x06B40A,確定,調査済み,| UI構造体群 | `0x6B3B6` / `0x6B40A` / `0x6B460` / `0x6B4CF` / `0x6B64A` | かなり確定 | ウィンドウ/帯/枠の開閉・表示アニメ用パラメータ |,shinmomo_handover_summary.md:14
+0x06B40A,確定,調査済み,| `0x6B3CD -> 0x6B40A` | 全幅ベース枠 | かなり確定 |,shinmomo_handover_summary.md:66
+0x06B427,有力,予想,| `0x6B427` | 有力 | `0x6B460` を選ぶアクティブ表示状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:96
+0x06B427,確定,調査済み,| `0x6B427 -> 0x6B460` | 全幅アクティブ枠 | かなり確定 |,shinmomo_handover_summary.md:67
+0x06B460,有力,予想,| `0x6B460` | 有力 | 全幅・アクティブ表示枠用10バイト構造体 | `00 B8 20 00 80 00 80 00 C0 02` |,shinmomo_handover_full_addresses_with_weapon_skill.md:30
+0x06B460,有力,予想,| `0x6B427` | 有力 | `0x6B460` を選ぶアクティブ表示状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:96
+0x06B460,確定,調査済み,| UI構造体群 | `0x6B3B6` / `0x6B40A` / `0x6B460` / `0x6B4CF` / `0x6B64A` | かなり確定 | ウィンドウ/帯/枠の開閉・表示アニメ用パラメータ |,shinmomo_handover_summary.md:14
+0x06B460,確定,調査済み,| `0x6B427 -> 0x6B460` | 全幅アクティブ枠 | かなり確定 |,shinmomo_handover_summary.md:67
+0x06B47E,有力,予想,| `0x6B47E` | 有力 | `0x6B4CF` を選ぶ出現開始状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:97
+0x06B47E,確定,調査済み,| `0x6B47E -> 0x6B4CF` | 出現開始アニメ | かなり確定 |,shinmomo_handover_summary.md:65
+0x06B4CF,有力,予想,| `0x6B4CF` | 有力 | 閉状態→開幕アニメ開始用10バイト構造体 | `B8 B8 E0 00 92 00 00 00 00 00` |,shinmomo_handover_full_addresses_with_weapon_skill.md:31
+0x06B4CF,有力,予想,| `0x6B47E` | 有力 | `0x6B4CF` を選ぶ出現開始状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:97
+0x06B4CF,確定,調査済み,| UI構造体群 | `0x6B3B6` / `0x6B40A` / `0x6B460` / `0x6B4CF` / `0x6B64A` | かなり確定 | ウィンドウ/帯/枠の開閉・表示アニメ用パラメータ |,shinmomo_handover_summary.md:14
+0x06B4CF,確定,調査済み,| `0x6B47E -> 0x6B4CF` | 出現開始アニメ | かなり確定 |,shinmomo_handover_summary.md:65
+0x06B5A4,有力,予想,| `0x6B5A4` | 有力 | `0x6B64A` を選ぶ補助パネル状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:98
+0x06B5A4,有力,予想,| `0x6B5A4 -> 0x6B64A` | 右寄せサブ窓 | 有力 |,shinmomo_handover_summary.md:69
+0x06B629,確定,調査済み,| `0x6B340..0x6B629` | 確定 | bank86 共通UI状態機械 | 店専用ではなく、通常メニュー・店画面・特殊画面・一部表示帯で共有。 |,shinmomo_handover_full_addresses_with_weapon_skill.md:27
+0x06B629,確定,調査済み,| UI状態機械 | `0x6B340..0x6B629` | かなり確定 | 店専用ではなく、通常メニュー・店画面・特殊画面で共有される共通UIフレームワーク |,shinmomo_handover_summary.md:12
+0x06B64A,有力,予想,| `0x6B64A` | 有力 | 右寄せサブウィンドウ用10バイト構造体 | `68 B8 C0 00 00 00 20 00 00 00` |,shinmomo_handover_full_addresses_with_weapon_skill.md:32
+0x06B64A,有力,予想,| `0x6B5A4` | 有力 | `0x6B64A` を選ぶ補助パネル状態ブロック |,shinmomo_handover_full_addresses_with_weapon_skill.md:98
+0x06B64A,有力,予想,| `0x6B5A4 -> 0x6B64A` | 右寄せサブ窓 | 有力 |,shinmomo_handover_summary.md:69
+0x06B64A,確定,調査済み,| UI構造体群 | `0x6B3B6` / `0x6B40A` / `0x6B460` / `0x6B4CF` / `0x6B64A` | かなり確定 | ウィンドウ/帯/枠の開閉・表示アニメ用パラメータ |,shinmomo_handover_summary.md:14
+0x06B654,有力,予想,| `0x6B654` | 有力 | UIアニメ進行補助 |,shinmomo_handover_full_addresses_with_weapon_skill.md:99
+0x06B68A,確定,調査済み,"| `0x6B68A` | 確定 | 10バイト構造体を `$1FB0..$1FB9` にコピーするルーチン | `($0F),Y` から10バイトを転送。 |",shinmomo_handover_full_addresses_with_weapon_skill.md:26
+0x06B68A,確定,調査済み,| UI構造体コピー | `0x6B68A` | かなり確定 | ROM上の10バイト定義を `$1FB0..$1FB9` にコピーするだけ。商品情報ではない |,shinmomo_handover_summary.md:13
+0x06B696,有力,予想,| `0x6B696` | 有力 | UIアニメ進行補助 |,shinmomo_handover_full_addresses_with_weapon_skill.md:100

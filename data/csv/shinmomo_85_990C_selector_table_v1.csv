@@ -1,0 +1,7 @@
+selector_1923_hex,callback_addr,callback_file_pc,meaning_static_guess
+3B,85:998E,0x05998E,set $1620=$17 then common path
+3C,85:9992,0x059992,set $1620=$19 then common path
+3D,85:9996,0x059996,set $1620=$18 then common path
+3A,85:9962,0x059962,complex path using $1958/$194B and cleanup on failure
+0D,85:999A,0x05999A,load $192A into $1620 then common path
+00,terminator,,end of selector table

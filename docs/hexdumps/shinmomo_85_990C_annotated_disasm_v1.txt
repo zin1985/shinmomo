@@ -1,0 +1,139 @@
+# $85:990C opcode02 subcode32 handler annotated disassembly v1
+
+## Entry: $85:990C = $84:9BEE[subcode $32]
+
+85:990C  EE 68 12       INC $1268
+85:990F  9C 65 03       STZ $0365
+85:9912  C2 20          REP #$20
+85:9914  A9 24 99       LDA #$9924
+85:9917  85 0F          STA $0F          ; callback low/high = $9924
+85:9919  E2 20          SEP #$20
+85:991B  A9 32          LDA #$32
+85:991D  85 0D          STA $0D          ; task type/priority/id = $32
+85:991F  22 1E AC 80    JSL $80:AC1E     ; register/schedule current-bank callback $85:9924
+85:9923  6B             RTL
+
+Interpretation:
+- This entry itself does not parse the bytes after `02 32`.
+- It schedules a callback/task at $85:9924 and returns.
+- $80:AC1E stores $0D as task ordering/type and stores ($0F,$10,caller bank) into the scheduler arrays at $0519/$0559/$0599.
+
+## Callback/router: $85:9924
+
+85:9924  AD 24 19       LDA $1924
+85:9927  D0 21          BNE $994A        ; if busy/nonzero, cleanup task
+85:9929  A2 00          LDX #$00
+
+85:992B  BD 52 99       LDA $9952,X      ; read selector table key
+85:992E  F0 18          BEQ $9948        ; zero terminator: no match, just return
+85:9930  CD 23 19       CMP $1923
+85:9933  F0 05          BEQ $993A
+85:9935  E8             INX
+85:9936  E8             INX
+85:9937  E8             INX              ; next 3-byte row
+85:9938  80 F1          BRA $992B
+
+85:993A  C2 20          REP #$20
+85:993C  BD 53 99       LDA $9953,X      ; load next callback address from table row
+85:993F  85 0F          STA $0F
+85:9941  E2 20          SEP #$20
+85:9943  22 1D AD 80    JSL $80:AD1D     ; replace/update current task callback
+85:9947  6B             RTL
+
+85:9948  6B             RTL              ; no selector match
+85:9949  00 EA          padding / BRK+NOP-like filler
+
+85:994A  CE 68 12       DEC $1268
+85:994D  22 35 AD 80    JSL $80:AD35     ; remove current task
+85:9951  6B             RTL
+
+## $1923 selector table at $85:9952
+
+85:9952  3B 8E 99       key=$3B -> callback $998E
+85:9955  3C 92 99       key=$3C -> callback $9992
+85:9958  3D 96 99       key=$3D -> callback $9996
+85:995B  3A 62 99       key=$3A -> callback $9962
+85:995E  0D 9A 99       key=$0D -> callback $999A
+85:9961  00             terminator
+
+## key $3A callback: $85:9962
+
+85:9962  22 56 9C 85    JSL $85:9C56
+85:9966  22 E8 AC 80    JSL $80:ACE8
+85:996A  22 93 A5 84    JSL $84:A593
+85:996E  AD 58 19       LDA $1958
+85:9971  F0 D7          BEQ $994A        ; failure/none -> cleanup
+85:9973  20 64 9D       JSR $9D64
+85:9976  22 E8 AC 80    JSL $80:ACE8
+85:997A  22 93 A5 84    JSL $84:A593
+85:997E  AD 4B 19       LDA $194B
+85:9981  30 C7          BMI $994A        ; negative -> cleanup
+85:9983  AD 58 19       LDA $1958
+85:9986  8D 20 16       STA $1620
+85:9989  AD 4B 19       LDA $194B
+85:998C  80 18          BRA $99A6        ; skip $80:BBA4 conversion path, store A directly to $0659,X
+
+## key $3B/$3C/$3D/$0D callbacks
+
+85:998E  A9 17          LDA #$17
+85:9990  80 0B          BRA $999D        ; STA $1620
+
+85:9992  A9 19          LDA #$19
+85:9994  80 07          BRA $999D        ; STA $1620
+
+85:9996  A9 18          LDA #$18
+85:9998  80 03          BRA $999D        ; STA $1620
+
+85:999A  AD 2A 19       LDA $192A
+85:999D  8D 20 16       STA $1620
+85:99A0  A9 02          LDA #$02
+85:99A2  22 A4 BB 80    JSL $80:BBA4
+85:99A6  AE 67 00       LDX $0067
+85:99A9  9D 59 06       STA $0659,X
+85:99AC  AD 68 12       LDA $1268
+85:99AF  9D 19 06       STA $0619,X
+85:99B2  A9 14          LDA #$14
+85:99B4  22 0B 85 84    JSL $84:850B
+85:99B8  9C 6C 12       STZ $126C
+85:99BB  A9 29          LDA #$29
+85:99BD  22 23 87 84    JSL $84:8723
+85:99C1  BD 59 06       LDA $0659,X
+85:99C4  20 F3 99       JSR $99F3
+85:99C7  90 14          BCC $99DD
+85:99C9  A9 14          LDA #$14
+85:99CB  22 0B 85 84    JSL $84:850B
+85:99CF  9C 6C 12       STZ $126C
+85:99D2  A9 2A          LDA #$2A
+85:99D4  22 23 87 84    JSL $84:8723
+85:99D8  AD 66 03       LDA $0366
+85:99DB  F0 06          BEQ $99E3
+85:99DD  BD 59 06       LDA $0659,X
+85:99E0  20 04 9A       JSR $9A04
+85:99E3  22 E8 AC 80    JSL $80:ACE8
+85:99E7  AD 68 12       LDA $1268
+85:99EA  DD 19 06       CMP $0619,X
+85:99ED  D0 03          BNE $99F2
+85:99EF  4C 4A 99       JMP $994A
+85:99F2  6B             RTL
+
+## small helpers
+
+85:99F3  AD 20 16       LDA $1620
+85:99F6  22 8C 95 81    JSL $81:958C
+85:99FA  90 07          BCC $9A03
+85:99FC  AD 0D 16       LDA $160D
+85:99FF  C9 1E          CMP #$1E
+85:9A01  90 00          BCC $9A03
+85:9A03  60             RTS
+
+85:9A04  DA             PHX
+85:9A05  8D 4B 19       STA $194B
+85:9A08  20 60 9A       JSR $9A60
+85:9A0B  AD 20 16       LDA $1620
+85:9A0E  22 8C 95 81    JSL $81:958C
+85:9A12  90 37          BCC $9A4B
+85:9A14  AD 0D 16       LDA $160D
+85:9A17  C9 1E          CMP #$1E
+85:9A19  90 34          BCC $9A4F
+85:9A1B  20 72 9A       JSR $9A72
+... continues into per-slot threshold/update routine

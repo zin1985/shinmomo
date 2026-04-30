@@ -1,42 +1,30 @@
-# shinmomo commit package 2026-04-27
+# shinmomo vol013 merge commit package
 
-このZIPは、新桃太郎伝説解析の今回スレッド成果をGitHubへコミットしやすい形に整理したものです。
+新桃太郎伝説解析 vol013 の別スレッドマージ用パッケージです。
+
+## 最初に読むファイル
+
+1. `docs/handover/SHINMOMO_VOL013_MERGE_HANDOVER_20260430.md`
+2. `docs/handover/shinmomo_lorom_addressing_correction_note_v1.md`
+3. `docs/handover/GOAL_PROGRESS_VOL013_20260430.csv`
+4. `manifest/MANIFEST.csv`
 
 ## 重要
 
-- ROM本体 `.smc/.sfc` は含めていません。
-- 生成Lua、Markdown、CSV、IPS、過去の生成ZIPを含めています。
-- キー成果は `docs/permanent_reference/` に永久保存版としてまとめています。
+ROM本体は含めていません。  
+過去成果物にはHiROM風の旧CPUラベルが一部残っています。マージ時は **file PCを正** とし、LoROM補正表で読み替えてください。
 
-## 主要ファイル
-
-### 文字・会話
+## 構成
 
 ```text
-docs/permanent_reference/text_decoder/20260427_text_decoder_permanent_reference.md
-scripts/lua/dialogue/shinmomo_trace_dialogue_v28_mode02_bd98_decoder_smallkana_checked_snes9x_20260427.lua
-reports/restored_logs/shinmomo_past_logs_restored_with_v28_rules_20260427.md
-reports/restored_logs/shinmomo_older_logs_restored_v28_scan_20260427.md
-```
-
-### パッチ・処理軽減
-
-```text
-docs/permanent_reference/movement_patch/20260427_movement_patch_permanent_reference.md
-patches/ips/shinmomo_apply_depth_reorder_skip_v2_ONLY_recommended_20260427.ips
-scripts/lua/movement/shinmomo_move_opt_profile_v2_snes9x_20260427.lua
-```
-
-### 進捗
-
-```text
-docs/permanent_reference/goals/20260427_goals_progress.md
-docs/handover/20260427_session_handover.md
-```
-
-## 推奨コミット
-
-```bash
-git add docs scripts patches data reports archives manifest reference
-git commit -m "docs: add 20260427 dialogue decoder and movement optimization handover"
+docs/handover/   引継ぎ・アドレス補正・進捗
+docs/reports/    解析レポート
+docs/notes/      補足メモ
+docs/hexdumps/   disasm / hexdump / dump系テキスト
+data/csv/         解析CSV
+tools/lua/        Snes9x Lua
+tools/python/     Pythonダンパ/補助スクリプト
+graphics/         raw graphics probe PNGなど
+archive/          過去ZIPの展開済み個別ファイル
+manifest/         ファイル一覧・除外一覧
 ```

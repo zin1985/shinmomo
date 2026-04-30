@@ -1,0 +1,9 @@
+ROM本体はこのZIPに含めていません。
+
+除外したファイル:
+- Shin Momotarou Densetsu (J).smc
+- Shin Momotarou Densetsu (J)_original.smc
+
+理由:
+- GitHubコミット用の解析資料パッケージであり、ROM本体は著作権上リポジトリへ含めない運用とするため。
+- 必要な解析資料、引継ぎメモ、CSV、逆アセンブルテキストのみ収録しています。

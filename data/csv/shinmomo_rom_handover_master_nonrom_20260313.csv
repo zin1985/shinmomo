@@ -1,0 +1,188 @@
+﻿address,detail,category_hint,text,source,line
+$030A,仮説,予想,| `$034A / $030A / $035F / $0379` | 仮説 | 画面状態/モード/インデックス系 |,shinmomo_handover_full_addresses.md,162
+$034A,仮説,予想,| `$034A / $030A / $035F / $0379` | 仮説 | 画面状態/モード/インデックス系 |,shinmomo_handover_full_addresses.md,162
+$035F,仮説,予想,| `$034A / $030A / $035F / $0379` | 仮説 | 画面状態/モード/インデックス系 |,shinmomo_handover_full_addresses.md,162
+$0379,仮説,予想,| `$034A / $030A / $035F / $0379` | 仮説 | 画面状態/モード/インデックス系 |,shinmomo_handover_full_addresses.md,162
+$0A1F,有力,予想,| `$0A1F` | 有力 | UI行リンク(prev) |,shinmomo_handover_full_addresses.md,156
+$0A61,有力,予想,| `$0A61` | 有力 | UI行リンク(next) |,shinmomo_handover_full_addresses.md,155
+$0AA3,有力,予想,| `$0AA3` | 有力 | UI行のソートキー/優先度 |,shinmomo_handover_full_addresses.md,154
+$0AE5,有力,予想,| `$0AE5` | 有力 | UI内部行/オブジェクトの使用数カウンタ |,shinmomo_handover_full_addresses.md,153
+$0AE7,有力,予想,| `$0AE7` / `$0E67` | 有力 | 行ごとの16bitパラメータ |,shinmomo_handover_full_addresses.md,157
+$0B27,有力,予想,| `$0B27` | 有力 | 行種別/表示属性/フラグ |,shinmomo_handover_full_addresses.md,158
+$0E27,有力,予想,| `$0E27` | 有力 | 行状態番号 |,shinmomo_handover_full_addresses.md,159
+$0E67,有力,予想,| `$0AE7` / `$0E67` | 有力 | 行ごとの16bitパラメータ |,shinmomo_handover_full_addresses.md,157
+$0EA7,有力,予想,| `$0EA7` | 有力 | 行の補助状態/カウンタ |,shinmomo_handover_full_addresses.md,160
+$0F,有力,予想,| `$0F/$10/$11` | 有力 | 汎用ポインタワーク |,shinmomo_handover_full_addresses.md,164
+$0F,確定,調査済み,"| `0x6B68A` | 確定 | 10バイト構造体を `$1FB0..$1FB9` にコピーするルーチン | `($0F),Y` から10バイトを転送。 |",shinmomo_handover_full_addresses.md,26
+$10,有力,予想,| `$0F/$10/$11` | 有力 | 汎用ポインタワーク |,shinmomo_handover_full_addresses.md,164
+$11,有力,予想,| `$0F/$10/$11` | 有力 | 汎用ポインタワーク |,shinmomo_handover_full_addresses.md,164
+$111,除外寄り,調査済み（除外寄り）,| `81:B413` | 除外寄り | DMA/描画ヘルパ | `$420B` や `$111x` 系を触る描画層。 |,shinmomo_handover_full_addresses.md,110
+$1591,有力,予想,| `$1591 / 159B / 15A5 / 15AF / 15B9` | 有力 | 店画面寄りUIスロット群/行ID群 |,shinmomo_handover_full_addresses.md,161
+$1923,メモ,予想,"- `4F 01 23 19 xx` → selector 1, base `$1923`",shinmomo_handover_20260313_latest.md,141
+$1923,メモ,予想,"- `4F 02 23 19 xx` → selector 2, base `$1923`",shinmomo_handover_20260313_latest.md,142
+$1923,メモ,予想,## 5. `$1923` と `$193B` の役割,shinmomo_handover_20260313_latest.md,160
+$1923,メモ,予想,### `$1923`,shinmomo_handover_20260313_latest.md,162
+$1923,メモ,予想,- `$1923` → 物品側,shinmomo_handover_20260313_latest.md,173
+$1923,メモ,予想,- `$1923` = 物品側レコードID,shinmomo_handover_20260313_latest.md,253
+$193B,メモ,予想,"- `4F 03 3B 19 xx` → selector 3, base `$193B`",shinmomo_handover_20260313_latest.md,143
+$193B,メモ,予想,## 5. `$1923` と `$193B` の役割,shinmomo_handover_20260313_latest.md,160
+$193B,メモ,予想,### `$193B`,shinmomo_handover_20260313_latest.md,167
+$193B,メモ,予想,- `$193B` → キャラ側,shinmomo_handover_20260313_latest.md,174
+$193B,メモ,予想,- **キャラID (`$193B`) から 1バイトの表示コードを作るルーチン**,shinmomo_handover_20260313_latest.md,191
+$193B,メモ,予想,- `$193B` = キャラ側ID,shinmomo_handover_20260313_latest.md,254
+$1F9D,メモ,予想,### `$1F9D / $1F9E`,shinmomo_handover_20260313_latest.md,64
+$1F9D,メモ,予想,- `$1F9D -> $1F9E` に退避,shinmomo_handover_20260313_latest.md,67
+$1F9D,メモ,予想,- `$1F9D == 0` 判定あり,shinmomo_handover_20260313_latest.md,69
+$1F9D,メモ,予想,- 必要時に `$1F9E -> $1F9D` で復帰,shinmomo_handover_20260313_latest.md,70
+$1F9D,メモ,予想,- `$1F9D` = 作業中の段階/フェーズ値,shinmomo_handover_20260313_latest.md,72
+$1F9D,メモ,予想,### `$1F9D` の変換表,shinmomo_handover_20260313_latest.md,75
+$1F9D,メモ,予想,- `0x69FA7` 系で `$1F9D` を変換している,shinmomo_handover_20260313_latest.md,76
+$1F9D,メモ,予想,- つまり `$1F9D` は生値のままではなく、**グループ化された段階値** に圧縮される,shinmomo_handover_20260313_latest.md,79
+$1F9D,メモ,予想,"- `c1,c2` = `$1F9D` 系（変換後グループ値含む）",shinmomo_handover_20260313_latest.md,95
+$1F9D,メモ,予想,- `c1/c2` は `$1F9D` 系段階値が濃い,shinmomo_handover_20260313_latest.md,249
+$1F9D,有力,予想,| グループ切替表 | `0x69FB6` | 有力 | `FF 03 00 00 01 02 01 02`。`$1F9D` を入力にグループ段階へ変換する表候補 |,shinmomo_handover_summary.md,15
+$1F9D,有力,予想,| フェーズ変数 | `$1F9D/$1F9E` | 有力 | UI/店フェーズ段階値とそのミラー/退避 |,shinmomo_handover_summary.md,16
+$1F9D,有力,予想,| `$1F9D` | 有力 | 店フェーズ / グループ段階入力値 | `0x69FA7` で変換表に入る。 |,shinmomo_handover_full_addresses.md,38
+$1F9D,有力,予想,| `$1F9E` | 有力 | `$1F9D` のミラー / 退避 | 相互コピーが見える。 |,shinmomo_handover_full_addresses.md,39
+$1F9D,有力,予想,| `0x69FB6` | 有力 | 変換表 `FF 03 00 00 01 02 01 02` | `$1F9D` を入力にグループ/段階を返す表っぽい。商品ID表ではない。 |,shinmomo_handover_full_addresses.md,53
+$1F9D,有力,予想,| `0x69FA7` | 有力 | `$1F9D` → 変換表 → `0x4EA30` | 店在庫より、画面用段階切替寄り。 |,shinmomo_handover_full_addresses.md,54
+$1F9D,有力,予想,| `$1F9D` | 有力 | 店フェーズ / 段階入力 |,shinmomo_handover_full_addresses.md,148
+$1F9D,有力,予想,| `$1F9E` | 有力 | `$1F9D` のミラー/退避 |,shinmomo_handover_full_addresses.md,149
+$1F9E,メモ,予想,### `$1F9D / $1F9E`,shinmomo_handover_20260313_latest.md,64
+$1F9E,メモ,予想,- `$1F9D -> $1F9E` に退避,shinmomo_handover_20260313_latest.md,67
+$1F9E,メモ,予想,- 必要時に `$1F9E -> $1F9D` で復帰,shinmomo_handover_20260313_latest.md,70
+$1F9E,メモ,予想,- `$1F9E` = 退避/復帰用の元値,shinmomo_handover_20260313_latest.md,73
+$1F9E,有力,予想,| フェーズ変数 | `$1F9D/$1F9E` | 有力 | UI/店フェーズ段階値とそのミラー/退避 |,shinmomo_handover_summary.md,16
+$1F9E,有力,予想,| `$1F9E` | 有力 | `$1F9D` のミラー / 退避 | 相互コピーが見える。 |,shinmomo_handover_full_addresses.md,39
+$1F9E,有力,予想,| `$1F9E` | 有力 | `$1F9D` のミラー/退避 |,shinmomo_handover_full_addresses.md,149
+$1FAA,メモ,予想,### `$1FAA`,shinmomo_handover_20260313_latest.md,82
+$1FAA,メモ,予想,- `$1FAA` を読み,shinmomo_handover_20260313_latest.md,85
+$1FAA,メモ,予想,- `c3..c5` = `$1FAA` 由来のサブ機能/施設内モード,shinmomo_handover_20260313_latest.md,96
+$1FAA,メモ,予想,- `c3..c5` は `$1FAA` 系サブ機能が濃い,shinmomo_handover_20260313_latest.md,250
+$1FAA,有力,予想,| サブ機能セット | `$1FAA` | 有力 | 8バイト刻み固定表を引くインデックス。店在庫本体ではなくサブ機能束寄り |,shinmomo_handover_summary.md,17
+$1FAA,有力,予想,| `$1FAA` | 有力 | サブ機能セット番号 | `0x6A14D` で 8バイト刻み固定表を引く。 |,shinmomo_handover_full_addresses.md,40
+$1FAA,有力,予想,| `0x6A14D` | 有力 | `$1FAA` による 8バイト刻み固定表読込 | 店在庫ではなく、店/施設のサブ機能セット読込寄り。 |,shinmomo_handover_full_addresses.md,56
+$1FAA,有力,予想,| `$1FAA` | 有力 | サブ機能セット番号 |,shinmomo_handover_full_addresses.md,150
+$1FAA,未確認/候補,予想,- `$1FAA` 自体、または `$1FAC..` に展開された内容が `0x41A10..` の `c3..c5` 候補,shinmomo_handover_20260313_latest.md,91
+$1FAC,メモ,予想,- 展開先は `$1FAC..` 系,shinmomo_handover_20260313_latest.md,89
+$1FAC,仮説,予想,| `$1FAC` | 仮説 | サブ機能セットから抽出した有効項目群 |,shinmomo_handover_full_addresses.md,151
+$1FAC,未確認/候補,予想,- `$1FAA` 自体、または `$1FAC..` に展開された内容が `0x41A10..` の `c3..c5` 候補,shinmomo_handover_20260313_latest.md,91
+$1FB0,メモ,予想,- `$1FB0..$1FB9` のUIアニメ用途,shinmomo_handover_full_addresses.md,207
+$1FB0,有力,予想,| `$1FB0 / $1FB1 / $1FB4 / $1FB8` | 有力 | UI幅/位相/速度系ワーク | 所持金ではない。スクロールや枠アニメに使われる。 |,shinmomo_handover_full_addresses.md,58
+$1FB0,未確認/候補,予想,| `$1FB0..$1FB9` | 商品/価格作業領域候補 | UIアニメ構造体の作業領域 |,shinmomo_handover_summary.md,46
+$1FB0,確定,調査済み,| UI構造体コピー | `0x6B68A` | かなり確定 | ROM上の10バイト定義を `$1FB0..$1FB9` にコピーするだけ。商品情報ではない |,shinmomo_handover_summary.md,13
+$1FB0,確定,調査済み,| `$1FB0..$1FB9` | 確定 | UIアニメ用10バイト作業領域 | 商品や所持金ではない。ウィンドウ/帯/枠の開閉・表示アニメ制御。 |,shinmomo_handover_full_addresses.md,25
+$1FB0,確定,調査済み,"| `0x6B68A` | 確定 | 10バイト構造体を `$1FB0..$1FB9` にコピーするルーチン | `($0F),Y` から10バイトを転送。 |",shinmomo_handover_full_addresses.md,26
+$1FB0..1FB9,確定,調査済み,| `$1FB0..1FB9` | 確定 | UIアニメ10バイト構造体の作業領域 |,shinmomo_handover_full_addresses.md,152
+$1FB1,有力,予想,| `$1FB0 / $1FB1 / $1FB4 / $1FB8` | 有力 | UI幅/位相/速度系ワーク | 所持金ではない。スクロールや枠アニメに使われる。 |,shinmomo_handover_full_addresses.md,58
+$1FB4,有力,予想,| `$1FB0 / $1FB1 / $1FB4 / $1FB8` | 有力 | UI幅/位相/速度系ワーク | 所持金ではない。スクロールや枠アニメに使われる。 |,shinmomo_handover_full_addresses.md,58
+$1FB8,有力,予想,| `$1FB0 / $1FB1 / $1FB4 / $1FB8` | 有力 | UI幅/位相/速度系ワーク | 所持金ではない。スクロールや枠アニメに使われる。 |,shinmomo_handover_full_addresses.md,58
+$1FB9,メモ,予想,- `$1FB0..$1FB9` のUIアニメ用途,shinmomo_handover_full_addresses.md,207
+$1FB9,未確認/候補,予想,| `$1FB0..$1FB9` | 商品/価格作業領域候補 | UIアニメ構造体の作業領域 |,shinmomo_handover_summary.md,46
+$1FB9,確定,調査済み,| UI構造体コピー | `0x6B68A` | かなり確定 | ROM上の10バイト定義を `$1FB0..$1FB9` にコピーするだけ。商品情報ではない |,shinmomo_handover_summary.md,13
+$1FB9,確定,調査済み,| `$1FB0..$1FB9` | 確定 | UIアニメ用10バイト作業領域 | 商品や所持金ではない。ウィンドウ/帯/枠の開閉・表示アニメ制御。 |,shinmomo_handover_full_addresses.md,25
+$1FB9,確定,調査済み,"| `0x6B68A` | 確定 | 10バイト構造体を `$1FB0..$1FB9` にコピーするルーチン | `($0F),Y` から10バイトを転送。 |",shinmomo_handover_full_addresses.md,26
+$1FC8,メモ,予想,- `$1FC8..` に結果を返す,shinmomo_handover_20260313_latest.md,124
+$2A,有力,予想,| `$2A/$2B/$2C` | 有力 | DMA/データ塊ポインタワーク |,shinmomo_handover_full_addresses.md,165
+$2B,有力,予想,| `$2A/$2B/$2C` | 有力 | DMA/データ塊ポインタワーク |,shinmomo_handover_full_addresses.md,165
+$2C,有力,予想,| `$2A/$2B/$2C` | 有力 | DMA/データ塊ポインタワーク |,shinmomo_handover_full_addresses.md,165
+$420B,除外寄り,調査済み（除外寄り）,| `81:B413` | 除外寄り | DMA/描画ヘルパ | `$420B` や `$111x` 系を触る描画層。 |,shinmomo_handover_full_addresses.md,110
+$67,仮説,予想,| `$67/$68/$6B` | 仮説 | UIスロット生成/一時キー保存 |,shinmomo_handover_full_addresses.md,166
+$68,仮説,予想,| `$67/$68/$6B` | 仮説 | UIスロット生成/一時キー保存 |,shinmomo_handover_full_addresses.md,166
+$6B,仮説,予想,| `$67/$68/$6B` | 仮説 | UIスロット生成/一時キー保存 |,shinmomo_handover_full_addresses.md,166
+$80A4,有力,予想,| `0x4EC51` | 有力 | DMA設定/転送準備 | `0x4370..4374` をセットして `JSL $80A474`。 |,shinmomo_handover_full_addresses.md,52
+$80AF,有力,予想,| `83:8E7B` | 有力 | 行ごとの内部ID割当 | `JSL $80AF33` を呼ぶ。 |,shinmomo_handover_full_addresses.md,83
+$80B3,有力,予想,| `0x04CD5E` | 有力 | 薄いUIオープナー | `JSL $80B340` / `JSL $80B572` で窓を開くだけ。商品/価格本丸ではない。 |,shinmomo_handover_full_addresses.md,66
+$80B5,有力,予想,| `0x04CD5E` | 有力 | 薄いUIオープナー | `JSL $80B340` / `JSL $80B572` で窓を開くだけ。商品/価格本丸ではない。 |,shinmomo_handover_full_addresses.md,66
+$845E,メモ,予想,- `JSR $845E`,shinmomo_handover_20260313_latest.md,229
+$9A10,メモ,予想,"- 例: `LDA/CMP $9A10,X`, `long,X` など見つからず",shinmomo_handover_20260313_latest.md,107
+$9C,メモ,予想,- `STA ($9C)`,shinmomo_handover_20260313_latest.md,230
+$9C,メモ,予想,"- `STA ($9C)` と `STA ($9C),Y`",shinmomo_handover_20260313_latest.md,233
+$9C,メモ,予想,- `($9C)` は固定アドレスではなく、**スクリプト命令が引数で渡す RAM書込先ポインタ**,shinmomo_handover_20260313_latest.md,238
+$9C,メモ,予想,- `7E:718B` / `($9C)` の先にある最終 tilemap / DMA 流れ,shinmomo_handover_20260313_latest.md,258
+$9C,メモ,予想,2. **`($9C)` 宛先実例の列挙**,shinmomo_handover_20260313_latest.md,275
+$9C,メモ,予想,- `($9C)` にどのRAMが入るかを一覧化,shinmomo_handover_20260313_latest.md,277
+$9C,メモ,予想,3. **`7E:718B` / `($9C)` の先の最終描画経路**,shinmomo_handover_20260313_latest.md,284
+$F1,有力,予想,| `0x69FEF / 0x69FF1` | 有力 | `$F1` 経由で bank86 固定レコードを読む | 商品価格表ではなくUI項目定義。 |,shinmomo_handover_full_addresses.md,55
+7E:7189,メモ,予想,- `7E:7189..718B` から表示コードを読み出す helper,shinmomo_handover_20260313_latest.md,203
+7E:718B,メモ,予想,## 7. `7E:718B` 周辺の意味,shinmomo_handover_20260313_latest.md,197
+7E:718B,メモ,予想,- 1バイト表示コードを `7E:718B..` に詰める,shinmomo_handover_20260313_latest.md,201
+7E:718B,メモ,予想,- この近傍には、**`7E:718B` の値を別表でタイル番号へ再変換する処理は見えていない**,shinmomo_handover_20260313_latest.md,204
+7E:718B,メモ,予想,- `7E:718B..` は **UI表示コードの staging buffer**,shinmomo_handover_20260313_latest.md,207
+7E:718B,メモ,予想,- `7E:718B` の値が,shinmomo_handover_20260313_latest.md,213
+7E:718B,メモ,予想,- `845E` の結果を `A2/A3` 経由で再び `7E:718B` 側へ戻すルート,shinmomo_handover_20260313_latest.md,235
+7E:718B,メモ,予想,- `7E:718B` / `($9C)` の先にある最終 tilemap / DMA 流れ,shinmomo_handover_20260313_latest.md,258
+7E:718B,メモ,予想,3. **`7E:718B` / `($9C)` の先の最終描画経路**,shinmomo_handover_20260313_latest.md,284
+7E:718B,メモ,予想,- `7E:718B` は現時点では **表示コード staging buffer** として扱うのが安全,shinmomo_handover_20260313_latest.md,301
+80:AC14,有力,予想,| `80:AC14` | 有力 | UIスロット登録系の別入口 | 詳細はAC22派生寄り。 |,shinmomo_handover_full_addresses.md,79
+80:AC22,有力,予想,| `80:AC22` | 有力 | UIオブジェクト/スロット生成、開始コード登録 | 商品表ではない。 |,shinmomo_handover_full_addresses.md,76
+80:ACE3,有力,予想,| `80:ACE3` | 有力 | 現在スロットに state と継続先（JSL次の命令）を登録するトランポリン | 商品表ではない。 |,shinmomo_handover_full_addresses.md,77
+80:AD35,有力,予想,| `80:AD35` | 有力 | UIタスク/スロット更新側 | 商品価格本線ではない。 |,shinmomo_handover_full_addresses.md,80
+80:ADC3,有力,予想,| `80:ADC3` | 有力 | 子UIオブジェクト/子スクリプト生成 | 商品表ではない。 |,shinmomo_handover_full_addresses.md,78
+80:AE88,メモ,予想,"- `80:AF33`, `80:AE88` のUI内部役割",shinmomo_handover_full_addresses.md,208
+80:AE88,確定,調査済み,"| `80:AE88` | 確定寄り | 行種別+状態番号→16bitパラメータ反映 | `0B27,Y` の下位4bitで種別選択、`0E27,Y` 状態番号を使って `0AE7/Y, 0E67/Y` へ16bit値を展開。 |",shinmomo_handover_full_addresses.md,36
+80:AE88,除外寄り,調査済み（除外寄り）,| `80:AE88 = 商品ID/価格参照` | 否定 | 行種別+状態番号→16bitパラメータ反映。 |,shinmomo_handover_full_addresses.md,178
+80:AF33,メモ,予想,"- `80:AF33`, `80:AE88` のUI内部役割",shinmomo_handover_full_addresses.md,208
+80:AF33,確定,調査済み,| `80:AF33` | 確定寄り | 内部行ID/表示行ハンドルの確保 | 商品IDではなく、UI内スロット番号を返す。 |,shinmomo_handover_full_addresses.md,35
+80:AF33,除外寄り,調査済み（除外寄り）,| `80:AF33 = 商品ID返却` | 否定 | UI内部行ID返却。 |,shinmomo_handover_full_addresses.md,177
+80:B2C1,確定,調査済み,| `80:B2C1` | 確定寄り | 3バイト long pointer table | `AE88` が行種別から参照先テーブルを引くために使用。 |,shinmomo_handover_full_addresses.md,37
+80:B340,有力,予想,| `80:B340` | 共通UIクラスター主入口1 | 有力 |,shinmomo_handover_summary.md,63
+80:B340,有力,予想,| `80:B340` | 有力 | UIクラスター主入口1 | 多数の上位画面から呼ばれる。メイン窓側寄り。 |,shinmomo_handover_full_addresses.md,33
+80:B572,有力,予想,| `80:B572` | 共通UIクラスター主入口2 | 有力 |,shinmomo_handover_summary.md,64
+80:B572,有力,予想,| `80:B572` | 有力 | UIクラスター主入口2 | 多数の上位画面から呼ばれる。補助窓側寄り。 |,shinmomo_handover_full_addresses.md,34
+80:B949,除外寄り,調査済み（除外寄り）,| `80:B949` | 除外寄り | データ表 | コードではなく 16bit値列。 |,shinmomo_handover_full_addresses.md,109
+80:D747,仮説,予想,| `80:D747` | 仮説 | 画面モード/画面種別設定 | `A9 1D` や `A9 14` が入る。商品IDではない。 |,shinmomo_handover_full_addresses.md,72
+81:963C,除外寄り,調査済み（除外寄り）,| `81:963C` | 除外寄り | 実体なし | このBeta ROMでは `FF` 埋め。 |,shinmomo_handover_full_addresses.md,108
+81:B413,除外寄り,調査済み（除外寄り）,| `81:B413` | 除外寄り | DMA/描画ヘルパ | `$420B` や `$111x` 系を触る描画層。 |,shinmomo_handover_full_addresses.md,110
+81:B43A,除外寄り,調査済み（除外寄り）,| `81:B43A` | 除外寄り | 描画処理中腹 | 商品/価格より描画側。 |,shinmomo_handover_full_addresses.md,111
+83:8443,仮説,予想,| `83:8443` | 仮説 | 別モード用の短い処理/制御スクリプト | 詳細未確認。 |,shinmomo_handover_full_addresses.md,75
+83:8443,有力,予想,"| `0x0683B9` | 有力 | `0x04DCC8` の兄弟モード | mode `14`, window `33/30`, `84:D9EC` と `83:8443` を用いる。 |",shinmomo_handover_full_addresses.md,71
+83:8DE0,有力,予想,"| `0x04DCC8` | 有力 | 店画面系の本格初期化ルート | mode `1D`, window `34/30`, `84:D9EC` と `83:8DE0` を用いる。 |",shinmomo_handover_full_addresses.md,70
+83:8DE0,有力,予想,| `83:8DE0` | 有力 | 店画面寄りUIスクリプト中核 | 商品価格本体ではないが、店画面実処理ループに近い。 |,shinmomo_handover_full_addresses.md,74
+83:8DE0,有力,予想,| `83:8DF8` | 有力 | `83:8DE0` のメイン処理 | 行/表示対象スロットの構成寄り。 |,shinmomo_handover_full_addresses.md,81
+83:8DF8,有力,予想,| `83:8DF8` | 有力 | `83:8DE0` のメイン処理 | 行/表示対象スロットの構成寄り。 |,shinmomo_handover_full_addresses.md,81
+83:8E4C,有力,予想,| `83:8E4C` | 有力 | `15xx` 系スロット消去初期化 | 商品表読みではない。 |,shinmomo_handover_full_addresses.md,82
+83:8E7B,有力,予想,| `83:8E7B` | 有力 | 行ごとの内部ID割当 | `JSL $80AF33` を呼ぶ。 |,shinmomo_handover_full_addresses.md,83
+83:8F40,有力,予想,| `83:8F40` | 有力 | 選択行/表示状態更新の濃い処理 | 価格参照本体の一歩手前。 |,shinmomo_handover_full_addresses.md,84
+83:913D,有力,予想,| `83:913D` | 有力 | スロットID → 表示属性/選択属性反映 | `0B27/0E27` 系を操作。 |,shinmomo_handover_full_addresses.md,85
+83:9175,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:9186,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:91E3,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:923E,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:9296,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:9303,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:93F5,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+83:9419,仮説,予想,| `83:9175 / 83:9186 / 83:91E3 / 83:923E / 83:9296 / 83:9303 / 83:93F5 / 83:9419` | 仮説 | UI状態/行反応/アニメ更新群 | 商品/価格より見た目寄り。 |,shinmomo_handover_full_addresses.md,86
+84:CF6A,仮説,予想,| `84:CF6A` | 仮説 | 表示資材/制御資材候補 | 未確認。 |,shinmomo_handover_full_addresses.md,69
+84:CF6A,仮説,予想,| `7E55DF / 7E55E1 / 7E55E2 / 7E55E4` | 仮説 | `84:CFFB` / `84:CF6A` 系の表示資材ポインタ置き場 |,shinmomo_handover_full_addresses.md,163
+84:CF6A,有力,予想,| `0x04CD2E` 前後 | 有力 | `84:CFFB` と `84:CF6A` を WRAM にセット | 表示資材/制御資材の可能性。 |,shinmomo_handover_full_addresses.md,67
+84:CFFB,仮説,予想,| `84:CFFB` | 仮説 | 表示資材/制御資材候補 | 未確認。 |,shinmomo_handover_full_addresses.md,68
+84:CFFB,仮説,予想,| `7E55DF / 7E55E1 / 7E55E2 / 7E55E4` | 仮説 | `84:CFFB` / `84:CF6A` 系の表示資材ポインタ置き場 |,shinmomo_handover_full_addresses.md,163
+84:CFFB,有力,予想,| `0x04CD2E` 前後 | 有力 | `84:CFFB` と `84:CF6A` を WRAM にセット | 表示資材/制御資材の可能性。 |,shinmomo_handover_full_addresses.md,67
+84:D9EC,有力,予想,"| `0x04DCC8` | 有力 | 店画面系の本格初期化ルート | mode `1D`, window `34/30`, `84:D9EC` と `83:8DE0` を用いる。 |",shinmomo_handover_full_addresses.md,70
+84:D9EC,有力,予想,"| `0x0683B9` | 有力 | `0x04DCC8` の兄弟モード | mode `14`, window `33/30`, `84:D9EC` と `83:8443` を用いる。 |",shinmomo_handover_full_addresses.md,71
+84:D9EC,有力,予想,| `84:D9EC` | 有力 | 親UIスクリプト開始コード | データではなく実行コード。 |,shinmomo_handover_full_addresses.md,73
+85:97BE,除外寄り,調査済み（除外寄り）,| `85:97BE` | 除外寄り | UI/状態遷移 | 状態番号 `0x19/0x1A` を見て分岐。価格本線ではない。 |,shinmomo_handover_full_addresses.md,112
+88:9A05,メモ,予想,- `0x300D3` に **`88:9A05` を指す 24bitポインタ** がある,shinmomo_handover_20260313_latest.md,113
+88:9A05,メモ,予想,- ただし、同型束の中で **bank88 を指すのは `88:9A05` の1件だけ**,shinmomo_handover_20260313_latest.md,116
+88:9A05,メモ,予想,- したがって `88:9A05` は **特殊な資材参照** の可能性が高い,shinmomo_handover_20260313_latest.md,117
+89:8108,メモ,予想,- `89:8108` 系ディスパッチャを使う実スクリプト例を拾う,shinmomo_handover_20260313_latest.md,276
+89:823B,メモ,予想,- `89:823B`,shinmomo_handover_20260313_latest.md,223
+89:823B,メモ,予想,- `89:823B`:,shinmomo_handover_20260313_latest.md,234
+89:826D,メモ,予想,- `89:826D`,shinmomo_handover_20260313_latest.md,224
+89:826D,メモ,予想,- `89:826D`:,shinmomo_handover_20260313_latest.md,228
+89:8291,メモ,予想,- `89:8291`,shinmomo_handover_20260313_latest.md,225
+89:8291,メモ,予想,- `89:8291`:,shinmomo_handover_20260313_latest.md,231
+89:841E,メモ,予想,- `89:841E / 89:8424`:,shinmomo_handover_20260313_latest.md,200
+89:8424,メモ,予想,- `89:841E / 89:8424`:,shinmomo_handover_20260313_latest.md,200
+89:8443,メモ,予想,- `89:8443 / 89:845E`:,shinmomo_handover_20260313_latest.md,202
+89:8443,メモ,予想,- `89:8443 / 89:845E` caller の上流・下流をさらに追う,shinmomo_handover_20260313_latest.md,285
+89:845E,メモ,予想,- `89:8443 / 89:845E`:,shinmomo_handover_20260313_latest.md,202
+89:845E,メモ,予想,## 8. `89:845E` の行き先,shinmomo_handover_20260313_latest.md,220
+89:845E,メモ,予想,- `89:8443 / 89:845E` caller の上流・下流をさらに追う,shinmomo_handover_20260313_latest.md,285
+89:9A44,メモ,予想,- **opcode `0x4F` -> handler `89:9A44`**,shinmomo_handover_20260313_latest.md,134
+C4:0000,メモ,予想,- selector 2 → `C4:0000`,shinmomo_handover_20260313_latest.md,149
+C4:06BE,メモ,予想,- selector 1 → `C4:06BE`,shinmomo_handover_20260313_latest.md,148
+C4:06BE,メモ,予想,- **商品系スキーマ `C4:06BE` 用の field抽出ラッパ**,shinmomo_handover_20260313_latest.md,186
+C4:06D6,メモ,予想,- selector 0 → `C4:06D6`,shinmomo_handover_20260313_latest.md,147
+C4:7BF9,メモ,予想,- selector 3 → `C4:7BF9`,shinmomo_handover_20260313_latest.md,150

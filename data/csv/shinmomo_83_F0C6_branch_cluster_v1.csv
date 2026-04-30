@@ -1,0 +1,6 @@
+entry,cpu_addr,file_pc,bytes,between_marker_after,note
+cluster_entry_0,83:F0C6,0x03F0C6,07 78 FF AC 00,33 17,最初の07 entry。B後半 op37 row target C6 F0
+cluster_entry_1,83:F0CD,0x03F0CD,07 88 FF AC 00,33 10,2番目の07 entry。B後半 op37 row target CD F0
+cluster_entry_2,83:F0D4,0x03F0D4,07 98 FF AC 00,33 09,3番目の07 entry。B後半 op37 row target D4 F0
+cluster_entry_3,83:F0DB,0x03F0DB,07 80 FF 9E 00,35 F9 F0,4番目の07 entry。B系主target DB F0
+embedded_native_helper,83:F0F9,0x03F0F9,DA 8A 29 03 AA BD 06 F1 99 A7 0B FA 60,,直後にあるnative helper。slot3 targetではないが35 F9 F0から参照される可能性

@@ -1,0 +1,53 @@
+# $84:8078 receiver / script interpreter notes
+
+$84:8078 is the receiver side that executes scripts after $98-$9A have been set.
+
+Important pieces:
+
+$84:8078 area:
+  loads/resumes task context, then reads next script byte from [$98].
+  it dispatches either:
+    - compact high-byte classes ($A0..$FF)
+    - or normal VM opcode dispatcher $84:87A2 for low bytes.
+
+$84:809D:
+  A0 01       LDY #$01
+  A7 98       LDA [$98] or LDA [$98],? depending mode/context
+  C9 E0 ...   class checks for $E0..$FF
+  C9 D0 ...   class checks for $D0..$DF
+  C9 C0 ...   class checks for $C0..$CF
+  C9 B0 ...   class checks for $B0..$BF
+  C9 A0 ...   class checks for $A0..$AF
+  20 A2 87    otherwise normal VM dispatch
+
+$84:81F3:
+  B7 98 48
+  C8
+  B7 98 48
+  C8
+  B7 98 85 9A
+  68 85 99
+  68 85 98
+  68 68
+  4C 78 80
+
+  This is a 3-byte absolute pointer transfer:
+    byte0 -> $98
+    byte1 -> $99
+    byte2 -> $9A
+  then jump to $84:8078.
+
+$84:848F:
+  Similar 3-byte nested script call/jump.
+  Saves current $98-$9A first, then reads three bytes into $98-$9A and jumps to $84:8078.
+
+$84:8225:
+  B7 98
+  sign-extends one byte and adds it to $98-$9A.
+  This is a relative short branch helper.
+
+Current conclusion:
+- $83:F09A/F0DB/F0C6... are definitely valid receiver-side script labels.
+- The confirmed receiver is $84:8078.
+- The exact reader that consumes the 2-byte slot3 word from the 9-byte macro row is not yet confirmed.
+- Existing confirmed pointer transfer helpers are 24-bit absolute or 8-bit relative, not the exact 16-bit bank-implied slot3 reader.

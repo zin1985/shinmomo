@@ -1,0 +1,18 @@
+0x39850 VM reparse notes v2
+
+Corrected view:
+- 0x39850 starts at CPU 83:9850 under HiROM mapping.
+- The stream aligns as 9-byte macro rows.
+- Each row can be split as 3 + 2 + 2 + 2.
+- Previous assumption "02 32 is opcode02+subcode32 tail" was only valid for the first row and should not be generalized.
+- slot3 should be treated as opcode>=0x50 pair AND as 16-bit label-like word at the same time.
+
+VM bases:
+- 84:87D4 = main opcode dispatch table for op < 0x50
+- 82:8000 = special handler for op >= 0x50
+- 82:8031 = special opcode handler table, index = opcode - 0x50
+- 84:840F/8410 = script pointer advance helper family
+
+Recommended next:
+- Decompose $82:8000 and special handler for opcodes 9A, DB, C6, CD, D4.
+- Confirm whether these high-op pairs perform branch/goto to the 16-bit word they encode.

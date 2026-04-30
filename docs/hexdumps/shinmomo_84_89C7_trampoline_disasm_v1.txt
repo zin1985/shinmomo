@@ -1,0 +1,54 @@
+# $84:89C7 trampoline / opcode02 path
+
+## opcode dispatch correction
+
+The VM dispatch table and handlers are in CPU bank $84 under HiROM mapping.
+
+Important corrected labels:
+- CPU $84:87D4 = opcode dispatch table
+- CPU $84:89A5 = opcode $02 handler
+- CPU $84:89C7 = indirect long-call trampoline
+- CPU $84:9BEE = opcode $02 subhandler long-pointer table
+- file PC $0x489A5 corresponds to CPU $84:89A5
+- file PC $0x489C7 corresponds to CPU $84:89C7
+- file PC $0x49BEE corresponds to CPU $84:9BEE
+
+## opcode $02 handler
+
+84:89A5  B7 98       LDA [$98],Y          ; read subcode
+84:89A7  C2 30       REP #$30
+84:89A9  29 FF 00    AND #$00FF
+84:89AC  3A          DEC A                ; subcode - 1
+84:89AD  85 00       STA $00
+84:89AF  0A          ASL A
+84:89B0  65 00       ADC $00              ; (subcode - 1) * 3
+84:89B2  AA          TAX
+84:89B3  BD EE 9B    LDA $9BEE,X          ; entry low+high
+84:89B6  85 2A       STA $2A
+84:89B8  BD EF 9B    LDA $9BEF,X          ; entry high+bank, overlapping load
+84:89BB  85 2B       STA $2B              ; $2A-$2C now holds 24-bit target
+84:89BD  E2 30       SEP #$30
+84:89BF  20 5E 89    JSR $895E            ; advance script pointer by 2 bytes
+84:89C2  22 C7 89 84 JSL $84:89C7        ; dynamic long call through trampoline
+84:89C6  60          RTS
+
+## $84:89C7 body
+
+84:89C7  DC 2A 00    JMP [$002A]          ; jump to 24-bit pointer stored at $00:002A
+
+This is not a parser and not a data table.
+It is a 3-byte native-code trampoline.
+
+The reason for the JSL+JMP trick:
+- 65816 has JMP [$abs] for an indirect long jump.
+- It does not have JSL [$abs] as a native instruction.
+- The code first uses JSL $84:89C7 to push a valid long return address.
+- The trampoline then JMPs to the dynamic long pointer in $2A-$2C.
+- The target subhandler can RTL back to 84:89C6.
+- 84:89C6 RTS then returns to the opcode VM caller.
+
+## Direct consequence
+
+$84:9BEE is a true long-pointer subhandler table for opcode $02.
+The earlier "subresource table" wording was too cautious.
+The target entries are executable native routines and generally contain RTL ($6B).

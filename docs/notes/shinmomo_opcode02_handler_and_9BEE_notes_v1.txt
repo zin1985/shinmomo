@@ -1,0 +1,31 @@
+89:89A5 opcode 02 handler, static decode notes
+
+89:89A5  B7 98       LDA [$98],Y          ; read subcode after opcode 02
+89:89A7  C2 30       REP #$30
+89:89A9  29 FF 00    AND #$00FF
+89:89AC  3A          DEC A                ; subcode - 1
+89:89AD  85 00       STA $00
+89:89AF  0A          ASL A
+89:89B0  65 00       ADC $00              ; (subcode - 1) * 3
+89:89B2  AA          TAX
+89:89B3  BD EE 9B    LDA $9BEE,X          ; load low/high of 24-bit table entry
+89:89B6  85 2A       STA $2A
+89:89B8  BD EF 9B    LDA $9BEF,X          ; overlapping load high/bank
+89:89BB  85 2B       STA $2B              ; $2A-$2C = long pointer
+89:89BD  E2 30       SEP #$30
+89:89BF  20 5E 89    JSR $895E            ; advance script pointer by 2 bytes
+89:89C2  22 C7 89 84 JSL $84:89C7        ; common executor/consumer, likely uses $2A pointer
+89:89C6  60          RTS
+
+Important:
+- $9BEE is directly referenced only here by BD EE 9B / BD EF 9B.
+- The opcode 02 handler itself advances only opcode+subcode.
+- The bytes after `02 xx` are likely consumed by the common executor or the pointed resource/VM stream.
+- Therefore the old “9-byte fixed record” is better interpreted as a repeated VM macro:
+  `38 <word> 02 <subcode> <tail operands...>`.
+
+Likely $9BEE table boundary:
+- table starts at 89:9BEE
+- entries are 3-byte little-endian long pointers
+- safe parsed range: subcode 01..74/75-ish
+- 89:9D4D clearly becomes CPU-code-like, so entries beyond 75 are probably not part of the table.

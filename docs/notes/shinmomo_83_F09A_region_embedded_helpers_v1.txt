@@ -1,0 +1,28 @@
+# $83:F000 region embedded native-helper notes
+
+This region is mixed:
+- many label targets such as 83:F09A / F0C6 / F0CD / F0D4 / F0DB begin with byte 07 and look like mini-script/record entries, not 65816 native entry points.
+- the same region also embeds small native RTS helpers.
+
+Observed native-like helpers:
+
+83:F03A:
+  B9 27 0B 29 0F 99 27 0B 60
+  likely: LDA $0B27,Y / AND #$0F / STA $0B27,Y / RTS
+
+83:F043:
+  B9 27 0B 29 0F 09 30 99 27 0B 60
+  likely: LDA $0B27,Y / AND #$0F / ORA #$30 / STA $0B27,Y / RTS
+
+83:F07B:
+  BD 91 F0 99 A7 0B BD 94 F0 99 67 0C BD 97 F0 99 A7 0C 60
+  likely: copy values from three small tables at F091/F094/F097 into WRAM indexed by Y, then RTS
+
+83:F0F9:
+  DA 8A 29 03 AA BD 06 F1 99 A7 0B FA 60
+  likely: PHX / TXA / AND #$03 / TAX / LDA $F106,X / STA $0BA7,Y / PLX / RTS
+  F106 table bytes: 48 68 88 A8
+
+Implication:
+- F09A/F0C6/F0CD/F0D4/F0DB are not native function entries.
+- They are labels into a mixed mini-program/blob that can call or reference nearby native helpers.

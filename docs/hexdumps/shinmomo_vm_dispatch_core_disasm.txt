@@ -1,0 +1,369 @@
+## VM entry / opcode dispatcher around 89:87A2
+
+89:87A2  8b           PHB
+89:87A3  5a           PHY
+89:87A4  da           PHX
+89:87A5  4b           PHK
+89:87A6  ab           PLB
+89:87A7  c9 50        CMP #$50
+89:87A9  90 0b        BCC $87B6
+89:87AB  ac 98 13     LDY $1398
+89:87AE  f0 06        BEQ $87B6
+89:87B0  22 00 80 82  JSL $828000
+89:87B4  80 03        BRA $87B9
+89:87B6  20 bd 87     JSR $87BD
+89:87B9  fa           PLX
+89:87BA  7a           PLY
+89:87BB  ab           PLB
+89:87BC  60           RTS
+89:87BD  c2 30        REP #$30
+89:87BF  29 ff 00     AND #$00FF
+89:87C2  0a           ASL A
+89:87C3  a8           TAY
+89:87C4  b9 d4 87     LDA $87D4,Y
+89:87C7  85 06        STA $06
+89:87C9  e2 30        SEP #$30
+89:87CB  20 cf 87     JSR $87CF
+89:87CE  60           RTS
+89:87CF  a0 01        LDY #$01
+89:87D1  6c           DB $6C
+89:87D2  06 00        ASL $00
+89:87D4  63           DB $63
+89:87D5  89 6b        BIT #$6B
+89:87D7  89 a5        BIT #$A5
+89:87D9  89 ca        BIT #$CA
+89:87DB  89 d6        BIT #$D6
+89:87DD  89 63        BIT #$63
+89:87DF  89 e1        BIT #$E1
+89:87E1  89 e7        BIT #$E7
+89:87E3  89 0d        BIT #$0D
+89:87E5  8a           TXA
+89:87E6  3a           DEC A
+89:87E7  8a           TXA
+89:87E8  24 8a        BIT $8A
+89:87EA  4c 8a 63     JMP $638A
+89:87ED  89 63        BIT #$63
+89:87EF  89 63        BIT #$63
+89:87F1  89 63        BIT #$63
+89:87F3  89 54        BIT #$54
+89:87F5  8a           TXA
+89:87F6  72 8a        ADC ($8A)
+89:87F8  7b           DB $7B
+89:87F9  8a           TXA
+89:87FA  94 8a        STY $8A,X
+89:87FC  9d 8a e0     STA $E08A,X
+89:87FF  8a           TXA
+89:8800  a7 8a        LDA [$8A]
+89:8802  04           DB $04
+89:8803  8c 6b 9b     STY $9B6B
+89:8806  82 9b 9d     BRL $25A4
+89:8809  8d d6 8d     STA $8DD6
+89:880C  f5 8d        SBC $8D,X
+89:880E  08           PHP
+
+## dispatch table base 89:87D4, surrounding bytes
+
+89:87D4  63           DB $63
+89:87D5  89 6b        BIT #$6B
+89:87D7  89 a5        BIT #$A5
+89:87D9  89 ca        BIT #$CA
+89:87DB  89 d6        BIT #$D6
+89:87DD  89 63        BIT #$63
+89:87DF  89 e1        BIT #$E1
+89:87E1  89 e7        BIT #$E7
+89:87E3  89 0d        BIT #$0D
+89:87E5  8a           TXA
+89:87E6  3a           DEC A
+89:87E7  8a           TXA
+89:87E8  24 8a        BIT $8A
+89:87EA  4c 8a 63     JMP $638A
+89:87ED  89 63        BIT #$63
+89:87EF  89 63        BIT #$63
+89:87F1  89 63        BIT #$63
+89:87F3  89 54        BIT #$54
+89:87F5  8a           TXA
+89:87F6  72 8a        ADC ($8A)
+
+## pointer advance helper 89:8410 / stack helpers
+
+89:8410  18           CLC
+89:8411  65 98        ADC $98
+89:8413  85 98        STA $98
+89:8415  90 06        BCC $841D
+89:8417  e6 99        INC $99
+89:8419  d0 02        BNE $841D
+89:841B  e6 9a        INC $9A
+89:841D  60           RTS
+89:841E  a2 00        LDX #$00
+89:8420  20 24 84     JSR $8424
+89:8423  60           RTS
+89:8424  48           PHA
+89:8425  da           PHX
+89:8426  c2 10        REP #$10
+89:8428  a6 96        LDX $96
+89:842A  9f 8b 71 7e  STA $7E718B,X
+89:842E  e8           INX
+89:842F  68           PLA
+89:8430  9f 8b 71 7e  STA $7E718B,X
+89:8434  e8           INX
+89:8435  86 96        STX $96
+89:8437  e0 f0 03     CPX #$03F0
+89:843A  90 01        BCC $843D
+89:843C  00           BRK
+89:843D  ea           NOP
+89:843E  e2 10        SEP #$10
+89:8440  68           PLA
+89:8441  60           RTS
+89:8442  c2 10        REP #$10
+89:8444  a6 96        LDX $96
+89:8446  ca           DEX
+89:8447  bf 8b 71 7e  LDA $7E718B,X
+89:844B  48           PHA
+89:844C  ca           DEX
+89:844D  bf 8b 71 7e  LDA $7E718B,X
+89:8451  86 96        STX $96
+89:8453  e0 f0 03     CPX #$03F0
+89:8456  90 01        BCC $8459
+89:8458  00           BRK
+89:8459  ea           NOP
+89:845A  e2 10        SEP #$10
+89:845C  fa           PLX
+89:845D  60           RTS
+89:845E  c2 10        REP #$10
+89:8460  a6 96        LDX $96
+89:8462  bf 8a 71 7e  LDA $7E718A,X
+89:8466  48           PHA
+89:8467  bf 89 71 7e  LDA $7E7189,X
+89:846B  e2 10        SEP #$10
+89:846D  fa           PLX
+89:846E  60           RTS
+89:846F  ad 6b 12     LDA $126B
+89:8472  48           PHA
+89:8473  a5 98        LDA $98
+89:8475  48           PHA
+89:8476  a5 99        LDA $99
+89:8478  48           PHA
+89:8479  a5 9a        LDA $9A
+89:847B  48           PHA
+89:847C  a9 04        LDA #$04
+89:847E  20 10 84     JSR $8410
+89:8481  20 b9 84     JSR $84B9
+89:8484  68           PLA
+89:8485  85 9a        STA $9A
+89:8487  68           PLA
+89:8488  85 99        STA $99
+89:848A  68           PLA
+89:848B  85 98        STA $98
+89:848D  a0 01        LDY #$01
+89:848F  b7 98        LDA [$98],Y
+
+## condition bool helpers 89:8930..895E
+
+89:8930  20 10 84     JSR $8410
+89:8933  4c 87 83     JMP $8387
+89:8936  c9 00        CMP #$00
+89:8938  f0 02        BEQ $893C
+89:893A  a9 ff        LDA #$FF
+89:893C  1a           INC A
+89:893D  80 00        BRA $893F
+89:893F  c9 00        CMP #$00
+89:8941  d0 03        BNE $8946
+89:8943  4c 87 83     JMP $8387
+89:8946  4c 8c 83     JMP $838C
+89:8949  b0 03        BCS $894E
+89:894B  4c 87 83     JMP $8387
+89:894E  4c 8c 83     JMP $838C
+89:8951  90 03        BCC $8956
+89:8953  4c 87 83     JMP $8387
+89:8956  4c 8c 83     JMP $838C
+89:8959  a9 01        LDA #$01
+89:895B  4c 10 84     JMP $8410
+89:895E  a9 02        LDA #$02
+89:8960  4c 10 84     JMP $8410
+89:8963  00           BRK
+89:8964  ea           NOP
+89:8965  a9 01        LDA #$01
+89:8967  20 30 89     JSR $8930
+89:896A  60           RTS
+89:896B  ee 68 12     INC $1268
+89:896E  c2 20        REP #$20
+89:8970  a9 8c 89     LDA #$898C
+89:8973  85 0f        STA $0F
+89:8975  e2 20        SEP #$20
+89:8977  a9 32        LDA #$32
+89:8979  85 0d        STA $0D
+89:897B  22 1e ac 80  JSL $80AC1E
+89:897F  20 57 87     JSR $8757
+
+## opcode 38 handler 89:97DF
+
+89:97DF  b7 98        LDA [$98],Y
+89:97E1  85 0f        STA $0F
+89:97E3  c8           INY
+89:97E4  b7 98        LDA [$98],Y
+89:97E6  85 10        STA $10
+89:97E8  c8           INY
+89:97E9  b2 0f        LDA ($0F)
+89:97EB  22 66 80 85  JSL $858066
+89:97EF  20 51 89     JSR $8951
+89:97F2  4c 0f 84     JMP $840F
+89:97F5  b7 98        LDA [$98],Y
+89:97F7  85 0f        STA $0F
+89:97F9  c8           INY
+89:97FA  b7 98        LDA [$98],Y
+89:97FC  85 10        STA $10
+89:97FE  c8           INY
+89:97FF  b2 0f        LDA ($0F)
+89:9801  80 03        BRA $9806
+89:9803  b7 98        LDA [$98],Y
+89:9805  c8           INY
+89:9806  22 a4 bb 80  JSL $80BBA4
+89:980A  20 1e 84     JSR $841E
+89:980D  4c 0f 84     JMP $840F
+89:9810  b7 98        LDA [$98],Y
+89:9812  22 70 92 85  JSL $859270
+89:9816  20 1e 84     JSR $841E
+89:9819  4c 5e 89     JMP $895E
+89:981C  b7 98        LDA [$98],Y
+89:981E  85 0f        STA $0F
+89:9820  c8           INY
+
+## opcode 02 handler 89:89A5
+
+89:89A5  b7 98        LDA [$98],Y
+89:89A7  c2 30        REP #$30
+89:89A9  29 ff 00     AND #$00FF
+89:89AC  3a           DEC A
+89:89AD  85 00        STA $00
+89:89AF  0a           ASL A
+89:89B0  65 00        ADC $00
+89:89B2  aa           TAX
+89:89B3  bd ee 9b     LDA $9BEE,X
+89:89B6  85 2a        STA $2A
+89:89B8  bd ef 9b     LDA $9BEF,X
+89:89BB  85 2b        STA $2B
+89:89BD  e2 30        SEP #$30
+89:89BF  20 5e 89     JSR $895E
+89:89C2  22 c7 89 84  JSL $8489C7
+89:89C6  60           RTS
+89:89C7  dc 2a 00     JMP [$002A]
+89:89CA  a9 40        LDA #$40
+89:89CC  22 f5 84 84  JSL $8484F5
+89:89D0  20 51 89     JSR $8951
+89:89D3  4c 59 89     JMP $8959
+89:89D6  b7 98        LDA [$98],Y
+89:89D8  8d 6e 12     STA $126E
+89:89DB  20 16 80     JSR $8016
+89:89DE  4c 5e 89     JMP $895E
+
+## opcode 32 handler 89:96F8
+
+89:96F8  ad 98 13     LDA $1398
+89:96FB  d0 06        BNE $9703
+89:96FD  ad 2c 19     LDA $192C
+89:9700  8d 2b 19     STA $192B
+89:9703  ad 29 19     LDA $1929
+89:9706  22 2a db 80  JSL $80DB2A
+89:970A  b7 98        LDA [$98],Y
+89:970C  48           PHA
+89:970D  c8           INY
+89:970E  b7 98        LDA [$98],Y
+89:9710  85 0f        STA $0F
+89:9712  c8           INY
+89:9713  b7 98        LDA [$98],Y
+89:9715  85 10        STA $10
+89:9717  c8           INY
+89:9718  84 04        STY $04
+89:971A  68           PLA
+89:971B  30 09        BMI $9726
+89:971D  b2 0f        LDA ($0F)
+89:971F  ac 2b 19     LDY $192B
+89:9722  97 30        STA [$30],Y
+89:9724  80 07        BRA $972D
+89:9726  ac 2b 19     LDY $192B
+89:9729  b7 30        LDA [$30],Y
+89:972B  92 0f        STA ($0F)
+89:972D  a4 04        LDY $04
+89:972F  20 1e 84     JSR $841E
+89:9732  4c 0f 84     JMP $840F
+89:9735  b7 98        LDA [$98],Y
+89:9737  22 a9 b1 85  JSL $85B1A9
+89:973B  4c 5e 89     JMP $895E
+89:973E  b7 98        LDA [$98],Y
+89:9740  22 9f 95 81  JSL $81959F
+89:9744  4c 5e 89     JMP $895E
+89:9747  9c 69 19     STZ $1969
+89:974A  9c 6a 19     STZ $196A
+89:974D  ee 68 12     INC $1268
+89:9750  20 59 89     JSR $8959
+
+## opcode 37 handler 89:97A4
+
+89:97A4  ee 68 12     INC $1268
+89:97A7  c2 20        REP #$20
+89:97A9  a9 c7 97     LDA #$97C7
+89:97AC  85 0f        STA $0F
+89:97AE  e2 20        SEP #$20
+89:97B0  a9 32        LDA #$32
+89:97B2  85 0d        STA $0D
+89:97B4  22 1e ac 80  JSL $80AC1E
+89:97B8  b7 98        LDA [$98],Y
+89:97BA  d0 06        BNE $97C2
+89:97BC  22 37 a0 83  JSL $83A037
+89:97C0  80 04        BRA $97C6
+89:97C2  22 30 a0 83  JSL $83A030
+89:97C6  60           RTS
+89:97C7  22 93 a5 84  JSL $84A593
+89:97CB  ad 23 19     LDA $1923
+89:97CE  ae 24 19     LDX $1924
+89:97D1  20 24 84     JSR $8424
+89:97D4  ce 68 12     DEC $1268
+89:97D7  20 5e 89     JSR $895E
+89:97DA  22 35 ad 80  JSL $80AD35
+89:97DE  6b           RTL
+89:97DF  b7 98        LDA [$98],Y
+89:97E1  85 0f        STA $0F
+89:97E3  c8           INY
+89:97E4  b7 98        LDA [$98],Y
+89:97E6  85 10        STA $10
+89:97E8  c8           INY
+89:97E9  b2 0f        LDA ($0F)
+89:97EB  22 66 80 85  JSL $858066
+
+## opcode 4F handler 89:9A44 reference
+
+89:9A44  b7 98        LDA [$98],Y
+89:9A46  0a           ASL A
+89:9A47  18           CLC
+89:9A48  77 98        ADC [$98],Y
+89:9A4A  aa           TAX
+89:9A4B  c8           INY
+89:9A4C  c2 20        REP #$20
+89:9A4E  b7 98        LDA [$98],Y
+89:9A50  85 06        STA $06
+89:9A52  e2 20        SEP #$20
+89:9A54  b2 06        LDA ($06)
+89:9A56  8d c6 1f     STA $1FC6
+89:9A59  c8           INY
+89:9A5A  c8           INY
+89:9A5B  b7 98        LDA [$98],Y
+89:9A5D  8d c7 1f     STA $1FC7
+89:9A60  c8           INY
+89:9A61  5a           PHY
+89:9A62  e0 03        CPX #$03
+89:9A64  d0 08        BNE $9A6E
+89:9A66  a0 01        LDY #$01
+89:9A68  b1 06        LDA ($06),Y
+89:9A6A  f0 02        BEQ $9A6E
+89:9A6C  a2 06        LDX #$06
+89:9A6E  c2 20        REP #$20
+89:9A70  bd 8d 9a     LDA $9A8D,X
+89:9A73  85 f3        STA $F3
+89:9A75  e2 20        SEP #$20
+89:9A77  bd 8f 9a     LDA $9A8F,X
+89:9A7A  85 f5        STA $F5
+89:9A7C  22 67 fd 82  JSL $82FD67
+89:9A80  ad c8 1f     LDA $1FC8
+89:9A83  ae c9 1f     LDX $1FC9
+89:9A86  20 1e 84     JSR $841E
+89:9A89  7a           PLY

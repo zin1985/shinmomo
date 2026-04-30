@@ -1,1 +1,9 @@
-ROM image files (.smc/.sfc) were intentionally excluded from this package. Use your own legally obtained ROM when running Lua tracers or applying IPS patches.
+# ROM本体は含めていません
+
+このパッケージには `.smc` / `.sfc` ROM本体を含めていません。
+
+解析再現時は、利用者側で正当なROMファイルを用意し、必要に応じて以下を実行してください。
+
+```bash
+python scripts/analysis/extract_weapon_special_anchor_bytes.py "Shin Momotarou Densetsu (J).smc"
+```

@@ -1,0 +1,2 @@
+subcode_dec,subcode_hex,table_addr,table_file_pc,entry_bytes,target_addr,target_file_pc_hirom,used_in_39847_399E5,first_rtl_offset_within_96,target_first16,target_first64
+50,32,84:9C81,0x049C81,0C 99 85,85:990C,0x05990C,2,23,EE 68 12 9C 65 03 C2 20 A9 24 99 85 0F E2 20 A9,EE 68 12 9C 65 03 C2 20 A9 24 99 85 0F E2 20 A9 32 85 0D 22 1E AC 80 6B AD 24 19 D0 21 A2 00 BD 52 99 F0 18 CD 23 19 F0 05 E8 E8 E8 80 F1 C2 20 BD 53 99 85 0F E2 20 22 1D AD 80 6B 00 EA CE 68
