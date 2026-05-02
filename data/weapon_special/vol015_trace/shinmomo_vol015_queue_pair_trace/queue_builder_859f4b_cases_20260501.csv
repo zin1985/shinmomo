@@ -1,0 +1,5 @@
+case,pair0_value,pair0_type,pair1,terminator,meaning
+$19E5[$1986] == 0,$19D5[$1986],0x04,none,"next slot = (value=0,type=0)",compact family class / type04 path
+$19E5[$1986] != 0 and (($19C5[$1986]&0x10)==0) and $19D5[$1986] < 0xDB,$19D5[$1986],0x06,"($19F5[$1986], 0x0F)","after pair1 = (value=0,type=0)",type06 plus extra/phase queue pair
+$19E5[$1986] != 0 and (($19C5[$1986]&0x10)==0) and $19D5[$1986] >= 0xDB,$19D5[$1986],0x06,none,"next slot = (value=0,type=0)",type06 only; high value suppresses 0F pair
+$19E5[$1986] != 0 and (($19C5[$1986]&0x10)!=0) and 0x48 < 0xDB,0x48 (override),0x06,"($19F5[$1986], 0x0F)","after pair1 = (value=0,type=0)",type06 forced value 0x48 plus extra/phase queue pair

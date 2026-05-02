@@ -1,0 +1,10 @@
+op,snes,pc_hex,context_hex,route_note
+STA_abs_12B5,84:9FF5,0x049FF5,90 f5 fa 60 a9 ff 8d c0 12 9c bd 12 6b 8b 4b ab 8d b5 12 64 09 64 0a 64 0b 22 ee a0 84 20 e5 9d b0 1c ad b3 12 d0 11 ad b2 12 c9 01,
+STA_abs_12B5,84:A02D,0x04A02D,e6 0b e6 09 80 df 18 a5 0b f0 01 38 a5 09 ab 6b 8d b5 12 8b ad 0b 03 48 4b ab 20 d7 a7 22 ee a0 84 20 e5 9d b0 0e c2 20 ad b2 12 85,
+STA_abs_12B5,84:A0B2,0x04A0B2,6b 22 61 a0 84 a9 02 8d ae 12 a9 02 8d af 12 6b 8d b5 12 a9 05 80 05 8d b5 12 a9 02 8d b4 12 80 03 8d b5 12 ad ab 12 f0 04 00 ea 80,
+STA_abs_12B5,84:A0B9,0x04A0B9,8d ae 12 a9 02 8d af 12 6b 8d b5 12 a9 05 80 05 8d b5 12 a9 02 8d b4 12 80 03 8d b5 12 ad ab 12 f0 04 00 ea 80 15 22 e5 a0 84 c2 20,
+STA_abs_12B5,84:A0C3,0x04A0C3,b5 12 a9 05 80 05 8d b5 12 a9 02 8d b4 12 80 03 8d b5 12 ad ab 12 f0 04 00 ea 80 15 22 e5 a0 84 c2 20 a9 a5 a1 85 0f e2 20 a9 30 85,
+STA_abs_12B5,84:BECE,0x04BECE,92 ba b0 4b a7 be 8d b4 12 a0 01 20 55 bf b2 0f 8d b5 12 ad b4 12 10 10 29 7f 85 00 a0 01 b1 0f 29 0f 18 65 00 8d b4 12 22 f1 a0 84,
+STA_abs_12B5,85:DA3B,0x05DA3B,f0 04 e8 e8 80 f3 bf 65 da 85 8d b4 12 ad 6b 03 8d b5 12 22 ee a0 84 a2 00 22 86 e2 84 ad b2 12 f0 0b df 4a 5f 7e d0 0c e8 e0 05 90,
+LDA_abs_12B5,84:A0F5,0x04A0F5,ee ab 12 ee e3 12 ee ac 12 9c c6 12 da ae b4 12 ad b5 12 20 3a ae fa b0 0e ad b4 12 20 4d 9d ad b5 12 20 91 9d 80 03 20 d2 9d 9c a9,
+LDA_abs_12B5,84:A104,0x04A104,12 ad b5 12 20 3a ae fa b0 0e ad b4 12 20 4d 9d ad b5 12 20 91 9d 80 03 20 d2 9d 9c a9 12 6b ad b1 12 8d bc 12 6b 85 06 64 07 64 08,

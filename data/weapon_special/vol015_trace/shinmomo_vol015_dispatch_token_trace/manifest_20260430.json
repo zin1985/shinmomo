@@ -1,0 +1,12 @@
+{
+  "created": "2026-04-30",
+  "files": [
+    "a4_to_a0c3_path_20260430.csv",
+    "aclass_dispatch_table_20260430.csv",
+    "shinmomo_vol015_dispatch_token_trace_report_20260430.md",
+    "token02_c5_family01_value25_landing_20260430.csv",
+    "token_02_0f_9eb1_trace_20260430.csv",
+    "weapon_index16_corrected_9dbb_record_skip_20260430.csv"
+  ],
+  "summary": "A4 handler feeds A into 84:876D/A0C3; token 02 opens family type 01 value 25; token 0F defaults to no handler in 9EB1; previous byte-skip view corrected to record-skip."
+}

@@ -1,30 +1,32 @@
-# shinmomo vol013 merge commit package
+# 新桃太郎伝説解析 vol016 merge handover package（2026-05-02）
 
-新桃太郎伝説解析 vol013 の別スレッドマージ用パッケージです。
+このパッケージは、別スレッドで並行している解析とマージするための GitHub コミット用差分です。
 
 ## 最初に読むファイル
 
-1. `docs/handover/SHINMOMO_VOL013_MERGE_HANDOVER_20260430.md`
-2. `docs/handover/shinmomo_lorom_addressing_correction_note_v1.md`
-3. `docs/handover/GOAL_PROGRESS_VOL013_20260430.csv`
+1. `docs/handover/SHINMOMO_VOL016_MERGE_HANDOVER_20260502.md`
+2. `docs/handover/GOAL_PROGRESS_VOL016_MERGE_20260502.csv`
+3. `docs/graphics/MAPCHIP_GRAPHICS_RECONSTRUCTION_STATUS_VOL016_20260502.md`
 4. `manifest/MANIFEST.csv`
+5. `manifest/EXCLUDED_FILES.csv`
 
 ## 重要
 
-ROM本体は含めていません。  
-過去成果物にはHiROM風の旧CPUラベルが一部残っています。マージ時は **file PCを正** とし、LoROM補正表で読み替えてください。
+ROM本体（`.smc` / `.sfc`）は含めていません。`rom/README_ROM_NOT_INCLUDED.md` を参照してください。
 
-## 構成
+## 主な追加内容
 
-```text
-docs/handover/   引継ぎ・アドレス補正・進捗
-docs/reports/    解析レポート
-docs/notes/      補足メモ
-docs/hexdumps/   disasm / hexdump / dump系テキスト
-data/csv/         解析CSV
-tools/lua/        Snes9x Lua
-tools/python/     Pythonダンパ/補助スクリプト
-graphics/         raw graphics probe PNGなど
-archive/          過去ZIPの展開済み個別ファイル
-manifest/         ファイル一覧・除外一覧
+- vol016 の graphics / mapchip / OAM / DMA / VRAM 解析成果
+- 現在の Lua logging 方針（Snes9x/BizHawk 互換の polling 型）
+- field / battle / static probe のPNG・CSV・handover
+- current character color / DA:3800 stream 系の候補画像
+- tile adjacency → tilemap 推定 → ASCII/PNG可視化用 Python 補助スクリプト
+- 13ゴール進捗の更新CSV
+- 旧引継ぎ資料と過去ZIPの展開済みアーカイブ
+
+## 推奨コミット
+
+```bash
+git add .
+git commit -m "vol016: merge graphics mapchip reconstruction handover"
 ```

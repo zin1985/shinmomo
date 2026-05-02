@@ -1,0 +1,7 @@
+descriptor_index,stream_start,$12B5_hex,correct_cursor,next_byte,note
+0x16,C7:8D14,0x82,C7:9EA5,0x09,"Corrected: 9DBB skips zero-terminated records, not raw bytes"
+0x16,C7:8D14,0x83,C7:9EB0,0xB3,"Corrected: 9DBB skips zero-terminated records, not raw bytes"
+0x16,C7:8D14,0x84,C7:9EC3,0x09,"Corrected: 9DBB skips zero-terminated records, not raw bytes"
+0x16,C7:8D14,0xC1,C7:A566,0x09,"Corrected: 9DBB skips zero-terminated records, not raw bytes"
+0x16,C7:8D14,0xC2,C7:A57D,0x09,"Corrected: 9DBB skips zero-terminated records, not raw bytes"
+0x16,C7:8D14,0xC8,C7:A64D,0x7D,"Corrected: 9DBB skips zero-terminated records, not raw bytes"

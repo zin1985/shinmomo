@@ -1,0 +1,11 @@
+{
+  "created": "2026-05-01",
+  "topic": "token09 queue pair reverse trace from 85:9F4B to $1297/$129F",
+  "files": [
+    "shinmomo_vol015_token09_queue_pair_trace_report_20260501.md",
+    "c7_token09_points_queue_consumption_20260501.csv",
+    "queue_builder_859f4b_cases_20260501.csv",
+    "queue_trace_code_windows_20260501.csv"
+  ],
+  "key_result": "C7:9EA5/9EC3/A566/A57D token09 consumes runtime queue[$1296_before], not a static stream operand. 85:9F4B produces pair0/optional pair1 from 19D5/19E5/19F5/19C5."
+}

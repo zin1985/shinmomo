@@ -1,0 +1,17 @@
+# Do not commit ROMs
+*.smc
+*.sfc
+*.fig
+*.swc
+local_roms/
+
+# Emulator volatile output
+*.state
+*.sav
+*.srm
+*.rtc
+
+# OS/editor
+.DS_Store
+Thumbs.db
+*.tmp

@@ -1,0 +1,10 @@
+address,role,writes,source,notes
+85:90A3,active-list maintenance,none to 19D5/19E5/19F5/19C5,"1979/197D vs 198E","decrements/shifts 1979/197D; not a direct staging setter"
+85:9219-9230,type04 base row builder,"19D5[X]=1569[Y]","$1569,Y filtered by !=0 and <0x1A; optional $1D62 filter","then calls 85:9250"
+85:9250,type04 row initializer,"19E5[X]=0; 19C5[X]=1 or 0","X=198D/current row; 19D5[X] already set","sets 19C5=1 initially; clears it if later availability test fails"
+85:9286-9297,single current row builder,"19D5[X]=198E","free slot from 9535; current value 198E","then calls 85:9250; produces type04 if 19E5 remains zero"
+85:92AF-92CE,1978/197C expansion loop,indirect via 93AC,"198E=1978[198C]; Y=197C[198C]","calls 93AC repeatedly; does not itself write 19D5/19E5/19F5/19C5"
+85:93AC-93EE,type06/type0F row builder,"19D5[X]=198E; 19C5[X]=1; 19E5[X]=198C; 19F5[X]=allocator result","free slot from 9535; 198E/198C current source","main staging builder for nonzero 19E5 rows; calls 9470 and 957F"
+85:9470-949D,special transform for 48/49,"may rewrite 19D5[X]; sets bit 0x10 in 19C5[X]","19D5[X] in {0x48,0x49}; random result table 94A6","if triggered, value later becomes 0x48 in 9F4B because 19C5 bit 0x10 is set"
+85:957F-95E3,19F5 allocator,"returns A for 19F5[X]","198E, 1D46/1D4E, existing rows scanned via B811","allocates small occurrence/phase id, avoids duplicate 19F5 for same 198E"
+85:9F4B-9F92,queue builder,"1297/129F from 19D5/19E5/19F5/19C5","Y=1986; X=queue write index","consumes staging and builds token09 queue pairs"

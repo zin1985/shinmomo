@@ -1,0 +1,8 @@
+scene_label,frame,slot,next_0A61,prev_0A1F,sort_0AA3,xlo_0DA5,xhi_0DE5,ylo_0D25,yhi_0D65,type_0B25,attr_0AE5,state_0E27,raw0C65,raw0BA5
+manual_unknown,99900,2,6,0,08,D0,FF,00,00,34,51,41,20,E4
+manual_unknown,99900,6,7,2,28,00,06,00,01,38,00,00,D8,48
+manual_unknown,99900,7,3,6,28,00,06,00,01,38,00,00,B0,80
+manual_unknown,99900,3,4,7,38,10,00,00,04,34,59,17,D8,48
+manual_unknown,99900,4,5,3,38,F0,FF,00,02,34,6E,44,D8,88
+manual_unknown,99900,5,1,4,3A,00,02,04,03,2A,30,45,B0,80
+manual_unknown,99900,1,255,5,FF,00,00,00,00,00,00,30,00,00

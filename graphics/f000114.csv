@@ -1,0 +1,6 @@
+goal_no,goal_name,previous,updated,note
+10,文字コード・表示系の解読を実用化する,99,99,据え置き
+11,アイテム・装備・キャラ・会話の外部データ化,98,98,据え置き
+12,新桃全体の構造を人間が読める形で再構成する,99.2,99.3,BG/mapchip と OAM/object の分離方針を固定
+13,NPC大量表示時の処理軽減ロジックを特定する,99,99,OAM本線は据え置き、Luaで検証性を強化
+GFX,graphics/mapchip reconstruction,45,52,ROM static probe + field/battle整理 + unified polling Lua

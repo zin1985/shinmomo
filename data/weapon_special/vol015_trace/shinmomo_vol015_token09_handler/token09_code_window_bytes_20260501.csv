@@ -1,0 +1,156 @@
+label,raw,snes,byte
+9EB1 token filter,0x049EB1,84:9EB1,C9
+9EB1 token filter,0x049EB2,84:9EB2,02
+9EB1 token filter,0x049EB3,84:9EB3,D0
+9EB1 token filter,0x049EB4,84:9EB4,03
+9EB1 token filter,0x049EB5,84:9EB5,4C
+9EB1 token filter,0x049EB6,84:9EB6,34
+9EB1 token filter,0x049EB7,84:9EB7,9F
+9EB1 token filter,0x049EB8,84:9EB8,C9
+9EB1 token filter,0x049EB9,84:9EB9,09
+9EB1 token filter,0x049EBA,84:9EBA,F0
+9EB1 token filter,0x049EBB,84:9EBB,68
+9EB1 token filter,0x049EBC,84:9EBC,C9
+9EB1 token filter,0x049EBD,84:9EBD,0A
+9EB1 token filter,0x049EBE,84:9EBE,F0
+9EB1 token filter,0x049EBF,84:9EBF,1C
+9EB1 token filter,0x049EC0,84:9EC0,C9
+9EB1 token filter,0x049EC1,84:9EC1,11
+9EB1 token filter,0x049EC2,84:9EC2,F0
+9EB1 token filter,0x049EC3,84:9EC3,59
+9EB1 token filter,0x049EC4,84:9EC4,4C
+9EB1 token filter,0x049EC5,84:9EC5,32
+9EC7 queue helper,0x049EC7,84:9EC7,AE
+9EC7 queue helper,0x049EC8,84:9EC8,96
+9EC7 queue helper,0x049EC9,84:9EC9,12
+9EC7 queue helper,0x049ECA,84:9ECA,BD
+9EC7 queue helper,0x049ECB,84:9ECB,9F
+9EC7 queue helper,0x049ECC,84:9ECC,12
+9EC7 queue helper,0x049ECD,84:9ECD,D0
+9EC7 queue helper,0x049ECE,84:9ECE,03
+9EC7 queue helper,0x049ECF,84:9ECF,38
+9EC7 queue helper,0x049ED0,84:9ED0,80
+9EC7 queue helper,0x049ED1,84:9ED1,06
+9EC7 queue helper,0x049ED2,84:9ED2,48
+9EC7 queue helper,0x049ED3,84:9ED3,BD
+9EC7 queue helper,0x049ED4,84:9ED4,97
+9EC7 queue helper,0x049ED5,84:9ED5,12
+9EC7 queue helper,0x049ED6,84:9ED6,FA
+9EC7 queue helper,0x049ED7,84:9ED7,18
+9EC7 queue helper,0x049ED8,84:9ED8,EE
+9EC7 queue helper,0x049ED9,84:9ED9,96
+9EC7 queue helper,0x049EDA,84:9EDA,12
+9EC7 queue helper,0x049EDB,84:9EDB,60
+token 11 / 09 / 02 common vicinity,0x049F1D,84:9F1D,AD
+token 11 / 09 / 02 common vicinity,0x049F1E,84:9F1E,69
+token 11 / 09 / 02 common vicinity,0x049F1F,84:9F1F,15
+token 11 / 09 / 02 common vicinity,0x049F20,84:9F20,A2
+token 11 / 09 / 02 common vicinity,0x049F21,84:9F21,04
+token 11 / 09 / 02 common vicinity,0x049F22,84:9F22,80
+token 11 / 09 / 02 common vicinity,0x049F23,84:9F23,08
+token 11 / 09 / 02 common vicinity,0x049F24,84:9F24,20
+token 11 / 09 / 02 common vicinity,0x049F25,84:9F25,C7
+token 11 / 09 / 02 common vicinity,0x049F26,84:9F26,9E
+token 11 / 09 / 02 common vicinity,0x049F27,84:9F27,90
+token 11 / 09 / 02 common vicinity,0x049F28,84:9F28,03
+token 11 / 09 / 02 common vicinity,0x049F29,84:9F29,4C
+token 11 / 09 / 02 common vicinity,0x049F2A,84:9F2A,18
+token 11 / 09 / 02 common vicinity,0x049F2B,84:9F2B,9E
+token 11 / 09 / 02 common vicinity,0x049F2C,84:9F2C,20
+token 11 / 09 / 02 common vicinity,0x049F2D,84:9F2D,8D
+token 11 / 09 / 02 common vicinity,0x049F2E,84:9F2E,9F
+token 11 / 09 / 02 common vicinity,0x049F2F,84:9F2F,9C
+token 11 / 09 / 02 common vicinity,0x049F30,84:9F30,A9
+token 11 / 09 / 02 common vicinity,0x049F31,84:9F31,12
+token 11 / 09 / 02 common vicinity,0x049F32,84:9F32,80
+token 11 / 09 / 02 common vicinity,0x049F33,84:9F33,0B
+token 11 / 09 / 02 common vicinity,0x049F34,84:9F34,20
+token 11 / 09 / 02 common vicinity,0x049F35,84:9F35,34
+token 11 / 09 / 02 common vicinity,0x049F36,84:9F36,9E
+token 11 / 09 / 02 common vicinity,0x049F37,84:9F37,38
+token 11 / 09 / 02 common vicinity,0x049F38,84:9F38,E9
+token 11 / 09 / 02 common vicinity,0x049F39,84:9F39,A0
+token 11 / 09 / 02 common vicinity,0x049F3A,84:9F3A,20
+token 11 / 09 / 02 common vicinity,0x049F3B,84:9F3B,8D
+token 11 / 09 / 02 common vicinity,0x049F3C,84:9F3C,9F
+token 11 / 09 / 02 common vicinity,0x049F3D,84:9F3D,A2
+token 11 / 09 / 02 common vicinity,0x049F3E,84:9F3E,01
+token 11 / 09 / 02 common vicinity,0x049F3F,84:9F3F,20
+token 11 / 09 / 02 common vicinity,0x049F40,84:9F40,3A
+token 11 / 09 / 02 common vicinity,0x049F41,84:9F41,AE
+token 11 / 09 / 02 common vicinity,0x049F42,84:9F42,B0
+token 11 / 09 / 02 common vicinity,0x049F43,84:9F43,46
+token 11 / 09 / 02 common vicinity,0x049F44,84:9F44,48
+fallback family resolver,0x049F44,84:9F44,48
+fallback family resolver,0x049F45,84:9F45,8A
+fallback family resolver,0x049F46,84:9F46,8D
+fallback family resolver,0x049F47,84:9F47,A7
+fallback family resolver,0x049F48,84:9F48,12
+fallback family resolver,0x049F49,84:9F49,3A
+fallback family resolver,0x049F4A,84:9F4A,0A
+fallback family resolver,0x049F4B,84:9F4B,6D
+fallback family resolver,0x049F4C,84:9F4C,A7
+fallback family resolver,0x049F4D,84:9F4D,12
+fallback family resolver,0x049F4E,84:9F4E,3A
+fallback family resolver,0x049F4F,84:9F4F,AA
+fallback family resolver,0x049F50,84:9F50,C2
+fallback family resolver,0x049F51,84:9F51,20
+fallback family resolver,0x049F52,84:9F52,BF
+fallback family resolver,0x049F53,84:9F53,00
+fallback family resolver,0x049F54,84:9F54,00
+fallback family resolver,0x049F55,84:9F55,C7
+fallback family resolver,0x049F56,84:9F56,85
+fallback family resolver,0x049F57,84:9F57,B1
+fallback family resolver,0x049F58,84:9F58,85
+fallback family resolver,0x049F59,84:9F59,06
+fallback family resolver,0x049F5A,84:9F5A,E2
+fallback family resolver,0x049F5B,84:9F5B,20
+fallback family resolver,0x049F5C,84:9F5C,BF
+fallback family resolver,0x049F5D,84:9F5D,02
+fallback family resolver,0x049F5E,84:9F5E,00
+fallback family resolver,0x049F5F,84:9F5F,C7
+fallback family resolver,0x049F60,84:9F60,85
+fallback family resolver,0x049F61,84:9F61,B3
+fallback family resolver,0x049F62,84:9F62,85
+fallback family resolver,0x049F63,84:9F63,08
+fallback family resolver,0x049F64,84:9F64,A7
+fallback family resolver,0x049F65,84:9F65,B1
+fallback family resolver,0x049F66,84:9F66,8D
+fallback family resolver,0x049F67,84:9F67,AA
+fallback family resolver,0x049F68,84:9F68,12
+fallback family resolver,0x049F69,84:9F69,C9
+fallback family resolver,0x049F6A,84:9F6A,02
+fallback family resolver,0x049F6B,84:9F6B,D0
+fallback family resolver,0x049F6C,84:9F6C,0E
+fallback family resolver,0x049F6D,84:9F6D,E6
+fallback family resolver,0x049F6E,84:9F6E,06
+fallback family resolver,0x049F6F,84:9F6F,D0
+fallback family resolver,0x049F70,84:9F70,06
+fallback family resolver,0x049F71,84:9F71,E6
+fallback family resolver,0x049F72,84:9F72,07
+fallback family resolver,0x049F73,84:9F73,D0
+fallback family resolver,0x049F74,84:9F74,02
+fallback family resolver,0x049F75,84:9F75,E6
+fallback family resolver,0x049F76,84:9F76,08
+fallback family resolver,0x049F77,84:9F77,22
+fallback family resolver,0x049F78,84:9F78,87
+fallback family resolver,0x049F79,84:9F79,BD
+fallback family resolver,0x049F7A,84:9F7A,80
+fallback family resolver,0x049F7B,84:9F7B,E6
+fallback family resolver,0x049F7C,84:9F7C,B1
+fallback family resolver,0x049F7D,84:9F7D,D0
+fallback family resolver,0x049F7E,84:9F7E,06
+fallback family resolver,0x049F7F,84:9F7F,E6
+fallback family resolver,0x049F80,84:9F80,B2
+fallback family resolver,0x049F81,84:9F81,D0
+fallback family resolver,0x049F82,84:9F82,02
+fallback family resolver,0x049F83,84:9F83,E6
+fallback family resolver,0x049F84,84:9F84,B3
+fallback family resolver,0x049F85,84:9F85,68
+fallback family resolver,0x049F86,84:9F86,AA
+fallback family resolver,0x049F87,84:9F87,20
+fallback family resolver,0x049F88,84:9F88,BB
+fallback family resolver,0x049F89,84:9F89,9D
+fallback family resolver,0x049F8A,84:9F8A,4C
+fallback family resolver,0x049F8B,84:9F8B,18
+fallback family resolver,0x049F8C,84:9F8C,9E

@@ -1,0 +1,9 @@
+step,address,operation,meaning
+1,85:9FA9,STZ $198D,start scan row index at 0
+2,85:9FAF,LDX $198D,X = candidate staging row
+3,85:9FB2,"LDA $19D5,X / BEQ skip",skip empty row
+4,85:9FB7,STX $1986,current runtime row = candidate row
+5,85:9FBD..9FC3,"compare $19E5,row with $0619,current slot",filter row by child/phase component
+6,85:9FE8 onward,per-row handler dispatch,runs handler context while $1986 still points to selected row
+7,85:9FFB..A004,"$0619,current slot = $19E5,$1986",current slot phase is updated from selected row
+8,85:A007..A00F,INC $198D; loop < 0x10,continue scan over 16 staging rows

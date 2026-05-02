@@ -1,0 +1,6 @@
+pattern,hit_count,bank_clusters
+JSL $80:A151 transfer_queue_begin?,16,C0:5 / C4:5 / C2:3 / C3:3
+JSL $80:A170 transfer_queue_byte/word?,27,C0:10 / C4:10 / C3:4 / C2:3
+JSL $80:A185 transfer_queue_commit?,25,C0:14 / C4:5 / C2:3 / C3:3
+JSL $80:A474 HDMA/update flag setter,36,C6:10 / C4:8 / C5:8 / C3:7 / C0:1 / C1:1 / C2:1
+DA:3800 pointer table operand,1,C4:1

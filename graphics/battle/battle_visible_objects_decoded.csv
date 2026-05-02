@@ -1,0 +1,6 @@
+scene_label,frame,slot,next_0A61,prev_0A1F,sort_0AA3,xlo_0DA5,xhi_0DE5,ylo_0D25,yhi_0D65,type_0B25,attr_0AE5,state_0E27,raw0C65,raw0BA5,x16_hex,y16_hex,x16_signed,y16_signed
+manual_unknown,100200,2,3,0,08,C0,FF,00,00,34,53,41,20,E4,FFC0,0000,-64,0
+manual_unknown,100200,3,4,2,38,00,04,00,05,34,57,17,D8,48,0400,0500,1024,1280
+manual_unknown,100200,4,5,3,38,D0,FF,00,06,34,6E,1C,D8,88,FFD0,0600,-48,1536
+manual_unknown,100200,5,1,4,3A,00,02,04,03,2A,30,47,B0,80,0200,0304,512,772
+manual_unknown,100200,1,255,5,FF,00,00,00,00,00,01,2F,00,00,0000,0000,0,0

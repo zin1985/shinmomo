@@ -1,0 +1,3 @@
+Re-zipped compatibility package. Contains only archive/source_zips original zip artifacts.
+Deep extracted previous_commit_packages were intentionally excluded to avoid long-path unzip failures.
+ROM files are not included.

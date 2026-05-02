@@ -1,0 +1,5 @@
+frame,mode,bg,sc_reg,map_base,size_code,width_tiles,height_tiles,char_base,bpp,tm_main_screen,ts_sub_screen
+53931,0,1,00,0000,0,32,32,0000,2,00,00
+53931,0,2,00,0000,0,32,32,0000,2,00,00
+53931,0,3,00,0000,0,32,32,0000,2,00,00
+53931,0,4,00,0000,0,32,32,0000,2,00,00

@@ -1,0 +1,6 @@
+frame,reason,dir,vram_hash,cgram_hash,ppu_signature,vram_domain,cgram_domain,oam_domain,bus_domain
+53931,init,shinmomo_graphics_probe_out\frame_053931,3D32,9DC5,00:00:00:00:00:00:00:00:00:00:00,VRAM,,,
+54000,interval,shinmomo_graphics_probe_out\frame_054000,3D32,9DC5,00:00:00:00:00:00:00:00:00:00:00,VRAM,,,
+54300,interval,shinmomo_graphics_probe_out\frame_054300,5D93,9DC5,00:00:00:00:00:00:00:00:00:00:00,VRAM,,,
+54600,interval,shinmomo_graphics_probe_out\frame_054600,872F,9DC5,00:00:00:00:00:00:00:00:00:00:00,VRAM,,,
+54900,interval,shinmomo_graphics_probe_out\frame_054900,5EE2,9DC5,00:00:00:00:00:00:00:00:00:00:00,VRAM,,,

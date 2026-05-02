@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-04-30",
+  "files": [
+    "inner_mini_vm_opcode_length_table_20260430.csv",
+    "master_pointer_table_ca_c000_probe_20260430.csv",
+    "runner_candidate_code_bytes_20260430.csv",
+    "shinmomo_vol015_runner_hook_opcode_report_20260430.md",
+    "weapon_special_hook_signatures_20260430.csv",
+    "weapon_special_inner_script_slices_20260430.csv"
+  ],
+  "note": "ROM not included. Outputs are generated from local ROM analysis and intended for GitHub commit under docs/permanent_reference/weapon_special or reports/vol015."
+}

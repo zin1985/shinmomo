@@ -1,0 +1,11 @@
+pack,pack_label,header,entry,entry_label
+CB:1A67,白虎 nested pack,8F 01 62 8B 19 02 E0 8E B0,84 -> CB:1A83,setup/cast descriptor A4=3C
+CB:1A67,白虎 nested pack,8F 01 62 8B 19 02 E0 8E B0,83 -> CB:1A89,main descriptor A4=3C
+CB:1A67,白虎 nested pack,8F 01 62 8B 19 02 E0 8E B0,85 -> CB:1170,common handler
+CB:1A67,白虎 nested pack,8F 01 62 8B 19 02 E0 8E B0,C1 -> CB:1A8D,post/effect branch
+CB:1A67,白虎 nested pack,8F 01 62 8B 19 02 E0 8E B0,C2 -> CB:1AA4,chains into Genbu sibling pack
+CB:1AA4,玄武 nested pack,8F 01 62 8B 19 06 E0 8E B0,84 -> CB:1AC0,setup/cast descriptor A4=3D
+CB:1AA4,玄武 nested pack,8F 01 62 8B 19 06 E0 8E B0,83 -> CB:1AC6,main descriptor A4=3D
+CB:1AA4,玄武 nested pack,8F 01 62 8B 19 06 E0 8E B0,85 -> CB:1170,common handler
+CB:1AA4,玄武 nested pack,8F 01 62 8B 19 06 E0 8E B0,C1 -> CB:1ACA,post/effect branch
+CB:1AA4,玄武 nested pack,8F 01 62 8B 19 06 E0 8E B0,C2 -> CB:1AE1,chains into next sibling pack

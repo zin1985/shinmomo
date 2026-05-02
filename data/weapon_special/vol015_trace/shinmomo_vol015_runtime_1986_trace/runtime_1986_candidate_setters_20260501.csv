@@ -1,0 +1,6 @@
+rank,address,raw_offset,instruction,role,meaning,why_relevant,confidence
+A,85:9FB7,0x029FB7,STX $1986,runtime selector in per-row scan,$1986 = $198D loop index for the currently scanned nonzero staging row,This is the closest runtime row selector before per-row handlers that can trigger descriptor/token09 flow.,high
+B,85:93B6,0x0293B6,STX $1986,row allocator / builder,$1986 = newly allocated free staging row returned by 85:9535; row then receives $19D5/$19E5/$19F5/$19C5,Builds the expanded row later scanned by 85:9FAF..A007. Likely source for weapon type06/type0F rows.,high
+C,85:9237,0x029237,STX $1986,base/type04 row builder,"$1986 = row being built from $1569,Y / $19D5 with $19E5=0","Can feed token09 as type04, but less likely for weapon expanded effects requiring $19E5 nonzero.",medium
+C,85:9294,0x029294,STX $1986,base/type04 row builder from $198E,$1986 = row being built from current $198E with $19E5=0,"Can feed token09 as type04, but does not create type06/type0F pair unless expanded elsewhere.",medium
+restore,85:9318,0x029318,STA $1986,restore previous row after temporary 93AC attempt,"restores $1986 from $0619,current slot",Shows $1986 is treated as a volatile current-row cursor around row-building attempts.,medium

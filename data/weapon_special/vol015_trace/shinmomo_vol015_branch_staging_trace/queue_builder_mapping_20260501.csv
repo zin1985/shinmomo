@@ -1,0 +1,5 @@
+case,condition,pair0_value,pair0_type,pair1_value,pair1_type,terminator
+A,$19E5[$1986]==0,$19D5[$1986],04,none,none,(0,0)
+B,$19E5[$1986]!=0 and ($19C5[$1986]&0x10)==0 and $19D5<DB,$19D5[$1986],06,$19F5[$1986],0F,(0,0)
+C,$19E5[$1986]!=0 and ($19C5[$1986]&0x10)!=0 and 0x48<DB,48,06,$19F5[$1986],0F,(0,0)
+D,$19E5[$1986]!=0 and pair0_value>=DB,$19D5 or 48,06,none,none,(0,0)

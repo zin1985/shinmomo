@@ -1,0 +1,6 @@
+entry,row_source,queue_write_index,purpose,static_status
+85:9F4B,$1986,X on entry,primary queue builder; used by 85:80B7,confirmed by code
+85:9F94,$198B,X on entry,alternate queue builder for current choice/current row,confirmed wrapper into 9F50
+85:9F9B,A argument converted to Y,X on entry,generic row-index queue builder,confirmed wrapper into 9F50
+85:9FA9,"scan $198D=0..0F, set $1986=current non-empty row",none,row scheduler/materializer; not direct queue builder,confirmed no direct JSR 9F4B inside window
+85:80B7,uses $1986 via 9F4B,"stream operand LDA [$98],Y -> TAX","mini-VM command: build queue from current $1986 row, then call 84:9BC5 evaluator",confirmed direct JSR 9F4B

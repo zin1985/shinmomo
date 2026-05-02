@@ -1,0 +1,7 @@
+snes,pc_hex,bytes,meaning
+84:8145,0x048145,29 0f 0a aa 20 7b 81,A-class opcode dispatch: (opcode & 0F)*2 -> JSR 84:817B
+84:817B,0x04817B,7c 7e 81 6f 84 cd,"JMP ($817E,X), A-class jump table"
+84:84AE,0x0484AE,b7 98 20 6d 87 a0 02 20 0f 84 60,"A4 handler: LDA [$98],Y; JSR $876D; advance cursor by 2"
+84:876D,0x04876D,48 ee 68 12 c2 20 a9 8e 87 85 0f e2 20 a9 30 85 0d 22 1e ac 80 20 57 87 68 20 54 85 22 c3 a0 84 60,A operand is preserved across callback setup and passed onward
+84:8554,0x048554,48 5a da a0 ff c2 10 a2 00 00 a5 98 df 00 c0 ca a5 99 ff 01 c0 ca a5 9a ff 02 c0 ca 90 06 c8 e8 e8 e8 80 e6 e2 10 c0 14 b0 05 00 ea ac 6e 12 8c 6e 12 8c b4 12 fa 7a 68,CA:C000 reverse scanner; preserves A; writes $126E/$12B4
+84:A0C3,0x04A0C3,8d b5 12 ad ab,STA $12B5: receives A4 operand after 84:8554

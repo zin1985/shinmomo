@@ -1,0 +1,11 @@
+{
+  "created": "2026-04-30",
+  "files": [
+    "a0xx_exact_callers_20260430.csv",
+    "wram_12b5_accesses_20260430.csv",
+    "ae3a_direct_hit_pairs_20260430.csv",
+    "top_hook_scan_candidates_20260430.csv",
+    "shinmomo_vol015_a0f2_trace_report_20260430.md"
+  ],
+  "summary": "84:A0xx callers, $12B5 write routes, AE3A direct-hit pairs, CB:01F9 hook path analysis"
+}

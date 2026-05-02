@@ -1,0 +1,4 @@
+bank,snes_addr,pc_offset,opcode,operand_hex,operand_dec,script_ptr,script_hook,equip_indices,offset_in_script,confidence,classification,reason,context
+CB,CB:04C1,0x0B04C1,50,00,0,CB:04B8,C1,16,9,high,aligned_opcode50_candidate,immediately follows B5 one-byte control/return marker; aligns as new opcode 50.,11 DD CA B6 B4 04 C0 B5 50 00 A4 03 69 46 CE 22 D5 3B
+CB,CB:04F9,0x0B04F9,50,00,0,CB:04EE,C1,17,11,medium-high,aligned_opcode50_candidate,"follows 69 xx; 69 behaves as two-byte command in known slices, so 50 is aligned.",CA B6 B4 04 C0 B5 69 46 50 00 A4 05 CE 21 D5 3B 19 E0
+CB,CB:0E17,0x0B0E17,50,00,0,CB:0E08,C8,187,15,high,aligned_opcode50_candidate,"immediately follows A4 xx; A4 is established length 2, so 50 is aligned opcode.",CE 1B D5 3B 19 E0 A4 21 50 00 A4 22 B1 DA 18 CB B0

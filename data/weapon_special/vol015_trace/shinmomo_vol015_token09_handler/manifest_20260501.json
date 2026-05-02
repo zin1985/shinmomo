@@ -1,0 +1,10 @@
+{
+  "created": "2026-05-01",
+  "topic": "token 09 handler branch/JMP target",
+  "files": [
+    "shinmomo_vol015_token09_handler_report_20260501.md",
+    "token09_handler_trace_20260501.csv",
+    "token09_code_window_bytes_20260501.csv"
+  ],
+  "key_result": "token 09 handler target is 84:9F24 via BEQ, not JMP. It calls queue helper 84:9EC7."
+}

@@ -1,0 +1,14 @@
+snes_addr,raw,bytes,asm,meaning
+84:9EB1,0x049EB1,C9 02,CMP #$02,token 02 判定
+84:9EB5,0x049EB5,4C 34 9F,JMP $9F34,token 02 handler。streamから次byteを読み、A0補正してAE3A系へ
+84:9EB8,0x049EB8,C9 09,CMP #$09,token 09 判定
+84:9EBA,0x049EBA,F0 68,BEQ $9F24,token 09 handler の分岐先。JMPではなくBEQ相対分岐
+84:9F24,0x049F24,20 C7 9E,JSR $9EC7,"queue helperを呼ぶ。$1296 headから(A=value, X=type)を取り出す"
+84:9F27,0x049F27,90 03,BCC $9F2C,queue取得成功ならfamily解決へ進む
+84:9F29,0x049F29,4C 18 9E,JMP $9E18,queue空/type=0なら次token評価へ戻る
+84:9F2C,0x049F2C,20 8D 9F,JSR $9F8D,現在のdescriptor contextを保存
+84:9F2F,0x049F2F,9C A9 12,STZ $12A9,fallback/direct family評価前の状態初期化
+84:9F32,0x049F32,80 0B,BRA $9F3F,AE3A呼び出し共通部へ
+84:9F3F,0x049F3F,20 3A AE,JSR $AE3A,"A=value, X=typeでdirect-hit判定"
+84:9F42,0x049F42,B0 46,BCS $9F8A,AE3A direct-hitならdescriptor skip/評価へ
+84:9F44,0x049F44,48 8A 8D A7 12 ...,PHA / TXA / STA $12A7 / ...,direct-hitなし。typeからC7:0000の3byte root tableを引くfallbackへ

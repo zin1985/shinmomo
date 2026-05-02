@@ -1,0 +1,155 @@
+label,snes_bank,snes_addr,raw_offset,bytes_hex,disasm
+85_80b7_queue_builder_command,85,80B7,0280B7,b7 98 aa 20 4b 9f 22 c5 9b 84 60 b7 98 aa 20 94 9f 22 c5 9b 84 60 b7 98 20 ca a0 ad c8 1f ae c9,"85:80B7  b7 98        LDA [dp],Y $98
+85:80B9  aa           TAX
+85:80BA  20 4b 9f     JSR $9F4B
+85:80BD  22 c5 9b 84  JSL $849BC5
+85:80C1  60           RTS
+85:80C2  b7 98        LDA [dp],Y $98
+85:80C4  aa           TAX
+85:80C5  20 94 9f     JSR $9F94
+85:80C8  22 c5 9b 84  JSL $849BC5
+85:80CC  60           RTS
+85:80CD  b7 98        LDA [dp],Y $98
+85:80CF  20 ca a0     JSR $A0CA
+85:80D2  ad c8 1f     LDA abs $1FC8
+85:80D5  ae c9 1f     LDX abs $1FC9"
+85_9f4b_queue_builder_primary,85,9F4B,029F4B,da 5a ac 86 19 b9 d5 19 9d 97 12 b9 e5 19 f0 2b a9 06 9d 9f 12 b9 c5 19 29 10 f0 05 a9 48 9d 97 12 bd 97 12 e8 c9 db b0 18 b9 f5 19 9d 97 12 a9 0f 9d 9f 12 e8 8e 96 12 7a fa 60 a9 04 9d 9f 12 e8 9e 97 12 9e 9f 12 80 eb da 5a ac 8b 19 80 b5 da 5a a8 80 b0,"85:9F4B  da           PHX
+85:9F4C  5a           PHY
+85:9F4D  ac 86 19     LDY abs $1986
+85:9F50  b9 d5 19     LDA abs,Y $19D5
+85:9F53  9d 97 12     STA abs,X $1297
+85:9F56  b9 e5 19     LDA abs,Y $19E5
+85:9F59  f0 2b        BEQ $9F86
+85:9F5B  a9 06        LDA # $06
+85:9F5D  9d 9f 12     STA abs,X $129F
+85:9F60  b9 c5 19     LDA abs,Y $19C5
+85:9F63  29 10        AND # $10
+85:9F65  f0 05        BEQ $9F6C
+85:9F67  a9 48        LDA # $48
+85:9F69  9d 97 12     STA abs,X $1297
+85:9F6C  bd 97 12     LDA abs,X $1297
+85:9F6F  e8           INX
+85:9F70  c9 db        CMP # $DB
+85:9F72  b0 18        BCS $9F8C
+85:9F74  b9 f5 19     LDA abs,Y $19F5
+85:9F77  9d 97 12     STA abs,X $1297
+85:9F7A  a9 0f        LDA # $0F
+85:9F7C  9d 9f 12     STA abs,X $129F
+85:9F7F  e8           INX
+85:9F80  8e 96 12     STX abs $1296
+85:9F83  7a           PLY
+85:9F84  fa           PLX
+85:9F85  60           RTS
+85:9F86  a9 04        LDA # $04
+85:9F88  9d 9f 12     STA abs,X $129F
+85:9F8B  e8           INX
+85:9F8C  9e 97 12     STZ abs,X $1297
+85:9F8F  9e 9f 12     STZ abs,X $129F
+85:9F92  80 eb        BRA $9F7F
+85:9F94  da           PHX
+85:9F95  5a           PHY
+85:9F96  ac 8b 19     LDY abs $198B
+85:9F99  80 b5        BRA $9F50
+85:9F9B  da           PHX
+85:9F9C  5a           PHY
+85:9F9D  a8           TAY
+85:9F9E  80 b0        BRA $9F50"
+85_9f94_queue_builder_current_choice,85,9F94,029F94,da 5a ac 8b 19 80 b5 da 5a a8 80,"85:9F94  da           PHX
+85:9F95  5a           PHY
+85:9F96  ac 8b 19     LDY abs $198B
+85:9F99  80 b5        BRA $9F50
+85:9F9B  da           PHX
+85:9F9C  5a           PHY
+85:9F9D  a8           TAY
+85:9F9E  80 b0        BRA $9F50"
+85_9f9b_queue_builder_arg_row,85,9F9B,029F9B,da 5a a8 80 b0 20 d0 e1,"85:9F9B  da           PHX
+85:9F9C  5a           PHY
+85:9F9D  a8           TAY
+85:9F9E  80 b0        BRA $9F50
+85:9FA0  20 d0 e1     JSR $E1D0"
+85_9fa0_9fa9_row_scan_loop,85,9FA0,029FA0,20 d0 e1 ae 67 00 9e 19 06 9c 8d 19 9c bb 19 ae 8d 19 bd d5 19 f0 50 8e 86 19 ac 67 00 bd e5 19 d9 19 06 d0 1b bd e5 19 d0 1e bd d5 19 c9 15 b0 2a c2 20 a9 3b a0 85 0f e2 20 22 bf ad 80 80 1b ad 64 1d d0 03 ee bb 19 c2 20 a9 23 a0 85 0f e2 20 22 bf ad 80 ae 86 19 9e 25 1a ae 86 19 ac 67 00 bd e5 19 99 19 06 ee 8d 19 ad 8d 19 c9 10 90 9b c2 20 a9 da 97 85 0f e2 20 22 bf ad 80 22 35 ad 80 6b 20 d0,"85:9FA0  20 d0 e1     JSR $E1D0
+85:9FA3  ae 67 00     LDX abs $0067
+85:9FA6  9e 19 06     STZ abs,X $0619
+85:9FA9  9c 8d 19     STZ abs $198D
+85:9FAC  9c bb 19     STZ abs $19BB
+85:9FAF  ae 8d 19     LDX abs $198D
+85:9FB2  bd d5 19     LDA abs,X $19D5
+85:9FB5  f0 50        BEQ $A007
+85:9FB7  8e 86 19     STX abs $1986
+85:9FBA  ac 67 00     LDY abs $0067
+85:9FBD  bd e5 19     LDA abs,X $19E5
+85:9FC0  d9 19 06     CMP abs,Y $0619
+85:9FC3  d0 1b        BNE $9FE0
+85:9FC5  bd e5 19     LDA abs,X $19E5
+85:9FC8  d0 1e        BNE $9FE8
+85:9FCA  bd d5 19     LDA abs,X $19D5
+85:9FCD  c9 15        CMP # $15
+85:9FCF  b0 2a        BCS $9FFB
+85:9FD1  c2 20        REP # $20
+85:9FD3  a9 3b        LDA # $3B
+85:9FD5  a0 85        LDY # $85
+85:9FD7  0f           DB $0F
+85:9FD8  e2 20        SEP # $20
+85:9FDA  22 bf ad 80  JSL $80ADBF
+85:9FDE  80 1b        BRA $9FFB
+85:9FE0  ad 64 1d     LDA abs $1D64
+85:9FE3  d0 03        BNE $9FE8
+85:9FE5  ee bb 19     INC abs $19BB
+85:9FE8  c2 20        REP # $20
+85:9FEA  a9 23        LDA # $23
+85:9FEC  a0 85        LDY # $85
+85:9FEE  0f           DB $0F
+85:9FEF  e2 20        SEP # $20
+85:9FF1  22 bf ad 80  JSL $80ADBF
+85:9FF5  ae 86 19     LDX abs $1986
+85:9FF8  9e 25 1a     STZ abs,X $1A25
+85:9FFB  ae 86 19     LDX abs $1986
+85:9FFE  ac 67 00     LDY abs $0067
+85:A001  bd e5 19     LDA abs,X $19E5
+85:A004  99 19 06     STA abs,Y $0619
+85:A007  ee 8d 19     INC abs $198D
+85:A00A  ad 8d 19     LDA abs $198D
+85:A00D  c9 10        CMP # $10
+85:A00F  90 9b        BCC $9FAC
+85:A011  c2 20        REP # $20
+85:A013  a9 da        LDA # $DA
+85:A015  97           DB $97
+85:A016  85 0f        STA dp $0F
+85:A018  e2 20        SEP # $20
+85:A01A  22 bf ad 80  JSL $80ADBF
+85:A01E  22 35 ad 80  JSL $80AD35
+85:A022  6b           RTL
+85:A023  20 d0 e1     JSR $E1D0"
+84_9bc5_descriptor_eval_wrapper,84,9BC5,049BC5,a9 02 20 10 84 6b 98 80 f9 20 1e 84 6b 20 24 84 6b 20 42 84 6b 20 99 86 6b 20 b9 84 6b 20 d9 84 6b 20 21 80 6b,"84:9BC5  a9 02        LDA # $02
+84:9BC7  20 10 84     JSR $8410
+84:9BCA  6b           RTL
+84:9BCB  98           TYA
+84:9BCC  80 f9        BRA $9BC7
+84:9BCE  20 1e 84     JSR $841E
+84:9BD1  6b           RTL
+84:9BD2  20 24 84     JSR $8424
+84:9BD5  6b           RTL
+84:9BD6  20 42 84     JSR $8442
+84:9BD9  6b           RTL
+84:9BDA  20 99 86     JSR $8699
+84:9BDD  6b           RTL
+84:9BDE  20 b9 84     JSR $84B9
+84:9BE1  6b           RTL
+84:9BE2  20 d9 84     JSR $84D9
+84:9BE5  6b           RTL
+84:9BE6  20 21 80     JSR $8021
+84:9BE9  6b           RTL"
+89_9f24_token09_handler,89,9F24,049F24,20 c7 9e 90 03 4c 18 9e 20 8d 9f 9c a9 12 80 0b 20 34 9e 38 e9 a0 20 8d 9f a2 01 20 3a ae b0 46,"89:9F24  20 c7 9e     JSR $9EC7
+89:9F27  90 03        BCC $9F2C
+89:9F29  4c 18 9e     JMP $9E18
+89:9F2C  20 8d 9f     JSR $9F8D
+89:9F2F  9c a9 12     STZ abs $12A9
+89:9F32  80 0b        BRA $9F3F
+89:9F34  20 34 9e     JSR $9E34
+89:9F37  38           SEC
+89:9F38  e9           DB $E9
+89:9F39  a0 20        LDY # $20
+89:9F3B  8d 9f a2     STA abs $A29F
+89:9F3E  01           DB $01
+89:9F3F  20 3a ae     JSR $AE3A
+89:9F42  b0 46        BCS $9F8A"

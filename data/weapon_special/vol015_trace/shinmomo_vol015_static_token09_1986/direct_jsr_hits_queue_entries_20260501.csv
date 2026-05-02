@@ -1,0 +1,6 @@
+target,raw_hit,lo_snes_guess,in_bank85_region,context
+85:9F4B,0280BA,85:80BA,True,8e c2 8e d0 8e b7 98 aa 20 4b 9f 22 c5 9b 84 60
+85:9F94,0280C5,85:80C5,True,22 c5 9b 84 60 b7 98 aa 20 94 9f 22 c5 9b 84 60
+85:9F9B,028473,85:8473,True,06 05 07 f0 02 b2 06 da 20 9b 9f fa a5 06 05 07
+85:9F9B,02858F,85:858F,True,c9 7f d0 09 b2 06 85 0c 20 9b 9f 80 99 9d 9f 12
+85:9FA9,04E88E,89:E88E,False,19 01 15 03 01 68 03 c2 20 a9 9f e8 85 b9 e2 20

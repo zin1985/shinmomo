@@ -1,0 +1,12 @@
+opcode,length,confidence,evidence
+A0,4,high,A0 E1 03 CB / A0 11 DD CA / A0 F5 7F CB. long pointer operand follows.
+A4,2,high,"A4 02 C0 B5, A4 0F C0 B5, A4 20 C0 B5. 1-byte immediate then next opcode."
+B1,4,high,B1 DB 03 CB; B1 34 85 CB; B1 EF 15 CB. long pointer operand follows.
+B2,2,high,"default script has A4 00 B2 04 A4 01, so B2 consumes one byte."
+B3,2,medium-high,39 03 B3 03 B0 and C0 EC E7 B3 0F 51. one-byte parameter then next opcode.
+B4,2,high,B4 04 C0 B5 / B4 06 B1... / B4 03 B0.
+B5,1,high,terminates short scripts after C0; A0... A4 xx C0 B5 slices align exactly.
+C0,1,high,A4 02 C0 B5 and A4 20 C0 B5; treated as single control/return flag before B5.
+D0,3,high,D0 64 03 and D0 86 19 appear as opcode + 16-bit operand.
+E0,1,high,"D5 xx xx E0, 3B 19 E0, 08 E0; no immediate needed to align slices."
+CE,3,high,"CE 22 D5, CE 21 D5, CE 4B D5, CE 1B D5 as opcode + 16-bit operand."

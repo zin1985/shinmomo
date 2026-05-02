@@ -1,0 +1,5 @@
+candidate,note
+80:BCC3,key + 3-byte pointer scan; 00 terminated; record length 4; NOT CB:01F9 exact because CB top records are key+ptr16
+86:9201,[$0F] record stream; key + 3 payload bytes; calls 84:A02D; record length 4; similar but not CB:01F9
+84:8DB8,[$98] script stream; reads 2-byte pointer then dispatches A1xx helpers; possible descriptor runner layer
+84:8786,calls 84:8554 then JSL 84:A0C3; strongest bridge from resolved master pointer to descriptor evaluator

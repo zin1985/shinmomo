@@ -1,0 +1,3 @@
+target,interpretation,chunk_len_bytes,raw_exact_rom_matches,meaning
+battle current vram.bin,4bpp tile chunks,32,0,VRAM上の戦闘CHRはROMにSNES 4bppタイルとして直置きではない。圧縮またはruntime変換が濃厚。
+battle current vram.bin,2bpp tile chunks,16,0,2bpp直置きとしても一致なし。CHR直サーチよりdecoder/asset table追跡が正攻法。

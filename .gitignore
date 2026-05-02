@@ -1,0 +1,14 @@
+# ROM images are intentionally excluded
+*.smc
+*.sfc
+*.fig
+*.swc
+*.bs
+# local emulator state / cache
+*.state
+*.sav
+*.srm
+*.bak
+__pycache__/
+*.pyc
+.DS_Store

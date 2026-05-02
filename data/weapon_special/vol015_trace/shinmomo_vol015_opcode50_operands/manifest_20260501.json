@@ -1,0 +1,24 @@
+{
+  "created": "2026-05-01",
+  "task": "Enumerate bank85 opcode 0x50 operands in CB/C7-side script streams",
+  "inputs": [
+    "/mnt/data/Shin Momotarou Densetsu (J).smc",
+    "/mnt/data/shinmomo_vol015_runner_probe/weapon_special_inner_script_slices_20260430.csv"
+  ],
+  "outputs": [
+    "/mnt/data/shinmomo_vol015_opcode50_operands/cb_weapon_inner_opcode50_operands_20260501.csv",
+    "/mnt/data/shinmomo_vol015_opcode50_operands/opcode50_operand_summary_20260501.csv",
+    "/mnt/data/shinmomo_vol015_opcode50_operands/c7_descriptor_raw50_not_opcode50_20260501.csv",
+    "/mnt/data/shinmomo_vol015_opcode50_operands/shinmomo_vol015_opcode50_operands_report_20260501.md"
+  ],
+  "cb_aligned_opcode50_count": 3,
+  "cb_operand_summary": [
+    {
+      "operand_hex": "00",
+      "operand_dec": 0,
+      "count": 3,
+      "addresses": "CB:04C1 CB:04F9 CB:0E17"
+    }
+  ],
+  "c7_raw50_not_opcode_count": 8
+}

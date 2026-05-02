@@ -1,0 +1,18 @@
+{
+  "created": "2026-05-01",
+  "topic": "bank85 handler table: 85:80B7 opcode/index confirmation",
+  "conclusion": {
+    "handler": "85:80B7",
+    "table_base": "85:8031",
+    "table_index": "0x00",
+    "opcode": "0x50",
+    "dispatcher": "85:8000",
+    "raw_pc_handler": "0x0280B7"
+  },
+  "files": [
+    "shinmomo_vol015_bank85_opcode50_report_20260501.md",
+    "bank85_handler_table_8031_mapping_20260501.csv",
+    "bank85_opcode50_code_windows_20260501.csv",
+    "manifest_20260501.json"
+  ]
+}

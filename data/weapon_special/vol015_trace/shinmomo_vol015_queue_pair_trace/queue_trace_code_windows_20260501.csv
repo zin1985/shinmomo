@@ -1,0 +1,5 @@
+snes_addr,raw_offset,bytes,description
+85:9F4B,0x029F4B,da 5a ac 86 19 b9 d5 19 9d 97 12 b9 e5 19 f0 2b a9 06 9d 9f 12 b9 c5 19 29 10 f0 05 a9 48 9d 97 12 bd 97 12 e8 c9 db b0 18 b9 f5 19 9d 97 12 a9 0f 9d 9f 12 e8 8e 96 12 7a fa 60 a9 04 9d 9f 12 e8 9e 97 12 9e 9f 12 80 eb da 5a ac 8b 19 80 b5,queue builder: 19D5/19E5/19F5/19C5 -> $1297/$129F
+89:9EC7,0x049EC7,ae 96 12 bd 9f 12 d0 03 38 80 06 48 bd 97 12 fa 18 ee 96 12 60,"queue pop helper: A=$1297[head], X=$129F[head], head++"
+89:9F24,0x049F24,20 c7 9e 90 03 4c 18 9e 20 8d 9f 9c a9 12 80 0b 20 34 9e 38 e9 a0 20 8d 9f a2 01,"token09 handler: JSR 9EC7, fallback to AE3A path"
+89:9EB1,0x049EB1,c9 02 d0 03 4c 34 9f c9 09 f0 68 c9 0a f0 1c c9 11 f0 59 4c 32 9e ae 96 12 bd 9f 12 d0 03 38 80,token dispatch including CMP #09 -> 9F24

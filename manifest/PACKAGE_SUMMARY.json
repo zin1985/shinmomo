@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-05-02T12:01:03.028786Z",
+  "package_root": "shinmomo_vol015_vol016_integrated_handover_20260502_final",
+  "rom_included": false,
+  "file_count": 3251,
+  "size_bytes": 137028292,
+  "key_new_docs": [
+    "docs/handover/SHINMOMO_VOL015_VOL016_THREAD_MERGE_HANDOVER_20260502.md",
+    "docs/handover/GOAL_PROGRESS_VOL015_VOL016_THREAD_MERGE_20260502.csv",
+    "docs/object_path/OBJECT_SLOT_POINTER_0759_0799_HYPOTHESIS_20260502.md",
+    "docs/thread_notes/THREAD_ASSERTION_CONFIDENCE_MAP_20260502.md",
+    "docs/handover/NEXT_ANALYSIS_TASKS_VOL015_VOL016_20260502.md"
+  ]
+}

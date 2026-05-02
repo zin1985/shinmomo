@@ -1,0 +1,5 @@
+path,description
+README.md,使い方と出力内容
+tools/lua/shinmomo_graphics_full_capture_v2_snes9x_bizhawk_20260502.lua,グラフィック完全復元用の全情報採取Lua
+handover/SHINMOMO_GRAPHICS_FULL_CAPTURE_V2_20260502.md,引継ぎメモ
+manifest/FILES.csv,このファイル
