@@ -1,0 +1,5 @@
+save_restore_state
+$87:E790 file_pc=0x03E790
+Object state restore/save area using $0377..$0386 and slot fields
+
+06 ad 7d 03 9d 19 07 ad 86 03 9d 59 07 ad 7b 03 9d 99 07 ad 77 03 9d d9 07 60 bd 19 06 8d 7f 03 bd 59 06 8d 80 03 bd 99 06 8d 81 03 bd d9 06 8d 7e 03 bd 19 07 8d 7d 03 bd 59 07 8d 86 03 bd 99 07 8d 7b 03 bd d9 07 29 08 0d 77 03 8d 77 03 22 74 a4 80 60 a9 10 8d 7f 03 a9 04 8d 80 03 a9 04 8d 81 03 a9 33 8d 7e 03 9c 7d 03 9c 86 03 ad 77 03 29 f7 8d 77 03 22 74 a4 80 60 0a 80 00 00 ff

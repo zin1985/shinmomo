@@ -1,0 +1,5 @@
+slot_copy_0759
+$87:8520 file_pc=0x038520
+Slot copy/init use: $70/$71 into $0719/$0759; STZ $0799
+
+06 a5 70 9d 19 07 a5 71 9d 59 07 9e 99 07 a0 00 c2 20 b7 6c e2 20 9d d9 07 c8 c8 c2 20 b7 6c 87 6f e2 20 fe 99 07 a9 01 9d d9 09 8a 7a fa 6b a9 01 8d 33 11 bd d9 09 30 51 bd 19 06 85 6c bd 59 06 85 6d bd 99 06 85 6e bd d9 06 85 6f bd 19 07 85 70 bd 59 07 85 71 bd d9 07 f0 06 de d9 07 6b

@@ -1,0 +1,5 @@
+state_value,label,confidence,notes
+00,unknown/idle candidate,placeholder,requires runtime labeling
+01,unknown/normal candidate,placeholder,requires runtime labeling
+02,unknown/move candidate,placeholder,requires runtime labeling
+03,unknown/script candidate,placeholder,requires runtime labeling

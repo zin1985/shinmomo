@@ -1,0 +1,6 @@
+slot,confirmed_uses,confidence,notes
+$0619,state/phase candidate,medium,needs per-object type labeling
+$0659,copied between object fields in reader candidate,medium,exact meaning unknown
+$0719,position/fixed-point component in E579-like update,medium-high,object type dependent
+$0759,pointer low; state toggle; data component; position component; save/restore,high,do not treat globally as pointer
+$0799,pointer high; timer; constant #$20; save/restore,high,do not treat globally as wait

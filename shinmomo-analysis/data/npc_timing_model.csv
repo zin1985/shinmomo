@@ -1,0 +1,5 @@
+behavior,expected_wait,expected_weight,note
+IDLE,8,low,placeholder
+MOVE,2,high,placeholder
+TALK,0,high,placeholder
+WAIT,16,near_zero,placeholder

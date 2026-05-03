@@ -1,0 +1,3 @@
+pattern,reason
+*.smc;*.sfc;*.fig;*.swc;*.zip,ROMs and nested ZIPs excluded from commit package
+graphics binaries / runtime dumps,other thread scope; not requested in exact tree

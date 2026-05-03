@@ -1,0 +1,4 @@
+case,active,state_gate,wait_value,expected_action,confidence
+active_waiting,1,script-like,>0,"decrement wait, skip step",hypothesis
+active_ready,1,script-like,0,execute one step,hypothesis
+inactive,0,any,any,skip object,hypothesis

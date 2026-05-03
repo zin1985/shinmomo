@@ -1,0 +1,5 @@
+bank87_vm_reader_candidate
+$87:82C0 file_pc=0x0382C0
+Candidate object-slot pointer reader: LDA $0759,X -> $2A; LDA $0799,X -> $2B; later ($2A),Y
+
+bd 59 06 9d 19 06 bd 59 07 85 2a bd 99 07 85 2b bd 99 06 0a 85 22 64 23 bd 59 08 8d 2e 11 bd 99 08 8d 2f 11 20 3a 83 bd d9 08 f0 0a bd 99 06 18 7d d9 07 9d 99 06 bd 99 06 18 7d d9 07 9d 99 06 22 d6 b3 80 bd d9 08 f0 03 de 99 09 de 99 09 10 28 bd 19 08 d0 11 bd 59 08 85 1e bd 99 08 85 1f 20 01 86 22 d6 b3 80 22 e8 ac 80 9e d9 09 22 e8 ac 80 9c 33 11 22 35 ad 80 6b c2 30 da a2 00 00

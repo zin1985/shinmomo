@@ -1,0 +1,4 @@
+class,estimated_size_bytes,confidence,notes
+simple_state,10-30,low,planning estimate
+movement,20-80,low,planning estimate
+complex_event,80-150,low,planning estimate

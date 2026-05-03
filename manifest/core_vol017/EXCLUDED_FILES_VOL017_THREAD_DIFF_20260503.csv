@@ -1,0 +1,4 @@
+path,reason
+Shin Momotarou Densetsu (J).smc,ROM本体のため除外
+*.zip,ZIP内ZIP回避。前回成果物ZIPは含めない
+graphics/*,グラフィック復元系は別スレッド担当。本差分では除外

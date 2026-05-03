@@ -1,0 +1,13 @@
+Shinmomo recompilable decomp scaffold
+item records:      165
+equipment records: 234
+branch records:    160
+macro A rows:      64
+macro B rows:      64
+vm blob previews:  6
+branch[68]: key=74 target=039850 rom=041C30
+vm frame 0: pc=2 state=3 wait=2 active=1
+vm frame 1: pc=2 state=3 wait=1 active=1
+vm frame 2: pc=2 state=3 wait=0 active=1
+vm frame 3: pc=3 state=3 wait=1 active=1
+vm frame 4: pc=3 state=3 wait=0 active=1

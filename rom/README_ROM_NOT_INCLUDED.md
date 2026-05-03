@@ -1,10 +1,4 @@
 # ROM not included
 
-このコミット用パッケージには、著作物であるROM本体を含めていません。
-
-除外対象例:
-
-- `Shin Momotarou Densetsu (J).smc`
-- `Shin Momotarou Densetsu (J)_original.smc`
-
-解析スクリプトを実行する場合は、各自のローカル環境で正規に用意したROMを指定してください。
+This commit package intentionally does not include `Shin Momotarou Densetsu (J).smc` or any other ROM image.
+Only analysis documents, derived CSV/hexdump metadata, scripts, runtime logs, preview PNGs, and decompilation scaffolds are included.

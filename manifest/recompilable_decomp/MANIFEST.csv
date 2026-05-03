@@ -1,0 +1,10 @@
+path,description
+README.md,package overview
+recompilable_c/Makefile,C99 host build
+recompilable_c/src/vm_runtime.c,VM runtime scaffold
+recompilable_c/generated/item_records.c,generated item records
+recompilable_c/generated/equipment_records.c,generated equipment records
+recompilable_c/generated/branch_records.c,generated branch table candidates
+recompilable_c/generated/macro_rows.c,generated 9-byte macro rows
+tools/decompile_rom_to_c.py,extract known ranges from local ROM
+shinmomo-analysis/analysis/vm_execution_model.md,VM analysis model

@@ -1,0 +1,5 @@
+init_ptr_87e0_b
+$87:81DF file_pc=0x0381DF
+Immediate init path: writes E0/87 into $0759/$0799
+
+a9 01 9d d9 09 a9 e0 9d 59 07 a9 87 9d 99 07 a9 01 9d d9 07 a9 00 9d 99 06 a9 0f 9d 99 09 9e 19 08 a5 20 30 0e 20 b8 85 64 1e 64 1f 20 49 86 22 d6 b3 80 8a 7a fa 6b da 5a 48 c2 20 a9 87 82 85 0f e2 20 a9 83 85 11 a9 60 85 0d 22 22 ac 80 aa 20 90 86 68 85 20 48 29 40 8d 30 11 9c 31 11 68

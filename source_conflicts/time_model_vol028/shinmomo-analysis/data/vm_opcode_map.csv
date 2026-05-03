@@ -1,0 +1,5 @@
+opcode,status,behavior_hint,confidence,notes
+00,candidate,END_OR_NOP,low,Needs actual stream reader confirmation
+07,candidate,COMMAND_OR_ACTION,medium-low,"Inferred from repeated blob patterns, not table-proven"
+80,candidate,BRANCH_OR_FLAG,low,Needs PC/offset confirmation
+FF,candidate,BRANCH_OR_SENTINEL,low,Needs PC/offset confirmation

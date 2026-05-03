@@ -1,14 +1,15 @@
-# ROM images are intentionally excluded
+# ROMs and emulator states must not be committed
 *.smc
 *.sfc
 *.fig
 *.swc
 *.bs
-# local emulator state / cache
-*.state
-*.sav
 *.srm
-*.bak
-__pycache__/
-*.pyc
+*.sav
+*.state
+*.State
+*.zip
+
+# OS/editor
 .DS_Store
+Thumbs.db

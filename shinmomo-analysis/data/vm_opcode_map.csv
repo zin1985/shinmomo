@@ -1,0 +1,5 @@
+opcode,behavior,confidence,note
+0x00,IDLE,low,placeholder
+0x07,EVENT,medium,command-dispatch hypothesis
+0x80,BRANCH,low,branch-like hypothesis
+0xFF,BRANCH,low,branch-like hypothesis

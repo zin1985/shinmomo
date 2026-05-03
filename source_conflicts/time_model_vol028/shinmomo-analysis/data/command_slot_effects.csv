@@ -1,0 +1,5 @@
+command_id,slot,effect,confidence,notes
+TBD,$0619,state/phase candidate,medium,object type dependent
+TBD,$0719,position/fixed-point candidate,medium,paired with $0759 in some routines
+TBD,$0759,pointer OR state OR position field,high,multi-use confirmed by writer scan
+TBD,$0799,pointer high OR timer/wait field,high,multi-use confirmed by writer scan

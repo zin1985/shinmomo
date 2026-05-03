@@ -1,32 +1,19 @@
-# 新桃太郎伝説解析 vol016 merge handover package（2026-05-02）
+# Shinmomo vol017 core + graphics merged handoff (2026-05-03)
 
-このパッケージは、別スレッドで並行している解析とマージするための GitHub コミット用差分です。
+This package is a GitHub-committable handoff bundle for the Shin Momotarou Densetsu analysis project.
 
-## 最初に読むファイル
+It merges:
 
-1. `docs/handover/SHINMOMO_VOL016_MERGE_HANDOVER_20260502.md`
-2. `docs/handover/GOAL_PROGRESS_VOL016_MERGE_20260502.csv`
-3. `docs/graphics/MAPCHIP_GRAPHICS_RECONSTRUCTION_STATUS_VOL016_20260502.md`
-4. `manifest/MANIFEST.csv`
-5. `manifest/EXCLUDED_FILES.csv`
+- current thread script/VM/event/NPC/Goal13 core logic results,
+- the already-committed graphics/mapchip thread final handoff as expanded files,
+- VM time model and simulator files,
+- recompilable C scaffold files,
+- historical handoff references and schema/data dumps.
 
-## 重要
+No ROM images are included. No nested ZIP files are included.
 
-ROM本体（`.smc` / `.sfc`）は含めていません。`rom/README_ROM_NOT_INCLUDED.md` を参照してください。
+Start with:
 
-## 主な追加内容
-
-- vol016 の graphics / mapchip / OAM / DMA / VRAM 解析成果
-- 現在の Lua logging 方針（Snes9x/BizHawk 互換の polling 型）
-- field / battle / static probe のPNG・CSV・handover
-- current character color / DA:3800 stream 系の候補画像
-- tile adjacency → tilemap 推定 → ASCII/PNG可視化用 Python 補助スクリプト
-- 13ゴール進捗の更新CSV
-- 旧引継ぎ資料と過去ZIPの展開済みアーカイブ
-
-## 推奨コミット
-
-```bash
-git add .
-git commit -m "vol016: merge graphics mapchip reconstruction handover"
-```
+- `docs/handover/SHINMOMO_VOL017_CORE_GRAPHICS_MERGED_HANDOVER_20260503.md`
+- `docs/handover/THREAD_REPORT_TO_OTHER_THREAD_20260503.md`
+- `COMMIT_COMMANDS_20260503.sh`

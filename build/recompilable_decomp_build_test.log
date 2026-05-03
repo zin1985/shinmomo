@@ -1,0 +1,9 @@
+mkdir -p build
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c src/main.c -o build/main.o
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c src/vm_runtime.c -o build/vm_runtime.o
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c generated/item_records.c -o build/item_records.o
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c generated/equipment_records.c -o build/equipment_records.o
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c generated/branch_records.c -o build/branch_records.o
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c generated/macro_rows.c -o build/macro_rows.o
+cc -std=c99 -Wall -Wextra -O2 -Iinclude -Igenerated -Isrc -c generated/vm_blob_catalog.c -o build/vm_blob_catalog.o
+cc -std=c99 -Wall -Wextra -O2 build/main.o build/vm_runtime.o build/item_records.o build/equipment_records.o build/branch_records.o build/macro_rows.o build/vm_blob_catalog.o -o build/shinmomo_decomp_demo

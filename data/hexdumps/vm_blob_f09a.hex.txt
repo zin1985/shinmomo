@@ -1,0 +1,5 @@
+vm_blob_f09a
+$87:F09A file_pc=0x03F09A
+F09A blob candidate, script/data/native mixed-looking bytes
+
+07 20 01 a0 00 0b ec ff 15 0a 22 2f fc 15 0a 22 30 fc 15 78 15 78 37 07 80 01 60 00 0b 70 ff 15 0a 22 2f fc 15 0a 22 30 fc 15 40 37 07 78 ff ac 00 33 17 07 88 ff ac 00 33 10 07 98 ff ac 00 33 09 07 80 ff 9e 00 35 f9 f0 0b 40 00 20 08 15 80 29 2f fc 25 57 03 01 0b 00 00 15 f0 33 fd 37 da 8a 29 03 aa bd 06 f1 99 a7 0b fa 60 48 68 88 a8 07 80 00 78 00 15 f0 15 46 06 77 20 14 15 3c 29 2f fc 37 07 80 00 20 01 15 01 0c 00 fe 15 50 0c 00 00 15 01 21 35 11 30 fa 15 20 37 07 70 00 7f 00 15 01 21 de 00 2f fa 35 50 f1 15 01 21 de 00 30 f7 14 03 80 37 da 22 77 ed 84 85 00 a2 00 bd

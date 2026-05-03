@@ -1,0 +1,5 @@
+slot,meaning_for_vm_object,meaning_for_other_object,confidence
+$0619,state/routine_phase,object_work,medium
+$0719,x_or_work,position_or_work,medium
+$0759,ptr_low_or_y,position/state/restore_field,high
+$0799,wait_or_ptr_high,timer/velocity/restore_field,high

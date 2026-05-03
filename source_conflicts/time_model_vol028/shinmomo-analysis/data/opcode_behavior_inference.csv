@@ -1,0 +1,5 @@
+opcode,observed_delta,inferred_behavior,confidence,todo
+TBD,coordinate delta,MOVE,pending,runtime probe required
+TBD,state change,STATE_CHANGE,pending,runtime probe required
+TBD,text trigger,TALK,pending,runtime probe required
+TBD,wait/timer set,WAIT,pending,runtime probe required
