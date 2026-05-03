@@ -1,0 +1,16 @@
+column_name,type,description
+frame,int,frame number
+slot,int,OAM slot
+tile,int,OAM tile index
+attr,hex,OAM attr
+palette,int,palette decoded from attr
+priority,int,priority decoded from attr
+hflip,bool,horizontal flip
+vflip,bool,vertical flip
+size,string,8x8 / 16x16 / unknown
+obj_base,int,OBSEL object base
+name_select,int,OBSEL name select
+chr_addr_hex,hex,computed VRAM byte address
+region_label,string,inferred region label
+object_id,string,joined visible object id
+notes,string,note

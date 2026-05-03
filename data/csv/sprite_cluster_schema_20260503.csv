@@ -1,0 +1,15 @@
+column_name,type,description
+cluster_id,string,stable cluster id
+frame,int,frame number
+object_id,string,visible object id if available
+slots,string,semicolon-separated OAM slots
+tile_indices,string,semicolon-separated tile ids
+x_min,int,bounding box min x
+x_max,int,bounding box max x
+y_min,int,bounding box min y
+y_max,int,bounding box max y
+palette,int,dominant palette
+region_label,string,dominant VRAM region label
+object_type,string,enemy / ally / ui_number / ui_icon / effect / unknown
+confidence,float,0.0-1.0 confidence
+notes,string,manual note

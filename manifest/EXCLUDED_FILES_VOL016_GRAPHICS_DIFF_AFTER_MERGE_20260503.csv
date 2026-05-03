@@ -1,0 +1,5 @@
+path,reason
+Shin Momotarou Densetsu (J).smc,ROM本体のため除外
+Shin Momotarou Densetsu (J)_original.smc,ROM本体のため除外
+*.sfc,ROM本体候補のため除外
+*.ips,今回のgraphics差分対象外。patchは別管理

@@ -1,0 +1,18 @@
+column_name,type,description
+frame,int,logger frame index
+slot,int,OAM slot index
+x,int,sprite X coordinate
+y,int,sprite Y coordinate
+tile,int,OAM tile index raw
+attr,hex,OAM attribute byte raw
+palette,int,OAM palette number decoded from attr
+priority,int,OAM priority decoded from attr
+hflip,bool,horizontal flip decoded from attr
+vflip,bool,vertical flip decoded from attr
+size,string,OAM size class if available
+chr_vram_word,hex,inferred VRAM word address for sprite CHR if known
+chr_vram_byte,hex,inferred VRAM byte address for sprite CHR if known
+region_label,string,battle_chr_0000_7fff / battle_ui_glyph_8000_afff / empty_b000_bfff / battle_object_ui_c000_dfff / empty_e000_efff / special_f000_ffff / unknown
+visible_object_id,string,visible object id from runtime logger if joinable
+visible_object_type,string,visible object type/state from runtime logger if joinable
+note,string,manual observation or confidence note

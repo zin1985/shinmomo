@@ -1,0 +1,6 @@
+pattern,reason
+*.smc,ROM本体はコミット対象外
+*.sfc,ROM本体はコミット対象外
+*.fig,ROM本体はコミット対象外
+Shin Momotarou Densetsu (J).smc,ROM本体はコミット対象外
+Shin Momotarou Densetsu (J)_original.smc,ROM本体はコミット対象外

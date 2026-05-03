@@ -1,0 +1,10 @@
+column_name,type,description
+scene,string,scene tag such as field/town/indoor/battle
+frame_range,string,frames used for validation
+passed,bool,true if all validation thresholds pass
+issues_count,int,number of validation issues
+adjacency_score,float,observed vs reconstructed adjacency score
+tile_continuity_score,float,edge/corner continuity score
+dma_consistency_score,float,tile assets supplied by DMA sequence
+palette_consistency_score,float,CGRAM palette consistency score
+notes,string,manual notes

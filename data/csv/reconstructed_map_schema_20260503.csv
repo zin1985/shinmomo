@@ -1,0 +1,8 @@
+column_name,type,description
+scene,string,scene tag
+x,int,metatile grid x
+y,int,metatile grid y
+metatile_id,string,canonical metatile id
+source,string,observed/reconstructed/manual
+confidence,float,confidence score
+notes,string,manual notes

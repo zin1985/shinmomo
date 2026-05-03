@@ -1,0 +1,14 @@
+column_name,type,description
+frame,int,frame number
+scene_tag,string,manual or inferred scene tag
+bg_hash,string,combined bg_hash0:bg_hash1:bg_hash2
+cgram_hash,string,CGRAM hash
+oam_hash,string,OAM hash
+obj_head,string,object chain head
+obj_count,int,active object count
+obj_chain_hash,string,object chain hash
+oam_visible_count,int,visible OAM count
+scene_change_flag,bool,bg hash changed from previous row
+object_change_flag,bool,oam or object hash changed from previous row
+graphics_state_tag,string,stable_bg_stable_obj / stable_bg_object_motion / bg_transition / full_transition
+notes,string,note

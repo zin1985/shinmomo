@@ -1,0 +1,5 @@
+goal_no,goal_title,previous,run2,delta,note
+GFX,graphics/mapchip reconstruction,57,60,+3,current vram.binをbattle CHR型として分類し、region summary/tilemap candidate scoring/CHR atlasを生成
+11,アイテム・装備・キャラ・会話の外部データ化,80,80,0,全体値は維持。ただしgraphics外部化サブ項目はCSV/PNG追加で前進
+12,新桃全体の構造を人間が読める形で再構成する,82,83,+1,field型tilemapとbattle型CHR snapshotを分離できた
+13,NPC大量表示時の処理軽減ロジックを特定する,75,75,0,本体値は維持。OAM/VRAM観測基盤だけ前進

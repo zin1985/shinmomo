@@ -1,0 +1,11 @@
+column_name,type,description
+metatile_id,string,metatile id
+count,int,frequency
+entry00_hex,hex,top-left tilemap entry
+entry01_hex,hex,top-right tilemap entry
+entry10_hex,hex,bottom-left tilemap entry
+entry11_hex,hex,bottom-right tilemap entry
+tiles,string,tile ids
+palettes,string,palette ids
+flags,string,priority/flip summary
+notes,string,note

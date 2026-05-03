@@ -1,0 +1,8 @@
+column_name,type,description
+scene,string,scene tag
+from_metatile_id,string,source canonical metatile id
+to_metatile_id,string,neighbor canonical metatile id
+direction,enum,right/down/left/up
+frequency,int,observed adjacency count
+confidence,float,confidence score
+notes,string,manual notes
