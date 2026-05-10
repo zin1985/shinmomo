@@ -1,0 +1,2 @@
+frame,scene,chr_id,cluster_track_id,class_hint,contribution_band,note
+schema,integer,string,string,string,string,string,"battle CHR atlas and contribution grouping summary"

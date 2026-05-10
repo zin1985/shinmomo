@@ -1,0 +1,13 @@
+goal,status,progress_percent,notes
+G7_blob_runners,confirmed,100,"$83:F09A/$83:F0DB/$83:F0C6 treated as terminal append-buffer consumers"
+G8_dispatch,confirmed,100,"$0759 dispatch is append-gated; invisible slots do not execute"
+G9_vm_script,confirmed,100,"VM/event/script remain configuration-only for Goal13 path"
+G12_architecture,confirmed,100,"one-way VM/config -> slot loop -> append -> dispatch/OAM topology"
+G13_npc_oam,near_complete,99,"model complete; constants/RAM/opcodes unresolved"
+G14_slot_state,confirmed,100,"contiguous-prefix threshold model stabilized"
+G15_clustering,confirmed,100,"fragmentation-resistant cluster persistence"
+G16_oam_budget,hypothesis_strong,95,"emergent budget model via append_count limitation"
+G17_gating,confirmed,100,"SKIP equals disappearance in observed model"
+G18_timing,confirmed,100,"execution_frame is stable synchronization anchor"
+G19_dispatch_linkage,strong,97,"CHR grouping aligns with contribution bands; exact map unresolved"
+G20_validation,confirmed,100,"compression-stable branch-causal datasets"

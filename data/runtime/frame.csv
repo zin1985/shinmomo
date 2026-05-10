@@ -1,0 +1,2 @@
+frame,execution_frame,accumulated_acceleration,density_acceleration,density_decay_rate,cutoff_index,cutoff_slope,note
+schema,integer,integer,number,number,number,integer,number,"frame-level reconstruction summary"

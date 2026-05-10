@@ -1,0 +1,2 @@
+frame,world_x,world_y,tiles_2x2,metatile_id,confidence,note
+schema,integer,integer,integer,string,string,number,"2x2 metatile reconstruction summary"

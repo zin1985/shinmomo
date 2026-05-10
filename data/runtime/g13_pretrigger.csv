@@ -1,0 +1,2 @@
+frame,execution_frame,density_acceleration,accumulated_acceleration,pretrigger_state,note
+schema,integer,integer,number,number,string,"threshold buildup / plateau / decay summary"

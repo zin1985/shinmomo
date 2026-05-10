@@ -1,19 +1,20 @@
-# Shinmomo vol017 core + graphics merged handoff (2026-05-03)
+# Shinmomo scheduled-analysis handoff 260510Y
 
-This package is a GitHub-committable handoff bundle for the Shin Momotarou Densetsu analysis project.
+This package preserves the scheduled Shin Momotarou Densetsu analysis outputs discussed on 2026-05-10.
 
-It merges:
+It is intended to be copied into the root of `zin1985/shinmomo` and committed as normal text/data/tool files.
 
-- current thread script/VM/event/NPC/Goal13 core logic results,
-- the already-committed graphics/mapchip thread final handoff as expanded files,
-- VM time model and simulator files,
-- recompilable C scaffold files,
-- historical handoff references and schema/data dumps.
+## Start here
 
-No ROM images are included. No nested ZIP files are included.
+- `docs/handoff/HM_260510Y.md`
+- `docs/analysis/goals.md`
+- `docs/analysis/core_g13.md`
+- `docs/analysis/graphics_g13.md`
+- `manifest/MANIFEST.md`
+- `manifest/EXCLUDED.md`
+- `COMMIT_COMMANDS_260510Y.sh`
 
-Start with:
+## Important exclusions
 
-- `docs/handover/SHINMOMO_VOL017_CORE_GRAPHICS_MERGED_HANDOVER_20260503.md`
-- `docs/handover/THREAD_REPORT_TO_OTHER_THREAD_20260503.md`
-- `COMMIT_COMMANDS_20260503.sh`
+No ROM images, savestates, raw VRAM/OAM/CGRAM dumps, or nested ZIP files are included.
+

@@ -1,0 +1,2 @@
+frame,rank,cluster_track_id,visible,termination_flag,x,y,note
+schema,integer,integer,string,bool,bool,integer,integer,"visible object summary and append proxy"

@@ -1,0 +1,2 @@
+frame,world_x,world_y,tile,source_bg,stable,note
+schema,integer,integer,integer,integer,string,bool,"stitched world-coordinate tilemap summary"

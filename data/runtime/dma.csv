@@ -1,0 +1,2 @@
+frame,channel,source,dest,size,kind,note
+schema,integer,integer,string,string,integer,string,"DMA summary; presentation-only for Goal13"

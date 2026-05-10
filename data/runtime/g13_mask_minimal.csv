@@ -1,0 +1,2 @@
+execution_frame,cutoff_index,rank,termination_flag,note
+schema,integer,integer,integer,bool,"minimal branch-window isolation dataset"

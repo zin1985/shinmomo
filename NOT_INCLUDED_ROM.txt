@@ -1,9 +1,11 @@
-# ROM本体は含めていません
+ROM binaries are intentionally not included.
 
-このパッケージには `.smc` / `.sfc` ROM本体を含めていません。
+Excluded examples:
+- *.smc
+- *.sfc
+- *.bin
+- savestates
+- raw VRAM/OAM/CGRAM dumps
+- nested ZIP/7z archives
 
-解析再現時は、利用者側で正当なROMファイルを用意し、必要に応じて以下を実行してください。
-
-```bash
-python scripts/analysis/extract_weapon_special_anchor_bytes.py "Shin Momotarou Densetsu (J).smc"
-```
+Use the user's local legally obtained ROM only for private verification.

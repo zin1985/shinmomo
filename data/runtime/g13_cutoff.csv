@@ -1,0 +1,2 @@
+frame,execution_frame,cutoff_index,visible_count,append_count_proxy,skip_start_rank,note
+schema,integer,integer,integer,integer,integer,integer,"visible/skip partition summary"

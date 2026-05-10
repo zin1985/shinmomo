@@ -1,0 +1,2 @@
+frame,rank,cluster_track_id,contribution_est,S_i,cutoff_slope,note
+schema,integer,integer,string,number,number,number,"contribution and cumulative threshold estimate"

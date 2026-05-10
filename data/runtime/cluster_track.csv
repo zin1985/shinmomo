@@ -1,0 +1,2 @@
+frame,cluster_track_id,oam_ids,chr_ids,stable,fragmented,note
+schema,integer,string,string,string,bool,bool,"logical cluster continuity summary"
