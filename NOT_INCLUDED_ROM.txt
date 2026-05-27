@@ -1,11 +1,1 @@
-ROM binaries are intentionally not included.
-
-Excluded examples:
-- *.smc
-- *.sfc
-- *.bin
-- savestates
-- raw VRAM/OAM/CGRAM dumps
-- nested ZIP/7z archives
-
-Use the user's local legally obtained ROM only for private verification.
+ROM files (.smc/.sfc), savestates, raw VRAM/OAM/CGRAM dumps, and nested ZIP archives are intentionally excluded.

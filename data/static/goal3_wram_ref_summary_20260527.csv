@@ -1,0 +1,156 @@
+summary_type,key,count
+operand,$2020,57
+operand,$201F,46
+operand,$3004,32
+operand,$3014,29
+operand,$2028,28
+operand,$2022,24
+operand,$3010,24
+operand,$3018,24
+operand,$2021,23
+operand,$2026,23
+operand,$3030,23
+operand,$3020,23
+operand,$303C,23
+operand,$302F,22
+operand,$3036,22
+operand,$2030,20
+operand,$201E,20
+operand,$3012,18
+operand,$202D,18
+operand,$301D,18
+operand,$202F,18
+operand,$300A,17
+operand,$2023,17
+operand,$3005,16
+operand,$3009,16
+operand,$3013,15
+operand,$3027,14
+operand,$3019,14
+operand,$301F,13
+operand,$2027,13
+operand,$3007,13
+operand,$202A,12
+operand,$3028,12
+operand,$3032,12
+operand,$3024,12
+operand,$202C,12
+operand,$3037,12
+operand,$3026,12
+operand,$2024,12
+operand,$3022,11
+operand,$3011,11
+operand,$301C,11
+operand,$300E,11
+operand,$301A,10
+operand,$302D,10
+operand,$3023,10
+operand,$3025,9
+operand,$3017,9
+operand,$3008,9
+operand,$301E,9
+operand,$2025,8
+operand,$2029,8
+operand,$3016,8
+operand,$302C,8
+operand,$300F,8
+operand,$302B,7
+operand,$3031,7
+operand,$300D,7
+operand,$3006,6
+operand,$3015,6
+operand,$300C,6
+operand,$301B,6
+operand,$3038,6
+operand,$3021,6
+operand,$302E,6
+operand,$202E,6
+operand,$202B,5
+operand,$3033,4
+operand,$302A,4
+operand,$303B,3
+operand,$3029,3
+operand,$300B,3
+operand,$3035,2
+operand,$3034,2
+operand,$303A,2
+operand,$3039,1
+raw_bank_hi,0x03,159
+raw_bank_hi,0x02,155
+raw_bank_hi,0x12,49
+raw_bank_hi,0x1B,49
+raw_bank_hi,0x19,47
+raw_bank_hi,0x05,45
+raw_bank_hi,0x10,45
+raw_bank_hi,0x1C,43
+raw_bank_hi,0x1D,37
+raw_bank_hi,0x11,35
+raw_bank_hi,0x13,31
+raw_bank_hi,0x01,28
+raw_bank_hi,0x18,28
+raw_bank_hi,0x1E,28
+raw_bank_hi,0x0F,27
+raw_bank_hi,0x0E,26
+raw_bank_hi,0x14,22
+raw_bank_hi,0x06,20
+raw_bank_hi,0x1F,18
+raw_bank_hi,0x00,17
+raw_bank_hi,0x16,17
+raw_bank_hi,0x09,16
+raw_bank_hi,0x15,15
+raw_bank_hi,0x17,15
+raw_bank_hi,0x0C,14
+raw_bank_hi,0x08,12
+raw_bank_hi,0x1A,12
+raw_bank_hi,0x04,7
+raw_bank_hi,0x0A,7
+raw_bank_hi,0x07,2
+raw_bank_hi,0x0D,1
+mnemonic,INC abs,75
+mnemonic,TSB abs,62
+mnemonic,BIT abs,57
+mnemonic,"DEC abs,X",54
+mnemonic,"INC abs,X",49
+mnemonic,"SBC abs,X",43
+mnemonic,"ASL abs,X",39
+mnemonic,DEC abs,38
+mnemonic,"CMP abs,X",37
+mnemonic,"CMP abs,Y",33
+mnemonic,CMP abs,29
+mnemonic,"LDX abs,Y",28
+mnemonic,ROL abs,27
+mnemonic,"ORA abs,Y",26
+mnemonic,"SBC abs,Y",26
+mnemonic,TRB abs,26
+mnemonic,SBC abs,25
+mnemonic,AND abs,24
+mnemonic,ASL abs,24
+mnemonic,"AND abs,X",23
+mnemonic,LDX abs,22
+mnemonic,"ROL abs,X",22
+mnemonic,ORA abs,22
+mnemonic,LDA abs,21
+mnemonic,"EOR abs,Y",19
+mnemonic,"ORA abs,X",16
+mnemonic,"BIT abs,X",15
+mnemonic,"EOR abs,X",14
+mnemonic,"AND abs,Y",12
+mnemonic,"ADC abs,X",12
+mnemonic,"LDA abs,X",10
+mnemonic,"LDY abs,X",9
+mnemonic,"STA abs,Y",8
+mnemonic,LDY abs,8
+mnemonic,STZ abs,8
+mnemonic,"ROR abs,X",7
+mnemonic,"LSR abs,X",7
+mnemonic,EOR abs,7
+mnemonic,"LDA abs,Y",6
+mnemonic,"STZ abs,X",6
+mnemonic,STY abs,6
+mnemonic,"ADC abs,Y",6
+mnemonic,LSR abs,5
+mnemonic,STA abs,4
+mnemonic,STX abs,3
+mnemonic,"STA abs,X",3
+mnemonic,ROR abs,3
+mnemonic,ADC abs,1
