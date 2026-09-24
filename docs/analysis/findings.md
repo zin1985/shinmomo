@@ -62,6 +62,10 @@
 - The next required observation is a debugger run covering normal-visible and
   off-screen NPC cases, with `$0799,X` writes correlated to append buffer/count
   changes. Until then, the Goal13 evidence level remains unchanged.
+- A user-area survey found an existing reusable BizHawk 2.11 installation with
+  `EmuHawk.exe`, Snes9x/bsnes cores, and prior Lua probes. The new launcher and
+  probe are checked in, but the Work terminal policy prevented starting the GUI
+  process, so the minimum CPU/frame/register/WRAM smoke test remains pending.
 
 ### Constants
 

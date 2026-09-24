@@ -9,6 +9,14 @@
 *.state
 *.State
 *.zip
+*.vram
+*.oam
+*.cgram
+
+# Dynamic-analysis local outputs
+tools/dynamic/*.jsonl
+tools/dynamic/*.log
+tools/dynamic/tmp/
 
 # OS/editor
 .DS_Store

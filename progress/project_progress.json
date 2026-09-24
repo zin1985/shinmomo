@@ -22,7 +22,7 @@
     {"id":"npc-oam","name":"NPC / OAM Goal13","percent":99,"weight":0.8,"status":"near-complete","scope":"visibility staging→append→OAM emissionのGoal13モデル","evidence":"既存の要約runtime証拠でmodel 100% / evidence 99%。2026-09-25はROMハッシュ確認のみで、新規動的traceは未取得（デバッガ未導入）のため数値据え置き"}
   ],
   "schedule": [
-    {"priority":1,"track_id":"npc-oam","title":"Goal13 動的probe環境の導入","target":"Mesen2/bsnes-plusを用意し、通常表示・画面外の$0799,X write/readとappend相関を取得","status":"next"},
+    {"priority":1,"track_id":"npc-oam","title":"BizHawk動的probeの実行","target":"既存BizHawk 2.11をGUIセッションで起動し、通常表示・画面外の$0799,X write/readとappend相関を取得","status":"next"},
     {"priority":2,"track_id":"npc-oam","title":"Goal13 残定数の確定","target":"SKIP_MASK、threshold T、shared_state RAM、append_buffer/count、bank87 exact opcodes","status":"queued"},
     {"priority":3,"track_id":"script-vm","title":"0x41A10 reader hunt","target":"0x39850/0x39993と0x30000台scriptを読むroutine/xrefの確定","status":"queued"},
     {"priority":4,"track_id":"weapon-special","title":"武器特殊能力hook分類","target":"C1/C2/C8 hookと装備script-packの意味付け","status":"queued"},

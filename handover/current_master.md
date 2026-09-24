@@ -17,10 +17,12 @@
 
 The provided ROM was found and hashed out-of-tree (2 MiB,
 `F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98`). No ROM
-copy is tracked. A debugger-capable SNES emulator was not available in Work,
-so no new runtime trace is claimed. Continue from the existing Goal13 model;
-first provision Mesen2/bsnes-plus, then capture normal-visible and off-screen
-NPC cases using `tools/dynamic/README.md` as the probe contract.
+copy is tracked. A user-area survey found an existing BizHawk 2.11 installation
+with `EmuHawk.exe`, Snes9x/bsnes cores, and prior Lua probes. A reusable
+launcher and Goal13 probe are now in `tools/dynamic/`. The Work terminal cannot
+create a GUI process under its current policy, so the CPU/frame/register/WRAM
+smoke test is still pending; run the launcher from the connected Windows
+desktop before claiming dynamic evidence.
 
 全13ゴール単純平均: **約 87.5%**
 
