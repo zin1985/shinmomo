@@ -14,7 +14,7 @@ jobs:
     uses: ./.github/workflows/reusable-build.yml
     with:
       python-version: '3.11'
-      build-command: python -m compileall -q tools scripts
+      build-command: python -m compileall -q tools scripts && node --check site/app.js
       test-command: python scripts/ci_validate.py
       package-command: python scripts/build_info.py && python scripts/package.py
       artifact-directory: dist
