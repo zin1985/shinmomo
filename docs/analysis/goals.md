@@ -1,5 +1,13 @@
 # Goal progress snapshot 260510Y
 
+## Dynamic-analysis cycle note (2026-09-25)
+
+The supplied ROM was available out-of-tree and verified by hash, but Work has
+no installed Mesen2/bsnes-plus debugger. Goal13 therefore remains at
+model=100% / evidence=99%; no new runtime claim or percentage increase is made.
+Provisioning the debugger and capturing normal-visible plus off-screen NPC
+cases is now the first scheduled action.
+
 ## Core goals
 
 | Goal | Status | Scheduled-analysis update |

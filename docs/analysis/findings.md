@@ -50,6 +50,19 @@
 
 ## Unresolved items
 
+### 2026-09-25 dynamic-analysis cycle
+
+- The supplied 2 MiB ROM was available out-of-tree and identified by SHA-256 in
+  `data/dynamic_probe_static/ROM_INPUT_MANIFEST.json`; the ROM itself was not
+  copied into the repository.
+- No supported SNES debugger executable (Mesen2/bsnes-plus) is installed in
+  the Work environment, so this cycle produced **no dynamic trace**. Existing
+  runtime summaries remain prior-cycle evidence and are not relabeled as a new
+  execution.
+- The next required observation is a debugger run covering normal-visible and
+  off-screen NPC cases, with `$0799,X` writes correlated to append buffer/count
+  changes. Until then, the Goal13 evidence level remains unchanged.
+
 ### Constants
 
 - `SKIP_MASK`

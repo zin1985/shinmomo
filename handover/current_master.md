@@ -13,6 +13,15 @@
 
 ## 1. 13ゴール最新進捗
 
+### 2026-09-25 dynamic-analysis handoff
+
+The provided ROM was found and hashed out-of-tree (2 MiB,
+`F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98`). No ROM
+copy is tracked. A debugger-capable SNES emulator was not available in Work,
+so no new runtime trace is claimed. Continue from the existing Goal13 model;
+first provision Mesen2/bsnes-plus, then capture normal-visible and off-screen
+NPC cases using `tools/dynamic/README.md` as the probe contract.
+
 全13ゴール単純平均: **約 87.5%**
 
 | No | ゴール | 進捗 | 状況 |

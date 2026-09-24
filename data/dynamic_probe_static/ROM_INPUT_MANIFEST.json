@@ -1,0 +1,10 @@
+{
+  "purpose": "out-of-tree ROM input manifest; no ROM content",
+  "filename": "Shin Momotarou Densetsu (J)_original(1).smc",
+  "size_bytes": 2097152,
+  "sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "used_for": ["static Goal13 probe generation"],
+  "dynamic_trace_obtained": false,
+  "reason": "No Mesen2/bsnes-plus debugger executable is installed in Work",
+  "rom_stored_in_repository": false
+}
