@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "project": "Shin Momotarou Densetsu reverse engineering",
+  "repository": "zin1985/shinmomo",
+  "updated_at": "2026-09-25T00:58:00+09:00",
+  "overall_method": "weighted_mean",
+  "overall_note": "全体進捗は各解析トラックの重み付き平均。局所Goalの100%をゲーム全体100%として扱わない。",
+  "tracks": [
+    {"id":"rom-map","name":"ROMマップ / バンク分類","percent":72,"weight":1.1,"status":"active","scope":"全ROMのcode/data/table配置と主要ブロック意味付け","evidence":"March baseline 70% + Mayまでの追加静的解析を反映したローリング推定"},
+    {"id":"script-vm","name":"Script VM / Event","percent":64,"weight":1.4,"status":"active","scope":"0x30000台script、0x41A10 family、reader/dispatcher","evidence":"May Goal9全体側 62-64%。Goal13 visibility path内のVM isolation 100%とは別スコープ"},
+    {"id":"fd67-selector","name":"FD67 selector","percent":80,"weight":0.9,"status":"stable","scope":"selector分解・record構造・参照関係","evidence":"March handoff baseline"},
+    {"id":"wram","name":"WRAM構造体","percent":62,"weight":1.2,"status":"active","scope":"7E:201E..2030、7E:3004..303Cなどのread/write意味付け","evidence":"March 58%から静的解析進展を加味したローリング推定"},
+    {"id":"81-8d87","name":"81:8D87 4値 / 局所状態","percent":30,"weight":0.6,"status":"open","scope":"4値の役割と状態遷移の確定","evidence":"March handoff baseline。未解決比率が高い"},
+    {"id":"shop-ledger","name":"店 / Ledger / UI","percent":78,"weight":0.8,"status":"stable","scope":"transaction core、ledger/bucket/choice、店UI","evidence":"March handoff baseline。取引コアは高確度"},
+    {"id":"item-equipment","name":"Item / Equipment","percent":76,"weight":1.0,"status":"active","scope":"item/equipment tables、装備pack、効果参照","evidence":"March 76% baseline。Mayの装備script-pack同定を含む"},
+    {"id":"weapon-special","name":"武器特殊能力","percent":62,"weight":1.0,"status":"active","scope":"特殊武器hook、C1/C2/C8系、効果ルーチン分類","evidence":"May static Goal7 estimate 60-62%"},
+    {"id":"condition-dispatch","name":"Condition dispatch","percent":62,"weight":0.9,"status":"active","scope":"条件判定・dispatch table・呼出条件","evidence":"March handoff baseline"},
+    {"id":"dialogue","name":"会話 / Script大量抽出","percent":58,"weight":1.2,"status":"active","scope":"script→text pointer→文字列の大量抽出とイベント対応","evidence":"March handoff baseline。0x41A10 readerが主要blocker"},
+    {"id":"character-display","name":"Character display","percent":95,"weight":0.6,"status":"stable","scope":"キャラ表示・sprite/OAM周辺の既知経路","evidence":"March baseline 95%。Goal13の深掘りで表示経路の証拠が増加"},
+    {"id":"externalization","name":"外部化 / 再構築","percent":65,"weight":1.3,"status":"active","scope":"ROM依存知識をschema/data/toolへ外部化し再生成可能にする","evidence":"March 62% baseline + GitHub/CI外部化を反映したローリング推定"},
+    {"id":"whole-game","name":"ゲーム全体再構築","percent":75,"weight":1.5,"status":"active","scope":"仕様・データ・コードの再構成可能性","evidence":"March handoff 75% baseline。局所解析進展はあるが未確定系を維持"},
+    {"id":"npc-oam","name":"NPC / OAM Goal13","percent":99,"weight":0.8,"status":"near-complete","scope":"visibility staging→append→OAM emissionのGoal13モデル","evidence":"May goals.md: model 100% / evidence 99%。残りは定数・RAM・exact opcodes"}
+  ],
+  "schedule": [
+    {"priority":1,"track_id":"npc-oam","title":"Goal13 残定数の確定","target":"SKIP_MASK、threshold T、shared_state RAM、append_buffer/count、bank87 exact opcodes","status":"next"},
+    {"priority":2,"track_id":"script-vm","title":"0x41A10 reader hunt","target":"0x39850/0x39993と0x30000台scriptを読むroutine/xrefの確定","status":"queued"},
+    {"priority":3,"track_id":"weapon-special","title":"武器特殊能力hook分類","target":"C1/C2/C8 hookと装備script-packの意味付け","status":"queued"},
+    {"priority":4,"track_id":"wram","title":"WRAM列意味付け","target":"1E11/1E51/1ED1/1F11系および関連WRAMのread/write分類","status":"queued"},
+    {"priority":5,"track_id":"dialogue","title":"会話大量抽出pipeline","target":"script→text pointer→decoded textの一括対応","status":"queued"},
+    {"priority":6,"track_id":"externalization","title":"全ROM横断xref更新","target":"call graph / pointer table / fixed record / code-data分類の更新","status":"queued"}
+  ],
+  "sources": [
+    "docs/handoff/HM_260510Y.md",
+    "docs/analysis/goals.md",
+    "docs/analysis/core_g13.md",
+    "docs/analysis/graphics_g13.md",
+    "docs/analysis/findings.md"
+  ]
+}
