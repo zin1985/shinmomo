@@ -1,0 +1,58 @@
+name: Reusable project build
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: '3.11'
+      build-command:
+        required: false
+        type: string
+        default: 'python -m compileall -q .'
+      test-command:
+        required: false
+        type: string
+        default: 'python -m pytest -q'
+      package-command:
+        required: false
+        type: string
+        default: 'python scripts/package.py'
+      artifact-directory:
+        required: false
+        type: string
+        default: dist
+    outputs:
+      artifact-name:
+        value: ${{ jobs.build.outputs.artifact-name }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: project-artifacts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+      - name: Install test dependencies when present
+        shell: bash
+        run: |
+          if [[ -f requirements.txt ]]; then python -m pip install -r requirements.txt; fi
+          if [[ -f requirements-dev.txt ]]; then python -m pip install -r requirements-dev.txt; fi
+      - name: Build
+        run: ${{ inputs.build-command }}
+      - name: Test
+        run: ${{ inputs.test-command }}
+      - name: Package
+        run: ${{ inputs.package-command }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: project-artifacts
+          path: ${{ inputs.artifact-directory }}
+          if-no-files-found: error
