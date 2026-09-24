@@ -1,0 +1,20 @@
+name: Project CI and release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      python-version: '3.11'
+      build-command: python -m compileall -q tools scripts
+      test-command: python scripts/ci_validate.py
+      package-command: python scripts/build_info.py && python scripts/package.py
+      artifact-directory: dist
