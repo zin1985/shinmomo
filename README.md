@@ -10,15 +10,30 @@ It is intended to be copied into the root of `zin1985/shinmomo` and committed as
 - `docs/analysis/goals.md`
 - `docs/analysis/core_g13.md`
 - `docs/analysis/graphics_g13.md`
+- `progress/project_progress.json`
 - `manifest/MANIFEST.md`
 - `manifest/EXCLUDED.md`
 - `COMMIT_COMMANDS_260510Y.sh`
 
+## Progress dashboard
+
+The machine-readable analysis progress source is:
+
+```text
+progress/project_progress.json
+```
+
+The public presentation layer is maintained separately in `zin1985/mole-mall` and is intended to be served at:
+
+```text
+https://mole-mall.com/shinmomo/
+```
+
+Scheduled analysis updates the progress JSON and rolling queue in this repository. The Mole Mall page reads that data from GitHub, so this repository remains the source of truth for analysis status.
+
 ## Important exclusions
 
 No ROM images, savestates, raw VRAM/OAM/CGRAM dumps, or nested ZIP files are included.
-
-
 
 ## Development workflow
 
