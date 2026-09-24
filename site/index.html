@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>新桃太郎伝説 解析進捗</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="noise"></div>
+<main>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">SHIN MOMOTAROU DENSETSU / REVERSE ENGINEERING</p>
+      <h1>解析進捗ダッシュボード</h1>
+      <p class="lede">GitHub <code>zin1985/shinmomo</code> を正本として、全体進捗・各解析トラック・次の解析予定を表示します。</p>
+    </div>
+    <div id="repoState" class="repo-state">GitHub確認中…</div>
+  </header>
+
+  <section class="summary-grid">
+    <article class="overall-card">
+      <div id="overallGauge" class="gauge"><div><strong id="overallValue">--</strong><span>%</span></div></div>
+      <div>
+        <p class="label">OVERALL PROGRESS</p>
+        <h2>ゲーム全体解析</h2>
+        <p id="overallNote" class="muted"></p>
+      </div>
+    </article>
+    <article class="meta-card">
+      <p class="label">LATEST SOURCE</p>
+      <dl>
+        <div><dt>更新</dt><dd id="updatedAt">--</dd></div>
+        <div><dt>Commit</dt><dd><a id="commitLink" href="#" target="_blank" rel="noreferrer">--</a></dd></div>
+        <div><dt>Actions</dt><dd id="actionState">--</dd></div>
+        <div><dt>取得</dt><dd id="fetchedAt">--</dd></div>
+      </dl>
+    </article>
+  </section>
+
+  <section>
+    <div class="section-head"><div><p class="label">TRACKS</p><h2>解析トラック</h2></div><p>各%は記載されたスコープ内の進捗です。</p></div>
+    <div id="tracks" class="tracks"></div>
+  </section>
+
+  <section class="two-col">
+    <div>
+      <div class="section-head"><div><p class="label">ROLLING QUEUE</p><h2>次の解析予定</h2></div></div>
+      <ol id="schedule" class="schedule"></ol>
+    </div>
+    <aside>
+      <div class="section-head"><div><p class="label">EVIDENCE</p><h2>根拠ファイル</h2></div></div>
+      <div id="sources" class="sources"></div>
+      <p class="footnote">進捗値は解析資料に基づくローリング推定を含みます。確定事実と推定は各解析文書の記述を優先します。</p>
+    </aside>
+  </section>
+</main>
+<script src="./app.js"></script>
+</body>
+</html>
