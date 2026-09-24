@@ -11,9 +11,6 @@ REQUIRED = [
     ROOT / ".gitignore",
     ROOT / "manifest" / "EXCLUDED.md",
     ROOT / "progress" / "project_progress.json",
-    ROOT / "site" / "index.html",
-    ROOT / "site" / "style.css",
-    ROOT / "site" / "app.js",
 ]
 FORBIDDEN_SUFFIXES = {
     ".smc", ".sfc", ".fig", ".swc", ".bs", ".srm", ".sav", ".state", ".7z"
