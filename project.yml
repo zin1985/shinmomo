@@ -1,0 +1,10 @@
+name: shinmomo
+version: 0.1.0
+branch: main
+build_command: "python -m compileall -q tools scripts"
+test_command: "python scripts/ci_validate.py"
+package_command: "python scripts/build_info.py && python scripts/package.py"
+artifact_directory: dist
+source_archive: true
+drive_project: Projects/shinmomo
+change_summary: "共通開発テンプレート導入。解析資産をGitHub正本化し、CI検証・成果物生成・Drive配布フローを標準化"
