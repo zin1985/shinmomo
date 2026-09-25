@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T22:20:00+09:00",
+  "updated_at": "2026-09-26T01:29:46+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -18,11 +18,11 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 68,
+      "percent": 70,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-25: target VM labels corrected to HiROM C4. Dialogue/source selection is now connected at instruction level through C4:9D4D/9D91/9DBB and the shared C7:0000 family table."
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated."
     },
     {
       "id": "fd67-selector",
@@ -90,11 +90,11 @@
     {
       "id": "dialogue",
       "name": "会話 / Script大量抽出",
-      "percent": 71,
+      "percent": 74,
       "weight": 1.2,
       "status": "active",
       "scope": "script→text pointer→文字列の大量抽出とイベント対応",
-      "evidence": "2026-09-25: C7:0000 250-entry source master and all three reader modes are confirmed. Continued analysis falsified next-root-as-end; master entries overlap. Historical family 0x16/subindex 0xC8 reaches C7:A64D across later roots. Complete inventory must be usage-driven by (family,subindex)."
+      "evidence": "2026-09-26: usage-driven catalog contains 2,238 evidence-backed (family,subindex) pairs across 162 families. It combines 2,202 high-confidence A4 pairs, 10 overrides, 7 historical confirmed pairs and 19 exact direct source calls. Visibility/context remains unknown for 2,225 pairs."
     },
     {
       "id": "character-display",
@@ -108,20 +108,20 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 70,
+      "percent": 72,
       "weight": 1.3,
       "status": "active",
       "scope": "ROM依存知識をschema/data/toolへ外部化し再生成可能にする",
-      "evidence": "2026-09-25: FastROM HiROM spec and deterministic 250-root catalog are externalized. Misleading next-root-bounded record index was removed and replaced by the overlapping-entry model."
+      "evidence": "2026-09-26: reproducible source-pair usage scanner, CA-pack/C7-family crosswalk, usage summary and metadata-only catalog added. False-positive A4-like bytes are filtered by actual source-reader reachability."
     },
     {
       "id": "whole-game",
       "name": "ゲーム全体再構築",
-      "percent": 77,
+      "percent": 78,
       "weight": 1.5,
       "status": "active",
       "scope": "仕様・データ・コードの再構成可能性",
-      "evidence": "2026-09-25: ROM/data→VM→condition/logical actor→controller/work SoA→visible-object active list→OAM、ならびに独立したdialogue readerを横断地図として再接続。controller poolとvisible-object poolを別層として整理し誤同一視を解消。"
+      "evidence": "2026-09-26: script-pack index, A4 source-selection operand, C7 source family and display-token pipeline are now linked in one evidence-backed model, enabling script-to-selected-source tracing."
     },
     {
       "id": "npc-oam",
@@ -142,8 +142,8 @@
         "G5"
       ],
       "track_id": "dialogue",
-      "title": "usage-driven source pair catalog and player-visible classification",
-      "target": "Enumerate actual (family,subindex) selections from $12B4/$12B5 producers, opcode 09/token 02 source recursion, descriptor tables and runtime logs; decode selected records on demand, classify player-visible text, then attach event/speaker/location provenance.",
+      "title": "2,225 unknown source pairsのvisible/context分類",
+      "target": "Trace display-window/event callers and runtime roots to classify the 2,225 visibility-unknown usage pairs. Render only player-visible records and attach event/speaker/location provenance; retain descriptor/internal pairs separately.",
       "status": "next"
     },
     {
@@ -227,6 +227,13 @@
     }
   ],
   "sources": [
+    "docs/handoff/HM_260926_source_pair_usage_catalog.md",
+    "docs/analysis/source_pair_usage_catalog.md",
+    "data/dialogue/source_pair_usage_catalog.csv",
+    "data/dialogue/source_pair_usage_summary.json",
+    "data/dialogue/source_family_script_pack_crosswalk.csv",
+    "data/dialogue/source_family_script_pack_crosswalk_summary.json",
+    "tools/python/catalog_source_pair_usage.py",
     "docs/handoff/HM_260925_dialogue_source_family_catalog.md",
     "docs/analysis/rom_addressing_hirom.md",
     "docs/analysis/dialogue_source_family_catalog.md",
@@ -266,8 +273,8 @@
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
-  "overall_percent": 49.0,
-  "legacy_workstream_overall_percent": 75.4,
+  "overall_percent": 50,
+  "legacy_workstream_overall_percent": 76.2,
   "top_goals": [
     {
       "id": "G1",
@@ -312,7 +319,7 @@
     {
       "id": "G2",
       "name": "全セリフ完全サルベージ",
-      "percent": 60,
+      "percent": 62,
       "status": "active",
       "definition_of_done": "全player-visible textをsource address/control token/文脈付きで回収し、到達可能な本文資材の取りこぼしがないことを検証。",
       "components": [
@@ -328,7 +335,7 @@
         },
         {
           "id": "root_enumeration",
-          "percent": 55,
+          "percent": 65,
           "weight": 0.2
         },
         {
@@ -338,11 +345,11 @@
         },
         {
           "id": "context_linkage",
-          "percent": 35,
+          "percent": 36,
           "weight": 0.15
         }
       ],
-      "evidence": "C7:0000 250-entry source master, raw/BD28/BD98 readers and source-selection mechanics are confirmed. Master entries overlap, so next-root-bounded counts are invalid. Historical family 0x16/subindex 0xC8 proves cross-root traversal. Remaining work is evidence-backed (family,subindex) usage enumeration, visible-text classification and context linkage."
+      "evidence": "Usage-driven enumeration covers 2,238 evidence-backed (family,subindex) pairs across 162 families. 2,202 are decoder-reachable A4 script selections; 19 additional exact direct source calls include 5 display-token-pipeline pairs. Player-visible classification is still unknown for 2,225 pairs, so rendered-corpus completeness is not claimed."
     },
     {
       "id": "G3",
@@ -382,7 +389,7 @@
     {
       "id": "G4",
       "name": "全イベント完全解析",
-      "percent": 42,
+      "percent": 44,
       "status": "active",
       "definition_of_done": "全eventを列挙し、発生条件・flag・分岐・会話・actor/object action・報酬・戦闘・加入離脱・終了後stateをmachine-readable graph化。",
       "components": [
@@ -398,12 +405,12 @@
         },
         {
           "id": "effect_linkage",
-          "percent": 45,
+          "percent": 54,
           "weight": 0.2
         },
         {
           "id": "complete_event_inventory",
-          "percent": 20,
+          "percent": 22,
           "weight": 0.25
         },
         {
@@ -412,12 +419,12 @@
           "weight": 0.15
         }
       ],
-      "evidence": "VM/condition/candidate/logical actor系は進展。41A10はsegmented selector resourceへ再分類されたがmatcher未特定。全イベント一覧とstart-to-ending event graphは未作成。"
+      "evidence": "CA:C000 script-pack indices are crosswalked to same-index C7 source families for real packs 0x14..0xF9, and A4 operands enumerate source subindices. Event/script-to-source linkage improved, but complete event inventory and event graph remain incomplete."
     },
     {
       "id": "G5",
       "name": "別環境で再構築可能な完全仕様書",
-      "percent": 47,
+      "percent": 48,
       "status": "active",
       "definition_of_done": "原ROMの65816 codeを読まずに別実装者がPC/GBA/Web等へ再実装できるarchitecture/data/logic/asset/build/verification仕様を完備。",
       "components": [
@@ -428,7 +435,7 @@
         },
         {
           "id": "data_schemas_externalization",
-          "percent": 70,
+          "percent": 73,
           "weight": 0.2
         },
         {
@@ -438,7 +445,7 @@
         },
         {
           "id": "portable_reference_models",
-          "percent": 30,
+          "percent": 33,
           "weight": 0.15
         },
         {
@@ -447,7 +454,7 @@
           "weight": 0.2
         }
       ],
-      "evidence": "cross-track architecture、schemas、C scaffold、graphics specsは有用。battle全体、save/SRAM、audio/APU/SPC、完全event/text/sprite catalog、独立実装verification suiteが不足。"
+      "evidence": "FastROM HiROM addressing, overlapping source-family model, script-pack/source-family crosswalk and deterministic usage catalog are portable and reproducible. Full subsystem coverage and independent verification remain incomplete."
     }
   ],
   "audit": {
