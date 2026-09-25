@@ -1,3 +1,5 @@
+> **HISTORICAL MASTER, NOT CURRENT PROGRESS (2026-09-25).** The 13-goal percentages below use an older scope and must not be treated as project completion. Current status is defined by `progress/project_progress.json`, `docs/project/PROJECT_GOALS_V2.md`, and `docs/handoff/HM_260925_goal_reset_full_audit.md`. The repository audit also supersedes several older `$0799`, 41A10 and Goal13 interpretations.
+
 # 新桃太郎伝説 解析引継ぎ current master merged（2026-04-26 final）
 
 ## 0. この文書
