@@ -2,27 +2,27 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T16:45:00+09:00",
+  "updated_at": "2026-09-25T17:03:34+09:00",
   "overall_method": "weighted_mean",
   "overall_note": "全体進捗は各解析トラックの重み付き平均。局所Goalの100%をゲーム全体100%として扱わない。",
   "tracks": [
     {
       "id": "rom-map",
       "name": "ROMマップ / バンク分類",
-      "percent": 72,
+      "percent": 74,
       "weight": 1.1,
       "status": "active",
       "scope": "全ROMのcode/data/table配置と主要ブロック意味付け",
-      "evidence": "March baseline 70% + Mayまでの追加静的解析を反映したローリング推定"
+      "evidence": "2026-09-25 historical-map reconciliation: 2026-03 master block/exact maps、LoROM補正表、2026-04/05/27成果を現行正本へ再統合。0x41A10=88:9A10、0x39850=87:9850等の表記補正と0x30048 descriptor bridgeを正本ROMで再確認。"
     },
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 66,
+      "percent": 67,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-25: bank89 object-script dispatcherに加え、slot内$0859/$0899/$08D9がDP $B9/$BA/$BBへロードされ[$B9],Yでoperand readされる24-bit script pointerと確定。"
+      "evidence": "2026-09-25 cross-track reconciliation: 0x41A10 selector-table matcher（未解決）と、そのtarget scriptを読む通常VM（89:87A2 entry / 87BD lookup / 87CF indirect jump / 87D4 table、既知）を分離。398xxは専用9-byte readerではなく通常VM macro rowとして扱う。"
     },
     {
       "id": "fd67-selector",
@@ -45,11 +45,11 @@
     {
       "id": "81-8d87",
       "name": "81:8D87 4値 / 局所状態",
-      "percent": 30,
+      "percent": 85,
       "weight": 0.6,
-      "status": "open",
+      "status": "active",
       "scope": "4値の役割と状態遷移の確定",
-      "evidence": "March handoff baseline。未解決比率が高い"
+      "evidence": "2026-04-26の既存確定寄り解析を現行progressへ復元。81:8D87は$1569[0..9] count aggregatorで、$09=available normal、$0A=normal、$0C=total logical、$0D=special($0C-$0A)。C4 wrappersと主要callerも整理済み。残りはsubcommand番号、runtime実例、$180A bit7の最終ラベル。"
     },
     {
       "id": "shop-ledger",
@@ -81,20 +81,20 @@
     {
       "id": "condition-dispatch",
       "name": "Condition dispatch",
-      "percent": 62,
+      "percent": 81,
       "weight": 0.9,
       "status": "active",
       "scope": "条件判定・dispatch table・呼出条件",
-      "evidence": "March handoff baseline"
+      "evidence": "2026-04-25/26の既存解析を現行progressへ復元。85:86ACはcondition dispatcher、condition 0x3Aは$180A[entity-1] bit7 clear test。C4:C8AA candidate feeder→80:DA57 resolver→$192A→condition 0x3A→$1958まで接続済み。"
     },
     {
       "id": "dialogue",
       "name": "会話 / Script大量抽出",
-      "percent": 58,
+      "percent": 64,
       "weight": 1.2,
       "status": "active",
       "scope": "script→text pointer→文字列の大量抽出とイベント対応",
-      "evidence": "March handoff baseline。0x41A10 readerが主要blocker"
+      "evidence": "2026-04-27の既存source-reader解析を再統合。C9:9E10 main reader、C9:9E57 raw source byte reader、$B1/$B2/$B3 24-bit source pointer、0x02 dictionary handler、nested source stackまで既知。41A10 selector matcherは会話readerの前提ではないため旧blocker表現を撤回。大量抽出とevent対応が残る。"
     },
     {
       "id": "character-display",
@@ -108,20 +108,20 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 66,
+      "percent": 68,
       "weight": 1.3,
       "status": "active",
       "scope": "ROM依存知識をschema/data/toolへ外部化し再生成可能にする",
-      "evidence": "2026-09-25: object poolを data/wram/object_slot_soa_schema.json と docs/analysis/wram_object_pool.md にschema/doc化。handler依存union semanticsを明示。"
+      "evidence": "2026-09-25: historical master maps、LoROM補正、VM/condition/object/dialogue各層を docs/analysis/cross_track_architecture_map.md に統合。object SoA schemaもbank87過去成果と整合するhandler-dependent overlayへ修正。"
     },
     {
       "id": "whole-game",
       "name": "ゲーム全体再構築",
-      "percent": 76,
+      "percent": 77,
       "weight": 1.5,
       "status": "active",
       "scope": "仕様・データ・コードの再構成可能性",
-      "evidence": "2026-09-25: NPC/object周辺を単独RAM変数ではなく64-slot×16-column共通object pool + handler別overlayとして再構成。script/movement/collision/OAM間の共通基盤が明確化。"
+      "evidence": "2026-09-25: ROM/data→VM→condition/logical actor→controller/work SoA→visible-object active list→OAM、ならびに独立したdialogue readerを横断地図として再接続。controller poolとvisible-object poolを別層として整理し誤同一視を解消。"
     },
     {
       "id": "npc-oam",
@@ -136,44 +136,44 @@
   "schedule": [
     {
       "priority": 1,
-      "track_id": "script-vm",
-      "title": "0x41A10 reader hunt",
-      "target": "0x39850/0x39993と0x30000台scriptのreader/xrefを確定し、Script VM・Condition・Dialogueの共通blockerを外す",
+      "track_id": "condition-dispatch",
+      "title": "41A10 selector matcherをdescriptor chainから特定",
+      "target": "既知の0x30048 8-byte descriptor bundleとrecord17の$88:9A05参照を起点にconsumerを追い、$88:9A10のkey/c1..c5比較とtarget16抽出を行うmatcher本体を特定する。通常VM reader 89:87A2系とは分離して扱う。",
       "status": "next"
     },
     {
       "priority": 2,
-      "track_id": "wram",
-      "title": "object pool runtime field validation",
-      "target": "$0619..$09D9の16列を少数active slotで時系列採取し、bank89 overlayのposition/movement/extent候補を確定",
+      "track_id": "script-vm",
+      "title": "398xx high-op VM family解読",
+      "target": "既知の89:87A2/87BD/87CF/87D4通常VMを基準に、398xx macro slot3の9A F0 / DB F0 / C6 F0等 high-op pairのhandlerと意味を確定する。",
       "status": "queued"
     },
     {
       "priority": 3,
       "track_id": "npc-oam",
-      "title": "object slot→active-list/OAM接続",
-      "target": "bank89 slot indexと$0A61 active list→B03D/B100 OAM objectを同一frameで対応付ける",
+      "title": "controller handle→visible physical node bridge",
+      "target": "AF33戻りexternal handleを$0619,X等に保持するhandlerを選び、physical=handle+2の$0A61/$0AA3 nodeとB03D/B100 OAM出力を同一実例で対応付ける。",
       "status": "queued"
     },
     {
       "priority": 4,
-      "track_id": "wram",
-      "title": "object pool core 6列の命名",
-      "target": "$0619/$0659/$0699/$06D9/$0719/$0759のxrefをcross-bankで分類し universal fields と handler overlay を分離",
+      "track_id": "dialogue",
+      "title": "dialogue source-reader bulk extraction",
+      "target": "C9:9E10/9E57と$B1/$B2/$B3 source pointer、dictionary/nested contextを使い、41A10 matcherに依存しないscript→raw token→decoded text抽出を一括化する。",
       "status": "queued"
     },
     {
       "priority": 5,
-      "track_id": "weapon-special",
-      "title": "武器特殊能力hook分類",
-      "target": "C1/C2/C8 hookと装備script-packの意味付け",
+      "track_id": "wram",
+      "title": "controller SoA universal/overlay分離",
+      "target": "$0619..$09D9各列について、cross-bank universal semanticsとbank/handler固有overlayを分離し、AF33 visible handle保持fieldの具体例をschemaへ追加する。",
       "status": "queued"
     },
     {
       "priority": 6,
-      "track_id": "dialogue",
-      "title": "会話大量抽出pipeline",
-      "target": "0x41A10 reader確定後にscript→text pointer→decoded text対応を一括化",
+      "track_id": "weapon-special",
+      "title": "武器特殊能力selector/commit接続",
+      "target": "既存CB mini-VM/A4/B2/C0成果を再利用し、result selectorからbattle effect/commit先への経路を確定する。",
       "status": "queued"
     }
   ],
@@ -186,7 +186,14 @@
     "docs/analysis/graphics_g13.md",
     "docs/analysis/findings.md",
     "docs/analysis/wram_object_pool.md",
-    "data/wram/object_slot_soa_schema.json"
+    "data/wram/object_slot_soa_schema.json",
+    "docs/analysis/cross_track_architecture_map.md",
+    "data/base_tables/shinmomo_address_master_overview_20260313.md",
+    "docs/reports/vm_reader_and_f09a_blob_model_20260503.md",
+    "docs/reports/bank87_object_slot_0759_0799_reclassification_20260503.md",
+    "reports/text_decoder/shinmomo_dialogue_source_reader_static_analysis_20260427.md",
+    "data/npc_display/shinmomo_goal4_818D87_return_values_analysis_20260426.md",
+    "data/npc_display/shinmomo_C4_C8AA_candidate_feeder_80DA57_8586AC_20260425.md"
   ],
   "rom_source": {
     "policy": "各解析サイクル開始時にこのGoogle Driveフォルダを参照し、正本ROMを確認する。実行環境で添付ROMが直接利用できない場合は、このDrive上の同一ROMを取得して使用する。別ROMで代用しない。",
