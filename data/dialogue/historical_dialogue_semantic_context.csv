@@ -1,0 +1,20 @@
+family_hex,subindex_hex,semantic_context,confidence
+0x4E,0x13,farmland warning/agriculture NPC dialogue,strong
+0x4E,0x14,shrine/save-point advice,strong
+0x4E,0x17,falling-object reaction,strong
+0x50,0x01,Ginji equipment/four knives,strong
+0x50,0x02,Urashima departure/heavenly-hermit suspicion,strong
+0x50,0x03,Urashima reunion plus gift/reward hint,strong
+0x50,0x04,Otohime praise/protective blessing,strong
+0x50,0x05,Urashima village reputation,strong
+0x50,0x06,Yoro waterfall drying/village crisis,strong
+0x50,0x08,Urashima fishing promise after oni battle,strong
+0x50,0x09,Urashima absent/fishing promise reminder,strong
+0x50,0x0A,plum varieties and human/oni philosophy,strong
+0x50,0x0B,Netaro sleep plus Ice Tower quest setup,strong
+0x50,0x0D,Ice Tower direction and cold hazard guidance,strong
+0x50,0x0E,aid/provision encouragement,strong
+0x50,0x0F,east-of-Netaro village has no oni,strong
+0x50,0x10,route south to Hope Capital,strong
+0x50,0x11,Hope Capital shops and attractions,strong
+0x50,0x12,Mashira song plus repeat-talk prompt,strong
