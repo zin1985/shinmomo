@@ -12,6 +12,9 @@
 *.vram
 *.oam
 *.cgram
+cgram.bin
+oam.bin
+vram.bin
 
 # Dynamic-analysis local outputs
 tools/dynamic/*.jsonl
