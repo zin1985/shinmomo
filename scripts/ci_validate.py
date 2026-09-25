@@ -11,10 +11,13 @@ REQUIRED = [
     ROOT / ".gitignore",
     ROOT / "manifest" / "EXCLUDED.md",
     ROOT / "progress" / "project_progress.json",
+    ROOT / "docs" / "project" / "PROJECT_GOALS_V2.md",
+    ROOT / "data" / "audit" / "contradiction_register_20260925.csv",
 ]
 FORBIDDEN_SUFFIXES = {
     ".smc", ".sfc", ".fig", ".swc", ".bs", ".srm", ".sav", ".state", ".7z"
 }
+FORBIDDEN_RAW_NAMES = {"vram.bin", "oam.bin", "cgram.bin"}
 
 
 def validate_progress(errors: list[str]) -> None:
@@ -26,6 +29,42 @@ def validate_progress(errors: list[str]) -> None:
     except (OSError, json.JSONDecodeError) as exc:
         errors.append(f"invalid progress JSON: {exc}")
         return
+
+    top_goals = data.get("top_goals")
+    if not isinstance(top_goals, list) or len(top_goals) != 5:
+        errors.append("progress JSON requires exactly five top_goals")
+    else:
+        ids = [str(g.get("id", "")) for g in top_goals]
+        if ids != ["G1", "G2", "G3", "G4", "G5"]:
+            errors.append(f"top_goals must be ordered G1..G5, got: {ids}")
+        values = []
+        for goal in top_goals:
+            gid = str(goal.get("id", ""))
+            try:
+                percent = float(goal["percent"])
+            except (KeyError, TypeError, ValueError):
+                errors.append(f"invalid top goal percent: {gid}")
+                continue
+            if not 0 <= percent <= 100:
+                errors.append(f"top goal percent out of range {gid}: {percent}")
+            if not goal.get("definition_of_done") or not goal.get("evidence"):
+                errors.append(f"top goal {gid} requires definition_of_done and evidence")
+            components = goal.get("components")
+            if not isinstance(components, list) or not components:
+                errors.append(f"top goal {gid} requires components")
+            else:
+                weight_sum = sum(float(c.get("weight", 0)) for c in components)
+                if abs(weight_sum - 1.0) > 1e-6:
+                    errors.append(f"top goal {gid} component weights must sum to 1.0, got {weight_sum}")
+            values.append(percent)
+        if len(values) == 5:
+            calculated = sum(values) / 5
+            declared = float(data.get("overall_percent", -1))
+            if abs(calculated - declared) > 0.11:
+                errors.append(
+                    f"overall_percent mismatch: declared={declared:.1f}, calculated={calculated:.1f}"
+                )
+            print(f"top-goal overall progress: {calculated:.1f}%")
 
     tracks = data.get("tracks")
     schedule = data.get("schedule")
@@ -59,7 +98,13 @@ def validate_progress(errors: list[str]) -> None:
         weighted += percent * weight
 
     if total_weight:
-        print(f"dashboard overall progress: {weighted / total_weight:.1f}%")
+        local = weighted / total_weight
+        print(f"legacy workstream maturity: {local:.1f}%")
+        declared = data.get("legacy_workstream_overall_percent")
+        if declared is not None and abs(local - float(declared)) > 0.11:
+            errors.append(
+                f"legacy_workstream_overall_percent mismatch: declared={declared}, calculated={local:.1f}"
+            )
 
 
 def main() -> None:
@@ -76,11 +121,11 @@ def main() -> None:
         rel = path.relative_to(ROOT)
         if ".git" in rel.parts or "dist" in rel.parts:
             continue
-        if path.suffix.lower() in FORBIDDEN_SUFFIXES:
+        if path.suffix.lower() in FORBIDDEN_SUFFIXES or path.name.lower() in FORBIDDEN_RAW_NAMES:
             forbidden.append(rel.as_posix())
 
     if forbidden:
-        errors.append("forbidden ROM/state/archive files tracked: " + ", ".join(sorted(forbidden)))
+        errors.append("forbidden ROM/state/raw-dump files tracked: " + ", ".join(sorted(forbidden)))
 
     gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
     for pattern in ("*.smc", "*.sfc", "*.state", "*.zip"):
