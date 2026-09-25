@@ -1,5 +1,29 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-25 historical mapping reconciliation
+
+### Confirmed
+
+- Historical full-address maps remain highly useful, but old flat-bank labels must be normalized through the LoROM correction table before reuse.
+- The 41A10 selector-table matcher and the target script VM reader are different layers. The normal target VM reader is already known at `89:87A2/87BD/87CF/87D4`; the selector matcher for `88:9A10` remains unresolved.
+- 398xx 9-byte-looking rows are normal VM macro rows, not evidence of a dedicated fixed-record reader.
+- `81:8D87` is a `$1569[0..9]` count aggregator: `$09` available normal actors, `$0A` normal actors, `$0C` total logical objects, `$0D` special objects.
+- `85:86AC` has a condition family over `$180A[entity-1]`: `0x38` set bits, `0x39` clear bits, `0x3A` test selected bits clear.
+- Dialogue source reading is independent of the 41A10 selector matcher. `C9:9E10/9E57` and `$B1/$B2/$B3` already define the source-reader core.
+- The 64-slot `$0619..$0A18` controller/work SoA and the AF33 visible-object active-list pool must be treated as separate layers unless a handler explicitly stores a visible-object handle.
+- Visible-object external handle to physical active-list node mapping is `physical = external + 2`; nodes 0/1 are sentinels.
+
+### Strong hypotheses
+
+- `$180A bit7` is hidden/suppressed/unavailable-like. Multiple feeder/count/event callers agree on this direction, but the exact game-facing label is still open.
+- `0x300D3` containing `88:9A05` is a valid resource clue near the 41A10 table, but not yet a proven selector-matcher bridge.
+
+### Unconfirmed
+
+- The routine that scans `88:9A10` records and matches key/c1..c5.
+- A universal pointer meaning for bytes +3..+5 of the `0x30048` descriptor bundle. Canonical-ROM revalidation shows this does not hold for all 35 records.
+- Exact handler-specific controller-slot to visible-object-handle mappings outside the known caller examples.
+
 ## 2026-09-25 WRAM object-pool cycle
 
 ### Confirmed
