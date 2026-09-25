@@ -44,11 +44,11 @@ local targets={
 for _,t in ipairs(targets) do
   pcall(event.onmemoryexecute, function()
     local x=reg("X")
-    emit("execute", {target=t[2], slot_addr=x and (0x0799+x) or nil})
+    emit("execute", {target=t[2], phase="pre_instruction", slot_addr=x and (0x0799+x) or nil})
   end, t[1], "System Bus", "goal13_"..t[2])
 end
 
 -- Do not watch only 7E:0799: the code uses $0799,X. Execute hooks above
--- capture the effective indexed slot address without guessing slot bounds.
+-- capture the effective indexed slot address without guessing slot bounds.\n-- Execute callbacks fire at instruction entry, so w0799x is explicitly the\n-- pre-instruction value. For STA sites, A/P in the same row describe the\n-- candidate store value/width; for DEC, compare the next hit/frame evidence.\n-- Do not mislabel these samples as post-write observations.
 emit("probe_loaded", {targets="89:BA36,BA48,BA70,BA76,BA81,BA89,BAC8,BACD"})
 while true do emu.frameadvance() end
