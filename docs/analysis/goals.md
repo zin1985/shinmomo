@@ -11,12 +11,12 @@ Formal goal definitions live in `docs/project/PROJECT_GOALS_V2.md`.
 | Goal | Progress | Current limiting factor |
 |---|---:|---|
 | G1 Program / logic complete analysis + ROM rebuild | **47%** | no full routine classification, real SNES ROM rebuild, complete save or audio subsystem spec |
-| G2 complete dialogue salvage | **66%** | player-visible family classification, canonical rendered corpus, context/event linkage |
+| G2 complete dialogue salvage | **60%** | usage-driven family/subindex enumeration, player-visible classification, canonical rendered corpus, context/event linkage |
 | G3 complete sprite salvage | **49%** | full entity inventory, canonical palette/asset export, all-scene validation |
 | G4 complete event analysis | **42%** | selector matcher, complete event inventory, event graph |
 | G5 complete portable specification | **47%** | missing subsystem specs, verification suite, save/audio/battle completeness |
 
-Top-level overall: **50.2%**
+Top-level overall: **49.0%**
 
 Legacy workstream weighted maturity: **74.6%**.
 
@@ -54,7 +54,7 @@ For details see:
 
 ## Current priorities
 
-1. classify the 7,877 cataloged source records by usage and generate the player-visible canonical text corpus;
+1. enumerate actual (family, subindex) source usages, classify player-visible records, and generate the canonical text corpus;
 2. identify the segmented 41A10 selector matcher;
 3. build the canonical sprite inventory/exporter;
 4. generate the all-event catalog skeleton;

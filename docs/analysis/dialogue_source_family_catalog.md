@@ -1,67 +1,90 @@
-# Dialogue/source-family master catalog
+# Source-family master catalog
 
 Updated: 2026-09-25
 
-## Confirmed source-family architecture
+## Confirmed architecture
 
-The common source-family master table is at canonical HiROM `C7:0000`, file offset `0x070000`.
-It contains exactly 250 monotonically increasing 24-bit source pointers and occupies `0x070000..0x0702ED` (750 bytes).
+The common source-family master table is at canonical FastROM HiROM `C7:0000`, file offset `0x070000`.
 
-Entry 0 is `C7:02EE`, which points immediately after the master table.
-The final entry is `CA:A569`.
+It contains exactly **250** monotonically increasing 24-bit entry pointers and occupies `0x070000..0x0702ED` (750 bytes).
 
-The first byte at every family root is a source-reader mode:
+Entry 0 is `C7:02EE`, immediately after the table. The final entry is `CA:A569`.
+
+Every entry root begins with a source-reader mode byte:
+
 - mode 0: raw-byte reader at `C4:9E57`
 - mode 1: `80:BD28` LZ-style byte reader
 - mode 2: `80:BD98` bit/tree symbol reader
 
-Mode distribution across all 250 families:
-- mode 0: 67 families
-- mode 1: 55 families
-- mode 2: 128 families
-- other modes: 0
+Mode distribution:
+
+- mode 0: 67 entries
+- mode 1: 55 entries
+- mode 2: 128 entries
+- other: 0
 
 ## Resolver path
 
-`C4:9D4D` receives a family index, multiplies it by 3, and reads the 24-bit pointer from `$C7:0000,X`.
-It reads the first byte at that root into `$12AA`, advances the source pointer by one byte, and installs the payload pointer in `$B1/$B2/$B3`.
+`C4:9D4D` receives the source-family index, multiplies it by 3, and long-reads the 24-bit entry pointer from literal `$C7:0000,X`.
 
-`C4:9D91` receives the record/subindex. It initializes mode 1 with `80:BCEE` or mode 2 with `80:BD87`, then calls `C4:9DBB`.
-`C4:9DBB` skips zero-terminated records and treats tokens `0x18..0x1F` as two-byte kanji tokens, so a low byte of `0x00` is data rather than a record terminator.
+It reads the first byte at the selected entry into `$12AA`, advances by one byte, and installs the payload cursor in `$B1/$B2/$B3`.
 
-This establishes the chain:
+`C4:9D91` receives the source subindex and initializes mode 1 with `80:BCEE` or mode 2 with `80:BD87`, then calls `C4:9DBB`.
 
-`family id -> C7:0000 master pointer -> mode byte -> source reader -> record index -> token stream`.
+`C4:9DBB` skips zero-terminated logical records. Tokens `0x18..0x1F` consume one additional byte; that second byte is payload even when its value is `00`.
 
-## Complete source-record inventory
+The stable selection key is therefore:
 
-The standalone extractor `tools/python/catalog_dialogue_sources.py` reproduces all three reader modes from the canonical ROM and emits metadata only.
+`(source_family, subindex) -> entry root -> reader mode -> selected logical record`
 
-Results:
-- 250/250 families close at a defined boundary
-- 45 families are one-byte mode-only placeholders with zero records
-- mode 0 records: 3,219
-- mode 1 records: 2,261
-- mode 2 records: 2,397
-- total zero-terminated source records: **7,877**
-- all 250 families decode without an unterminated tail
+## Critical correction: entries are not bounded by the next master pointer
 
-The last family boundary is inferred at file `0x0AA5B4`, where a continuous 6,732-byte `FF` padding run begins and continues to the next known `CA:C000` table at file `0x0AC000`.
+An earlier 2026-09-25 pass incorrectly used the next master pointer as the current family's end and counted 7,877 local fragments.
 
-## Scope warning
+That boundary model is **superseded**.
 
-The 7,877 records are **not equivalent to 7,877 player-visible dialogue lines**.
-The same source framework is reused by non-dialogue resources. For example, family 22 at `C7:8D13` is already known from weapon/descriptor analysis.
+Historical weapon analysis provides a direct counterexample:
 
-A positive cross-check is family 79 at `C8:A7DC`: its mode byte is `02`, and the payload begins at `C8:A7DD`, matching the previously restored Ginji-equipment dialogue example.
+- source-family / descriptor index `0x16`
+- root `C7:8D13`
+- payload starts at `C7:8D14`
+- `$12B5=C8` is resolved by the real `9DBB` skip rule to `C7:A64D`
 
-Therefore the next G2 task is usage classification: determine which family/record references reach the player-visible text path, then attach event, speaker and location provenance.
+This crosses many later master-table entry points.
+
+Therefore entries are overlapping source start points / checkpoints. The next master pointer is useful as a spacing hint only and is not an end boundary.
+
+The previous `7,877` count must **not** be used as a complete source-record count.
+
+## Special override path
+
+`C4:AE3A` checks a 10-entry special `(subindex, family)` table before normal fallback.
+
+On a match it installs an alternate pointer, including WRAM-backed sources, and returns Carry set. This explains why source selection cannot be modeled only as static ROM entry + sequential skip.
+
+## Control-token recursion
+
+The source reader's token family includes recursive source selection.
+
+Existing token analysis shows token `02` enters the family-selection path around `C4:9F34`; on fallback it resolves through the same `C7:0000` master table and then applies `9DBB` record skipping.
+
+Thus the master table is a shared source substrate used by dialogue and non-dialogue descriptor/script systems.
+
+## Scope
+
+The master table is **not** a list of player-visible dialogue lines.
+
+Known examples:
+
+- entry/family 79 root `C8:A7DC` has mode 02 and its payload at `C8:A7DD` matches a previously restored dialogue source.
+- family/index `0x16` at `C7:8D13` is used by weapon/descriptor logic.
+
+The next G2 task is to enumerate actual `(family, subindex)` usage provenance, then classify player-visible records.
 
 ## Canonical outputs
 
-- `data/dialogue/source_family_catalog.csv`: one row per family, no dialogue text
-- `data/dialogue/source_record_index.csv`: one row per source record with token statistics and SHA-256 only
-- `data/dialogue/source_family_summary.json`: aggregate counts
-- `tools/python/catalog_dialogue_sources.py`: deterministic extractor
+- `data/dialogue/source_family_catalog.csv`: 250 entry roots, modes and next-root spacing hints
+- `data/dialogue/source_family_summary.json`: aggregate master-table metadata
+- `tools/python/catalog_dialogue_sources.py`: deterministic root catalog + on-demand source-pair decoder
 
-ROM bytes, raw token dumps and full copyrighted dialogue text are intentionally not committed.
+No raw ROM, unrestricted token corpus or full copyrighted dialogue dump is committed.

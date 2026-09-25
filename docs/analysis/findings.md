@@ -17,9 +17,8 @@
 - Every family root begins with reader mode 0, 1 or 2. Distribution is 67 / 55 / 128; no other mode occurs.
 - `C4:9D4D` resolves family id to the master pointer, stores the mode in `$12AA`, advances past the mode byte, and installs the payload pointer in `$B1/$B2/$B3`.
 - `C4:9D91 -> C4:9DBB` selects a zero-terminated record/subindex. `0x18..0x1F` consume a second byte even when that low byte equals `00`.
-- A standalone implementation of raw / BD28 / BD98 readers closes all 250 families and catalogs **7,877** source records: mode0 3,219; mode1 2,261; mode2 2,397.
 - Family 79 root `C8:A7DC` is mode02 and its payload `C8:A7DD` matches the previously restored Ginji-equipment dialogue.
-- Family 22 `C7:8D13` is used by weapon/descriptor work, proving that the 7,877 records are a shared source-resource corpus, not 7,877 player-visible dialogue lines.
+- Family/index `0x16` root `C7:8D13` is used by weapon/descriptor work. Its proven subindex `0xC8` resolves to `C7:A64D`, crossing later master roots and proving that next-entry pointers are not family boundaries.
 
 ### Strong hypothesis
 
@@ -27,7 +26,8 @@
 
 ### Unresolved
 
-- Complete classification of family/record usages into player-visible dialogue, descriptors and other source consumers.
+- The earlier 7,877 next-root-bounded fragment count is retracted as a complete-record count; overlapping source entries require usage-driven enumeration.
+- Complete usage-driven enumeration of `(family, subindex)` pairs, followed by classification into player-visible dialogue, descriptors and other source consumers.
 - Event / speaker / location linkage for the player-visible subset.
 - Final rendered canonical text corpus with completeness validation.
 

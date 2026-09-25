@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T21:57:00+09:00",
+  "updated_at": "2026-09-25T22:20:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -90,11 +90,11 @@
     {
       "id": "dialogue",
       "name": "会話 / Script大量抽出",
-      "percent": 76,
+      "percent": 71,
       "weight": 1.2,
       "status": "active",
       "scope": "script→text pointer→文字列の大量抽出とイベント対応",
-      "evidence": "2026-09-25: C7:0000 250-entry source-family table confirmed. All 3 reader modes implemented offline (raw/BD28/BD98); 250/250 families close cleanly and 7,877 zero-terminated source records are cataloged as metadata. Player-visible usage/context classification remains."
+      "evidence": "2026-09-25: C7:0000 250-entry source master and all three reader modes are confirmed. Continued analysis falsified next-root-as-end; master entries overlap. Historical family 0x16/subindex 0xC8 reaches C7:A64D across later roots. Complete inventory must be usage-driven by (family,subindex)."
     },
     {
       "id": "character-display",
@@ -108,11 +108,11 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 71,
+      "percent": 70,
       "weight": 1.3,
       "status": "active",
       "scope": "ROM依存知識をschema/data/toolへ外部化し再生成可能にする",
-      "evidence": "2026-09-25: deterministic source-family extractor and metadata-only family/record catalogs added; canonical FastROM HiROM addressing spec and correction table added."
+      "evidence": "2026-09-25: FastROM HiROM spec and deterministic 250-root catalog are externalized. Misleading next-root-bounded record index was removed and replaced by the overlapping-entry model."
     },
     {
       "id": "whole-game",
@@ -142,8 +142,8 @@
         "G5"
       ],
       "track_id": "dialogue",
-      "title": "player-visible source-family classification and canonical text corpus",
-      "target": "Classify the 7,877 cataloged source records by C4:9D4D/$12B4 usage provenance, isolate player-visible text, render the canonical corpus, and attach event/speaker/location provenance without committing raw ROM/token dumps.",
+      "title": "usage-driven source pair catalog and player-visible classification",
+      "target": "Enumerate actual (family,subindex) selections from $12B4/$12B5 producers, opcode 09/token 02 source recursion, descriptor tables and runtime logs; decode selected records on demand, classify player-visible text, then attach event/speaker/location provenance.",
       "status": "next"
     },
     {
@@ -233,7 +233,6 @@
     "data/csv/shinmomo_hirom_address_correction_table_v1.csv",
     "data/dialogue/source_family_summary.json",
     "data/dialogue/source_family_catalog.csv",
-    "data/dialogue/source_record_index.csv",
     "tools/python/catalog_dialogue_sources.py",
     "docs/project/PROJECT_GOALS_V2.md",
     "docs/audit/FULL_REPOSITORY_AUDIT_20260925.md",
@@ -267,8 +266,8 @@
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
-  "overall_percent": 50.2,
-  "legacy_workstream_overall_percent": 76.0,
+  "overall_percent": 49.0,
+  "legacy_workstream_overall_percent": 75.4,
   "top_goals": [
     {
       "id": "G1",
@@ -313,7 +312,7 @@
     {
       "id": "G2",
       "name": "全セリフ完全サルベージ",
-      "percent": 66,
+      "percent": 60,
       "status": "active",
       "definition_of_done": "全player-visible textをsource address/control token/文脈付きで回収し、到達可能な本文資材の取りこぼしがないことを検証。",
       "components": [
@@ -329,12 +328,12 @@
         },
         {
           "id": "root_enumeration",
-          "percent": 70,
+          "percent": 55,
           "weight": 0.2
         },
         {
           "id": "full_corpus_extraction",
-          "percent": 45,
+          "percent": 35,
           "weight": 0.3
         },
         {
@@ -343,7 +342,7 @@
           "weight": 0.15
         }
       ],
-      "evidence": "C7:0000 source-family master table is now enumerated end-to-end: 250 families, raw/BD28/BD98 mode distribution 67/55/128, and 7,877 zero-terminated source records cataloged with hashes/statistics. This is a shared source corpus, so player-visible family classification, rendered corpus and event/speaker/location linkage remain."
+      "evidence": "C7:0000 250-entry source master, raw/BD28/BD98 readers and source-selection mechanics are confirmed. Master entries overlap, so next-root-bounded counts are invalid. Historical family 0x16/subindex 0xC8 proves cross-root traversal. Remaining work is evidence-backed (family,subindex) usage enumeration, visible-text classification and context linkage."
     },
     {
       "id": "G3",

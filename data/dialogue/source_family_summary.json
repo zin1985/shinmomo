@@ -6,15 +6,10 @@
     "1": 55,
     "2": 128
   },
-  "record_counts_by_mode": {
-    "0": 3219,
-    "1": 2261,
-    "2": 2397
-  },
-  "total_record_count": 7877,
-  "empty_family_count": 45,
+  "other_mode_count": 0,
   "master_table_file_range": "0x070000..0x0702ED",
   "first_family_root": "C7:02EE",
   "last_family_root": "CA:A569",
-  "last_family_boundary": "0x0AA5B4 (start of 6732-byte FF padding to 0x0AC000)"
+  "boundary_model": "overlapping entry-point streams; next pointer is not an end",
+  "record_inventory_status": "usage-driven (family,subindex) enumeration required"
 }

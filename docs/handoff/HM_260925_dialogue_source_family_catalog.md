@@ -122,3 +122,13 @@ Next cycle:
 5. validate coverage against runtime-observed dialogue roots
 
 The canonical corpus must remain reproducible from the ROM and tools without committing the raw ROM or an unrestricted full copyrighted text dump.
+
+## Correction after continued analysis
+
+The first handoff draft treated the next master pointer as a family boundary and reported 7,877 records. Continued analysis falsified that boundary assumption.
+
+Historical weapon evidence proves family/index 0x16 at C7:8D13 can select subindex C8 and land at C7:A64D, crossing later entry roots. The 7,877 figure is therefore retracted as a complete-record count.
+
+Retained facts: 250-entry master table, mode distribution 67/55/128, C4:9D4D/9D91/9DBB resolver path, and the FastROM HiROM correction.
+
+Current next target: build an evidence-backed usage catalog of (family,subindex) selections rather than imposing artificial entry boundaries.
