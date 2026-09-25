@@ -178,6 +178,7 @@
     }
   ],
   "sources": [
+    "docs/handoff/HM_260925_wram_object_pool.md",
     "docs/handoff/HM_260925_goal13_runtime_revalidation.md",
     "docs/handoff/HM_260510Y.md",
     "docs/analysis/goals.md",
