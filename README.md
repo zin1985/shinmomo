@@ -1,67 +1,70 @@
-# Shinmomo scheduled-analysis handoff 260510Y
+# Shin Momotarou Densetsu reverse-engineering project
 
-This package preserves the scheduled Shin Momotarou Densetsu analysis outputs discussed on 2026-05-10.
-
-It is intended to be copied into the root of `zin1985/shinmomo` and committed as normal text/data/tool files.
+GitHub `zin1985/shinmomo` is the single source of truth for the analysis project.
 
 ## Start here
 
-- `docs/handoff/HM_260510Y.md`
-- `docs/analysis/goals.md`
-- `docs/analysis/core_g13.md`
-- `docs/analysis/graphics_g13.md`
-- `progress/project_progress.json`
-- `manifest/MANIFEST.md`
-- `manifest/EXCLUDED.md`
-- `COMMIT_COMMANDS_260510Y.sh`
+Use the current audited documents in this order:
 
-## Progress dashboard
+1. `docs/project/PROJECT_GOALS_V2.md`
+2. `progress/project_progress.json`
+3. `docs/handoff/HM_260925_goal_reset_full_audit.md`
+4. `docs/audit/FULL_REPOSITORY_AUDIT_20260925.md`
+5. `data/audit/contradiction_register_20260925.csv`
+6. `docs/audit/REUSABLE_ASSET_INDEX_20260925.md`
+7. `docs/analysis/cross_track_architecture_map.md`
 
-The machine-readable analysis progress source is:
+Older handoffs remain historical evidence. Do not use their percentages or superseded labels as current truth without checking the contradiction register.
 
-```text
-progress/project_progress.json
-```
+## Top-level goals
 
-The public presentation layer is maintained separately in `zin1985/mole-mall` and is intended to be served at:
+Project completion is measured by five outcomes:
 
-```text
-https://mole-mall.com/shinmomo/
-```
+- G1 Program / logic complete analysis + ROM rebuild
+- G2 complete dialogue salvage
+- G3 complete sprite salvage
+- G4 complete event analysis
+- G5 complete portable specification
 
-Scheduled analysis updates the progress JSON and rolling queue in this repository. The Mole Mall page reads that data from GitHub, so this repository remains the source of truth for analysis status.
+The old Goal1..Goal20 labels are lower-level historical/workstream labels only.
 
-## Important exclusions
+## Progress
 
-No ROM images, savestates, raw VRAM/OAM/CGRAM dumps, or nested ZIP files are included.
+The machine-readable source is:
+
+`progress/project_progress.json`
+
+Top-level overall is computed from G1..G5. The old weighted track score is retained as a local maturity diagnostic and is not whole-project completion.
+
+The public presentation layer is maintained separately in `zin1985/mole-mall` at:
+
+`https://mole-mall.com/shinmomo/`
+
+## Canonical ROM
+
+The ROM itself is not stored in GitHub. Each analysis cycle checks the pinned Google Drive source recorded in `progress/project_progress.json`.
+
+Do not substitute another ROM.
+
+## Repository exclusions
+
+Never add:
+
+- ROM images
+- SRAM or savestates
+- raw VRAM/OAM/CGRAM dumps
+- secrets
+- new nested archive packages when expanded source/data can be committed instead
+
+Two historical raw VRAM dumps were removed during the 2026-09-25 audit. Historical ZIP packages still tracked under archive paths are cleanup debt and are not canonical sources.
 
 ## Development workflow
 
-This repository follows the shared project management flow:
-
 ```text
-ChatGPT / Work
+ChatGPT
 → GitHub (single source of truth)
-→ GitHub Actions (build / validation / artifact generation)
+→ GitHub Actions (validation / package generation)
 → Google Drive (deployment / review / distribution)
 ```
 
-Project-specific settings live in `project.yml`. The reusable build workflow is based on
-`zin1985/project-template` and is kept separate from project-specific commands.
-
-ROM images, savestates, raw VRAM/OAM/CGRAM dumps, and nested archives are never committed.
-Local analysis may use a legally obtained ROM, but generated text/data/tool outputs are the
-only materials promoted to GitHub and release artifacts.
-
-Drive layout:
-
-```text
-Projects/shinmomo/
-├─ latest/
-│  ├─ shinmomo-analysis.zip
-│  ├─ source.zip
-│  ├─ CHANGELOG.md
-│  └─ build-info.txt
-└─ releases/
-   └─ <version-or-build>/
-```
+Only promote to Drive `Projects/shinmomo/latest` after the corresponding GitHub Actions run succeeds.
