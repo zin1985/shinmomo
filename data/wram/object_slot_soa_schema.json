@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "name": "object_slot_soa_0619_09d9",
+  "wram_range": {
+    "start": "0x0619",
+    "end_inclusive": "0x0A18",
+    "size_bytes": 1024
+  },
+  "layout": {
+    "slot_count": 64,
+    "column_count": 16,
+    "column_stride_bytes": 64,
+    "index_register": "X"
+  },
+  "interpretation": "64-slot object pool stored as structure-of-arrays. Several later columns are type/handler-dependent work fields, so names below distinguish global-safe meaning from bank89-specific meaning.",
+  "columns": [
+    {
+      "base": "0x0619",
+      "index": 0,
+      "name": "core_work_0",
+      "confidence": "unresolved"
+    },
+    {
+      "base": "0x0659",
+      "index": 1,
+      "name": "core_work_1",
+      "confidence": "unresolved"
+    },
+    {
+      "base": "0x0699",
+      "index": 2,
+      "name": "core_work_2",
+      "confidence": "unresolved"
+    },
+    {
+      "base": "0x06D9",
+      "index": 3,
+      "name": "core_work_3",
+      "confidence": "unresolved"
+    },
+    {
+      "base": "0x0719",
+      "index": 4,
+      "name": "core_work_4",
+      "confidence": "unresolved"
+    },
+    {
+      "base": "0x0759",
+      "index": 5,
+      "name": "flags_dispatch_gate",
+      "confidence": "confirmed",
+      "evidence": [
+        "83:B28B sets bit 0x40",
+        "existing append/dispatch analysis"
+      ]
+    },
+    {
+      "base": "0x0799",
+      "index": 6,
+      "name": "state_flags_counter",
+      "confidence": "confirmed-partial",
+      "evidence": [
+        "89:BA70 consumes bit7",
+        "89:BAC8 sets bit7",
+        "bank89 object-script path"
+      ]
+    },
+    {
+      "base": "0x07D9",
+      "index": 7,
+      "name": "movement_offset_work",
+      "confidence": "strong-bank89",
+      "evidence": [
+        "89:B3DE/B3E1 increment while 0x0819 is reduced",
+        "89:B41B/B41E decrement in opposite direction"
+      ]
+    },
+    {
+      "base": "0x0819",
+      "index": 8,
+      "name": "signed_movement_delta_work",
+      "confidence": "strong-bank89",
+      "evidence": [
+        "89:B34F assigns signed +/-2",
+        "89:B3E4/B3E7 and B421/B424 drive value toward zero"
+      ]
+    },
+    {
+      "base": "0x0859",
+      "index": 9,
+      "name": "script_ptr_lo_or_work",
+      "confidence": "confirmed-bank89"
+    },
+    {
+      "base": "0x0899",
+      "index": 10,
+      "name": "script_ptr_mid_or_work",
+      "confidence": "confirmed-bank89"
+    },
+    {
+      "base": "0x08D9",
+      "index": 11,
+      "name": "script_ptr_bank_or_work",
+      "confidence": "confirmed-bank89",
+      "evidence": [
+        "89:B360/B365/B36A load to DP $B9/$BA/$BB",
+        "89:B847 dispatcher reads via [$B9],Y"
+      ]
+    },
+    {
+      "base": "0x0919",
+      "index": 12,
+      "name": "position_x_or_work_a",
+      "confidence": "strong-bank89",
+      "evidence": [
+        "89:BAEC commits $030B",
+        "paired with 0x0959 in collision/movement routines"
+      ]
+    },
+    {
+      "base": "0x0959",
+      "index": 13,
+      "name": "position_y_or_work_b",
+      "confidence": "strong-bank89",
+      "evidence": [
+        "89:BAF2 commits $030D",
+        "89:C1D4/C1E7 use it as base for edge probes"
+      ]
+    },
+    {
+      "base": "0x0999",
+      "index": 14,
+      "name": "aux_param_or_timer_a",
+      "confidence": "type-dependent",
+      "evidence": [
+        "89:BAF8 copies $138D",
+        "85:C95B family uses it as saved parameter"
+      ]
+    },
+    {
+      "base": "0x09D9",
+      "index": 15,
+      "name": "aux_extent_or_timer_b",
+      "confidence": "type-dependent",
+      "evidence": [
+        "89:B890 loads script operand",
+        "89:C1EB uses 0x0959+0x09D9+1 edge probe",
+        "85:C972 family increments it as counter"
+      ]
+    }
+  ],
+  "safety_note": "No ROM bytes or raw dumps are included; only addresses, inferred structure, and summarized evidence."
+}
