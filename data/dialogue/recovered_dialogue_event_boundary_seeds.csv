@@ -1,0 +1,12 @@
+cluster_id,family_hex,subindices,script_range,member_count,boundary_basis,confidence
+E01,0x4E,0x13-0x14,CC:1AFD-CC:1B01,2,adjacent A4 selections separated by 4 bytes,strong
+E02,0x4E,0x17,CC:1B42,1,isolated recovered A4 selection,strong
+E03,0x50,0x01-0x02,CC:1D26-CC:1D2A,2,paired A4 selections separated by 4 bytes,strong
+E04,0x50,0x03-0x04,CC:1D44-CC:1D48,2,paired A4 selections separated by 4 bytes,strong
+E05,0x50,0x05-0x06,CC:1D62-CC:1D66,2,paired A4 selections separated by 4 bytes,strong
+E06,0x50,0x08-0x09,CC:1D88-CC:1D8C,2,paired A4 selections separated by 4 bytes,strong
+E07,0x50,0x0A-0x0B,CC:1DA6-CC:1DAA,2,paired A4 selections separated by 4 bytes,strong
+E08,0x50,0x0D-0x0E,CC:1DCC-CC:1DD0,2,paired A4 selections separated by 4 bytes,strong
+E09,0x50,0x0F-0x10,CC:1DEA-CC:1DEE,2,paired A4 selections separated by 4 bytes,strong
+E10,0x50,0x11,CC:1DFF,1,isolated recovered A4 selection,strong
+E11,0x50,0x12,CC:1E10,1,isolated recovered A4 selection,strong
