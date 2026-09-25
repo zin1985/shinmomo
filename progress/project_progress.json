@@ -335,7 +335,7 @@
           "weight": 0.15
         }
       ],
-      "evidence": "C9 source reader、dictionary/nested context、BD98 mode02 decoder、offline chain dumperが存在。C8:A7D0-A960 scanは2686 CSV rowsあるが限定範囲候補scanで、全root列挙・全本文・event/speaker/location対応は未完。"
+      "evidence": "C9 source reader、dictionary/nested context、BD98 mode02 decoder、offline chain dumperが存在。C8:A7D0-A960 のcommitted scanはCSV論理760 recordsだが限定範囲候補scanで、全root列挙・全本文・event/speaker/location対応は未完。"
     },
     {
       "id": "G3",
@@ -445,7 +445,7 @@
   ],
   "audit": {
     "date": "2026-09-25",
-    "git_head_audited": "0e8a2bda337cb355c6483a659301dcadf35be66263b6",
+    "git_head_audited": "0e8a2bda337cb355f5da7d014b1a4bb17d52fd4b",
     "tracked_files_scanned": 1276,
     "text_files_scanned": 1027,
     "csv_files_scanned": 449,
