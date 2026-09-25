@@ -11,14 +11,14 @@ Formal goal definitions live in `docs/project/PROJECT_GOALS_V2.md`.
 | Goal | Progress | Current limiting factor |
 |---|---:|---|
 | G1 Program / logic complete analysis + ROM rebuild | **47%** | no full routine classification, real SNES ROM rebuild, complete save or audio subsystem spec |
-| G2 complete dialogue salvage | **60%** | usage-driven family/subindex enumeration, player-visible classification, canonical rendered corpus, context/event linkage |
+| G2 complete dialogue salvage | **62%** | 2,225 unknown usage pairsのvisible分類、canonical rendered corpus、context/event linkage |
 | G3 complete sprite salvage | **49%** | full entity inventory, canonical palette/asset export, all-scene validation |
-| G4 complete event analysis | **42%** | selector matcher, complete event inventory, event graph |
-| G5 complete portable specification | **47%** | missing subsystem specs, verification suite, save/audio/battle completeness |
+| G4 complete event analysis | **44%** | source usageを含むcomplete event inventory、selector matcher、event graph |
+| G5 complete portable specification | **48%** | missing subsystem specs, verification suite, save/audio/battle completeness |
 
-Top-level overall: **49.0%**
+Top-level overall: **50.0%**
 
-Legacy workstream weighted maturity: **74.6%**.
+Legacy workstream weighted maturity: **76.2%**.
 
 These values intentionally measure different things.
 
@@ -52,9 +52,25 @@ For details see:
 - `docs/audit/FULL_REPOSITORY_AUDIT_20260925.md`
 - `docs/analysis/cross_track_architecture_map.md`
 
+
+## Source-pair usage update (2026-09-26)
+
+The overlapping-entry correction remains canonical. Actual source selections are now enumerated from proven consumers rather than artificial family boundaries.
+
+- 2,238 evidence-backed (family, subindex) usage pairs
+- 162 source families represented
+- 2,202 decoder-reachable high-confidence A4 script selections
+- 10 AE3A special overrides
+- 7 historically confirmed static pairs
+- 19 exact direct source-selector/display pairs
+- 5 exact pairs feed the C4:A02D -> C4:9DE5 display-token pipeline
+- 2,225 pairs still have unknown visibility/context
+
+The CA:C000 real script-pack index (0x14..0xF9) and C7:0000 source-family index use the same global index. The A4 mini-VM operand supplies the source subindex. This creates a reproducible script/event -> source-record bridge without claiming every selected resource is dialogue.
+
 ## Current priorities
 
-1. enumerate actual (family, subindex) source usages, classify player-visible records, and generate the canonical text corpus;
+1. classify the 2,225 visibility-unknown source pairs through display/event/runtime provenance and generate the player-visible canonical text corpus;
 2. identify the segmented 41A10 selector matcher;
 3. build the canonical sprite inventory/exporter;
 4. generate the all-event catalog skeleton;
