@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T13:12:51+09:00",
+  "updated_at": "2026-09-25T15:32:00+09:00",
   "overall_method": "weighted_mean",
   "overall_note": "全体進捗は各解析トラックの重み付き平均。局所Goalの100%をゲーム全体100%として扱わない。",
   "tracks": [
@@ -130,15 +130,15 @@
       "weight": 0.8,
       "status": "near-complete",
       "scope": "visibility staging→append→OAM emissionのGoal13モデル。indexed $0799,X probeまで整備済み、runtime相関のみ残る",
-      "evidence": "Goal13 modelは静的/既存runtime要約で高確度。2026-09-25 13:12 cycleでは指定ROM /mnt/data/Shin Momotarou Densetsu (J)_original(1).smc にアクセスできず新規実行なし。HEAD fe023d5 のBizHawk probeは固定$0799監視を廃し、Xから$0799+X実効slotを採取しBA76/BA81/BA89/BACDもhookするため、次回traceの計測欠落リスクを解消。"
+      "evidence": "Goal13 modelは静的/既存runtime要約で高確度。2026-09-25 13:12 cycleでは指定ROM /mnt/data/Shin Momotarou Densetsu (J)_original(1).smc にアクセスできず新規実行なし。HEAD fe023d5 のBizHawk probeは固定$0799監視を廃し、Xから$0799+X実効slotを採取しBA76/BA81/BA89/BACDもhookするため、次回traceの計測欠落リスクを解消。 2026-09-25 15:32 JST: Google Drive https://drive.google.com/drive/folders/1Vlypsxg8aHiGdABsWJZdPtFEiEuv0J1F に Shin Momotarou Densetsu (J)_original.smc (2097152 bytes) が存在することを確認。以後、各サイクル開始時の正本ROM参照先として使用する。"
     }
   ],
   "schedule": [
     {
       "priority": 1,
       "track_id": "npc-oam",
-      "title": "indexed Goal13 probeでruntime捕捉",
-      "target": "指定ROMが利用可能な実行環境でBizHawk probeを実行し、BA36/BA48/BA70/BA76/BA81/BA89/BAC8/BACDと$0799+X、append/OAM相関を取得",
+      "title": "Drive正本ROM参照 → indexed Goal13 runtime probe",
+      "target": "各解析サイクル開始時に https://drive.google.com/drive/folders/1Vlypsxg8aHiGdABsWJZdPtFEiEuv0J1F を参照し、Shin Momotarou Densetsu (J)_original.smc を正本ROMとして確認・取得する。そのROMでBizHawk probeを実行し、BA36/BA48/BA70/BA76/BA81/BA89/BAC8/BACDと$0799+X、append/OAM相関を取得。別ROMは代用しない。",
       "status": "next"
     },
     {
@@ -183,5 +183,12 @@
     "docs/analysis/core_g13.md",
     "docs/analysis/graphics_g13.md",
     "docs/analysis/findings.md"
-  ]
+  ],
+  "rom_source": {
+    "policy": "各解析サイクル開始時にこのGoogle Driveフォルダを参照し、正本ROMを確認する。実行環境で添付ROMが直接利用できない場合は、このDrive上の同一ROMを取得して使用する。別ROMで代用しない。",
+    "drive_folder_url": "https://drive.google.com/drive/folders/1Vlypsxg8aHiGdABsWJZdPtFEiEuv0J1F",
+    "file_name": "Shin Momotarou Densetsu (J)_original.smc",
+    "expected_size_bytes": 2097152,
+    "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
+  }
 }
