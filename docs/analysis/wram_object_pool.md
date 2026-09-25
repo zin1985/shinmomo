@@ -1,5 +1,9 @@
 # WRAM object slot SoA pool
 
+> **Historical-map reconciliation (2026-09-25):** later review of the 2026-05-03 bank87 reclassification shows that `$0759/$0799` are handler-dependent overlay columns. In some bank87 routines they form pointer/state/position-like work; in bank89 `$0799 bit7` is a transient object-script latch. Do not give these columns one universal semantic name.
+>
+> The `$0619..$09D9` 64-slot SoA is also **not automatically identical** to the visible-object active-list pool. Historical `AF33` caller analysis shows some handlers storing an allocated visible-object handle into `$0619,X`, which indicates a controller/work slot can reference a separate visible object. The visible-object list uses physical nodes 2..65 plus sentinels 0/1.
+
 ## Summary
 
 The WRAM region from `$0619` through `$0A18` is best modeled as a 64-slot object pool stored in structure-of-arrays form.
@@ -21,8 +25,8 @@ This is not a fixed C-like struct with one permanent semantic for every byte. Mu
 | `$0699` | core work 2 | unresolved |
 | `$06D9` | core work 3 | unresolved |
 | `$0719` | core work 4 | unresolved |
-| `$0759` | flags / dispatch gate | confirmed |
-| `$0799` | state flags/counter; bit7 transient state latch in bank89 | confirmed-partial |
+| `$0759` | handler-dependent overlay work | type-dependent |
+| `$0799` | handler-dependent overlay; bank89 bit7 is a transient state latch | type-dependent |
 | `$07D9` | movement offset/work in bank89 | strong |
 | `$0819` | signed movement delta/work in bank89 | strong |
 | `$0859` | script pointer low byte or generic work | confirmed in bank89 |
