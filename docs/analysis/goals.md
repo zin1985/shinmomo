@@ -1,5 +1,30 @@
 # Goal progress snapshot 260510Y
 
+## Historical-map reconciliation update (2026-09-25)
+
+The rolling tracker had drifted behind several completed April/May analyses. This cycle re-read the historical address master, LoROM correction table, VM reader hunts, actor/condition analysis, dialogue reader analysis, and object/OAM work before choosing new targets.
+
+The percentage increases below are primarily **reconciliation of already-completed evidence into the current tracker**, not an equivalent amount of newly reverse-engineered ROM in one cycle.
+
+- ROM map: 72% → 74%
+- Script VM/Event: 66% → 67%
+- 81:8D87: 30% → 85%
+- Condition dispatch: 62% → 81%
+- Dialogue: 58% → 64%
+- Externalization: 66% → 68%
+- Whole-game reconstruction: 76% → 77%
+- Goal13 NPC/OAM: 96% unchanged
+
+Key corrections:
+
+- `41A10 selector matcher` and `target script VM reader` are separate problems. The latter is already known at `89:87A2/87BD/87CF/87D4`.
+- Dialogue has its own known source reader at `C9:9E10/9E57`; it should not wait on the 41A10 matcher.
+- `81:8D87` already has all four return fields characterized.
+- condition `0x38/0x39/0x3A` already supplies set/clear/test-clear operations over the entity field used as `$180A bit7`.
+- controller/work SoA and AF33 visible-object pool are separate layers connected by explicit handles in some handlers.
+
+The canonical routing map is now `docs/analysis/cross_track_architecture_map.md`.
+
 ## WRAM object-pool cycle update (2026-09-25)
 
 Cross-bank analysis identified `$0619..$0A18` as a 64-slot × 16-column SoA object pool.
