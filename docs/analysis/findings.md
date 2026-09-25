@@ -1,5 +1,28 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-26 usage-driven source-pair catalog
+
+### Confirmed
+
+- For real CA:C000 script packs 0x14..0xF9, the global pack index is the same index used by the C7:0000 source-family master table.
+- A4 mini-VM operand flow is confirmed as source subindex selection: A4 operand -> preserved A -> C4:8554 pack-index resolver -> $12B4 family + C4:A0C3 $12B5 subindex.
+- Static high-confidence A4 patterns plus source-reader reachability produce 2,202 source pairs. 88 A4-like candidates in families 0xF2/0xF7 fail real reader reachability and are rejected as false positives.
+- Combined catalog contains 2,238 evidence-backed source pairs across 162 families.
+- 19 additional exact direct source calls are statically resolvable. Five enter the C4:A02D -> C4:9DE5 next-display-token pipeline; four select non-empty records and one selects an empty record.
+- The catalog is reproducible from the canonical ROM by tools/python/catalog_source_pair_usage.py; no unrestricted decoded corpus is committed.
+
+### Strong evidence
+
+- Direct A02D pairs are strong player-visible-text-source evidence because A02D consumes records through C4:9DE5, historically identified as the next display token reader. They are not automatically labelled spoken dialogue because UI/system text can share this path.
+
+### Unresolved
+
+- Visibility/context remains unknown for 2,225 of 2,238 usage pairs.
+- Complete partition into spoken dialogue, UI/system text, descriptors and internal resources.
+- Event, speaker and location linkage for all player-visible pairs.
+- Runtime coverage proof that no reachable source-selection path remains outside the current static catalog.
+
+
 ## 2026-09-25 FastROM HiROM correction
 
 ### Confirmed
