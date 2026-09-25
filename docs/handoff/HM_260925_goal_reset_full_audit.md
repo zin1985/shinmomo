@@ -88,3 +88,12 @@ At every cycle start check the pinned Google Drive folder and the canonical file
 `Shin Momotarou Densetsu (J)_original.smc`, expected size 2,097,152 bytes.
 
 Do not commit ROM, SRAM, savestate, raw VRAM/OAM/CGRAM or copyrighted raw dumps.
+
+## Final operational status
+
+- Shinmomo repository local CI validation at commit `31b8a8c877ac34a3ff8eb40d30a870feb61a726f`: **PASS**.
+- GitHub Actions for that commit: **no workflow run/status attached at audit time**. Do not treat this as Actions success.
+- Drive `Projects/shinmomo/latest`: **not promoted**, because promotion requires successful GitHub Actions.
+- Mole Mall Shinmomo dashboard source was updated to prefer `overall_percent` and render G1..G5 above legacy workstreams.
+- Mole Mall dashboard JavaScript passed `node --check` at commit `e116e26a26fca1e5895d79abbd29b0e277e39eb1`.
+- Historical nested ZIP cleanup remains open; do not use those ZIPs as canonical inputs.
