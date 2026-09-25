@@ -1,5 +1,22 @@
 # Goal progress snapshot 260510Y
 
+## WRAM object-pool cycle update (2026-09-25)
+
+Cross-bank analysis identified `$0619..$0A18` as a 64-slot × 16-column SoA object pool.
+Bank89 overlays a 24-bit script pointer on `$0859/$0899/$08D9`, movement work on
+`$07D9/$0819`, and position-like values on `$0919/$0959`. Cross-bank evidence shows
+that several later columns are handler-dependent work fields rather than globally fixed semantics.
+
+Progress impact:
+- WRAM structure: 62% → 67%
+- Script VM/Event: 65% → 66%
+- Externalization: 65% → 66%
+- Whole-game reconstruction: 75% → 76%
+- Goal13 remains 96%
+
+Next global priority is the `0x41A10` reader hunt because it can unlock Script VM,
+Condition Dispatch, and Dialogue simultaneously.
+
 ## Dynamic-analysis cycle note (2026-09-25)
 
 The canonical ROM was checked from the pinned Drive folder and the Windows analysis copy matched the known SHA-256.
