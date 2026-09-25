@@ -57,7 +57,7 @@ Do not call both of these “the 41A10 reader”.
 
 Bytes +3..+5 are `05 9A 88`, i.e. `88:9A05`, 11 bytes before the `88:9A10` table.
 
-This confirms the historical pointer occurrence on the canonical ROM. Whether +3..+5 is a universal pointer field for every descriptor remains unconfirmed.
+This confirms the historical byte sequence and pointer-like occurrence on the canonical ROM. A fresh scan of all 35 descriptors shows that bytes +3..+5 are **not** a universal valid LoROM pointer field. Therefore `88:9A05` is a resource/descriptor lead only and must not be treated as a confirmed bridge to the 41A10 matcher.
 
 ## 3. Script / VM layer
 
@@ -107,11 +107,13 @@ This links the script VM directly to item/equipment and character metadata.
 
 `85:86AC` is a condition dispatcher.
 
-Condition `0x3A` resolves to a handler that tests:
+Historical follow-up already identified a matched three-operation family over the entity field:
 
-`$180A[entity-1] & 0x80`
+- condition `0x38`: set selected bits
+- condition `0x39`: clear selected bits
+- condition `0x3A`: test selected bits clear
 
-Carry is set when the bit is clear.
+For the common `$1E=0x80` case, the addressed field is `$180A[entity-1]`. Condition `0x3A` sets Carry when bit7 is clear. Across feeder/count/event callers, bit7 is best labeled conservatively as hidden/suppressed/unavailable-like until its exact game-facing label is proven.
 
 ### Candidate feeder
 
@@ -281,7 +283,7 @@ The active list and B100 path are already strongly established.
 
 ## 10. Highest-value remaining gaps
 
-1. Find the **41A10 selector-table matcher**, distinct from the already-known target VM reader. Follow the `0x30048` descriptor/resource path and the `88:9A05` descriptor occurrence rather than rescanning the VM.
+1. Find the **41A10 selector-table matcher**, distinct from the already-known target VM reader. Direct references are absent. The `0x300D3 → 88:9A05` occurrence is only a weak resource lead after descriptor-wide revalidation, so prefer generic-indirection analysis or a runtime ROM-read breakpoint at `88:9A10` when a facility state is available.
 2. Decode the **high-op VM family** used by 398xx slot3 pairs such as `9A F0 / DB F0 / C6 F0`.
 3. Runtime-map a controller/work slot holding an AF33 external handle to physical active-list node `handle+2`, closing the controller → visible-object bridge.
 4. Integrate the already-known dialogue source reader into the bulk extraction pipeline.
