@@ -1,0 +1,20 @@
+{
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "family_count": 250,
+  "mode_counts": {
+    "0": 67,
+    "1": 55,
+    "2": 128
+  },
+  "record_counts_by_mode": {
+    "0": 3219,
+    "1": 2261,
+    "2": 2397
+  },
+  "total_record_count": 7877,
+  "empty_family_count": 45,
+  "master_table_file_range": "0x070000..0x0702ED",
+  "first_family_root": "C7:02EE",
+  "last_family_root": "CA:A569",
+  "last_family_boundary": "0x0AA5B4 (start of 6732-byte FF padding to 0x0AC000)"
+}
