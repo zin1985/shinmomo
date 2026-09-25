@@ -1,5 +1,27 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-26 historical dialogue crosslink
+
+### Confirmed
+
+- The canonical analysis ROM available in this cycle is 2,097,152 bytes and SHA-256 `F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98`; the pinned Drive folder still contains the canonical file with the expected name and size.
+- Exact SHA-256 of logical token streams reconnects 21 current usage pairs to retained v33 decoder outputs.
+- All accepted historical rows begin with token `0x7D`, terminate with `0x00`, and have non-empty retained decoded output.
+- The 21 pairs are limited to families `0x4E`, `0x4F` and `0x50`.
+- `0x4F:00` and `0x4F:01` were already dialogue-classified; the remaining 19 pairs were visibility-unknown in the base usage catalog.
+- The crosswalk stores metadata/hash evidence only and does not duplicate historical decoded dialogue bodies.
+
+### Strong evidence
+
+- The 19 newly matched pairs are strong historical dialogue candidates because current source-reader output and retained dialogue-decoder output have identical logical token streams. They are not promoted to runtime-confirmed dialogue without fresh display/event provenance.
+
+### Unresolved
+
+- Effective visibility/context unknown count is 2,206 after applying this overlay.
+- Speaker, location and event provenance for the 19 recovered pairs.
+- Complete player-visible corpus and runtime completeness proof.
+
+
 ## 2026-09-26 usage-driven source-pair catalog
 
 ### Confirmed
@@ -17,7 +39,7 @@
 
 ### Unresolved
 
-- Visibility/context remains unknown for 2,225 of 2,238 usage pairs.
+- The base usage catalog still marks 2,225 of 2,238 pairs unknown; the historical dialogue overlay resolves 19 as strong dialogue evidence, leaving 2,206 effectively unresolved.
 - Complete partition into spoken dialogue, UI/system text, descriptors and internal resources.
 - Event, speaker and location linkage for all player-visible pairs.
 - Runtime coverage proof that no reachable source-selection path remains outside the current static catalog.
