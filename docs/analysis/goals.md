@@ -11,14 +11,14 @@ Formal goal definitions live in `docs/project/PROJECT_GOALS_V2.md`.
 | Goal | Progress | Current limiting factor |
 |---|---:|---|
 | G1 Program / logic complete analysis + ROM rebuild | **47%** | no full routine classification, real SNES ROM rebuild, complete save or audio subsystem spec |
-| G2 complete dialogue salvage | **62%** | 2,225 unknown usage pairsのvisible分類、canonical rendered corpus、context/event linkage |
+| G2 complete dialogue salvage | **63%** | 2,206 unknown usage pairsのvisible分類、canonical rendered corpus、context/event linkage |
 | G3 complete sprite salvage | **49%** | full entity inventory, canonical palette/asset export, all-scene validation |
 | G4 complete event analysis | **44%** | source usageを含むcomplete event inventory、selector matcher、event graph |
 | G5 complete portable specification | **48%** | missing subsystem specs, verification suite, save/audio/battle completeness |
 
-Top-level overall: **50.0%**
+Top-level overall: **50.2%**
 
-Legacy workstream weighted maturity: **76.2%**.
+Legacy workstream weighted maturity: **76.4%**.
 
 These values intentionally measure different things.
 
@@ -64,13 +64,27 @@ The overlapping-entry correction remains canonical. Actual source selections are
 - 7 historically confirmed static pairs
 - 19 exact direct source-selector/display pairs
 - 5 exact pairs feed the C4:A02D -> C4:9DE5 display-token pipeline
-- 2,225 pairs still have unknown visibility/context
+- 2,225 pairs are unknown in the base usage catalog; historical token-hash crosslink reclassifies 19 as strong dialogue evidence, leaving 2,206 effectively unresolved
 
 The CA:C000 real script-pack index (0x14..0xF9) and C7:0000 source-family index use the same global index. The A4 mini-VM operand supplies the source subindex. This creates a reproducible script/event -> source-record bridge without claiming every selected resource is dialogue.
 
+## Historical dialogue crosslink update (2026-09-26)
+
+Retained v33 decoder results were reattached to the corrected usage-driven source model by exact token SHA-256.
+
+- 76 historical evidence rows match the current catalog.
+- 21 unique current usage pairs match historical dialogue decodes.
+- matched families are 0x4E, 0x4F and 0x50.
+- 2 pairs were already classified as confirmed/strong dialogue.
+- 19 previously visibility-unknown pairs gain strong historical dialogue evidence.
+- no decoded dialogue bodies are duplicated into the new crosswalk; only metadata and hashes are stored.
+- effective unresolved visibility is 2,206 after applying the overlay.
+
+This strengthens G2 without restoring the obsolete 7,877-record family-boundary model.
+
 ## Current priorities
 
-1. classify the 2,225 visibility-unknown source pairs through display/event/runtime provenance and generate the player-visible canonical text corpus;
+1. classify the remaining 2,206 visibility-unknown source pairs through display/event/runtime provenance, attach event context to the 19 recovered strong-dialogue pairs, and generate the player-visible canonical text corpus;
 2. identify the segmented 41A10 selector matcher;
 3. build the canonical sprite inventory/exporter;
 4. generate the all-event catalog skeleton;
