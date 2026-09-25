@@ -1,10 +1,10 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T17:07:05+09:00",
-  "overall_method": "weighted_mean",
-  "overall_note": "全体進捗は各解析トラックの重み付き平均。局所Goalの100%をゲーム全体100%として扱わない。",
+  "updated_at": "2026-09-25T19:18:07+09:00",
+  "overall_method": "equal_mean_of_top_goals",
+  "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
     {
       "id": "rom-map",
@@ -136,48 +136,104 @@
   "schedule": [
     {
       "priority": 1,
-      "track_id": "condition-dispatch",
-      "title": "41A10 selector matcherの間接経路特定",
-      "target": "$88:9A10の8-byte selector tableを走査するmatcherを、直接pointer検索ではなくgeneric/indirect resource traversalから特定する。0x300D3→88:9A05は弱いresource leadとしてのみ扱う。施設状態が用意できる場合は88:9A10 ROM-read breakpointでreader PCを取得する。",
+      "goal_ids": [
+        "G2",
+        "G4",
+        "G5"
+      ],
+      "track_id": "dialogue",
+      "title": "全dialogue root列挙とbulk salvage",
+      "target": "既知C9 reader/BD98 decoder/v33 dumperを統合し、ROM全域のroot候補をsource provenance付きで列挙。候補scanではなく到達根拠を持つcanonical text corpusを生成する。",
       "status": "next"
     },
     {
       "priority": 2,
-      "track_id": "script-vm",
-      "title": "398xx high-op VM family解読",
-      "target": "既知の89:87A2/87BD/87CF/87D4通常VMを基準に、398xx macro slot3の9A F0 / DB F0 / C6 F0等high-op pairのhandlerと意味を確定する。専用9-byte reader探索は再開しない。",
+      "goal_ids": [
+        "G1",
+        "G4",
+        "G5"
+      ],
+      "track_id": "condition-dispatch",
+      "title": "41A10 segmented selector matcher特定",
+      "target": "records0..97 + control/header + blockBというsegmented modelを前提に、section base/descriptorを受けるgeneric matcherを静的・runtime read breakpointで特定する。",
       "status": "queued"
     },
     {
       "priority": 3,
-      "track_id": "npc-oam",
-      "title": "controller→visible object→OAM橋の実証",
-      "target": "AF33戻りexternal handleをcontroller/work slotへ保持する既知callerを起点に、physical=handle+2の$0A61/$0AA3 nodeとB03D/B100 OAM出力まで同一objectで対応付ける。",
+      "goal_ids": [
+        "G3",
+        "G5"
+      ],
+      "track_id": "character-display",
+      "title": "sprite canonical inventory/exporter",
+      "target": "B294 group + B2C1 group/state + frame duration + OAM piece + CHR/paletteを1つのschemaへjoinし、entity/group/state単位のcanonical asset inventoryを生成する。",
       "status": "queued"
     },
     {
       "priority": 4,
-      "track_id": "dialogue",
-      "title": "既知source readerで会話大量抽出",
-      "target": "C9:9E10/9E57、$B1/$B2/$B3、dictionary/nested contextを使ってscript→raw token→decoded text抽出を一括化する。41A10 matcherには依存させない。",
+      "goal_ids": [
+        "G4",
+        "G5"
+      ],
+      "track_id": "script-vm",
+      "title": "全event catalog骨格生成",
+      "target": "既知VM/condition/selector/candidate成果からevent recordを抽出し、条件・target・dialogue・actor action・state mutation列を持つevent catalogを作る。",
       "status": "queued"
     },
     {
       "priority": 5,
-      "track_id": "wram",
-      "title": "controller SoA overlay辞書拡充",
-      "target": "$0619..$09D9の各列についてcross-bank universal semanticsとhandler-specific overlayを分離し、AF33 handle保持fieldの具体例をschema化する。",
+      "goal_ids": [
+        "G1",
+        "G5"
+      ],
+      "track_id": "externalization",
+      "title": "ROM rebuild gap manifest",
+      "target": "ROM全域を code/data/asset/unknown に分け、rebuildに必要な未外部化rangeと未実装routineをmachine-readable manifest化。C scaffoldをSNES ROM buildへ近づける優先順を確定する。",
       "status": "queued"
     },
     {
       "priority": 6,
+      "goal_ids": [
+        "G1",
+        "G5"
+      ],
+      "track_id": "whole-game",
+      "title": "Save/SRAM仕様の初期確定",
+      "target": "object内save/restoreとゲームsave/SRAMを混同せず、SRAM layout・checksum・party/world/event persistenceのentrypointとformatを特定する。",
+      "status": "queued"
+    },
+    {
+      "priority": 7,
+      "goal_ids": [
+        "G1",
+        "G5"
+      ],
+      "track_id": "whole-game",
+      "title": "Audio/APU/SPC subsystem初期map",
+      "target": "現repoに専用成果がないため、CPU↔APU ports、SPC upload/driver/data regions、music/SFX command pathのbaseline mapを作成する。",
+      "status": "queued"
+    },
+    {
+      "priority": 8,
+      "goal_ids": [
+        "G1",
+        "G4",
+        "G5"
+      ],
       "track_id": "weapon-special",
-      "title": "武器特殊能力selector/commit接続",
-      "target": "既存CB mini-VM/A4/B2/C0成果を横展開し、result selectorからbattle effect/commit先までを確定する。",
+      "title": "Battle coreへ横展開",
+      "target": "武器特殊mini-VMを足場にdamage/status/target/enemy AI/turn resolutionの上位battle flowへ接続し、武器特殊だけで止まらないbattle specificationへ展開する。",
       "status": "queued"
     }
   ],
   "sources": [
+    "docs/project/PROJECT_GOALS_V2.md",
+    "docs/audit/FULL_REPOSITORY_AUDIT_20260925.md",
+    "docs/audit/REUSABLE_ASSET_INDEX_20260925.md",
+    "data/project/workstream_goal_matrix.csv",
+    "data/audit/recovered_progress_20260925.csv",
+    "data/audit/contradiction_register_20260925.csv",
+    "docs/handoff/HM_260925_goal_reset_full_audit.md",
     "docs/handoff/HM_260925_cross_track_mapping_reconciliation.md",
     "docs/handoff/HM_260925_wram_object_pool.md",
     "docs/handoff/HM_260925_goal13_runtime_revalidation.md",
@@ -202,5 +258,204 @@
     "file_name": "Shin Momotarou Densetsu (J)_original.smc",
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
+  },
+  "overall_percent": 47.8,
+  "legacy_workstream_overall_percent": 74.6,
+  "top_goals": [
+    {
+      "id": "G1",
+      "name": "Program・ロジック完全解明＋ROM再build",
+      "percent": 47,
+      "status": "active",
+      "definition_of_done": "65816 code/data/table/pointer配置、全主要subsystem、save/audioを含む仕様を解明し、解析済みsource/data/assetsから同等ROMを再buildして検証可能。",
+      "components": [
+        {
+          "id": "rom_map",
+          "percent": 74,
+          "weight": 0.15
+        },
+        {
+          "id": "executable_logic",
+          "percent": 65,
+          "weight": 0.2
+        },
+        {
+          "id": "subsystem_coverage",
+          "percent": 55,
+          "weight": 0.2
+        },
+        {
+          "id": "routine_classification",
+          "percent": 42,
+          "weight": 0.15
+        },
+        {
+          "id": "rom_rebuild_pipeline",
+          "percent": 25,
+          "weight": 0.2
+        },
+        {
+          "id": "save_audio_coverage",
+          "percent": 5,
+          "weight": 0.1
+        }
+      ],
+      "evidence": "ROM map、通常VM、object/OAM、facility/item/weapon等は進展。C99 decomp scaffoldはbuild済みだがSNES ROM再buildではない。専用audio/APU/SPC解析は実質未着手、save/SRAM仕様も未整備。"
+    },
+    {
+      "id": "G2",
+      "name": "全セリフ完全サルベージ",
+      "percent": 54,
+      "status": "active",
+      "definition_of_done": "全player-visible textをsource address/control token/文脈付きで回収し、到達可能な本文資材の取りこぼしがないことを検証。",
+      "components": [
+        {
+          "id": "encoding_display",
+          "percent": 95,
+          "weight": 0.15
+        },
+        {
+          "id": "source_readers_decoders",
+          "percent": 85,
+          "weight": 0.2
+        },
+        {
+          "id": "root_enumeration",
+          "percent": 40,
+          "weight": 0.2
+        },
+        {
+          "id": "full_corpus_extraction",
+          "percent": 30,
+          "weight": 0.3
+        },
+        {
+          "id": "context_linkage",
+          "percent": 35,
+          "weight": 0.15
+        }
+      ],
+      "evidence": "C9 source reader、dictionary/nested context、BD98 mode02 decoder、offline chain dumperが存在。C8:A7D0-A960 scanは2686 CSV rowsあるが限定範囲候補scanで、全root列挙・全本文・event/speaker/location対応は未完。"
+    },
+    {
+      "id": "G3",
+      "name": "全スプライト完全サルベージ",
+      "percent": 49,
+      "status": "active",
+      "definition_of_done": "全character/NPC/enemy/boss/effect/UI spriteをframe/palette/animation/OAM/CHR対応付きでcanonical assetとして再出力し全scene検証。",
+      "components": [
+        {
+          "id": "oam_renderer_path",
+          "percent": 90,
+          "weight": 0.15
+        },
+        {
+          "id": "animation_frame_structures",
+          "percent": 82,
+          "weight": 0.15
+        },
+        {
+          "id": "chr_palette_pipeline",
+          "percent": 65,
+          "weight": 0.2
+        },
+        {
+          "id": "complete_sprite_inventory",
+          "percent": 25,
+          "weight": 0.25
+        },
+        {
+          "id": "canonical_export_validation",
+          "percent": 15,
+          "weight": 0.25
+        }
+      ],
+      "evidence": "B294 frame groups、B2C1 animation scripts、0E27 state、OAM/CHR reconstruction pipelineは強い。一方、全entityのcanonical atlas、全palette、全scene validationは未完成。"
+    },
+    {
+      "id": "G4",
+      "name": "全イベント完全解析",
+      "percent": 42,
+      "status": "active",
+      "definition_of_done": "全eventを列挙し、発生条件・flag・分岐・会話・actor/object action・報酬・戦闘・加入離脱・終了後stateをmachine-readable graph化。",
+      "components": [
+        {
+          "id": "vm_condition_semantics",
+          "percent": 75,
+          "weight": 0.2
+        },
+        {
+          "id": "selector_resource_semantics",
+          "percent": 55,
+          "weight": 0.2
+        },
+        {
+          "id": "effect_linkage",
+          "percent": 45,
+          "weight": 0.2
+        },
+        {
+          "id": "complete_event_inventory",
+          "percent": 20,
+          "weight": 0.25
+        },
+        {
+          "id": "event_graph_validation",
+          "percent": 10,
+          "weight": 0.15
+        }
+      ],
+      "evidence": "VM/condition/candidate/logical actor系は進展。41A10はsegmented selector resourceへ再分類されたがmatcher未特定。全イベント一覧とstart-to-ending event graphは未作成。"
+    },
+    {
+      "id": "G5",
+      "name": "別環境で再構築可能な完全仕様書",
+      "percent": 47,
+      "status": "active",
+      "definition_of_done": "原ROMの65816 codeを読まずに別実装者がPC/GBA/Web等へ再実装できるarchitecture/data/logic/asset/build/verification仕様を完備。",
+      "components": [
+        {
+          "id": "architecture_memory_maps",
+          "percent": 75,
+          "weight": 0.2
+        },
+        {
+          "id": "data_schemas_externalization",
+          "percent": 70,
+          "weight": 0.2
+        },
+        {
+          "id": "subsystem_specs",
+          "percent": 45,
+          "weight": 0.25
+        },
+        {
+          "id": "portable_reference_models",
+          "percent": 30,
+          "weight": 0.15
+        },
+        {
+          "id": "verification_save_audio",
+          "percent": 10,
+          "weight": 0.2
+        }
+      ],
+      "evidence": "cross-track architecture、schemas、C scaffold、graphics specsは有用。battle全体、save/SRAM、audio/APU/SPC、完全event/text/sprite catalog、独立実装verification suiteが不足。"
+    }
+  ],
+  "audit": {
+    "date": "2026-09-25",
+    "git_head_audited": "0e8a2bda337cb355c6483a659301dcadf35be66263b6",
+    "tracked_files_scanned": 1276,
+    "text_files_scanned": 1027,
+    "csv_files_scanned": 449,
+    "script_files_scanned": 143,
+    "unique_markdown_blobs_read": 274,
+    "decode_errors": 0,
+    "duplicate_content_groups": 246,
+    "raw_vram_files_removed": 2,
+    "source_conflict_files": 26,
+    "nested_zip_paths_remaining": 18,
+    "notes": "全tracked fileを一時read-only cloneで機械走査し、重複SHAを識別。全unique Markdown 274本は内容走査。CSV/scriptは全件内容スキャンし、schema/row数/domain/stale-patternを集計。"
   }
 }
