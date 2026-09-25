@@ -1,0 +1,11 @@
+name,file_pc,canonical_hirom,valid_low_mirror,superseded_label,meaning
+398xx macro row entry,0x039850,C3:9850,83:9850,87:9850,normal VM macro area
+F09A target/blob,0x03F09A,C3:F09A,83:F09A,87:F09A,target/blob area
+41A10 selector resource,0x041A10,C4:1A10,,88:9A10,selector/condition resource
+normal VM entry,0x0487A2,C4:87A2,84:87A2,89:87A2,normal script VM entry
+source family resolver,0x049D4D,C4:9D4D,84:9D4D,89:9D4D,C7 master-table family resolver
+main source reader,0x049E10,C4:9E10,84:9E10,C9:9E10,source/control dispatcher
+raw source byte reader,0x049E57,C4:9E57,84:9E57,C9:9E57,raw source-byte reader
+source family master table,0x070000,C7:0000,47:0000,,250-entry 24-bit pointer table
+known mode02 family,0x08A7DC,C8:A7DC,88:A7DC,,family 79 root including mode byte
+known mode02 payload,0x08A7DD,C8:A7DD,88:A7DD,,previously restored dialogue payload

@@ -8,10 +8,11 @@ This index points future analysis to existing evidence before new scans are writ
 - `data/base_tables/shinmomo_rom_full_block_map_20260313.md`
 - `data/base_tables/shinmomo_rom_handover_master_blocks_20260313.csv`
 - `data/base_tables/shinmomo_rom_handover_master_exact_20260313.csv`
-- `data/csv/shinmomo_lorom_address_correction_table_v1.csv`
+- `data/csv/shinmomo_hirom_address_correction_table_v1.csv` (canonical)
+- `data/csv/shinmomo_lorom_address_correction_table_v1.csv` (historical; superseded for CPU labels)
 - disassembly listings under `data/disassembly/` and the legacy root listings
 
-Use these before a new whole-ROM blind scan.
+Use these before a new whole-ROM blind scan. Address labels must follow `docs/analysis/rom_addressing_hirom.md`; historical LoROM labels are not canonical.
 
 ## Script VM / event
 

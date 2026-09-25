@@ -1,26 +1,58 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-25 FastROM HiROM correction
+
+### Confirmed
+
+- Canonical ROM header at file `0xFFC0` reports map mode `0x31`: FastROM HiROM.
+- New canonical CPU labels use the high HiROM mirror, e.g. `0x0487A2 = C4:87A2`, `0x049E10 = C4:9E10`, and `0x070000 = C7:0000`.
+- The earlier 2026-09-25 LoROM correction rule is superseded. Historical file offsets remain valid evidence.
+- Machine code at `C4:9D4D` directly reads `$C7:0000,X`, independently validating the HiROM mapping.
+
+## 2026-09-25 source-family catalog cycle
+
+### Confirmed
+
+- `C7:0000` is a 250-entry, 24-bit source-family master pointer table occupying file `0x070000..0x0702ED`.
+- Every family root begins with reader mode 0, 1 or 2. Distribution is 67 / 55 / 128; no other mode occurs.
+- `C4:9D4D` resolves family id to the master pointer, stores the mode in `$12AA`, advances past the mode byte, and installs the payload pointer in `$B1/$B2/$B3`.
+- `C4:9D91 -> C4:9DBB` selects a zero-terminated record/subindex. `0x18..0x1F` consume a second byte even when that low byte equals `00`.
+- A standalone implementation of raw / BD28 / BD98 readers closes all 250 families and catalogs **7,877** source records: mode0 3,219; mode1 2,261; mode2 2,397.
+- Family 79 root `C8:A7DC` is mode02 and its payload `C8:A7DD` matches the previously restored Ginji-equipment dialogue.
+- Family 22 `C7:8D13` is used by weapon/descriptor work, proving that the 7,877 records are a shared source-resource corpus, not 7,877 player-visible dialogue lines.
+
+### Strong hypothesis
+
+- The 250-family table is the common indexed source substrate used by dialogue plus several script/descriptor subsystems. Usage provenance should be sufficient to partition player-visible text from non-dialogue resources.
+
+### Unresolved
+
+- Complete classification of family/record usages into player-visible dialogue, descriptors and other source consumers.
+- Event / speaker / location linkage for the player-visible subset.
+- Final rendered canonical text corpus with completeness validation.
+
+
 ## 2026-09-25 historical mapping reconciliation
 
 ### Confirmed
 
-- Historical full-address maps remain highly useful, but old flat-bank labels must be normalized through the LoROM correction table before reuse.
-- The 41A10 selector-table matcher and the target script VM reader are different layers. The normal target VM reader is already known at `89:87A2/87BD/87CF/87D4`; the selector matcher for `88:9A10` remains unresolved.
+- Historical full-address maps remain highly useful, but the earlier LoROM correction labels are superseded; reuse historical evidence by file offset and translate with the FastROM HiROM correction table.
+- The 41A10 selector-table matcher and the target script VM reader are different layers. The normal target VM reader is already known at `C4:87A2/87BD/87CF/87D4`; the selector matcher for `C4:1A10` remains unresolved.
 - 398xx 9-byte-looking rows are normal VM macro rows, not evidence of a dedicated fixed-record reader.
 - `81:8D87` is a `$1569[0..9]` count aggregator: `$09` available normal actors, `$0A` normal actors, `$0C` total logical objects, `$0D` special objects.
 - `85:86AC` has a condition family over `$180A[entity-1]`: `0x38` set bits, `0x39` clear bits, `0x3A` test selected bits clear.
-- Dialogue source reading is independent of the 41A10 selector matcher. `C9:9E10/9E57` and `$B1/$B2/$B3` already define the source-reader core.
+- Dialogue source reading is independent of the 41A10 selector matcher. `C4:9E10/9E57` and `$B1/$B2/$B3` already define the source-reader core.
 - The 64-slot `$0619..$0A18` controller/work SoA and the AF33 visible-object active-list pool must be treated as separate layers unless a handler explicitly stores a visible-object handle.
 - Visible-object external handle to physical active-list node mapping is `physical = external + 2`; nodes 0/1 are sentinels.
 
 ### Strong hypotheses
 
 - `$180A bit7` is hidden/suppressed/unavailable-like. Multiple feeder/count/event callers agree on this direction, but the exact game-facing label is still open.
-- `0x300D3` containing `88:9A05` is a valid resource clue near the 41A10 table, but not yet a proven selector-matcher bridge.
+- `0x300D3` containing `C4:1A05` is a valid resource clue near the 41A10 table, but not yet a proven selector-matcher bridge.
 
 ### Unconfirmed
 
-- The routine that scans `88:9A10` records and matches key/c1..c5.
+- The routine that scans `C4:1A10` records and matches key/c1..c5.
 - A universal pointer meaning for bytes +3..+5 of the `0x30048` descriptor bundle. Canonical-ROM revalidation shows this does not hold for all 35 records.
 - Exact handler-specific controller-slot to visible-object-handle mappings outside the known caller examples.
 

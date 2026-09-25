@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T19:18:07+09:00",
+  "updated_at": "2026-09-25T21:57:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -13,16 +13,16 @@
       "weight": 1.1,
       "status": "active",
       "scope": "全ROMのcode/data/table配置と主要ブロック意味付け",
-      "evidence": "2026-09-25 historical-map reconciliation: 2026-03 master block/exact maps、LoROM補正表、2026-04/05/27成果を現行正本へ再統合。0x41A10=88:9A10、0x39850=87:9850等の表記補正と0x30048 descriptor bridgeを正本ROMで再確認。"
+      "evidence": "2026-09-25 mapper correction: canonical header map mode 0x31 confirms FastROM HiROM. Historical LoROM-corrected labels are superseded; file offsets are retained and representative CPU labels are normalized to the C0..DF high mirror."
     },
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 67,
+      "percent": 68,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-25 cross-track reconciliation: 0x41A10 selector-table matcher（未解決）と、そのtarget scriptを読む通常VM（89:87A2 entry / 87BD lookup / 87CF indirect jump / 87D4 table、既知）を分離。398xxは専用9-byte readerではなく通常VM macro rowとして扱う。"
+      "evidence": "2026-09-25: target VM labels corrected to HiROM C4. Dialogue/source selection is now connected at instruction level through C4:9D4D/9D91/9DBB and the shared C7:0000 family table."
     },
     {
       "id": "fd67-selector",
@@ -90,11 +90,11 @@
     {
       "id": "dialogue",
       "name": "会話 / Script大量抽出",
-      "percent": 64,
+      "percent": 76,
       "weight": 1.2,
       "status": "active",
       "scope": "script→text pointer→文字列の大量抽出とイベント対応",
-      "evidence": "2026-04-27の既存source-reader解析を再統合。C9:9E10 main reader、C9:9E57 raw source byte reader、$B1/$B2/$B3 24-bit source pointer、0x02 dictionary handler、nested source stackまで既知。41A10 selector matcherは会話readerの前提ではないため旧blocker表現を撤回。大量抽出とevent対応が残る。"
+      "evidence": "2026-09-25: C7:0000 250-entry source-family table confirmed. All 3 reader modes implemented offline (raw/BD28/BD98); 250/250 families close cleanly and 7,877 zero-terminated source records are cataloged as metadata. Player-visible usage/context classification remains."
     },
     {
       "id": "character-display",
@@ -108,11 +108,11 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 68,
+      "percent": 71,
       "weight": 1.3,
       "status": "active",
       "scope": "ROM依存知識をschema/data/toolへ外部化し再生成可能にする",
-      "evidence": "2026-09-25: historical master maps、LoROM補正、VM/condition/object/dialogue各層を docs/analysis/cross_track_architecture_map.md に統合。object SoA schemaもbank87過去成果と整合するhandler-dependent overlayへ修正。"
+      "evidence": "2026-09-25: deterministic source-family extractor and metadata-only family/record catalogs added; canonical FastROM HiROM addressing spec and correction table added."
     },
     {
       "id": "whole-game",
@@ -142,8 +142,8 @@
         "G5"
       ],
       "track_id": "dialogue",
-      "title": "全dialogue root列挙とbulk salvage",
-      "target": "既知C9 reader/BD98 decoder/v33 dumperを統合し、ROM全域のroot候補をsource provenance付きで列挙。候補scanではなく到達根拠を持つcanonical text corpusを生成する。",
+      "title": "player-visible source-family classification and canonical text corpus",
+      "target": "Classify the 7,877 cataloged source records by C4:9D4D/$12B4 usage provenance, isolate player-visible text, render the canonical corpus, and attach event/speaker/location provenance without committing raw ROM/token dumps.",
       "status": "next"
     },
     {
@@ -227,6 +227,14 @@
     }
   ],
   "sources": [
+    "docs/handoff/HM_260925_dialogue_source_family_catalog.md",
+    "docs/analysis/rom_addressing_hirom.md",
+    "docs/analysis/dialogue_source_family_catalog.md",
+    "data/csv/shinmomo_hirom_address_correction_table_v1.csv",
+    "data/dialogue/source_family_summary.json",
+    "data/dialogue/source_family_catalog.csv",
+    "data/dialogue/source_record_index.csv",
+    "tools/python/catalog_dialogue_sources.py",
     "docs/project/PROJECT_GOALS_V2.md",
     "docs/audit/FULL_REPOSITORY_AUDIT_20260925.md",
     "docs/audit/REUSABLE_ASSET_INDEX_20260925.md",
@@ -259,8 +267,8 @@
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
-  "overall_percent": 47.8,
-  "legacy_workstream_overall_percent": 74.6,
+  "overall_percent": 50.2,
+  "legacy_workstream_overall_percent": 76.0,
   "top_goals": [
     {
       "id": "G1",
@@ -305,7 +313,7 @@
     {
       "id": "G2",
       "name": "全セリフ完全サルベージ",
-      "percent": 54,
+      "percent": 66,
       "status": "active",
       "definition_of_done": "全player-visible textをsource address/control token/文脈付きで回収し、到達可能な本文資材の取りこぼしがないことを検証。",
       "components": [
@@ -316,17 +324,17 @@
         },
         {
           "id": "source_readers_decoders",
-          "percent": 85,
+          "percent": 96,
           "weight": 0.2
         },
         {
           "id": "root_enumeration",
-          "percent": 40,
+          "percent": 70,
           "weight": 0.2
         },
         {
           "id": "full_corpus_extraction",
-          "percent": 30,
+          "percent": 45,
           "weight": 0.3
         },
         {
@@ -335,7 +343,7 @@
           "weight": 0.15
         }
       ],
-      "evidence": "C9 source reader、dictionary/nested context、BD98 mode02 decoder、offline chain dumperが存在。C8:A7D0-A960 のcommitted scanはCSV論理760 recordsだが限定範囲候補scanで、全root列挙・全本文・event/speaker/location対応は未完。"
+      "evidence": "C7:0000 source-family master table is now enumerated end-to-end: 250 families, raw/BD28/BD98 mode distribution 67/55/128, and 7,877 zero-terminated source records cataloged with hashes/statistics. This is a shared source corpus, so player-visible family classification, rendered corpus and event/speaker/location linkage remain."
     },
     {
       "id": "G3",

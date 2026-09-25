@@ -1,5 +1,7 @@
 # Full repository audit and goal reset — 2026-09-25
 
+> **Post-audit addressing correction (2026-09-25):** canonical ROM map mode is \`0x31\` FastROM HiROM. Any LoROM-corrected CPU labels in this audit are superseded; file offsets and byte evidence remain valid. See \`docs/analysis/rom_addressing_hirom.md\`.
+
 ## Scope and method
 
 This audit was run against GitHub HEAD `0e8a2bda337cb355f5da7d014b1a4bb17d52fd4b` using a read-only temporary clone on the analysis machine.

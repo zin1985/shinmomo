@@ -1,4 +1,4 @@
-id,topic,older_claim,current_canonical_interpretation,status,follow_up
+﻿id,topic,older_claim,current_canonical_interpretation,status,follow_up
 C001,$0759/$0799 semantics,global pointer/visibility/wait semantics were assigned in different threads,handler-dependent overlay columns; bank89 $0799 bit7 is a transient object-script state latch and bank87 uses differ,old global claims superseded,keep handler-qualified names only
 C002,controller pool vs visible object pool,64-slot counts encouraged treating them as one pool,$0619..$0A18 controller/work SoA and AF33 visible-object pool are separate layers connected by explicit handles in some handlers,superseded,prove more controller-handle mappings
 C003,398xx reader,dedicated 9-byte row reader was hunted,398xx rows are best treated as macro grouping of normal VM instructions; target VM core is already known at 89:87A2/87BD/87CF/87D4,superseded,decode high-op family instead
@@ -16,3 +16,4 @@ C014,source_conflicts time model,26 files under source_conflicts differ from the
 C015,raw VRAM in Git,two 65536-byte vram.bin files remained tracked,violated current no-raw-dump policy and were removed on 2026-09-25,resolved,keep derived summaries only
 C016,nested ZIP policy,README says nested ZIP files are not committed but 18 tracked ZIP paths remain,noncanonical historical packaging debt,open,verify expanded equivalents then remove in cleanup cycle
 C017,address labels,older reports mix flat file offsets and legacy/mirrored CPU banks,use file offset plus LoROM-corrected CPU address and correction table,active normalization rule,annotate legacy references
+C018,ROM mapper / CPU labels,2026-09-25 reconciliation treated the 2 MiB ROM as LoROM and relabeled file offsets accordingly,"canonical header map mode 0x31 is FastROM HiROM; use file offset plus C0..DF high-mirror labels, with valid 80..BF mirrors only where applicable",superseded,use docs/analysis/rom_addressing_hirom.md and the HiROM correction CSV
