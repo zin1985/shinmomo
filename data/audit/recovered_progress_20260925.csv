@@ -1,0 +1,10 @@
+area,current_or_previous_state,recovered_evidence,audit_action,classification
+81:8D87,rolling tracker had 30%,2026-04-26 analysis defines $09/$0A/$0C/$0D meanings plus wrappers/callers,restore to 85% workstream maturity,recovered evidence
+Condition dispatch,rolling tracker had 62%,85:86AC condition dispatcher plus 0x38 set / 0x39 clear / 0x3A test-clear over $180A entity field,restore to 81% workstream maturity,recovered evidence
+Dialogue source reader,old tracker treated 41A10 reader as major blocker,C9:9E10 main reader C9:9E57 source byte reader $B1/$B2/$B3 pointer dictionary and nested contexts known,remove false dependency on 41A10,recovered evidence
+Dialogue mode02,decoder work existed but was not represented in top-level status,BD98 bitstream/tree decoder and v33 offline chain dumper with 2606 scan rows in committed sample window,credit decoder capability but not full-corpus completion,recovered evidence
+Sprite animation,top-level sprite salvage not tracked,B294 frame groups and B2C1 animation group/state scripts plus $0E27/$0EA7/$0AE7/$0E67 semantics already externalized,add sprite-assets workstream,recovered evidence
+Graphics/mapchip,thread-local GFX declared 90-100%,VRAM/tilemap/metatile schemas and reconstruction pipeline are substantial but all-scene CGRAM/layer validation remains,credit architecture but not full asset salvage,reclassified scope
+Recompilable scaffold,no top-level rebuild workstream,C99 scaffold builds and contains 165 item 234 equipment 160 branch 64+64 macro rows and 6 blob previews,add rebuild-pipeline workstream at partial status,recovered evidence
+Object architecture,controller and visible object layers were sometimes conflated,AF33 external handles and physical=external+2 active-list model plus separate $0619..$0A18 SoA evidence,make separation canonical,reclassification
+41A10 resource,treated as one flat 160-record table in some documents,latest evidence supports block A records 0..97 + 32-byte control/header + block B from record102,replace flat-table assumption with segmented-resource model,reclassification
