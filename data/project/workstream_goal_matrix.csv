@@ -1,0 +1,24 @@
+workstream_id,workstream_name,G1_program_rebuild,G2_dialogue,G3_sprites,G4_events,G5_portable_spec,notes
+rom-map,ROM map / bank classification,3,1,1,2,3,Foundation for all address and data ownership
+script-vm,Script VM / Event,3,2,0,3,3,Execution semantics and event behavior
+fd67-selector,FD67 selector / field extraction,2,1,0,2,2,UI metadata and script field extraction
+wram,WRAM structures,3,0,1,2,3,Runtime object/state structures
+81-8d87,Logical actor count aggregator,1,0,0,2,1,Event/object count semantics
+shop-ledger,Shop / Ledger / UI,2,1,0,2,2,Facility behavior and transaction flow
+item-equipment,Item / Equipment,2,1,1,1,2,Data tables and effects
+weapon-special,Weapon special subsystem,2,0,1,1,2,Battle/equipment behavior
+condition-dispatch,Condition dispatch,2,1,0,3,2,Event predicates and flags
+dialogue,Dialogue decoder / reader,1,3,0,2,3,Text extraction and event context
+character-display,Character display / OAM,2,0,3,1,2,Sprite renderer and object display
+externalization,Externalization / schemas,2,2,2,2,3,Portable data representation
+whole-game,Cross-system architecture,3,2,2,3,3,Integration layer
+npc-oam,NPC / visible object / OAM,2,0,3,2,2,Object to renderer path
+rebuild-pipeline,ROM rebuild pipeline,3,0,0,0,3,Missing top-level workstream; host C scaffold is partial
+text-corpus,Complete text corpus,1,3,0,3,2,Missing top-level workstream; all roots/context not yet complete
+sprite-assets,Complete sprite asset corpus,1,0,3,1,2,Missing top-level workstream; renderer knowledge exceeds asset coverage
+event-catalog,Complete event catalog / graph,1,2,0,3,3,Missing top-level workstream; full enumeration not yet complete
+map-system,Map / metatile / field graphics,2,0,1,2,3,Graphics pipeline is strong but all-scene validation remains
+battle-core,Battle engine / AI / effects,3,0,1,2,3,Weapon special is only a subset of battle logic
+save-system,Save / SRAM format and restore logic,3,0,0,1,3,Very low current coverage
+audio-system,Audio / SPC / APU system,3,0,0,1,3,No dedicated analysis material found in current repository audit
+verification-suite,Rebuild / extraction verification,3,2,2,3,3,Needed to prove completeness across all five goals
