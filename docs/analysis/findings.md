@@ -1,5 +1,26 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-25 WRAM object-pool cycle
+
+### Confirmed
+
+- `$0619..$0A18` is a 0x400-byte object work region that fits 64 slots × 16 SoA columns at 0x40-byte stride.
+- In bank89, `$0859/$0899/$08D9` are loaded into DP `$B9/$BA/$BB` and consumed through `[$B9],Y`; this is a 24-bit object-script pointer overlay.
+- In bank89, `$0819,X` is assigned signed movement deltas and driven toward zero while `$07D9,X` moves in the corresponding direction.
+- Cross-bank use shows that later columns are reused by different handlers. The pool therefore has union-like, type-dependent semantics rather than one permanent meaning per column.
+- Bank85 demonstrates `$0999/$09D9` reuse as parameter/counter work, so those columns must not be globally named only as dimensions.
+
+### Strong hypotheses
+
+- In the bank89 overlay, `$0919/$0959` are an X/Y-like position pair.
+- In the same overlay, `$09D9` participates in an edge/extent calculation, but its global meaning remains type-dependent.
+
+### Unresolved
+
+- Exact universal meanings of the first six columns `$0619..$0759`.
+- Exact axis/name assignment for `$0919/$0959`.
+- Runtime mapping from bank89 slot index to the downstream active-list/OAM object.
+
 ## Confirmed facts
 
 ### Core
