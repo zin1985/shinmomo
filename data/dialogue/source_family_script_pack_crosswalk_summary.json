@@ -1,0 +1,16 @@
+{
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "source_family_entries": 250,
+  "ca_boundary_entries": 251,
+  "ca_reserved_zero_entries": 20,
+  "ca_real_pack_intervals": 230,
+  "ca_final_sentinel_index": "0xFA",
+  "first_pack_index": "0x14",
+  "last_pack_index": "0xF9",
+  "relation": "for valid CA packs 0x14..0xF9, CA pack interval index equals C7 source-family index",
+  "example": {
+    "index": "0x16",
+    "script_pack": "CB:01F9..CB:0FFC",
+    "source_root": "C7:8D13"
+  }
+}
