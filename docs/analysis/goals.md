@@ -1,78 +1,62 @@
-# Goal progress snapshot 260510Y
+# Current goal progress — five-goal model
 
-## Historical-map reconciliation update (2026-09-25)
+Updated: 2026-09-25
 
-The rolling tracker had drifted behind several completed April/May analyses. This cycle re-read the historical address master, LoROM correction table, VM reader hunts, actor/condition analysis, dialogue reader analysis, and object/OAM work before choosing new targets.
+The historical Goal1..Goal20 percentages are no longer the top-level project metric. They remain useful as lower-level workstreams and evidence history.
 
-The percentage increases below are primarily **reconciliation of already-completed evidence into the current tracker**, not an equivalent amount of newly reverse-engineered ROM in one cycle.
+Formal goal definitions live in `docs/project/PROJECT_GOALS_V2.md`.
 
-- ROM map: 72% → 74%
-- Script VM/Event: 66% → 67%
-- 81:8D87: 30% → 85%
-- Condition dispatch: 62% → 81%
-- Dialogue: 58% → 64%
-- Externalization: 66% → 68%
-- Whole-game reconstruction: 76% → 77%
-- Goal13 NPC/OAM: 96% unchanged
+## Current top-level baseline
 
-Key corrections:
-
-- `41A10 selector matcher` and `target script VM reader` are separate problems. The latter is already known at `89:87A2/87BD/87CF/87D4`.
-- Dialogue has its own known source reader at `C9:9E10/9E57`; it should not wait on the 41A10 matcher.
-- `81:8D87` already has all four return fields characterized.
-- condition `0x38/0x39/0x3A` already supplies set/clear/test-clear operations over the entity field used as `$180A bit7`.
-- controller/work SoA and AF33 visible-object pool are separate layers connected by explicit handles in some handlers.
-
-The canonical routing map is now `docs/analysis/cross_track_architecture_map.md`.
-
-## WRAM object-pool cycle update (2026-09-25)
-
-Cross-bank analysis identified `$0619..$0A18` as a 64-slot × 16-column SoA object pool.
-Bank89 overlays a 24-bit script pointer on `$0859/$0899/$08D9`, movement work on
-`$07D9/$0819`, and position-like values on `$0919/$0959`. Cross-bank evidence shows
-that several later columns are handler-dependent work fields rather than globally fixed semantics.
-
-Progress impact:
-- WRAM structure: 62% → 67%
-- Script VM/Event: 65% → 66%
-- Externalization: 65% → 66%
-- Whole-game reconstruction: 75% → 76%
-- Goal13 remains 96%
-
-Next global priority is the `0x41A10` reader hunt because it can unlock Script VM,
-Condition Dispatch, and Dialogue simultaneously.
-
-## Dynamic-analysis cycle note (2026-09-25)
-
-The canonical ROM was checked from the pinned Drive folder and the Windows analysis copy matched the known SHA-256.
-BizHawk/Snes9x executed through the title and into the field, and CPU/WRAM runtime logging is now confirmed working.
-Static follow-up placed the $0799,X bit7 routines inside a bank89 script-driven object-state path, so the earlier
-"final visibility staging" label is no longer treated as confirmed. Goal13 is reopened at 96% while the direct OAM
-link is revalidated; the broader Script VM/Event track advances from this dispatcher mapping.
-
-## Core goals
-
-| Goal | Status | Scheduled-analysis update |
+| Goal | Progress | Current limiting factor |
 |---|---:|---|
-| Goal7 blob runners | 100% | `$83:F09A / F0DB / F0C6` constrained as terminal append-buffer consumers. |
-| Goal8 dispatch | 100% | `$0759` dispatch remains append-gated; invisible slots do not execute. |
-| Goal9 VM/script | 100% | bank89 object-script dispatch is now directly relevant to the $0799,X path; the older "configuration-only" wording is retired. |
-| Goal12 architecture | 100% | one-way VM/config → slot loop → append → dispatch/OAM pipeline stabilized. |
-| Goal13 NPC/OAM | revalidation 96% | $0799,X state transitions are real, but their direct visibility/OAM meaning must be proven against the active-list/OAM path. |
-| Goal14 slot/state | 100% | contiguous-prefix threshold model stabilized. |
+| G1 Program / logic complete analysis + ROM rebuild | **47%** | no full routine classification, real SNES ROM rebuild, complete save or audio subsystem spec |
+| G2 complete dialogue salvage | **54%** | root enumeration, full corpus coverage, context/event linkage |
+| G3 complete sprite salvage | **49%** | full entity inventory, canonical palette/asset export, all-scene validation |
+| G4 complete event analysis | **42%** | selector matcher, complete event inventory, event graph |
+| G5 complete portable specification | **47%** | missing subsystem specs, verification suite, save/audio/battle completeness |
 
-## Extended graphics / validation goals
+Top-level overall: **47.8%**
 
-| Goal | Status | Scheduled-analysis update |
-|---|---:|---|
-| Goal15 clustering | 100% | fragmentation-resistant cluster persistence validated. |
-| Goal16 OAM budget | 95% | budget enforcement still appears emergent via append_count limitation. |
-| Goal17 gating | 100% | SKIP/disappearance equivalence stabilized. |
-| Goal18 timing | 100% | execution_frame exactness retained under churn. |
-| Goal19 dispatch linkage | 97% | CHR grouping and contribution bands align but exact mapping remains open. |
-| Goal20 validation | 100% | compression-stable branch-causal datasets preserved. |
+Legacy workstream weighted maturity: **74.6%**.
 
-## Earlier baseline relation
+These values intentionally measure different things.
 
-The March/May Goal13 model remains useful for the active-list/OAM side, but the 2026-09-25 runtime/static cycle showed that the $0799,X path sits inside bank89 script-driven object handling. The next milestone is therefore a cross-layer proof, not another assumption that $0799,X is itself the visibility authority.
+## Recovered historical work included in this baseline
 
+- `81:8D87` four return fields are largely characterized.
+- condition `0x38/0x39/0x3A` set/clear/test-clear family is known.
+- dialogue source reader at `C9:9E10/9E57`, dictionary/nested context handling and BD98 mode02 decoder are known.
+- B294 sprite-frame groups and B2C1 animation scripts are already substantially externalized.
+- visible-object active-list/OAM renderer and controller/work SoA are both well studied, but are separate layers.
+- host-side recompilable C scaffold exists and builds.
+
+These are **recovered evidence**, not equivalent amounts of new reverse engineering performed on 2026-09-25.
+
+## Canonical corrections
+
+- `$0799` is not a globally fixed visibility field.
+- bank89 VM/object-script processing is directly relevant to the `$0799` path; it is not configuration-only.
+- “41A10 selector matcher” and “target script VM reader” are different problems.
+- the target VM reader at `89:87A2/87BD/87CF/87D4` is known.
+- 398xx rows do not justify hunting a generic dedicated 9-byte reader.
+- 41A10 currently has a segmented-resource interpretation, not a safely flat 160-record interpretation.
+- dialogue extraction does not need to wait for the 41A10 matcher.
+- controller/work SoA and AF33 visible-object pool must not be merged without an explicit handle mapping.
+
+For details see:
+
+- `data/audit/contradiction_register_20260925.csv`
+- `docs/audit/FULL_REPOSITORY_AUDIT_20260925.md`
+- `docs/analysis/cross_track_architecture_map.md`
+
+## Current priorities
+
+1. enumerate all dialogue roots and generate a canonical text corpus;
+2. identify the segmented 41A10 selector matcher;
+3. build the canonical sprite inventory/exporter;
+4. generate the all-event catalog skeleton;
+5. create a ROM rebuild gap manifest;
+6. establish save/SRAM format;
+7. establish audio/APU/SPC baseline;
+8. expand weapon-special results into the full battle core.
