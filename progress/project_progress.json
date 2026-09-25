@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-25T15:32:00+09:00",
+  "updated_at": "2026-09-25T16:21:25+09:00",
   "overall_method": "weighted_mean",
   "overall_note": "全体進捗は各解析トラックの重み付き平均。局所Goalの100%をゲーム全体100%として扱わない。",
   "tracks": [
@@ -18,11 +18,11 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 64,
+      "percent": 65,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "May Goal9全体側 62-64%。Goal13 visibility path内のVM isolation 100%とは別スコープ"
+      "evidence": "2026-09-25: bank89のobject/script command dispatcherと複数handlerの対応を追加確認。"
     },
     {
       "id": "fd67-selector",
@@ -126,54 +126,54 @@
     {
       "id": "npc-oam",
       "name": "NPC / OAM Goal13",
-      "percent": 99,
+      "percent": 96,
       "weight": 0.8,
-      "status": "near-complete",
-      "scope": "visibility staging→append→OAM emissionのGoal13モデル。indexed $0799,X probeまで整備済み、runtime相関のみ残る",
-      "evidence": "Goal13 modelは静的/既存runtime要約で高確度。2026-09-25 13:12 cycleでは指定ROM /mnt/data/Shin Momotarou Densetsu (J)_original(1).smc にアクセスできず新規実行なし。HEAD fe023d5 のBizHawk probeは固定$0799監視を廃し、Xから$0799+X実効slotを採取しBA76/BA81/BA89/BACDもhookするため、次回traceの計測欠落リスクを解消。 2026-09-25 15:32 JST: Google Drive https://drive.google.com/drive/folders/1Vlypsxg8aHiGdABsWJZdPtFEiEuv0J1F に Shin Momotarou Densetsu (J)_original.smc (2097152 bytes) が存在することを確認。以後、各サイクル開始時の正本ROM参照先として使用する。"
+      "status": "active",
+      "scope": "NPC/object stateと表示/OAM経路の意味付けを再検証",
+      "evidence": "2026-09-25: 正本ROMをBizHawkでフィールドまで実行しCPU callbackとWRAM変化を確認。静的追跡で$0799,X処理がscript-driven object処理内にあることが判明したため、visibility確定扱いを解除して再検証へ。"
     }
   ],
   "schedule": [
     {
       "priority": 1,
       "track_id": "npc-oam",
-      "title": "Drive正本ROM参照 → indexed Goal13 runtime probe",
-      "target": "各解析サイクル開始時に https://drive.google.com/drive/folders/1Vlypsxg8aHiGdABsWJZdPtFEiEuv0J1F を参照し、Shin Momotarou Densetsu (J)_original.smc を正本ROMとして確認・取得する。そのROMでBizHawk probeを実行し、BA36/BA48/BA70/BA76/BA81/BA89/BAC8/BACDと$0799+X、append/OAM相関を取得。別ROMは代用しない。",
+      "title": "$0799,X semantics runtime再検証",
+      "target": "NPC/event移動場面で$0799,X変化とscript/object stateを対応付ける",
       "status": "next"
     },
     {
       "priority": 2,
       "track_id": "npc-oam",
-      "title": "Goal13 残定数の確定",
-      "target": "SKIP_MASK、threshold T、shared_state RAM、append_buffer/count、bank87 exact opcodesをruntime/静的証拠で確定",
+      "title": "$0799系とOAM表示系の接続判定",
+      "target": "$0799,X変化とactive-list/OAM結果を同一frameで比較する",
       "status": "queued"
     },
     {
       "priority": 3,
       "track_id": "script-vm",
-      "title": "0x41A10 reader hunt",
-      "target": "0x39850/0x39993と0x30000台scriptを読むroutine/xrefの確定",
+      "title": "bank89 object-script dispatcher完全分解",
+      "target": "command dispatcherとhandler/WRAMの意味を確定する",
       "status": "queued"
     },
     {
       "priority": 4,
-      "track_id": "weapon-special",
-      "title": "武器特殊能力hook分類",
-      "target": "C1/C2/C8 hookと装備script-packの意味付け",
+      "track_id": "script-vm",
+      "title": "0x41A10 reader hunt",
+      "target": "script reader/xrefを確定する",
       "status": "queued"
     },
     {
       "priority": 5,
-      "track_id": "wram",
-      "title": "WRAM列意味付け",
-      "target": "1E11/1E51/1ED1/1F11系および関連WRAMのread/write分類",
+      "track_id": "weapon-special",
+      "title": "武器特殊能力hook分類",
+      "target": "hookと装備script-packの意味付け",
       "status": "queued"
     },
     {
       "priority": 6,
-      "track_id": "dialogue",
-      "title": "会話大量抽出pipeline",
-      "target": "script→text pointer→decoded textの一括対応",
+      "track_id": "wram",
+      "title": "WRAM列意味付け",
+      "target": "object state列を含むWRAM read/write分類を進める",
       "status": "queued"
     }
   ],
