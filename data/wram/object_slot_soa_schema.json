@@ -12,7 +12,7 @@
     "column_stride_bytes": 64,
     "index_register": "X"
   },
-  "interpretation": "64-slot object pool stored as structure-of-arrays. Several later columns are type/handler-dependent work fields, so names below distinguish global-safe meaning from bank89-specific meaning.",
+  "interpretation": "64-slot shared controller/work pool stored as structure-of-arrays. Column semantics are handler-dependent overlays; do not assign one universal meaning from a single bank.",
   "columns": [
     {
       "base": "0x0619",
@@ -47,22 +47,22 @@
     {
       "base": "0x0759",
       "index": 5,
-      "name": "flags_dispatch_gate",
-      "confidence": "confirmed",
+      "name": "overlay_work_5",
+      "confidence": "type-dependent",
       "evidence": [
-        "83:B28B sets bit 0x40",
-        "existing append/dispatch analysis"
+        "Historical bank87 reclassification: $0759 can be pointer low/state/position-like depending routine.",
+        "Do not globally label as dispatch flag; only local handler semantics are valid."
       ]
     },
     {
       "base": "0x0799",
       "index": 6,
-      "name": "state_flags_counter",
-      "confidence": "confirmed-partial",
+      "name": "overlay_work_6",
+      "confidence": "type-dependent",
       "evidence": [
-        "89:BA70 consumes bit7",
-        "89:BAC8 sets bit7",
-        "bank89 object-script path"
+        "bank89: bit7 is a transient object-script state latch consumed by BA70.",
+        "bank87 historical reclassification: same column participates in pointer/state/velocity-like overlays.",
+        "Global visibility or counter naming is unsafe."
       ]
     },
     {
@@ -149,5 +149,32 @@
       ]
     }
   ],
-  "safety_note": "No ROM bytes or raw dumps are included; only addresses, inferred structure, and summarized evidence."
+  "safety_note": "No ROM bytes or raw dumps are included; only addresses, inferred structure, and summarized evidence.",
+  "updated_at": "2026-09-25T17:05:00+09:00",
+  "pool_identity": {
+    "kind": "controller_or_object_work_pool",
+    "relation_to_visible_object_pool": "distinct layers unless a handler explicitly stores/loads a visible-object external handle",
+    "evidence": [
+      "Historical AF33 caller analysis shows some C2/C6 handlers store the AF33 returned visible-object handle into $0619,X.",
+      "Visible-object active list has two sentinel physical nodes and maps external handle to physical node with +2 in AFEC.",
+      "Therefore equal 64-object capacities do not imply the two pools are identical."
+    ]
+  },
+  "related_visible_object_pool": {
+    "allocator": "C0/80:AF33",
+    "max_real_objects": 64,
+    "physical_sentinels": [
+      0,
+      1
+    ],
+    "physical_real_slots": "2..65",
+    "external_handle_range": "0..63",
+    "external_to_physical": "physical = external + 2",
+    "active_list_fields": [
+      "$0A1F prev",
+      "$0A61 next",
+      "$0AA3 sort/depth key"
+    ],
+    "render_path": "$0A61 chain -> C0:B03D -> C0:B100 -> $0EE9 OAM mirror -> DMA"
+  }
 }
