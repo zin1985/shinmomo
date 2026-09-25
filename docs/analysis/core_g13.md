@@ -1,123 +1,113 @@
-# Core Goal13 model 260510Y
+# Goal13 / NPC-object-OAM canonical model
 
-## Stable topology
+Updated: 2026-09-25 after runtime/static revalidation.
 
-```text
-VM/config
-→ bank87 slot loop
-    → accumulation
-    → compose flags
-    → normalize flags
-    → STA $0799
-    → LDA $0799
-    → AND #SKIP_MASK
-    → BNE skip / append
-→ append buffer
-→ blob-runner traversal
-→ OAM pre-registration
-→ OAM emission
-```
+The old 260510Y model that treated `$0799` as a canonical global visibility staging field is superseded.
 
-## Working visibility equation
+## Confirmed architecture
+
+There are multiple layers that must remain separate:
 
 ```text
-VISIBLE(slot[i]) =
-  normalize(
-    compose(
-      macro[class],
-      spatial,
-      shared_state
-    )
-  ) & SKIP_MASK == 0
+event/script/logical actor
+        ↓
+controller/work object slots
+  $0619..$0A18, handler-dependent overlays
+        ↓ explicit handle creation/storage in some handlers
+visible-object pool
+  C0:AF33 create/sorted insert
+  C0:AFAA remove
+  C0:AFEC re-sort
+  physical node = external handle + 2
+        ↓
+$0A61 active list / $0AA3 sort key
+        ↓
+C0:B03D active-list walk
+        ↓
+C0:B100 object → sprite pieces
+        ↓
+$0EE9 OAM mirror
+        ↓
+C0:B0C7 OAM transfer
 ```
 
-With:
+## $0799 status
+
+Confirmed:
+
+- `$0799,X` is an indexed controller/object-slot field.
+- bank89 contains read/write/DEC and bit7 set/consume sequences for it.
+- `89:BAC8` performs `LDA $0799,X / ORA #$80 / STA $0799,X`.
+- `89:BA70` tests bit7 and normalizes the value.
+- the path is inside script-driven object processing.
+
+Not confirmed:
+
+- that `$0799` has one global semantic across all handlers;
+- that bit7 directly means final visibility;
+- that this field is itself the OAM/active-list authority.
+
+Use handler-qualified labels until an explicit controller → visible-object → OAM correlation is proven.
+
+## $0759/$0799 historical correction
+
+Bank87 evidence already showed these columns can behave differently by routine/object type, including pointer/state/position-like overlays.
+
+Therefore:
 
 ```text
-shared_state is monotonic within a frame
-shared_state >= T forces SKIP for current and later slots
+WRONG: $0759/$0799 = universal pointer pair
+WRONG: $0799 = universal wait counter
+WRONG: $0799 = universal visibility field
+
+RIGHT: handler-dependent controller/work fields; assign semantics per routine/object type.
 ```
 
-## Threshold model
+## Stable visible-object facts
+
+- `$0A61[slot]`: next node in active list
+- `$0A1F[slot]`: previous node
+- `$0AA3[slot]`: sort/depth key
+- external visible-object handle maps to physical node with `physical = external + 2`
+- nodes 0/1 are structural/sentinel space in the current model
+- C1 object-management callers demonstrate explicit bridges from logical/controller work to visible objects
+
+## Animation/render facts
 
 ```text
-S(i) = Σ contribution[0..i]
-K = first i where S(i) >= T
-visible = [0 .. K-1]
-skipped = [K .. N]
-append_count = K
+$0B27 lower nibble
+→ C0:B2C1 animation group
+→ group-specific state pointer table
+→ [frame, duration] script
+→ $0AE7 current frame
+→ B294 sprite frame definition
+→ OAM pieces
 ```
 
-## $0799 role
+`$0E27` is a group-dependent animation state number. State 0 disables animation/frame output; other state labels must be assigned per group.
 
-`$0799` is treated as a canonical visibility staging bridge:
+## Remaining Goal13 work
+
+The highest-value unresolved proof is not another global `$0799` label.
+
+It is:
 
 ```text
-finalized flags → $0799 → masked branch → append/skip
+one controller/work object
+→ explicit visible-object external handle
+→ physical handle+2
+→ active-list node
+→ B03D/B100 render
+→ same-frame OAM pieces
 ```
 
-Current evidence supports:
+A successful end-to-end correlation will close the most important remaining cross-layer ambiguity.
 
-- single canonical write
-- single masked branch consumer
-- no append-time recomputation
-- no downstream normalization
-- no late visibility restoration
+## Historical references
 
-## $0759 role
+The 260510Y threshold/append model remains historical evidence only. Any claim copied from it must be checked against:
 
-`$0759` is treated as append-gated execution dispatch:
-
-```text
-append traversal → JSR ($0759)
-```
-
-Thus invisible slots should never execute through `$0759` in the Goal13 path.
-
-## 0x39850 macro rows
-
-The scheduled analysis treats `0x39850` rows as accumulation-domain rows:
-
-```text
-macro row → contribution magnitude / threshold acceleration / class weighting
-```
-
-They are not currently treated as skip-encoding or canonical visibility rows.
-
-## Primary target to extract
-
-```asm
-LDA $0799
-AND #imm
-BNE skip
-```
-
-Extracting `#imm` should resolve `SKIP_MASK`.
-
-## Search signatures
-
-### append_count RAM
-
-```text
-increment-on-append
-stable after slot loop
-consumed by blob runners
-not used by VM scheduler
-```
-
-### shared_state RAM
-
-```text
-frame reset
-monotonic increment
-threshold-correlated plateau
-no rollback/no decrement
-```
-
-### normalization block
-
-```text
-immediately before STA $0799
-likely AND/ORA style flag shaping
-```
-
+- `docs/handoff/HM_260925_goal13_runtime_revalidation.md`
+- `docs/reports/bank87_object_slot_0759_0799_reclassification_20260503.md`
+- `docs/analysis/wram_object_pool.md`
+- `data/audit/contradiction_register_20260925.csv`
