@@ -4,8 +4,8 @@
 
 ### Core
 
-- `$0799` is treated as finalized branch-ready visibility state.
-- Canonical visibility ownership is bank87-local in the current model.
+- `$0799,X` state transitions are confirmed, but their direct visibility meaning is not.
+- The `$0799,X` path is now known to sit inside bank89 script-driven object processing; its connection to the independent OAM path remains open.
 - Branch outcome determines append/skip irreversibly for a frame.
 - Append acceptance is branch-exclusive.
 - Append traversal is contiguous-prefix-only.
@@ -13,7 +13,7 @@
 - Append buffer is immutable after finalization.
 - `$0759` is append-gated execution dispatch only.
 - NPC behavior pointers are execution-only selectors.
-- VM/event/script layers are upstream configuration-only.
+- VM/event/script are not configuration-only for the `$0799,X` path; object-script dispatch feeds this state-processing chain.
 - Blob-runner family is terminal-only and cardinality-passive.
 - Threshold crossing excludes the crossing slot immediately.
 - Post-threshold append recovery is unsupported.
@@ -39,6 +39,7 @@
 
 ## Hypotheses
 
+- `$0799,X bit7` may be an NPC/object state flag rather than a visibility authority; same-frame OAM correlation is required.
 - `SKIP_MASK = $80`.
 - Threshold `T` approximates visible-object plateau.
 - `0x39850` rows encode compact contribution weights.
@@ -52,20 +53,11 @@
 
 ### 2026-09-25 dynamic-analysis cycle
 
-- The supplied 2 MiB ROM was available out-of-tree and identified by SHA-256 in
-  `data/dynamic_probe_static/ROM_INPUT_MANIFEST.json`; the ROM itself was not
-  copied into the repository.
-- No supported SNES debugger executable (Mesen2/bsnes-plus) is installed in
-  the Work environment, so this cycle produced **no dynamic trace**. Existing
-  runtime summaries remain prior-cycle evidence and are not relabeled as a new
-  execution.
-- The next required observation is a debugger run covering normal-visible and
-  off-screen NPC cases, with `$0799,X` writes correlated to append buffer/count
-  changes. Until then, the Goal13 evidence level remains unchanged.
-- A user-area survey found an existing reusable BizHawk 2.11 installation with
-  `EmuHawk.exe`, Snes9x/bsnes cores, and prior Lua probes. The new launcher and
-  probe are checked in, but the Work terminal policy prevented starting the GUI
-  process, so the minimum CPU/frame/register/WRAM smoke test remains pending.
+- The pinned Drive ROM source was checked and the matching analysis ROM was executed with BizHawk/Snes9x.
+- Runtime execution reached a field scene; CPU callback and WRAM observation are operational.
+- The current BAxx target probes did not fire during the observed field run, so no direct visibility claim is made from them.
+- Static follow-up places the $0799,X processing inside a bank89 object-script path, so the prior visibility interpretation is reopened.
+- Next step: exercise an NPC/event movement case and correlate $0799,X state with the known active-list/OAM path.
 
 ### Constants
 
