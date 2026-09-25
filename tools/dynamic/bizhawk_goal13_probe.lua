@@ -1,8 +1,9 @@
 -- BizHawk/EmuHawk Goal13 smoke probe.
--- ROM path is supplied to EmuHawk, never embedded here. Output is an aggregate
--- JSON-lines file; do not use this probe to emit raw memory dumps.
+-- ROM path is supplied to EmuHawk, never embedded here. Output is aggregate
+-- JSON-lines only; do not use this probe to emit raw memory dumps.
 local OUT = os.getenv("SHINMOMO_TRACE_OUT") or "goal13_trace.jsonl"
 local f = assert(io.open(OUT, "w"))
+
 local function reg(name)
   if emu and emu.getregister then
     local ok, v = pcall(emu.getregister, name)
@@ -10,23 +11,44 @@ local function reg(name)
   end
   return nil
 end
+
 local function wram(addr)
   local ok, v = pcall(memory.read_u8, 0x7E0000 + addr, "System Bus")
   if ok then return v end
   return nil
 end
+
 local function emit(kind, extra)
-  local row = {kind=kind, frame=emu.framecount(), pc=reg("PC"), a=reg("A"), x=reg("X"), y=reg("Y"), sp=reg("S"), p=reg("P"), w0799=wram(0x0799), w030b=wram(0x030B), w030d=wram(0x030D), w1395=wram(0x1395), w1396=wram(0x1396)}
+  local x = reg("X")
+  local slot0799 = x and wram(0x0799 + x) or nil
+  local row = {
+    kind=kind, frame=emu.framecount(), pc=reg("PC"), a=reg("A"), x=x,
+    y=reg("Y"), sp=reg("S"), p=reg("P"),
+    w0799x=slot0799, w030b=wram(0x030B), w030d=wram(0x030D),
+    w1395=wram(0x1395), w1396=wram(0x1396)
+  }
   for k,v in pairs(extra or {}) do row[k]=v end
   local parts={}
-  for k,v in pairs(row) do parts[#parts+1]=string.format('%q:%s',k,v==nil and 'null' or (type(v)=='number' and tostring(v) or string.format('%q',tostring(v)))) end
+  for k,v in pairs(row) do
+    parts[#parts+1]=string.format('%q:%s', k,
+      v==nil and 'null' or (type(v)=='number' and tostring(v) or string.format('%q',tostring(v))))
+  end
   f:write('{'..table.concat(parts,',')..'}\n'); f:flush()
 end
-local targets={{0x89BA36,"BA36"},{0x89BA48,"BA48"},{0x89BA70,"BA70"},{0x89BAC8,"BAC8"}}
+
+local targets={
+  {0x89BA36,"BA36"},{0x89BA48,"BA48"},{0x89BA70,"BA70"},
+  {0x89BA76,"BA76_read0799x"},{0x89BA81,"BA81_write0799x"},
+  {0x89BA89,"BA89_dec0799x"},{0x89BAC8,"BAC8"},{0x89BACD,"BACD_write0799x"}
+}
 for _,t in ipairs(targets) do
-  pcall(event.onmemoryexecute, function() emit("execute", {target=t[2]}) end, t[1], "System Bus", "goal13_"..t[2])
+  pcall(event.onmemoryexecute, function()
+    local x=reg("X")
+    emit("execute", {target=t[2], slot_addr=x and (0x0799+x) or nil})
+  end, t[1], "System Bus", "goal13_"..t[2])
 end
-pcall(event.onmemorywrite, function(_,addr,val) emit("0799_write", {addr=addr, value=val, bit7=((val or 0) & 0x80) ~= 0}) end, 0x7E0799, "System Bus", "goal13_0799")
-if event.onframestart then event.onframestart(function() if emu.framecount() % 60 == 0 then emit("frame", {}) end end, "goal13_frame") end
-emit("probe_loaded", {targets="89:BA36,89:BA48,89:BA70,89:BAC8"})
+
+-- Do not watch only 7E:0799: the code uses $0799,X. Execute hooks above
+-- capture the effective indexed slot address without guessing slot bounds.
+emit("probe_loaded", {targets="89:BA36,BA48,BA70,BA76,BA81,BA89,BAC8,BACD"})
 while true do emu.frameadvance() end
