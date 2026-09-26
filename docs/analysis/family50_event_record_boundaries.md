@@ -15,6 +15,8 @@ F50-R04 CC:1D76..CC:1D9C, 38 bytes, selection 07 then pair 08/09.
 F50-R05 CC:1D9C..CC:1DBA, 30 bytes, selections 0A/0B.
 F50-R06 CC:1DBA..CC:1DE0, 38 bytes, selection 0C then pair 0D/0E.
 F50-R07 CC:1DE0..CC:1DFE, 30 bytes, selections 0F/10.
+F50-R08 CC:1DFE..CC:1E0F, 17 bytes, selection 11.
+F50-R09 CC:1E0F..CC:1E2F, 32 bytes, selection 12.
 
 The recovered A4 pairs are therefore embedded in a repeated enclosing record grammar. The two longer variants prove that 07 and 0C belong to the same enclosing records as 08/09 and 0D/0E.
 
@@ -24,7 +26,7 @@ The extra selection in the 38-byte form is a guarded or alternate-selection subf
 
 ## Unconfirmed
 
-Exact speaker/runtime reachability, the semantics of the extra-selection subform, the following 11/12 short forms, and cross-family universality.
+Exact speaker/runtime reachability, the semantics of the extra-selection subform, and cross-family universality.
 
 ## Impact
 
