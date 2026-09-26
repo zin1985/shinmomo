@@ -1,11 +1,15 @@
 {
-  "crosswalk_rows": 76,
-  "unique_usage_pairs": 21,
+  "crosswalk_rows": 78,
+  "unique_usage_pairs": 22,
   "new_strong_historical_dialogue_pairs": 19,
-  "unique_token_hashes": 21,
-  "families": [78, 79, 80],
+  "unique_token_hashes": 22,
+  "families": [
+    78,
+    79,
+    80
+  ],
   "base_unknown_visibility_pairs": 2225,
   "effective_unknown_after_historical_crosslink": 2206,
-  "classification_rule": "exact token SHA-256 match + first token 0x7D + terminator 0x00 + non-empty historical decoded text",
+  "classification_rule": "exact logical-token SHA-256 match + first token 0x7D + standalone terminator 0x00 + non-empty historical decoded text; state-contiguous retained-v33 rows are stitched when 0x00 is consumed as the low byte of token 0x18..0x1F",
   "decoded_text_copied_to_crosswalk": false
 }
