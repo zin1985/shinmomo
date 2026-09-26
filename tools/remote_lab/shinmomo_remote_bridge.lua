@@ -9,6 +9,8 @@ local RESPONSES = LAB_DIR .. SEP .. "responses"
 local CAPTURES = LAB_DIR .. SEP .. "captures"
 
 local pending_gamepad = nil
+local goal13_trace_active = false
+local goal13_trace_rows = {}
 
 local function split_tabs(s)
   local out = {}
@@ -72,6 +74,69 @@ end
 
 local function framecount()
   return (emu and emu.framecount and emu.framecount()) or -1
+end
+
+local function reg(name)
+  if emu and emu.getregister then
+    local ok, v = pcall(emu.getregister, name)
+    if ok then return v end
+  end
+  return nil
+end
+
+local function json_num(v)
+  return v == nil and "null" or tostring(v)
+end
+
+local function goal13_emit(kind, target)
+  if not goal13_trace_active then return end
+
+  local x = reg("X")
+  local parts = {
+    "{",
+    '"frame":' .. tostring(framecount()) .. ",",
+    '"kind":' .. json_quote(kind) .. ",",
+    '"target":' .. json_quote(target) .. ",",
+    '"pc":' .. json_num(reg("PC")) .. ",",
+    '"a":' .. json_num(reg("A")) .. ",",
+    '"x":' .. json_num(x) .. ",",
+    '"y":' .. json_num(reg("Y")) .. ",",
+    '"p":' .. json_num(reg("P")) .. ",",
+    '"w030b":' .. json_num(read8(0x030B, "WRAM")) .. ",",
+    '"w030d":' .. json_num(read8(0x030D, "WRAM")) .. ",",
+    '"w1395":' .. json_num(read8(0x1395, "WRAM")) .. ",",
+    '"w1396":' .. json_num(read8(0x1396, "WRAM")) .. ",",
+    '"active_count":' .. json_num(read8(0x0AE5, "WRAM")) .. ",",
+    '"oam_dirty":' .. json_num(read8(0x0A1B, "WRAM"))
+  }
+
+  if x and x >= 0 and x < 0x40 then
+    parts[#parts + 1] = ',"ctrl0619":' .. json_num(read8(0x0619 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0759":' .. json_num(read8(0x0759 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0799":' .. json_num(read8(0x0799 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl07d9":' .. json_num(read8(0x07D9 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0819":' .. json_num(read8(0x0819 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0859":' .. json_num(read8(0x0859 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0899":' .. json_num(read8(0x0899 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl08d9":' .. json_num(read8(0x08D9 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0919":' .. json_num(read8(0x0919 + x, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0959":' .. json_num(read8(0x0959 + x, "WRAM"))
+  end
+
+  if x and x >= 0 and x < 0x42 then
+    parts[#parts + 1] = ',"vis_prev":' .. json_num(read8(0x0A1F + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_next":' .. json_num(read8(0x0A61 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_sort":' .. json_num(read8(0x0AA3 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_group":' .. json_num(read8(0x0B27 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_frame":' .. json_num(read8(0x0AE5 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_x_lo":' .. json_num(read8(0x0BA5 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_x_hi":' .. json_num(read8(0x0BE5 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_y_lo":' .. json_num(read8(0x0C65 + x, "WRAM"))
+    parts[#parts + 1] = ',"vis_y_hi":' .. json_num(read8(0x0CA5 + x, "WRAM"))
+  end
+
+  parts[#parts + 1] = "}"
+  goal13_trace_rows[#goal13_trace_rows + 1] = table.concat(parts)
 end
 
 local function read_range(start, length, domain)
@@ -158,7 +223,8 @@ local function do_capture(id, domain, start_s, length_s)
 end
 
 local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
-                                         domain, start_s, length_s, post_s)
+                                         domain, start_s, length_s, post_s,
+                                         enable_goal13_trace)
   local player = tonumber(player_s) or 1
   local frames = tonumber(frames_s) or 1
   local post_frames = tonumber(post_s) or 0
@@ -192,6 +258,10 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
   end
 
   local snapshots = {}
+  if enable_goal13_trace then
+    goal13_trace_rows = {}
+    goal13_trace_active = true
+  end
   snapshots[#snapshots + 1] = snapshot_json("before", domain, start, length)
 
   for i=1,frames do
@@ -213,6 +283,10 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
       snapshot_json("post_" .. tostring(i), domain, start, length)
   end
 
+  if enable_goal13_trace then
+    goal13_trace_active = false
+  end
+
   local path = CAPTURES .. SEP .. "atomic_" .. clean_id(id) .. ".json"
   local payload = table.concat({
     "{",
@@ -224,7 +298,8 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
     '"buttons":' .. json_quote(button_csv) .. ",",
     '"input_frames":' .. tostring(frames) .. ",",
     '"post_frames":' .. tostring(post_frames) .. ",",
-    '"snapshots":[' .. table.concat(snapshots, ",") .. "]",
+    '"snapshots":[' .. table.concat(snapshots, ",") .. "],",
+    '"goal13_trace":[' .. table.concat(goal13_trace_rows, ",") .. "]",
     "}"
   })
 
@@ -269,7 +344,7 @@ local function process_command()
     return
   end
 
-  if cmd == "ATOMIC_GAMEPAD_CAPTURE" then
+  if cmd == "ATOMIC_GAMEPAD_CAPTURE" or cmd == "ATOMIC_GOAL13_CAPTURE" then
     do_atomic_gamepad_capture(
       id,
       p[3] or "1",
@@ -278,7 +353,8 @@ local function process_command()
       p[6] or "WRAM",
       p[7] or "0",
       p[8] or "256",
-      p[9] or "0"
+      p[9] or "0",
+      cmd == "ATOMIC_GOAL13_CAPTURE"
     )
     return
   end
@@ -305,6 +381,41 @@ local function apply_gamepad()
     respond(g.id, "OK", "applied " .. tostring(g.frames) .. " frame(s)")
     pending_gamepad = nil
   end
+end
+
+
+local goal13_targets = {
+  {0x89BA36, "controller", "89:BA36"},
+  {0x89BA48, "controller", "89:BA48"},
+  {0x89BA70, "controller", "89:BA70"},
+  {0x89BA76, "controller", "89:BA76_read0799x"},
+  {0x89BA81, "controller", "89:BA81_write0799x"},
+  {0x89BA89, "controller", "89:BA89_dec0799x"},
+  {0x89BAC8, "controller", "89:BAC8"},
+  {0x89BACD, "controller", "89:BACD_write0799x"},
+  {0x80AF33, "visible", "80:AF33_alloc"},
+  {0x80AFAA, "visible", "80:AFAA_remove"},
+  {0x80AFEC, "visible", "80:AFEC_reorder"},
+  {0x80B03D, "render", "80:B03D_begin"},
+  {0x80B100, "render", "80:B100_object"},
+  {0xC0AF33, "visible", "C0:AF33_alloc"},
+  {0xC0AFAA, "visible", "C0:AFAA_remove"},
+  {0xC0AFEC, "visible", "C0:AFEC_reorder"},
+  {0xC0B03D, "render", "C0:B03D_begin"},
+  {0xC0B100, "render", "C0:B100_object"},
+}
+
+for i,t in ipairs(goal13_targets) do
+  local addr = t[1]
+  local kind = t[2]
+  local label = t[3]
+  pcall(
+    event.onmemoryexecute,
+    function() goal13_emit(kind, label) end,
+    addr,
+    "System Bus",
+    "shinmomo_remote_goal13_" .. tostring(i)
+  )
 end
 
 if console and console.log then
