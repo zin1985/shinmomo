@@ -1,5 +1,29 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-26 ROM-wide event-record frame catalog
+
+### Confirmed
+
+- The canonical ROM scan finds 947 valid `7A <body16> 7C <next+1> 00` trailer candidates across 131 real script-pack families when `body16` must resolve exactly to the byte after the trailer and the next pointer must stay inside the pack.
+- Adjacent trailers structurally anchor 816 records across 107 families; every emitted record begins at a previous next-pointer target whose byte is `0xB0`.
+- The generic structural scanner independently reproduces ten linked family 0x50 records, including the hand-verified 0x11 and 0x12 boundaries.
+- Crosslinking only against the existing source-reader-validated high-confidence A4 catalog maps 1,124 validated source callsites into 713 structural records across 98 families.
+- 103 structural records contain no mapped high-confidence source selection, while 1,078 validated A4 callsites lie outside this framing class.
+- Family 0x4E proven selections 0x13/0x14/0x17 remain outside this frame grammar; the withdrawal of raw A4 0x15/0x16 is preserved.
+
+### Strong evidence
+
+- `B0 ... 7A <body16> 7C <next+1> 00` is a major recurring script-pack record framing class rather than a family-0x50-only layout.
+- The 1,078 validated source callsites outside the frame class imply complementary grammars rather than a failure of source selection evidence.
+
+### Unresolved
+
+- Semantic meaning of the 816 structural records.
+- Condition, actor-action, reward/battle/state-mutation linkage for most frames.
+- Complementary framing grammars, starting with family 0x4E around CC:1B18..CC:1B52.
+- Runtime reachability and completeness proof.
+
+
 ## 2026-09-26 family 0x50 single-selection boundaries
 
 ### Confirmed
