@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-26T12:32:00+09:00",
+  "updated_at": "2026-09-26T17:48:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -18,11 +18,11 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 71,
+      "percent": 72,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F."
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections."
     },
     {
       "id": "fd67-selector",
@@ -108,11 +108,11 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 73,
+      "percent": 74,
       "weight": 1.3,
       "status": "active",
       "scope": "ROM依存知識をschema/data/toolへ外部化し再生成可能にする",
-      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus."
+      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies."
     },
     {
       "id": "whole-game",
@@ -177,8 +177,8 @@
       ],
       "track_id": "script-vm",
       "title": "全event catalog骨格生成",
-      "target": "既知VM/condition/selector/candidate成果からevent recordを抽出し、条件・target・dialogue・actor action・state mutation列を持つevent catalogを作る。",
-      "status": "queued"
+      "target": "816件のB0-start structural frameと713件のsource-linked frameをbaselineに、既知VM/condition/selector/candidate成果をjoinし、条件・target・dialogue・actor action・state mutation列を持つsemantic event catalogへ昇格する。",
+      "status": "active"
     },
     {
       "priority": 5,
@@ -227,6 +227,11 @@
     }
   ],
   "sources": [
+    "tools/python/crosslink_event_source_records.py",
+    "tools/python/catalog_event_record_frames.py",
+    "data/events/event_source_crosslink_summary.json",
+    "data/events/event_record_frame_summary.json",
+    "docs/analysis/event_record_frame_catalog.md",
     "docs/handoff/HM_260926_historical_dialogue_crosslink.md",
     "docs/analysis/historical_dialogue_crosslink.md",
     "data/dialogue/historical_decode_crosswalk.csv",
@@ -278,8 +283,8 @@
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
-  "overall_percent": 50.2,
-  "legacy_workstream_overall_percent": 76.4,
+  "overall_percent": 50.4,
+  "legacy_workstream_overall_percent": 76.8,
   "top_goals": [
     {
       "id": "G1",
@@ -394,7 +399,7 @@
     {
       "id": "G4",
       "name": "全イベント完全解析",
-      "percent": 44,
+      "percent": 45,
       "status": "active",
       "definition_of_done": "全eventを列挙し、発生条件・flag・分岐・会話・actor/object action・報酬・戦闘・加入離脱・終了後stateをmachine-readable graph化。",
       "components": [
@@ -405,7 +410,7 @@
         },
         {
           "id": "selector_resource_semantics",
-          "percent": 55,
+          "percent": 57,
           "weight": 0.2
         },
         {
@@ -415,7 +420,7 @@
         },
         {
           "id": "complete_event_inventory",
-          "percent": 22,
+          "percent": 26,
           "weight": 0.25
         },
         {
@@ -424,7 +429,7 @@
           "weight": 0.15
         }
       ],
-      "evidence": "CA:C000 script-pack indices are crosswalked to same-index C7 source families for real packs 0x14..0xF9, and A4 operands enumerate source subindices. Event/script-to-source linkage improved, but complete event inventory and event graph remain incomplete."
+      "evidence": "ROM-wide structural framing now anchors 816 B0-start records across 107 families. Crosslinking only source-reader-validated A4 selections maps 1,124 callsites into 713 records across 98 families. This materially advances event inventory and script-to-resource linkage, while conditions/actions/runtime completeness remain incomplete."
     },
     {
       "id": "G5",
@@ -440,7 +445,7 @@
         },
         {
           "id": "data_schemas_externalization",
-          "percent": 73,
+          "percent": 74,
           "weight": 0.2
         },
         {
@@ -459,7 +464,7 @@
           "weight": 0.2
         }
       ],
-      "evidence": "FastROM HiROM addressing, overlapping source-family model, script-pack/source-family crosswalk and deterministic usage catalog are portable and reproducible. Full subsystem coverage and independent verification remain incomplete."
+      "evidence": "FastROM HiROM addressing, overlapping source-family model, script-pack/source-family crosswalk and deterministic usage catalog are portable and reproducible. Full subsystem coverage and independent verification remain incomplete. Event-record framing and event-to-source linkage are now reproducibly externalized as tools plus metadata summaries."
     }
   ],
   "audit": {
