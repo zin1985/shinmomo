@@ -70,6 +70,39 @@ local function read8(addr, domain)
   return nil
 end
 
+local function framecount()
+  return (emu and emu.framecount and emu.framecount()) or -1
+end
+
+local function read_range(start, length, domain)
+  local out = {}
+  for i=0,length-1 do
+    out[#out + 1] = read8(start + i, domain)
+  end
+  return out
+end
+
+local function bytes_json(bytes)
+  local parts = {"["}
+  for i=1,#bytes do
+    if i > 1 then parts[#parts + 1] = "," end
+    local v = bytes[i]
+    parts[#parts + 1] = v == nil and "null" or tostring(v)
+  end
+  parts[#parts + 1] = "]"
+  return table.concat(parts)
+end
+
+local function snapshot_json(label, domain, start, length)
+  return table.concat({
+    "{",
+    '"label":' .. json_quote(label) .. ",",
+    '"frame":' .. tostring(framecount()) .. ",",
+    '"bytes":' .. bytes_json(read_range(start, length, domain)),
+    "}"
+  })
+end
+
 local valid_buttons = {
   A=true,B=true,X=true,Y=true,L=true,R=true,Up=true,Down=true,
   Left=true,Right=true,Start=true,Select=true
@@ -124,6 +157,85 @@ local function do_capture(id, domain, start_s, length_s)
   respond(id, "OK", path)
 end
 
+local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
+                                         domain, start_s, length_s, post_s)
+  local player = tonumber(player_s) or 1
+  local frames = tonumber(frames_s) or 1
+  local post_frames = tonumber(post_s) or 0
+  local start = parse_num(start_s)
+  local length = tonumber(length_s)
+  local buttons, err = parse_buttons(button_csv)
+
+  if not buttons then
+    respond(id, "ERR", err)
+    return
+  end
+  if player < 1 or player > 4 then
+    respond(id, "ERR", "player must be 1..4")
+    return
+  end
+  if frames < 1 or frames > 600 then
+    respond(id, "ERR", "frames must be 1..600")
+    return
+  end
+  if post_frames < 0 or post_frames > 120 then
+    respond(id, "ERR", "post frames must be 0..120")
+    return
+  end
+  if not start or start < 0 then
+    respond(id, "ERR", "invalid start address")
+    return
+  end
+  if not length or length < 1 or length > 4096 then
+    respond(id, "ERR", "length must be 1..4096")
+    return
+  end
+
+  local snapshots = {}
+  snapshots[#snapshots + 1] = snapshot_json("before", domain, start, length)
+
+  for i=1,frames do
+    local ok, joyerr = pcall(joypad.set, buttons, player)
+    if not ok then
+      respond(id, "ERR", "joypad.set failed: " .. tostring(joyerr))
+      return
+    end
+    emu.frameadvance()
+    snapshots[#snapshots + 1] =
+      snapshot_json("input_" .. tostring(i), domain, start, length)
+  end
+
+  pcall(joypad.set, {}, player)
+
+  for i=1,post_frames do
+    emu.frameadvance()
+    snapshots[#snapshots + 1] =
+      snapshot_json("post_" .. tostring(i), domain, start, length)
+  end
+
+  local path = CAPTURES .. SEP .. "atomic_" .. clean_id(id) .. ".json"
+  local payload = table.concat({
+    "{",
+    '"id":' .. json_quote(id) .. ",",
+    '"domain":' .. json_quote(domain) .. ",",
+    '"start":' .. tostring(start) .. ",",
+    '"length":' .. tostring(length) .. ",",
+    '"player":' .. tostring(player) .. ",",
+    '"buttons":' .. json_quote(button_csv) .. ",",
+    '"input_frames":' .. tostring(frames) .. ",",
+    '"post_frames":' .. tostring(post_frames) .. ",",
+    '"snapshots":[' .. table.concat(snapshots, ",") .. "]",
+    "}"
+  })
+
+  local ok, writeerr = write_all(path, payload)
+  if not ok then
+    respond(id, "ERR", "atomic capture write failed: " .. tostring(writeerr))
+    return
+  end
+  respond(id, "OK", path)
+end
+
 local function process_command()
   if pending_gamepad then return end
 
@@ -154,6 +266,20 @@ local function process_command()
       id=id, player=player, buttons=buttons,
       frames=frames, remaining=frames
     }
+    return
+  end
+
+  if cmd == "ATOMIC_GAMEPAD_CAPTURE" then
+    do_atomic_gamepad_capture(
+      id,
+      p[3] or "1",
+      p[4] or "",
+      p[5] or "1",
+      p[6] or "WRAM",
+      p[7] or "0",
+      p[8] or "256",
+      p[9] or "0"
+    )
     return
   end
 
