@@ -1,17 +1,17 @@
 {
-  "unique_usage_pairs": 2238,
+  "unique_usage_pairs": 2240,
   "families_with_usage": 162,
-  "high_conf_script_pairs": 2202,
+  "high_conf_script_pairs": 2204,
   "confirmed_static_pairs": 7,
   "defined_override_pairs": 10,
   "confirmed_direct_source_pairs": 19,
   "display_pipeline_pairs": 5,
-  "strong_visible_text_pairs": 4,
+  "strong_visible_text_pairs": 5,
   "empty_display_source_pairs": 1,
   "confirmed_dialogue_pairs": 1,
-  "strong_dialogue_pairs": 1,
+  "strong_dialogue_pairs": 2,
   "non_dialogue_confirmed_pairs": 6,
   "unknown_visibility_pairs": 2225,
-  "static_pattern_hits": 2563,
-  "static_unique_callsites": 2202
+  "static_pattern_hits": 2565,
+  "static_unique_callsites": 2204
 }
