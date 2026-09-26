@@ -36,6 +36,13 @@ Default runtime directory: %LOCALAPPDATA%\shinmomo-lab
     # Press multiple buttons for one frame.
     .\tools\remote_lab\shinmomo_lab.ps1 gamepad -Buttons "A,Right" -Frames 1
 
+    # Atomic experiment: capture WRAM immediately before input, after each
+    # input frame, and for two neutral post-input frames. The bridge performs
+    # the whole sequence without host/RDC round trips between snapshots.
+    .\tools\remote_lab\shinmomo_lab.ps1 gamepad `
+      -Buttons "A" -Frames 1 -AtomicCapture `
+      -Domain "WRAM" -Start "0x0799" -Length 128 -PostFrames 2
+
     # 5. Capture 0x80 bytes from SNES WRAM starting at $0799.
     .\tools\remote_lab\shinmomo_lab.ps1 capture-memory -Domain "WRAM" -Start "0x0799" -Length 128
 
@@ -52,6 +59,8 @@ Each command emits compact JSON. screen returns the PNG path; RDC can then read 
       -> commit only derived findings / summaries
 
 For game logic experiments, prefer gamepad over Windows key injection. It is deterministic at the emulator-frame level and does not depend on window focus.
+
+When exact input-to-memory timing matters, use `gamepad -AtomicCapture`. The Lua bridge records a `before` snapshot, advances the requested input frame(s) itself, records each resulting frame, then optionally records neutral post-input frames. This avoids the hundreds or thousands of uncontrolled frames that can pass between separate RDC calls.
 
 ## Safety and limitations
 
