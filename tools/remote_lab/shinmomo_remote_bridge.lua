@@ -100,6 +100,8 @@ local function goal13_emit(kind, target)
     '"kind":' .. json_quote(kind) .. ",",
     '"target":' .. json_quote(target) .. ",",
     '"pc":' .. json_num(reg("PC")) .. ",",
+    '"pbr":' .. json_num(reg("PBR")) .. ",",
+    '"db":' .. json_num(reg("DB")) .. ",",
     '"a":' .. json_num(reg("A")) .. ",",
     '"x":' .. json_num(x) .. ",",
     '"y":' .. json_num(reg("Y")) .. ",",
@@ -421,6 +423,46 @@ for i,t in ipairs(goal13_targets) do
     addr,
     hook_name,
     "System Bus"
+  )
+  if ok then
+    goal13_hook_registered = goal13_hook_registered + 1
+  else
+    goal13_hook_errors[#goal13_hook_errors + 1] =
+      label .. ":" .. tostring(err)
+  end
+end
+
+-- BizHawk's bundled SNES examples also register 16-bit execution addresses
+-- without an explicit memory scope. Keep these short-PC hooks in parallel
+-- with the 24-bit System Bus hooks so the active SNES core's callback address
+-- convention can be determined empirically. They are active only while an
+-- atomic Goal13 experiment is collecting rows.
+local goal13_short_targets = {
+  {0xBA36, "controller", "short:BA36"},
+  {0xBA48, "controller", "short:BA48"},
+  {0xBA70, "controller", "short:BA70"},
+  {0xBA76, "controller", "short:BA76_read0799x"},
+  {0xBA81, "controller", "short:BA81_write0799x"},
+  {0xBA89, "controller", "short:BA89_dec0799x"},
+  {0xBAC8, "controller", "short:BAC8"},
+  {0xBACD, "controller", "short:BACD_write0799x"},
+  {0xAF33, "visible", "short:AF33_alloc"},
+  {0xAFAA, "visible", "short:AFAA_remove"},
+  {0xAFEC, "visible", "short:AFEC_reorder"},
+  {0xB03D, "render", "short:B03D_begin"},
+  {0xB100, "render", "short:B100_object"},
+}
+
+for i,t in ipairs(goal13_short_targets) do
+  local addr = t[1]
+  local kind = t[2]
+  local label = t[3]
+  local hook_name = "shinmomo_remote_goal13_short_" .. tostring(i) .. "_" .. label
+  local ok, err = pcall(
+    event.onmemoryexecute,
+    function() goal13_emit(kind, label) end,
+    addr,
+    hook_name
   )
   if ok then
     goal13_hook_registered = goal13_hook_registered + 1
