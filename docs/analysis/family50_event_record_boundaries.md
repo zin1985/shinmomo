@@ -29,3 +29,37 @@ Exact speaker/runtime reachability, the semantics of the extra-selection subform
 ## Impact
 
 NEW ANALYSIS from the canonical ROM. Local Script VM/Event 70 to 71 and Dialogue 76 to 77. Top-level G1..G5 remain unchanged.
+
+
+## Follow-up: single-selection records 0x11/0x12
+
+### Confirmed
+
+The two previously unresolved single-selection forms are separate enclosing records:
+
+- F50-R08 `CC:1DFE..CC:1E0F`, 17 bytes, selection `0x11`.
+- F50-R09 `CC:1E0F..CC:1E2F`, 32 bytes, selection `0x12`.
+
+Both use the same single-selection record header grammar:
+
+`B0 A4 <subindex> B0 7A <body_cpu16> 7C <next_record_plus_1_cpu16> 00`
+
+The body target begins at record offset `+0x0B`. The `7C` target is one byte after the next enclosing-record start, matching the already observed transition convention in the surrounding family-0x50 records.
+
+Independent internal cross-check:
+
+- selection `0x00`: `CC:1D0B..CC:1D1C`, 17 bytes, body target `CC:1D16`, `7C` target `CC:1D1D = next start + 1`.
+- selection `0x11`: `CC:1DFE..CC:1E0F`, 17 bytes, body target `CC:1E09`, `7C` target `CC:1E10 = next start + 1`.
+- selection `0x12`: `CC:1E0F..CC:1E2F`, 32 bytes, body target `CC:1E1A`, `7C` target `CC:1E30 = next start + 1`.
+
+Therefore `0x11` is not part of F50-R07, and `0x12` is not part of the `0x11` record. Hope-Capital-shop context (`0x11`) and Mashira song/repeat-talk context (`0x12`) occupy distinct enclosing event records.
+
+### Still unconfirmed
+
+- exact speaker identity and runtime reachability;
+- exact semantics of the body commands in R08/R09;
+- whether the same enclosing-record grammar applies unchanged outside this script-pack family.
+
+### Progress impact
+
+This closes the explicit `0x11/0x12` boundary gap left by the previous cycle. It strengthens the already-promoted local Script VM/Event 71 and Dialogue 77 evidence. Top-level G1..G5 remain unchanged.
