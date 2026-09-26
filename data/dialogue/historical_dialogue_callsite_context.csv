@@ -1,6 +1,8 @@
 family_hex,subindex_hex,selected_source_cpu,script_cpu,pattern,evidence_class
 0x4E,0x13,C8:AAFC,CC:1AFD,A4_xx_B2_dd_A4_yy:first,strong_dialogue_historical
 0x4E,0x14,C8:AB10,CC:1B01,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,strong_dialogue_historical
+0x4E,0x15,C8:AB58,CC:1B18,A4_xx_VM_boundary_proven,strong_dialogue_historical
+0x4E,0x16,C8:ABA0,CC:1B1E,A4_xx_VM_boundary_proven,strong_visible_text_historical
 0x4E,0x17,C8:ABA8,CC:1B42,A4_xx_B0,strong_dialogue_historical
 0x50,0x01,C8:ABEF,CC:1D26,A4_xx_B2_dd_A4_yy:first,strong_dialogue_historical
 0x50,0x02,C8:AC2F,CC:1D2A,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,strong_dialogue_historical
