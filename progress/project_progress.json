@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-26T17:48:00+09:00",
+  "updated_at": "2026-09-26T19:12:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -18,11 +18,11 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 72,
+      "percent": 73,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections."
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42."
     },
     {
       "id": "fd67-selector",
@@ -143,7 +143,7 @@
       ],
       "track_id": "dialogue",
       "title": "2,206 unknown source pairsのvisible/context分類",
-      "target": "Trace display-window/event callers and runtime roots to classify the 2,206 visibility-unknown pairs after applying the historical-dialogue evidence overlay. Attach event/speaker/location provenance to the 19 recovered strong-dialogue pairs and render only player-visible records.",
+      "target": "Trace display-window/event callers and runtime roots to classify the 2,206 visibility-unknown pairs after applying the historical-dialogue evidence overlay. Attach event/speaker/location provenance to the 19 recovered strong-dialogue pairs and render only player-visible records. Use the newly proven controller-pointer/keyed-dispatch bridge to prioritize source pairs reachable from event/controller tables.",
       "status": "next"
     },
     {
@@ -227,6 +227,7 @@
     }
   ],
   "sources": [
+    "docs/analysis/event_controller_pointer_bridge.md",
     "tools/python/crosslink_event_source_records.py",
     "tools/python/catalog_event_record_frames.py",
     "data/events/event_source_crosslink_summary.json",
@@ -429,7 +430,7 @@
           "weight": 0.15
         }
       ],
-      "evidence": "ROM-wide structural framing now anchors 816 B0-start records across 107 families. Crosslinking only source-reader-validated A4 selections maps 1,124 callsites into 713 records across 98 families. This materially advances event inventory and script-to-resource linkage, while conditions/actions/runtime completeness remain incomplete."
+      "evidence": "ROM-wide structural framing now anchors 816 B0-start records across 107 families. Crosslinking only source-reader-validated A4 selections maps 1,124 callsites into 713 records across 98 families. This materially advances event inventory and script-to-resource linkage, while conditions/actions/runtime completeness remain incomplete. Controller-pointer dispatch is now linked end-to-end for family 0x4E: opcode 09 -> opcode 59 -> controller SoA pointer -> 84:867D/8699 keyed matcher -> CC:1B42 A4 17. This strengthens effect linkage but does not yet increase complete-event inventory."
     },
     {
       "id": "G5",
