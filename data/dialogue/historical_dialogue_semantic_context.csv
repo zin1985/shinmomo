@@ -1,4 +1,5 @@
 family_hex,subindex_hex,semantic_context,confidence
+0x4E,0x12,Kintan hermit location/north mountain foothill hermitage,strong
 0x4E,0x13,farmland warning/agriculture NPC dialogue,strong
 0x4E,0x14,shrine/save-point advice,strong
 0x4E,0x15,angry wait or left-alone complaint plus return request,strong_dialogue_historical
