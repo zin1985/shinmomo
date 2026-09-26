@@ -1,0 +1,14 @@
+{
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "real_script_pack_count": 230,
+  "families_with_valid_trailer": 131,
+  "valid_trailer_candidates": 947,
+  "linked_b0_structural_records": 816,
+  "record_family_count": 107,
+  "start_marker_invariant": "all emitted linked records start with 0xB0",
+  "trailer_invariant": "7A body16 7C next_record_plus_1_16 00; body16 == byte after trailer",
+  "semantic_scope": "structural framing only; not a claim of event meaning, source selection, speaker, or runtime reachability",
+  "most_common_pre_trailer_sizes": [[4,390],[12,79],[20,34],[18,26],[10,25],[11,21],[21,20],[28,18],[14,14],[29,14],[34,11],[17,11]],
+  "most_common_body_sizes": [[6,317],[10,236],[13,39],[3,39],[18,29],[17,26],[14,25],[16,24],[12,23],[15,15],[19,11],[25,8]],
+  "family_0x50_linked_records": 10
+}
