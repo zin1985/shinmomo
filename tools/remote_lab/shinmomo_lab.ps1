@@ -14,6 +14,7 @@ param(
   [int]$Frames = 1,
   [int]$Player = 1,
   [switch]$AtomicCapture,
+  [switch]$Goal13Trace,
   [int]$PostFrames = 0,
 
   [string]$Domain = "WRAM",
@@ -159,12 +160,13 @@ public static class ShinMomoMouse {
     if ($AtomicCapture) {
       if ($Length -lt 1 -or $Length -gt 4096) { throw "-Length must be 1..4096." }
       if ($PostFrames -lt 0 -or $PostFrames -gt 120) { throw "-PostFrames must be 0..120." }
+      $bridgeCommand = if ($Goal13Trace) { "ATOMIC_GOAL13_CAPTURE" } else { "ATOMIC_GAMEPAD_CAPTURE" }
       $payload = Invoke-Bridge @(
-        "ATOMIC_GAMEPAD_CAPTURE", "$Player", $Buttons, "$Frames",
+        $bridgeCommand, "$Player", $Buttons, "$Frames",
         $Domain, $Start, "$Length", "$PostFrames"
       )
       Emit-Result @{
-        ok=$true; command="gamepad"; atomic=$true; player=$Player;
+        ok=$true; command="gamepad"; atomic=$true; goal13_trace=[bool]$Goal13Trace; player=$Player;
         buttons=$Buttons; frames=$Frames; domain=$Domain; start=$Start;
         length=$Length; post_frames=$PostFrames; path=$payload
       }
