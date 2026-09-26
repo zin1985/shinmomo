@@ -1,6 +1,8 @@
 family_hex,subindex_hex,semantic_context,confidence
 0x4E,0x13,farmland warning/agriculture NPC dialogue,strong
 0x4E,0x14,shrine/save-point advice,strong
+0x4E,0x15,angry wait or left-alone complaint plus return request,strong_dialogue_historical
+0x4E,0x16,parameterized event or system notice that an object/item was found or fell,strong_visible_text_historical
 0x4E,0x17,falling-object reaction,strong
 0x50,0x01,Ginji equipment/four knives,strong
 0x50,0x02,Urashima departure/heavenly-hermit suspicion,strong
