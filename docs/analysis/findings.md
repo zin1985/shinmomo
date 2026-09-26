@@ -1,5 +1,26 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-26 family 0x50 single-selection boundaries
+
+### Confirmed
+
+- The family 0x50 selection 0x11 enclosing record is CC:1DFE..CC:1E0F (17 bytes).
+- The family 0x50 selection 0x12 enclosing record is CC:1E0F..CC:1E2F (32 bytes).
+- Both use the same single-selection header grammar: B0 A4 <subindex> B0 7A <body_cpu16> 7C <next_record_plus_1_cpu16> 00.
+- Selection 0x00 at CC:1D0B..CC:1D1C is an independent 17-byte same-family match for the 0x11 form.
+- The 7C transition target lands at next enclosing-record start + 1, matching the surrounding family 0x50 records.
+- Thus 0x11 and 0x12 are separate event records, not trailing subforms of the preceding 0x0F/0x10 record.
+
+### Strong evidence
+
+- The differing 17-byte and 32-byte sizes are body-payload variants under one enclosing-record grammar rather than different source-selection mechanisms.
+
+### Unresolved
+
+- Exact body-command semantics, speaker identity and runtime reachability.
+- Whether this record grammar can be generalized outside family 0x50.
+
+
 ## 2026-09-26 historical dialogue crosslink
 
 ### Confirmed
