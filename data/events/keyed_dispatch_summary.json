@@ -1,0 +1,32 @@
+{
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "high_confidence_tables": 178,
+  "families_with_tables": 65,
+  "key_target_records": 549,
+  "self_reference_targets": 297,
+  "unique_keys": 49,
+  "most_common_keys": [
+    {"key": "0x6C", "count": 101},
+    {"key": "0x7B", "count": 95},
+    {"key": "0x7A", "count": 90},
+    {"key": "0x7C", "count": 87},
+    {"key": "0x6D", "count": 18},
+    {"key": "0x6B", "count": 13},
+    {"key": "0x6E", "count": 10},
+    {"key": "0x72", "count": 9},
+    {"key": "0x80", "count": 8},
+    {"key": "0x7D", "count": 8},
+    {"key": "0x8A", "count": 8},
+    {"key": "0x38", "count": 7},
+    {"key": "0x6F", "count": 6},
+    {"key": "0x70", "count": 6},
+    {"key": "0x86", "count": 6},
+    {"key": "0x25", "count": 5}
+  ],
+  "tables_with_both_0x6C_and_0x7B": 69,
+  "key_0x7B_selfref_targets_setting_entity_flag_0x80": 30,
+  "key_0x6C_selfref_targets_starting_controller_create_0x59": 56,
+  "a4_target_callsites": 34,
+  "a4_target_unique_pairs": 34,
+  "interpretation": "C4:8699-compatible keyed state-machine tables with internal self-reference evidence; key names remain semantic hypotheses"
+}
