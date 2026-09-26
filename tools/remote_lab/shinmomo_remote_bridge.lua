@@ -11,6 +11,8 @@ local CAPTURES = LAB_DIR .. SEP .. "captures"
 local pending_gamepad = nil
 local goal13_trace_active = false
 local goal13_trace_rows = {}
+local goal13_hook_registered = 0
+local goal13_hook_errors = {}
 
 local function split_tabs(s)
   local out = {}
@@ -298,6 +300,8 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
     '"buttons":' .. json_quote(button_csv) .. ",",
     '"input_frames":' .. tostring(frames) .. ",",
     '"post_frames":' .. tostring(post_frames) .. ",",
+    '"goal13_hook_registered":' .. tostring(goal13_hook_registered) .. ",",
+    '"goal13_hook_errors":' .. json_quote(table.concat(goal13_hook_errors, " | ")) .. ",",
     '"snapshots":[' .. table.concat(snapshots, ",") .. "],",
     '"goal13_trace":[' .. table.concat(goal13_trace_rows, ",") .. "]",
     "}"
@@ -385,37 +389,45 @@ end
 
 
 local goal13_targets = {
-  {0x89BA36, "controller", "89:BA36"},
-  {0x89BA48, "controller", "89:BA48"},
-  {0x89BA70, "controller", "89:BA70"},
-  {0x89BA76, "controller", "89:BA76_read0799x"},
-  {0x89BA81, "controller", "89:BA81_write0799x"},
-  {0x89BA89, "controller", "89:BA89_dec0799x"},
-  {0x89BAC8, "controller", "89:BAC8"},
-  {0x89BACD, "controller", "89:BACD_write0799x"},
-  {0x80AF33, "visible", "80:AF33_alloc"},
-  {0x80AFAA, "visible", "80:AFAA_remove"},
-  {0x80AFEC, "visible", "80:AFEC_reorder"},
-  {0x80B03D, "render", "80:B03D_begin"},
-  {0x80B100, "render", "80:B100_object"},
-  {0xC0AF33, "visible", "C0:AF33_alloc"},
-  {0xC0AFAA, "visible", "C0:AFAA_remove"},
-  {0xC0AFEC, "visible", "C0:AFEC_reorder"},
-  {0xC0B03D, "render", "C0:B03D_begin"},
-  {0xC0B100, "render", "C0:B100_object"},
+  {0x89BA36, "controller", "89:BA36"}, {0xC9BA36, "controller", "C9:BA36"},
+  {0x89BA48, "controller", "89:BA48"}, {0xC9BA48, "controller", "C9:BA48"},
+  {0x89BA70, "controller", "89:BA70"}, {0xC9BA70, "controller", "C9:BA70"},
+  {0x89BA76, "controller", "89:BA76_read0799x"}, {0xC9BA76, "controller", "C9:BA76_read0799x"},
+  {0x89BA81, "controller", "89:BA81_write0799x"}, {0xC9BA81, "controller", "C9:BA81_write0799x"},
+  {0x89BA89, "controller", "89:BA89_dec0799x"}, {0xC9BA89, "controller", "C9:BA89_dec0799x"},
+  {0x89BAC8, "controller", "89:BAC8"}, {0xC9BAC8, "controller", "C9:BAC8"},
+  {0x89BACD, "controller", "89:BACD_write0799x"}, {0xC9BACD, "controller", "C9:BACD_write0799x"},
+
+  {0x00AF33, "visible", "00:AF33_alloc"}, {0x40AF33, "visible", "40:AF33_alloc"},
+  {0x80AF33, "visible", "80:AF33_alloc"}, {0xC0AF33, "visible", "C0:AF33_alloc"},
+  {0x00AFAA, "visible", "00:AFAA_remove"}, {0x40AFAA, "visible", "40:AFAA_remove"},
+  {0x80AFAA, "visible", "80:AFAA_remove"}, {0xC0AFAA, "visible", "C0:AFAA_remove"},
+  {0x00AFEC, "visible", "00:AFEC_reorder"}, {0x40AFEC, "visible", "40:AFEC_reorder"},
+  {0x80AFEC, "visible", "80:AFEC_reorder"}, {0xC0AFEC, "visible", "C0:AFEC_reorder"},
+  {0x00B03D, "render", "00:B03D_begin"}, {0x40B03D, "render", "40:B03D_begin"},
+  {0x80B03D, "render", "80:B03D_begin"}, {0xC0B03D, "render", "C0:B03D_begin"},
+  {0x00B100, "render", "00:B100_object"}, {0x40B100, "render", "40:B100_object"},
+  {0x80B100, "render", "80:B100_object"}, {0xC0B100, "render", "C0:B100_object"},
 }
 
 for i,t in ipairs(goal13_targets) do
   local addr = t[1]
   local kind = t[2]
   local label = t[3]
-  pcall(
+  local hook_name = "shinmomo_remote_goal13_" .. tostring(i) .. "_" .. label
+  local ok, err = pcall(
     event.onmemoryexecute,
     function() goal13_emit(kind, label) end,
     addr,
-    "System Bus",
-    "shinmomo_remote_goal13_" .. tostring(i)
+    hook_name,
+    "System Bus"
   )
+  if ok then
+    goal13_hook_registered = goal13_hook_registered + 1
+  else
+    goal13_hook_errors[#goal13_hook_errors + 1] =
+      label .. ":" .. tostring(err)
+  end
 end
 
 if console and console.log then
