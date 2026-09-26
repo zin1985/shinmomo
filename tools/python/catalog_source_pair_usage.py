@@ -64,6 +64,18 @@ VISIBLE_TEXT_SEEDS = {
 # separate from the generic byte-pattern heuristics so rejected raw A4-like
 # payload bytes are not reintroduced.
 VM_BOUNDARY_A4_SEEDS = {
+    (0x4E,0x0C):("CC:19FD",
+        "opcode 22 at CC:19F8 consumes 3 bytes total, compact E0 at CC:19FC consumes 1 byte; A4 begins at CC:19FD"),
+    (0x4E,0x0D):("CC:1A03",
+        "compact A0 at CC:19FF consumes opcode plus 24-bit pointer; A4 begins at CC:1A03"),
+    (0x4E,0x0E):("CC:1A26",
+        "opcode 09 at CC:1A22 consumes 4 bytes; A4 begins at CC:1A26"),
+    (0x4E,0x0F):("CC:1A32",
+        "opcode 09 at CC:1A2E consumes 4 bytes; A4 begins at CC:1A32"),
+    (0x4E,0x10):("CC:1A4F",
+        "opcode 09 at CC:1A4B consumes 4 bytes; A4 begins at CC:1A4F"),
+    (0x4E,0x11):("CC:1A89",
+        "opcode 72 at CC:1A86 consumes 3 bytes; A4 begins at CC:1A89"),
     (0x4E,0x15):("CC:1B18",
         "opcode 09 at CC:1B14 is 4 bytes; A4 handler consumes opcode+operand"),
     (0x4E,0x16):("CC:1B1E",
