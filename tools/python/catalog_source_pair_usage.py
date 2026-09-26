@@ -172,6 +172,95 @@ def scan_script_packs(rom: bytes) -> dict:
     return uses
 
 
+
+def _parse_keyed_dispatch_table(rom: bytes, pack_start: int, pack_end: int,
+                                table_off: int, max_records: int = 16):
+    """Parse conservative [key][target16] records used by C4:8699.
+
+    All targets must stay inside the current CA script pack and the table must
+    terminate with key 0.  Returns None on any structural violation.
+    """
+    bank = 0xC0 + (table_off >> 16)
+    rows = []
+    p = table_off
+    for _ in range(max_records):
+        if p >= pack_end:
+            return None
+        key = rom[p]
+        if key == 0:
+            return rows if len(rows) >= 2 else None
+        if p + 2 >= pack_end:
+            return None
+        target16 = rom[p + 1] | (rom[p + 2] << 8)
+        target = ((bank - 0xC0) << 16) | target16
+        if not (pack_start <= target < pack_end):
+            return None
+        rows.append((key, target))
+        p += 3
+    return None
+
+
+def scan_keyed_dispatch_a4(rom: bytes) -> tuple[dict, dict]:
+    """Find A4 commands at independently anchored keyed-dispatch targets.
+
+    A candidate table is accepted only when:
+    - a raw 09 <ptr24> occurrence points inside the same CA script pack;
+    - the pointer parses as at least two [key,target16] records plus key-0;
+    - every target remains inside that pack; and
+    - at least one target starts with 09 <the same table pointer>, giving an
+      internal state-machine/self-reference cross-check.
+
+    Once the table is accepted, a target beginning A4 <subindex> is a command
+    boundary by construction. Source-reader reachability is still required
+    later by decode_requested(), so this does not revive unrestricted A4 scans.
+    """
+    ca = read_ca_boundaries(rom)
+    uses = {}
+    tables = {}
+    for family in range(FIRST_REAL_PACK, LAST_REAL_PACK + 1):
+        a = ca[family]
+        z = ca[family + 1]
+        start = file_from_cpu(a["bank"], a["addr"])
+        end = file_from_cpu(z["bank"], z["addr"])
+        pack_bank = a["bank"]
+        seen_tables = set()
+        for call in range(start, max(start, end - 3)):
+            if rom[call] != 0x09:
+                continue
+            lo, hi, bank = rom[call + 1:call + 4]
+            if bank != pack_bank:
+                continue
+            table_off = file_from_cpu(bank, lo | (hi << 8))
+            if table_off in seen_tables or not (start <= table_off < end):
+                continue
+            rows = _parse_keyed_dispatch_table(rom, start, end, table_off)
+            if rows is None:
+                continue
+            ptr_bytes = bytes([0x09, lo, hi, bank])
+            self_targets = sum(rom[target:target + 4] == ptr_bytes
+                               for _, target in rows)
+            if self_targets == 0:
+                continue
+            seen_tables.add(table_off)
+            table_key = (family, table_off)
+            tables[table_key] = {
+                "record_count": len(rows),
+                "self_reference_targets": self_targets,
+                "keys": [key for key, _ in rows],
+                "targets": [target for _, target in rows],
+            }
+            for key, target in rows:
+                if target + 1 >= end or rom[target] != 0xA4:
+                    continue
+                sub = rom[target + 1]
+                add_occ(
+                    uses, family, sub,
+                    f"A4_xx_keyed_dispatch_target:key_{key:02X}",
+                    target,
+                )
+    return uses, tables
+
+
 def _routine_start(rom: bytes, call: int, limit: int = 220) -> int:
     start=max((call>>16)<<16,call-limit)
     for p in range(call-1,start,-1):
@@ -294,6 +383,12 @@ def main():
     write_crosswalk(rom,entries,args.out_dir)
 
     script=scan_script_packs(rom)
+    keyed, keyed_tables=scan_keyed_dispatch_a4(rom)
+    for key, ku in keyed.items():
+        su=script.setdefault(key,{"patterns":set(),"cpus":set(),"occ":0})
+        su["patterns"].update(ku["patterns"])
+        su["cpus"].update(ku["cpus"])
+        su["occ"] += ku["occ"]
     direct=scan_direct_source_calls(rom)
     pairs=set(script) | set(direct)
     for i in range(mod.SPECIAL_COUNT):
@@ -386,6 +481,10 @@ def main():
         "unknown_visibility_pairs":sum(r["player_visible"]=="unknown" for r in rows),
         "static_pattern_hits":sum(int(r["script_pattern_hits"]) for r in rows),
         "static_unique_callsites":len({cpu for r in rows for cpu in r["script_cpus"].split(";") if cpu}),
+        "keyed_dispatch_tables":len(keyed_tables),
+        "keyed_dispatch_table_families":len({family for family,_ in keyed_tables}),
+        "keyed_dispatch_A4_pairs":len(keyed),
+        "keyed_dispatch_A4_callsites":len({cpu for u in keyed.values() for cpu in u["cpus"]}),
     }
     (args.out_dir/"source_pair_usage_summary.json").write_text(
         json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
