@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-26T03:11:00+09:00",
+  "updated_at": "2026-09-26T12:32:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -18,11 +18,11 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 70,
+      "percent": 71,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated."
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F."
     },
     {
       "id": "fd67-selector",
@@ -90,11 +90,11 @@
     {
       "id": "dialogue",
       "name": "会話 / Script大量抽出",
-      "percent": 76,
+      "percent": 77,
       "weight": 1.2,
       "status": "active",
       "scope": "script→text pointer→文字列の大量抽出とイベント対応",
-      "evidence": "2026-09-26: current usage catalog was crosslinked to retained v33 decoder outputs by exact token SHA-256. 21 unique current pairs match historical dialogue decodes; 19 were previously visibility-unknown. Applying this evidence overlay reduces unresolved visibility from 2,225 to 2,206 without copying dialogue bodies."
+      "evidence": "2026-09-26: current usage catalog was crosslinked to retained v33 decoder outputs by exact token SHA-256. 21 unique current pairs match historical dialogue decodes; 19 were previously visibility-unknown. Applying this evidence overlay reduces unresolved visibility from 2,225 to 2,206 without copying dialogue bodies. Family 0x50:11 (Hope Capital shops) and 0x50:12 (Mashira song/repeat-talk) are now proven to occupy separate enclosing event records; speaker/runtime reachability remain unconfirmed."
     },
     {
       "id": "character-display",
