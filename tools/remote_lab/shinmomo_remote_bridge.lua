@@ -472,6 +472,69 @@ for i,t in ipairs(goal13_short_targets) do
   end
 end
 
+-- Direct WRAM write watches are the primary Goal13 runtime trigger. The prior
+-- 2026-09-25 field run already showed that the BAxx execution targets are not
+-- guaranteed to run in an arbitrary movement window, while $0799,X itself can
+-- change. Register each indexed byte on the System Bus and capture the exact
+-- frame/register context when it is written.
+for slot=0,0x3F do
+  local watched_slot = slot
+  local bus_addr = 0x7E0799 + watched_slot
+  local label = string.format("WRAM:0799+%02X", watched_slot)
+  local hook_name = "shinmomo_remote_goal13_w0799_" .. tostring(watched_slot)
+  local ok, err = pcall(
+    event.onmemorywrite,
+    function() goal13_emit("w0799_write", label) end,
+    bus_addr,
+    hook_name
+  )
+  if ok then
+    goal13_hook_registered = goal13_hook_registered + 1
+  else
+    goal13_hook_errors[#goal13_hook_errors + 1] =
+      label .. ":" .. tostring(err)
+  end
+end
+
+-- Active-list and sort-key writes are much rarer, so watching the 64 physical
+-- slots is cheap and gives an exact frame for controller-to-visible-list
+-- transitions when allocation/reorder happens.
+for slot=0,0x3F do
+  local watched_slot = slot
+  local next_addr = 0x7E0A61 + watched_slot
+  local sort_addr = 0x7E0AA3 + watched_slot
+
+  local next_label = string.format("WRAM:0A61+%02X", watched_slot)
+  local next_name = "shinmomo_remote_goal13_w0a61_" .. tostring(watched_slot)
+  local ok_next, err_next = pcall(
+    event.onmemorywrite,
+    function() goal13_emit("active_next_write", next_label) end,
+    next_addr,
+    next_name
+  )
+  if ok_next then
+    goal13_hook_registered = goal13_hook_registered + 1
+  else
+    goal13_hook_errors[#goal13_hook_errors + 1] =
+      next_label .. ":" .. tostring(err_next)
+  end
+
+  local sort_label = string.format("WRAM:0AA3+%02X", watched_slot)
+  local sort_name = "shinmomo_remote_goal13_w0aa3_" .. tostring(watched_slot)
+  local ok_sort, err_sort = pcall(
+    event.onmemorywrite,
+    function() goal13_emit("active_sort_write", sort_label) end,
+    sort_addr,
+    sort_name
+  )
+  if ok_sort then
+    goal13_hook_registered = goal13_hook_registered + 1
+  else
+    goal13_hook_errors[#goal13_hook_errors + 1] =
+      sort_label .. ":" .. tostring(err_sort)
+  end
+end
+
 if console and console.log then
   console.log("SHINMOMO_REMOTE_BRIDGE_LOADED lab=" .. LAB_DIR)
 end
