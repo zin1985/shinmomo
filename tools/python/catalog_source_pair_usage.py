@@ -45,10 +45,29 @@ CONFIRMED_SEEDS = [
 ]
 
 DIALOGUE_SEEDS = {
+    (0x4E,0x15):("strong_dialogue",
+        "docs/analysis/family4e_compact_vm_revalidation.md"),
     (0x4F,0x00):("confirmed_dialogue",
         "archive/previous_zip_contents/shinmomo_vol013_mode02_mass_dump_v33/shinmomo_mode02_chain_C8_A7DD_v33_sample.csv"),
     (0x4F,0x01):("strong_dialogue",
         "archive/previous_zip_contents/shinmomo_vol013_mode02_mass_dump_v33/shinmomo_mode02_chain_C8_A7DD_v33_sample.csv"),
+}
+
+VISIBLE_TEXT_SEEDS = {
+    (0x4E,0x16):("strong_visible_text",
+        "docs/analysis/family4e_compact_vm_revalidation.md",
+        "handler-proven A4 selection plus exact retained-v33 token match; parameterized event/system text"),
+}
+
+# Explicit compact-VM A4 sites whose instruction boundaries are proven from
+# the C4:809D compact interpreter and A4 handler C4:84AE. These are deliberately
+# separate from the generic byte-pattern heuristics so rejected raw A4-like
+# payload bytes are not reintroduced.
+VM_BOUNDARY_A4_SEEDS = {
+    (0x4E,0x15):("CC:1B18",
+        "opcode 09 at CC:1B14 is 4 bytes; A4 handler consumes opcode+operand"),
+    (0x4E,0x16):("CC:1B1E",
+        "opcode 09 at CC:1B1A is 4 bytes; A4 handler consumes opcode+operand"),
 }
 
 def cpu_from_file(off: int) -> str:
@@ -143,6 +162,13 @@ def scan_script_packs(rom: bytes) -> dict:
             if i+5<len(pack) and pack[i+2]==0xB2 and pack[i+4]==0xA4:
                 add_occ(uses,family,pack[i+1],"A4_xx_B2_dd_A4_yy:first",start+i)
                 add_occ(uses,family,pack[i+5],"A4_xx_B2_dd_A4_yy:second",start+i+4)
+    for (family, sub), (cpu, _details) in VM_BOUNDARY_A4_SEEDS.items():
+        bank = int(cpu[0:2], 16)
+        addr = int(cpu[3:7], 16)
+        off = file_from_cpu(bank, addr)
+        if rom[off:off+2] != bytes([0xA4, sub]):
+            raise ValueError(f"VM-boundary A4 seed mismatch at {cpu}")
+        add_occ(uses, family, sub, "A4_xx_VM_boundary_proven", off)
     return uses
 
 
@@ -274,6 +300,8 @@ def main():
         pairs.add((rom[mod.SPECIAL_FAMILY_OFFSET+i],rom[mod.SPECIAL_SUBINDEX_OFFSET+i]))
     pairs.update((f,s) for f,s,*_ in CONFIRMED_SEEDS)
     pairs.update(DIALOGUE_SEEDS)
+    pairs.update(VISIBLE_TEXT_SEEDS)
+    pairs.update(VM_BOUNDARY_A4_SEEDS)
     decoded=decode_requested(mod,rom,entries,pairs)
     # Keep only pairs that are either statically decodable or special overrides.
     # This removes false-positive A4-like byte patterns in non-script payload.
@@ -305,6 +333,15 @@ def main():
             domains=[d for d in domains if d!="script_pack_A4_source_selection"]
             domains.append("dialogue_script_A4_source_selection")
             sources.append(src)
+        if (family,sub) in VISIBLE_TEXT_SEEDS:
+            visible,src,det=VISIBLE_TEXT_SEEDS[(family,sub)]
+            sources.append(src)
+            details.append(det)
+        if (family,sub) in VM_BOUNDARY_A4_SEEDS:
+            _cpu,det=VM_BOUNDARY_A4_SEEDS[(family,sub)]
+            ev.append("confirmed_vm_boundary_A4")
+            sources.append("docs/analysis/family4e_compact_vm_revalidation.md")
+            details.append(det)
         meta=decoded[(family,sub)]
         if du and du["display"] and visible=="unknown":
             visible="empty_display_source" if int(meta.get("token_count") or 0)==1 else "strong_visible_text"
