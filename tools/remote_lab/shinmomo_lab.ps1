@@ -13,6 +13,8 @@ param(
   [string]$Buttons = "",
   [int]$Frames = 1,
   [int]$Player = 1,
+  [switch]$AtomicCapture,
+  [int]$PostFrames = 0,
 
   [string]$Domain = "WRAM",
   [string]$Start = "0x0000",
@@ -154,8 +156,22 @@ public static class ShinMomoMouse {
     if ($Frames -lt 1 -or $Frames -gt 600) { throw "-Frames must be 1..600." }
     if ($Player -lt 1 -or $Player -gt 4) { throw "-Player must be 1..4." }
 
-    $payload = Invoke-Bridge @("GAMEPAD", "$Player", $Buttons, "$Frames")
-    Emit-Result @{ ok=$true; command="gamepad"; player=$Player; buttons=$Buttons; frames=$Frames; bridge=$payload }
+    if ($AtomicCapture) {
+      if ($Length -lt 1 -or $Length -gt 4096) { throw "-Length must be 1..4096." }
+      if ($PostFrames -lt 0 -or $PostFrames -gt 120) { throw "-PostFrames must be 0..120." }
+      $payload = Invoke-Bridge @(
+        "ATOMIC_GAMEPAD_CAPTURE", "$Player", $Buttons, "$Frames",
+        $Domain, $Start, "$Length", "$PostFrames"
+      )
+      Emit-Result @{
+        ok=$true; command="gamepad"; atomic=$true; player=$Player;
+        buttons=$Buttons; frames=$Frames; domain=$Domain; start=$Start;
+        length=$Length; post_frames=$PostFrames; path=$payload
+      }
+    } else {
+      $payload = Invoke-Bridge @("GAMEPAD", "$Player", $Buttons, "$Frames")
+      Emit-Result @{ ok=$true; command="gamepad"; atomic=$false; player=$Player; buttons=$Buttons; frames=$Frames; bridge=$payload }
+    }
   }
 
   "capture-memory" {
