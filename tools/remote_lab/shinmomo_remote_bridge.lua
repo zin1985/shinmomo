@@ -85,6 +85,22 @@ local MAP_CGRAM_DOMAIN = find_domain({"CGRAM", "Snes CGRAM", "SNES CGRAM", "CRAM
 local MAP_OAM_DOMAIN = find_domain({"OAM", "Snes OAM", "SNES OAM", "Sprite RAM"})
 local MAP_BUS_DOMAIN = find_domain({"System Bus", "Bus", "Snes Bus", "SNES Bus"}) or "System Bus"
 
+local function write_byte_table_bin(path, values, size)
+  local f, err = io.open(path, "wb")
+  if not f then return nil, err end
+  local chunk = {}
+  for i=0,size-1 do
+    chunk[#chunk + 1] = string.char((values[i] or 0) % 256)
+    if #chunk >= 4096 then
+      f:write(table.concat(chunk))
+      chunk = {}
+    end
+  end
+  if #chunk > 0 then f:write(table.concat(chunk)) end
+  f:close()
+  return true
+end
+
 local function write_domain_bin(path, domain, size)
   if not domain then return nil, "memory domain unavailable" end
   local f, err = io.open(path, "wb")
@@ -240,6 +256,11 @@ local function snapshot_json(label, domain, start, length)
 end
 
 local map_ppu = {}
+local map_cgram = {}
+for i=0,0x1FF do map_cgram[i] = 0 end
+local map_cgram_index = 0
+local map_cgram_high = false
+
 local map_ppu_addrs = {
   0x2100,0x2101,0x2105,0x2106,0x2107,0x2108,0x2109,0x210A,
   0x210B,0x210C,0x210D,0x210E,0x210F,0x2110,0x2111,0x2112,
@@ -249,33 +270,57 @@ for _,addr in ipairs(map_ppu_addrs) do map_ppu[addr] = nil end
 
 local map_ppu_hook_count = 0
 local map_ppu_hook_errors = {}
-local map_ppu_hook_variants = {
-  {name="short", base=0x000000},
-  {name="bank00", base=0x000000},
-  {name="bank80", base=0x800000},
-}
+
+local function record_map_ppu_write(logical, a, v)
+  local value = v
+  if type(a) == "number" and type(v) ~= "number" then value = a end
+  if type(value) ~= "number" then return end
+  value = value % 256
+  map_ppu[logical] = value
+
+  if logical == 0x2121 then
+    map_cgram_index = (value % 256) * 2
+    map_cgram_high = false
+  elseif logical == 0x2122 then
+    map_cgram[map_cgram_index % 0x200] = value
+    map_cgram_index = (map_cgram_index + 1) % 0x200
+    map_cgram_high = not map_cgram_high
+  end
+end
+
 for i,addr in ipairs(map_ppu_addrs) do
   local logical = addr
-  local seen = {}
-  for _,variant in ipairs(map_ppu_hook_variants) do
-    local watched = variant.base + addr
-    if not seen[watched] then
-      seen[watched] = true
-      local ok, err = pcall(
-        event.onmemorywrite,
-        function(a, v)
-          if v ~= nil then map_ppu[logical] = v % 256 end
-        end,
-        watched,
-        "shinmomo_remote_map_ppu_" .. variant.name .. "_" .. tostring(i),
-        MAP_BUS_DOMAIN
-      )
-      if ok then
-        map_ppu_hook_count = map_ppu_hook_count + 1
-      else
-        map_ppu_hook_errors[#map_ppu_hook_errors + 1] =
-          string.format("%s:%06X:%s", variant.name, watched, tostring(err))
-      end
+  local function cb(a, v) record_map_ppu_write(logical, a, v) end
+
+  -- Proven convention from graphics/f000012.lua:
+  --   3 args: callback, address, hook_name
+  --   4 args: callback, address, domain, hook_name
+  local ok_short, err_short = pcall(
+    event.onmemorywrite,
+    cb,
+    addr,
+    "shinmomo_remote_map_ppu_short_" .. tostring(i)
+  )
+  if ok_short then
+    map_ppu_hook_count = map_ppu_hook_count + 1
+  else
+    map_ppu_hook_errors[#map_ppu_hook_errors + 1] =
+      string.format("short:%04X:%s", addr, tostring(err_short))
+  end
+
+  if MAP_BUS_DOMAIN then
+    local ok_bus, err_bus = pcall(
+      event.onmemorywrite,
+      cb,
+      addr,
+      MAP_BUS_DOMAIN,
+      "shinmomo_remote_map_ppu_bus_" .. tostring(i)
+    )
+    if ok_bus then
+      map_ppu_hook_count = map_ppu_hook_count + 1
+    else
+      map_ppu_hook_errors[#map_ppu_hook_errors + 1] =
+        string.format("bus:%04X:%s", addr, tostring(err_bus))
     end
   end
 end
@@ -311,7 +356,15 @@ local function do_map_capture(id, scene_tag)
   end
 
   local ok_v, err_v = dump("vram.bin", MAP_VRAM_DOMAIN, 0x10000)
-  local ok_c, err_c = dump("cgram.bin", MAP_CGRAM_DOMAIN, 0x200)
+
+  local ok_c, err_c
+  if MAP_CGRAM_DOMAIN then
+    ok_c, err_c = dump("cgram.bin", MAP_CGRAM_DOMAIN, 0x200)
+  else
+    ok_c, err_c = write_byte_table_bin(dir .. SEP .. "cgram.bin", map_cgram, 0x200)
+    if ok_c then files[#files + 1] = "cgram.bin" end
+  end
+
   local ok_o, err_o = dump("oam.bin", MAP_OAM_DOMAIN, 0x220)
 
   local shot_name = "screen.png"
