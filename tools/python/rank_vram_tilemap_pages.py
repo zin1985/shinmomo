@@ -109,17 +109,35 @@ def page_metrics(entries: list[int]) -> dict:
     blank_penalty = max(0.0, (zero_ratio - 0.85) / 0.15)
     low_ctrl_entropy = 1.0 - min(1.0, ctrl_entropy)
     low_palette_entropy = 1.0 - min(1.0, palette_entropy)
+    priority_one = sum(priority) / CELLS
+    low_priority = 1.0 - priority_one
+
+    # Useful map pages are neither constant fills nor near-random graphics.
+    # Reward a broad "working diversity" band and strongly suppress pages with
+    # fewer than 8 distinct entries.
+    if unique_entries < 4:
+        diversity_quality = 0.0
+    elif unique_entries < 8:
+        diversity_quality = (unique_entries - 4) / 4
+    elif unique_entries <= 320:
+        diversity_quality = 1.0
+    else:
+        diversity_quality = max(0.0, 1.0 - (unique_entries - 320) / 704)
+
+    constant_penalty = max(0.0, (8 - unique_entries) / 8)
 
     score = (
-        0.28 * entry_repeat
-        + 0.24 * metatile_repeat
-        + 0.12 * tile_repeat
-        + 0.10 * neighbor_repeat
-        + 0.09 * dominant_palette
-        + 0.07 * low_ctrl_entropy
-        + 0.05 * low_palette_entropy
-        + 0.05 * dominant_entry
-        - 0.35 * blank_penalty
+        0.20 * entry_repeat
+        + 0.18 * metatile_repeat
+        + 0.08 * tile_repeat
+        + 0.09 * neighbor_repeat
+        + 0.08 * dominant_palette
+        + 0.08 * low_ctrl_entropy
+        + 0.04 * low_palette_entropy
+        + 0.13 * low_priority
+        + 0.12 * diversity_quality
+        - 0.38 * blank_penalty
+        - 0.45 * constant_penalty
     )
 
     return {
@@ -136,7 +154,9 @@ def page_metrics(entries: list[int]) -> dict:
         "palette_entropy_norm": palette_entropy,
         "control_entropy_norm": ctrl_entropy,
         "zero_entry_ratio": zero_ratio,
-        "priority_1_ratio": sum(priority) / CELLS,
+        "priority_1_ratio": priority_one,
+        "diversity_quality": diversity_quality,
+        "constant_penalty": constant_penalty,
         "hflip_1_ratio": sum(hflip) / CELLS,
         "vflip_1_ratio": sum(vflip) / CELLS,
         "palette_count": len(pc),
