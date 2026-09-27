@@ -32,3 +32,7 @@ Per-record reachability can be solved by tracing callers into these six non-null
 - Pack/record reachable-state sets.
 - Possible indirect/computed $1399 writers beyond direct absolute stores.
 - Final classification of 135 primary 0x50 rows, 50 immediate 0x51 pairs and 77 standalone 0x51 shapes.
+
+## Transition closure addendum
+
+Canonical ROM revalidation again matched the pinned size and SHA-256. Static tracing adds state 0 to 6 at 81:9A03 and state 6 to 5 at 81:E483. Combined with the previously established transitions, all six non-null dispatch states participate in one connected finite-state graph; state 4 remains null and directly unwritten. The next blocker is caller-to-pack/record entry-state reachability, not dispatcher connectivity.
