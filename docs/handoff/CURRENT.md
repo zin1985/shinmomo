@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `fca77fa97ec466be9ac1f5f4b98e60a35c63fddf`
+- Base main HEAD verified: `239bde84871231f256491527de610527dfdf9a11`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -88,30 +88,33 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Full-pack unresolved-selector distribution is recomputed after adding the four bank-wrap packs: 263 primary shapes total, 126 confirmed normal and 137 unresolved; 118/137 unresolved rows (86.1%) are record 0, while later-record unresolved remains 19.
   - `docs/analysis/map_selector_unresolved_concentration_20260928.md`
   - `data/maps/selectors/primary_map_selector_catalog.csv`
+- Pack reachability storage/inheritance is now concrete. The instruction-aligned master-pack loader entry is 84:8508 (not historical 8509), with five direct JSL callers. Mode 0 normalizes dynamic pack $0305, mode 1 fixed pack 0x19, mode 5 fixed pack 0x14, while modes 2/3/6 transition to 5/0/5. In the C4 VM scheduler, $126E is saved to and restored from per-slot $0759,X; nested execution inherits it, and normal opcode 0x04 explicitly replaces $126E and persists the new pack id to the current slot.
+  - `tools/python/catalog_map_pack_context.py`
+  - `data/maps/selectors/map_pack_context_summary.json`
+  - `docs/analysis/map_pack_context_reachability_20260928.md`
+  - `docs/analysis/map_pack_inverse_resolver_20260928.md`
 
 ## Observed but not yet promoted
 
-- **strong_structural_mode_unresolved**: 137 primary 0x50 rows across the full 230-pack corpus satisfy record/substream, tileset, layout and variant constraints but still admit a syntactically possible special-mode continuation after the 2-byte bank82 0x50.
-  - Why not promoted: Need $1398/$1399 reachability or a longer special-mode parse contradiction before promotion.
-- **strong_structural_pair_mode_unresolved**: 52 immediate 0x50+0x51 pairs remain structurally strong but their parent primary is among the 137 mode-unresolved rows.
-  - Why not promoted: They become confirmed secondary map selectors only after the parent primary is proven normal mode.
-- **mode_ambiguous**: 79 standalone range-plausible 0x51 shapes remain after full-pack record/substream filtering.
-  - Why not promoted: The same byte value is a valid bank82 special opcode when $1398 != 0, so ID ranges alone are insufficient.
-- **confirmed_static**: $1398 is copied from $1399 at C0:CA04..CA07. Direct $1399 writers use states 0,1,2,3,5,6; C0:CA1A indexes a 24-bit mode routine table at C0:CA69.
-  - Why not promoted: Mode routine semantics and per-pack reachability are still being assigned.
+- **confirmed_architecture**: 137 primary 0x50 rows remain mode-unresolved. Pack id alone cannot resolve them because $126E is per-C4-VM-slot context, survives scheduler resumes, is inherited by nested VM execution, and can be changed by normal opcode 0x04.
+  - Why not promoted: Need to pair first/current slot script pointer and pack context with $1398 at dispatch, not assign one mode globally to a pack.
+- **confirmed_catalog_distribution**: 118/137 unresolved primary selectors are record 0. Primary selector packs begin at 0x28; fixed mode-normalization packs 0x14 and 0x19 contain no primary candidates.
+  - Why not promoted: Live slots can retain or switch pack context across mode transitions, so absence from the fixed seed packs does not prove state 0.
+- **strong_structural_mode_unresolved**: 52 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after full-pack filtering.
+  - Why not promoted: Their opcode meaning still depends on $1398 at execution.
 
 ## In progress
 
-- Bind direct $1399 state seeds and the six C0:CA69 mode entry routines to CA:C000 pack/record entry contexts, prioritizing the 118 unresolved record-0 selectors.
-- For unresolved rows whose mode entry cannot yet be bound, extend special-mode parsing only through statically proven handler lengths.
-- Propagate any resolved primary normal-mode evidence into the 52 unresolved immediate 0x51 pairs and 79 standalone 0x51 shapes.
+- Trace the C4 VM slot seed path from selected script pointer into first dispatch, pairing $98/$99/$9A, $126E/$0759,X and $1398 for each newly started slot.
+- Emit reachable mode-state sets per pack/record/substream, prioritizing the 118 unresolved record-0 selectors and preserving multi-state reachability.
+- Use those mode sets plus safe special-parser contradictions to classify remaining primary/secondary selector candidates.
 
 ## Next actions
 
-1. Identify the CA:C000 pack-selection reader/caller chain and join its selected pack ID to the $1399 seed/state present at entry.
-2. Emit per-pack/per-record reachable-mode metadata for the 118 unresolved record-0 selectors first; preserve multiple reachable states when control flow is not unique.
-3. Use proven mode sets and safe special-parser contradictions to classify the remaining 137 primary candidates without assuming one state per pack.
-4. Propagate confirmed parent evidence into the 52 unresolved immediate 0x51 pairs and investigate the 79 standalone 0x51 shapes.
+1. Analyze the C4:8021..8090 slot creation/runner path and its callers to determine exactly where a fresh slot receives its initial script pointer and first $1398 dispatch state.
+2. Catalog normal opcode 0x04 pack-context switches and nested-slot creation edges so pack reachability can be propagated per VM slot rather than per pack.
+3. Emit per-pack/per-record/substream reachable mode-state metadata for the 118 unresolved record-0 selectors first; retain multiple states when control flow permits them.
+4. Propagate confirmed normal-mode evidence into the 52 unresolved immediate 0x51 pairs and investigate the 79 standalone 0x51 shapes.
 5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
 ## Do not redo
@@ -135,6 +138,9 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not use 4,092 as the complete record-corpus size; it is the same-bank subset. The full 230-pack corpus has 4,324 bounded VM records after excluding pack 0x14 record 0.
 - Do not model $1398/$1399 as a boolean flag; six non-null states 0,1,2,3,5,6 form a connected finite-state graph and state 4 is null.
 - Do not use the old 261/135 selector backlog after full-pack parsing; canonical full-pack counts are 263 total, 126 confirmed normal, 137 unresolved.
+- Do not use historical C4/84:8509 as the master-pack loader entry; the instruction-aligned entry is 84:8508 (file mirror C4:8508).
+- Do not give $0759 a universal pack-id meaning. Only the C4 VM scheduler path at 84:8016/8070 is confirmed to overlay $0759,X with $126E; other object families reuse the column differently.
+- Do not assign one mode state to an entire pack. C4 VM slots preserve/inherit $126E independently and normal opcode 0x04 can switch the current slot pack context.
 
 ## Runtime-only artifacts
 
@@ -177,6 +183,10 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `docs/analysis/map_selector_corpus_20260928.md`
 - `docs/analysis/map_mode_state_dispatch_20260928.md`
 - `docs/analysis/map_selector_unresolved_concentration_20260928.md`
+- `tools/python/catalog_map_pack_context.py`
+- `data/maps/selectors/map_pack_context_summary.json`
+- `docs/analysis/map_pack_context_reachability_20260928.md`
+- `docs/analysis/map_pack_inverse_resolver_20260928.md`
 
 ## Resume instruction
 

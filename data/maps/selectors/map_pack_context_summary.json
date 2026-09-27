@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "map_pack_context_reachability",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "address_note": "file-mirror Cx addresses correspond to runtime CPU 8x addresses for these code-bank anchors.",
+  "pack_context_loader": {
+    "file_mirror_entry": "C4:8508",
+    "runtime_cpu_entry": "84:8508",
+    "historical_correction": "Older notes called the entry C4/84:8509. 8508 is the actual instruction boundary (STA $126A); 84F5..8507 is a separate helper.",
+    "direct_jsl_callers": [
+      {
+        "file_mirror_addr": "C1:96D1",
+        "runtime_cpu_addr": "81:96D1",
+        "source_kind": "absolute_wram",
+        "source": "$0305"
+      },
+      {
+        "file_mirror_addr": "C1:98DF",
+        "runtime_cpu_addr": "81:98DF",
+        "source_kind": "absolute_wram",
+        "source": "$0305"
+      },
+      {
+        "file_mirror_addr": "C2:912B",
+        "runtime_cpu_addr": "82:912B",
+        "source_kind": "immediate",
+        "source": "0x19"
+      },
+      {
+        "file_mirror_addr": "C4:871E",
+        "runtime_cpu_addr": "84:871E",
+        "source_kind": "absolute_wram",
+        "source": "$126A"
+      },
+      {
+        "file_mirror_addr": "C5:CAC5",
+        "runtime_cpu_addr": "85:CAC5",
+        "source_kind": "immediate",
+        "source": "0x14"
+      }
+    ]
+  },
+  "mode_pack_normalization": [
+    {
+      "state": 0,
+      "routine": "81:964E",
+      "pack_source": "$0305",
+      "loader_call": "81:96D1",
+      "classification": "dynamic"
+    },
+    {
+      "state": 1,
+      "routine": "82:8F1B",
+      "pack_source": "0x19",
+      "loader_call": "82:912B",
+      "classification": "fixed"
+    },
+    {
+      "state": 2,
+      "routine": "83:B7CD",
+      "transition": 5,
+      "classification": "transitions_to_state5"
+    },
+    {
+      "state": 3,
+      "routine": "86:82E2",
+      "transition": 0,
+      "classification": "transitions_to_state0"
+    },
+    {
+      "state": 5,
+      "routine": "85:CAA3",
+      "pack_source": "0x14",
+      "loader_call": "85:CAC5",
+      "classification": "fixed"
+    },
+    {
+      "state": 6,
+      "routine": "81:E331",
+      "transition": 5,
+      "classification": "transitions_to_state5"
+    }
+  ],
+  "vm_slot_pack_context": {
+    "save_current_pack": {
+      "runtime_cpu": "84:8016",
+      "operation": "$126E -> $0759,X for the current C4 VM slot"
+    },
+    "restore_current_pack": {
+      "runtime_cpu": "84:8070",
+      "operation": "$0759,X -> $126E before slot execution"
+    },
+    "child_inheritance": {
+      "runner_entry": "84:8076",
+      "resave": "84:8086",
+      "operation": "nested VM execution retains parent $126E and stores it into the child/current slot context"
+    },
+    "explicit_pack_switch": {
+      "opcode": "0x04",
+      "handler": "84:89D6",
+      "length_bytes": 2,
+      "operation": "operand -> $126E; JSR $8016 writes the new pack id into $0759,X"
+    }
+  },
+  "reachability_consequence": "Mode entry can normalize a pack id, but pack context persists per C4 VM slot, is inherited by nested VM execution, and can be changed by normal opcode 0x04. One mode state therefore must not be assigned to an entire pack without slot/control-flow evidence."
+}
