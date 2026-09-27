@@ -192,6 +192,78 @@ local function parse_buttons(csv)
   return t
 end
 
+local function advance_exact(frames, buttons, player, after_each)
+  if not frames or frames < 1 then return true, 0 end
+
+  local completed = 0
+  local done = false
+  local input_hook = nil
+  local end_hook = nil
+  local callback_error = nil
+
+  if buttons and player then
+    local ok, hook_or_err = pcall(
+      event.onframestart,
+      function()
+        local joy_ok, joy_err = pcall(joypad.set, buttons, player)
+        if not joy_ok then
+          callback_error = "joypad.set failed: " .. tostring(joy_err)
+        end
+      end,
+      "shinmomo_remote_exact_input"
+    )
+    if not ok then return nil, "input hook failed: " .. tostring(hook_or_err) end
+    input_hook = hook_or_err
+  else
+    for p=1,4 do pcall(joypad.set, {}, p) end
+  end
+
+  local ok_end, end_or_err = pcall(
+    event.onframeend,
+    function()
+      completed = completed + 1
+      if after_each then
+        local cb_ok, cb_err = pcall(after_each, completed)
+        if not cb_ok then callback_error = "after_each failed: " .. tostring(cb_err) end
+      end
+      if callback_error or completed >= frames then
+        done = true
+        if client and client.pause then pcall(client.pause) end
+      end
+    end,
+    "shinmomo_remote_exact_frame_gate"
+  )
+
+  if not ok_end then
+    if input_hook then pcall(event.unregisterbyid, input_hook) end
+    return nil, "frame-end hook failed: " .. tostring(end_or_err)
+  end
+  end_hook = end_or_err
+
+  if client and client.unpause then
+    local ok_unpause, unpause_err = pcall(client.unpause)
+    if not ok_unpause then
+      if input_hook then pcall(event.unregisterbyid, input_hook) end
+      if end_hook then pcall(event.unregisterbyid, end_hook) end
+      return nil, "client.unpause failed: " .. tostring(unpause_err)
+    end
+  else
+    if input_hook then pcall(event.unregisterbyid, input_hook) end
+    if end_hook then pcall(event.unregisterbyid, end_hook) end
+    return nil, "client.unpause unavailable"
+  end
+
+  while not done do emu.yield() end
+
+  if client and client.pause then pcall(client.pause) end
+  if input_hook then pcall(event.unregisterbyid, input_hook) end
+  if end_hook then pcall(event.unregisterbyid, end_hook) end
+  if player then pcall(joypad.set, {}, player) end
+
+  if callback_error then return nil, callback_error end
+  return true, completed
+end
+
 local function do_screenshot(id)
   local path = SCREENS .. SEP .. "game_" .. clean_id(id) .. ".png"
   if not client or not client.screenshot then
@@ -285,23 +357,36 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
   end
   snapshots[#snapshots + 1] = snapshot_json("before", domain, start, length)
 
-  for i=1,frames do
-    local ok, joyerr = pcall(joypad.set, buttons, player)
-    if not ok then
-      respond(id, "ERR", "joypad.set failed: " .. tostring(joyerr))
-      return
+  local ok_input, input_result = advance_exact(
+    frames,
+    buttons,
+    player,
+    function(i)
+      snapshots[#snapshots + 1] =
+        snapshot_json("input_" .. tostring(i), domain, start, length)
     end
-    emu.frameadvance()
-    snapshots[#snapshots + 1] =
-      snapshot_json("input_" .. tostring(i), domain, start, length)
+  )
+  if not ok_input then
+    if enable_goal13_trace then goal13_trace_active = false end
+    respond(id, "ERR", tostring(input_result))
+    return
   end
 
-  pcall(joypad.set, {}, player)
-
-  for i=1,post_frames do
-    emu.frameadvance()
-    snapshots[#snapshots + 1] =
-      snapshot_json("post_" .. tostring(i), domain, start, length)
+  if post_frames > 0 then
+    local ok_post, post_result = advance_exact(
+      post_frames,
+      nil,
+      nil,
+      function(i)
+        snapshots[#snapshots + 1] =
+          snapshot_json("post_" .. tostring(i), domain, start, length)
+      end
+    )
+    if not ok_post then
+      if enable_goal13_trace then goal13_trace_active = false end
+      respond(id, "ERR", tostring(post_result))
+      return
+    end
   end
 
   if enable_goal13_trace then
@@ -363,16 +448,12 @@ local function process_command()
       return
     end
 
-    for _=1,frames do
-      local ok, joyerr = pcall(joypad.set, buttons, player)
-      if not ok then
-        respond(id, "ERR", "joypad.set failed: " .. tostring(joyerr))
-        return
-      end
-      emu.frameadvance()
+    local ok_advance, advanced_or_err = advance_exact(frames, buttons, player, nil)
+    if not ok_advance then
+      respond(id, "ERR", tostring(advanced_or_err))
+      return
     end
-    pcall(joypad.set, {}, player)
-    respond(id, "OK", "applied " .. tostring(frames) .. " frame(s)")
+    respond(id, "OK", "applied " .. tostring(advanced_or_err) .. " frame(s)")
     return
   end
 
@@ -382,9 +463,12 @@ local function process_command()
       respond(id, "ERR", "frames must be 1..600")
       return
     end
-    for player=1,4 do pcall(joypad.set, {}, player) end
-    for _=1,frames do emu.frameadvance() end
-    respond(id, "OK", "advanced " .. tostring(frames) .. " neutral frame(s)")
+    local ok_advance, advanced_or_err = advance_exact(frames, nil, nil, nil)
+    if not ok_advance then
+      respond(id, "ERR", tostring(advanced_or_err))
+      return
+    end
+    respond(id, "OK", "advanced " .. tostring(advanced_or_err) .. " neutral frame(s)")
     return
   end
 
