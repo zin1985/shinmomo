@@ -43,6 +43,7 @@ def main() -> None:
         rows.sort(key=lambda r: r["start_off"])
 
     out = []
+    unmapped = []
     source_rows = 0
     validated_callsites = 0
     with args.source_usage.open(encoding="utf-8-sig", newline="") as f:
@@ -59,6 +60,17 @@ def main() -> None:
                 frame = next((r for r in by_family.get(family, [])
                               if r["start_off"] <= off < r["end_off"]), None)
                 if frame is None:
+                    unmapped.append({
+                        "family_id": family,
+                        "family_hex": f"0x{family:02X}",
+                        "subindex": subindex,
+                        "subindex_hex": f"0x{subindex:02X}",
+                        "script_callsite": cpu,
+                        "patterns": src["patterns"],
+                        "selected_source_cpu": src["selected_source_cpu"],
+                        "player_visible": src["player_visible"],
+                        "evidence_class": "validated_source_selection_without_structural_record",
+                    })
                     continue
                 out.append({
                     "record_id": frame["record_id"],
@@ -83,6 +95,13 @@ def main() -> None:
             w.writeheader()
             w.writerows(out)
 
+    unmapped_path = args.out_dir / "event_source_unmapped_callsites.csv"
+    if unmapped:
+        with unmapped_path.open("w", encoding="utf-8-sig", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(unmapped[0].keys()))
+            w.writeheader()
+            w.writerows(unmapped)
+
     counts = Counter(r["record_id"] for r in out)
     summary = {
         "structural_record_count": len(frames),
@@ -92,7 +111,7 @@ def main() -> None:
         "mapped_source_callsites": len(out),
         "records_with_mapped_source": len(counts),
         "families_with_mapped_source": len({r["family_id"] for r in out}),
-        "unmapped_validated_script_callsites": validated_callsites - len(out),
+        "unmapped_validated_script_callsites": len(unmapped),
         "records_without_mapped_source": len(frames) - len(counts),
         "mapped_sources_per_record": {str(k): v for k, v in sorted(Counter(counts.values()).items())},
         "interpretation": "structural event framing is now directly linked to already-validated source selections; semantic event meaning and runtime reachability remain separate",
