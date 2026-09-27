@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "description": "Canonical inventory schema for salvaged Shin Momotarou Densetsu maps and runtime map captures.",
+  "fields": [
+    {"name":"map_id","type":"string","required":true,"description":"Stable project-side map identifier."},
+    {"name":"map_group_id","type":"string","required":false,"description":"Dungeon/town/castle/world-region grouping."},
+    {"name":"scene_class","type":"enum","values":["world","field","town","castle","indoor","dungeon","special","unknown"]},
+    {"name":"display_name","type":"string","required":false},
+    {"name":"floor","type":"string","required":false},
+    {"name":"variant","type":"string","required":false},
+    {"name":"completion_level","type":"enum","values":["L0","L1","L2","L3","L4","L5"]},
+    {"name":"runtime_capture_ids","type":"array[string]"},
+    {"name":"resident_bg_recovered","type":"bool"},
+    {"name":"streaming_model","type":"enum","values":["unknown","full_resident","ring_buffer","page_streamed","chunk_streamed","other"]},
+    {"name":"width_metatiles","type":"int|null"},
+    {"name":"height_metatiles","type":"int|null"},
+    {"name":"tileset_id","type":"string|null"},
+    {"name":"palette_id","type":"string|null"},
+    {"name":"collision_status","type":"enum","values":["unknown","partial","complete"]},
+    {"name":"warp_status","type":"enum","values":["unknown","partial","complete"]},
+    {"name":"npc_object_status","type":"enum","values":["unknown","partial","complete"]},
+    {"name":"event_trigger_status","type":"enum","values":["unknown","partial","complete"]},
+    {"name":"encounter_status","type":"enum","values":["unknown","partial","complete"]},
+    {"name":"rom_loader_status","type":"enum","values":["unknown","candidate","confirmed"]},
+    {"name":"rom_source_ranges","type":"array[string]"},
+    {"name":"evidence","type":"array[string]"},
+    {"name":"notes","type":"string"}
+  ]
+}
