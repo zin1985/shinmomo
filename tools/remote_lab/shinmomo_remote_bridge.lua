@@ -91,7 +91,15 @@ local function write_domain_bin(path, domain, size)
   if not f then return nil, err end
   local chunk = {}
   for i=0,size-1 do
-    local v = read8(i, domain)
+    local v = nil
+    if memory and memory.read_u8 then
+      local ok, got = pcall(memory.read_u8, i, domain)
+      if ok then v = got end
+    end
+    if v == nil and memory and memory.readbyte then
+      local ok, got = pcall(memory.readbyte, i, domain)
+      if ok then v = got end
+    end
     chunk[#chunk + 1] = string.char((v or 0) % 256)
     if #chunk >= 4096 then
       f:write(table.concat(chunk))
