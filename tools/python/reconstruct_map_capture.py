@@ -153,6 +153,8 @@ def decode_bg(
     map_base = (sc & 0xFC) << 8
     bpp = bg_bpp(mode & 0x07, bg)
     palette = cgram_palette(cgram)
+    if not any(cgram):
+        palette = [(i, i, i) for i in range(256)]
 
     rows = []
     grid: dict[tuple[int, int], int] = {}
@@ -239,12 +241,14 @@ def main() -> None:
 
     manifest = json.loads((capture_dir / "manifest.json").read_text(encoding="utf-8"))
     vram = (capture_dir / "vram.bin").read_bytes()
-    cgram = (capture_dir / "cgram.bin").read_bytes()
+    cgram_path = capture_dir / "cgram.bin"
+    cgram = cgram_path.read_bytes() if cgram_path.exists() else bytes(0x200)
 
     if len(vram) != 0x10000:
         raise SystemExit(f"unexpected VRAM size: {len(vram)}")
     if len(cgram) != 0x200:
         raise SystemExit(f"unexpected CGRAM size: {len(cgram)}")
+    cgram_available = cgram_path.exists()
 
     scene = {
         "schema_version": 1,
@@ -257,10 +261,12 @@ def main() -> None:
             for k in ["BGMODE", "BG1SC", "BG2SC", "BG3SC", "BG4SC", "BG12NBA", "BG34NBA"]
         ),
         "backgrounds": [],
+        "cgram_available": cgram_available,
         "limitations": [
             "runtime-resident tilemap only; canonical ROM-side map storage not yet identified",
             "PPU register values are bridge-lifetime write mirrors",
             "collision/warp/event layers require separate game-logic extraction",
+            "when CGRAM domain is unavailable, preview colors are placeholders but tilemap/metatile structure remains valid",
         ],
     }
 
