@@ -22,7 +22,7 @@
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42."
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B."
     },
     {
       "id": "fd67-selector",
@@ -94,7 +94,7 @@
       "weight": 1.2,
       "status": "active",
       "scope": "script→text pointer→文字列の大量抽出とイベント対応",
-      "evidence": "2026-09-26: current usage catalog was crosslinked to retained v33 decoder outputs by exact token SHA-256. 21 unique current pairs match historical dialogue decodes; 19 were previously visibility-unknown. Applying this evidence overlay reduces unresolved visibility from 2,225 to 2,206 without copying dialogue bodies. Family 0x50:11 (Hope Capital shops) and 0x50:12 (Mashira song/repeat-talk) are now proven to occupy separate enclosing event records; speaker/runtime reachability remain unconfirmed."
+      "evidence": "2026-09-27 reconciliation: canonical usage summary contains 2,265 evidence-backed pairs and 2,229 high-confidence script pairs. Historical exact-token crosslink matches 23 unique usage pairs and adds strong dialogue evidence to 20 base-unknown pairs, reducing 2,250 base unknown visibility pairs to 2,230 effective unresolved. Event crosslink maps 1,124 of 2,202 validated script callsites into 713 B0/trailer structural records; 1,078 validated callsites remain outside that framing and retain their source-selection validity."
     },
     {
       "id": "character-display",
