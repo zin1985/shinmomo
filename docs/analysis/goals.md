@@ -1,6 +1,6 @@
 # Current goal progress — five-goal model
 
-Updated: 2026-09-25
+Updated: 2026-09-27
 
 The historical Goal1..Goal20 percentages are no longer the top-level project metric. They remain useful as lower-level workstreams and evidence history.
 
@@ -11,12 +11,12 @@ Formal goal definitions live in `docs/project/PROJECT_GOALS_V2.md`.
 | Goal | Progress | Current limiting factor |
 |---|---:|---|
 | G1 Program / logic complete analysis + ROM rebuild | **47%** | no full routine classification, real SNES ROM rebuild, complete save or audio subsystem spec |
-| G2 complete dialogue salvage | **63%** | 2,206 unknown usage pairsのvisible分類、canonical rendered corpus、context/event linkage |
+| G2 complete dialogue salvage | **63%** | 1,078 unmapped validated script callsitesのprovenance分類と2,230 effective unknown pairsのvisible分類、canonical rendered corpus、context/event linkage |
 | G3 complete sprite salvage | **49%** | full entity inventory, canonical palette/asset export, all-scene validation |
-| G4 complete event analysis | **44%** | source usageを含むcomplete event inventory、selector matcher、event graph |
+| G4 complete event analysis | **45%** | source usageを含むcomplete event inventory、selector matcher、event graph |
 | G5 complete portable specification | **48%** | missing subsystem specs, verification suite, save/audio/battle completeness |
 
-Top-level overall: **50.2%**
+Top-level overall: **50.4%**
 
 Legacy workstream weighted maturity: **76.4%**.
 
@@ -57,14 +57,12 @@ For details see:
 
 The overlapping-entry correction remains canonical. Actual source selections are now enumerated from proven consumers rather than artificial family boundaries.
 
-- 2,238 evidence-backed (family, subindex) usage pairs
+- 2,265 evidence-backed (family, subindex) usage pairs
 - 162 source families represented
-- 2,202 decoder-reachable high-confidence A4 script selections
-- 10 AE3A special overrides
-- 7 historically confirmed static pairs
-- 19 exact direct source-selector/display pairs
-- 5 exact pairs feed the C4:A02D -> C4:9DE5 display-token pipeline
-- 2,225 pairs are unknown in the base usage catalog; historical token-hash crosslink reclassifies 19 as strong dialogue evidence, leaving 2,206 effectively unresolved
+- 2,229 decoder-reachable high-confidence A4 script pairs
+- base usage catalog unknown visibility: 2,250
+- historical token-hash crosslink now matches 23 unique usage pairs and adds strong dialogue evidence to 20 base-unknown pairs
+- effective unresolved visibility: 2,230
 
 The CA:C000 real script-pack index (0x14..0xF9) and C7:0000 source-family index use the same global index. The A4 mini-VM operand supplies the source subindex. This creates a reproducible script/event -> source-record bridge without claiming every selected resource is dialogue.
 
@@ -72,19 +70,18 @@ The CA:C000 real script-pack index (0x14..0xF9) and C7:0000 source-family index 
 
 Retained v33 decoder results were reattached to the corrected usage-driven source model by exact token SHA-256.
 
-- 76 historical evidence rows match the current catalog.
-- 21 unique current usage pairs match historical dialogue decodes.
+- 80 historical evidence rows match the current catalog.
+- 23 unique current usage pairs match historical dialogue decodes.
 - matched families are 0x4E, 0x4F and 0x50.
-- 2 pairs were already classified as confirmed/strong dialogue.
-- 19 previously visibility-unknown pairs gain strong historical dialogue evidence.
+- 20 base-unknown pairs gain strong historical dialogue evidence.
 - no decoded dialogue bodies are duplicated into the new crosswalk; only metadata and hashes are stored.
-- effective unresolved visibility is 2,206 after applying the overlay.
+- effective unresolved visibility is 2,230 after applying the overlay.
 
 This strengthens G2 without restoring the obsolete 7,877-record family-boundary model.
 
 ## Current priorities
 
-1. classify the remaining 2,206 visibility-unknown source pairs through display/event/runtime provenance, attach event context to the 19 recovered strong-dialogue pairs, and generate the player-visible canonical text corpus;
+1. partition the 1,078 validated script callsites outside the current B0/trailer frame grammar by complementary grammar and controller/keyed-dispatch provenance, then use that evidence to classify the 2,230 effective unresolved source pairs and generate the player-visible canonical text corpus;
 2. identify the segmented 41A10 selector matcher;
 3. build the canonical sprite inventory/exporter;
 4. generate the all-event catalog skeleton;
