@@ -228,7 +228,6 @@ local function advance_exact(frames, buttons, player, after_each)
       end
       if callback_error or completed >= frames then
         done = true
-        if client and client.pause then pcall(client.pause) end
       end
     end,
     "shinmomo_remote_exact_frame_gate"
