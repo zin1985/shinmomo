@@ -43,7 +43,9 @@ try {
     Write-Host "Remote lab speed: normal throttled mode."
   }
 
-  $proc = Start-Process -FilePath $exe -ArgumentList @("--lua=$lua", $Rom) -PassThru -Wait
+  $luaArg = '--lua="' + $lua + '"'
+  $romArg = '"' + $Rom + '"'
+  $proc = Start-Process -FilePath $exe -ArgumentList @($luaArg, $romArg) -PassThru -Wait
   if ($proc.ExitCode -ne 0) {
     Write-Warning "EmuHawk exited with code $($proc.ExitCode)."
   }
