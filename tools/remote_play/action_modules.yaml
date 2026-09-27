@@ -1,0 +1,41 @@
+version: 1
+modules:
+  advance_dialogue:
+    precondition: dialogue_visible
+    sequence:
+      - {command: STEP, frames: 180}
+      - {command: GAMEPAD, button: A, frames: 30}
+      - {command: SCREENSHOT}
+    success: dialogue_changed_or_transition
+    max_retries: 4
+  load_save_slot_1:
+    precondition: save_select_visible
+    sequence:
+      - {command: GAMEPAD, button: A, frames: 30}
+      - {command: SCREENSHOT}
+      - {command: STEP, frames: 600, when: black_transition}
+      - {command: SCREENSHOT}
+    success: controllable_map
+  traverse_direction:
+    params: [direction, frames]
+    constraints: {min_frames: 30, max_frames: 220}
+    sequence:
+      - {command: GAMEPAD, button: "$direction", frames: "$frames"}
+      - {command: SCREENSHOT}
+    success: expected_position_or_transition
+  wait_transition:
+    sequence:
+      - {command: STEP, frames: 240}
+      - {command: SCREENSHOT}
+    retry_until: map_visible
+    max_retries: 3
+  find_weapon_shop:
+    landmark: "兵"
+    reject_landmarks: ["茶"]
+    success: weapon_shop_confirmed
+  field_one_battle:
+    checks: [party_hp, enemies, command_state]
+    stop_on: [danger_hp, unexpected_choice, death_risk]
+    success: field_return_after_victory
+  return_and_save:
+    success: ingame_save_confirmed
