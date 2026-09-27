@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","click","key","gamepad","step","capture-memory")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory")]
   [string]$Command,
 
   [int]$X = 0,
@@ -21,6 +21,7 @@ param(
   [string]$Start = "0x0000",
   [int]$Length = 256,
 
+  [string]$SceneTag = "scene",
   [string]$Out = "",
   [string]$LabDir = "",
   [int]$TimeoutMs = 8000
@@ -117,6 +118,11 @@ switch ($Command) {
   "game-screen" {
     $payload = Invoke-Bridge @("SCREENSHOT")
     Emit-Result @{ ok=$true; command="game-screen"; path=$payload }
+  }
+
+  "map-capture" {
+    $payload = Invoke-Bridge @("MAP_CAPTURE", $SceneTag)
+    Emit-Result @{ ok=$true; command="map-capture"; scene_tag=$SceneTag; manifest=$payload }
   }
 
   "click" {
