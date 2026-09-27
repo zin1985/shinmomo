@@ -8,6 +8,7 @@ local COMMAND = LAB_DIR .. SEP .. "command.tsv"
 local RESPONSES = LAB_DIR .. SEP .. "responses"
 local CAPTURES = LAB_DIR .. SEP .. "captures"
 local SCREENS = LAB_DIR .. SEP .. "screens"
+local MAP_CAPTURES = LAB_DIR .. SEP .. "map_captures"
 
 local pending_gamepad = nil -- retained for compatibility; command mode is synchronous
 local goal13_trace_active = false
@@ -43,6 +44,61 @@ local function write_all(path, s)
   local f, err = io.open(path, "wb")
   if not f then return nil, err end
   f:write(s)
+  f:close()
+  return true
+end
+
+local function ensure_dir(path)
+  if SEP == "\\" then
+    os.execute('mkdir "' .. path .. '" >nul 2>nul')
+  else
+    os.execute('mkdir -p "' .. path .. '" >/dev/null 2>/dev/null')
+  end
+end
+
+local function memory_domains()
+  if memory and memory.getmemorydomainlist then
+    local ok, domains = pcall(memory.getmemorydomainlist)
+    if ok and domains then return domains end
+  end
+  return {}
+end
+
+local function find_domain(candidates)
+  local domains = memory_domains()
+  for _,want in ipairs(candidates) do
+    for _,got in ipairs(domains) do
+      if got == want then return got end
+    end
+  end
+  for _,want in ipairs(candidates) do
+    local lw = string.lower(want)
+    for _,got in ipairs(domains) do
+      if string.find(string.lower(got), lw, 1, true) then return got end
+    end
+  end
+  return nil
+end
+
+local MAP_VRAM_DOMAIN = find_domain({"VRAM", "Snes VRAM", "SNES VRAM"})
+local MAP_CGRAM_DOMAIN = find_domain({"CGRAM", "Snes CGRAM", "SNES CGRAM", "CRAM"})
+local MAP_OAM_DOMAIN = find_domain({"OAM", "Snes OAM", "SNES OAM", "Sprite RAM"})
+local MAP_BUS_DOMAIN = find_domain({"System Bus", "Bus", "Snes Bus", "SNES Bus"}) or "System Bus"
+
+local function write_domain_bin(path, domain, size)
+  if not domain then return nil, "memory domain unavailable" end
+  local f, err = io.open(path, "wb")
+  if not f then return nil, err end
+  local chunk = {}
+  for i=0,size-1 do
+    local v = read8(i, domain)
+    chunk[#chunk + 1] = string.char((v or 0) % 256)
+    if #chunk >= 4096 then
+      f:write(table.concat(chunk))
+      chunk = {}
+    end
+  end
+  if #chunk > 0 then f:write(table.concat(chunk)) end
   f:close()
   return true
 end
@@ -173,6 +229,119 @@ local function snapshot_json(label, domain, start, length)
     '"bytes":' .. bytes_json(read_range(start, length, domain)),
     "}"
   })
+end
+
+local map_ppu = {}
+local map_ppu_addrs = {
+  0x2100,0x2101,0x2105,0x2106,0x2107,0x2108,0x2109,0x210A,
+  0x210B,0x210C,0x210D,0x210E,0x210F,0x2110,0x2111,0x2112,
+  0x2113,0x2114,0x2115,0x2116,0x2117,0x212C,0x212D
+}
+for _,addr in ipairs(map_ppu_addrs) do map_ppu[addr] = nil end
+
+local map_ppu_hook_count = 0
+local map_ppu_hook_errors = {}
+for i,addr in ipairs(map_ppu_addrs) do
+  local watched = addr
+  local ok, err = pcall(
+    event.onmemorywrite,
+    function(a, v)
+      if v ~= nil then map_ppu[watched] = v % 256 end
+    end,
+    watched,
+    "shinmomo_remote_map_ppu_" .. tostring(i),
+    MAP_BUS_DOMAIN
+  )
+  if ok then
+    map_ppu_hook_count = map_ppu_hook_count + 1
+  else
+    map_ppu_hook_errors[#map_ppu_hook_errors + 1] =
+      string.format("%04X:%s", watched, tostring(err))
+  end
+end
+
+local function ppu_json()
+  local rows = {"{"}
+  local first = true
+  for _,addr in ipairs(map_ppu_addrs) do
+    if not first then rows[#rows + 1] = "," end
+    first = false
+    rows[#rows + 1] = json_quote(string.format("%04X", addr)) .. ":" .. json_num(map_ppu[addr])
+  end
+  rows[#rows + 1] = "}"
+  return table.concat(rows)
+end
+
+local function do_map_capture(id, scene_tag)
+  local tag = clean_id(scene_tag or "scene")
+  local capture_id = clean_id(id)
+  local dir = MAP_CAPTURES .. SEP .. capture_id .. "_" .. tag
+  ensure_dir(MAP_CAPTURES)
+  ensure_dir(dir)
+
+  local files = {}
+  local function dump(name, domain, size)
+    local path = dir .. SEP .. name
+    local ok, err = write_domain_bin(path, domain, size)
+    if ok then
+      files[#files + 1] = name
+      return true
+    end
+    return nil, err
+  end
+
+  local ok_v, err_v = dump("vram.bin", MAP_VRAM_DOMAIN, 0x10000)
+  local ok_c, err_c = dump("cgram.bin", MAP_CGRAM_DOMAIN, 0x200)
+  local ok_o, err_o = dump("oam.bin", MAP_OAM_DOMAIN, 0x220)
+
+  local shot_name = "screen.png"
+  local shot_path = dir .. SEP .. shot_name
+  local shot_ok = false
+  local shot_err = ""
+  if client and client.screenshot then
+    local ok, err = pcall(client.screenshot, shot_path)
+    shot_ok = ok
+    shot_err = ok and "" or tostring(err)
+    if ok then files[#files + 1] = shot_name end
+  else
+    shot_err = "client.screenshot unavailable"
+  end
+
+  local manifest = table.concat({
+    "{",
+    '"schema_version":1,',
+    '"capture_id":' .. json_quote(capture_id) .. ",",
+    '"scene_tag":' .. json_quote(tag) .. ",",
+    '"frame":' .. tostring(framecount()) .. ",",
+    '"domains":{',
+      '"vram":' .. json_quote(MAP_VRAM_DOMAIN or "") .. ",",
+      '"cgram":' .. json_quote(MAP_CGRAM_DOMAIN or "") .. ",",
+      '"oam":' .. json_quote(MAP_OAM_DOMAIN or "") .. ",",
+      '"bus":' .. json_quote(MAP_BUS_DOMAIN or "") ..
+    "},",
+    '"ppu_hook_count":' .. tostring(map_ppu_hook_count) .. ",",
+    '"ppu_hook_errors":' .. json_quote(table.concat(map_ppu_hook_errors, " | ")) .. ",",
+    '"ppu":' .. ppu_json() .. ",",
+    '"files":[' .. (function()
+      local x = {}
+      for i,name in ipairs(files) do x[i] = json_quote(name) end
+      return table.concat(x, ",")
+    end)() .. "],",
+    '"errors":{',
+      '"vram":' .. json_quote(ok_v and "" or tostring(err_v)) .. ",",
+      '"cgram":' .. json_quote(ok_c and "" or tostring(err_c)) .. ",",
+      '"oam":' .. json_quote(ok_o and "" or tostring(err_o)) .. ",",
+      '"screenshot":' .. json_quote(shot_err) ..
+    "}",
+    "}"
+  })
+  local manifest_path = dir .. SEP .. "manifest.json"
+  local ok_m, err_m = write_all(manifest_path, manifest)
+  if not ok_m then
+    respond(id, "ERR", "map manifest write failed: " .. tostring(err_m))
+    return
+  end
+  respond(id, "OK", manifest_path)
 end
 
 local valid_buttons = {
@@ -491,6 +660,11 @@ local function process_command()
     return
   end
 
+  if cmd == "MAP_CAPTURE" then
+    do_map_capture(id, p[3] or "scene")
+    return
+  end
+
   if cmd == "CAPTURE_MEMORY" then
     do_capture(id, p[3] or "WRAM", p[4] or "0", p[5] or "256")
     return
@@ -645,7 +819,12 @@ for slot=0,0x3F do
 end
 
 if console and console.log then
-  console.log("SHINMOMO_REMOTE_BRIDGE_LOADED lab=" .. LAB_DIR)
+  console.log(
+    "SHINMOMO_REMOTE_BRIDGE_LOADED lab=" .. LAB_DIR ..
+    " map_domains=" .. tostring(MAP_VRAM_DOMAIN) .. "/" ..
+    tostring(MAP_CGRAM_DOMAIN) .. "/" .. tostring(MAP_OAM_DOMAIN) ..
+    " map_ppu_hooks=" .. tostring(map_ppu_hook_count)
+  )
 end
 
 -- Command-driven deterministic mode.
