@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Trace resident tilemap pages back to the ROM-side map loader",
-  "base_main_head_verified": "1c27a16ca53229b1c8127dc742582612181e34d1",
+  "base_main_head_verified": "b468e2f755d68bc290ea990d5776805ba71d1678",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Trace the load path that populates the confirmed scene-specific VRAM pages 0x1000 and 0x1800, through DMA/CPU VRAM transfer and any WRAM staging/decompression, to a candidate ROM pointer/table or canonical map record.",
   "definition_of_done": [
@@ -70,6 +70,12 @@
         "docs/analysis/map_sample_stable_interior_l1.md",
         "tools/python/summarize_tilemap_evidence.py"
       ]
+    },
+    {
+      "item": "Static C0:A0BA..A150 path classified as queued VRAM-to-VRAM copy via $7E:2000 staging; it is not yet the ROM-side map loader.",
+      "evidence": [
+        "docs/analysis/map_vram_transfer_path_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
@@ -90,30 +96,30 @@
     }
   ],
   "in_progress": [
-    "Locate static/runtime writers or DMA paths targeting VRAM 0x1000..0x1FFF.",
-    "Connect the transfer source to WRAM staging/decompression or directly to ROM.",
-    "Identify the first map loader/source-table candidate."
+    "Trace producers of the $7E:2040 transfer queue and classify map-transition/scroll callers.",
+    "Separate VRAM relocation from the earlier ROM/WRAM-to-VRAM population path.",
+    "Connect initial population to WRAM staging/decompression or ROM."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Verify latest main HEAD and inspect existing graphics/mapchip/DMA analyses before adding a parallel loader theory."
+      "action": "Trace writers/producers of $7E:2040 queue entries consumed by C0:A0BA."
     },
     {
       "order": 2,
-      "action": "Search existing disassembly and graphics probes for VRAM address setup or DMA transfers that can target 0x1000/0x1800."
+      "action": "Search direct DMA/CPU writes to $2118 whose VMADD can target 0x1000/0x1800, excluding C0:A0F0."
     },
     {
       "order": 3,
-      "action": "Use the stable interior load as a runtime trigger if static evidence leaves multiple candidates; log only derived DMA/source metadata."
+      "action": "Use stable interior transition as runtime trigger only if static tracing leaves multiple candidates; retain derived metadata only."
     },
     {
       "order": 4,
-      "action": "Resolve the source buffer/pointer/decompressor chain and identify a ROM-side map-table or record candidate."
+      "action": "Resolve source buffer/pointer/decompressor to a ROM-side table or map record."
     },
     {
       "order": 5,
-      "action": "Commit the loader evidence and update this checkpoint before broadening to whole-ROM map enumeration."
+      "action": "Checkpoint before broadening to whole-ROM map enumeration."
     }
   ],
   "do_not_redo": [
