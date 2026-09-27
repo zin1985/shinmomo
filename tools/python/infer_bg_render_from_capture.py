@@ -147,6 +147,41 @@ def visible_grid(grid: np.ndarray, sx: int, sy: int) -> np.ndarray:
     return grid[np.ix_(ys, xs)]
 
 
+def render_index_preview(
+    vram: bytes,
+    entries: np.ndarray,
+    char_base: int,
+    bpp: int,
+    sx: int,
+    sy: int,
+    path: Path,
+) -> None:
+    """Render palette-independent color indices for visual validation."""
+    max_color = (1 << bpp) - 1
+    out = np.zeros((224, 256), dtype=np.uint8)
+    cache: dict[tuple[int, int, int], np.ndarray] = {}
+    for vy in range(28):
+        my = (sy + vy) % 32
+        for vx in range(32):
+            mx = (sx + vx) % 32
+            e = int(entries[my, mx])
+            tile = e & 0x03FF
+            hf = (e >> 14) & 1
+            vf = (e >> 15) & 1
+            key = (tile, hf, vf)
+            if key not in cache:
+                pix = decode_tile(vram, char_base, tile, bpp)
+                if hf:
+                    pix = pix[:, ::-1]
+                if vf:
+                    pix = pix[::-1, :]
+                cache[key] = pix
+            pix = cache[key]
+            scaled = (pix.astype(np.uint16) * 255 // max(1, max_color)).astype(np.uint8)
+            out[vy*8:(vy+1)*8, vx*8:(vx+1)*8] = scaled
+    Image.fromarray(out, mode="L").save(path)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("vram", type=Path)
@@ -196,6 +231,29 @@ def main() -> None:
     }
     out = args.out or args.vram.parent / "bg_render_inference.json"
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    preview_dir = out.parent / (out.stem + "_previews")
+    preview_dir.mkdir(parents=True, exist_ok=True)
+    page_cache: dict[int, np.ndarray] = {}
+    for rank, row in enumerate(results[: min(args.top, 10)], 1):
+        page = int(row["page_base"], 16)
+        if page not in page_cache:
+            page_cache[page] = decode_entries(vram, page)
+        char_base = int(row["char_base"], 16)
+        render_index_preview(
+            vram,
+            page_cache[page],
+            char_base,
+            int(row["bpp"]),
+            int(row["scroll_tile_x"]),
+            int(row["scroll_tile_y"]),
+            preview_dir / (
+                f"rank{rank:02d}_page_{page:04X}_"
+                f"{row['bpp']}bpp_char_{char_base:04X}_"
+                f"sx{row['scroll_tile_x']:02d}_sy{row['scroll_tile_y']:02d}.png"
+            ),
+        )
+
     print(json.dumps(payload, ensure_ascii=False, indent=2))
 
 
