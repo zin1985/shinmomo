@@ -9,7 +9,7 @@ local RESPONSES = LAB_DIR .. SEP .. "responses"
 local CAPTURES = LAB_DIR .. SEP .. "captures"
 local SCREENS = LAB_DIR .. SEP .. "screens"
 
-local pending_gamepad = nil
+local pending_gamepad = nil -- retained for compatibility; command mode is synchronous
 local goal13_trace_active = false
 local goal13_trace_rows = {}
 local goal13_hook_registered = 0
@@ -335,8 +335,6 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
 end
 
 local function process_command()
-  if pending_gamepad then return end
-
   local line = read_all(COMMAND)
   if not line or line == "" then return end
   os.remove(COMMAND)
@@ -356,14 +354,37 @@ local function process_command()
       respond(id, "ERR", err)
       return
     end
+    if player < 1 or player > 4 then
+      respond(id, "ERR", "player must be 1..4")
+      return
+    end
     if frames < 1 or frames > 600 then
       respond(id, "ERR", "frames must be 1..600")
       return
     end
-    pending_gamepad = {
-      id=id, player=player, buttons=buttons,
-      frames=frames, remaining=frames
-    }
+
+    for _=1,frames do
+      local ok, joyerr = pcall(joypad.set, buttons, player)
+      if not ok then
+        respond(id, "ERR", "joypad.set failed: " .. tostring(joyerr))
+        return
+      end
+      emu.frameadvance()
+    end
+    pcall(joypad.set, {}, player)
+    respond(id, "OK", "applied " .. tostring(frames) .. " frame(s)")
+    return
+  end
+
+  if cmd == "STEP" then
+    local frames = tonumber(p[3]) or 1
+    if frames < 1 or frames > 600 then
+      respond(id, "ERR", "frames must be 1..600")
+      return
+    end
+    for player=1,4 do pcall(joypad.set, {}, player) end
+    for _=1,frames do emu.frameadvance() end
+    respond(id, "OK", "advanced " .. tostring(frames) .. " neutral frame(s)")
     return
   end
 
@@ -394,23 +415,6 @@ local function process_command()
 
   respond(id, "ERR", "unknown bridge command: " .. tostring(cmd))
 end
-
-local function apply_gamepad()
-  if not pending_gamepad then return end
-  local g = pending_gamepad
-  local ok, err = pcall(joypad.set, g.buttons, g.player)
-  if not ok then
-    respond(g.id, "ERR", "joypad.set failed: " .. tostring(err))
-    pending_gamepad = nil
-    return
-  end
-  g.remaining = g.remaining - 1
-  if g.remaining <= 0 then
-    respond(g.id, "OK", "applied " .. tostring(g.frames) .. " frame(s)")
-    pending_gamepad = nil
-  end
-end
-
 
 local goal13_targets = {
   {0x89BA36, "controller", "89:BA36"}, {0xC9BA36, "controller", "C9:BA36"},
@@ -561,8 +565,14 @@ if console and console.log then
   console.log("SHINMOMO_REMOTE_BRIDGE_LOADED lab=" .. LAB_DIR)
 end
 
+-- Command-driven deterministic mode.
+-- Keep emulation paused between mailbox commands so host/RDC latency cannot
+-- advance hundreds or thousands of uncontrolled frames. emu.yield() keeps the
+-- Lua mailbox responsive while paused; GAMEPAD/STEP/atomic commands explicitly
+-- advance only the requested frames.
+if client and client.pause then pcall(client.pause) end
+
 while true do
   process_command()
-  apply_gamepad()
-  emu.frameadvance()
+  emu.yield()
 end
