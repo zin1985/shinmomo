@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "per_pack_entry79_seed_index",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "table_addr": "CA:C2F4",
+  "table_entry_count": 250,
+  "first_data_addr": "CA:C4E8",
+  "reserved_null_ids": "0x01..0x13",
+  "nonzero_list_pointer_count": 231,
+  "nonempty_seed_pack_count": 55,
+  "seed_script_count": 90,
+  "malformed_list_count": 0,
+  "pack_interval_mismatch_count": 0,
+  "substream_start_count": 90,
+  "entry_id_counts": {
+    "0x79": 90
+  },
+  "interpretation": "$0305 indexes this table as pack_id-1. Every one of the 90 non-zero seed scripts is inside the same-numbered CA:C000 pack and is exactly the start of entry_id 0x79."
+}
