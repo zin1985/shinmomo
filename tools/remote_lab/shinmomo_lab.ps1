@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","click","key","gamepad","capture-memory")]
+  [ValidateSet("screen","game-screen","click","key","gamepad","step","capture-memory")]
   [string]$Command,
 
   [int]$X = 0,
@@ -114,6 +114,11 @@ switch ($Command) {
     Emit-Result @{ ok=$true; command="screen"; path=$Out; width=$bounds.Width; height=$bounds.Height }
   }
 
+  "game-screen" {
+    $payload = Invoke-Bridge @("SCREENSHOT")
+    Emit-Result @{ ok=$true; command="game-screen"; path=$payload }
+  }
+
   "click" {
     Add-Type @"
 using System;
@@ -174,6 +179,12 @@ public static class ShinMomoMouse {
       $payload = Invoke-Bridge @("GAMEPAD", "$Player", $Buttons, "$Frames")
       Emit-Result @{ ok=$true; command="gamepad"; atomic=$false; player=$Player; buttons=$Buttons; frames=$Frames; bridge=$payload }
     }
+  }
+
+  "step" {
+    if ($Frames -lt 1 -or $Frames -gt 600) { throw "-Frames must be 1..600." }
+    $payload = Invoke-Bridge @("STEP", "$Frames")
+    Emit-Result @{ ok=$true; command="step"; frames=$Frames; bridge=$payload }
   }
 
   "capture-memory" {
