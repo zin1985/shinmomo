@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "derived_map_selector_catalog",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
+  "normal_vs_special_dispatch_caveat": "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when $1398 != 0. Only the 65 setup-signature rows are already promoted as confirmed normal-map selectors; remaining primary rows are strong structural candidates until the mode gate is resolved.",
+  "corpus": {
+    "same_bank_pack_count": 226,
+    "cross_or_nonconforming_pack_ids": [
+      "0x15",
+      "0x48",
+      "0x9E",
+      "0xF2"
+    ],
+    "known_cross_bank_pack_ids": [
+      "0x15",
+      "0x48",
+      "0x9E",
+      "0xF2"
+    ],
+    "bounded_vm_record_count": 4092,
+    "excluded_non_vm_records": [
+      {
+        "pack_id": "0x14",
+        "record_index": 0
+      }
+    ],
+    "records_with_valid_entry_header": 3730,
+    "valid_substream_entries": 7774
+  },
+  "primary": {
+    "strong_shape_total": 261,
+    "confirmed_setup_signature": 65,
+    "additional_structural_candidates": 196,
+    "unique_configurations": 152,
+    "distinct_tileset_ids": 56,
+    "distinct_layout_ids": 149,
+    "variant_counts": {
+      "1": 50,
+      "2": 211
+    },
+    "families_with_candidates": 207,
+    "immediate_secondary_pair_rows": 103
+  },
+  "secondary": {
+    "range_plausible_substream_rows": 180,
+    "strong_immediate_pairs": 103,
+    "mode_ambiguous_standalone_rows": 77,
+    "unique_immediate_pair_configurations": 51
+  },
+  "stable_interior": {
+    "expected_primary_command": "50 07 0F 02",
+    "confirmed_addresses": [
+      "CB:DE70",
+      "CC:5391",
+      "CE:0F2B"
+    ],
+    "catalog_matches": [
+      "CB:DE70",
+      "CC:5391",
+      "CE:0F2B"
+    ]
+  },
+  "outputs": [
+    "primary_map_selector_catalog.csv",
+    "secondary_map_selector_candidates.csv",
+    "primary_map_selector_summary.json"
+  ]
+}

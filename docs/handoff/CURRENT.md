@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `b45743d1de57a0c712719a8d46bfdc36666123f6`
+- Base main HEAD verified: `c33e3c00149da47afa8445ddfec581dfd7f275f8`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -61,29 +61,38 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `tools/python/decode_map_layout.py`
   - `data/maps/samples/stable_interior_l1.json`
   - `data/maps/samples/stable_interior_l1_evidence.json`
+- Structurally bounded CA:C000 script-pack records expose a confirmed 65-command primary map-selector family: all use tileset 7 / variant 2 across 41 layouts; the stable interior's three occurrences are now proven inside valid record boundaries.
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_family_20260928.md`
+- A reproducible same-bank pack/record/substream parser now reproduces the 4,092-record corpus and expands the map-selector evidence to 261 structurally strong primary 0x50 candidates (65 previously confirmed signature rows), spanning 152 configurations / 149 layouts / 56 tilesets. 103 candidates have an immediate valid secondary 0x51 pair; 77 additional standalone 0x51 shapes remain mode-ambiguous because $1398 can route opcodes >=0x50 to the bank82 special VM.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/secondary_map_selector_candidates.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_corpus_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed-static**: C4:87BC dispatches one-byte record opcodes through the C4:87D4 word table; opcode 0x50 -> C4:8AF0 and opcode 0x51 -> C4:8B06.
-  - Why not promoted: Promoted in the stable-interior binding analysis; the remaining issue is enumerating valid script-stream boundaries.
-- **confirmed-static**: Opcode 0x50 format is [50, primary_tileset_id, primary_layout_id, map_variant], while 0x51 is [51, secondary_tileset_id, secondary_layout_id].
-  - Why not promoted: Need a stream-aware corpus scanner rather than blind raw-byte enumeration.
-- **confirmed-by-raw-search / entry-context-unresolved**: The exact stable-interior command 50 07 0F 02 occurs at CB:DE70, CC:5391 and CE:0F2B.
-  - Why not promoted: These likely represent multiple entry scripts selecting the same map, but human entry-point labels remain unresolved.
+- **strong_structural**: The 261 primary rows all lie inside pointer-bounded record substreams and satisfy tileset 1..60, layout 1..203 and the statically proven map-variant range 1..3. They span 207 pack families and 149 of the 203 layout IDs.
+  - Why not promoted: For opcode >=0x50, C4:87A2 switches to the bank82 special dispatcher when $1398 != 0; normal-mode reachability has not yet been attached to all 196 rows outside the confirmed 65-signature subset.
+- **strong_structural_pair**: 103 structurally strong primary 0x50 candidates are immediately followed by a range-valid 0x51 secondary selector; all 103 secondary ID pairs resolve into the CE/CF map tables.
+  - Why not promoted: Normal-versus-special VM mode still needs to be attached outside already confirmed map contexts.
+- **confirmed-static-plus-runtime-sample**: $1398 is copied from $1399 at C0:CA04..CA07. Direct $1399 writers use states 0,1,2,3,5,6, while the confirmed stable interior runs with $1398=0.
+  - Why not promoted: The state transition has not yet been joined to individual pack/substream reachability.
 
 ## In progress
 
-- Trace how the bank-C4 interpreter establishes and advances the $98 long pointer for valid bytecode streams.
-- Build a stream-aware catalog of opcode 0x50/0x51 map-selector records.
-- Join selector records to the existing ROM layout/tileset catalogs.
+- Trace $1399 writers and the $1399 -> $1398 transition so the 261 primary rows can be split between normal map-selector mode and bank82 special-VM mode.
+- Resolve the 77 standalone range-plausible opcode 0x51 shapes using the same mode evidence.
+- Cross-link confirmed selector rows to dialogue/event/location evidence for human map names.
 
 ## Next actions
 
-1. Trace C4:87BC/C4:87D4 interpreter callers and the $98-$9A long-pointer setup so valid command-stream boundaries can be enumerated.
-2. Implement a derived-only map-selector catalog tool for opcodes 0x50/0x51; do not use blind global byte search as the final corpus.
-3. Join selector arguments to data/maps/rom_tables layout and tileset catalogs and emit dimensions/flags/pointers for each map configuration.
-4. Cross-link selector ROM addresses with existing event/dialogue/location evidence to begin assigning human town/interior/dungeon/world labels.
-5. After the map corpus is stable, add collision/warp/event-trigger layers and export reproducible per-map metadata.
+1. Classify the $1399 state machine and its transition through C0:C9E7/C0:CA07; attach normal-mode ($1398=0) evidence to map-selector pack/substreams.
+2. Promote additional primary 0x50 rows only when normal-mode reachability is supported; keep bank82 special-VM rows separate.
+3. Resolve the 77 standalone 0x51 shapes and retain only normal-mode secondary map selectors.
+4. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
+5. After selector coverage stabilizes, add collision/warp/event-trigger/encounter layers and export reproducible per-map metadata.
 
 ## Do not redo
 
@@ -97,6 +106,9 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not treat VRAM 0x1000 and 0x1800 as separate BG layers for the stable interior; they are confirmed left/right 32x32 screens of one 64x32 tilemap.
 - Do not re-derive layout15/tileset7 by heuristic ranking; exact runtime selectors and ROM records are now confirmed.
 - Do not catalog opcode 0x50/0x51 by blind byte search alone; require interpreter-stream boundaries or equivalent structural evidence.
+- Do not treat all byte-shaped 0x50/0x51 rows as map selectors when $1398 mode is unresolved; opcode >=0x50 has a separate bank82 special dispatcher.
+- Do not rederive the 4,092 record corpus manually; use tools/python/catalog_map_selectors.py.
+- Do not include pack 0x14 record 0 (CA:CBF6..CA:D086) as a VM record; it is the one pointer/table blob excluded to reproduce 4,092.
 
 ## Runtime-only artifacts
 
@@ -131,6 +143,12 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `data/maps/samples/stable_interior_rom_binding.json`
 - `docs/analysis/stable_interior_rom_binding_20260928.md`
 - `tools/python/decode_map_layout.py`
+- `data/maps/selectors/primary_map_selector_summary.json`
+- `docs/analysis/map_selector_family_20260928.md`
+- `tools/python/catalog_map_selectors.py`
+- `data/maps/selectors/primary_map_selector_catalog.csv`
+- `data/maps/selectors/secondary_map_selector_candidates.csv`
+- `docs/analysis/map_selector_corpus_20260928.md`
 
 ## Resume instruction
 
