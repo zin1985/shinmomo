@@ -7,6 +7,7 @@ local SEP = (package and package.config and package.config:sub(1,1)) or "\\"
 local COMMAND = LAB_DIR .. SEP .. "command.tsv"
 local RESPONSES = LAB_DIR .. SEP .. "responses"
 local CAPTURES = LAB_DIR .. SEP .. "captures"
+local SCREENS = LAB_DIR .. SEP .. "screens"
 
 local pending_gamepad = nil
 local goal13_trace_active = false
@@ -90,10 +91,11 @@ local function json_num(v)
   return v == nil and "null" or tostring(v)
 end
 
-local function goal13_emit(kind, target)
+local function goal13_emit(kind, target, slot_override)
   if not goal13_trace_active then return end
 
   local x = reg("X")
+  local slot = slot_override ~= nil and slot_override or x
   local parts = {
     "{",
     '"frame":' .. tostring(framecount()) .. ",",
@@ -114,29 +116,30 @@ local function goal13_emit(kind, target)
     '"oam_dirty":' .. json_num(read8(0x0A1B, "WRAM"))
   }
 
-  if x and x >= 0 and x < 0x40 then
-    parts[#parts + 1] = ',"ctrl0619":' .. json_num(read8(0x0619 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0759":' .. json_num(read8(0x0759 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0799":' .. json_num(read8(0x0799 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl07d9":' .. json_num(read8(0x07D9 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0819":' .. json_num(read8(0x0819 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0859":' .. json_num(read8(0x0859 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0899":' .. json_num(read8(0x0899 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl08d9":' .. json_num(read8(0x08D9 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0919":' .. json_num(read8(0x0919 + x, "WRAM"))
-    parts[#parts + 1] = ',"ctrl0959":' .. json_num(read8(0x0959 + x, "WRAM"))
+  if slot and slot >= 0 and slot < 0x40 then
+    parts[#parts + 1] = ',"slot":' .. tostring(slot)
+    parts[#parts + 1] = ',"ctrl0619":' .. json_num(read8(0x0619 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0759":' .. json_num(read8(0x0759 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0799":' .. json_num(read8(0x0799 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl07d9":' .. json_num(read8(0x07D9 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0819":' .. json_num(read8(0x0819 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0859":' .. json_num(read8(0x0859 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0899":' .. json_num(read8(0x0899 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl08d9":' .. json_num(read8(0x08D9 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0919":' .. json_num(read8(0x0919 + slot, "WRAM"))
+    parts[#parts + 1] = ',"ctrl0959":' .. json_num(read8(0x0959 + slot, "WRAM"))
   end
 
-  if x and x >= 0 and x < 0x42 then
-    parts[#parts + 1] = ',"vis_prev":' .. json_num(read8(0x0A1F + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_next":' .. json_num(read8(0x0A61 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_sort":' .. json_num(read8(0x0AA3 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_group":' .. json_num(read8(0x0B27 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_frame":' .. json_num(read8(0x0AE5 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_x_lo":' .. json_num(read8(0x0BA5 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_x_hi":' .. json_num(read8(0x0BE5 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_y_lo":' .. json_num(read8(0x0C65 + x, "WRAM"))
-    parts[#parts + 1] = ',"vis_y_hi":' .. json_num(read8(0x0CA5 + x, "WRAM"))
+  if slot and slot >= 0 and slot < 0x42 then
+    parts[#parts + 1] = ',"vis_prev":' .. json_num(read8(0x0A1F + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_next":' .. json_num(read8(0x0A61 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_sort":' .. json_num(read8(0x0AA3 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_group":' .. json_num(read8(0x0B27 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_frame":' .. json_num(read8(0x0AE5 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_x_lo":' .. json_num(read8(0x0BA5 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_x_hi":' .. json_num(read8(0x0BE5 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_y_lo":' .. json_num(read8(0x0C65 + slot, "WRAM"))
+    parts[#parts + 1] = ',"vis_y_hi":' .. json_num(read8(0x0CA5 + slot, "WRAM"))
   end
 
   parts[#parts + 1] = "}"
@@ -187,6 +190,20 @@ local function parse_buttons(csv)
   end
   if next(t) == nil then return nil, "no buttons supplied" end
   return t
+end
+
+local function do_screenshot(id)
+  local path = SCREENS .. SEP .. "game_" .. clean_id(id) .. ".png"
+  if not client or not client.screenshot then
+    respond(id, "ERR", "client.screenshot unavailable")
+    return
+  end
+  local ok, err = pcall(client.screenshot, path)
+  if not ok then
+    respond(id, "ERR", "screenshot failed: " .. tostring(err))
+    return
+  end
+  respond(id, "OK", path)
 end
 
 local function do_capture(id, domain, start_s, length_s)
@@ -365,6 +382,11 @@ local function process_command()
     return
   end
 
+  if cmd == "SCREENSHOT" then
+    do_screenshot(id)
+    return
+  end
+
   if cmd == "CAPTURE_MEMORY" then
     do_capture(id, p[3] or "WRAM", p[4] or "0", p[5] or "256")
     return
@@ -484,7 +506,7 @@ for slot=0,0x3F do
   local hook_name = "shinmomo_remote_goal13_w0799_" .. tostring(watched_slot)
   local ok, err = pcall(
     event.onmemorywrite,
-    function() goal13_emit("w0799_write", label) end,
+    function() goal13_emit("w0799_write", label, watched_slot) end,
     bus_addr,
     hook_name
   )
@@ -508,7 +530,7 @@ for slot=0,0x3F do
   local next_name = "shinmomo_remote_goal13_w0a61_" .. tostring(watched_slot)
   local ok_next, err_next = pcall(
     event.onmemorywrite,
-    function() goal13_emit("active_next_write", next_label) end,
+    function() goal13_emit("active_next_write", next_label, watched_slot) end,
     next_addr,
     next_name
   )
@@ -523,7 +545,7 @@ for slot=0,0x3F do
   local sort_name = "shinmomo_remote_goal13_w0aa3_" .. tostring(watched_slot)
   local ok_sort, err_sort = pcall(
     event.onmemorywrite,
-    function() goal13_emit("active_sort_write", sort_label) end,
+    function() goal13_emit("active_sort_write", sort_label, watched_slot) end,
     sort_addr,
     sort_name
   )
