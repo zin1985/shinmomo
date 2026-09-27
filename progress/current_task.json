@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Enumerate map-selector bytecode and build the ROM map corpus index",
-  "base_main_head_verified": "b45743d1de57a0c712719a8d46bfdc36666123f6",
+  "base_main_head_verified": "94f1c98dabfbfb536255738dc55622554f9427d4",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.",
   "definition_of_done": [
@@ -97,6 +97,13 @@
         "data/maps/samples/stable_interior_l1.json",
         "data/maps/samples/stable_interior_l1_evidence.json"
       ]
+    },
+    {
+      "item": "Structurally bounded CA:C000 script-pack records expose a confirmed 65-command primary map-selector family: all use tileset 7 / variant 2 across 41 layouts; the stable interior's three occurrences are now proven inside valid record boundaries.",
+      "evidence": [
+        "data/maps/selectors/primary_map_selector_summary.json",
+        "docs/analysis/map_selector_family_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
@@ -117,30 +124,30 @@
     }
   ],
   "in_progress": [
-    "Trace how the bank-C4 interpreter establishes and advances the $98 long pointer for valid bytecode streams.",
-    "Build a stream-aware catalog of opcode 0x50/0x51 map-selector records.",
-    "Join selector records to the existing ROM layout/tileset catalogs."
+    "Generalize from the confirmed 65-command setup-signature family to all stream-valid opcode 0x50 forms.",
+    "Enumerate opcode 0x51 secondary map selectors with interpreter-stream evidence.",
+    "Join selector rows to layout/tileset metadata and human location evidence."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Trace C4:87BC/C4:87D4 interpreter callers and the $98-$9A long-pointer setup so valid command-stream boundaries can be enumerated."
+      "action": "Generalize record-aware parsing beyond the confirmed setup signature and enumerate the complete stream-valid opcode 0x50 corpus."
     },
     {
       "order": 2,
-      "action": "Implement a derived-only map-selector catalog tool for opcodes 0x50/0x51; do not use blind global byte search as the final corpus."
+      "action": "Enumerate opcode 0x51 secondary selectors from the same bounded interpreter records."
     },
     {
       "order": 3,
-      "action": "Join selector arguments to data/maps/rom_tables layout and tileset catalogs and emit dimensions/flags/pointers for each map configuration."
+      "action": "Join all selectors to the 203 layout / 60 tileset catalogs and emit dimensions, flags, decoder metadata and exact ROM pointers."
     },
     {
       "order": 4,
-      "action": "Cross-link selector ROM addresses with existing event/dialogue/location evidence to begin assigning human town/interior/dungeon/world labels."
+      "action": "Cross-link selector pack/record addresses with event/dialogue/location evidence to assign human town/interior/dungeon/world labels."
     },
     {
       "order": 5,
-      "action": "After the map corpus is stable, add collision/warp/event-trigger layers and export reproducible per-map metadata."
+      "action": "After selector coverage stabilizes, add collision/warp/event-trigger/encounter layers and export reproducible per-map metadata."
     }
   ],
   "do_not_redo": [
@@ -191,7 +198,9 @@
     "data/maps/rom_tables/layout_record_catalog.csv",
     "data/maps/samples/stable_interior_rom_binding.json",
     "docs/analysis/stable_interior_rom_binding_20260928.md",
-    "tools/python/decode_map_layout.py"
+    "tools/python/decode_map_layout.py",
+    "data/maps/selectors/primary_map_selector_summary.json",
+    "docs/analysis/map_selector_family_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",
