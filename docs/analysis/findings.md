@@ -1,5 +1,24 @@
 # Confirmed findings, hypotheses, and unresolved items
 
+## 2026-09-27 source/event backlog reconciliation
+
+### Confirmed
+
+- Current canonical source summaries report 2,265 evidence-backed usage pairs, 2,229 high-confidence script pairs, 2,250 base visibility-unknown pairs, and 2,230 effective unknown pairs after the historical overlay.
+- The event crosslink considers 2,202 validated script callsites, maps 1,124 into 713 B0/trailer structural records, and leaves 1,078 validated callsites outside that framing class.
+- Those 1,078 callsites remain source-reader-validated evidence. Failure to fit the current B0/trailer frame grammar is not evidence that the A4 selection is false.
+- The keyed-dispatch baseline contains 178 high-confidence tables across 65 families and 549 key-target records. 69 tables contain both keys 0x6C and 0x7B; 56 key-0x6C self-reference targets begin opcode 0x59 controller creation; 30 key-0x7B self-reference targets set entity flag 0x80.
+
+### Strong evidence
+
+- Complementary event grammars and controller/keyed-dispatch provenance are the highest-value next partition for the 1,078 unmapped validated callsites.
+
+### Unresolved
+
+- Which complementary grammar or runtime/controller root owns each of the 1,078 callsites.
+- Game-facing semantics of keys 0x6C/0x7B and runtime reachability of individual keyed targets.
+- Player-visible/context classification of the remaining 2,230 effective unknown source pairs.
+
 ## 2026-09-26 ROM-wide event-record frame catalog
 
 ### Confirmed
