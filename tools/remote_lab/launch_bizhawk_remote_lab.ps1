@@ -34,11 +34,16 @@ try {
   if (!$NormalSpeed -and (Test-Path -LiteralPath $configPath)) {
     $originalConfig = [IO.File]::ReadAllText($configPath, [Text.Encoding]::UTF8)
     $fastConfig = $originalConfig.Replace('"Unthrottled": false', '"Unthrottled": true')
+    $fastConfig = [regex]::Replace($fastConfig, '"SoundOutputMethod"\s*:\s*\d+', '"SoundOutputMethod": 3')
+    $fastConfig = $fastConfig.Replace('"SoundEnabled": true', '"SoundEnabled": false')
+    $fastConfig = $fastConfig.Replace('"SoundEnabledNormal": true', '"SoundEnabledNormal": false')
+    $fastConfig = $fastConfig.Replace('"SoundEnabledRWFF": true', '"SoundEnabledRWFF": false')
     if ($fastConfig -ne $originalConfig) {
       [IO.File]::WriteAllText($configPath, $fastConfig, [Text.UTF8Encoding]::new($false))
       $configChanged = $true
     }
     Write-Host "Remote lab speed: MAX / unthrottled while explicit frame commands run."
+    Write-Host "Remote lab audio: Dummy/disabled to avoid headless or RDP sound-device initialization failures."
   } else {
     Write-Host "Remote lab speed: normal throttled mode."
   }
