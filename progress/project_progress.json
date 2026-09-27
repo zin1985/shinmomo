@@ -227,6 +227,9 @@
     }
   ],
   "sources": [
+    "docs/project/ROLLING_WORK_PROTOCOL.md",
+    "docs/handoff/CURRENT.md",
+    "progress/current_task.json",
     "docs/analysis/event_controller_pointer_bridge.md",
     "tools/python/crosslink_event_source_records.py",
     "tools/python/catalog_event_record_frames.py",
