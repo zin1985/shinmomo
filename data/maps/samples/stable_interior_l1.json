@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "map_id": "runtime_interior_sample_001",
+  "map_group_id": null,
+  "scene_class": "indoor",
+  "display_name": "stable interior runtime sample",
+  "floor": null,
+  "variant": "save-slot-1 runtime state",
+  "completion_level": "L1",
+  "runtime_capture_ids": [
+    "1790519691664-3fe31160",
+    "1790524923212-b2fd20a4"
+  ],
+  "resident_bg_recovered": true,
+  "streaming_model": "unknown",
+  "width_metatiles": null,
+  "height_metatiles": null,
+  "tileset_id": null,
+  "palette_id": null,
+  "collision_status": "unknown",
+  "warp_status": "unknown",
+  "npc_object_status": "unknown",
+  "event_trigger_status": "unknown",
+  "encounter_status": "unknown",
+  "rom_loader_status": "unknown",
+  "rom_source_ranges": [],
+  "resident_tilemap_pages": [
+    {
+      "page_base": "0x1000",
+      "page_sha256": "d73a0a85e3d7d36b5a88098c0ee9e7489d5e8fcfb3940769ac84ea9c8ef95549",
+      "unique_entries": 61,
+      "unique_tiles": 36,
+      "unique_metatiles_2x2": 35,
+      "role": "scene-specific resident background/tilemap page; BG number unresolved"
+    },
+    {
+      "page_base": "0x1800",
+      "page_sha256": "13869125883c0c371b11ff3b6ec072fb021d4e25b928f3facb1e18fd4df4b379",
+      "unique_entries": 25,
+      "unique_tiles": 21,
+      "unique_metatiles_2x2": 16,
+      "role": "scene-specific resident background/tilemap page; likely secondary/simple layer; BG number unresolved"
+    }
+  ],
+  "evidence": [
+    "data/maps/samples/stable_interior_l1_evidence.json",
+    "tools/python/summarize_tilemap_evidence.py",
+    "tools/python/rank_vram_tilemap_pages.py",
+    "docs/analysis/map_sample_stable_interior_l1.md"
+  ],
+  "notes": "Two independent same-room captures preserve pages 0x1000 and 0x1800 byte-for-byte while the whole VRAM differs by 64 bytes. A transition control rewrites 2047/2048 bytes of those pages. Page 0xA000 remains unchanged across the transition and is not promoted. Correct BG number, bpp, character base, palette assignment and full logical map extent remain unresolved."
+}
