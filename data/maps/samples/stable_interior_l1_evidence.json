@@ -79,5 +79,18 @@
     "tool": "tools/python/summarize_tilemap_evidence.py",
     "ranker": "tools/python/rank_vram_tilemap_pages.py",
     "command_shape": "summarize_tilemap_evidence.py --capture LABEL=VRAM ... --pages 0x1000 0x1800 0xA000 0xC000"
+  },
+  "rom_binding_evidence": {
+    "binding_summary": "data/maps/samples/stable_interior_rom_binding.json",
+    "analysis": "docs/analysis/stable_interior_rom_binding_20260928.md",
+    "decoder": "tools/python/decode_map_layout.py",
+    "primary_tileset_id": 7,
+    "primary_layout_id": 15,
+    "staging_exact_match_bytes": 1024,
+    "staging_byte_differences": 0,
+    "expanded_vram_exact_words": 1934,
+    "expanded_vram_total_words": 2048,
+    "expanded_vram_differences": 114,
+    "all_expanded_vram_differences_are_runtime_0x0100": true
   }
 }

@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "kind": "derived_map_layout_decode",
+  "policy": "Metadata/hashes by default; full decoded grids are opt-in outputs.",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "layout": {
+    "layout_id": 15,
+    "record_ptr": "CF:2E1D",
+    "flags_hex": "0x80",
+    "map_mode_low_nibble": 0,
+    "wide_metatile_ids": true,
+    "width_chunks": 2,
+    "height_chunks": 1,
+    "cell_count": 2,
+    "streams_per_cell": 2,
+    "logical_width_metatiles": 32,
+    "logical_height_metatiles": 16,
+    "unique_metatile_ids": 46,
+    "min_metatile_id": 0,
+    "max_metatile_id": 193,
+    "logical_grid_sha256_u16le": "ea4946a9cf387b87c7623d720355a22d536cd1d432e282f5ff3edbaedb30ad97",
+    "descriptors": [
+      {
+        "cell": 0,
+        "plane": 0,
+        "selector": 3,
+        "decoder": "ring_backref",
+        "source_ptr": "D0:2FF5",
+        "decoded_page_sha256": "99fb1072387c38eb4fdf82c17b2ea76bf83a871b5b0813307248bd5332fcae47"
+      },
+      {
+        "cell": 0,
+        "plane": 1,
+        "selector": 0,
+        "decoder": "value_run",
+        "source_ptr": "CF:8000",
+        "decoded_page_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
+      },
+      {
+        "cell": 1,
+        "plane": 0,
+        "selector": 3,
+        "decoder": "ring_backref",
+        "source_ptr": "D0:3074",
+        "decoded_page_sha256": "d583fc9d92af0b444bbff953f233379728b6d2b01293c51b22f39f705b47b52d"
+      },
+      {
+        "cell": 1,
+        "plane": 1,
+        "selector": 0,
+        "decoder": "value_run",
+        "source_ptr": "CF:8000",
+        "decoded_page_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
+      }
+    ]
+  },
+  "staging_validation": {
+    "capture_id": "1790527651597-8dea4dab",
+    "frame": 3253,
+    "start": 65536,
+    "length": 1024,
+    "compared_bytes": 1024,
+    "byte_differences": 0,
+    "exact_match": true,
+    "pages": [
+      {
+        "cell": 0,
+        "plane": 0,
+        "selector": 3,
+        "source_ptr": "D0:2FF5",
+        "expected_sha256": "99fb1072387c38eb4fdf82c17b2ea76bf83a871b5b0813307248bd5332fcae47",
+        "runtime_sha256": "99fb1072387c38eb4fdf82c17b2ea76bf83a871b5b0813307248bd5332fcae47",
+        "byte_differences": 0
+      },
+      {
+        "cell": 0,
+        "plane": 1,
+        "selector": 0,
+        "source_ptr": "CF:8000",
+        "expected_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+        "runtime_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+        "byte_differences": 0
+      },
+      {
+        "cell": 1,
+        "plane": 0,
+        "selector": 3,
+        "source_ptr": "D0:3074",
+        "expected_sha256": "d583fc9d92af0b444bbff953f233379728b6d2b01293c51b22f39f705b47b52d",
+        "runtime_sha256": "d583fc9d92af0b444bbff953f233379728b6d2b01293c51b22f39f705b47b52d",
+        "byte_differences": 0
+      },
+      {
+        "cell": 1,
+        "plane": 1,
+        "selector": 0,
+        "source_ptr": "CF:8000",
+        "expected_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+        "runtime_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+        "byte_differences": 0
+      }
+    ]
+  },
+  "tileset": {
+    "tileset_id": 7,
+    "block_ptr": "CE:44C0",
+    "next_block_ptr": "CE:50B0",
+    "expanded_width_tiles": 64,
+    "expanded_height_tiles": 32,
+    "expanded_grid_sha256_u16le": "b76db2a30823307b0ba5a118cf0ab07846e0b3d23067e0685b1a5267ad557595",
+    "left_screen_sha256_u16le": "db9716b4b489ca7f6d355d6d81b5c3eb4471d38ebdc661cac652e880be75d70c",
+    "right_screen_sha256_u16le": "96719b46ebeb3bc7ad16640c89f24f77659d1afa36c25083a2e6d20df207b424"
+  },
+  "vram_validation": {
+    "performed": true,
+    "runtime_capture_label": "1790524923212-b2fd20a4_stable_interior_l1",
+    "page_results": [
+      {
+        "page_base": "0x1000",
+        "runtime_sha256": "d73a0a85e3d7d36b5a88098c0ee9e7489d5e8fcfb3940769ac84ea9c8ef95549",
+        "expected_sha256": "db9716b4b489ca7f6d355d6d81b5c3eb4471d38ebdc661cac652e880be75d70c",
+        "word_differences": 102,
+        "exact_words": 922,
+        "all_mismatches_are_runtime_0x0100": true
+      },
+      {
+        "page_base": "0x1800",
+        "runtime_sha256": "13869125883c0c371b11ff3b6ec072fb021d4e25b928f3facb1e18fd4df4b379",
+        "expected_sha256": "96719b46ebeb3bc7ad16640c89f24f77659d1afa36c25083a2e6d20df207b424",
+        "word_differences": 12,
+        "exact_words": 1012,
+        "all_mismatches_are_runtime_0x0100": true
+      }
+    ],
+    "total_words": 2048,
+    "exact_words": 1934,
+    "word_differences": 114,
+    "all_mismatches_are_runtime_0x0100": true
+  }
+}

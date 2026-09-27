@@ -12,21 +12,23 @@
     "1790524923212-b2fd20a4"
   ],
   "resident_bg_recovered": true,
-  "streaming_model": "unknown",
-  "width_metatiles": null,
-  "height_metatiles": null,
-  "tileset_id": null,
+  "streaming_model": "full_resident",
+  "width_metatiles": 32,
+  "height_metatiles": 16,
+  "tileset_id": "7",
   "palette_id": null,
   "collision_status": "unknown",
   "warp_status": "unknown",
   "npc_object_status": "unknown",
   "event_trigger_status": "unknown",
   "encounter_status": "unknown",
-  "rom_loader_status": "candidate",
+  "rom_loader_status": "confirmed",
   "rom_source_ranges": [
-    "global-candidate: CE:2000 tileset/metatile pointer table",
-    "global-candidate: CF:0000 parallel map/tileset configuration pointer table",
-    "global-candidate: CF:2000 packed 24-bit layout-record pointer table"
+    "CE:44C0..CE:50AF (tileset/metatile block selected by ID 7)",
+    "CF:2E1D..CF:2E2D (layout record ID 15, 17 bytes)",
+    "D0:2FF5 (layout 15 cell 0 low-byte compressed stream start)",
+    "CF:8000 (layout 15 shared high-byte value/run stream start)",
+    "D0:3074 (layout 15 cell 1 low-byte compressed stream start)"
   ],
   "resident_tilemap_pages": [
     {
@@ -35,7 +37,7 @@
       "unique_entries": 61,
       "unique_tiles": 36,
       "unique_metatiles_2x2": 35,
-      "role": "scene-specific resident background/tilemap page; BG number unresolved"
+      "role": "left 32x32 SNES screen of the confirmed 64x32 layout15+tileset7 tilemap; runtime edge/clip blanking may replace entries with 0x0100"
     },
     {
       "page_base": "0x1800",
@@ -43,7 +45,7 @@
       "unique_entries": 25,
       "unique_tiles": 21,
       "unique_metatiles_2x2": 16,
-      "role": "scene-specific resident background/tilemap page; likely secondary/simple layer; BG number unresolved"
+      "role": "right 32x32 SNES screen of the same confirmed 64x32 layout15+tileset7 tilemap; not a separate BG layer"
     }
   ],
   "evidence": [
@@ -55,7 +57,55 @@
     "data/maps/rom_tables/map_rom_table_summary.json",
     "data/maps/rom_tables/tileset_pointer_catalog.csv",
     "data/maps/rom_tables/layout_record_catalog.csv",
-    "tools/python/catalog_map_rom_tables.py"
+    "tools/python/catalog_map_rom_tables.py",
+    "data/maps/samples/stable_interior_rom_binding.json",
+    "docs/analysis/stable_interior_rom_binding_20260928.md",
+    "tools/python/decode_map_layout.py"
   ],
-  "notes": "Two independent same-room captures preserve pages 0x1000 and 0x1800 byte-for-byte while the whole VRAM differs by 64 bytes. A transition control rewrites 2047/2048 bytes of those pages. Page 0xA000 remains unchanged across the transition and is not promoted. Correct BG number, bpp, character base, palette assignment and full logical map extent remain unresolved. Static tracing now reaches global ROM-side map tables at CE:2000/CF:0000/CF:2000 through the $7F staging grid and $7E:8000 VRAM upload ring. The exact table IDs for this specific room ($139C-$139F) remain to be captured before promoting exact sample-specific ROM ranges."
+  "notes": "Exact runtime selectors bind this room to tileset 7 (CE:44C0) and layout 15 (CF:2E1D). Standalone ROM decoding matches the four $7F staging pages 1024/1024 bytes exactly. Tileset expansion produces one 64x32 SNES tilemap whose left/right screen maps correspond to VRAM 0x1000/0x1800; 1934/2048 words match exactly and every one of the 114 differences is a runtime 0x0100 blank/clip replacement. The earlier hypothesis that 0x1800 might be a separate secondary layer is superseded.",
+  "rom_binding": {
+    "runtime_frame": 3253,
+    "selectors": {
+      "primary_tileset_id": 7,
+      "secondary_tileset_id": 0,
+      "primary_layout_id": 15,
+      "secondary_layout_id": 0,
+      "map_variant_139B": 2,
+      "map_mode_113C": 0
+    },
+    "layout": {
+      "record_ptr": "CF:2E1D",
+      "flags": "0x80",
+      "chunk_width": 2,
+      "chunk_height": 1,
+      "logical_width_metatiles": 32,
+      "logical_height_metatiles": 16,
+      "logical_grid_sha256_u16le": "ea4946a9cf387b87c7623d720355a22d536cd1d432e282f5ff3edbaedb30ad97"
+    },
+    "tileset": {
+      "block_ptr": "CE:44C0",
+      "next_block_ptr": "CE:50B0",
+      "expanded_width_tiles": 64,
+      "expanded_height_tiles": 32
+    },
+    "validation": {
+      "staging_compared_bytes": 1024,
+      "staging_byte_differences": 0,
+      "staging_exact_match": true,
+      "vram_total_words": 2048,
+      "vram_exact_words": 1934,
+      "vram_word_differences": 114,
+      "all_vram_mismatches_are_runtime_0x0100": true
+    },
+    "selector_opcode": {
+      "primary_opcode": "0x50",
+      "primary_command": "50 07 0F 02",
+      "candidate_rom_occurrences": [
+        "CB:DE70",
+        "CC:5391",
+        "CE:0F2B"
+      ],
+      "secondary_opcode": "0x51"
+    }
+  }
 }

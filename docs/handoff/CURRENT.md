@@ -9,18 +9,18 @@ Updated: 2026-09-28
 
 - Status: **active**
 - Workstream: `map-world-reconstruction`
-- Title: **Bind the L1 interior sample to exact ROM map IDs and decode its logical grid**
-- Base main HEAD verified: `e36b8a1a3a1655be6bfc5ca4671d1bc796f9ac17`
+- Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
+- Base main HEAD verified: `b45743d1de57a0c712719a8d46bfdc36666123f6`
 
-Capture the stable interior sample's runtime map IDs ($139C-$139F), bind them to the catalogued CE:2000/CF:2000 entries, decode that exact CF layout record outside the emulator, expand its metatile IDs through the selected CE tileset, and compare the derived structure with the L1 runtime evidence.
+Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
 ## Definition of done
 
-- A stable interior runtime capture records $139C-$139F (and relevant mode state such as $113C) without committing raw WRAM.
-- The sample is bound to exact tileset/config and primary/secondary layout IDs in the derived ROM catalogs.
-- A standalone decoder reproduces the selected CF layout record's logical cell grid from the canonical ROM.
-- The selected CE tileset expands sample metatile IDs into SNES tile entries and is compared against the runtime-resident page evidence.
-- stable_interior_l1 metadata is updated from global ROM-table candidates to exact sample-specific ROM references, with remaining collision/warp/event gaps recorded.
+- The bank-C4 interpreter path supplying the $98 script pointer is identified well enough to distinguish valid opcode streams from blind byte-pattern matches.
+- A reproducible tool enumerates valid 0x50 primary and 0x51 secondary map-selection commands with ROM addresses and argument IDs.
+- The command catalog is joined to exact CE tileset and CF layout pointers, dimensions, flags and decoder metadata.
+- The stable interior's three known 50 07 0F 02 occurrences are represented in the catalog without duplicate false interpretation.
+- Derived corpus metadata is committed and the next classification step for towns/world/dungeons is recorded.
 
 ## Done
 
@@ -55,29 +55,35 @@ Capture the stable interior sample's runtime map IDs ($139C-$139F), bind them to
   - `data/maps/rom_tables/map_rom_table_summary.json`
   - `data/maps/rom_tables/tileset_pointer_catalog.csv`
   - `data/maps/rom_tables/layout_record_catalog.csv`
+- The L1 interior sample is bound to exact ROM IDs: tileset 7 -> CE:44C0 and layout 15 -> CF:2E1D. A standalone four-selector decoder reproduces the layout's four $7F staging pages 1024/1024 bytes exactly; CE expansion yields a 64x32 tilemap matching 1934/2048 runtime VRAM words, with all 114 remaining differences equal to runtime blank value 0x0100.
+  - `data/maps/samples/stable_interior_rom_binding.json`
+  - `docs/analysis/stable_interior_rom_binding_20260928.md`
+  - `tools/python/decode_map_layout.py`
+  - `data/maps/samples/stable_interior_l1.json`
+  - `data/maps/samples/stable_interior_l1_evidence.json`
 
 ## Observed but not yet promoted
 
-- **strong-global / sample-id-unresolved**: The L1 room is now connected to the global ROM-side map pipeline, but its exact runtime selector bytes $139C-$139F have not yet been captured.
-  - Why not promoted: Exact CE/CF table entries for this particular room require one small derived WRAM capture.
-- **confirmed-static**: CF:2000 contains exactly 203 valid packed 24-bit layout pointers; all records satisfy cell_count = width * height and all 202 non-final spans exactly match the inferred mode-dependent record length.
-  - Why not promoted: This is promoted in the ROM-table catalog; only human place/floor naming remains unresolved.
-- **confirmed-static / semantic-subrole-partial**: CE:2000 and CF:0000 each contain 60 non-FFFF word pointers and are indexed by the same tileset/config selector family.
-  - Why not promoted: CE is strongly identified as metatile definitions; the exact semantic subrole of the parallel CF:0000 table remains provisional.
+- **confirmed-static**: C4:87BC dispatches one-byte record opcodes through the C4:87D4 word table; opcode 0x50 -> C4:8AF0 and opcode 0x51 -> C4:8B06.
+  - Why not promoted: Promoted in the stable-interior binding analysis; the remaining issue is enumerating valid script-stream boundaries.
+- **confirmed-static**: Opcode 0x50 format is [50, primary_tileset_id, primary_layout_id, map_variant], while 0x51 is [51, secondary_tileset_id, secondary_layout_id].
+  - Why not promoted: Need a stream-aware corpus scanner rather than blind raw-byte enumeration.
+- **confirmed-by-raw-search / entry-context-unresolved**: The exact stable-interior command 50 07 0F 02 occurs at CB:DE70, CC:5391 and CE:0F2B.
+  - Why not promoted: These likely represent multiple entry scripts selecting the same map, but human entry-point labels remain unresolved.
 
 ## In progress
 
-- Capture $139C-$139F for the known stable interior sample under deterministic remote-lab control.
-- Implement standalone decoding for the selected CF layout mode using the confirmed D157/D173 decoder dispatch.
-- Compare decoded/expanded logical map structure with the sample's resident VRAM pages.
+- Trace how the bank-C4 interpreter establishes and advances the $98 long pointer for valid bytecode streams.
+- Build a stream-aware catalog of opcode 0x50/0x51 map-selector records.
+- Join selector records to the existing ROM layout/tileset catalogs.
 
 ## Next actions
 
-1. Resume the deterministic remote lab to the known stable interior scene and capture only derived values for $139C-$139F plus $113C; do not commit raw WRAM.
-2. Resolve those IDs through data/maps/rom_tables catalogs to exact CF layout and CE tileset/config records, then update stable_interior_l1 metadata.
-3. Implement a standalone decoder for the selected layout mode and emit a logical cell/metatile grid without exporting unrelated ROM payloads.
-4. Expand the decoded metatile IDs through the selected CE metatile block and compare its tile-entry structure with VRAM 0x1000/0x1800 evidence.
-5. After the sample is fully bound, trace the bank 83/84 producers of $139C-$139F and begin mapping human towns/world/dungeon floors to the 203 layout records.
+1. Trace C4:87BC/C4:87D4 interpreter callers and the $98-$9A long-pointer setup so valid command-stream boundaries can be enumerated.
+2. Implement a derived-only map-selector catalog tool for opcodes 0x50/0x51; do not use blind global byte search as the final corpus.
+3. Join selector arguments to data/maps/rom_tables layout and tileset catalogs and emit dimensions/flags/pointers for each map configuration.
+4. Cross-link selector ROM addresses with existing event/dialogue/location evidence to begin assigning human town/interior/dungeon/world labels.
+5. After the map corpus is stable, add collision/warp/event-trigger layers and export reproducible per-map metadata.
 
 ## Do not redo
 
@@ -88,6 +94,9 @@ Capture the stable interior sample's runtime map IDs ($139C-$139F), bind them to
 - Do not force older handoffs over newer main commits.
 - Do not manually rescan CE:2000/CF:0000/CF:2000; use tools/python/catalog_map_rom_tables.py and the committed derived catalogs.
 - Do not name the four layout decoder modes as standard compression formats until a standalone decoder reproduces a known sample.
+- Do not treat VRAM 0x1000 and 0x1800 as separate BG layers for the stable interior; they are confirmed left/right 32x32 screens of one 64x32 tilemap.
+- Do not re-derive layout15/tileset7 by heuristic ranking; exact runtime selectors and ROM records are now confirmed.
+- Do not catalog opcode 0x50/0x51 by blind byte search alone; require interpreter-stream boundaries or equivalent structural evidence.
 
 ## Runtime-only artifacts
 
@@ -119,6 +128,9 @@ Capture the stable interior sample's runtime map IDs ($139C-$139F), bind them to
 - `data/maps/rom_tables/map_rom_table_summary.json`
 - `data/maps/rom_tables/tileset_pointer_catalog.csv`
 - `data/maps/rom_tables/layout_record_catalog.csv`
+- `data/maps/samples/stable_interior_rom_binding.json`
+- `docs/analysis/stable_interior_rom_binding_20260928.md`
+- `tools/python/decode_map_layout.py`
 
 ## Resume instruction
 
