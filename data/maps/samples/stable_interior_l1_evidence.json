@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "kind": "derived_vram_tilemap_evidence",
+  "sample_id": "stable_interior_l1",
+  "policy": "Raw VRAM/screenshots are intentionally omitted from Git; this file contains hashes, counts and structural metrics only.",
+  "captures": [
+    {
+      "label": "interior_old",
+      "capture_id": "1790519691664-3fe31160",
+      "vram_sha256": "6f3b6883756a27edde8fec72842f52504be4ed71c4aa285dc9d71658605a91bd",
+      "byte_diffs_vs_interior_old": 0
+    },
+    {
+      "label": "interior_fresh",
+      "capture_id": "1790524923212-b2fd20a4",
+      "frame": 3253,
+      "vram_sha256": "4fc55e550c98e77b9e523bbf4601b9578cbc80debd60d83b468ba93e98a0ef4a",
+      "byte_diffs_vs_interior_old": 64
+    },
+    {
+      "label": "transition_control",
+      "capture_id": "1790520426924-2a33d5df",
+      "vram_sha256": "acb17d9eabd521a700fd4863b793d0bf348d5cb3827c5c464cc2a01b721f11ed",
+      "byte_diffs_vs_interior_old": 37320
+    }
+  ],
+  "promoted_pages": [
+    {
+      "page_base": "0x1000",
+      "same_scene_sha256": "d73a0a85e3d7d36b5a88098c0ee9e7489d5e8fcfb3940769ac84ea9c8ef95549",
+      "same_scene_byte_diffs": 0,
+      "transition_byte_diffs": 2047,
+      "transition_sha256": "cec8327fc5a9db7591e7b65c5edbbb989d9d074fa2bbdc11781975887a3760f3",
+      "unique_entries": 61,
+      "unique_tiles": 36,
+      "unique_metatiles_2x2": 35,
+      "metatile_repeat_ratio": 0.863281,
+      "dominant_palette_ratio": 0.550781,
+      "priority_1_ratio": 0.035156,
+      "zero_entry_ratio": 0,
+      "structural_score": 0.854961,
+      "interpretation": "scene-specific resident tilemap/background page; exact BG number, bpp and character base unresolved"
+    },
+    {
+      "page_base": "0x1800",
+      "same_scene_sha256": "13869125883c0c371b11ff3b6ec072fb021d4e25b928f3facb1e18fd4df4b379",
+      "same_scene_byte_diffs": 0,
+      "transition_byte_diffs": 2048,
+      "transition_sha256": "2be0d90478f0d843683b03204cdb9009db921c9f086f54a9a10e37389c57bcde",
+      "unique_entries": 25,
+      "unique_tiles": 21,
+      "unique_metatiles_2x2": 16,
+      "metatile_repeat_ratio": 0.9375,
+      "dominant_palette_ratio": 0.890625,
+      "priority_1_ratio": 0.007812,
+      "zero_entry_ratio": 0,
+      "structural_score": 0.945659,
+      "interpretation": "scene-specific resident tilemap/background page; likely secondary/simple layer; exact BG number unresolved"
+    }
+  ],
+  "controls": [
+    {
+      "page_base": "0xA000",
+      "sha256": "9cc156497a98a3191f79391d8dd091149572bdefdd7347ad8fbfc7a06c755d0d",
+      "same_scene_byte_diffs": 0,
+      "transition_byte_diffs": 0,
+      "interpretation": "structurally map-like but unchanged across scene transition; not promoted as this interior's map page"
+    },
+    {
+      "page_base": "0xC000",
+      "interior_old_sha256": "a1e866a899c914f5c7b48322cbb4aad8b50c2011f373d94ade7ccdd3ed519a9c",
+      "interior_fresh_sha256": "3d0ffb7fbca09efc5522d72cb060e78e17aba562a0e64946344c192e4634c8f6",
+      "same_scene_byte_diffs": 64,
+      "transition_byte_diffs": 93,
+      "interpretation": "dynamic page/control; changes even when background room remains the same"
+    }
+  ],
+  "reproducer": {
+    "tool": "tools/python/summarize_tilemap_evidence.py",
+    "ranker": "tools/python/rank_vram_tilemap_pages.py",
+    "command_shape": "summarize_tilemap_evidence.py --capture LABEL=VRAM ... --pages 0x1000 0x1800 0xA000 0xC000"
+  }
+}
