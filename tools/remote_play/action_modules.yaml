@@ -1,4 +1,12 @@
-version: 1
+version: 2
+navigation:
+  phases: [SEARCH, APPROACH, ENTER]
+  rules:
+    - "landmark_seen -> stop coarse movement immediately"
+    - "APPROACH and ENTER forbid movement > 60 frames"
+    - "ENTER target <= 45 frames"
+    - "two-screen oscillation -> change axis/direction"
+    - "same landmark seen twice -> mark found and do not resume search"
 modules:
   advance_dialogue:
     precondition: dialogue_visible
@@ -8,6 +16,7 @@ modules:
       - {command: SCREENSHOT}
     success: dialogue_changed_or_transition
     max_retries: 4
+
   load_save_slot_1:
     precondition: save_select_visible
     sequence:
@@ -16,26 +25,85 @@ modules:
       - {command: STEP, frames: 600, when: black_transition}
       - {command: SCREENSHOT}
     success: controllable_map
+
   traverse_direction:
+    phase: SEARCH
     params: [direction, frames]
-    constraints: {min_frames: 30, max_frames: 220}
+    constraints: {min_frames: 60, max_frames: 220}
     sequence:
       - {command: GAMEPAD, button: "$direction", frames: "$frames"}
       - {command: SCREENSHOT}
+    stop_when: [target_landmark_visible, unexpected_transition, blocked]
     success: expected_position_or_transition
+
+  fine_move:
+    phases: [APPROACH, ENTER]
+    params: [direction, frames]
+    constraints: {min_frames: 12, max_frames: 60}
+    sequence:
+      - {command: GAMEPAD, button: "$direction", frames: "$frames"}
+      - {command: SCREENSHOT}
+    stop_when: [target_position_worse, target_lost, transition]
+    success: target_relative_position_improved
+
+  approach_landmark:
+    phase: APPROACH
+    requires: landmark_visible
+    uses: fine_move
+    max_steps: 6
+    success: entrance_adjacent_or_aligned
+    fallback: SEARCH_only_if_landmark_lost
+
+  enter_building:
+    phase: ENTER
+    requires: entrance_adjacent_or_aligned
+    sequence:
+      - {command: GAMEPAD, button: "$entrance_direction", frames: 30}
+      - {command: SCREENSHOT}
+      - {module: wait_transition, when: black_transition}
+    max_retries: 3
+    retry_adjustment: {module: fine_move, one_axis_only: true}
+    success: interior_or_shop_ui
+
   wait_transition:
     sequence:
       - {command: STEP, frames: 240}
       - {command: SCREENSHOT}
     retry_until: map_visible
     max_retries: 3
+
   find_weapon_shop:
     landmark: "兵"
     reject_landmarks: ["茶"]
+    phases:
+      - {phase: SEARCH, module: traverse_direction, until: landmark_visible}
+      - {phase: APPROACH, module: approach_landmark}
+      - {phase: ENTER, module: enter_building}
+    constraints:
+      coarse_move_forbidden_after_landmark_seen: true
+      approach_max_frames: 60
+      enter_max_frames: 45
     success: weapon_shop_confirmed
+
+  shop_purchase:
+    checks: [money, item_price, equipment_delta]
+    stop_on: [unknown_performance, expensive_purchase, irreversible_sale]
+    success: purchase_and_equipment_change_confirmed
+
   field_one_battle:
     checks: [party_hp, enemies, command_state]
     stop_on: [danger_hp, unexpected_choice, death_risk]
     success: field_return_after_victory
+
   return_and_save:
     success: ingame_save_confirmed
+
+composites:
+  equip_then_win_one:
+    sequence:
+      - {module: load_save_slot_1, when: save_select_visible}
+      - {module: find_weapon_shop}
+      - {module: shop_purchase}
+      - {module: traverse_direction, goal: leave_village}
+      - {module: field_one_battle}
+      - {module: return_and_save}
