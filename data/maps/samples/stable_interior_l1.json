@@ -22,8 +22,12 @@
   "npc_object_status": "unknown",
   "event_trigger_status": "unknown",
   "encounter_status": "unknown",
-  "rom_loader_status": "unknown",
-  "rom_source_ranges": [],
+  "rom_loader_status": "candidate",
+  "rom_source_ranges": [
+    "global-candidate: CE:2000 tileset/metatile pointer table",
+    "global-candidate: CF:0000 parallel map/tileset configuration pointer table",
+    "global-candidate: CF:2000 packed 24-bit layout-record pointer table"
+  ],
   "resident_tilemap_pages": [
     {
       "page_base": "0x1000",
@@ -46,7 +50,12 @@
     "data/maps/samples/stable_interior_l1_evidence.json",
     "tools/python/summarize_tilemap_evidence.py",
     "tools/python/rank_vram_tilemap_pages.py",
-    "docs/analysis/map_sample_stable_interior_l1.md"
+    "docs/analysis/map_sample_stable_interior_l1.md",
+    "docs/analysis/map_rom_loader_tables_20260928.md",
+    "data/maps/rom_tables/map_rom_table_summary.json",
+    "data/maps/rom_tables/tileset_pointer_catalog.csv",
+    "data/maps/rom_tables/layout_record_catalog.csv",
+    "tools/python/catalog_map_rom_tables.py"
   ],
-  "notes": "Two independent same-room captures preserve pages 0x1000 and 0x1800 byte-for-byte while the whole VRAM differs by 64 bytes. A transition control rewrites 2047/2048 bytes of those pages. Page 0xA000 remains unchanged across the transition and is not promoted. Correct BG number, bpp, character base, palette assignment and full logical map extent remain unresolved."
+  "notes": "Two independent same-room captures preserve pages 0x1000 and 0x1800 byte-for-byte while the whole VRAM differs by 64 bytes. A transition control rewrites 2047/2048 bytes of those pages. Page 0xA000 remains unchanged across the transition and is not promoted. Correct BG number, bpp, character base, palette assignment and full logical map extent remain unresolved. Static tracing now reaches global ROM-side map tables at CE:2000/CF:0000/CF:2000 through the $7F staging grid and $7E:8000 VRAM upload ring. The exact table IDs for this specific room ($139C-$139F) remain to be captured before promoting exact sample-specific ROM ranges."
 }

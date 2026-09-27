@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "kind": "derived_rom_map_table_catalog",
+  "policy": "Pointer/header metadata only. Raw ROM bytes and record payloads are not exported.",
+  "rom_size": 2097152,
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "tileset_table": {
+    "address": "CE:2000",
+    "entry_width_bytes": 2,
+    "non_ffff_entries": 60,
+    "first_target": "CE:2100",
+    "last_target": "CE:FB00",
+    "parallel_cf0000_non_ffff_entries": 60,
+    "parallel_cf0000_first_target": "CF:0100",
+    "parallel_cf0000_last_target": "CF:1D20"
+  },
+  "layout_table": {
+    "table": "CF:2000",
+    "first_record": "CF:2261",
+    "table_bytes": 609,
+    "pointer_count": 203,
+    "mode_counts": {
+      "0x00": 118,
+      "0x01": 5,
+      "0x80": 80
+    },
+    "all_dimension_counts_match": true,
+    "all_nonfinal_record_lengths_match": true,
+    "mismatch_layout_ids": []
+  },
+  "inferred_layout_record_schema": {
+    "header_bytes": 5,
+    "byte0": "mode/flags",
+    "byte1": "width",
+    "byte2": "height",
+    "bytes3_4_le": "cell_count (= width * height in all catalogued records)",
+    "mode_0x00_payload_stride_bytes_per_cell": 3,
+    "mode_0x01_payload_stride_bytes_per_cell": 3,
+    "mode_0x80_payload_stride_bytes_per_cell": 6
+  },
+  "outputs": [
+    "tileset_pointer_catalog.csv",
+    "layout_record_catalog.csv",
+    "map_rom_table_summary.json"
+  ]
+}
