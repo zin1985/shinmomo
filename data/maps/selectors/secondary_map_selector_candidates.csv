@@ -1,4 +1,5 @@
 ﻿pack_id_dec,pack_id_hex,record_index,record_start,record_end_exclusive,entry_id_dec,entry_id_hex,substream_start,substream_end_exclusive,command_addr,opcode,secondary_tileset_id,secondary_tileset_ptr,secondary_layout_id,secondary_layout_ptr,evidence_class
+21,0x15,173,CA:FCAF,CA:FD06,132,0x84,CA:FCB3,CA:FD06,CA:FCFB,0x51,2,CE:2400,29,CF:2F8C,mode_ambiguous_secondary_shape
 24,0x18,40,CB:32BF,CB:3327,178,0xB2,CB:32DF,CB:3327,CB:32FD,0x51,2,CE:2400,29,CF:2F8C,mode_ambiguous_secondary_shape
 24,0x18,96,CB:3CD7,CB:3CF0,178,0xB2,CB:3CE2,CB:3CF0,CB:3CE7,0x51,2,CE:2400,164,CF:5821,mode_ambiguous_secondary_shape
 24,0x18,123,CB:45AD,CB:45CB,161,0xA1,CB:45C0,CB:45CB,CB:45C4,0x51,1,CE:2100,164,CF:5821,mode_ambiguous_secondary_shape
@@ -50,6 +51,7 @@
 59,0x3B,0,CB:E876,CB:E8F2,1,0x01,CB:E886,CB:E896,CB:E890,0x51,54,CE:E4B0,191,CF:62B9,confirmed_normal_immediate_secondary_pair
 60,0x3C,0,CB:E91B,CB:E9B1,1,0x01,CB:E92E,CB:E93E,CB:E938,0x51,54,CE:E4B0,191,CF:62B9,confirmed_normal_immediate_secondary_pair
 66,0x42,1,CB:F4B7,CB:F51A,124,0x7C,CB:F4C5,CB:F51A,CB:F505,0x51,2,CE:2400,80,CF:3AF0,mode_ambiguous_secondary_shape
+72,0x48,0,CC:0011,CC:0041,1,0x01,CC:0018,CC:002A,CC:0024,0x51,33,CE:9700,147,CF:5352,strong_immediate_secondary_pair_mode_gate_unresolved
 80,0x50,1,CC:1C76,CC:1C83,119,0x77,CC:1C7A,CC:1C83,CC:1C80,0x51,2,CE:2400,176,CF:5AA3,mode_ambiguous_secondary_shape
 83,0x53,0,CC:23A3,CC:253B,1,0x01,CC:23CE,CC:23E3,CC:23DD,0x51,8,CE:50B0,95,CF:3DC6,strong_immediate_secondary_pair_mode_gate_unresolved
 85,0x55,0,CC:2823,CC:2894,1,0x01,CC:2839,CC:285E,CC:2843,0x51,27,CE:8748,133,CF:4F16,strong_immediate_secondary_pair_mode_gate_unresolved
@@ -96,6 +98,8 @@
 157,0x9D,4,CC:FCB9,CC:FE61,109,0x6D,CC:FD57,CC:FD76,CC:FD66,0x51,16,CE:6460,81,CF:3AFB,mode_ambiguous_secondary_shape
 157,0x9D,4,CC:FCB9,CC:FE61,109,0x6D,CC:FD57,CC:FD76,CC:FD68,0x51,4,CE:2800,16,CF:2E2E,mode_ambiguous_secondary_shape
 157,0x9D,6,CC:FE83,CC:FEA5,108,0x6C,CC:FE8A,CC:FE98,CC:FE8F,0x51,16,CE:6460,77,CF:3AB7,mode_ambiguous_secondary_shape
+158,0x9E,0,CC:FFC5,CD:00A1,1,0x01,CC:FFDE,CC:FFF7,CC:FFEC,0x51,24,CE:7DB8,126,CF:4BEA,strong_immediate_secondary_pair_mode_gate_unresolved
+158,0x9E,12,CD:01CF,CD:01D9,122,0x7A,CD:01D3,CD:01D9,CD:01D4,0x51,13,CE:5C58,17,CF:2E4B,mode_ambiguous_secondary_shape
 159,0x9F,0,CD:01FF,CD:0258,1,0x01,CD:020C,CD:022A,CD:021A,0x51,24,CE:7DB8,126,CF:4BEA,strong_immediate_secondary_pair_mode_gate_unresolved
 160,0xA0,0,CD:05E6,CD:0643,1,0x01,CD:05F3,CD:0611,CD:0601,0x51,24,CE:7DB8,126,CF:4BEA,strong_immediate_secondary_pair_mode_gate_unresolved
 161,0xA1,0,CD:06CD,CD:074D,1,0x01,CD:06DA,CD:070F,CD:06E8,0x51,24,CE:7DB8,126,CF:4BEA,strong_immediate_secondary_pair_mode_gate_unresolved

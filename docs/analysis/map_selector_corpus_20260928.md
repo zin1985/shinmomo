@@ -17,7 +17,7 @@ Raw ROM bytes are not emitted.
 
 The CA:C000 master table points to real packs 0x14..0xF9.
 
-For same-bank packs, the pack header has the verified form:
+The pack header has the verified form:
 
 ```
 [record_start16 x N] 00 00 00 <pack_id>
@@ -29,26 +29,37 @@ The first record pointer itself determines N:
 N = (first_record_file_offset - pack_start - 4) / 2
 ```
 
-Four packs cross a bank boundary and are intentionally excluded from this
-same-bank parser:
+Four packs cross a bank boundary:
 
 - 0x15
 - 0x48
 - 0x9E
 - 0xF2
 
-The remaining 226 packs produce 4,093 pointer-bounded records. One entry is
-independently recognizable as a large pointer/table blob rather than a VM
-record:
+Their record pointers remain 16-bit. When the pointer word decreases, the
+implied bank advances by one. Applying that rule makes all four packs parse
+cleanly, including their trailer and monotonic file offsets.
+
+All **230** real packs now parse with zero failures.
+
+Before adding the four bank-wrap packs, the same-bank subset produced 4,093
+pointer-bounded records. One entry is independently recognizable as a large
+pointer/table blob rather than a VM record:
 
 - pack 0x14 record 0, CA:CBF6..CA:D086
 
-Excluding that blob reproduces the parallel-analysis total exactly:
+Excluding that blob gave the earlier 4,092-record corpus.
 
-**4,092 bounded VM records**
+The four bank-wrap packs add:
 
-This resolves the previous one-record discrepancy without changing the
-parallel result.
+- pack 0x15: 197 records
+- pack 0x48: 13 records
+- pack 0x9E: 13 records
+- pack 0xF2: 9 records
+
+The complete corpus is therefore:
+
+**4,324 bounded VM records**
 
 ## 2. Record entry/substream header
 
@@ -64,11 +75,11 @@ All pointers must:
 - begin at or after the header terminator;
 - be strictly increasing.
 
-Across the 4,092-record corpus:
+Across the full 4,324-record corpus:
 
-- records satisfying this grammar: **3,730**
-- valid substream entries: **7,774**
-- structurally different records: 362
+- records satisfying this grammar: **3,832**
+- valid substream entries: **8,039**
+- structurally different records: 492
 
 The stable-interior examples are reproduced exactly.
 
@@ -134,19 +145,26 @@ Three superficially plausible variant-0 byte sequences are therefore rejected:
 
 ## 4. Primary candidate result
 
-The structural parser emits:
+The full-corpus structural parser emits:
 
-- **261** primary normal-map-shaped rows
+- **263** primary normal-map-shaped rows
 - **152** unique (tileset, layout, variant) configurations
 - **56 / 60** tileset IDs represented
 - **149 / 203** layout IDs represented
-- **207** pack families containing at least one candidate
+- **209** pack families containing at least one candidate
 
 Variant distribution:
 
-- variant 1: 50
-- variant 2: 211
+- variant 1: 51
+- variant 2: 212
 - variant 3: 0
+
+The bank-wrap packs add only two primary rows:
+
+- F48 r0, CC:0020 -> tileset 33 / layout 146 / variant 1
+- F9E r0, CC:FFE8 -> tileset 24 / layout 125 / variant 2
+
+Both remain mode-gate unresolved, so the confirmed-normal count is unchanged.
 
 Initial evidence classes from record/setup structure were:
 
@@ -183,20 +201,20 @@ Normal C4 handler:
   - $139D
   - $139F
 
-Among the 261 primary candidates, **103** are followed immediately by a 0x51
+Among the 263 primary candidates, **105** are followed immediately by a 0x51
 whose two IDs are both valid table indices.
 
-All 103 pass the table-range check and cover 51 distinct primary+secondary
-configuration tuples.
+All 105 pass the table-range check and still cover 51 distinct
+primary+secondary configuration tuples.
 
 After the special-dispatch disambiguation in section 6:
 
 - **53** are `confirmed_normal_immediate_secondary_pair` because their parent
   0x50 is confirmed normal and the 0x50 handler does not change $1398;
-- **50** remain `strong_immediate_secondary_pair_mode_gate_unresolved`.
+- **52** remain `strong_immediate_secondary_pair_mode_gate_unresolved`.
 
-A broader scan finds 77 additional range-plausible standalone 0x51 rows. They
-remain:
+A broader scan finds **79** additional range-plausible standalone 0x51 rows.
+They remain:
 
 `mode_ambiguous_secondary_shape`
 
@@ -243,7 +261,7 @@ That next opcode is statically impossible in two cases:
 - layout < 0x50 but its C4 dispatch entry is the C4:8963 BRK guard
   (00/05/0C/0D/0E/0F class).
 
-Across the 261 primary rows:
+Across the 263 primary rows:
 
 - **60** have layout > 0x92;
 - **10** map to the low-opcode BRK guard;
@@ -253,7 +271,7 @@ Nine of those 70 overlap the 65 setup-signature rows. The union is therefore:
 
 **126 confirmed normal map selectors**
 
-leaving **135 mode-gate-unresolved primary candidates**.
+leaving **137 mode-gate-unresolved primary candidates**.
 
 This promotion does not depend on guessing the meaning of $1398; it follows
 from the incompatible instruction boundaries of the two dispatch modes.
@@ -290,27 +308,28 @@ The primary catalog already joins each candidate to:
 
 ## 8. Current interpretation
 
-The 261-row family is highly coherent and spans most of the known map table
-space, so it is a strong candidate for the broad map-configuration corpus.
+The 263-row full-pack family is highly coherent and spans most of the known map
+table space, so it is a strong candidate for the broad map-configuration
+corpus.
 
 Confidence is now tiered as follows:
 
 - **126 primary rows**: confirmed normal map selectors, by setup signature,
   special-parse impossibility, or both;
-- **135 primary rows**: strong structural candidates with mode gate unresolved;
+- **137 primary rows**: strong structural candidates with mode gate unresolved;
 - **53 immediate secondary rows**: confirmed normal secondary pairs;
-- **50 immediate secondary rows**: strong pairs with mode gate unresolved;
-- **77 standalone 0x51 shapes**: mode-ambiguous until $1398 state/reachability
+- **52 immediate secondary rows**: strong pairs with mode gate unresolved;
+- **79 standalone 0x51 shapes**: mode-ambiguous until $1398 state/reachability
   is attached.
 
 ## 9. Next work
 
 1. Trace $1399 writers and the $1399 -> $1398 state transition to associate
-   the remaining 135 pack/substream candidates with normal or special VM mode.
+   the remaining 137 pack/substream candidates with normal or special VM mode.
 2. Extend special-mode instruction-boundary rejection beyond the immediate
-   post-0x50 opcode where safe, to promote more of the 135 without runtime
+   post-0x50 opcode where safe, to promote more of the 137 without runtime
    guessing.
-3. Resolve the 50 unresolved immediate secondary pairs and 77 standalone 0x51
+3. Resolve the 52 unresolved immediate secondary pairs and 79 standalone 0x51
    shapes.
 4. Cross-link pack/record/substream locations with dialogue/event/location
    evidence to assign human place/floor labels.

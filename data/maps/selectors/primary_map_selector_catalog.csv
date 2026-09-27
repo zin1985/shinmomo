@@ -33,6 +33,7 @@
 69,0x45,0,CB:FC36,CB:FC55,1,0x01,CB:FC3D,CB:FC4A,CB:FC43,0x50,7,CE:44C0,55,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,CF:363B,0x80,1,1,1,16,16,False,,,,,
 70,0x46,0,CB:FC9F,CB:FCDA,1,0x01,CB:FCA6,CB:FCCF,CB:FCC8,0x50,7,CE:44C0,56,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,CF:3646,0x80,1,1,1,16,16,False,,,,,
 71,0x47,0,CB:FE5E,CB:FE7D,1,0x01,CB:FE65,CB:FE72,CB:FE6B,0x50,7,CE:44C0,63,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,CF:392D,0x80,1,1,1,16,16,False,,,,,
+72,0x48,0,CC:0011,CC:0041,1,0x01,CC:0018,CC:002A,CC:0020,0x50,33,CE:9700,146,1,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,CF:528D,0x00,16,4,64,256,64,True,CC:0024,33,CE:9700,147,CF:5352
 73,0x49,0,CC:01EA,CC:027C,1,0x01,CC:01FD,CC:0258,CC:020E,0x50,7,CE:44C0,67,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,CF:396B,0x80,1,1,1,16,16,False,,,,,
 74,0x4A,0,CC:049B,CC:04F0,1,0x01,CC:04B4,CC:04C6,CC:04BA,0x50,7,CE:44C0,75,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,CF:3A8F,0x80,1,1,1,16,16,False,,,,,
 75,0x4B,0,CC:06C5,CC:0735,1,0x01,CC:06E7,CC:06F9,CC:06ED,0x50,7,CE:44C0,80,2,confirmed_setup_signature,True,possible_bank82_special_opcode,False,True,CF:3AF0,0x80,1,1,1,16,16,False,,,,,
@@ -130,6 +131,7 @@
 157,0x9D,0,CC:FB47,CC:FC5D,1,0x01,CC:FB5D,CC:FBA1,CC:FB61,0x50,42,CE:B198,163,1,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,CF:579E,0x00,6,7,42,96,112,False,,,,,
 157,0x9D,4,CC:FCB9,CC:FE61,109,0x6D,CC:FD57,CC:FD76,CC:FD5C,0x50,14,CE:5FA0,82,1,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,CF:3B36,0x80,3,3,9,48,48,False,,,,,
 157,0x9D,5,CC:FE61,CC:FE83,108,0x6C,CC:FE68,CC:FE76,CC:FE6D,0x50,16,CE:6460,77,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,CF:3AB7,0x00,4,2,8,64,32,False,,,,,
+158,0x9E,0,CC:FFC5,CD:00A1,1,0x01,CC:FFDE,CC:FFF7,CC:FFE8,0x50,24,CE:7DB8,125,2,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,CF:4B67,0x00,14,3,42,224,48,True,CC:FFEC,24,CE:7DB8,126,CF:4BEA
 159,0x9F,0,CD:01FF,CD:0258,1,0x01,CD:020C,CD:022A,CD:0216,0x50,24,CE:7DB8,125,2,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,CF:4B67,0x00,14,3,42,224,48,True,CD:021A,24,CE:7DB8,126,CF:4BEA
 160,0xA0,0,CD:05E6,CD:0643,1,0x01,CD:05F3,CD:0611,CD:05FD,0x50,24,CE:7DB8,125,2,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,CF:4B67,0x00,14,3,42,224,48,True,CD:0601,24,CE:7DB8,126,CF:4BEA
 161,0xA1,0,CD:06CD,CD:074D,1,0x01,CD:06DA,CD:070F,CD:06E4,0x50,24,CE:7DB8,125,2,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,CF:4B67,0x00,14,3,42,224,48,True,CD:06E8,24,CE:7DB8,126,CF:4BEA

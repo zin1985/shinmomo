@@ -5,8 +5,9 @@
   "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
   "normal_vs_special_dispatch_caveat": "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when $1398 != 0. The bank82-special 0x50 consumes two bytes; therefore its next opcode would be the normal-map candidate's layout_id byte. Rows whose layout_id is outside the proven special range or maps to the C4 BRK handler cannot be interpreted as special 0x50 and are promoted to confirmed normal mode. Other non-signature rows remain mode-gate unresolved.",
   "corpus": {
-    "same_bank_pack_count": 226,
-    "cross_or_nonconforming_pack_ids": [
+    "parsed_pack_count": 230,
+    "parse_failure_pack_ids": [],
+    "cross_bank_pack_ids": [
       "0x15",
       "0x48",
       "0x9E",
@@ -18,44 +19,44 @@
       "0x9E",
       "0xF2"
     ],
-    "bounded_vm_record_count": 4092,
+    "bounded_vm_record_count": 4324,
     "excluded_non_vm_records": [
       {
         "pack_id": "0x14",
         "record_index": 0
       }
     ],
-    "records_with_valid_entry_header": 3730,
-    "valid_substream_entries": 7774
+    "records_with_valid_entry_header": 3832,
+    "valid_substream_entries": 8039
   },
   "primary": {
-    "strong_shape_total": 261,
+    "strong_shape_total": 263,
     "confirmed_setup_signature": 65,
     "confirmed_special_interpretation_impossible": 70,
     "confirmed_normal_union": 126,
-    "mode_gate_unresolved": 135,
+    "mode_gate_unresolved": 137,
     "special_interpretation_status_counts": {
       "invalid_bank82_special_range": 60,
       "invalid_normal_brk": 10,
-      "possible_bank82_special_opcode": 71,
+      "possible_bank82_special_opcode": 73,
       "possible_normal_low_opcode": 120
     },
     "unique_configurations": 152,
     "distinct_tileset_ids": 56,
     "distinct_layout_ids": 149,
     "variant_counts": {
-      "1": 50,
-      "2": 211
+      "1": 51,
+      "2": 212
     },
-    "families_with_candidates": 207,
-    "immediate_secondary_pair_rows": 103
+    "families_with_candidates": 209,
+    "immediate_secondary_pair_rows": 105
   },
   "secondary": {
-    "range_plausible_substream_rows": 180,
-    "immediate_pair_rows_total": 103,
+    "range_plausible_substream_rows": 184,
+    "immediate_pair_rows_total": 105,
     "confirmed_normal_immediate_pairs": 53,
-    "strong_immediate_pairs_mode_gate_unresolved": 50,
-    "mode_ambiguous_standalone_rows": 77,
+    "strong_immediate_pairs_mode_gate_unresolved": 52,
+    "mode_ambiguous_standalone_rows": 79,
     "unique_immediate_pair_configurations": 51
   },
   "stable_interior": {

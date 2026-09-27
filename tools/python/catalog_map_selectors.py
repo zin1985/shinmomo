@@ -3,9 +3,11 @@
 
 This parser is intentionally conservative.
 
-It uses the CA:C000 master pack table and same-bank pack-local record pointer
-tables to reproduce the 4,092-record corpus used by the map-selector analysis.
-Within records that expose the proven entry/substream header grammar,
+It uses the CA:C000 master pack table and pack-local 16-bit record pointer
+tables, including the four packs whose pointers wrap into the next bank. The
+full 0x14..0xF9 corpus contains 4,324 bounded VM records after one known
+pointer/table blob is excluded. Within records that expose the proven
+entry/substream header grammar,
 
     [entry_id:1][substream_ptr16:2] ... 00
 
@@ -34,7 +36,7 @@ CA_TABLE_FILE = 0x0AC000
 FIRST_REAL_PACK = 0x14
 LAST_REAL_PACK = 0xF9
 
-# Four real packs cross a bank boundary and require a separate parser.
+# These packs demonstrate the 16-bit record-pointer bank-wrap rule.
 KNOWN_CROSS_BANK_PACKS = {0x15, 0x48, 0x9E, 0xF2}
 
 # Family 0x14 record 0 is a large pointer/table blob, not a VM record.
@@ -66,16 +68,18 @@ def read_pack_root(rom: bytes, pack_id: int) -> tuple[int, int, int]:
     return bank, addr, file_from_cpu(bank, addr)
 
 
-def parse_same_bank_pack(rom: bytes, pack_id: int) -> dict | None:
+def parse_pack(rom: bytes, pack_id: int) -> dict | None:
+    """Parse a pack-local 16-bit pointer table, allowing bank wrap.
+
+    Pointer words remain 16-bit when a pack crosses a 64 KiB boundary. A
+    decrease in the pointer word advances the implied bank by one.
+    """
     bank, addr, start = read_pack_root(rom, pack_id)
     next_bank, next_addr, end = read_pack_root(rom, pack_id + 1)
-    if bank != next_bank:
-        return None
 
     first_ptr16 = u16_file(rom, start)
-    first = file_from_cpu(bank, first_ptr16)
-    if first < start:
-        first += 0x10000
+    first_bank = bank + (1 if first_ptr16 < addr else 0)
+    first = file_from_cpu(first_bank, first_ptr16)
 
     delta = first - start
     if delta < 4 or (delta - 4) % 2:
@@ -85,17 +89,24 @@ def parse_same_bank_pack(rom: bytes, pack_id: int) -> dict | None:
         return None
 
     ptr16s = [u16_file(rom, start + 2 * i) for i in range(count)]
-    if any(ptr16s[i] >= ptr16s[i + 1] for i in range(len(ptr16s) - 1)):
-        return None
-    if any(p < addr for p in ptr16s):
-        return None
-
     trailer = rom[start + count * 2 : start + count * 2 + 4]
     if trailer != bytes([0x00, 0x00, 0x00, pack_id]):
         return None
 
-    ptrs = [file_from_cpu(bank, p) for p in ptr16s]
-    if ptrs[0] != first or not all(start < p < end for p in ptrs):
+    ptrs = []
+    current_bank = bank
+    for i, ptr16 in enumerate(ptr16s):
+        if (i == 0 and ptr16 < addr) or (
+            i > 0 and ptr16 < ptr16s[i - 1]
+        ):
+            current_bank += 1
+        ptrs.append(file_from_cpu(current_bank, ptr16))
+
+    if ptrs[0] != first:
+        return None
+    if any(ptrs[i] >= ptrs[i + 1] for i in range(len(ptrs) - 1)):
+        return None
+    if not all(start < p < end for p in ptrs):
         return None
 
     records = []
@@ -113,6 +124,8 @@ def parse_same_bank_pack(rom: bytes, pack_id: int) -> dict | None:
     return {
         "pack_id": pack_id,
         "bank": bank,
+        "next_bank": next_bank,
+        "crosses_bank": bank != next_bank,
         "start": start,
         "end": end,
         "records": records,
@@ -219,7 +232,7 @@ def build_corpus(rom: bytes) -> tuple[list[dict], dict]:
     packs = []
     rejected = []
     for pack_id in range(FIRST_REAL_PACK, LAST_REAL_PACK + 1):
-        parsed = parse_same_bank_pack(rom, pack_id)
+        parsed = parse_pack(rom, pack_id)
         if parsed is None:
             rejected.append(pack_id)
         else:
@@ -245,8 +258,11 @@ def build_corpus(rom: bytes) -> tuple[list[dict], dict]:
             substream_count += len(header["entries"])
 
     summary = {
-        "same_bank_pack_count": len(packs),
-        "cross_or_nonconforming_pack_ids": [f"0x{x:02X}" for x in rejected],
+        "parsed_pack_count": len(packs),
+        "parse_failure_pack_ids": [f"0x{x:02X}" for x in rejected],
+        "cross_bank_pack_ids": [
+            f"0x{x['pack_id']:02X}" for x in packs if x["crosses_bank"]
+        ],
         "known_cross_bank_pack_ids": [f"0x{x:02X}" for x in sorted(KNOWN_CROSS_BANK_PACKS)],
         "bounded_vm_record_count": len(records),
         "excluded_non_vm_records": [

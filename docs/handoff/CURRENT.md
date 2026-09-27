@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `77a4456c2442fc75eac3f5d2039072277258a485`
+- Base main HEAD verified: `fca77fa97ec466be9ac1f5f4b98e60a35c63fddf`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -77,31 +77,42 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_corpus_20260928.md`
   - `docs/hexdumps/shinmomo_82_8000_special_vm_handler_disasm_v1.txt`
+- The four bank-crossing packs 0x15/0x48/0x9E/0xF2 are now parsed with the same 16-bit pointer-table grammar by incrementing the implied bank whenever record pointer words wrap. All 230 real packs parse with zero failures, expanding the bounded corpus from 4,092 to 4,324 VM records / 3,832 valid entry headers / 8,039 substreams. Two additional primary shapes and four secondary shapes are found; confirmed-normal counts remain 126 primary and 53 secondary pairs.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/secondary_map_selector_candidates.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_corpus_20260928.md`
+- Map mode-state dispatch is statically bounded: C0:CA04 copies $1399->$1398; C0:CA1A indexes C0:CA69 by 3*$1398; non-null states are 0,1,2,3,5,6 with routines 81:964E,82:8F1B,83:B7CD,86:82E2,85:CAA3,81:E331. State 4 is null/unwritten, and all six non-null states participate in one connected transition graph.
+  - `docs/analysis/map_mode_state_dispatch_20260928.md`
+- Full-pack unresolved-selector distribution is recomputed after adding the four bank-wrap packs: 263 primary shapes total, 126 confirmed normal and 137 unresolved; 118/137 unresolved rows (86.1%) are record 0, while later-record unresolved remains 19.
+  - `docs/analysis/map_selector_unresolved_concentration_20260928.md`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
 
 ## Observed but not yet promoted
 
-- **strong_structural_mode_unresolved**: 135 primary 0x50 rows still satisfy record/substream, tileset, layout and variant constraints but also admit a syntactically possible special-mode continuation after the 2-byte bank82 0x50.
+- **strong_structural_mode_unresolved**: 137 primary 0x50 rows across the full 230-pack corpus satisfy record/substream, tileset, layout and variant constraints but still admit a syntactically possible special-mode continuation after the 2-byte bank82 0x50.
   - Why not promoted: Need $1398/$1399 reachability or a longer special-mode parse contradiction before promotion.
-- **strong_structural_pair_mode_unresolved**: 50 immediate 0x50+0x51 pairs remain structurally strong but their parent primary is among the 135 mode-unresolved rows.
+- **strong_structural_pair_mode_unresolved**: 52 immediate 0x50+0x51 pairs remain structurally strong but their parent primary is among the 137 mode-unresolved rows.
   - Why not promoted: They become confirmed secondary map selectors only after the parent primary is proven normal mode.
-- **mode_ambiguous**: 77 standalone range-plausible 0x51 shapes remain after record/substream filtering.
+- **mode_ambiguous**: 79 standalone range-plausible 0x51 shapes remain after full-pack record/substream filtering.
   - Why not promoted: The same byte value is a valid bank82 special opcode when $1398 != 0, so ID ranges alone are insufficient.
 - **confirmed_static**: $1398 is copied from $1399 at C0:CA04..CA07. Direct $1399 writers use states 0,1,2,3,5,6; C0:CA1A indexes a 24-bit mode routine table at C0:CA69.
   - Why not promoted: Mode routine semantics and per-pack reachability are still being assigned.
 
 ## In progress
 
-- Trace the $1399 state writers and C0:CA69 mode routine table so the remaining 135 primary candidates can be associated with normal or special VM mode.
-- Extend special-mode instruction-boundary rejection beyond the first post-0x50 opcode where handler lengths are statically secure.
-- Resolve the 50 unresolved immediate secondary pairs and 77 standalone 0x51 shapes.
+- Bind direct $1399 state seeds and the six C0:CA69 mode entry routines to CA:C000 pack/record entry contexts, prioritizing the 118 unresolved record-0 selectors.
+- For unresolved rows whose mode entry cannot yet be bound, extend special-mode parsing only through statically proven handler lengths.
+- Propagate any resolved primary normal-mode evidence into the 52 unresolved immediate 0x51 pairs and 79 standalone 0x51 shapes.
 
 ## Next actions
 
-1. Classify C0:CA69 mode entries for $1398 states 0,1,2,3,5,6 and trace the corresponding $1399 writers/call paths.
-2. For the 135 unresolved primary rows, parse the special-mode alternative beyond its first opcode using only statically proven handler lengths; promote rows only when the special path becomes impossible.
-3. Use resulting normal-mode evidence to promote or reject the 50 unresolved immediate 0x51 pairs and 77 standalone 0x51 shapes.
-4. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
-5. After selector coverage stabilizes, add collision/warp/event-trigger/encounter layers and export reproducible per-map metadata.
+1. Identify the CA:C000 pack-selection reader/caller chain and join its selected pack ID to the $1399 seed/state present at entry.
+2. Emit per-pack/per-record reachable-mode metadata for the 118 unresolved record-0 selectors first; preserve multiple reachable states when control flow is not unique.
+3. Use proven mode sets and safe special-parser contradictions to classify the remaining 137 primary candidates without assuming one state per pack.
+4. Propagate confirmed parent evidence into the 52 unresolved immediate 0x51 pairs and investigate the 79 standalone 0x51 shapes.
+5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
 ## Do not redo
 
@@ -120,6 +131,10 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not include pack 0x14 record 0 (CA:CBF6..CA:D086) as a VM record; it is the one pointer/table blob excluded to reproduce 4,092.
 - Do not assume a bank82-special 0x50 consumes four bytes; it is confirmed 2 bytes via C4:9BC5 -> C4:8410.
 - Do not leave the map-selector confirmed count at 65; the static special-parse impossibility test raises the confirmed normal primary union to 126.
+- Do not exclude packs 0x15/0x48/0x9E/0xF2 from selector enumeration; their 16-bit record pointers wrap into the next bank and the full parser handles them.
+- Do not use 4,092 as the complete record-corpus size; it is the same-bank subset. The full 230-pack corpus has 4,324 bounded VM records after excluding pack 0x14 record 0.
+- Do not model $1398/$1399 as a boolean flag; six non-null states 0,1,2,3,5,6 form a connected finite-state graph and state 4 is null.
+- Do not use the old 261/135 selector backlog after full-pack parsing; canonical full-pack counts are 263 total, 126 confirmed normal, 137 unresolved.
 
 ## Runtime-only artifacts
 
@@ -160,6 +175,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `data/maps/selectors/primary_map_selector_catalog.csv`
 - `data/maps/selectors/secondary_map_selector_candidates.csv`
 - `docs/analysis/map_selector_corpus_20260928.md`
+- `docs/analysis/map_mode_state_dispatch_20260928.md`
+- `docs/analysis/map_selector_unresolved_concentration_20260928.md`
 
 ## Resume instruction
 
