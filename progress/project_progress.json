@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-26T19:12:00+09:00",
+  "updated_at": "2026-09-27T12:17:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -142,8 +142,8 @@
         "G5"
       ],
       "track_id": "dialogue",
-      "title": "2,206 unknown source pairsのvisible/context分類",
-      "target": "Trace display-window/event callers and runtime roots to classify the 2,206 visibility-unknown pairs after applying the historical-dialogue evidence overlay. Attach event/speaker/location provenance to the 19 recovered strong-dialogue pairs and render only player-visible records. Use the newly proven controller-pointer/keyed-dispatch bridge to prioritize source pairs reachable from event/controller tables.",
+      "title": "1,078 unmapped validated script callsitesのprovenance分類",
+      "target": "Partition the 1,078 source-reader-validated A4 callsites outside the current B0/trailer framing. Join complementary record grammars and controller/keyed-dispatch provenance, then feed evidence-backed context into the 2,230 effective unresolved source pairs.",
       "status": "next"
     },
     {
