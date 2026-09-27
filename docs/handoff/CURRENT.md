@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `c33e3c00149da47afa8445ddfec581dfd7f275f8`
+- Base main HEAD verified: `77a4456c2442fc75eac3f5d2039072277258a485`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -70,27 +70,36 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/secondary_map_selector_candidates.csv`
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_corpus_20260928.md`
+- Special-dispatch instruction-boundary analysis promotes the map-selector corpus further: bank82-special opcode 0x50 advances exactly 2 bytes via C4:9BC5 -> C4:8410, so 70 of the 261 primary shapes have an impossible next opcode under special mode. Unioned with the 65 setup-signature rows, 126 primary selectors are now confirmed normal; 135 remain mode-gate unresolved. 53 immediate 0x51 rows are consequently confirmed normal secondary pairs.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/secondary_map_selector_candidates.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_corpus_20260928.md`
+  - `docs/hexdumps/shinmomo_82_8000_special_vm_handler_disasm_v1.txt`
 
 ## Observed but not yet promoted
 
-- **strong_structural**: The 261 primary rows all lie inside pointer-bounded record substreams and satisfy tileset 1..60, layout 1..203 and the statically proven map-variant range 1..3. They span 207 pack families and 149 of the 203 layout IDs.
-  - Why not promoted: For opcode >=0x50, C4:87A2 switches to the bank82 special dispatcher when $1398 != 0; normal-mode reachability has not yet been attached to all 196 rows outside the confirmed 65-signature subset.
-- **strong_structural_pair**: 103 structurally strong primary 0x50 candidates are immediately followed by a range-valid 0x51 secondary selector; all 103 secondary ID pairs resolve into the CE/CF map tables.
-  - Why not promoted: Normal-versus-special VM mode still needs to be attached outside already confirmed map contexts.
-- **confirmed-static-plus-runtime-sample**: $1398 is copied from $1399 at C0:CA04..CA07. Direct $1399 writers use states 0,1,2,3,5,6, while the confirmed stable interior runs with $1398=0.
-  - Why not promoted: The state transition has not yet been joined to individual pack/substream reachability.
+- **strong_structural_mode_unresolved**: 135 primary 0x50 rows still satisfy record/substream, tileset, layout and variant constraints but also admit a syntactically possible special-mode continuation after the 2-byte bank82 0x50.
+  - Why not promoted: Need $1398/$1399 reachability or a longer special-mode parse contradiction before promotion.
+- **strong_structural_pair_mode_unresolved**: 50 immediate 0x50+0x51 pairs remain structurally strong but their parent primary is among the 135 mode-unresolved rows.
+  - Why not promoted: They become confirmed secondary map selectors only after the parent primary is proven normal mode.
+- **mode_ambiguous**: 77 standalone range-plausible 0x51 shapes remain after record/substream filtering.
+  - Why not promoted: The same byte value is a valid bank82 special opcode when $1398 != 0, so ID ranges alone are insufficient.
+- **confirmed_static**: $1398 is copied from $1399 at C0:CA04..CA07. Direct $1399 writers use states 0,1,2,3,5,6; C0:CA1A indexes a 24-bit mode routine table at C0:CA69.
+  - Why not promoted: Mode routine semantics and per-pack reachability are still being assigned.
 
 ## In progress
 
-- Trace $1399 writers and the $1399 -> $1398 transition so the 261 primary rows can be split between normal map-selector mode and bank82 special-VM mode.
-- Resolve the 77 standalone range-plausible opcode 0x51 shapes using the same mode evidence.
-- Cross-link confirmed selector rows to dialogue/event/location evidence for human map names.
+- Trace the $1399 state writers and C0:CA69 mode routine table so the remaining 135 primary candidates can be associated with normal or special VM mode.
+- Extend special-mode instruction-boundary rejection beyond the first post-0x50 opcode where handler lengths are statically secure.
+- Resolve the 50 unresolved immediate secondary pairs and 77 standalone 0x51 shapes.
 
 ## Next actions
 
-1. Classify the $1399 state machine and its transition through C0:C9E7/C0:CA07; attach normal-mode ($1398=0) evidence to map-selector pack/substreams.
-2. Promote additional primary 0x50 rows only when normal-mode reachability is supported; keep bank82 special-VM rows separate.
-3. Resolve the 77 standalone 0x51 shapes and retain only normal-mode secondary map selectors.
+1. Classify C0:CA69 mode entries for $1398 states 0,1,2,3,5,6 and trace the corresponding $1399 writers/call paths.
+2. For the 135 unresolved primary rows, parse the special-mode alternative beyond its first opcode using only statically proven handler lengths; promote rows only when the special path becomes impossible.
+3. Use resulting normal-mode evidence to promote or reject the 50 unresolved immediate 0x51 pairs and 77 standalone 0x51 shapes.
 4. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 5. After selector coverage stabilizes, add collision/warp/event-trigger/encounter layers and export reproducible per-map metadata.
 
@@ -109,6 +118,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not treat all byte-shaped 0x50/0x51 rows as map selectors when $1398 mode is unresolved; opcode >=0x50 has a separate bank82 special dispatcher.
 - Do not rederive the 4,092 record corpus manually; use tools/python/catalog_map_selectors.py.
 - Do not include pack 0x14 record 0 (CA:CBF6..CA:D086) as a VM record; it is the one pointer/table blob excluded to reproduce 4,092.
+- Do not assume a bank82-special 0x50 consumes four bytes; it is confirmed 2 bytes via C4:9BC5 -> C4:8410.
+- Do not leave the map-selector confirmed count at 65; the static special-parse impossibility test raises the confirmed normal primary union to 126.
 
 ## Runtime-only artifacts
 

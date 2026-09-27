@@ -192,6 +192,29 @@ def layout_meta(rom: bytes, layout_id: int) -> dict:
     }
 
 
+def special_interpretation_status(rom: bytes, layout_id: int) -> str:
+    """Classify the opcode that follows a bank82-special 0x50 interpretation.
+
+    The special 0x50 handler advances the VM pointer by exactly two bytes via
+    C4:9BC5 -> C4:8410. Therefore the normal-map-shaped byte at +2 (layout_id)
+    would become the next opcode under special mode.
+
+    - low opcodes use the normal C4 dispatch table even when $1398 != 0;
+    - 0x50..0x92 use the bounded bank82 special table;
+    - >0x92 is outside the proven bank82 table;
+    - low entries routed to C4:8963 hit the BRK guard.
+    """
+    if layout_id < 0x50:
+        dispatch = file_from_cpu(0xC4, 0x87D4 + layout_id * 2)
+        handler = u16_file(rom, dispatch)
+        if handler == 0x8963:
+            return "invalid_normal_brk"
+        return "possible_normal_low_opcode"
+    if layout_id <= 0x92:
+        return "possible_bank82_special_opcode"
+    return "invalid_bank82_special_range"
+
+
 def build_corpus(rom: bytes) -> tuple[list[dict], dict]:
     packs = []
     rejected = []
@@ -275,11 +298,17 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     and rom[p - len(CONFIRMED_SETUP_SIGNATURE) : p]
                     == CONFIRMED_SETUP_SIGNATURE
                 )
-                evidence = (
-                    "confirmed_setup_signature"
-                    if confirmed_signature
-                    else "strong_structural_candidate_mode_gate_unresolved"
-                )
+                special_status = special_interpretation_status(rom, layout_id)
+                special_impossible = special_status.startswith("invalid_")
+                normal_mode_confirmed = confirmed_signature or special_impossible
+                if confirmed_signature and special_impossible:
+                    evidence = "confirmed_setup_signature_and_special_parse_impossible"
+                elif confirmed_signature:
+                    evidence = "confirmed_setup_signature"
+                elif special_impossible:
+                    evidence = "confirmed_normal_special_parse_impossible"
+                else:
+                    evidence = "strong_structural_candidate_mode_gate_unresolved"
 
                 tptr = tileset_pointer(rom, tileset_id)
                 meta = layout_meta(rom, layout_id)
@@ -302,6 +331,9 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     "map_variant": variant,
                     "evidence_class": evidence,
                     "confirmed_setup_signature": confirmed_signature,
+                    "special_interpretation_status": special_status,
+                    "special_interpretation_impossible": special_impossible,
+                    "normal_mode_confirmed": normal_mode_confirmed,
                     **meta,
                     "immediate_secondary": False,
                     "secondary_command_addr": "",
@@ -363,15 +395,19 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     }
                 )
 
-    primary_by_addr = {r["command_addr"]: r for r in primary}
-    paired_secondary_addrs = {
-        r["secondary_command_addr"]
+    paired_primary_by_secondary = {
+        r["secondary_command_addr"]: r
         for r in primary
         if r["immediate_secondary"]
     }
     for row in all_secondary_shape:
-        if row["command_addr"] in paired_secondary_addrs:
-            row["evidence_class"] = "strong_immediate_secondary_pair"
+        parent = paired_primary_by_secondary.get(row["command_addr"])
+        if parent is None:
+            continue
+        if parent["normal_mode_confirmed"]:
+            row["evidence_class"] = "confirmed_normal_immediate_secondary_pair"
+        else:
+            row["evidence_class"] = "strong_immediate_secondary_pair_mode_gate_unresolved"
 
     return primary, all_secondary_shape
 
@@ -403,11 +439,23 @@ def main() -> None:
     records, corpus = build_corpus(rom)
     primary, secondary = candidate_rows(rom, records)
 
-    confirmed = [r for r in primary if r["confirmed_setup_signature"]]
-    structural = [r for r in primary if not r["confirmed_setup_signature"]]
+    signature_confirmed = [r for r in primary if r["confirmed_setup_signature"]]
+    special_impossible = [r for r in primary if r["special_interpretation_impossible"]]
+    normal_confirmed = [r for r in primary if r["normal_mode_confirmed"]]
+    unresolved_primary = [r for r in primary if not r["normal_mode_confirmed"]]
     paired = [r for r in primary if r["immediate_secondary"]]
-    secondary_paired = [r for r in secondary if r["evidence_class"] == "strong_immediate_secondary_pair"]
-    secondary_ambiguous = [r for r in secondary if r["evidence_class"] != "strong_immediate_secondary_pair"]
+    secondary_confirmed = [
+        r for r in secondary
+        if r["evidence_class"] == "confirmed_normal_immediate_secondary_pair"
+    ]
+    secondary_strong_unresolved = [
+        r for r in secondary
+        if r["evidence_class"] == "strong_immediate_secondary_pair_mode_gate_unresolved"
+    ]
+    secondary_ambiguous = [
+        r for r in secondary
+        if r["evidence_class"] == "mode_ambiguous_secondary_shape"
+    ]
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     write_csv(args.out_dir / "primary_map_selector_catalog.csv", primary)
@@ -420,15 +468,26 @@ def main() -> None:
         "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
         "normal_vs_special_dispatch_caveat": (
             "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when "
-            "$1398 != 0. Only the 65 setup-signature rows are already promoted "
-            "as confirmed normal-map selectors; remaining primary rows are "
-            "strong structural candidates until the mode gate is resolved."
+            "$1398 != 0. The bank82-special 0x50 consumes two bytes; therefore "
+            "its next opcode would be the normal-map candidate's layout_id byte. "
+            "Rows whose layout_id is outside the proven special range or maps to "
+            "the C4 BRK handler cannot be interpreted as special 0x50 and are "
+            "promoted to confirmed normal mode. Other non-signature rows remain "
+            "mode-gate unresolved."
         ),
         "corpus": corpus,
         "primary": {
             "strong_shape_total": len(primary),
-            "confirmed_setup_signature": len(confirmed),
-            "additional_structural_candidates": len(structural),
+            "confirmed_setup_signature": len(signature_confirmed),
+            "confirmed_special_interpretation_impossible": len(special_impossible),
+            "confirmed_normal_union": len(normal_confirmed),
+            "mode_gate_unresolved": len(unresolved_primary),
+            "special_interpretation_status_counts": {
+                k: v
+                for k, v in sorted(
+                    Counter(r["special_interpretation_status"] for r in primary).items()
+                )
+            },
             "unique_configurations": len(
                 {
                     (
@@ -450,7 +509,9 @@ def main() -> None:
         },
         "secondary": {
             "range_plausible_substream_rows": len(secondary),
-            "strong_immediate_pairs": len(secondary_paired),
+            "immediate_pair_rows_total": len(paired),
+            "confirmed_normal_immediate_pairs": len(secondary_confirmed),
+            "strong_immediate_pairs_mode_gate_unresolved": len(secondary_strong_unresolved),
             "mode_ambiguous_standalone_rows": len(secondary_ambiguous),
             "unique_immediate_pair_configurations": len(
                 {

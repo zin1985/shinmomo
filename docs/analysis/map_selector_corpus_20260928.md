@@ -148,12 +148,14 @@ Variant distribution:
 - variant 2: 211
 - variant 3: 0
 
-Evidence classes:
+Initial evidence classes from record/setup structure were:
 
-- **65** `confirmed_setup_signature`
-- **196** `strong_structural_candidate_mode_gate_unresolved`
+- **65** setup-signature confirmed rows
+- **196** additional structural candidates
 
-The 65 confirmed rows are exactly the previously documented family whose
+A follow-up special-dispatch parse test now promotes more rows; see section 6.
+
+The 65 setup-signature rows are exactly the previously documented family whose
 immediate prefix is:
 
 ```
@@ -184,16 +186,17 @@ Normal C4 handler:
 Among the 261 primary candidates, **103** are followed immediately by a 0x51
 whose two IDs are both valid table indices.
 
-All 103 pass the table-range check.
+All 103 pass the table-range check and cover 51 distinct primary+secondary
+configuration tuples.
 
-These rows are classified:
+After the special-dispatch disambiguation in section 6:
 
-`strong_immediate_secondary_pair`
-
-They cover 51 distinct primary+secondary configuration tuples.
+- **53** are `confirmed_normal_immediate_secondary_pair` because their parent
+  0x50 is confirmed normal and the 0x50 handler does not change $1398;
+- **50** remain `strong_immediate_secondary_pair_mode_gate_unresolved`.
 
 A broader scan finds 77 additional range-plausible standalone 0x51 rows. They
-are deliberately left as:
+remain:
 
 `mode_ambiguous_secondary_shape`
 
@@ -222,8 +225,38 @@ $1398 != 0
 opcode >= 0x50 is routed to the separate $82:8000 dispatcher, where 0x50..0x92
 have different meanings.
 
-Therefore the additional 196 primary rows are not yet promoted to unconditional
-runtime map semantics solely from byte shape.
+The bank82-special 0x50 handler is also now length-bounded. It calls
+C4:9BC5, which loads A=2 and jumps through C4:8410, so special opcode 0x50
+advances the script pointer by exactly **2 bytes**.
+
+Therefore a normal-map-shaped sequence:
+
+`50 <tileset> <layout> <variant>`
+
+would be parsed in special mode as:
+
+`50 <special-operand>` followed by `<layout>` as the next opcode.
+
+That next opcode is statically impossible in two cases:
+
+- layout > 0x92: outside the proven bank82 special opcode table;
+- layout < 0x50 but its C4 dispatch entry is the C4:8963 BRK guard
+  (00/05/0C/0D/0E/0F class).
+
+Across the 261 primary rows:
+
+- **60** have layout > 0x92;
+- **10** map to the low-opcode BRK guard;
+- total special-interpretation-impossible rows: **70**.
+
+Nine of those 70 overlap the 65 setup-signature rows. The union is therefore:
+
+**126 confirmed normal map selectors**
+
+leaving **135 mode-gate-unresolved primary candidates**.
+
+This promotion does not depend on guessing the meaning of $1398; it follows
+from the incompatible instruction boundaries of the two dispatch modes.
 
 The mode state is itself now bounded:
 
@@ -260,20 +293,25 @@ The primary catalog already joins each candidate to:
 The 261-row family is highly coherent and spans most of the known map table
 space, so it is a strong candidate for the broad map-configuration corpus.
 
-However, confidence is intentionally tiered:
+Confidence is now tiered as follows:
 
-- 65 rows: confirmed normal map-selector setup family;
-- 103 immediate 0x50+0x51 pairings: strong paired structure;
-- remaining primary rows: strong structural candidates;
-- standalone 0x51 shapes: mode-ambiguous until $1398 state/reachability is
-  attached.
+- **126 primary rows**: confirmed normal map selectors, by setup signature,
+  special-parse impossibility, or both;
+- **135 primary rows**: strong structural candidates with mode gate unresolved;
+- **53 immediate secondary rows**: confirmed normal secondary pairs;
+- **50 immediate secondary rows**: strong pairs with mode gate unresolved;
+- **77 standalone 0x51 shapes**: mode-ambiguous until $1398 state/reachability
+  is attached.
 
 ## 9. Next work
 
 1. Trace $1399 writers and the $1399 -> $1398 state transition to associate
-   pack/substream execution with normal or special VM mode.
-2. Promote additional 0x50 rows only when normal-mode evidence is attached.
-3. Resolve the 77 standalone 0x51 shapes.
+   the remaining 135 pack/substream candidates with normal or special VM mode.
+2. Extend special-mode instruction-boundary rejection beyond the immediate
+   post-0x50 opcode where safe, to promote more of the 135 without runtime
+   guessing.
+3. Resolve the 50 unresolved immediate secondary pairs and 77 standalone 0x51
+   shapes.
 4. Cross-link pack/record/substream locations with dialogue/event/location
    evidence to assign human place/floor labels.
 5. Add collision, warp, trigger and encounter layers after selector coverage
