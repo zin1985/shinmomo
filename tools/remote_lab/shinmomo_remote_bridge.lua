@@ -249,22 +249,34 @@ for _,addr in ipairs(map_ppu_addrs) do map_ppu[addr] = nil end
 
 local map_ppu_hook_count = 0
 local map_ppu_hook_errors = {}
+local map_ppu_hook_variants = {
+  {name="short", base=0x000000},
+  {name="bank00", base=0x000000},
+  {name="bank80", base=0x800000},
+}
 for i,addr in ipairs(map_ppu_addrs) do
-  local watched = addr
-  local ok, err = pcall(
-    event.onmemorywrite,
-    function(a, v)
-      if v ~= nil then map_ppu[watched] = v % 256 end
-    end,
-    watched,
-    "shinmomo_remote_map_ppu_" .. tostring(i),
-    MAP_BUS_DOMAIN
-  )
-  if ok then
-    map_ppu_hook_count = map_ppu_hook_count + 1
-  else
-    map_ppu_hook_errors[#map_ppu_hook_errors + 1] =
-      string.format("%04X:%s", watched, tostring(err))
+  local logical = addr
+  local seen = {}
+  for _,variant in ipairs(map_ppu_hook_variants) do
+    local watched = variant.base + addr
+    if not seen[watched] then
+      seen[watched] = true
+      local ok, err = pcall(
+        event.onmemorywrite,
+        function(a, v)
+          if v ~= nil then map_ppu[logical] = v % 256 end
+        end,
+        watched,
+        "shinmomo_remote_map_ppu_" .. variant.name .. "_" .. tostring(i),
+        MAP_BUS_DOMAIN
+      )
+      if ok then
+        map_ppu_hook_count = map_ppu_hook_count + 1
+      else
+        map_ppu_hook_errors[#map_ppu_hook_errors + 1] =
+          string.format("%s:%06X:%s", variant.name, watched, tostring(err))
+      end
+    end
   end
 end
 
@@ -327,6 +339,11 @@ local function do_map_capture(id, scene_tag)
       '"oam":' .. json_quote(MAP_OAM_DOMAIN or "") .. ",",
       '"bus":' .. json_quote(MAP_BUS_DOMAIN or "") ..
     "},",
+    '"all_memory_domains":[' .. (function()
+      local x = {}
+      for i,name in ipairs(memory_domains()) do x[i] = json_quote(name) end
+      return table.concat(x, ",")
+    end)() .. "],",
     '"ppu_hook_count":' .. tostring(map_ppu_hook_count) .. ",",
     '"ppu_hook_errors":' .. json_quote(table.concat(map_ppu_hook_errors, " | ")) .. ",",
     '"ppu":' .. ppu_json() .. ",",
