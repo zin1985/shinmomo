@@ -382,10 +382,22 @@ local function do_map_capture(id, scene_tag)
 
   local manifest = table.concat({
     "{",
-    '"schema_version":1,',
+    '"schema_version":2,',
     '"capture_id":' .. json_quote(capture_id) .. ",",
     '"scene_tag":' .. json_quote(tag) .. ",",
     '"frame":' .. tostring(framecount()) .. ",",
+    '"map_state":{',
+      '"current_pack_0305":' .. json_num(read8(0x0305, "WRAM")) .. ",",
+      '"vm_pack_126e":' .. json_num(read8(0x126E, "WRAM")) .. ",",
+      '"resolved_pack_12b4":' .. json_num(read8(0x12B4, "WRAM")) .. ",",
+      '"mode_1398":' .. json_num(read8(0x1398, "WRAM")) .. ",",
+      '"pending_mode_1399":' .. json_num(read8(0x1399, "WRAM")) .. ",",
+      '"map_variant_139b":' .. json_num(read8(0x139B, "WRAM")) .. ",",
+      '"primary_tileset_139c":' .. json_num(read8(0x139C, "WRAM")) .. ",",
+      '"secondary_tileset_139d":' .. json_num(read8(0x139D, "WRAM")) .. ",",
+      '"primary_layout_139e":' .. json_num(read8(0x139E, "WRAM")) .. ",",
+      '"secondary_layout_139f":' .. json_num(read8(0x139F, "WRAM")) ..
+    "},",
     '"domains":{',
       '"vram":' .. json_quote(MAP_VRAM_DOMAIN or "") .. ",",
       '"cgram":' .. json_quote(MAP_CGRAM_DOMAIN or "") .. ",",

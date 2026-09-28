@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "map_dialogue_pack_context_crosslink",
+  "join_rule": "for valid CA packs 0x14..0xF9, script-pack interval index equals C7 source-family index",
+  "map_occurrence_count": 260,
+  "map_pack_family_joined_count": 260,
+  "distinct_map_packs": 209,
+  "occurrences_with_known_semantic_context": 2,
+  "configurations_with_known_semantic_context": 2,
+  "location_label_status_counts": {
+    "context_only": 2,
+    "unlabeled": 258
+  },
+  "semantic_configuration_ids": [
+    "cfg_t04_l008_v2",
+    "cfg_t07_l007_v2"
+  ],
+  "interpretation": "Pack-level dialogue context is provenance, not a map-name proof. Human-facing display_name stays unset until independent location evidence ties a semantic context to the selected map.",
+  "outputs": [
+    "map_dialogue_pack_crosslink.csv",
+    "map_dialogue_pack_crosslink_summary.json"
+  ]
+}

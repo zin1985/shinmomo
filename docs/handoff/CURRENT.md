@@ -160,23 +160,37 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_instruction_boundary_closure_20260928.md`
 
+- The 260 confirmed primary occurrences are now grouped into 149 deterministic map configurations. A same-index join to the proven dialogue source-family crosswalk attaches provenance to all 260 occurrences; two configurations have curated semantic contexts but remain context_only because pack-level text spans multiple locations.
+  - `tools/python/build_map_configuration_index.py`
+  - `data/maps/configurations/map_configuration_index.csv`
+  - `data/maps/configurations/map_configuration_summary.json`
+  - `tools/python/build_map_dialogue_context_crosslink.py`
+  - `data/maps/context/map_dialogue_pack_crosslink.csv`
+  - `data/maps/context/map_dialogue_pack_crosslink_summary.json`
+  - `docs/analysis/map_configuration_context_index_20260928.md`
+- Remote map-capture manifest schema v2 now records derived map identity scalars ($0305/$126E/$12B4/$1398/$1399/$139B..$139F) while raw WRAM remains local-only.
+  - `tools/remote_lab/shinmomo_remote_bridge.lua`
+  - `tools/remote_lab/README.md`
+
 ## Observed but not yet promoted
 
-- **confirmed_catalog**: All 260 instruction-level primary 0x50 selectors are confirmed normal and all 105 immediate 0x51 pairs are confirmed.
-- **conservative_secondary_backlog**: 79 range-plausible standalone 0x51 byte shapes remain mode/instruction-boundary ambiguous.
-  - Why not promoted: they have no parent-primary proof and are retained separately until a concrete reconstruction needs them.
+- **confirmed_derived_index**: 260/260 primary occurrences are grouped into 149 configurations and all 260 join to same-index dialogue source families.
+- **context_only**: cfg_t07_l007_v2 / pack 0x4E and cfg_t04_l008_v2 / pack 0x50 have curated semantic contexts, but each context set spans multiple places.
+  - Why not named: pack-level dialogue provenance is not sufficient to identify one map name.
+- **implemented_not_runtime_revalidated**: map-capture schema v2 records pack/mode/selector scalars needed for runtime identity.
+  - Why not closed: a fresh bridge load and map capture have not yet validated those fields on the active core.
 
 ## In progress
 
-- Build a configuration-centric index for the 260 confirmed primary selectors / 149 unique configurations.
-- Cross-link pack/record/substream occurrences with dialogue, event, warp and location evidence.
+- Validate map-capture schema v2 on a fresh remote-lab bridge session.
+- Join runtime pack + selector values to the 149 configuration index and exact occurrence rows.
 
 ## Next actions
 
-1. Build the confirmed configuration index with primary and immediate-secondary occurrence context.
-2. Assign evidence-backed village/town/interior/dungeon/world labels from existing project artifacts.
-3. Add collision, warp, event-trigger and encounter layers for labeled maps.
-4. Resolve standalone 0x51 boundaries only where needed; do not bulk-promote raw shapes.
+1. Reload the bridge and take a fresh map capture; verify manifest map_state values.
+2. Implement runtime-manifest -> configuration/occurrence resolver.
+3. Assign the first human-facing location labels only after runtime/event/playlog evidence agrees.
+4. Add collision, warp, event-trigger and encounter layers for labeled maps.
 
 ## Do not redo
 

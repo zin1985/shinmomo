@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Cross-link confirmed ROM map selectors to human-facing locations",
-  "base_main_head_verified": "0f042c22c93bb0302158501931f4e7b3906ab241",
+  "base_main_head_verified": "1eccb6da6c1782b6898a4d5ff08a515f16acad63",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Use the closed 260-primary selector corpus as the structural backbone for assigning village, town, interior, dungeon and world-map identities, then attach collision/warp/event/encounter evidence without weakening the ROM-side proofs.",
   "definition_of_done": [
@@ -265,35 +265,70 @@
         "data/maps/selectors/primary_map_selector_summary.json",
         "docs/analysis/map_selector_instruction_boundary_closure_20260928.md"
       ]
+    },
+    {
+      "item": "The 260 confirmed primary selector occurrences are grouped into 149 deterministic tileset/layout/variant configurations. The index retains all pack/record/entry occurrences, dimensions, secondary configurations and evidence counts; cfg_t07_l015_v2 is linked to the stable indoor sample without inventing a place name.",
+      "evidence": [
+        "tools/python/build_map_configuration_index.py",
+        "data/maps/configurations/map_configuration_index.csv",
+        "data/maps/configurations/map_configuration_summary.json",
+        "docs/analysis/map_configuration_context_index_20260928.md"
+      ]
+    },
+    {
+      "item": "The proven CA-pack == C7 source-family index relation is joined to all 260 map occurrences. All 260 receive dialogue-family provenance; only two configurations currently have curated semantic contexts, and both remain context_only rather than human-named locations.",
+      "evidence": [
+        "tools/python/build_map_dialogue_context_crosslink.py",
+        "data/maps/context/map_dialogue_pack_crosslink.csv",
+        "data/maps/context/map_dialogue_pack_crosslink_summary.json",
+        "docs/analysis/map_configuration_context_index_20260928.md"
+      ]
+    },
+    {
+      "item": "Map capture manifest schema v2 now records small derived map identity state ($0305/$126E/$12B4/$1398/$1399/$139B..$139F) alongside local-only render artifacts, enabling future visited-screen-to-ROM-selector joins without committing raw WRAM.",
+      "evidence": [
+        "tools/remote_lab/shinmomo_remote_bridge.lua",
+        "tools/remote_lab/README.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
     {
-      "observation": "All 260 instruction-level primary 0x50 selectors are confirmed normal; all 105 immediate 0x51 pairs are confirmed. 79 range-plausible standalone 0x51 byte shapes remain mode/instruction-boundary ambiguous and are retained separately rather than promoted.",
-      "confidence": "confirmed_catalog",
-      "reason_not_promoted": "Standalone 0x51 shapes do not inherit a parent 0x50 proof and need their own instruction-boundary/mode evidence if they become relevant to a location reconstruction."
+      "observation": "All 260 primary selectors are closed and grouped into 149 configurations; dialogue-family provenance joins 260/260 occurrences.",
+      "confidence": "confirmed_derived_index",
+      "reason_not_promoted": "Human-facing location labels require independent runtime or event/location evidence, not pack-level dialogue semantics alone."
+    },
+    {
+      "observation": "Only cfg_t07_l007_v2 (pack 0x4E) and cfg_t04_l008_v2 (pack 0x50) currently have curated semantic dialogue contexts.",
+      "confidence": "confirmed_context_join",
+      "reason_not_promoted": "Each pack contains multiple distinct location/story references, so neither configuration is assigned a display_name."
+    },
+    {
+      "observation": "Map-capture manifest schema v2 can record pack/mode/selector WRAM scalars needed for runtime identity.",
+      "confidence": "implemented_not_runtime_revalidated",
+      "reason_not_promoted": "A fresh BizHawk bridge load and new map capture are still needed to validate the v2 manifest on the active emulator core."
     }
   ],
   "in_progress": [
-    "Group the 260 confirmed primary selectors into the 149 unique tileset/layout/variant configurations and cross-link pack/record/substream context.",
-    "Attach human-facing village/town/interior/dungeon/world identities from existing dialogue, event, warp and location evidence."
+    "Reload/restart the remote-lab bridge and take a fresh map capture so the new map_state manifest fields can be validated.",
+    "Use runtime pack+selector identity to bind visited scenes to exact configuration/occurrence rows, then assign only independently supported human-facing labels."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Build a configuration-centric index for all 260 confirmed primary selectors, including immediate secondary layouts and every pack/record/substream occurrence."
+      "action": "On the next safe runtime session, reload shinmomo_remote_bridge.lua and take a map-capture; verify manifest schema v2 map_state values against the active selector configuration."
     },
     {
       "order": 2,
-      "action": "Cross-link selector occurrences with existing dialogue/event/location artifacts and assign only evidence-backed human-facing location labels."
+      "action": "Add a runtime-to-configuration resolver that joins manifest primary tileset/layout/variant and pack id to map_configuration_index.csv and primary_map_selector_catalog.csv."
     },
     {
       "order": 3,
-      "action": "For labeled locations, add collision, warp, event-trigger and encounter evidence as separate reconstruction layers."
+      "action": "Use playlog/dialogue/event evidence around a runtime-bound occurrence to assign the first evidence-backed display_name/map_group_id labels."
     },
     {
       "order": 4,
-      "action": "Resolve standalone 0x51 instruction boundaries only where they affect a map reconstruction or location identity; do not bulk-promote raw byte shapes."
+      "action": "Then add collision, warp, event-trigger and encounter layers for each labeled map."
     }
   ],
   "do_not_redo": [
@@ -340,7 +375,9 @@
     "Do not use the old 244 confirmed / 19 unresolved counts after later-record A0 nested-entry seeding; canonical counts are now 260 confirmed / 3 unresolved, with all 105 immediate secondary pairs confirmed.",
     "Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established.",
     "Do not use the intermediate 260 confirmed / 3 unresolved state as the final primary corpus. Those three rows are now proven operand bytes, so canonical primary selector count is 260 / 260 confirmed with zero unresolved.",
-    "Do not reintroduce CC:A71F, CC:FD5C or CC:FE6D as primary selectors; they are preserved only in non_opcode_primary_50_shapes.csv as negative evidence."
+    "Do not reintroduce CC:A71F, CC:FD5C or CC:FE6D as primary selectors; they are preserved only in non_opcode_primary_50_shapes.csv as negative evidence.",
+    "Do not assign human-facing map names from pack-level dialogue semantic context alone; the same source family can contain references to multiple locations.",
+    "Do not commit raw WRAM when capturing map identity; manifest schema v2 stores only the small derived map_state scalars needed for joins."
   ],
   "runtime_only_artifacts": [
     {
@@ -409,7 +446,14 @@
     "data/maps/selectors/state0_a0_nested_promotions.csv",
     "docs/analysis/map_selector_later_a0_promotion_20260928.md",
     "data/maps/selectors/non_opcode_primary_50_shapes.csv",
-    "docs/analysis/map_selector_instruction_boundary_closure_20260928.md"
+    "docs/analysis/map_selector_instruction_boundary_closure_20260928.md",
+    "tools/python/build_map_configuration_index.py",
+    "data/maps/configurations/map_configuration_index.csv",
+    "data/maps/configurations/map_configuration_summary.json",
+    "tools/python/build_map_dialogue_context_crosslink.py",
+    "data/maps/context/map_dialogue_pack_crosslink.csv",
+    "data/maps/context/map_dialogue_pack_crosslink_summary.json",
+    "docs/analysis/map_configuration_context_index_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",

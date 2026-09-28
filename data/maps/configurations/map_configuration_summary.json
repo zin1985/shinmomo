@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "kind": "confirmed_map_configuration_index",
+  "source": "data/maps/selectors/primary_map_selector_catalog.csv",
+  "primary_occurrence_count": 260,
+  "configuration_count": 149,
+  "configurations_with_immediate_secondary": 51,
+  "distinct_secondary_configurations": 49,
+  "occurrence_count_distribution": {
+    "1": 92,
+    "2": 33,
+    "3": 11,
+    "4": 5,
+    "5": 4,
+    "6": 1,
+    "7": 2,
+    "9": 1
+  },
+  "max_occurrence_count": 9,
+  "stable_interior_config_id": "cfg_t07_l015_v2",
+  "human_labeled_configuration_count": 0,
+  "scene_class_hint_count": 1,
+  "outputs": [
+    "map_configuration_index.csv",
+    "map_configuration_summary.json"
+  ]
+}

@@ -2,13 +2,14 @@
 
 A thin control layer for running repeatable Shin Momotarou Densetsu experiments from Chat through Remote Desktop Commander.
 
-It exposes five operator commands:
+It exposes six operator commands:
 
 1. **screen** - capture the current Windows virtual desktop to PNG.
 2. **click** - click a Windows desktop coordinate.
 3. **key** - send Windows keys, optionally activating a window first.
 4. **gamepad** - inject SNES controller input through BizHawk for an exact number of frames.
 5. **capture-memory** - capture a bounded BizHawk memory-domain range to local JSON.
+6. **map-capture** - capture map-render artifacts plus a small derived map-state manifest.
 
 The ROM, savestates, screenshots, and raw memory captures are runtime-only. Do not commit them.
 
@@ -19,7 +20,7 @@ The ROM, savestates, screenshots, and raw memory captures are runtime-only. Do n
 The launcher sets SHINMOMO_LAB_DIR and loads shinmomo_remote_bridge.lua.
 Default runtime directory: %LOCALAPPDATA%\shinmomo-lab
 
-## Five commands
+## Commands
 
     # 1. Capture the whole Windows desktop.
     .\tools\remote_lab\shinmomo_lab.ps1 screen
@@ -45,6 +46,15 @@ Default runtime directory: %LOCALAPPDATA%\shinmomo-lab
 
     # 5. Capture 0x80 bytes from SNES WRAM starting at $0799.
     .\tools\remote_lab\shinmomo_lab.ps1 capture-memory -Domain "WRAM" -Start "0x0799" -Length 128
+
+    # 6. Capture map artifacts. manifest.json stores only small derived WRAM
+    # selectors/pack state alongside local-only VRAM/CGRAM/OAM/screenshot files.
+    .\tools\remote_lab\shinmomo_lab.ps1 map-capture -SceneTag "visited_location"
+
+The map manifest includes current pack $0305, VM/resolved pack context $126E/$12B4,
+mode $1398/$1399, and map selectors $139B..$139F. These values are intended to
+join a visited screen to the confirmed ROM selector catalog without committing a
+raw WRAM dump.
 
 Each command emits compact JSON. screen returns the PNG path; RDC can then read that PNG so Chat can inspect the current GUI. capture-memory returns the local JSON path so the result can be analyzed without putting raw memory into Git.
 
