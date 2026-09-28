@@ -9,8 +9,8 @@ Updated: 2026-09-28
 
 - Status: **active**
 - Workstream: `map-world-reconstruction`
-- Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `2dec88319879f11a2fc292d8166fa163eb3c9727`
+- Title: **Render and identify ROM map layouts from canonical map-chip data**
+- Base main HEAD verified: `2d38f9afc6efcd6dc760a0b7699b03a430b7bf9b`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -201,6 +201,13 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json`
   - `docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md`
 
+- Full static render batch for primary tileset 4 is committed: 29 distinct layout IDs are stored as `map_###.png`, each with same-ID JSON metadata plus batch CSV/JSON indexes.
+  - `tools/python/render_map_layout_images.py`
+  - `data/maps/rendered/tileset_04/index.json`
+  - `data/maps/rendered/tileset_04/index.csv`
+  - `docs/analysis/map_layout_render_batch_20260928.md`
+  - commit: `2d38f9a Render tileset4 maps by map id`
+
 ## Observed but not yet promoted
 
 - **confirmed_runtime_join_and_transition**: pack 0x50 / cfg_t04_l008_v2 / CC:1C3F is a forest shrine/village exterior directly connected to the stable save/shrine interior.
@@ -209,20 +216,27 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - Why not promoted: keep `display_name` blank until game text/event/location data names it directly.
 - **confirmed_runtime_validation**: the old bridge-version gap is closed; active-core schema-v2 map_state capture now works.
 
+- **confirmed_capture_limitation**: current Snes9x `cgram.bin` is exactly 512 zero bytes, so committed tileset-4 renders intentionally use 4bpp tile-index grayscale rather than invented color.
+- **confirmed_negative_render_test**: tileset-7 / char-base 0xC000 fits a subset of tile indices but fails the runtime visual check on known layout 15, so that basis is rejected and no tileset-7 PNGs are committed.
+
 ## In progress
 
-- Obtain a direct game-text/event location name for pack 0x50 / CC:1C3F.
-- Continue schema-v2 runtime binding and transition capture for additional maps.
+- Continue producing canonical `map_###.png` batches for additional tilesets, but only after validating the CHR source/base against a known runtime map.
+- Resolve the tileset-7 CHR source/base from runtime or ROM graphics-loader evidence; layout 15 is the validation target.
+- Preserve the parallel YMA/ROM-dialogue town-label work and use it to attach human names to rendered map IDs without shape-only guessing.
 
 ## Next actions
 
-1. Talk to an accessible pack-0x50 villager or trigger another location-bearing text/event source; confirm the human-facing name only with direct in-game support.
-2. Bind additional visited configurations and exact script occurrences through schema-v2 captures.
-3. Trace the confirmed CB:DE70 -> CC:1C3F exit to its underlying warp trigger and source/destination coordinates.
-4. Add collision, event-trigger and encounter layers for runtime-bound maps.
+1. Resolve the correct tileset-7 CHR graphics source/base and validate it by reproducing known runtime layout 15.
+2. Commit the next `map_###` render batch only after that known-map visual validation passes.
+3. Continue the YMA + ROM-dialogue crosslink so rendered IDs receive evidence-backed human-facing names.
+4. Then expand to the remaining tilesets and later attach collision, warp, event-trigger and encounter layers.
 
 ## Do not redo
 
+- Do not regenerate the committed tileset-4 render batch; `2d38f9a` already stores 29 canonical `map_###` images and metadata.
+- Do not treat the current all-zero CGRAM capture as palette evidence.
+- Do not use tileset-7 char-base 0xC000 as canonical; the known layout-15 visual validation failed.
 - Do not redesign the pause/exact-frame remote-lab model.
 - Do not rerun the weak screenshot-correlation experiment as proof of BG parameters.
 - Do not treat 0xA000 as the interior map page; it is unchanged across the transition control.

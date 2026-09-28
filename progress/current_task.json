@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Cross-link confirmed ROM map selectors to human-facing locations",
-  "base_main_head_verified": "096fccfe5d24e21e6f4e3536e5690de449d1f141",
+  "base_main_head_verified": "2d38f9afc6efcd6dc760a0b7699b03a430b7bf9b",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Use the closed 260-primary selector corpus as the structural backbone for assigning village, town, interior, dungeon and world-map identities, then attach collision/warp/event/encounter evidence without weakening the ROM-side proofs.",
   "definition_of_done": [
@@ -339,6 +339,15 @@
         "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
         "docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md"
       ]
+    },
+    {
+      "item": "Static map renderer committed for tileset 4: 29 distinct map/layout IDs are reconstructed as map_###.png plus per-map JSON and batch indexes from ROM layout/metatile data and validated runtime CHR capture.",
+      "evidence": [
+        "tools/python/render_map_layout_images.py",
+        "data/maps/rendered/tileset_04/index.json",
+        "data/maps/rendered/tileset_04/index.csv",
+        "docs/analysis/map_layout_render_batch_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
@@ -356,11 +365,22 @@
       "observation": "The bridge schema-v2 runtime validation gap is closed on the active emulator core.",
       "confidence": "confirmed_runtime_validation",
       "reason_not_promoted": "No further bridge reload task remains; future captures can use embedded map_state directly."
+    },
+    {
+      "observation": "The current Snes9x map captures expose cgram.bin as 512 zero bytes; tileset-4 renders therefore intentionally use 4bpp tile-index grayscale instead of inventing color.",
+      "confidence": "confirmed_capture_limitation",
+      "reason_not_promoted": "Color reconstruction waits for a non-zero CGRAM source or an independently proven palette loader."
+    },
+    {
+      "observation": "For tileset 7 stable interior, 4bpp char_base 0xC000 is a valid-address inference candidate but its map_015 static render does not reproduce the runtime room appearance and is rejected as a canonical render basis.",
+      "confidence": "confirmed_negative_render_test",
+      "reason_not_promoted": "Do not commit tileset-7 renders until the correct CHR source/base is proven."
     }
   ],
   "in_progress": [
     "Obtain a direct in-game text/event/location-name source for pack 0x50 / CC:1C3F to confirm or reject the ????? candidate.",
-    "Continue binding additional visited maps through schema-v2 captures while preserving exact transition edges."
+    "Continue binding additional visited maps through schema-v2 captures while preserving exact transition edges.",
+    "Static-render catalog extension: resolve a validated CHR source/base for each additional tileset, then commit only visually/runtime-validated map_### batches."
   ],
   "next_actions": [
     {
@@ -378,6 +398,10 @@
     {
       "order": 4,
       "action": "Then add collision, event-trigger and encounter layers for runtime-bound maps."
+    },
+    {
+      "order": 5,
+      "action": "Resolve the tileset-7 CHR source/base from runtime or ROM graphics-loader evidence; regenerate map_015 and require visual agreement before adding the next render batch."
     }
   ],
   "do_not_redo": [
@@ -432,7 +456,10 @@
     "Do not commit the local WRAM capture files used for runtime identity; only hashes, scalar values and derived joins are canonical.",
     "Do not leave the old schema-v2 runtime-version gap open; the active BizHawk bridge was refreshed and a schema-v2 frame-3253 capture matched the proven stable-interior state.",
     "Do not leave cfg_t04_l008_v2 unbound for the observed exterior; runtime pack 0x50 uniquely resolves CC:1C3F.",
-    "Do not promote the ????? candidate to display_name from external walkthrough/state/visual corroboration alone; require direct in-game text or event/location evidence."
+    "Do not promote the ????? candidate to display_name from external walkthrough/state/visual corroboration alone; require direct in-game text or event/location evidence.",
+    "Do not regenerate tileset-4 map renders from scratch; commit 2d38f9a already stores 29 map_### PNGs plus metadata under data/maps/rendered/tileset_04.",
+    "Do not use the current cgram.bin as color evidence; it is 512 zero bytes.",
+    "Do not promote tileset-7 char_base 0xC000 as correct merely because it fits some tile indices; the map_015 visual test failed."
   ],
   "runtime_only_artifacts": [
     {
@@ -548,7 +575,11 @@
     "data/maps/samples/pack50_shrine_exterior_runtime_identity.json",
     "data/maps/samples/pack50_shrine_exterior_runtime_resolution.json",
     "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
-    "docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md"
+    "docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md",
+    "tools/python/render_map_layout_images.py",
+    "data/maps/rendered/tileset_04/index.json",
+    "data/maps/rendered/tileset_04/index.csv",
+    "docs/analysis/map_layout_render_batch_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",
