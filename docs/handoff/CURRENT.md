@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `6543a43`
+- Base main HEAD verified: `712e2029f2fb7a70387c83801a92f43d41f3abd3`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -101,28 +101,33 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/map_pack_entry79_seed_catalog.csv`
   - `data/maps/selectors/map_pack_entry79_seed_summary.json`
   - `docs/analysis/map_pack_entry_paths_20260928.md`
+- A conservative normal-mode prefix decoder now walks all 118 unresolved record0/entry1 selectors using only independently proven opcode lengths. 56 prefixes in 56 packs reach the candidate 0x50 with exact instruction alignment; 62 stop at the first unapproved opcode. No selector is promoted yet because mode-state mutation through decoded handler call graphs still needs proof.
+  - `tools/python/analyze_map_selector_prefixes.py`
+  - `data/maps/selectors/record0_entry1_prefix_analysis.csv`
+  - `data/maps/selectors/record0_entry1_prefix_summary.json`
+  - `docs/analysis/map_selector_prefix_decode_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed_state0_seed_reachability**: All 118 unresolved record-0 primary selectors are entry_id 0x01, and state 0 explicitly seeds current-pack entry 0x01 through 81:98D1 -> 84:8508 -> 84:858D.
-  - Why not promoted: C4 VM slots preserve pack context but not $1398; commands execute discretely, so mode persistence from entry start to the later candidate 0x50 still needs proof.
-- **confirmed_static**: The CA:C2F4 seed table is a separate entry_id 0x79 family: 90/90 seeds are exact entry-0x79 substream starts inside the same-numbered pack.
-  - Why not promoted: This path does not directly execute the record0/entry1 map-selector family.
+- **confirmed_instruction_alignment**: 56/118 unresolved record0/entry1 prefixes reach their candidate 0x50 using only proven fixed-length opcodes; 55 of those 56 use only opcode 0x96/0x10/0x11/0x33, while one additionally uses 0x15.
+  - Why not promoted: Instruction alignment alone does not prove $1398 remains state0; decoded handlers and relevant callees must be cleared for $1398/$1399 writes or C0:C9E7 re-entry.
+- **confirmed_decoder_stop_distribution**: The remaining 62 prefixes stop conservatively at A3(23), B3(22), E8(6), 3D(4), A0(2), E1(2), D0(1), B4(1), or 64(1).
+  - Why not promoted: Those opcode lengths/control-flow semantics are not yet approved for the safe prefix decoder.
 - **strong_structural_mode_unresolved**: 52 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after full-pack filtering.
   - Why not promoted: Their opcode meaning still depends on $1398 at execution.
 
 ## In progress
 
-- Classify the normal VM instruction prefixes between state0-seeded record0/entry1 starts and each unresolved candidate 0x50, looking specifically for commands that can change $1399/$1398 before the selector executes.
-- Promote record0 selectors whose state0 path cannot leave normal mode before the 0x50 boundary; retain branch/wait/state-transition cases for runtime tracing.
-- Propagate any new primary confirmations into unresolved immediate 0x51 pairs.
+- Complete the transitive call-graph safety check for normal opcodes 0x96/0x10/0x11/0x33 used by 55 fully aligned record0/entry1 prefixes.
+- If those handlers cannot mutate $1398/$1399 or re-enter C0:C9E7, promote the corresponding selectors and propagate immediate 0x51 status.
+- Then evaluate the single aligned prefix containing opcode 0x15 and expand the decoder to the blocked opcode families.
 
 ## Next actions
 
-1. Build a safe normal-mode prefix decoder for the 118 unresolved record0/entry1 candidates using proven C4 handler lengths; stop at branches, waits or unknown handlers rather than guessing.
-2. For each decoded prefix, detect handlers/callees that can write $1399 or enter C0:C9E7; classify prefixes with no such path as state0-persistent up to 0x50.
-3. Promote only those primary 0x50 rows with proven state0 persistence; propagate their immediate 0x51 pair status.
-4. Use runtime trace hooks only for the residual branch/wait/multi-mode cases.
+1. Trace handlers 0x96/0x10/0x11/0x33 and their direct/transitive callees for writes to $1398/$1399 or transition through C0:C9E7.
+2. Promote only the fully aligned prefixes whose entire decoded call graph is mode-safe; propagate immediate 0x51 pair status.
+3. Evaluate opcode 0x15 for the remaining aligned prefix, then add safe lengths/control-flow handling for A3/B3/E8/3D/A0/E1/D0/B4/64 one family at a time.
+4. Use runtime trace hooks only for residual branch/wait/multi-mode cases.
 5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
 ## Do not redo
@@ -151,6 +156,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not assign one mode state to an entire pack. C4 VM slots preserve/inherit $126E independently and normal opcode 0x04 can switch the current slot pack context.
 - Do not merge CA:C2F4 entry-0x79 seed scripts with record0/entry-0x01 map initialization; they are separate dispatch families.
 - Do not bulk-promote the 118 record0 unresolved selectors merely because state0 seeds entry1. VM commands are scheduled discretely and global $1398 is not stored per slot; prove mode persistence to each 0x50 boundary.
+- Do not promote record0/entry1 selectors solely because the prefix decoder reaches 0x50; mode-state safety of every decoded handler/callee still has to be proven.
+- Do not guess lengths for A3/B3/E8/3D/A0/E1/D0/B4/64; the safe decoder must stop until each family is independently bounded.
 
 ## Runtime-only artifacts
 
@@ -201,6 +208,10 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `data/maps/selectors/map_pack_entry79_seed_catalog.csv`
 - `data/maps/selectors/map_pack_entry79_seed_summary.json`
 - `docs/analysis/map_pack_entry_paths_20260928.md`
+- `tools/python/analyze_map_selector_prefixes.py`
+- `data/maps/selectors/record0_entry1_prefix_analysis.csv`
+- `data/maps/selectors/record0_entry1_prefix_summary.json`
+- `docs/analysis/map_selector_prefix_decode_20260928.md`
 
 ## Resume instruction
 

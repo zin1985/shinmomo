@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "record0_entry1_selector_prefix_analysis",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "target_count": 118,
+  "safe_length_opcodes": {
+    "0x04": 2,
+    "0x08": 4,
+    "0x10": 2,
+    "0x11": 2,
+    "0x13": 2,
+    "0x15": 3,
+    "0x2D": 2,
+    "0x33": 4,
+    "0x96": 2
+  },
+  "status_counts": {
+    "blocked_unknown_3D": 4,
+    "blocked_unknown_64": 1,
+    "blocked_unknown_A0": 2,
+    "blocked_unknown_A3": 23,
+    "blocked_unknown_B3": 22,
+    "blocked_unknown_B4": 1,
+    "blocked_unknown_D0": 1,
+    "blocked_unknown_E1": 2,
+    "blocked_unknown_E8": 6,
+    "reached_target": 56
+  },
+  "reached_target_count": 56,
+  "reached_target_distinct_packs": 56,
+  "reached_opcode_sequences": [
+    {
+      "sequence": "96 10 10 10 11",
+      "count": 16
+    },
+    {
+      "sequence": "96 33 10 11",
+      "count": 13
+    },
+    {
+      "sequence": "96 10 10 11",
+      "count": 11
+    },
+    {
+      "sequence": "96 10 11",
+      "count": 8
+    },
+    {
+      "sequence": "10 10 11",
+      "count": 4
+    },
+    {
+      "sequence": "96 33 11",
+      "count": 3
+    },
+    {
+      "sequence": "96 10 10 11 15",
+      "count": 1
+    }
+  ],
+  "promotion_policy": "reached_target is structural prefix alignment only. Do not promote to confirmed normal mode until every decoded handler/callee is cleared for $1398/$1399 mutation or C0:C9E7 re-entry."
+}
