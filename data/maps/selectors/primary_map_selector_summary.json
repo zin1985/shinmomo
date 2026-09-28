@@ -3,7 +3,7 @@
   "kind": "derived_map_selector_catalog",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
   "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
-  "normal_vs_special_dispatch_caveat": "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when $1398 != 0. The bank82-special 0x50 consumes two bytes; therefore its next opcode would be the normal-map candidate's layout_id byte. Rows whose layout_id is outside the proven special range or maps to the C4 BRK handler cannot be interpreted as special 0x50 and are promoted to confirmed normal mode. In addition, a narrowly proven state0 record0/entry1 prefix family is promoted when its prefix uses only 96/10/11/33, or a final 0x15 after that safe family; the state0 helper seeds $035F=2, and every descriptor-resolved B910 indirect target is one of the cleared B924/B944 routines. Other rows remain mode-gate unresolved.",
+  "normal_vs_special_dispatch_caveat": "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when $1398 != 0. The bank82-special 0x50 consumes two bytes; therefore its next opcode would be the normal-map candidate's layout_id byte. Rows whose layout_id is outside the proven special range or maps to the C4 BRK handler cannot be interpreted as special 0x50 and are promoted to confirmed normal mode. In addition, a narrowly proven state0 record0/entry1 family is promoted through a small safe CFG (96/10/11/33/08/2D/A3, B2/B3/B4 branches, plus terminal-only 0x15); the state0 helper seeds $035F=2, and every descriptor-resolved B910 indirect target is one of the cleared B924/B944 routines. Other rows remain mode-gate unresolved.",
   "corpus": {
     "parsed_pack_count": 230,
     "parse_failure_pack_ids": [],
@@ -33,14 +33,15 @@
     "strong_shape_total": 263,
     "confirmed_setup_signature": 65,
     "confirmed_special_interpretation_impossible": 70,
-    "state0_prefix_mode_safe_rows": 138,
-    "newly_promoted_state0_safe_prefix": 56,
+    "state0_prefix_mode_safe_rows": 200,
+    "newly_promoted_state0_safe_prefix": 99,
+    "newly_promoted_state0_cfg_branch_rows": 43,
     "state0_prefix_b910_targets": [
       "C0:B924",
       "C0:B944"
     ],
-    "confirmed_normal_union": 182,
-    "mode_gate_unresolved": 81,
+    "confirmed_normal_union": 225,
+    "mode_gate_unresolved": 38,
     "special_interpretation_status_counts": {
       "invalid_bank82_special_range": 60,
       "invalid_normal_brk": 10,
@@ -60,8 +61,8 @@
   "secondary": {
     "range_plausible_substream_rows": 184,
     "immediate_pair_rows_total": 105,
-    "confirmed_normal_immediate_pairs": 85,
-    "strong_immediate_pairs_mode_gate_unresolved": 20,
+    "confirmed_normal_immediate_pairs": 101,
+    "strong_immediate_pairs_mode_gate_unresolved": 4,
     "mode_ambiguous_standalone_rows": 79,
     "unique_immediate_pair_configurations": 51
   },

@@ -57,10 +57,14 @@ STATE0_PREFIX_SAFE_LENGTHS = {
     0x10: 2,
     0x11: 2,
     0x33: 4,
+    0x08: 4,
+    0x2D: 2,
+    0xA3: 2,
     # 0x15 is allowed only when it is the final instruction before the
     # candidate 0x50; see state0_prefix_mode_safe().
     0x15: 3,
 }
+STATE0_SAFE_BRANCH_OPS = {0xB2, 0xB3, 0xB4}
 STATE0_DESCRIPTOR_INDEX = 2
 STATE0_DESCRIPTOR_EXPECTED_PTR = 0x0850
 STATE0_SAFE_B910_TARGETS = {0xB924, 0xB944}
@@ -269,35 +273,125 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
     if rom[op15 : op15 + len(expected15)] != expected15:
         raise SystemExit("unexpected opcode 0x15 handler body at C4:8AE0")
 
+    # Upper-range VM grammar. Bytes A0..AF and B0..BF are intercepted by the
+    # scheduler before the ordinary opcode dispatcher.
+    range_dispatch = file_from_cpu(0xC4, 0x809C)
+    expected_range = bytes.fromhex(
+        "A0 01 A7 98 C9 E0 90 03 4C 2D 81 "
+        "C9 D0 90 03 4C 08 81 C9 C0 90 03 4C 4F 81 "
+        "C9 B0 B0 6A C9 A0 90 03 4C 45 81 20 A2 87 80 C7"
+    )
+    if rom[range_dispatch : range_dispatch + len(expected_range)] != expected_range:
+        raise SystemExit("unexpected upper-range VM dispatcher at C4:809B")
+
+    # A3 -> 83E3: bit test -> boolean push.  B2/B3/B4 are relative branches.
+    anchors = {
+        (0xC4, 0x8184): bytes.fromhex("E3 83"),  # A3 jump-table entry
+        (0xC4, 0x818F): bytes.fromhex("23 82"),  # B2
+        (0xC4, 0x8191): bytes.fromhex("15 82"),  # B3
+        (0xC4, 0x8193): bytes.fromhex("0A 82"),  # B4
+        (0xC4, 0x83E3): bytes.fromhex(
+            "20 ED 83 3D 46 12 D0 9C 80 9F"
+        ),
+        (0xC4, 0x820A): bytes.fromhex(
+            "20 42 84 86 9E 05 9E D0 10 80 09"
+        ),
+        (0xC4, 0x8215): bytes.fromhex(
+            "20 42 84 86 9E 05 9E F0 05 A9 02 4C 10 84"
+        ),
+        (0xC4, 0x8223): bytes.fromhex(
+            "A2 00 B7 98 10 01 CA 18 65 98 85 98 "
+            "8A 65 99 85 99 A9 00 65 9A 85 9A 60"
+        ),
+        # Normal conditions used by the newly reachable CFG family.
+        (0xC4, 0x8A0D): bytes.fromhex(
+            "B7 98 85 2A C8 B7 98 85 2B C8 B2 2A "
+            "38 F7 98 20 3F 89 A9 04 4C 10 84"
+        ),
+        (0xC4, 0x9679): bytes.fromhex(
+            "AD 06 03 38 F7 98 20 3F 89 4C 5E 89"
+        ),
+    }
+    for (bank, addr), expected in anchors.items():
+        o = file_from_cpu(bank, addr)
+        if rom[o : o + len(expected)] != expected:
+            raise SystemExit(
+                f"unexpected state0 CFG anchor at {bank:02X}:{addr:04X}"
+            )
+
 
 def state0_prefix_mode_safe(
     rom: bytes,
     record_index: int,
     entry_id: int,
     stream_start: int,
+    stream_end: int,
     target: int,
-) -> tuple[bool, str]:
-    """Prove the common state-0 prefix family remains in normal mode.
+) -> tuple[bool, str, bool]:
+    """Prove a state-0 record0/entry1 path reaches target in normal mode.
 
-    This is intentionally much narrower than the general prefix decoder.
-    It accepts only record0/entry1 and only opcode 96/10/11/33.  For every
-    10/33 descriptor operation, it resolves the $035F=2 descriptor through
-    C3:0850 and requires B910 to land on the already-cleared B924/B944
-    routines.
+    The proof is deliberately a small CFG, not a linear byte walker.
+
+    Safe normal operations:
+      96/10/11/33 plus condition producers 08/2D and bit-test A3.
+
+    Safe control-flow operations:
+      B2 = unconditional signed rel8 branch
+      B3 = branch on zero, otherwise +2
+      B4 = branch on nonzero, otherwise +2
+
+    0x15 remains special: it is accepted only as the final instruction before
+    target because its registered callback can later alter $035F.
+
+    For every 10/33 descriptor operation, state0's explicit $035F=2 seed is
+    used to resolve C3:0850 and B910 must land on B924/B944.
     """
     if record_index != 0 or entry_id != 0x01:
-        return False, ""
+        return False, "", False
 
-    p = stream_start
-    b910_targets: set[int] = set()
+    def signed8(x: int) -> int:
+        return x - 0x100 if x & 0x80 else x
+
     descriptor_base = file_from_cpu(0xC3, STATE0_DESCRIPTOR_EXPECTED_PTR)
     b910_table = file_from_cpu(0xC0, 0xB91C)
 
-    while p < target:
+    queue = [stream_start]
+    seen: set[int] = set()
+    b910_targets: set[int] = set()
+    used_branch = False
+
+    while queue:
+        p = queue.pop(0)
+        if p in seen:
+            continue
+        seen.add(p)
+
+        if p == target:
+            label = ",".join(f"C0:{x:04X}" for x in sorted(b910_targets))
+            return True, label, used_branch
+
+        if p < stream_start or p >= stream_end:
+            continue
+
         op = rom[p]
+
+        if op in STATE0_SAFE_BRANCH_OPS:
+            if p + 2 > stream_end:
+                continue
+            used_branch = True
+            branch = p + signed8(rom[p + 1])
+            if op == 0xB2:
+                queue.append(branch)
+            else:
+                # Runtime condition is unknown; either successor can represent
+                # a normal-mode execution. Both branch handlers are mode-safe.
+                queue.append(p + 2)
+                queue.append(branch)
+            continue
+
         length = STATE0_PREFIX_SAFE_LENGTHS.get(op)
-        if length is None or p + length > target:
-            return False, ""
+        if length is None or p + length > stream_end:
+            continue
 
         descriptor_id = None
         if op == 0x10:
@@ -305,40 +399,30 @@ def state0_prefix_mode_safe(
         elif op == 0x33:
             descriptor_id = rom[p + 3]
         elif op == 0x15:
-            # BAB8 registers a callback that can later change $035F through
-            # $1134/$0659.  It is mode-safe synchronously, but to keep the
-            # descriptor proof independent of callback timing we accept it
-            # only when no later prefix instruction exists.
             if p + length != target:
-                return False, ""
+                continue
 
         if descriptor_id is not None:
             if descriptor_id == 0:
-                return False, ""
+                continue
             descriptor = descriptor_base + (descriptor_id - 1) * 8
             if descriptor + 8 > len(rom):
-                return False, ""
+                continue
             last = rom[descriptor + 7]
             x = (last & 0xF0) >> 3
-            # $1123 is an even byte offset into the B910 indirect table.
             if x & 1:
-                return False, ""
+                continue
             table_entry = b910_table + x
             if table_entry + 2 > len(rom):
-                return False, ""
+                continue
             call_target = u16_file(rom, table_entry)
             if call_target not in STATE0_SAFE_B910_TARGETS:
-                return False, ""
+                continue
             b910_targets.add(call_target)
 
-        p += length
+        queue.append(p + length)
 
-    if p != target:
-        return False, ""
-
-    label = ",".join(f"C0:{x:04X}" for x in sorted(b910_targets))
-    return True, label
-
+    return False, "", used_branch
 
 def special_interpretation_status(rom: bytes, layout_id: int) -> str:
     """Classify the opcode that follows a bank82-special 0x50 interpretation.
@@ -451,11 +535,16 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                 )
                 special_status = special_interpretation_status(rom, layout_id)
                 special_impossible = special_status.startswith("invalid_")
-                state0_safe, state0_b910_targets = state0_prefix_mode_safe(
+                (
+                    state0_safe,
+                    state0_b910_targets,
+                    state0_cfg_branch_used,
+                ) = state0_prefix_mode_safe(
                     rom,
                     record_index,
                     entry_id,
                     stream_start,
+                    stream_end,
                     p,
                 )
                 # Count this proof as a promotion only when earlier independent
@@ -507,6 +596,7 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     "state0_prefix_mode_safe": state0_safe,
                     "state0_prefix_promoted": state0_prefix_promoted,
                     "state0_prefix_b910_targets": state0_b910_targets,
+                    "state0_cfg_branch_used": state0_cfg_branch_used,
                     "normal_mode_confirmed": normal_mode_confirmed,
                     **meta,
                     "immediate_secondary": False,
@@ -618,6 +708,9 @@ def main() -> None:
     special_impossible = [r for r in primary if r["special_interpretation_impossible"]]
     state0_prefix_safe = [r for r in primary if r["state0_prefix_mode_safe"]]
     state0_prefix_promoted = [r for r in primary if r["state0_prefix_promoted"]]
+    state0_cfg_promoted = [
+        r for r in state0_prefix_promoted if r["state0_cfg_branch_used"]
+    ]
     normal_confirmed = [r for r in primary if r["normal_mode_confirmed"]]
     unresolved_primary = [r for r in primary if not r["normal_mode_confirmed"]]
     paired = [r for r in primary if r["immediate_secondary"]]
@@ -654,9 +747,9 @@ def main() -> None:
             "Rows whose layout_id is outside the proven special range or maps to "
             "the C4 BRK handler cannot be interpreted as special 0x50 and are "
             "promoted to confirmed normal mode. In addition, a narrowly proven "
-            "state0 record0/entry1 prefix family is promoted when its prefix uses "
-            "only 96/10/11/33, or a final 0x15 after that safe family; the "
-            "state0 helper seeds $035F=2, and every "
+            "state0 record0/entry1 family is promoted through a small safe CFG "
+            "(96/10/11/33/08/2D/A3, B2/B3/B4 branches, plus terminal-only "
+            "0x15); the state0 helper seeds $035F=2, and every "
             "descriptor-resolved B910 indirect target is one of the cleared "
             "B924/B944 routines. Other rows remain mode-gate unresolved."
         ),
@@ -667,6 +760,7 @@ def main() -> None:
             "confirmed_special_interpretation_impossible": len(special_impossible),
             "state0_prefix_mode_safe_rows": len(state0_prefix_safe),
             "newly_promoted_state0_safe_prefix": len(state0_prefix_promoted),
+            "newly_promoted_state0_cfg_branch_rows": len(state0_cfg_promoted),
             "state0_prefix_b910_targets": sorted(
                 {
                     target

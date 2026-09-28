@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `540a4b3`
+- Base main HEAD verified: `dbee54aa275f37354f76cd1cccde5718c724d3c4`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -124,26 +124,33 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/secondary_map_selector_candidates.csv`
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_opcode15_promotion_20260928.md`
+- The C4 scheduler upper-range VM grammar is now reconstructed enough to treat A3/B2/B3/B4 correctly as meta control instructions rather than ordinary dispatch-table opcodes. A3 is a bit-test boolean producer; B2 is unconditional signed-rel8 branch; B3/B4 are zero/nonzero conditional signed-rel8 branches. Together with mode-safe 0x08/0x2D conditions and the existing state0 descriptor proof, a CFG promotes 43 more record0/entry1 selectors. Confirmed primary rises 182->225, unresolved falls 81->38, and 16 immediate 0x51 pairs rise confirmed secondary 85->101.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/secondary_map_selector_candidates.csv`
+  - `data/maps/selectors/state0_safe_prefix_promotions.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed_decoder_backlog**: The largest remaining conservative prefix stops are A3 (23 rows) and B3 (22 rows), followed by E8 (6), 3D (4), A0 (2), E1 (2), D0/B4/64 (1 each).
-  - Why not promoted: Each opcode family still needs an exact length/control-flow/mode-safety model.
-- **strong_structural_mode_unresolved**: 20 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after the opcode-0x15 promotion.
-  - Why not promoted: Their opcode meaning still depends on $1398 at execution.
+- **confirmed_catalog**: Only 38/263 primary shapes remain mode-unresolved after the upper-range CFG promotion. The old A3/B3 stop counts are obsolete.
+  - Why not promoted: The residual rows require a fresh post-promotion distribution and additional meta/ordinary opcode grammar.
+- **confirmed_catalog**: Only 4/105 immediate 0x50+0x51 pairs remain mode-unresolved; 79 standalone 0x51 shapes remain mode-ambiguous.
+  - Why not promoted: Standalone 0x51 semantics still depend on $1398 and the four unresolved pairs inherit unresolved parent primaries.
 
 ## In progress
 
-- Reverse opcode A3 prefix semantics/length and mode-state side effects for the 23-row stop family.
-- Then reverse B3 for the 22-row stop family.
-- Propagate every newly confirmed primary selector into immediate 0x51 status.
+- Recompute the exact 38-row unresolved primary distribution after the A3/B2/B3/B4 CFG promotion.
+- Reverse the next dominant residual grammar from that fresh distribution, including D/E upper-range meta operations where they block record0/entry1 paths.
+- Propagate every new primary confirmation into the remaining four immediate 0x51 pairs.
 
 ## Next actions
 
-1. Identify the actual C4 normal dispatch handler and instruction grammar for prefix byte A3 in the record0/entry1 streams; bound its branches/callees and mode-state effects.
-2. Add A3 to the conservative prefix decoder only where exact length/control flow is proven; rerun selector promotion.
-3. Repeat for B3, then E8/3D/A0/E1/D0/B4/64 in descending backlog size.
-4. Use runtime trace hooks only for residual branch/wait/multi-mode cases.
+1. Recompute unresolved rows by record index, entry id, first blocking grammar and pack after the 225-primary promotion.
+2. Decode the highest-yield remaining meta/ordinary VM family from the fresh backlog, using the proven C4:809C range grammar instead of the ordinary dispatch table for bytes >=A0.
+3. Extend the state0 CFG only with fail-closed anchor checks and rerun the canonical catalog.
+4. Use runtime traces only for residual branch/wait/multi-mode cases that cannot be closed statically.
 5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
 ## Do not redo
@@ -181,6 +188,9 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not treat B91C as an unresolved wide indirect table for the promoted state0 family; descriptor resolution restricts it to B924/B944 only.
 - Do not allow opcode 0x15 as a general safe prefix instruction. Its BAB8 callback can later change $035F; it is only proven safe here when 0x15 is the final instruction immediately before candidate 0x50.
 - Do not use 181/82 as the current selector count after the terminal opcode-0x15 proof; canonical counts are now 182 confirmed / 81 unresolved.
+- Do not interpret A3/B2/B3/B4 through the ordinary C4:87D4 opcode table; the scheduler intercepts A0..AF and B0..BF first.
+- Do not use the old 182/81 selector counts after the upper-range CFG proof; canonical counts are now 225 confirmed / 38 unresolved.
+- Do not linearize B3/B4; both runtime branch outcomes must be represented in the safe CFG.
 
 ## Runtime-only artifacts
 
@@ -239,6 +249,7 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `data/maps/selectors/state0_safe_prefix_promotions.csv`
 - `docs/analysis/map_selector_state0_promotion_20260928.md`
 - `docs/analysis/map_selector_opcode15_promotion_20260928.md`
+- `docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md`
 
 ## Resume instruction
 
