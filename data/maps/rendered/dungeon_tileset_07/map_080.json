@@ -1,0 +1,35 @@
+{
+  "tileset_id": 7,
+  "layout_id": 80,
+  "render_mode": "normal_4bpp_rom_setup",
+  "transparent_color_index_zero": true,
+  "graphics_operands": [
+    10,
+    11
+  ],
+  "palette_operand": 9,
+  "state0_descriptor_index": 2,
+  "used_tile_ids": [
+    256,
+    688,
+    689,
+    690
+  ],
+  "used_palette_indices_nonzero": [
+    53,
+    54,
+    55,
+    59,
+    63
+  ],
+  "graphics_resource_coverage_complete": true,
+  "palette_resource_coverage_complete": true,
+  "config_ids": [
+    "cfg_t07_l080_v2"
+  ],
+  "pack_ids_hex": [
+    "0x4B"
+  ],
+  "output_png": "map_080.png",
+  "output_png_sha256": "99428617349195F1179A236AA5CE26631AAA6D7F24D3960054F505E6D0BCCD17"
+}
