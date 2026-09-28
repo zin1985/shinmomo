@@ -1,4 +1,4 @@
-﻿{
+{
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Cross-link confirmed ROM map selectors to human-facing locations",
-  "base_main_head_verified": "1eccb6da6c1782b6898a4d5ff08a515f16acad63",
+  "base_main_head_verified": "4b00bbbc18cf4bfed67ba63769ecc6f770d236c7",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Use the closed 260-primary selector corpus as the structural backbone for assigning village, town, interior, dungeon and world-map identities, then attach collision/warp/event/encounter evidence without weakening the ROM-side proofs.",
   "definition_of_done": [
@@ -290,45 +290,69 @@
         "tools/remote_lab/shinmomo_remote_bridge.lua",
         "tools/remote_lab/README.md"
       ]
+    },
+    {
+      "item": "Frame-3253 runtime scalar evidence uniquely binds stable_interior_l1 to config cfg_t07_l015_v2, pack 0x2E, record 0 / entry 0x01, command CB:DE70. $0305, $126E and $12B4 all equal 0x2E while $1398=0 and selectors are 7/15/variant2. Raw WRAM remains local-only; Git stores hashes and scalar-derived evidence only.",
+      "evidence": [
+        "data/maps/samples/stable_interior_runtime_identity.json",
+        "data/maps/samples/stable_interior_runtime_resolution.json",
+        "docs/analysis/stable_interior_runtime_identity_20260928.md",
+        "data/maps/samples/stable_interior_l1.json"
+      ]
+    },
+    {
+      "item": "A reusable runtime map resolver now joins derived runtime identity or a schema-v2 map manifest to the confirmed primary selector corpus. Selector 7/15/2 yields three corpus rows; runtime pack 0x2E narrows them to exactly CB:DE70. A synthetic schema-v2 manifest fixture reproduces the same unique resolution.",
+      "evidence": [
+        "tools/python/resolve_map_runtime_identity.py",
+        "data/maps/samples/stable_interior_runtime_resolution.json"
+      ]
+    },
+    {
+      "item": "The configuration index now consumes runtime identity records fail-closed and records runtime-bound samples, pack ids and exact command addresses. Current totals remain 149 configurations, with one runtime-bound configuration and one runtime-bound unique occurrence.",
+      "evidence": [
+        "tools/python/build_map_configuration_index.py",
+        "data/maps/configurations/map_configuration_index.csv",
+        "data/maps/configurations/map_configuration_summary.json"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
     {
-      "observation": "All 260 primary selectors are closed and grouped into 149 configurations; dialogue-family provenance joins 260/260 occurrences.",
-      "confidence": "confirmed_derived_index",
-      "reason_not_promoted": "Human-facing location labels require independent runtime or event/location evidence, not pack-level dialogue semantics alone."
+      "observation": "Stable interior runtime identity is exact at the script-occurrence level: cfg_t07_l015_v2 / pack 0x2E / CB:DE70.",
+      "confidence": "confirmed_runtime_join",
+      "reason_not_promoted": "The exact in-game place name is still not independently proven; keep only the descriptive indoor/shrine-like classification."
     },
     {
-      "observation": "Only cfg_t07_l007_v2 (pack 0x4E) and cfg_t04_l008_v2 (pack 0x50) currently have curated semantic dialogue contexts.",
-      "confidence": "confirmed_context_join",
-      "reason_not_promoted": "Each pack contains multiple distinct location/story references, so neither configuration is assigned a display_name."
+      "observation": "The active BizHawk process still has the older bridge loaded: the identity probe map manifest was schema version 1 even though repository bridge code implements schema version 2.",
+      "confidence": "confirmed_runtime_version_gap",
+      "reason_not_promoted": "A bridge reload/restart is required before schema-v2 map_state embedding can be validated on the active core."
     },
     {
-      "observation": "Map-capture manifest schema v2 can record pack/mode/selector WRAM scalars needed for runtime identity.",
-      "confidence": "implemented_not_runtime_revalidated",
-      "reason_not_promoted": "A fresh BizHawk bridge load and new map capture are still needed to validate the v2 manifest on the active emulator core."
+      "observation": "Pack 0x2E dialogue source family is currently not useful for naming the room; the known selected source rows are empty/minimal.",
+      "confidence": "confirmed_context_limit",
+      "reason_not_promoted": "Use warp/event/playlog or another runtime-bound location transition for place-name proof rather than dialogue inference."
     }
   ],
   "in_progress": [
-    "Reload/restart the remote-lab bridge and take a fresh map capture so the new map_state manifest fields can be validated.",
-    "Use runtime pack+selector identity to bind visited scenes to exact configuration/occurrence rows, then assign only independently supported human-facing labels."
+    "Use the exact pack-0x2E / CB:DE70 runtime anchor to search existing warp/event/location evidence for a human-facing place identity.",
+    "Keep the schema-v2 bridge reload as a runtime validation task; the resolver itself is already validated against a schema-v2 fixture."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "On the next safe runtime session, reload shinmomo_remote_bridge.lua and take a map-capture; verify manifest schema v2 map_state values against the active selector configuration."
+      "action": "Cross-link pack 0x2E / CB:DE70 with existing event, warp, transition and playlog evidence; assign a display_name only if an independent location name is supported."
     },
     {
       "order": 2,
-      "action": "Add a runtime-to-configuration resolver that joins manifest primary tileset/layout/variant and pack id to map_configuration_index.csv and primary_map_selector_catalog.csv."
+      "action": "Build or extend the runtime identity capture/resolution flow for additional visited maps so more of the 149 configurations become occurrence-bound."
     },
     {
       "order": 3,
-      "action": "Use playlog/dialogue/event evidence around a runtime-bound occurrence to assign the first evidence-backed display_name/map_group_id labels."
+      "action": "On the next safe emulator restart/reload, validate map-capture manifest schema v2 map_state fields against the already proven frame-3253 scalar semantics."
     },
     {
       "order": 4,
-      "action": "Then add collision, warp, event-trigger and encounter layers for each labeled map."
+      "action": "For each runtime-bound/labeled map, add collision, warp, event-trigger and encounter reconstruction layers."
     }
   ],
   "do_not_redo": [
@@ -377,7 +401,10 @@
     "Do not use the intermediate 260 confirmed / 3 unresolved state as the final primary corpus. Those three rows are now proven operand bytes, so canonical primary selector count is 260 / 260 confirmed with zero unresolved.",
     "Do not reintroduce CC:A71F, CC:FD5C or CC:FE6D as primary selectors; they are preserved only in non_opcode_primary_50_shapes.csv as negative evidence.",
     "Do not assign human-facing map names from pack-level dialogue semantic context alone; the same source family can contain references to multiple locations.",
-    "Do not commit raw WRAM when capturing map identity; manifest schema v2 stores only the small derived map_state scalars needed for joins."
+    "Do not commit raw WRAM when capturing map identity; manifest schema v2 stores only the small derived map_state scalars needed for joins.",
+    "Do not leave stable_interior_l1 at the three-occurrence selector ambiguity; frame 3253 proves pack 0x2E and uniquely resolves CB:DE70.",
+    "Do not assign a human place name to stable_interior_l1 from the shrine-like visual description or pack-0x2E dialogue family alone.",
+    "Do not commit the local WRAM capture files used for runtime identity; only hashes, scalar values and derived joins are canonical."
   ],
   "runtime_only_artifacts": [
     {
@@ -391,6 +418,18 @@
     {
       "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790520426924-2a33d5df_field_transition_probe",
       "description": "Transition control used to prove that pages 0x1000/0x1800 are scene-specific."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790585463777-473bcc2f_map_identity_probe",
+      "description": "Frame-3253 identity probe; manifest is schema v1 because the running emulator still had the previous bridge loaded."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/captures/mem_1790585489237-7b288fd8.json",
+      "description": "Local-only one-byte WRAM capture proving $0305=0x2E at frame 3253."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/captures/mem_1790585492082-e529ace2.json",
+      "description": "Local-only bounded WRAM scalar window proving $126E/$12B4 and $1398..$139F at frame 3253."
     }
   ],
   "canonical_evidence": [
@@ -453,7 +492,11 @@
     "tools/python/build_map_dialogue_context_crosslink.py",
     "data/maps/context/map_dialogue_pack_crosslink.csv",
     "data/maps/context/map_dialogue_pack_crosslink_summary.json",
-    "docs/analysis/map_configuration_context_index_20260928.md"
+    "docs/analysis/map_configuration_context_index_20260928.md",
+    "data/maps/samples/stable_interior_runtime_identity.json",
+    "data/maps/samples/stable_interior_runtime_resolution.json",
+    "tools/python/resolve_map_runtime_identity.py",
+    "docs/analysis/stable_interior_runtime_identity_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",
@@ -461,4 +504,3 @@
     "resume_behavior": "Read this file, verify latest main, then continue from next_actions[0] without redoing done/do_not_redo items."
   }
 }
-

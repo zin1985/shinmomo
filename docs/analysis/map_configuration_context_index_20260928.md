@@ -71,9 +71,23 @@ including Urashima, Yoro, Netaro, Ice Tower and Hope Capital.
 
 Therefore pack-level dialogue provenance is useful search context but is not
 sufficient to assert one human-facing map name.
-## Next bridge
 
-The strongest next discriminator is runtime identity.
+## First runtime-bound occurrence
+
+The frame-3253 stable interior now provides the first exact runtime join.
+Its scalar state has $0305=$126E=$12B4=0x2E and selector 7/15/2.
+
+The selector alone matches three confirmed occurrences, but pack 0x2E reduces
+that set to exactly one:
+
+`cfg_t07_l015_v2 -> pack 0x2E -> record 0 / entry 0x01 -> CB:DE70`
+
+`tools/python/resolve_map_runtime_identity.py` reproduces this join from
+`data/maps/samples/stable_interior_runtime_identity.json`.
+The configuration index now records one runtime-bound configuration and one
+runtime-bound unique occurrence. The exact in-game place name remains unset.
+
+## Next bridge
 
 Future map captures should store small derived WRAM metadata, not a raw WRAM
 dump:

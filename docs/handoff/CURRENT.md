@@ -172,25 +172,36 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `tools/remote_lab/shinmomo_remote_bridge.lua`
   - `tools/remote_lab/README.md`
 
+- Frame-3253 runtime scalar evidence closes the stable-interior occurrence identity: $0305=$126E=$12B4=0x2E, $1398=0 and selector 7/15/variant2. The three same-configuration selector rows are therefore narrowed to pack 0x2E / record0 / entry1 / CB:DE70. Raw WRAM remains local-only.
+  - `data/maps/samples/stable_interior_runtime_identity.json`
+  - `data/maps/samples/stable_interior_runtime_resolution.json`
+  - `tools/python/resolve_map_runtime_identity.py`
+  - `docs/analysis/stable_interior_runtime_identity_20260928.md`
+  - `data/maps/samples/stable_interior_l1.json`
+- The configuration index now imports runtime identity records fail-closed. `cfg_t07_l015_v2` records runtime pack 0x2E and exact command CB:DE70; current totals are one runtime-bound configuration / one runtime-bound unique occurrence. The resolver also reproduces the same join from a schema-v2 manifest fixture.
+  - `tools/python/build_map_configuration_index.py`
+  - `data/maps/configurations/map_configuration_index.csv`
+  - `data/maps/configurations/map_configuration_summary.json`
+
 ## Observed but not yet promoted
 
-- **confirmed_derived_index**: 260/260 primary occurrences are grouped into 149 configurations and all 260 join to same-index dialogue source families.
-- **context_only**: cfg_t07_l007_v2 / pack 0x4E and cfg_t04_l008_v2 / pack 0x50 have curated semantic contexts, but each context set spans multiple places.
-  - Why not named: pack-level dialogue provenance is not sufficient to identify one map name.
-- **implemented_not_runtime_revalidated**: map-capture schema v2 records pack/mode/selector scalars needed for runtime identity.
-  - Why not closed: a fresh bridge load and map capture have not yet validated those fields on the active core.
+- **confirmed_runtime_join**: stable_interior_l1 is exact at the occurrence level: cfg_t07_l015_v2 / pack 0x2E / CB:DE70.
+  - Why not named: the exact in-game place name is not independently proven.
+- **confirmed_runtime_version_gap**: the currently running BizHawk still has the previous Lua bridge loaded; its fresh identity-probe manifest is schema v1.
+  - Why not closed: reload/restart is required to validate schema-v2 map_state embedding on the active core.
+- **confirmed_context_limit**: pack 0x2E dialogue sources are empty/minimal and do not establish a place name.
 
 ## In progress
 
-- Validate map-capture schema v2 on a fresh remote-lab bridge session.
-- Join runtime pack + selector values to the 149 configuration index and exact occurrence rows.
+- Cross-link exact pack 0x2E / CB:DE70 with event, warp, transition and playlog evidence.
+- Expand runtime occurrence identity to additional visited maps.
 
 ## Next actions
 
-1. Reload the bridge and take a fresh map capture; verify manifest map_state values.
-2. Implement runtime-manifest -> configuration/occurrence resolver.
-3. Assign the first human-facing location labels only after runtime/event/playlog evidence agrees.
-4. Add collision, warp, event-trigger and encounter layers for labeled maps.
+1. Search existing event/warp/location evidence around pack 0x2E / CB:DE70; assign a human-facing place name only with independent support.
+2. Extend runtime identity capture/resolution to additional maps and configurations.
+3. On the next safe emulator reload, validate schema-v2 map_state fields on the active core.
+4. Add collision, warp, event-trigger and encounter layers for runtime-bound/labeled maps.
 
 ## Do not redo
 

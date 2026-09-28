@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_map_selector_resolution",
+  "sample_id": "stable_interior_l1",
+  "runtime_frame": 3253,
+  "runtime_state": {
+    "mode_1398": 0,
+    "current_pack_0305": 46,
+    "vm_pack_126e": 46,
+    "resolved_pack_12b4": 46,
+    "primary_tileset_139c": 7,
+    "primary_layout_139e": 15,
+    "map_variant_139b": 2
+  },
+  "config_id": "cfg_t07_l015_v2",
+  "selector_match_count": 3,
+  "selector_match_addresses": [
+    "CB:DE70",
+    "CC:5391",
+    "CE:0F2B"
+  ],
+  "pack_filtered_match_count": 1,
+  "pack_filtered_match_addresses": [
+    "CB:DE70"
+  ],
+  "resolved_unique_occurrence": true,
+  "resolved_occurrence": {
+    "pack_id_hex": "0x2E",
+    "record_index": 0,
+    "entry_id_hex": "0x01",
+    "substream_start": "CB:DE6A",
+    "command_addr": "CB:DE70",
+    "layout_ptr": "CF:2E1D",
+    "primary_tileset_ptr": "CE:44C0"
+  },
+  "embedded_resolution_checks": {
+    "config_id": true,
+    "command_addr": true,
+    "pack_id_hex": true
+  }
+}

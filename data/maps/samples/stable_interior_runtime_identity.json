@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "kind": "derived_runtime_map_identity",
+  "sample_id": "stable_interior_l1",
+  "policy": "Raw WRAM and screenshots remain local-only; this file stores only scalar values, hashes and derived joins.",
+  "runtime_frame": 3253,
+  "local_capture_evidence": [
+    {
+      "capture_id": "1790585463777-473bcc2f_map_identity_probe",
+      "kind": "map_capture_manifest_schema1",
+      "sha256": "5FB17B875F8959AE9E6B3165BF5193DEDCFCAA5AA7CAA36C49852880B6A0C69A"
+    },
+    {
+      "capture_id": "1790585489237-7b288fd8",
+      "kind": "wram_scalar_capture_0305",
+      "sha256": "4AEEA29A51464EA5EEA21011F107DAE7C2CDC61B45326C892039A3B2B68543D7"
+    },
+    {
+      "capture_id": "1790585492082-e529ace2",
+      "kind": "wram_scalar_window_126e_139f",
+      "sha256": "74BCA066A690CB1685A845A7FE3F4AE83FC9E17925A5A268A24891DCAA3FF61F"
+    }
+  ],
+  "map_state": {
+    "current_pack_0305": 46,
+    "current_pack_hex": "0x2E",
+    "vm_pack_126e": 46,
+    "resolved_pack_12b4": 46,
+    "mode_1398": 0,
+    "pending_mode_1399": 0,
+    "previous_mode_139a": 5,
+    "map_variant_139b": 2,
+    "primary_tileset_139c": 7,
+    "secondary_tileset_139d": 0,
+    "primary_layout_139e": 15,
+    "secondary_layout_139f": 0
+  },
+  "resolved_rom_identity": {
+    "config_id": "cfg_t07_l015_v2",
+    "pack_id_hex": "0x2E",
+    "record_index": 0,
+    "entry_id_hex": "0x01",
+    "command_addr": "CB:DE70",
+    "other_same_configuration_occurrences": [
+      "CC:5391",
+      "CE:0F2B"
+    ],
+    "resolution_basis": "Runtime pack id 0x2E plus runtime selector 50 07 0F 02 uniquely selects the pack-0x2E occurrence."
+  },
+  "scene_observation": {
+    "scene_class": "indoor",
+    "description": "shrine-like indoor/save-point vicinity",
+    "exact_in_game_place_name": null,
+    "evidence": [
+      "docs/evidence/playlog/2026-09-27/20260927_1255_1323_playlog.md",
+      "docs/analysis/map_sample_stable_interior_l1.md"
+    ]
+  }
+}

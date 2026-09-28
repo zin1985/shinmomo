@@ -60,9 +60,12 @@
     "tools/python/catalog_map_rom_tables.py",
     "data/maps/samples/stable_interior_rom_binding.json",
     "docs/analysis/stable_interior_rom_binding_20260928.md",
-    "tools/python/decode_map_layout.py"
+    "tools/python/decode_map_layout.py",
+    "data/maps/samples/stable_interior_runtime_identity.json",
+    "data/maps/samples/stable_interior_runtime_resolution.json",
+    "tools/python/resolve_map_runtime_identity.py"
   ],
-  "notes": "Exact runtime selectors bind this room to tileset 7 (CE:44C0) and layout 15 (CF:2E1D). Standalone ROM decoding matches the four $7F staging pages 1024/1024 bytes exactly. Tileset expansion produces one 64x32 SNES tilemap whose left/right screen maps correspond to VRAM 0x1000/0x1800; 1934/2048 words match exactly and every one of the 114 differences is a runtime 0x0100 blank/clip replacement. The earlier hypothesis that 0x1800 might be a separate secondary layer is superseded.",
+  "notes": "Exact runtime selectors bind this room to tileset 7 (CE:44C0) and layout 15 (CF:2E1D). Frame 3253 additionally proves $0305=$126E=$12B4=0x2E, resolving the three same-configuration script occurrences to pack 0x2E / CB:DE70. Standalone ROM decoding matches the four $7F staging pages 1024/1024 bytes exactly. Tileset expansion produces one 64x32 SNES tilemap whose left/right screen maps correspond to VRAM 0x1000/0x1800; 1934/2048 words match exactly and every one of the 114 differences is a runtime 0x0100 blank/clip replacement. The exact in-game place name remains unconfirmed.",
   "rom_binding": {
     "runtime_frame": 3253,
     "selectors": {
@@ -105,7 +108,10 @@
         "CC:5391",
         "CE:0F2B"
       ],
-      "secondary_opcode": "0x51"
+      "secondary_opcode": "0x51",
+      "runtime_resolved_pack_id": "0x2E",
+      "runtime_resolved_occurrence": "CB:DE70",
+      "runtime_resolution_evidence": "data/maps/samples/stable_interior_runtime_resolution.json"
     }
   }
 }

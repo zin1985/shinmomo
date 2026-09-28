@@ -29,6 +29,11 @@ def main() -> None:
         type=Path,
         default=Path("data/maps/configurations"),
     )
+    ap.add_argument(
+        "--runtime-identity-dir",
+        type=Path,
+        default=Path("data/maps/samples"),
+    )
     args = ap.parse_args()
 
     with args.primary.open(encoding="utf-8-sig", newline="") as f:
@@ -36,6 +41,18 @@ def main() -> None:
 
     if not rows or any(r["normal_mode_confirmed"].lower() != "true" for r in rows):
         raise SystemExit("primary catalog must be non-empty and fully confirmed")
+
+    runtime_by_config: dict[str, list[tuple[Path, dict]]] = defaultdict(list)
+    if args.runtime_identity_dir.exists():
+        for path in sorted(args.runtime_identity_dir.glob("*_runtime_identity.json")):
+            identity = json.loads(path.read_text(encoding="utf-8-sig"))
+            state = identity["map_state"]
+            cid = config_id(
+                int(state["primary_tileset_139c"]),
+                int(state["primary_layout_139e"]),
+                int(state["map_variant_139b"]),
+            )
+            runtime_by_config[cid].append((path, identity))
 
     groups: dict[tuple[int, int, int], list[dict]] = defaultdict(list)
     for row in rows:
@@ -66,7 +83,51 @@ def main() -> None:
         evidence_counts = Counter(r["evidence_class"] for r in members)
 
         cid = config_id(tileset, layout, variant)
-        stable = tileset == 7 and layout == 15 and variant == 2
+        runtime_records = runtime_by_config.get(cid, [])
+        member_by_addr = {r["command_addr"]: r for r in members}
+        for path, identity in runtime_records:
+            resolved = identity.get("resolved_rom_identity", {})
+            if resolved.get("config_id") not in (None, cid):
+                raise SystemExit(f"runtime config mismatch in {path}")
+            command_addr = resolved.get("command_addr")
+            if command_addr and command_addr not in member_by_addr:
+                raise SystemExit(
+                    f"runtime command {command_addr} is not in {cid}: {path}"
+                )
+            if command_addr and resolved.get("pack_id_hex") not in (
+                None,
+                member_by_addr[command_addr]["pack_id_hex"],
+            ):
+                raise SystemExit(f"runtime pack mismatch in {path}")
+
+        runtime_commands = sorted(
+            {
+                identity.get("resolved_rom_identity", {}).get("command_addr")
+                for _, identity in runtime_records
+                if identity.get("resolved_rom_identity", {}).get("command_addr")
+            }
+        )
+        runtime_packs = sorted(
+            {
+                identity.get("resolved_rom_identity", {}).get("pack_id_hex")
+                for _, identity in runtime_records
+                if identity.get("resolved_rom_identity", {}).get("pack_id_hex")
+            }
+        )
+        scene_hints = sorted(
+            {
+                identity.get("scene_observation", {}).get("scene_class")
+                for _, identity in runtime_records
+                if identity.get("scene_observation", {}).get("scene_class")
+            }
+        )
+        display_names = sorted(
+            {
+                identity.get("scene_observation", {}).get("exact_in_game_place_name")
+                for _, identity in runtime_records
+                if identity.get("scene_observation", {}).get("exact_in_game_place_name")
+            }
+        )
         out.append(
             {
                 "config_id": cid,
@@ -94,11 +155,23 @@ def main() -> None:
                 "evidence_class_counts": ";".join(
                     f"{k}:{v}" for k, v in sorted(evidence_counts.items())
                 ),
-                "scene_class_hint": "indoor" if stable else "unknown",
-                "display_name": "",
-                "known_sample_id": "stable_interior_l1" if stable else "",
-                "label_evidence": (
-                    "data/maps/samples/stable_interior_rom_binding.json" if stable else ""
+                "runtime_bound_sample_count": len(runtime_records),
+                "runtime_bound_pack_ids_hex": ";".join(runtime_packs),
+                "runtime_bound_command_addresses": ";".join(runtime_commands),
+                "runtime_identity_samples": ";".join(
+                    identity.get("sample_id", path.stem)
+                    for path, identity in runtime_records
+                ),
+                "runtime_identity_evidence": ";".join(
+                    str(path).replace("\\", "/") for path, _ in runtime_records
+                ),
+                "scene_class_hint": ";".join(scene_hints) if scene_hints else "unknown",
+                "display_name": ";".join(display_names),
+                "known_sample_id": ";".join(
+                    identity.get("sample_id", "") for _, identity in runtime_records
+                ),
+                "label_evidence": ";".join(
+                    str(path).replace("\\", "/") for path, _ in runtime_records
                 ),
             }
         )
@@ -126,6 +199,20 @@ def main() -> None:
         },
         "max_occurrence_count": max(int(r["occurrence_count"]) for r in out),
         "stable_interior_config_id": config_id(7, 15, 2),
+        "runtime_identity_sample_count": sum(
+            int(r["runtime_bound_sample_count"]) for r in out
+        ),
+        "runtime_bound_configuration_count": sum(
+            int(r["runtime_bound_sample_count"]) > 0 for r in out
+        ),
+        "runtime_bound_unique_occurrence_count": len(
+            {
+                addr
+                for r in out
+                for addr in r["runtime_bound_command_addresses"].split(";")
+                if addr
+            }
+        ),
         "human_labeled_configuration_count": sum(bool(r["display_name"]) for r in out),
         "scene_class_hint_count": sum(r["scene_class_hint"] != "unknown" for r in out),
         "outputs": ["map_configuration_index.csv", "map_configuration_summary.json"],
