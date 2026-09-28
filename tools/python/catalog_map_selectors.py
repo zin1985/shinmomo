@@ -64,7 +64,6 @@ STATE0_PREFIX_SAFE_LENGTHS = {
     # E dispatcher advances the stream by one byte before executing the
     # operator handler. E1 and E8 are mode-safe boolean/comparison operators
     # needed by the residual state0 map-entry CFG.
-    0xC2: 1,
     0xE0: 1,
     0xE1: 1,
     0xE7: 1,
@@ -78,9 +77,57 @@ STATE0_DESCRIPTOR_INDEX = 2
 STATE0_DESCRIPTOR_EXPECTED_PTR = 0x0850
 STATE0_SAFE_B910_TARGETS = {0xB924, 0xB944}
 
+# Concrete nested A0 call targets reached by the final four state0 record0/entry1
+# selector prefixes.  Each target is also a proven pack-record substream start.
+# Values are (end_bank, end_addr, SHA-256 of [start,end)).
+STATE0_SAFE_A0_SUBSTREAMS = {
+    (0xCC, 0x1828): (
+        0xCC, 0x1888,
+        "c47a70f91a033716d951dcc0ba289414b76b3b0002237d6358e6958d391b79fa",
+    ),
+    (0xCD, 0xF037): (
+        0xCD, 0xF04C,
+        "1ac93076e9caf622876239336365f449296357b2c9d7eb59d2677acbd9d86c40",
+    ),
+    (0xCD, 0x6C9C): (
+        0xCD, 0x6CBD,
+        "e9d588229eb3b63de36b85bd5392c4f98adc792ee74ae1818747b23cdf19eb4b",
+    ),
+    (0xCD, 0xE34F): (
+        0xCD, 0xE369,
+        "62d30200defccae0d1ce282f9b7b7bf7781df20f978f7f582765b7cfb6c7a0b4",
+    ),
+}
+
+# Normal opcode 0x02 dispatches through a 24-bit routine table.  Only these
+# operand/target pairs occur in the approved A0 substreams.
+STATE0_SAFE_OP02_TARGETS = {
+    0x06: (
+        0x84, 0xCC8A, 0xCC9D,
+        "45e2a30dcd6e700c1b978a5747fc7583e7aafa8b1d7e09d89c107d5c42aed71b",
+    ),
+    0x12: (
+        0x83, 0xBB7A, 0xBBAB,
+        "ebe1aae4eba1b276e2ec315a2394a53ecc506fe85a1ef045d1cb546a70db7b1f",
+    ),
+    0x1C: (
+        0x83, 0xADE2, 0xAE1C,
+        "ff79974456430cb90f21bbb0727c66521951bdfbbffe05aa2a906b352e21058a",
+    ),
+}
+
+STATE0_SAFE_7B_1E_SHA256 = (
+    "93401e0b252146738d78212938ea6646e946c3a4ed9f88535fbeab1eff05baaf"
+)
+
 
 def file_from_cpu(bank: int, addr: int) -> int:
     return ((bank - 0xC0) << 16) | (addr & 0xFFFF)
+
+
+def hirom_file_from_cpu(bank: int, addr: int) -> int:
+    """Map either 80-BF runtime mirror or C0-FF file-bank address to ROM."""
+    return ((bank & 0x3F) << 16) | (addr & 0xFFFF)
 
 
 def cpu_from_file(off: int) -> str:
@@ -424,6 +471,43 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
         (0xC4, 0xC362): bytes.fromhex(
             "A9 02 80 02 A9 01 9C 57 19 18 60"
         ),
+        # A0 nested-call / B0 return contract.
+        (0xC4, 0x846F): bytes.fromhex(
+            "AD 6B 12 48 A5 98 48 A5 99 48 A5 9A 48 A9 04 20 10 84 "
+            "20 B9 84"
+        ),
+        (0xC4, 0x81EA): bytes.fromhex(
+            "64 A2 64 A3 68 68 4C C5 80"
+        ),
+        (0xC4, 0x80C5): bytes.fromhex(
+            "CE 66 12 AD 66 12 CD 67 12 F0 05 20 D9 84 80 A3"
+        ),
+        (0xC4, 0x84D9): bytes.fromhex(
+            "20 42 84 85 A6 20 42 84 86 A5 85 A4 20 42 84 85 9A "
+            "8E 6E 12 20 42 84 85 98 86 99 60"
+        ),
+        # Nested A0-target grammar used by the four residual state0 callers.
+        (0xC4, 0x8A24): bytes.fromhex(
+            "B7 98 85 2A C8 B7 98 85 2B C8 B2 2A 37 98 20 1E 84 "
+            "A9 04 4C 10 84"
+        ),
+        (0xC4, 0x983A): bytes.fromhex(
+            "B7 98 8D 74 1D C8 B7 98 8D 69 1D C8 4C 0F 84"
+        ),
+        (0xC4, 0x9849): bytes.fromhex(
+            "B7 98 8D 68 1D 4C 5E 89"
+        ),
+        (0xC4, 0x8B16): bytes.fromhex(
+            "B7 98 C9 FE B0 0D B7 98 99 C9 15 C8 C0 05 90 F6 4C 0F 84"
+        ),
+        (0xC4, 0x89A5): bytes.fromhex(
+            "B7 98 C2 30 29 FF 00 3A 85 00 0A 65 00 AA BD EE 9B 85 2A "
+            "BD EF 9B 85 2B E2 30 20 5E 89 22 C7 89 84 60"
+        ),
+        (0xC4, 0x89C7): bytes.fromhex("DC 2A 00"),
+        (0xC4, 0x9ACB): bytes.fromhex(
+            "9C 57 19 20 14 89 22 26 D2 83 08 1A 20 10 84 28"
+        ),
     }
     for (bank, addr), expected in anchors.items():
         o = file_from_cpu(bank, addr)
@@ -431,6 +515,216 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
             raise SystemExit(
                 f"unexpected state0 CFG anchor at {bank:02X}:{addr:04X}"
             )
+
+    # The four approved A0 targets are exact pack-record substreams.  Hash the
+    # bounded byte ranges instead of embedding their ROM payloads here.
+    for (bank, start), (end_bank, end, expected_sha) in STATE0_SAFE_A0_SUBSTREAMS.items():
+        begin_off = file_from_cpu(bank, start)
+        end_off = file_from_cpu(end_bank, end)
+        got_sha = hashlib.sha256(rom[begin_off:end_off]).hexdigest()
+        if got_sha != expected_sha:
+            raise SystemExit(
+                f"unexpected A0 substream at {bank:02X}:{start:04X}: {got_sha}"
+            )
+
+    # Opcode 0x02 uses a packed 24-bit routine table at runtime 84:9BEE.
+    op02_table = hirom_file_from_cpu(0x84, 0x9BEE)
+    for operand, (bank, start, end, expected_sha) in STATE0_SAFE_OP02_TARGETS.items():
+        ptr_off = op02_table + 3 * (operand - 1)
+        ptr = u24_file(rom, ptr_off)
+        expected_ptr = (bank << 16) | start
+        if ptr != expected_ptr:
+            raise SystemExit(
+                f"unexpected opcode02 target for {operand:02X}: {ptr:06X}"
+            )
+        begin_off = hirom_file_from_cpu(bank, start)
+        end_off = hirom_file_from_cpu(bank, end)
+        got_sha = hashlib.sha256(rom[begin_off:end_off]).hexdigest()
+        if got_sha != expected_sha:
+            raise SystemExit(
+                f"unexpected opcode02 routine {bank:02X}:{start:04X}: {got_sha}"
+            )
+
+    # Concrete 0x7B subtype 0x1E resolves to runtime 83:D705.
+    table_7b = hirom_file_from_cpu(0x83, 0xD237)
+    target_7b = u16_file(rom, table_7b + 2 * 0x1E)
+    if target_7b != 0xD705:
+        raise SystemExit(f"unexpected 7B/1E target: 83:{target_7b:04X}")
+    begin_7b = hirom_file_from_cpu(0x83, 0xD705)
+    end_7b = hirom_file_from_cpu(0x83, 0xD72D)
+    if hashlib.sha256(rom[begin_7b:end_7b]).hexdigest() != STATE0_SAFE_7B_1E_SHA256:
+        raise SystemExit("unexpected 7B/1E routine body")
+
+
+def state0_nested_a0_target_safe(
+    rom: bytes,
+    target_ptr: int,
+) -> tuple[bool, bool]:
+    """Prove one concrete A0 nested call stays in state0 and can return via B0.
+
+    This parser is deliberately narrower than the main VM.  A target must be
+    one of the four SHA-anchored pointer-bounded substreams above.  Every
+    reachable branch is explored; any unknown opcode/operand or boundary escape
+    fails the proof.
+    """
+    bank = (target_ptr >> 16) & 0xFF
+    addr = target_ptr & 0xFFFF
+    spec = STATE0_SAFE_A0_SUBSTREAMS.get((bank, addr))
+    if spec is None:
+        return False, False
+
+    end_bank, end_addr, _ = spec
+    start = file_from_cpu(bank, addr)
+    end = file_from_cpu(end_bank, end_addr)
+    descriptor_base = file_from_cpu(0xC3, STATE0_DESCRIPTOR_EXPECTED_PTR)
+    b910_table = file_from_cpu(0xC0, 0xB91C)
+
+    def signed8(x: int) -> int:
+        return x - 0x100 if x & 0x80 else x
+
+    queue = [start]
+    seen: set[int] = set()
+    found_return = False
+    used_branch = False
+
+    while queue:
+        p = queue.pop(0)
+        if p in seen:
+            continue
+        seen.add(p)
+
+        if p < start or p >= end:
+            return False, used_branch
+
+        op = rom[p]
+
+        # B0 is the proven nested-return path through 81EA -> 80C5 -> 84D9.
+        if op == 0xB0:
+            found_return = True
+            continue
+
+        if op in STATE0_SAFE_BRANCH_OPS:
+            if p + 2 > end:
+                return False, used_branch
+            used_branch = True
+            branch = p + signed8(rom[p + 1])
+            if op == 0xB2:
+                queue.append(branch)
+            else:
+                queue.append(p + 2)
+                queue.append(branch)
+            continue
+
+        # A nested normal map selector does not mutate $1398/$1399.
+        if op == 0x50:
+            if p + 4 > end:
+                return False, used_branch
+            queue.append(p + 4)
+            continue
+        if op == 0x51:
+            if p + 3 > end:
+                return False, used_branch
+            queue.append(p + 3)
+            continue
+
+        # C0..CD are one-byte small literals.
+        if 0xC0 <= op <= 0xCD:
+            queue.append(p + 1)
+            continue
+
+        # Concrete nested-only normal opcodes.
+        if op == 0x0A:
+            if p + 4 > end:
+                return False, used_branch
+            queue.append(p + 4)
+            continue
+        if op == 0x41:
+            if p + 3 > end:
+                return False, used_branch
+            queue.append(p + 3)
+            continue
+        if op == 0x42:
+            if p + 2 > end:
+                return False, used_branch
+            queue.append(p + 2)
+            continue
+        if op == 0x52:
+            # The <FE branch copies exactly four operand bytes to $15C9..15CC.
+            if p + 5 > end or rom[p + 1] >= 0xFE:
+                return False, used_branch
+            queue.append(p + 5)
+            continue
+        if op == 0x02:
+            if p + 2 > end:
+                return False, used_branch
+            operand = rom[p + 1]
+            if operand not in STATE0_SAFE_OP02_TARGETS:
+                return False, used_branch
+            queue.append(p + 2)
+            continue
+        if op == 0x64:
+            if p + 2 > end or rom[p + 1] not in {0x00, 0x24, 0x70}:
+                return False, used_branch
+            queue.append(p + 2)
+            continue
+        if op == 0x7B:
+            if p + 2 > end or rom[p + 1] != 0x1E:
+                return False, used_branch
+            queue.append(p + 2)
+            continue
+        if op == 0x13:
+            if p + 2 > end or rom[p + 1] != STATE0_DESCRIPTOR_INDEX:
+                return False, used_branch
+            queue.append(p + 2)
+            continue
+        if op in (0xD0, 0xD5):
+            if p + 3 > end:
+                return False, used_branch
+            operand = rom[p + 1] | (rom[p + 2] << 8)
+            if (op, operand) not in {
+                (0xD0, 0x1984),
+                (0xD5, 0x035E),
+                (0xD5, 0x0364),
+            }:
+                return False, used_branch
+            queue.append(p + 3)
+            continue
+        if op == 0x3D:
+            if p + 3 > end or rom[p + 1] != 0x02:
+                return False, used_branch
+            queue.append(p + 3)
+            continue
+
+        length = STATE0_PREFIX_SAFE_LENGTHS.get(op)
+        if length is None or p + length > end:
+            return False, used_branch
+
+        descriptor_id = None
+        if op == 0x10:
+            descriptor_id = rom[p + 1]
+        elif op == 0x33:
+            descriptor_id = rom[p + 3]
+        elif op == 0x15:
+            # Keep the same fail-closed callback rule used by the outer CFG.
+            if p + length >= end or rom[p + length] != 0xB0:
+                return False, used_branch
+
+        if descriptor_id is not None:
+            if descriptor_id == 0:
+                return False, used_branch
+            descriptor = descriptor_base + (descriptor_id - 1) * 8
+            if descriptor + 8 > len(rom):
+                return False, used_branch
+            x = (rom[descriptor + 7] & 0xF0) >> 3
+            if x & 1:
+                return False, used_branch
+            call_target = u16_file(rom, b910_table + x)
+            if call_target not in STATE0_SAFE_B910_TARGETS:
+                return False, used_branch
+
+        queue.append(p + length)
+
+    return found_return, used_branch
 
 
 def state0_prefix_mode_safe(
@@ -488,6 +782,23 @@ def state0_prefix_mode_safe(
 
         op = rom[p]
 
+        # A0 is a nested script call, not a flat four-byte no-op.  The caller
+        # continuation is p+4, but it is admitted only when the exact embedded
+        # target is one of the SHA-anchored substreams and every reachable path
+        # in that substream is mode-safe and can return through B0.
+        if op == 0xA0:
+            if p + 4 > stream_end:
+                continue
+            target_ptr = u24_file(rom, p + 1)
+            nested_safe, nested_branch = state0_nested_a0_target_safe(
+                rom, target_ptr
+            )
+            if not nested_safe:
+                continue
+            used_branch = used_branch or nested_branch
+            queue.append(p + 4)
+            continue
+
         if op in STATE0_SAFE_BRANCH_OPS:
             if p + 2 > stream_end:
                 continue
@@ -502,8 +813,12 @@ def state0_prefix_mode_safe(
                 queue.append(branch)
             continue
 
+        # C0..CD are one-byte small integer literals.  The anchored
+        # C-range dispatcher at C4:814F applies the low nibble directly.
+        if 0xC0 <= op <= 0xCD:
+            length = 1
         # Opcode 0x64 is admitted only for the residual 64 00 form.
-        if op == 0x64:
+        elif op == 0x64:
             if p + 2 > stream_end or rom[p + 1] != 0x00:
                 continue
             length = 2
@@ -683,308 +998,5 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     state0_safe,
                     state0_b910_targets,
                     state0_cfg_branch_used,
-                ) = state0_prefix_mode_safe(
-                    rom,
-                    record_index,
-                    entry_id,
-                    stream_start,
-                    stream_end,
-                    p,
-                )
-                # Count this proof as a promotion only when earlier independent
-                # proofs did not already confirm the row.
-                state0_prefix_promoted = (
-                    state0_safe
-                    and not confirmed_signature
-                    and not special_impossible
-                )
-                normal_mode_confirmed = (
-                    confirmed_signature
-                    or special_impossible
-                    or state0_prefix_promoted
-                )
-                if confirmed_signature and special_impossible:
-                    evidence = "confirmed_setup_signature_and_special_parse_impossible"
-                elif confirmed_signature:
-                    evidence = "confirmed_setup_signature"
-                elif special_impossible:
-                    evidence = "confirmed_normal_special_parse_impossible"
-                elif state0_prefix_promoted:
-                    evidence = "confirmed_normal_state0_safe_prefix"
-                else:
-                    evidence = "strong_structural_candidate_mode_gate_unresolved"
 
-                tptr = tileset_pointer(rom, tileset_id)
-                meta = layout_meta(rom, layout_id)
-
-                row = {
-                    "pack_id_dec": pack_id,
-                    "pack_id_hex": f"0x{pack_id:02X}",
-                    "record_index": record_index,
-                    "record_start": cpu_from_file(record_start),
-                    "record_end_exclusive": cpu_from_file(record_end),
-                    "entry_id_dec": entry_id,
-                    "entry_id_hex": f"0x{entry_id:02X}",
-                    "substream_start": cpu_from_file(stream_start),
-                    "substream_end_exclusive": cpu_from_file(stream_end),
-                    "command_addr": cpu_from_file(p),
-                    "opcode": "0x50",
-                    "primary_tileset_id": tileset_id,
-                    "primary_tileset_ptr": f"CE:{tptr:04X}",
-                    "primary_layout_id": layout_id,
-                    "map_variant": variant,
-                    "evidence_class": evidence,
-                    "confirmed_setup_signature": confirmed_signature,
-                    "special_interpretation_status": special_status,
-                    "special_interpretation_impossible": special_impossible,
-                    "state0_prefix_mode_safe": state0_safe,
-                    "state0_prefix_promoted": state0_prefix_promoted,
-                    "state0_prefix_b910_targets": state0_b910_targets,
-                    "state0_cfg_branch_used": state0_cfg_branch_used,
-                    "normal_mode_confirmed": normal_mode_confirmed,
-                    **meta,
-                    "immediate_secondary": False,
-                    "secondary_command_addr": "",
-                    "secondary_tileset_id": "",
-                    "secondary_tileset_ptr": "",
-                    "secondary_layout_id": "",
-                    "secondary_layout_ptr": "",
-                }
-
-                # Immediate 0x51 is structurally compelling because normal 0x50
-                # consumes exactly four bytes.
-                if p + 7 <= stream_end and rom[p + 4] == 0x51:
-                    st = rom[p + 5]
-                    sl = rom[p + 6]
-                    if 1 <= st <= 60 and 1 <= sl <= 203:
-                        sptr = tileset_pointer(rom, st)
-                        lptr = layout_pointer(rom, sl)
-                        row.update(
-                            {
-                                "immediate_secondary": True,
-                                "secondary_command_addr": cpu_from_file(p + 4),
-                                "secondary_tileset_id": st,
-                                "secondary_tileset_ptr": f"CE:{sptr:04X}",
-                                "secondary_layout_id": sl,
-                                "secondary_layout_ptr": f"{(lptr >> 16) & 0xFF:02X}:{lptr & 0xFFFF:04X}",
-                            }
-                        )
-                primary.append(row)
-
-            # Keep range-plausible standalone 0x51 rows separately. These are
-            # mode-ambiguous because $1398 can route the same opcode to bank82.
-            for p in range(stream_start, max(stream_start, stream_end - 2)):
-                if rom[p] != 0x51 or p + 3 > stream_end:
-                    continue
-                st = rom[p + 1]
-                sl = rom[p + 2]
-                if not (1 <= st <= 60 and 1 <= sl <= 203):
-                    continue
-                sptr = tileset_pointer(rom, st)
-                lptr = layout_pointer(rom, sl)
-                all_secondary_shape.append(
-                    {
-                        "pack_id_dec": pack_id,
-                        "pack_id_hex": f"0x{pack_id:02X}",
-                        "record_index": record_index,
-                        "record_start": cpu_from_file(record_start),
-                        "record_end_exclusive": cpu_from_file(record_end),
-                        "entry_id_dec": entry_id,
-                        "entry_id_hex": f"0x{entry_id:02X}",
-                        "substream_start": cpu_from_file(stream_start),
-                        "substream_end_exclusive": cpu_from_file(stream_end),
-                        "command_addr": cpu_from_file(p),
-                        "opcode": "0x51",
-                        "secondary_tileset_id": st,
-                        "secondary_tileset_ptr": f"CE:{sptr:04X}",
-                        "secondary_layout_id": sl,
-                        "secondary_layout_ptr": f"{(lptr >> 16) & 0xFF:02X}:{lptr & 0xFFFF:04X}",
-                        "evidence_class": "mode_ambiguous_secondary_shape",
-                    }
-                )
-
-    paired_primary_by_secondary = {
-        r["secondary_command_addr"]: r
-        for r in primary
-        if r["immediate_secondary"]
-    }
-    for row in all_secondary_shape:
-        parent = paired_primary_by_secondary.get(row["command_addr"])
-        if parent is None:
-            continue
-        if parent["normal_mode_confirmed"]:
-            row["evidence_class"] = "confirmed_normal_immediate_secondary_pair"
-        else:
-            row["evidence_class"] = "strong_immediate_secondary_pair_mode_gate_unresolved"
-
-    return primary, all_secondary_shape
-
-
-def write_csv(path: Path, rows: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
-        path.write_text("", encoding="utf-8")
-        return
-    with path.open("w", encoding="utf-8-sig", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        writer.writeheader()
-        writer.writerows(rows)
-
-
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("rom", type=Path)
-    ap.add_argument("--out-dir", type=Path, default=Path("data/maps/selectors"))
-    args = ap.parse_args()
-
-    rom = args.rom.read_bytes()
-    sha = hashlib.sha256(rom).hexdigest().upper()
-    if len(rom) != EXPECTED_SIZE:
-        raise SystemExit(f"unexpected ROM size: {len(rom)}")
-    if sha != EXPECTED_SHA256:
-        raise SystemExit(f"unexpected ROM SHA-256: {sha}")
-
-    validate_state0_prefix_anchors(rom)
-    records, corpus = build_corpus(rom)
-    primary, secondary = candidate_rows(rom, records)
-
-    signature_confirmed = [r for r in primary if r["confirmed_setup_signature"]]
-    special_impossible = [r for r in primary if r["special_interpretation_impossible"]]
-    state0_prefix_safe = [r for r in primary if r["state0_prefix_mode_safe"]]
-    state0_prefix_promoted = [r for r in primary if r["state0_prefix_promoted"]]
-    state0_cfg_promoted = [
-        r for r in state0_prefix_promoted if r["state0_cfg_branch_used"]
-    ]
-    normal_confirmed = [r for r in primary if r["normal_mode_confirmed"]]
-    unresolved_primary = [r for r in primary if not r["normal_mode_confirmed"]]
-    paired = [r for r in primary if r["immediate_secondary"]]
-    secondary_confirmed = [
-        r for r in secondary
-        if r["evidence_class"] == "confirmed_normal_immediate_secondary_pair"
-    ]
-    secondary_strong_unresolved = [
-        r for r in secondary
-        if r["evidence_class"] == "strong_immediate_secondary_pair_mode_gate_unresolved"
-    ]
-    secondary_ambiguous = [
-        r for r in secondary
-        if r["evidence_class"] == "mode_ambiguous_secondary_shape"
-    ]
-
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-    write_csv(args.out_dir / "primary_map_selector_catalog.csv", primary)
-    write_csv(args.out_dir / "secondary_map_selector_candidates.csv", secondary)
-    write_csv(
-        args.out_dir / "state0_safe_prefix_promotions.csv",
-        state0_prefix_promoted,
-    )
-
-    summary = {
-        "schema_version": 1,
-        "kind": "derived_map_selector_catalog",
-        "rom_sha256": sha,
-        "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
-        "normal_vs_special_dispatch_caveat": (
-            "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when "
-            "$1398 != 0. The bank82-special 0x50 consumes two bytes; therefore "
-            "its next opcode would be the normal-map candidate's layout_id byte. "
-            "Rows whose layout_id is outside the proven special range or maps to "
-            "the C4 BRK handler cannot be interpreted as special 0x50 and are "
-            "promoted to confirmed normal mode. In addition, a narrowly proven "
-            "state0 record0/entry1 family is promoted through a small safe CFG "
-            "(96/10/11/33/08/2D/A3, C2/E0/E1/E7/E8 expression ops, "
-            "B2/B3/B4 branches, concrete-safe 13/3D/D0/D5/64 forms, plus "
-            "terminal-only 0x15); the state0 helper seeds $035F=2, and every "
-            "descriptor-resolved B910 indirect target is one of the cleared "
-            "B924/B944 routines. Other rows remain mode-gate unresolved."
-        ),
-        "corpus": corpus,
-        "primary": {
-            "strong_shape_total": len(primary),
-            "confirmed_setup_signature": len(signature_confirmed),
-            "confirmed_special_interpretation_impossible": len(special_impossible),
-            "state0_prefix_mode_safe_rows": len(state0_prefix_safe),
-            "newly_promoted_state0_safe_prefix": len(state0_prefix_promoted),
-            "newly_promoted_state0_cfg_branch_rows": len(state0_cfg_promoted),
-            "state0_prefix_b910_targets": sorted(
-                {
-                    target
-                    for r in state0_prefix_promoted
-                    for target in r["state0_prefix_b910_targets"].split(",")
-                    if target
-                }
-            ),
-            "confirmed_normal_union": len(normal_confirmed),
-            "mode_gate_unresolved": len(unresolved_primary),
-            "special_interpretation_status_counts": {
-                k: v
-                for k, v in sorted(
-                    Counter(r["special_interpretation_status"] for r in primary).items()
-                )
-            },
-            "unique_configurations": len(
-                {
-                    (
-                        r["primary_tileset_id"],
-                        r["primary_layout_id"],
-                        r["map_variant"],
-                    )
-                    for r in primary
-                }
-            ),
-            "distinct_tileset_ids": len({r["primary_tileset_id"] for r in primary}),
-            "distinct_layout_ids": len({r["primary_layout_id"] for r in primary}),
-            "variant_counts": {
-                str(k): v
-                for k, v in sorted(Counter(r["map_variant"] for r in primary).items())
-            },
-            "families_with_candidates": len({r["pack_id_dec"] for r in primary}),
-            "immediate_secondary_pair_rows": len(paired),
-        },
-        "secondary": {
-            "range_plausible_substream_rows": len(secondary),
-            "immediate_pair_rows_total": len(paired),
-            "confirmed_normal_immediate_pairs": len(secondary_confirmed),
-            "strong_immediate_pairs_mode_gate_unresolved": len(secondary_strong_unresolved),
-            "mode_ambiguous_standalone_rows": len(secondary_ambiguous),
-            "unique_immediate_pair_configurations": len(
-                {
-                    (
-                        r["primary_tileset_id"],
-                        r["primary_layout_id"],
-                        r["map_variant"],
-                        r["secondary_tileset_id"],
-                        r["secondary_layout_id"],
-                    )
-                    for r in paired
-                }
-            ),
-        },
-        "stable_interior": {
-            "expected_primary_command": "50 07 0F 02",
-            "confirmed_addresses": ["CB:DE70", "CC:5391", "CE:0F2B"],
-            "catalog_matches": [
-                r["command_addr"]
-                for r in primary
-                if r["primary_tileset_id"] == 7
-                and r["primary_layout_id"] == 15
-                and r["map_variant"] == 2
-            ],
-        },
-        "outputs": [
-            "primary_map_selector_catalog.csv",
-            "secondary_map_selector_candidates.csv",
-            "state0_safe_prefix_promotions.csv",
-            "primary_map_selector_summary.json",
-        ],
-    }
-
-    (args.out_dir / "primary_map_selector_summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
-
-
-if __name__ == "__main__":
-    main()
+[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]

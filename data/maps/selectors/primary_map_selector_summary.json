@@ -33,15 +33,15 @@
     "strong_shape_total": 263,
     "confirmed_setup_signature": 65,
     "confirmed_special_interpretation_impossible": 70,
-    "state0_prefix_mode_safe_rows": 218,
-    "newly_promoted_state0_safe_prefix": 114,
-    "newly_promoted_state0_cfg_branch_rows": 58,
+    "state0_prefix_mode_safe_rows": 223,
+    "newly_promoted_state0_safe_prefix": 118,
+    "newly_promoted_state0_cfg_branch_rows": 62,
     "state0_prefix_b910_targets": [
       "C0:B924",
       "C0:B944"
     ],
-    "confirmed_normal_union": 240,
-    "mode_gate_unresolved": 23,
+    "confirmed_normal_union": 244,
+    "mode_gate_unresolved": 19,
     "special_interpretation_status_counts": {
       "invalid_bank82_special_range": 60,
       "invalid_normal_brk": 10,
@@ -86,3 +86,5 @@
     "primary_map_selector_summary.json"
   ]
 }
+
+[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]

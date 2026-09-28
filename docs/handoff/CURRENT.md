@@ -138,29 +138,31 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/state0_safe_prefix_promotions.csv`
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_residual_vm_promotion_20260928.md`
+- A fail-closed A0/B0 nested-call evaluator now closes the final four record0/entry1 selectors. A0 is modeled as a real call through C4:846F/C4:84B9, nested targets are exact SHA-bounded substreams, and B0 return is proven through C4:81EA -> C4:80C5 -> C4:84D9. CC:0929, CC:0931, CD:EF0A and CD:EF1C are promoted. Confirmed primary rises 240->244, unresolved falls 23->19, and record0/entry1 unresolved is now zero.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/state0_safe_prefix_promotions.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_a0_nested_promotion_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed_catalog_and_cfg**: Only four record0/entry1 primary selectors remain unresolved: CC:0929, CC:0931, CD:EF0A and CD:EF1C. Every remaining blocker is opcode A0 nested-call behavior.
-  - Why not promoted: A0 saves/restores VM context and transfers to a 24-bit nested script; it must be modeled with a call/return CFG rather than flattened as a fixed-length instruction.
-- **strong_static_call_return_model**: A0 call targets used by the four residual state0 rows are CC:1828, CD:F037, CD:6C9C and CD:E34F. B0 routes through C4:81EA -> C4:80C5, decrements $1266, and may restore context through C4:84D9.
-  - Why not promoted: Nested target paths still need fail-closed mode-safety and return proofs.
-- **confirmed_catalog**: Nineteen later-record primary selectors remain unresolved outside record0/entry1, while only one of 105 immediate 0x50+0x51 pairs is still unresolved.
-  - Why not promoted: These rows use other entry families/mode contexts and will be recomputed after the A0 state0 tail is closed.
+- **confirmed_catalog**: Nineteen later-record primary selectors remain unresolved; the record0/entry1 backlog is fully closed at 244/263 confirmed primary.
+  - Why not promoted: These rows belong to other record/entry families and require their own reachable mode context rather than inheriting the state0 entry1 proof.
+- **confirmed_catalog**: The only unresolved immediate 0x50+0x51 pair is pack 0xED record 2 / entry 0x90: primary CD:E353 followed by secondary CD:E357.
+  - Why not promoted: Its later-record entry family does not yet have a proven normal-mode path.
 
 ## In progress
 
-- Build a fail-closed A0/B0 nested-call CFG for the four concrete state0 call targets CC:1828, CD:F037, CD:6C9C and CD:E34F.
-- Promote only outer selectors whose entire nested call path remains mode-safe and returns through B0.
-- After state0 is closed, recompute the 19 later-record unresolved rows by entry family and first blocking grammar.
+- Recompute the 19 later-record unresolved selectors by record index, entry id and first blocking grammar/mode context.
+- Prioritize pack 0xED record 2 / entry 0x90 because resolving CD:E353 also closes the final unresolved immediate 0x51 pair.
 
 ## Next actions
 
-1. Implement concrete A0 call handling: save caller continuation, transfer to the embedded 24-bit target, and recognize B0 return through the proven $1266/C4:84D9 path.
-2. Run the nested CFG over CC:1828, CD:F037, CD:6C9C and CD:E34F with fail-closed opcode semantics; promote only fully returning mode-safe paths.
-3. Recompute the later-record unresolved 19 rows by record index, entry id and first blocker after any A0 promotions.
-4. Resolve the last unresolved immediate 0x51 pair together with its parent primary.
-5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
+1. Recompute the later-record unresolved 19 rows by record index, entry id, substream start and first blocking grammar/mode context.
+2. Resolve pack 0xED record 2 / entry 0x90 normal-mode reachability for CD:E353; promote its immediate secondary CD:E357 only with the parent proof.
+3. Group the remaining later-record rows by entry family and prove each family from its caller/mode-state seed without borrowing the state0 entry1 assumption.
+4. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
 ## Do not redo
 
@@ -200,7 +202,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not interpret A3/B2/B3/B4 through the ordinary C4:87D4 opcode table; the scheduler intercepts A0..AF and B0..BF first.
 - Do not use the old 182/81 selector counts after the upper-range CFG proof; canonical counts are now 225 confirmed / 38 unresolved.
 - Do not linearize B3/B4; both runtime branch outcomes must be represented in the safe CFG.
-- Do not use the old 225 confirmed / 38 unresolved counts after the residual state0 grammar pass; canonical counts are now 240 confirmed / 23 unresolved.
+- Do not use the old 225 confirmed / 38 unresolved counts after the residual state0 grammar pass; that intermediate pass yielded 240 confirmed / 23 unresolved.
+- Do not use the old 240 confirmed / 23 unresolved counts after the A0/B0 nested-call proof; canonical counts are now 244 confirmed / 19 unresolved, with record0/entry1 fully closed.
 - Do not flatten opcode A0 as a simple four-byte instruction. It changes $98/$99/$9A to a nested 24-bit target and uses B0/$1266/C4:84D9 return machinery.
 - Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.
 
@@ -263,6 +266,7 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `docs/analysis/map_selector_opcode15_promotion_20260928.md`
 - `docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md`
 - `docs/analysis/map_selector_residual_vm_promotion_20260928.md`
+- `docs/analysis/map_selector_a0_nested_promotion_20260928.md`
 
 ## Resume instruction
 
@@ -274,3 +278,5 @@ On a short request such as **「続きを進めて」**:
 4. continue from the first unfinished `next_actions` entry;
 5. do not redo `done` / `do_not_redo` items;
 6. checkpoint again after the next meaningful durable result.
+
+[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]

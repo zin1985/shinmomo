@@ -37,8 +37,8 @@
 73,0x49,0,CC:01EA,CC:027C,1,0x01,CC:01FD,CC:0258,CC:020E,0x50,7,CE:44C0,67,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,True,True,CF:396B,0x80,1,1,1,16,16,False,,,,,
 74,0x4A,0,CC:049B,CC:04F0,1,0x01,CC:04B4,CC:04C6,CC:04BA,0x50,7,CE:44C0,75,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:3A8F,0x80,1,1,1,16,16,False,,,,,
 75,0x4B,0,CC:06C5,CC:0735,1,0x01,CC:06E7,CC:06F9,CC:06ED,0x50,7,CE:44C0,80,2,confirmed_setup_signature,True,possible_bank82_special_opcode,False,True,False,C0:B924,False,True,CF:3AF0,0x80,1,1,1,16,16,False,,,,,
-76,0x4C,0,CC:08AC,CC:0AF0,1,0x01,CC:0913,CC:095D,CC:0929,0x50,1,CE:2100,1,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,False,CF:2261,0x01,16,16,256,256,256,False,,,,,
-76,0x4C,0,CC:08AC,CC:0AF0,1,0x01,CC:0913,CC:095D,CC:0931,0x50,1,CE:2100,2,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,False,CF:2566,0x01,16,16,256,256,256,False,,,,,
+76,0x4C,0,CC:08AC,CC:0AF0,1,0x01,CC:0913,CC:095D,CC:0929,0x50,1,CE:2100,1,1,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,C0:B944,True,True,CF:2261,0x01,16,16,256,256,256,False,,,,,
+76,0x4C,0,CC:08AC,CC:0AF0,1,0x01,CC:0913,CC:095D,CC:0931,0x50,1,CE:2100,2,1,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,C0:B944,True,True,CF:2566,0x01,16,16,256,256,256,False,,,,,
 77,0x4D,0,CC:1890,CC:18C4,1,0x01,CC:189A,CC:18B3,CC:18A4,0x50,4,CE:2800,6,2,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,C0:B944,False,True,CF:2CFA,0x80,3,3,9,48,48,False,,,,,
 78,0x4E,0,CC:18E3,CC:193A,1,0x01,CC:18F3,CC:1905,CC:18F9,0x50,7,CE:44C0,7,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:2D35,0x80,1,1,1,16,16,False,,,,,
 79,0x4F,0,CC:1B86,CC:1BAE,1,0x01,CC:1B90,CC:1BA2,CC:1B96,0x50,7,CE:44C0,33,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:3024,0x80,1,1,1,16,16,False,,,,,
@@ -203,7 +203,7 @@
 220,0xDC,0,CD:AF89,CD:B0EC,1,0x01,CD:AFAB,CD:AFEC,CD:AFDF,0x50,51,CE:D078,180,2,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,False,"C0:B924,C0:B944",True,True,CF:5CBB,0x00,8,5,40,128,80,True,CD:AFE3,51,CE:D078,181,CF:5D38
 221,0xDD,0,CD:B5C1,CD:B62A,1,0x01,CD:B5D7,CD:B5EE,CD:B5DF,0x50,53,CE:DD98,184,2,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,False,C0:B944,False,True,CF:5E55,0x00,16,6,96,256,96,True,CD:B5E3,53,CE:DD98,185,CF:5F7A
 222,0xDE,0,CD:B6E2,CD:B821,1,0x01,CD:B704,CD:B71D,CD:B70C,0x50,48,CE:C6B8,174,2,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,False,C0:B924,False,True,CF:5A39,0x00,8,2,16,128,32,True,CD:B710,48,CE:C6B8,175,CF:5A6E
-223,0xDF,0,CD:B8B7,CD:B93D,1,0x01,CD:B8CA,CD:B8EA,CD:B8D7,0x50,3,CE:269C,5,1,confirmed_normal_special_parse_impossible,False,invalid_normal_brk,True,False,False,,False,True,CF:29F5,0x01,16,16,256,256,256,False,,,,,
+223,0xDF,0,CD:B8B7,CD:B93D,1,0x01,CD:B8CA,CD:B8EA,CD:B8D7,0x50,3,CE:269C,5,1,confirmed_normal_special_parse_impossible,False,invalid_normal_brk,True,True,False,C0:B944,False,True,CF:29F5,0x01,16,16,256,256,256,False,,,,,
 224,0xE0,0,CD:BA62,CD:BB73,1,0x01,CD:BA8D,CD:BAC3,CD:BA9D,0x50,55,CE:E818,192,2,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,False,"C0:B924,C0:B944",True,True,CF:6327,0x00,7,5,35,112,80,True,CD:BAA1,55,CE:E818,193,CF:6395
 225,0xE1,0,CD:BFDA,CD:C131,1,0x01,CD:BFF6,CD:C01D,CD:C006,0x50,55,CE:E818,192,2,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,False,"C0:B924,C0:B944",True,True,CF:6327,0x00,7,5,35,112,80,True,CD:C00A,55,CE:E818,193,CF:6395
 226,0xE2,0,CD:C3C3,CD:C57A,1,0x01,CD:C3EB,CD:C415,CD:C3FB,0x50,55,CE:E818,192,2,confirmed_normal_special_parse_impossible,False,invalid_bank82_special_range,True,True,False,"C0:B924,C0:B944",True,True,CF:6327,0x00,7,5,35,112,80,True,CD:C3FF,55,CE:E818,193,CF:6395
@@ -228,8 +228,8 @@
 238,0xEE,5,CD:EB19,CD:EB58,108,0x6C,CD:EB23,CD:EB3A,CD:EB29,0x50,1,CE:2100,2,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,False,CF:2566,0x01,16,16,256,256,256,False,,,,,
 238,0xEE,6,CD:EB58,CD:EBD9,108,0x6C,CD:EB68,CD:EB83,CD:EB75,0x50,1,CE:2100,2,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,False,CF:2566,0x01,16,16,256,256,256,False,,,,,
 238,0xEE,8,CD:EBF4,CD:ED3C,108,0x6C,CD:EC07,CD:EC2A,CD:EC1B,0x50,4,CE:2800,91,1,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,False,,False,False,CF:3CA4,0x80,2,2,4,32,32,False,,,,,
-239,0xEF,0,CD:EEBC,CD:EF8E,1,0x01,CD:EEE7,CD:EF40,CD:EF0A,0x50,1,CE:2100,1,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,True,False,CF:2261,0x01,16,16,256,256,256,False,,,,,
-239,0xEF,0,CD:EEBC,CD:EF8E,1,0x01,CD:EEE7,CD:EF40,CD:EF1C,0x50,1,CE:2100,2,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,True,False,CF:2566,0x01,16,16,256,256,256,False,,,,,
+239,0xEF,0,CD:EEBC,CD:EF8E,1,0x01,CD:EEE7,CD:EF40,CD:EF0A,0x50,1,CE:2100,1,1,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,,True,True,CF:2261,0x01,16,16,256,256,256,False,,,,,
+239,0xEF,0,CD:EEBC,CD:EF8E,1,0x01,CD:EEE7,CD:EF40,CD:EF1C,0x50,1,CE:2100,2,1,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,,True,True,CF:2566,0x01,16,16,256,256,256,False,,,,,
 240,0xF0,0,CD:F625,CD:F6D4,1,0x01,CD:F644,CD:F692,CD:F662,0x50,6,CE:3A50,37,2,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,,True,True,CF:3116,0x80,5,5,25,80,80,False,,,,,
 240,0xF0,1,CD:F6D4,CD:F6F3,108,0x6C,CD:F6D8,CD:F6F3,CD:F6E1,0x50,1,CE:2100,1,1,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,False,CF:2261,0x01,16,16,256,256,256,False,,,,,
 240,0xF0,2,CD:F6F3,CD:F70C,108,0x6C,CD:F6F7,CD:F70C,CD:F6FF,0x50,4,CE:2800,8,2,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,False,CF:2D40,0x80,5,5,25,80,80,False,,,,,
@@ -262,3 +262,5 @@
 247,0xF7,29,CE:10B7,CE:10D6,108,0x6C,CE:10BE,CE:10CB,CE:10C4,0x50,7,CE:44C0,10,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,False,False,,False,True,CF:2DE6,0x80,1,1,1,16,16,False,,,,,
 248,0xF8,0,CE:1124,CE:1157,1,0x01,CE:1131,CE:1145,CE:1139,0x50,7,CE:44C0,63,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:392D,0x80,1,1,1,16,16,False,,,,,
 249,0xF9,0,CE:11DD,CE:1216,1,0x01,CE:11EA,CE:11FC,CE:11F2,0x50,7,CE:44C0,9,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:2DDB,0x80,1,1,1,16,16,False,,,,,
+
+[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
