@@ -117,5 +117,3 @@
 243,0xF3,0,CE:027C,CE:02A7,1,0x01,CE:0283,CE:029C,CE:028D,0x50,4,CE:2800,70,2,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,C0:B944,False,True,CF:398C,0x80,4,4,16,64,64,False,,,,,
 244,0xF4,0,CE:041E,CE:0449,1,0x01,CE:0425,CE:043E,CE:042F,0x50,6,CE:3A50,21,2,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,C0:B944,False,True,CF:2EF2,0x80,3,3,9,48,48,False,,,,,
 246,0xF6,0,CE:0BA6,CE:0BF8,1,0x01,CE:0BB3,CE:0BE3,CE:0BD6,0x50,4,CE:2800,74,2,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,"C0:B924,C0:B944",True,True,CF:3A54,0x80,3,3,9,48,48,False,,,,,
-
-[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
