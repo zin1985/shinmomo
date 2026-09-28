@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "kind": "normal_4bpp_map_family_render_index",
+  "tileset_id": 48,
+  "graphics_operands": [
+    19,
+    22
+  ],
+  "palette_operand": 46,
+  "map_count": 1,
+  "maps": [
+    {
+      "tileset_id": 48,
+      "layout_id": 174,
+      "render_mode": "normal_4bpp_rom_setup",
+      "transparent_color_index_zero": true,
+      "graphics_operands": [
+        19,
+        22
+      ],
+      "palette_operand": 46,
+      "state0_descriptor_index": 2,
+      "used_tile_ids": [
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284,
+        333,
+        334,
+        707,
+        708,
+        709,
+        710
+      ],
+      "used_palette_indices_nonzero": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        47,
+        49,
+        50,
+        51,
+        52,
+        53,
+        57,
+        58,
+        59,
+        60
+      ],
+      "graphics_resource_coverage_complete": true,
+      "palette_resource_coverage_complete": true,
+      "config_ids": [
+        "cfg_t48_l174_v2"
+      ],
+      "pack_ids_hex": [
+        "0xDE"
+      ],
+      "output_png": "map_174.png",
+      "output_png_sha256": "F8EFC22DC6A452039FF33D4F12C74D5DA347756C9DC00353E2EF3C1F00227990"
+    }
+  ],
+  "policy": "Derived entirely from ROM; normal-BG color index 0 is transparent."
+}
