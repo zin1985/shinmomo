@@ -44,6 +44,24 @@ EXCLUDED_NON_VM_RECORDS = {(0x14, 0)}
 
 CONFIRMED_SETUP_SIGNATURE = bytes.fromhex("10 0A 10 0B 11 09")
 
+# State-0 record0/entry1 promotion proof.
+#
+# 81:98D1 seeds entry_id 0x01 and explicitly writes $035F=2 immediately
+# before JSL $84:8508 / JSL $84:858D.  For the common aligned prefix family,
+# only these four normal opcodes occur before the candidate 0x50.
+#
+# Static call-graph analysis has bounded these handlers/callees as not writing
+# $035F/$1398/$1399 and not re-entering C0:C9E7.
+STATE0_PREFIX_SAFE_LENGTHS = {
+    0x96: 2,
+    0x10: 2,
+    0x11: 2,
+    0x33: 4,
+}
+STATE0_DESCRIPTOR_INDEX = 2
+STATE0_DESCRIPTOR_EXPECTED_PTR = 0x0850
+STATE0_SAFE_B910_TARGETS = {0xB924, 0xB944}
+
 
 def file_from_cpu(bank: int, addr: int) -> int:
     return ((bank - 0xC0) << 16) | (addr & 0xFFFF)
@@ -205,6 +223,101 @@ def layout_meta(rom: bytes, layout_id: int) -> dict:
     }
 
 
+def validate_state0_prefix_anchors(rom: bytes) -> None:
+    """Fail closed if any static anchor behind the state-0 proof changes."""
+    helper = file_from_cpu(0xC1, 0x98D1)
+    expected = bytes.fromhex(
+        "9C 07 03 A9 02 8D 5F 03 9C 19 16 AD 05 03 "
+        "22 08 85 84 A9 01 22 8D 85 84 60"
+    )
+    got = rom[helper : helper + len(expected)]
+    if got != expected:
+        raise SystemExit(
+            "state0 entry1 helper anchor changed at C1:98D1: "
+            + got.hex(" ")
+        )
+
+    # B7A7 selects a C3 descriptor base through BAAC[2*$035F].
+    baac = file_from_cpu(0xC0, 0xBAAC)
+    ptr = u16_file(rom, baac + 2 * STATE0_DESCRIPTOR_INDEX)
+    if ptr != STATE0_DESCRIPTOR_EXPECTED_PTR:
+        raise SystemExit(
+            f"unexpected state0 descriptor base: C3:{ptr:04X}"
+        )
+
+    # B910's descriptor-indexed targets used by this proof are exact short
+    # routines: B924 -> C07F, B944 -> BD28.
+    b924 = file_from_cpu(0xC0, 0xB924)
+    if rom[b924 : b924 + 8] != bytes.fromhex("AD 24 11 22 7F C0 80 60"):
+        raise SystemExit("unexpected B910 target body at C0:B924")
+    b944 = file_from_cpu(0xC0, 0xB944)
+    if rom[b944 : b944 + 5] != bytes.fromhex("22 28 BD 80 60"):
+        raise SystemExit("unexpected B910 target body at C0:B944")
+
+
+def state0_prefix_mode_safe(
+    rom: bytes,
+    record_index: int,
+    entry_id: int,
+    stream_start: int,
+    target: int,
+) -> tuple[bool, str]:
+    """Prove the common state-0 prefix family remains in normal mode.
+
+    This is intentionally much narrower than the general prefix decoder.
+    It accepts only record0/entry1 and only opcode 96/10/11/33.  For every
+    10/33 descriptor operation, it resolves the $035F=2 descriptor through
+    C3:0850 and requires B910 to land on the already-cleared B924/B944
+    routines.
+    """
+    if record_index != 0 or entry_id != 0x01:
+        return False, ""
+
+    p = stream_start
+    b910_targets: set[int] = set()
+    descriptor_base = file_from_cpu(0xC3, STATE0_DESCRIPTOR_EXPECTED_PTR)
+    b910_table = file_from_cpu(0xC0, 0xB91C)
+
+    while p < target:
+        op = rom[p]
+        length = STATE0_PREFIX_SAFE_LENGTHS.get(op)
+        if length is None or p + length > target:
+            return False, ""
+
+        descriptor_id = None
+        if op == 0x10:
+            descriptor_id = rom[p + 1]
+        elif op == 0x33:
+            descriptor_id = rom[p + 3]
+
+        if descriptor_id is not None:
+            if descriptor_id == 0:
+                return False, ""
+            descriptor = descriptor_base + (descriptor_id - 1) * 8
+            if descriptor + 8 > len(rom):
+                return False, ""
+            last = rom[descriptor + 7]
+            x = (last & 0xF0) >> 3
+            # $1123 is an even byte offset into the B910 indirect table.
+            if x & 1:
+                return False, ""
+            table_entry = b910_table + x
+            if table_entry + 2 > len(rom):
+                return False, ""
+            call_target = u16_file(rom, table_entry)
+            if call_target not in STATE0_SAFE_B910_TARGETS:
+                return False, ""
+            b910_targets.add(call_target)
+
+        p += length
+
+    if p != target:
+        return False, ""
+
+    label = ",".join(f"C0:{x:04X}" for x in sorted(b910_targets))
+    return True, label
+
+
 def special_interpretation_status(rom: bytes, layout_id: int) -> str:
     """Classify the opcode that follows a bank82-special 0x50 interpretation.
 
@@ -316,13 +429,33 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                 )
                 special_status = special_interpretation_status(rom, layout_id)
                 special_impossible = special_status.startswith("invalid_")
-                normal_mode_confirmed = confirmed_signature or special_impossible
+                state0_safe, state0_b910_targets = state0_prefix_mode_safe(
+                    rom,
+                    record_index,
+                    entry_id,
+                    stream_start,
+                    p,
+                )
+                # Count this proof as a promotion only when earlier independent
+                # proofs did not already confirm the row.
+                state0_prefix_promoted = (
+                    state0_safe
+                    and not confirmed_signature
+                    and not special_impossible
+                )
+                normal_mode_confirmed = (
+                    confirmed_signature
+                    or special_impossible
+                    or state0_prefix_promoted
+                )
                 if confirmed_signature and special_impossible:
                     evidence = "confirmed_setup_signature_and_special_parse_impossible"
                 elif confirmed_signature:
                     evidence = "confirmed_setup_signature"
                 elif special_impossible:
                     evidence = "confirmed_normal_special_parse_impossible"
+                elif state0_prefix_promoted:
+                    evidence = "confirmed_normal_state0_safe_prefix"
                 else:
                     evidence = "strong_structural_candidate_mode_gate_unresolved"
 
@@ -349,6 +482,9 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     "confirmed_setup_signature": confirmed_signature,
                     "special_interpretation_status": special_status,
                     "special_interpretation_impossible": special_impossible,
+                    "state0_prefix_mode_safe": state0_safe,
+                    "state0_prefix_promoted": state0_prefix_promoted,
+                    "state0_prefix_b910_targets": state0_b910_targets,
                     "normal_mode_confirmed": normal_mode_confirmed,
                     **meta,
                     "immediate_secondary": False,
@@ -452,11 +588,14 @@ def main() -> None:
     if sha != EXPECTED_SHA256:
         raise SystemExit(f"unexpected ROM SHA-256: {sha}")
 
+    validate_state0_prefix_anchors(rom)
     records, corpus = build_corpus(rom)
     primary, secondary = candidate_rows(rom, records)
 
     signature_confirmed = [r for r in primary if r["confirmed_setup_signature"]]
     special_impossible = [r for r in primary if r["special_interpretation_impossible"]]
+    state0_prefix_safe = [r for r in primary if r["state0_prefix_mode_safe"]]
+    state0_prefix_promoted = [r for r in primary if r["state0_prefix_promoted"]]
     normal_confirmed = [r for r in primary if r["normal_mode_confirmed"]]
     unresolved_primary = [r for r in primary if not r["normal_mode_confirmed"]]
     paired = [r for r in primary if r["immediate_secondary"]]
@@ -476,6 +615,10 @@ def main() -> None:
     args.out_dir.mkdir(parents=True, exist_ok=True)
     write_csv(args.out_dir / "primary_map_selector_catalog.csv", primary)
     write_csv(args.out_dir / "secondary_map_selector_candidates.csv", secondary)
+    write_csv(
+        args.out_dir / "state0_safe_prefix_promotions.csv",
+        state0_prefix_promoted,
+    )
 
     summary = {
         "schema_version": 1,
@@ -488,14 +631,27 @@ def main() -> None:
             "its next opcode would be the normal-map candidate's layout_id byte. "
             "Rows whose layout_id is outside the proven special range or maps to "
             "the C4 BRK handler cannot be interpreted as special 0x50 and are "
-            "promoted to confirmed normal mode. Other non-signature rows remain "
-            "mode-gate unresolved."
+            "promoted to confirmed normal mode. In addition, a narrowly proven "
+            "state0 record0/entry1 prefix family is promoted when its prefix uses "
+            "only 96/10/11/33, the state0 helper seeds $035F=2, and every "
+            "descriptor-resolved B910 indirect target is one of the cleared "
+            "B924/B944 routines. Other rows remain mode-gate unresolved."
         ),
         "corpus": corpus,
         "primary": {
             "strong_shape_total": len(primary),
             "confirmed_setup_signature": len(signature_confirmed),
             "confirmed_special_interpretation_impossible": len(special_impossible),
+            "state0_prefix_mode_safe_rows": len(state0_prefix_safe),
+            "newly_promoted_state0_safe_prefix": len(state0_prefix_promoted),
+            "state0_prefix_b910_targets": sorted(
+                {
+                    target
+                    for r in state0_prefix_promoted
+                    for target in r["state0_prefix_b910_targets"].split(",")
+                    if target
+                }
+            ),
             "confirmed_normal_union": len(normal_confirmed),
             "mode_gate_unresolved": len(unresolved_primary),
             "special_interpretation_status_counts": {
@@ -556,6 +712,7 @@ def main() -> None:
         "outputs": [
             "primary_map_selector_catalog.csv",
             "secondary_map_selector_candidates.csv",
+            "state0_safe_prefix_promotions.csv",
             "primary_map_selector_summary.json",
         ],
     }

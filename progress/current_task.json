@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Enumerate map-selector bytecode and build the ROM map corpus index",
-  "base_main_head_verified": "34f7298",
+  "base_main_head_verified": "f3d05c32197affb274005fc54b6d0add87e954ba",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.",
   "definition_of_done": [
@@ -189,42 +189,54 @@
         "docs/analysis/map_selector_prefix_mode_safety_20260928.md",
         "docs/analysis/map_selector_prefix_decode_20260928.md"
       ]
+    },
+    {
+      "item": "State-0 prefix mode persistence is now strong enough to promote 55 previously unresolved record0/entry1 primary selectors. The entry1 helper 81:98D1 explicitly seeds $035F=2; the 55 prefixes use only 0x96/0x10/0x11/0x33, preserve $035F/$1398/$1399, and every descriptor-resolved B910 indirect target collapses to the cleared B924/B944 routines. Confirmed primary rises 126->181 and unresolved falls 137->82; 31 immediate 0x51 rows are promoted, raising confirmed secondary pairs 53->84.",
+      "evidence": [
+        "tools/python/catalog_map_selectors.py",
+        "data/maps/selectors/primary_map_selector_catalog.csv",
+        "data/maps/selectors/secondary_map_selector_candidates.csv",
+        "data/maps/selectors/state0_safe_prefix_promotions.csv",
+        "data/maps/selectors/primary_map_selector_summary.json",
+        "docs/analysis/map_selector_state0_promotion_20260928.md",
+        "docs/analysis/map_selector_prefix_mode_safety_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
     {
-      "observation": "55/56 fully aligned prefixes use only 0x96/0x10/0x11/0x33. Direct and bounded callee scans show no explicit $1398/$1399 writes or C0:C9E7 re-entry for the 0x96 and 0x11 chains, nor in the direct bounded 0x10/0x33 render chain.",
-      "confidence": "strong_static_mode_safety",
-      "reason_not_promoted": "0x10/0x33 reach B910, which dispatches indirectly through ($B91C,X) using descriptor-derived $1123; reachable indirect targets must be resolved first."
-    },
-    {
-      "observation": "B7A7 derives $1123 from a descriptor high nibble and B910 uses it as an even byte offset into the indirect JSR table at B91C. B8F2's separate indirect table is cleanly bounded to B906/B90B.",
-      "confidence": "confirmed_static",
-      "reason_not_promoted": "The actual B910 target subset depends on the 0x10/0x33 operand and descriptor context."
-    },
-    {
-      "observation": "The single remaining fully aligned prefix additionally uses opcode 0x15.",
+      "observation": "One instruction-aligned record0/entry1 primary selector still uses opcode 0x15 in addition to the now-proven 0x96/0x10/0x11/0x33 family.",
       "confidence": "confirmed_alignment",
-      "reason_not_promoted": "Opcode 0x15 callee mode safety is not yet fully bounded."
+      "reason_not_promoted": "Opcode 0x15 writes $1134 and calls 80:BAB8; its effect on $035F/render state must be bounded before state0 persistence can be claimed."
+    },
+    {
+      "observation": "The conservative prefix decoder still stops 62 original rows at A3/B3/E8/3D/A0/E1/D0/B4/64. After the 55-row promotion, those families plus the 0x15 row dominate the record0/entry1 static backlog.",
+      "confidence": "confirmed_decoder_backlog",
+      "reason_not_promoted": "Each stopped opcode family needs an independently proven length/control-flow/mode-safety model."
+    },
+    {
+      "observation": "21 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after the new primary promotion.",
+      "confidence": "strong_structural_mode_unresolved",
+      "reason_not_promoted": "Their opcode meaning still depends on $1398 at execution."
     }
   ],
   "in_progress": [
-    "Resolve 0x10/0x33 operand -> B7A7 descriptor -> $1123 -> B910 indirect target for the 55 fully aligned prefixes.",
-    "Clear the reachable B910 target subset for $1398/$1399 writes or C0:C9E7 transitions, then promote only mode-safe selectors.",
-    "Evaluate the single aligned prefix containing opcode 0x15 after the 55-row common path is resolved."
+    "Bound opcode 0x15 and its BAB8-side effects for the single remaining fully aligned record0/entry1 prefix.",
+    "Then add safe length/control-flow handling for the largest blocked prefix families, starting with A3 and B3.",
+    "Propagate every new primary confirmation into immediate 0x51 pair status."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "For each aligned prefix using 0x10/0x33, derive the operand-selected B7A7 descriptor and enumerate the reachable even $1123 offsets / B910 indirect targets."
+      "action": "Analyze opcode 0x15 (84:8AE0) and 80:BAB8/related $1134->$035F paths; promote the one aligned row only if state0 normal-mode persistence remains proven."
     },
     {
       "order": 2,
-      "action": "Inspect only those reachable B910 targets and their callees for $1398/$1399 mutation or C0:C9E7 re-entry; promote mode-safe primary selectors and propagate immediate 0x51 pairs."
+      "action": "Reverse the A3 prefix opcode family enough to establish exact instruction length/control flow and mode-state side effects; rerun the conservative prefix decoder."
     },
     {
       "order": 3,
-      "action": "Evaluate opcode 0x15 for the one remaining aligned prefix, then expand safe decoding into the A3/B3/E8/3D/A0/E1/D0/B4/64 stop families."
+      "action": "Do the same for B3, then E8/3D/A0/E1/D0/B4/64 in descending backlog size."
     },
     {
       "order": 4,
@@ -263,7 +275,10 @@
     "Do not promote record0/entry1 selectors solely because the prefix decoder reaches 0x50; mode-state safety of every decoded handler/callee still has to be proven.",
     "Do not guess lengths for A3/B3/E8/3D/A0/E1/D0/B4/64; the safe decoder must stop until each family is independently bounded.",
     "Do not treat the raw B91C bytes as a flat valid code-pointer table without resolving the descriptor-derived $1123 index domain.",
-    "Do not promote the 55 aligned 0x96/0x10/0x11/0x33 prefixes until the reachable B910 indirect targets are bounded."
+    "Do not promote the 55 aligned 0x96/0x10/0x11/0x33 prefixes until the reachable B910 indirect targets are bounded.",
+    "Do not keep the old canonical map-selector counts 126 confirmed / 137 unresolved after the state0 safe-prefix proof; the reproducible catalog now yields 181 confirmed / 82 unresolved.",
+    "Do not treat all possible game-wide $035F values as relevant to state0 record0/entry1. 81:98D1 explicitly seeds $035F=2 immediately before the entry1 VM is started.",
+    "Do not treat B91C as an unresolved wide indirect table for the promoted state0 family; descriptor resolution restricts it to B924/B944 only."
   ],
   "runtime_only_artifacts": [
     {
@@ -322,7 +337,9 @@
     "data/maps/selectors/record0_entry1_prefix_analysis.csv",
     "data/maps/selectors/record0_entry1_prefix_summary.json",
     "docs/analysis/map_selector_prefix_decode_20260928.md",
-    "docs/analysis/map_selector_prefix_mode_safety_20260928.md"
+    "docs/analysis/map_selector_prefix_mode_safety_20260928.md",
+    "data/maps/selectors/state0_safe_prefix_promotions.csv",
+    "docs/analysis/map_selector_state0_promotion_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",
