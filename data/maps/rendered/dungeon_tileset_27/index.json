@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "kind": "normal_4bpp_map_family_render_index",
+  "tileset_id": 27,
+  "graphics_operands": [
+    12,
+    13
+  ],
+  "palette_operand": 10,
+  "map_count": 2,
+  "maps": [
+    {
+      "tileset_id": 27,
+      "layout_id": 132,
+      "render_mode": "normal_4bpp_rom_setup",
+      "transparent_color_index_zero": true,
+      "graphics_operands": [
+        12,
+        13
+      ],
+      "palette_operand": 10,
+      "state0_descriptor_index": 2,
+      "used_tile_ids": [
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        280,
+        281,
+        282,
+        283,
+        285,
+        286,
+        310,
+        311,
+        312,
+        313
+      ],
+      "used_palette_indices_nonzero": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "graphics_resource_coverage_complete": true,
+      "palette_resource_coverage_complete": true,
+      "config_ids": [
+        "cfg_t27_l132_v2"
+      ],
+      "pack_ids_hex": [
+        "0x55"
+      ],
+      "output_png": "map_132.png",
+      "output_png_sha256": "80C8A51BF03E31635874BFD27FD66828C27DEB43C467C2A34AF1733612674DEF"
+    },
+    {
+      "tileset_id": 27,
+      "layout_id": 134,
+      "render_mode": "normal_4bpp_rom_setup",
+      "transparent_color_index_zero": true,
+      "graphics_operands": [
+        12,
+        13
+      ],
+      "palette_operand": 10,
+      "state0_descriptor_index": 2,
+      "used_tile_ids": [
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        280,
+        281,
+        282,
+        283
+      ],
+      "used_palette_indices_nonzero": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        41,
+        42
+      ],
+      "graphics_resource_coverage_complete": true,
+      "palette_resource_coverage_complete": true,
+      "config_ids": [
+        "cfg_t27_l134_v2"
+      ],
+      "pack_ids_hex": [
+        "0x57"
+      ],
+      "output_png": "map_134.png",
+      "output_png_sha256": "3479203DAC803FD8919E3D170AAF993EC9913E30502315EFE216AB8D3AE42855"
+    }
+  ],
+  "policy": "Derived entirely from ROM; normal-BG color index 0 is transparent."
+}

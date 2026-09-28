@@ -159,6 +159,60 @@ def config_rows(path: Path, tileset_id: int):
     return [r for r in rows if int(r["primary_tileset_id"]) == tileset_id]
 
 
+def validate_layout_resources(expanded, vram: bytes, resources, palette_meta):
+    loaded = [
+        (r["vram_byte_addr"], r["decoded_end_byte"])
+        for r in resources
+    ]
+    missing_tiles = set()
+    used_tiles = set()
+    used_palette_indices = set()
+    cache = {}
+
+    for row in expanded:
+        for entry in row:
+            tile_id = entry & 0x03FF
+            palette_id = (entry >> 10) & 0x07
+            used_tiles.add(tile_id)
+            start = tile_id * 32
+            end = start + 32
+            if not any(a <= start and end <= b for a, b in loaded):
+                missing_tiles.add(tile_id)
+                continue
+            if tile_id not in cache:
+                cache[tile_id] = decode_4bpp_tile(vram, 0, tile_id)
+            for line in cache[tile_id]:
+                for color_index in line:
+                    if color_index:
+                        used_palette_indices.add(
+                            palette_id * 16 + color_index
+                        )
+
+    first = palette_meta["destination_index"]
+    last = first + palette_meta["color_count"]
+    missing_palette = sorted(
+        i for i in used_palette_indices
+        if not (first <= i < last)
+    )
+    if missing_tiles:
+        raise ValueError(
+            "layout references CHR outside setup resources: "
+            + ",".join(f"{x:#x}" for x in sorted(missing_tiles))
+        )
+    if missing_palette:
+        raise ValueError(
+            "layout references palette entries outside opcode11 resource: "
+            + ",".join(f"{x:#x}" for x in missing_palette)
+        )
+
+    return {
+        "used_tile_ids": sorted(used_tiles),
+        "used_palette_indices_nonzero": sorted(used_palette_indices),
+        "graphics_resource_coverage_complete": True,
+        "palette_resource_coverage_complete": True,
+    }
+
+
 def render_rgba(expanded, vram: bytes, palette):
     height = len(expanded) * 8
     width = len(expanded[0]) * 8
@@ -219,6 +273,9 @@ def main():
             mapdec.parse_layout(rom, layout_id)["grid"],
             args.tileset_id,
         )["expanded"]
+        coverage = validate_layout_resources(
+            expanded, vram, resources, palette_meta
+        )
         image = render_rgba(expanded, vram, palette)
         png = args.out_dir / f"map_{layout_id:03d}.png"
         image.save(png, optimize=True)
@@ -231,6 +288,7 @@ def main():
             "graphics_operands": args.gfx_operand,
             "palette_operand": args.palette_operand,
             "state0_descriptor_index": args.descriptor_index,
+            **coverage,
             "config_ids": sorted({r["config_id"] for r in related}),
             "pack_ids_hex": sorted({
                 p

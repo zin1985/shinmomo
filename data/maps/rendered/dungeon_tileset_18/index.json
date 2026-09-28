@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "kind": "normal_4bpp_map_family_render_index",
+  "tileset_id": 18,
+  "graphics_operands": [
+    12,
+    13
+  ],
+  "palette_operand": 18,
+  "map_count": 1,
+  "maps": [
+    {
+      "tileset_id": 18,
+      "layout_id": 112,
+      "render_mode": "normal_4bpp_rom_setup",
+      "transparent_color_index_zero": true,
+      "graphics_operands": [
+        12,
+        13
+      ],
+      "palette_operand": 18,
+      "state0_descriptor_index": 2,
+      "used_tile_ids": [
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        512,
+        513,
+        514,
+        515,
+        518,
+        520,
+        521,
+        522,
+        523,
+        524,
+        528,
+        529,
+        536,
+        537,
+        539,
+        540,
+        562,
+        563,
+        642,
+        643,
+        644,
+        645,
+        646,
+        647,
+        648,
+        649,
+        650,
+        651,
+        652,
+        653,
+        654
+      ],
+      "used_palette_indices_nonzero": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        43,
+        44,
+        45,
+        46,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        58
+      ],
+      "graphics_resource_coverage_complete": true,
+      "palette_resource_coverage_complete": true,
+      "config_ids": [
+        "cfg_t18_l112_v2"
+      ],
+      "pack_ids_hex": [
+        "0xC5"
+      ],
+      "output_png": "map_112.png",
+      "output_png_sha256": "9C1FD3170E23D44630D271D5E213F92778D08C79C7137A08D6E2C5AB421B8855"
+    }
+  ],
+  "policy": "Derived entirely from ROM; normal-BG color index 0 is transparent."
+}
