@@ -393,5 +393,3 @@
     "resume_behavior": "Read this file, verify latest main, then continue from next_actions[0] without redoing done/do_not_redo items."
   }
 }
-
-[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
