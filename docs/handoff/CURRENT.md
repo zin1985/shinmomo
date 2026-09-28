@@ -145,24 +145,34 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_a0_nested_promotion_20260928.md`
 
+- State0-reachable A0 nested-entry seeding now promotes 16 later-record selectors in packs 0xED/0xEE/0xF0/0xF1. Confirmed primary rises 244->260, unresolved falls 19->3, and CD:E353/CD:E357 closes the final unresolved immediate pair so all 105/105 immediate secondary pairs are confirmed.
+  - tools/python/catalog_map_selectors.py
+  - data/maps/selectors/state0_a0_nested_promotions.csv
+  - data/maps/selectors/primary_map_selector_catalog.csv
+  - data/maps/selectors/secondary_map_selector_candidates.csv
+  - data/maps/selectors/primary_map_selector_summary.json
+  - docs/analysis/map_selector_later_a0_promotion_20260928.md
+
 ## Observed but not yet promoted
 
-- **confirmed_catalog**: Nineteen later-record primary selectors remain unresolved; the record0/entry1 backlog is fully closed at 244/263 confirmed primary.
-  - Why not promoted: These rows belong to other record/entry families and require their own reachable mode context rather than inheriting the state0 entry1 proof.
-- **confirmed_catalog**: The only unresolved immediate 0x50+0x51 pair is pack 0xED record 2 / entry 0x90: primary CD:E353 followed by secondary CD:E357.
-  - Why not promoted: Its later-record entry family does not yet have a proven normal-mode path.
+- confirmed_catalog: Only three primary selectors remain unresolved: 0x7F/r3/e88 at CC:A71F and 0x9D/r4/e6D + r5/e6C at CC:FD5C / CC:FE6D.
+  - Why not promoted: their entry-family normal-mode reachability is not yet fully proven.
+- strong_static_seed: State-0 native initialization unconditionally executes LDA #$88 ; JSL $84:858D at 81:96FE after establishing dynamic pack $0305.
+  - Why not promoted: pack 0x7F entry-0x88 uses prefix grammar not yet covered by the fail-closed selector CFG.
+- strong_structural_call_edges: Pack 0x9D CC:FD57 and CC:FE68 have same-pack A0 callers from entry 0x76 at CC:FE45 and entry 0x7C at CC:FD2A.
+  - Why not promoted: the source entry activation/mode seeds still need proof.
 
 ## In progress
 
-- Recompute the 19 later-record unresolved selectors by record index, entry id and first blocking grammar/mode context.
-- Prioritize pack 0xED record 2 / entry 0x90 because resolving CD:E353 also closes the final unresolved immediate 0x51 pair.
+- Prove the 81:96FE state-0 entry-0x88 start and decode CC:A6CE -> CC:A71F fail-closed.
+- Trace pack 0x9D entry 0x76 / 0x7C activation paths and validate their A0 caller edges.
 
 ## Next actions
 
-1. Recompute the later-record unresolved 19 rows by record index, entry id, substream start and first blocking grammar/mode context.
-2. Resolve pack 0xED record 2 / entry 0x90 normal-mode reachability for CD:E353; promote its immediate secondary CD:E357 only with the parent proof.
-3. Group the remaining later-record rows by entry family and prove each family from its caller/mode-state seed without borrowing the state0 entry1 assumption.
-4. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
+1. Prove state0 entry-0x88 reachability for pack 0x7F and bound the CC:A6CE -> CC:A71F prefix without guessing opcode lengths.
+2. Resolve pack 0x9D entry 0x76 / 0x7C caller mode contexts, then validate A0 calls to CC:FD57 and CC:FE68.
+3. Classify the final three selectors or retain any genuinely special-mode row with explicit evidence.
+4. After selector semantics are closed, cross-link selectors with dialogue/event/location evidence for town/interior/dungeon/world labels.
 
 ## Do not redo
 
@@ -204,6 +214,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not linearize B3/B4; both runtime branch outcomes must be represented in the safe CFG.
 - Do not use the old 225 confirmed / 38 unresolved counts after the residual state0 grammar pass; that intermediate pass yielded 240 confirmed / 23 unresolved.
 - Do not use the old 240 confirmed / 23 unresolved counts after the A0/B0 nested-call proof; canonical counts are now 244 confirmed / 19 unresolved, with record0/entry1 fully closed.
+- Do not use the old 244 confirmed / 19 unresolved counts after later-record A0 nested-entry seeding; canonical counts are now 260 confirmed / 3 unresolved, with all 105 immediate secondary pairs confirmed.
+- Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established.
 - Do not flatten opcode A0 as a simple four-byte instruction. It changes $98/$99/$9A to a nested 24-bit target and uses B0/$1266/C4:84D9 return machinery.
 - Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.
 

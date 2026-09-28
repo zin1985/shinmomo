@@ -300,6 +300,21 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
             + got.hex(" ")
         )
 
+    # Compact A0 nested-call entry.  This body saves the caller VM context,
+    # advances/pushes the continuation, replaces $98/$99/$9A with the embedded
+    # 24-bit target and increments $1266 before returning to the scheduler.
+    # It does not write $1398/$1399 or re-enter C0:C9E7, so a callsite already
+    # proven reachable in state0 seeds the nested target in the same mode.
+    a0 = file_from_cpu(0xC4, 0x846F)
+    expected_a0 = bytes.fromhex(
+        "AD 6B 12 48 A5 98 48 A5 99 48 A5 9A 48 A9 04 20 10 84 "
+        "20 B9 84 68 85 9A 68 85 99 68 85 98 A0 01 B7 98 48 C8 "
+        "B7 98 48 C8 B7 98 85 9A 68 85 99 68 85 98 C8 68 8D 6B "
+        "12 EE 66 12 68 68 4C 78 80"
+    )
+    if rom[a0 : a0 + len(expected_a0)] != expected_a0:
+        raise SystemExit("unexpected A0 nested-call handler body at C4:846F")
+
     # B7A7 selects a C3 descriptor base through BAAC[2*$035F].
     baac = file_from_cpu(0xC0, 0xBAAC)
     ptr = u16_file(rom, baac + 2 * STATE0_DESCRIPTOR_INDEX)
@@ -734,8 +749,14 @@ def state0_prefix_mode_safe(
     stream_start: int,
     stream_end: int,
     target: int,
+    *,
+    require_record0_entry1: bool = True,
 ) -> tuple[bool, str, bool]:
-    """Prove a state-0 record0/entry1 path reaches target in normal mode.
+    """Prove a stream path reaches target while normal state0 remains active.
+
+    By default this is restricted to the independently proven record0/entry1
+    startup family.  Callers that separately prove state0 at another substream
+    entry may set require_record0_entry1=False and reuse the same fail-closed CFG.
 
     The proof is deliberately a small CFG, not a linear byte walker.
 
@@ -753,7 +774,7 @@ def state0_prefix_mode_safe(
     For every 10/33 descriptor operation, state0's explicit $035F=2 seed is
     used to resolve C3:0850 and B910 must land on B924/B944.
     """
-    if record_index != 0 or entry_id != 0x01:
+    if require_record0_entry1 and (record_index != 0 or entry_id != 0x01):
         return False, "", False
 
     def signed8(x: int) -> int:
@@ -953,9 +974,87 @@ def build_corpus(rom: bytes) -> tuple[list[dict], dict]:
     return records, summary
 
 
+def state0_reachable_a0_substreams(
+    rom: bytes,
+    records: list[dict],
+) -> dict[int, list[dict]]:
+    """Find valid substreams entered by A0 from a proven state0 entry1 path.
+
+    This is not a raw A0 byte search.  Each candidate callsite must itself be
+    reachable as an instruction boundary through state0_prefix_mode_safe(), and
+    its embedded 24-bit target must exactly equal a parsed substream start in the
+    same canonical pack.  The result proves state0 at nested-substream entry;
+    candidate-local prefix safety is checked separately.
+    """
+    substreams: dict[int, tuple[int, int, int, int]] = {}
+    for record in records:
+        header = record.get("header")
+        if not header:
+            continue
+        for entry in header["entries"]:
+            substreams[entry["start"]] = (
+                record["pack_id"],
+                record["record_index"],
+                entry["entry_id"],
+                entry["end"],
+            )
+
+    reachable: dict[int, list[dict]] = {}
+    for record in records:
+        if record["record_index"] != 0:
+            continue
+        header = record.get("header")
+        if not header:
+            continue
+        for entry in header["entries"]:
+            if entry["entry_id"] != 0x01:
+                continue
+            stream_start = entry["start"]
+            stream_end = entry["end"]
+            for p in range(stream_start, max(stream_start, stream_end - 3)):
+                if rom[p] != 0xA0 or p + 4 > stream_end:
+                    continue
+                safe, b910_targets, branch_used = state0_prefix_mode_safe(
+                    rom,
+                    0,
+                    0x01,
+                    stream_start,
+                    stream_end,
+                    p,
+                )
+                if not safe:
+                    continue
+                target_ptr = u24_file(rom, p + 1)
+                bank = (target_ptr >> 16) & 0xFF
+                if bank < 0xC0:
+                    continue
+                target = file_from_cpu(bank, target_ptr & 0xFFFF)
+                target_meta = substreams.get(target)
+                if target_meta is None:
+                    continue
+                target_pack, target_record, target_entry, target_end = target_meta
+                if target_pack != record["pack_id"]:
+                    continue
+                reachable.setdefault(target, []).append(
+                    {
+                        "caller_pack_id": record["pack_id"],
+                        "caller_record_index": 0,
+                        "caller_entry_id": 0x01,
+                        "callsite": p,
+                        "target_record_index": target_record,
+                        "target_entry_id": target_entry,
+                        "target_end": target_end,
+                        "b910_targets": b910_targets,
+                        "branch_used": branch_used,
+                    }
+                )
+    return reachable
+
+
 def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[dict]]:
     primary = []
     all_secondary_shape = []
+    state0_nested_seeds = state0_reachable_a0_substreams(rom, records)
 
     for record in records:
         header = record["header"]
@@ -1006,17 +1105,48 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     stream_end,
                     p,
                 )
-                # Count this proof as a promotion only when earlier independent
+
+                nested_seed_callers = state0_nested_seeds.get(stream_start, [])
+                nested_state0_safe = False
+                nested_b910_targets = ""
+                nested_cfg_branch_used = False
+                if nested_seed_callers:
+                    (
+                        nested_state0_safe,
+                        nested_b910_targets,
+                        nested_cfg_branch_used,
+                    ) = state0_prefix_mode_safe(
+                        rom,
+                        record_index,
+                        entry_id,
+                        stream_start,
+                        stream_end,
+                        p,
+                        require_record0_entry1=False,
+                    )
+                nested_seed_labels = ";".join(
+                    f"0x{x['caller_pack_id']:02X}@{cpu_from_file(x['callsite'])}"
+                    for x in nested_seed_callers
+                )
+
+                # Count a proof as a promotion only when earlier independent
                 # proofs did not already confirm the row.
                 state0_prefix_promoted = (
                     state0_safe
                     and not confirmed_signature
                     and not special_impossible
                 )
+                state0_nested_promoted = (
+                    nested_state0_safe
+                    and not confirmed_signature
+                    and not special_impossible
+                    and not state0_prefix_promoted
+                )
                 normal_mode_confirmed = (
                     confirmed_signature
                     or special_impossible
                     or state0_prefix_promoted
+                    or state0_nested_promoted
                 )
                 if confirmed_signature and special_impossible:
                     evidence = "confirmed_setup_signature_and_special_parse_impossible"
@@ -1026,6 +1156,8 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     evidence = "confirmed_normal_special_parse_impossible"
                 elif state0_prefix_promoted:
                     evidence = "confirmed_normal_state0_safe_prefix"
+                elif state0_nested_promoted:
+                    evidence = "confirmed_normal_state0_a0_nested_entry"
                 else:
                     evidence = "strong_structural_candidate_mode_gate_unresolved"
 
@@ -1056,6 +1188,13 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     "state0_prefix_promoted": state0_prefix_promoted,
                     "state0_prefix_b910_targets": state0_b910_targets,
                     "state0_cfg_branch_used": state0_cfg_branch_used,
+                    "state0_nested_entry_seeded": bool(nested_seed_callers),
+                    "state0_nested_seed_count": len(nested_seed_callers),
+                    "state0_nested_seed_callers": nested_seed_labels,
+                    "state0_nested_mode_safe": nested_state0_safe,
+                    "state0_nested_promoted": state0_nested_promoted,
+                    "state0_nested_b910_targets": nested_b910_targets,
+                    "state0_nested_cfg_branch_used": nested_cfg_branch_used,
                     "normal_mode_confirmed": normal_mode_confirmed,
                     **meta,
                     "immediate_secondary": False,
@@ -1170,6 +1309,9 @@ def main() -> None:
     state0_cfg_promoted = [
         r for r in state0_prefix_promoted if r["state0_cfg_branch_used"]
     ]
+    state0_nested_seeded = [r for r in primary if r["state0_nested_entry_seeded"]]
+    state0_nested_safe = [r for r in primary if r["state0_nested_mode_safe"]]
+    state0_nested_promoted = [r for r in primary if r["state0_nested_promoted"]]
     normal_confirmed = [r for r in primary if r["normal_mode_confirmed"]]
     unresolved_primary = [r for r in primary if not r["normal_mode_confirmed"]]
     paired = [r for r in primary if r["immediate_secondary"]]
@@ -1193,6 +1335,10 @@ def main() -> None:
         args.out_dir / "state0_safe_prefix_promotions.csv",
         state0_prefix_promoted,
     )
+    write_csv(
+        args.out_dir / "state0_a0_nested_promotions.csv",
+        state0_nested_promoted,
+    )
 
     summary = {
         "schema_version": 1,
@@ -1212,7 +1358,11 @@ def main() -> None:
             "terminal-only 0x15, and SHA-bounded A0/B0 nested calls); the "
             "state0 helper seeds $035F=2, and every "
             "descriptor-resolved B910 indirect target is one of the cleared "
-            "B924/B944 routines. Other rows remain mode-gate unresolved."
+            "B924/B944 routines. Later-record substreams may also be promoted "
+            "when an instruction-aligned A0 callsite is itself proven reachable "
+            "from state0 entry1, targets that exact parsed substream in the same "
+            "pack, and the nested substream reaches the candidate through the "
+            "same fail-closed CFG. Other rows remain mode-gate unresolved."
         ),
         "corpus": corpus,
         "primary": {
@@ -1230,6 +1380,12 @@ def main() -> None:
                     if target
                 }
             ),
+            "state0_a0_nested_seeded_rows": len(state0_nested_seeded),
+            "state0_a0_nested_mode_safe_rows": len(state0_nested_safe),
+            "newly_promoted_state0_a0_nested_rows": len(state0_nested_promoted),
+            "state0_a0_nested_promoted_addresses": [
+                r["command_addr"] for r in state0_nested_promoted
+            ],
             "confirmed_normal_union": len(normal_confirmed),
             "mode_gate_unresolved": len(unresolved_primary),
             "special_interpretation_status_counts": {
@@ -1291,6 +1447,7 @@ def main() -> None:
             "primary_map_selector_catalog.csv",
             "secondary_map_selector_candidates.csv",
             "state0_safe_prefix_promotions.csv",
+            "state0_a0_nested_promotions.csv",
             "primary_map_selector_summary.json",
         ],
     }

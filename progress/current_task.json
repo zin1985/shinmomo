@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Enumerate map-selector bytecode and build the ROM map corpus index",
-  "base_main_head_verified": "65321f69017103612c3918433f0d2d2faa3e9287",
+  "base_main_head_verified": "c84d2cb5456af35b8b96912e97ccf34630aa2528",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.",
   "definition_of_done": [
@@ -244,40 +244,56 @@
         "data/maps/selectors/primary_map_selector_summary.json",
         "docs/analysis/map_selector_a0_nested_promotion_20260928.md"
       ]
+    },
+    {
+      "item": "State0-reachable A0 nested-entry seeding promotes 16 later-record primary selectors across packs 0xED/0xEE/0xF0/0xF1. Canonical confirmed primary rises 244->260, unresolved falls 19->3, and the final unresolved immediate pair CD:E353/CD:E357 is closed so all 105/105 immediate secondary pairs are confirmed.",
+      "evidence": [
+        "tools/python/catalog_map_selectors.py",
+        "data/maps/selectors/state0_a0_nested_promotions.csv",
+        "data/maps/selectors/primary_map_selector_catalog.csv",
+        "data/maps/selectors/secondary_map_selector_candidates.csv",
+        "data/maps/selectors/primary_map_selector_summary.json",
+        "docs/analysis/map_selector_later_a0_promotion_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
     {
-      "observation": "Nineteen later-record primary selectors remain unresolved; record0/entry1 is fully closed at 244/263 confirmed primary.",
+      "observation": "Only three primary selectors remain unresolved: pack 0x7F record 3 / entry 0x88 at CC:A71F, and pack 0x9D records 4/5 entries 0x6D/0x6C at CC:FD5C/CC:FE6D.",
       "confidence": "confirmed_catalog",
-      "reason_not_promoted": "These rows belong to other record/entry families and require their own reachable mode context rather than inheriting the state0 entry1 proof."
+      "reason_not_promoted": "Their entry-family normal-mode reachability is not yet fully proven."
     },
     {
-      "observation": "The only unresolved immediate 0x50+0x51 pair is pack 0xED record 2 / entry 0x90: CD:E353 primary followed by CD:E357 secondary.",
-      "confidence": "confirmed_catalog",
-      "reason_not_promoted": "Its later-record entry family does not yet have a proven normal-mode path."
+      "observation": "State-0 native initialization contains an unconditional LDA #$88 ; JSL $84:858D at 81:96FE after establishing dynamic pack $0305.",
+      "confidence": "strong_static_seed",
+      "reason_not_promoted": "The 0x7F entry-0x88 substream prefix uses additional grammar not yet covered by the fail-closed selector CFG, so the candidate boundary is not yet proven normal."
+    },
+    {
+      "observation": "The two pack-0x9D residual substreams have same-pack raw A0 callers: CC:FD57 is targeted from entry 0x76 at CC:FE45; CC:FE68 is targeted from entry 0x7C at CC:FD2A.",
+      "confidence": "strong_structural_call_edges",
+      "reason_not_promoted": "The caller entries 0x76/0x7C still need an independently proven normal-mode seed and instruction-aligned reachability to those A0 callsites."
     }
   ],
   "in_progress": [
-    "Recompute the 19 later-record unresolved selectors by record index, entry id and first blocking grammar/mode context.",
-    "Prioritize pack 0xED record 2 / entry 0x90 because resolving CD:E353 also closes the final unresolved immediate 0x51 pair at CD:E357."
+    "Resolve pack 0x7F entry 0x88 from the direct state-0 native seed at 81:96FE, then bound the CC:A6CE -> CC:A71F prefix without guessing opcode lengths.",
+    "Resolve pack 0x9D entries 0x6D/0x6C by tracing the entry 0x76/0x7C A0 caller chains back to a proven mode-state seed."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Recompute the later-record unresolved 19 rows by record index, entry id, substream start and first blocking grammar/mode context."
+      "action": "Prove the 81:96FE state-0 entry-0x88 start and decode the pack-0x7F CC:A6CE -> CC:A71F prefix fail-closed; promote only if the whole reachable path stays normal."
     },
     {
       "order": 2,
-      "action": "Resolve pack 0xED record 2 / entry 0x90 normal-mode reachability for CD:E353; promote its immediate secondary CD:E357 only with the parent proof."
+      "action": "Trace pack-0x9D entry 0x76 and 0x7C activation/caller paths, then validate their A0 calls to CC:FD57 and CC:FE68 as instruction-aligned normal-mode edges."
     },
     {
       "order": 3,
-      "action": "Group the remaining later-record rows by entry family and prove each family from its caller/mode-state seed without borrowing the state0 entry1 assumption."
+      "action": "Classify the final three selectors or retain any genuinely special-mode row with explicit evidence."
     },
     {
       "order": 4,
-      "action": "Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels."
+      "action": "After selector semantics are closed, cross-link confirmed pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels."
     }
   ],
   "do_not_redo": [
@@ -320,7 +336,9 @@
     "Do not use the old 225 confirmed / 38 unresolved counts after the residual state0 grammar pass; canonical counts are now 240 confirmed / 23 unresolved.",
     "Do not flatten opcode A0 as a simple four-byte instruction. It changes $98/$99/$9A to a nested 24-bit target and uses B0/$1266/C4:84D9 return machinery.",
     "Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.",
-    "Do not use the old 240 confirmed / 23 unresolved counts after the A0/B0 nested-call proof; canonical counts are now 244 confirmed / 19 unresolved, with record0/entry1 fully closed."
+    "Do not use the old 240 confirmed / 23 unresolved counts after the A0/B0 nested-call proof; canonical counts are now 244 confirmed / 19 unresolved, with record0/entry1 fully closed.",
+    "Do not use the old 244 confirmed / 19 unresolved counts after later-record A0 nested-entry seeding; canonical counts are now 260 confirmed / 3 unresolved, with all 105 immediate secondary pairs confirmed.",
+    "Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established."
   ],
   "runtime_only_artifacts": [
     {
@@ -385,7 +403,9 @@
     "docs/analysis/map_selector_opcode15_promotion_20260928.md",
     "docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md",
     "docs/analysis/map_selector_residual_vm_promotion_20260928.md",
-    "docs/analysis/map_selector_a0_nested_promotion_20260928.md"
+    "docs/analysis/map_selector_a0_nested_promotion_20260928.md",
+    "data/maps/selectors/state0_a0_nested_promotions.csv",
+    "docs/analysis/map_selector_later_a0_promotion_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",

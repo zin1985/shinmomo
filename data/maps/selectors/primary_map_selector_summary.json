@@ -3,7 +3,7 @@
   "kind": "derived_map_selector_catalog",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
   "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
-  "normal_vs_special_dispatch_caveat": "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when $1398 != 0. The bank82-special 0x50 consumes two bytes; therefore its next opcode would be the normal-map candidate's layout_id byte. Rows whose layout_id is outside the proven special range or maps to the C4 BRK handler cannot be interpreted as special 0x50 and are promoted to confirmed normal mode. In addition, a narrowly proven state0 record0/entry1 family is promoted through a small safe CFG (96/10/11/33/08/2D/A3, C2/E0/E1/E7/E8 expression ops, B2/B3/B4 branches, concrete-safe 13/3D/D0/D5/64 forms, plus terminal-only 0x15); the state0 helper seeds $035F=2, and every descriptor-resolved B910 indirect target is one of the cleared B924/B944 routines. Other rows remain mode-gate unresolved.",
+  "normal_vs_special_dispatch_caveat": "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when $1398 != 0. The bank82-special 0x50 consumes two bytes; therefore its next opcode would be the normal-map candidate's layout_id byte. Rows whose layout_id is outside the proven special range or maps to the C4 BRK handler cannot be interpreted as special 0x50 and are promoted to confirmed normal mode. In addition, a narrowly proven state0 record0/entry1 family is promoted through a small safe CFG (96/10/11/33/08/2D/A3, C0..CD literals, E0/E1/E7/E8 expression ops, B2/B3/B4 branches, concrete-safe 13/3D/D0/D5/64 forms, terminal-only 0x15, and SHA-bounded A0/B0 nested calls); the state0 helper seeds $035F=2, and every descriptor-resolved B910 indirect target is one of the cleared B924/B944 routines. Later-record substreams may also be promoted when an instruction-aligned A0 callsite is itself proven reachable from state0 entry1, targets that exact parsed substream in the same pack, and the nested substream reaches the candidate through the same fail-closed CFG. Other rows remain mode-gate unresolved.",
   "corpus": {
     "parsed_pack_count": 230,
     "parse_failure_pack_ids": [],
@@ -40,8 +40,29 @@
       "C0:B924",
       "C0:B944"
     ],
-    "confirmed_normal_union": 244,
-    "mode_gate_unresolved": 19,
+    "state0_a0_nested_seeded_rows": 34,
+    "state0_a0_nested_mode_safe_rows": 34,
+    "newly_promoted_state0_a0_nested_rows": 16,
+    "state0_a0_nested_promoted_addresses": [
+      "CD:E330",
+      "CD:E353",
+      "CD:E6E5",
+      "CD:E7CE",
+      "CD:EAEE",
+      "CD:EB29",
+      "CD:EB75",
+      "CD:EC1B",
+      "CD:F6E1",
+      "CD:F6FF",
+      "CD:F719",
+      "CD:FA80",
+      "CD:FAC9",
+      "CD:FB40",
+      "CD:FBCB",
+      "CD:FC22"
+    ],
+    "confirmed_normal_union": 260,
+    "mode_gate_unresolved": 3,
     "special_interpretation_status_counts": {
       "invalid_bank82_special_range": 60,
       "invalid_normal_brk": 10,
@@ -61,8 +82,8 @@
   "secondary": {
     "range_plausible_substream_rows": 184,
     "immediate_pair_rows_total": 105,
-    "confirmed_normal_immediate_pairs": 104,
-    "strong_immediate_pairs_mode_gate_unresolved": 1,
+    "confirmed_normal_immediate_pairs": 105,
+    "strong_immediate_pairs_mode_gate_unresolved": 0,
     "mode_ambiguous_standalone_rows": 79,
     "unique_immediate_pair_configurations": 51
   },
@@ -83,6 +104,7 @@
     "primary_map_selector_catalog.csv",
     "secondary_map_selector_candidates.csv",
     "state0_safe_prefix_promotions.csv",
+    "state0_a0_nested_promotions.csv",
     "primary_map_selector_summary.json"
   ]
 }

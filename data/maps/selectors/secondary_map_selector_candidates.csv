@@ -179,7 +179,7 @@
 234,0xEA,0,CD:DDE3,CD:DE1D,1,0x01,CD:DDEA,CD:DE14,CD:DDF6,0x51,38,CE:A308,155,CF:54D0,confirmed_normal_immediate_secondary_pair
 235,0xEB,0,CD:DEB5,CD:DF44,1,0x01,CD:DEC5,CD:DEDA,CD:DED1,0x51,46,CE:BEB8,171,CF:59AC,confirmed_normal_immediate_secondary_pair
 235,0xEB,7,CD:E0A6,CD:E0B0,122,0x7A,CD:E0AA,CD:E0B0,CD:E0AD,0x51,3,CE:269C,176,CF:5AA3,mode_ambiguous_secondary_shape
-237,0xED,2,CD:E348,CD:E50C,144,0x90,CD:E34F,CD:E369,CD:E357,0x51,20,CE:6950,118,CF:47A2,strong_immediate_secondary_pair_mode_gate_unresolved
+237,0xED,2,CD:E348,CD:E50C,144,0x90,CD:E34F,CD:E369,CD:E357,0x51,20,CE:6950,118,CF:47A2,confirmed_normal_immediate_secondary_pair
 237,0xED,20,CD:E837,CD:E858,144,0x90,CD:E83E,CD:E850,CD:E848,0x51,51,CE:D078,181,CF:5D38,confirmed_normal_immediate_secondary_pair
 240,0xF0,16,CD:F8BC,CD:F944,108,0x6C,CD:F8C9,CD:F8E3,CD:F8D3,0x51,55,CE:E818,193,CF:6395,confirmed_normal_immediate_secondary_pair
 245,0xF5,0,CE:05A4,CE:07B8,1,0x01,CE:05DB,CE:05F0,CE:05E7,0x51,50,CE:C940,179,CF:5C14,confirmed_normal_immediate_secondary_pair
