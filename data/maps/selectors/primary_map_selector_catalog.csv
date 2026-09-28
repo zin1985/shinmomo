@@ -45,7 +45,7 @@
 80,0x50,0,CC:1C25,CC:1C76,1,0x01,CC:1C35,CC:1C4E,CC:1C3F,0x50,4,CE:2800,8,2,confirmed_normal_state0_safe_prefix,False,possible_normal_low_opcode,False,True,True,C0:B944,True,CF:2D40,0x80,5,5,25,80,80,False,,,,,
 81,0x51,0,CC:1F36,CC:1F55,1,0x01,CC:1F3D,CC:1F4A,CC:1F43,0x50,7,CE:44C0,9,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,True,CF:2DDB,0x80,1,1,1,16,16,False,,,,,
 82,0x52,0,CC:2120,CC:213F,1,0x01,CC:2127,CC:2134,CC:212D,0x50,7,CE:44C0,10,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,True,CF:2DE6,0x80,1,1,1,16,16,False,,,,,
-83,0x53,0,CC:23A3,CC:253B,1,0x01,CC:23CE,CC:23E3,CC:23D9,0x50,8,CE:50B0,94,2,strong_structural_candidate_mode_gate_unresolved,False,possible_bank82_special_opcode,False,False,False,,False,CF:3DA3,0x00,5,2,10,80,32,True,CC:23DD,8,CE:50B0,95,CF:3DC6
+83,0x53,0,CC:23A3,CC:253B,1,0x01,CC:23CE,CC:23E3,CC:23D9,0x50,8,CE:50B0,94,2,confirmed_normal_state0_safe_prefix,False,possible_bank82_special_opcode,False,True,True,C0:B924,True,CF:3DA3,0x00,5,2,10,80,32,True,CC:23DD,8,CE:50B0,95,CF:3DC6
 84,0x54,0,CC:27AF,CC:27FD,1,0x01,CC:27B6,CC:27F1,CC:27C1,0x50,5,CE:3540,32,2,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,CF:3013,0x00,2,2,4,32,32,False,,,,,
 84,0x54,0,CC:27AF,CC:27FD,1,0x01,CC:27B6,CC:27F1,CC:27D4,0x50,4,CE:2800,29,2,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,CF:2F8C,0x80,2,2,4,32,32,False,,,,,
 84,0x54,0,CC:27AF,CC:27FD,1,0x01,CC:27B6,CC:27F1,CC:27DF,0x50,4,CE:2800,30,2,strong_structural_candidate_mode_gate_unresolved,False,possible_normal_low_opcode,False,False,False,,False,CF:2FA9,0x80,2,2,4,32,32,False,,,,,

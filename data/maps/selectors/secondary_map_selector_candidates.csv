@@ -53,7 +53,7 @@
 66,0x42,1,CB:F4B7,CB:F51A,124,0x7C,CB:F4C5,CB:F51A,CB:F505,0x51,2,CE:2400,80,CF:3AF0,mode_ambiguous_secondary_shape
 72,0x48,0,CC:0011,CC:0041,1,0x01,CC:0018,CC:002A,CC:0024,0x51,33,CE:9700,147,CF:5352,confirmed_normal_immediate_secondary_pair
 80,0x50,1,CC:1C76,CC:1C83,119,0x77,CC:1C7A,CC:1C83,CC:1C80,0x51,2,CE:2400,176,CF:5AA3,mode_ambiguous_secondary_shape
-83,0x53,0,CC:23A3,CC:253B,1,0x01,CC:23CE,CC:23E3,CC:23DD,0x51,8,CE:50B0,95,CF:3DC6,strong_immediate_secondary_pair_mode_gate_unresolved
+83,0x53,0,CC:23A3,CC:253B,1,0x01,CC:23CE,CC:23E3,CC:23DD,0x51,8,CE:50B0,95,CF:3DC6,confirmed_normal_immediate_secondary_pair
 85,0x55,0,CC:2823,CC:2894,1,0x01,CC:2839,CC:285E,CC:2843,0x51,27,CE:8748,133,CF:4F16,confirmed_normal_immediate_secondary_pair
 87,0x57,0,CC:296B,CC:29F9,1,0x01,CC:2978,CC:299D,CC:2982,0x51,27,CE:8748,135,CF:4F38,confirmed_normal_immediate_secondary_pair
 101,0x65,2,CC:45C6,CC:45D3,119,0x77,CC:45CA,CC:45D3,CC:45D0,0x51,2,CE:2400,176,CF:5AA3,mode_ambiguous_secondary_shape

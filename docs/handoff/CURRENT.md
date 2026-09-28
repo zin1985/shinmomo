@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `f3d05c32197affb274005fc54b6d0add87e954ba`
+- Base main HEAD verified: `540a4b3`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -117,27 +117,32 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_state0_promotion_20260928.md`
   - `docs/analysis/map_selector_prefix_mode_safety_20260928.md`
+- The single remaining fully aligned state0 record0/entry1 prefix containing opcode 0x15 is now promoted. CC:23D9 uses terminal 15 00 03; the synchronous C4:8AE0 -> 80:BAB8 -> 80:AC1E path does not mutate $1398/$1399 or re-enter C0:C9E7, and 0x15 is admitted only as the final instruction before 0x50 because its later callback may change $035F. Confirmed primary rises 181->182; unresolved 82->81; the immediate secondary CC:23DD is also promoted, raising confirmed pairs 84->85.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/state0_safe_prefix_promotions.csv`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/secondary_map_selector_candidates.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_opcode15_promotion_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed_alignment**: One instruction-aligned record0/entry1 primary selector still uses opcode 0x15 in addition to the now-proven 0x96/0x10/0x11/0x33 family.
-  - Why not promoted: Opcode 0x15 writes $1134 and calls 80:BAB8; its effect on $035F/render state must be bounded before state0 persistence can be claimed.
-- **confirmed_decoder_backlog**: The conservative prefix decoder still stops 62 original rows at A3/B3/E8/3D/A0/E1/D0/B4/64. After the 55-row promotion, those families plus the 0x15 row dominate the record0/entry1 static backlog.
-  - Why not promoted: Each stopped opcode family needs an independently proven length/control-flow/mode-safety model.
-- **strong_structural_mode_unresolved**: 21 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after the new primary promotion.
+- **confirmed_decoder_backlog**: The largest remaining conservative prefix stops are A3 (23 rows) and B3 (22 rows), followed by E8 (6), 3D (4), A0 (2), E1 (2), D0/B4/64 (1 each).
+  - Why not promoted: Each opcode family still needs an exact length/control-flow/mode-safety model.
+- **strong_structural_mode_unresolved**: 20 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after the opcode-0x15 promotion.
   - Why not promoted: Their opcode meaning still depends on $1398 at execution.
 
 ## In progress
 
-- Bound opcode 0x15 and its BAB8-side effects for the single remaining fully aligned record0/entry1 prefix.
-- Then add safe length/control-flow handling for the largest blocked prefix families, starting with A3 and B3.
-- Propagate every new primary confirmation into immediate 0x51 pair status.
+- Reverse opcode A3 prefix semantics/length and mode-state side effects for the 23-row stop family.
+- Then reverse B3 for the 22-row stop family.
+- Propagate every newly confirmed primary selector into immediate 0x51 status.
 
 ## Next actions
 
-1. Analyze opcode 0x15 (84:8AE0) and 80:BAB8/related $1134->$035F paths; promote the one aligned row only if state0 normal-mode persistence remains proven.
-2. Reverse the A3 prefix opcode family enough to establish exact instruction length/control flow and mode-state side effects; rerun the conservative prefix decoder.
-3. Do the same for B3, then E8/3D/A0/E1/D0/B4/64 in descending backlog size.
+1. Identify the actual C4 normal dispatch handler and instruction grammar for prefix byte A3 in the record0/entry1 streams; bound its branches/callees and mode-state effects.
+2. Add A3 to the conservative prefix decoder only where exact length/control flow is proven; rerun selector promotion.
+3. Repeat for B3, then E8/3D/A0/E1/D0/B4/64 in descending backlog size.
 4. Use runtime trace hooks only for residual branch/wait/multi-mode cases.
 5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
@@ -174,6 +179,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not keep the old canonical map-selector counts 126 confirmed / 137 unresolved after the state0 safe-prefix proof; the reproducible catalog now yields 181 confirmed / 82 unresolved.
 - Do not treat all possible game-wide $035F values as relevant to state0 record0/entry1. 81:98D1 explicitly seeds $035F=2 immediately before the entry1 VM is started.
 - Do not treat B91C as an unresolved wide indirect table for the promoted state0 family; descriptor resolution restricts it to B924/B944 only.
+- Do not allow opcode 0x15 as a general safe prefix instruction. Its BAB8 callback can later change $035F; it is only proven safe here when 0x15 is the final instruction immediately before candidate 0x50.
+- Do not use 181/82 as the current selector count after the terminal opcode-0x15 proof; canonical counts are now 182 confirmed / 81 unresolved.
 
 ## Runtime-only artifacts
 
@@ -231,6 +238,7 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `docs/analysis/map_selector_prefix_mode_safety_20260928.md`
 - `data/maps/selectors/state0_safe_prefix_promotions.csv`
 - `docs/analysis/map_selector_state0_promotion_20260928.md`
+- `docs/analysis/map_selector_opcode15_promotion_20260928.md`
 
 ## Resume instruction
 

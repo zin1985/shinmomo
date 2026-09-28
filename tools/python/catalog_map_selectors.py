@@ -57,6 +57,9 @@ STATE0_PREFIX_SAFE_LENGTHS = {
     0x10: 2,
     0x11: 2,
     0x33: 4,
+    # 0x15 is allowed only when it is the final instruction before the
+    # candidate 0x50; see state0_prefix_mode_safe().
+    0x15: 3,
 }
 STATE0_DESCRIPTOR_INDEX = 2
 STATE0_DESCRIPTOR_EXPECTED_PTR = 0x0850
@@ -254,6 +257,18 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
     if rom[b944 : b944 + 5] != bytes.fromhex("22 28 BD 80 60"):
         raise SystemExit("unexpected B910 target body at C0:B944")
 
+    # Opcode 0x15 consumes two operands, stores the first to $1134 and calls
+    # BAB8 with the second.  Its synchronous BAB8 -> AC1E path has no
+    # $1398/$1399 write or C0:C9E7 re-entry.  It is only admitted as the
+    # *final* instruction before 0x50 because its registered callback can later
+    # alter $035F.
+    op15 = file_from_cpu(0xC4, 0x8AE0)
+    expected15 = bytes.fromhex(
+        "B7 98 8D 34 11 C8 B7 98 C8 22 B8 BA 80 4C 0F 84"
+    )
+    if rom[op15 : op15 + len(expected15)] != expected15:
+        raise SystemExit("unexpected opcode 0x15 handler body at C4:8AE0")
+
 
 def state0_prefix_mode_safe(
     rom: bytes,
@@ -289,6 +304,13 @@ def state0_prefix_mode_safe(
             descriptor_id = rom[p + 1]
         elif op == 0x33:
             descriptor_id = rom[p + 3]
+        elif op == 0x15:
+            # BAB8 registers a callback that can later change $035F through
+            # $1134/$0659.  It is mode-safe synchronously, but to keep the
+            # descriptor proof independent of callback timing we accept it
+            # only when no later prefix instruction exists.
+            if p + length != target:
+                return False, ""
 
         if descriptor_id is not None:
             if descriptor_id == 0:
@@ -633,7 +655,8 @@ def main() -> None:
             "the C4 BRK handler cannot be interpreted as special 0x50 and are "
             "promoted to confirmed normal mode. In addition, a narrowly proven "
             "state0 record0/entry1 prefix family is promoted when its prefix uses "
-            "only 96/10/11/33, the state0 helper seeds $035F=2, and every "
+            "only 96/10/11/33, or a final 0x15 after that safe family; the "
+            "state0 helper seeds $035F=2, and every "
             "descriptor-resolved B910 indirect target is one of the cleared "
             "B924/B944 routines. Other rows remain mode-gate unresolved."
         ),
