@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `712e2029f2fb7a70387c83801a92f43d41f3abd3`
+- Base main HEAD verified: `34f7298`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -106,27 +106,30 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/record0_entry1_prefix_analysis.csv`
   - `data/maps/selectors/record0_entry1_prefix_summary.json`
   - `docs/analysis/map_selector_prefix_decode_20260928.md`
+- Mode-safety analysis of the 56 fully aligned record0/entry1 prefixes narrows the static blocker sharply. Opcode 0x96 and 0x11 chains have no direct $1398/$1399/C0:C9E7 references in their bounded callees. Opcodes 0x10/0x33 converge on B7A7/B7FA; their bounded direct call graph is also clean, leaving B910's descriptor-indexed indirect JSR as the specific unresolved mode-safety edge.
+  - `docs/analysis/map_selector_prefix_mode_safety_20260928.md`
+  - `docs/analysis/map_selector_prefix_decode_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed_instruction_alignment**: 56/118 unresolved record0/entry1 prefixes reach their candidate 0x50 using only proven fixed-length opcodes; 55 of those 56 use only opcode 0x96/0x10/0x11/0x33, while one additionally uses 0x15.
-  - Why not promoted: Instruction alignment alone does not prove $1398 remains state0; decoded handlers and relevant callees must be cleared for $1398/$1399 writes or C0:C9E7 re-entry.
-- **confirmed_decoder_stop_distribution**: The remaining 62 prefixes stop conservatively at A3(23), B3(22), E8(6), 3D(4), A0(2), E1(2), D0(1), B4(1), or 64(1).
-  - Why not promoted: Those opcode lengths/control-flow semantics are not yet approved for the safe prefix decoder.
-- **strong_structural_mode_unresolved**: 52 immediate 0x50+0x51 pairs and 79 standalone 0x51 shapes remain mode-unresolved after full-pack filtering.
-  - Why not promoted: Their opcode meaning still depends on $1398 at execution.
+- **strong_static_mode_safety**: 55/56 fully aligned prefixes use only 0x96/0x10/0x11/0x33. Direct and bounded callee scans show no explicit $1398/$1399 writes or C0:C9E7 re-entry for the 0x96 and 0x11 chains, nor in the direct bounded 0x10/0x33 render chain.
+  - Why not promoted: 0x10/0x33 reach B910, which dispatches indirectly through ($B91C,X) using descriptor-derived $1123; reachable indirect targets must be resolved first.
+- **confirmed_static**: B7A7 derives $1123 from a descriptor high nibble and B910 uses it as an even byte offset into the indirect JSR table at B91C. B8F2's separate indirect table is cleanly bounded to B906/B90B.
+  - Why not promoted: The actual B910 target subset depends on the 0x10/0x33 operand and descriptor context.
+- **confirmed_alignment**: The single remaining fully aligned prefix additionally uses opcode 0x15.
+  - Why not promoted: Opcode 0x15 callee mode safety is not yet fully bounded.
 
 ## In progress
 
-- Complete the transitive call-graph safety check for normal opcodes 0x96/0x10/0x11/0x33 used by 55 fully aligned record0/entry1 prefixes.
-- If those handlers cannot mutate $1398/$1399 or re-enter C0:C9E7, promote the corresponding selectors and propagate immediate 0x51 status.
-- Then evaluate the single aligned prefix containing opcode 0x15 and expand the decoder to the blocked opcode families.
+- Resolve 0x10/0x33 operand -> B7A7 descriptor -> $1123 -> B910 indirect target for the 55 fully aligned prefixes.
+- Clear the reachable B910 target subset for $1398/$1399 writes or C0:C9E7 transitions, then promote only mode-safe selectors.
+- Evaluate the single aligned prefix containing opcode 0x15 after the 55-row common path is resolved.
 
 ## Next actions
 
-1. Trace handlers 0x96/0x10/0x11/0x33 and their direct/transitive callees for writes to $1398/$1399 or transition through C0:C9E7.
-2. Promote only the fully aligned prefixes whose entire decoded call graph is mode-safe; propagate immediate 0x51 pair status.
-3. Evaluate opcode 0x15 for the remaining aligned prefix, then add safe lengths/control-flow handling for A3/B3/E8/3D/A0/E1/D0/B4/64 one family at a time.
+1. For each aligned prefix using 0x10/0x33, derive the operand-selected B7A7 descriptor and enumerate the reachable even $1123 offsets / B910 indirect targets.
+2. Inspect only those reachable B910 targets and their callees for $1398/$1399 mutation or C0:C9E7 re-entry; promote mode-safe primary selectors and propagate immediate 0x51 pairs.
+3. Evaluate opcode 0x15 for the one remaining aligned prefix, then expand safe decoding into the A3/B3/E8/3D/A0/E1/D0/B4/64 stop families.
 4. Use runtime trace hooks only for residual branch/wait/multi-mode cases.
 5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
@@ -158,6 +161,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not bulk-promote the 118 record0 unresolved selectors merely because state0 seeds entry1. VM commands are scheduled discretely and global $1398 is not stored per slot; prove mode persistence to each 0x50 boundary.
 - Do not promote record0/entry1 selectors solely because the prefix decoder reaches 0x50; mode-state safety of every decoded handler/callee still has to be proven.
 - Do not guess lengths for A3/B3/E8/3D/A0/E1/D0/B4/64; the safe decoder must stop until each family is independently bounded.
+- Do not treat the raw B91C bytes as a flat valid code-pointer table without resolving the descriptor-derived $1123 index domain.
+- Do not promote the 55 aligned 0x96/0x10/0x11/0x33 prefixes until the reachable B910 indirect targets are bounded.
 
 ## Runtime-only artifacts
 
@@ -212,6 +217,7 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `data/maps/selectors/record0_entry1_prefix_analysis.csv`
 - `data/maps/selectors/record0_entry1_prefix_summary.json`
 - `docs/analysis/map_selector_prefix_decode_20260928.md`
+- `docs/analysis/map_selector_prefix_mode_safety_20260928.md`
 
 ## Resume instruction
 
