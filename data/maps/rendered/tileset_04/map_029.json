@@ -9,12 +9,12 @@
   "expanded_height_tiles": 64,
   "image_width_px": 512,
   "image_height_px": 512,
-  "capture_id": "1790586286976-e56502b3",
-  "char_base": "0x8000",
+  "capture_id": "1790606361549-521e63f9",
+  "char_base": "0x0000",
   "bpp": 4,
   "palette_mode": "tile_index_grayscale",
   "source_hashes": {
-    "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+    "vram_sha256": "7BD7CD55C4B7E4016693B79FCEEDC1E5013EF70881DF9311D56D722062C4B3CA",
     "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
   },
   "config_ids": [
@@ -27,5 +27,5 @@
     "CC:27D4"
   ],
   "output_png": "map_029.png",
-  "output_png_sha256": "2D6ACBF35AA90ACF36A7731B4E0A56948AB029E2D5B720540A3675E261A48981"
+  "output_png_sha256": "A9F01F6B2C4CA1C21931A240D9794F1E85D52CF41188A1847C6CBA73244DE530"
 }

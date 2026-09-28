@@ -208,6 +208,12 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `docs/analysis/map_layout_render_batch_20260928.md`
   - commit: `2d38f9a Render tileset4 maps by map id`
 
+- Tileset-4 CHR basis corrected by direct comparison against the live ????? screen: 4bpp VRAM byte base 0x0000 reproduces coherent buildings, trees, fields, ponds, roads and shrine graphics. The earlier 0x8000 basis was wrong, and all 29 tileset-4 map renders were regenerated.
+  - `docs/analysis/mapchip_chr_trace_20260928.md`
+  - `data/maps/rendered/tileset_04/index.json`
+  - `tools/python/render_map_layout_images.py`
+- Static source exclusions tightened: DA:3800 is glyph/font-like rather than terrain CHR; CF:0000 is predominantly one parallel attribute byte per CE metatile rather than a CHR bitmap pointer table.
+
 ## Observed but not yet promoted
 
 - **confirmed_runtime_join_and_transition**: pack 0x50 / cfg_t04_l008_v2 / CC:1C3F is a forest shrine/village exterior directly connected to the stable save/shrine interior.
@@ -221,20 +227,21 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 
 ## In progress
 
-- Continue producing canonical `map_###.png` batches for additional tilesets, but only after validating the CHR source/base against a known runtime map.
-- Resolve the tileset-7 CHR source/base from runtime or ROM graphics-loader evidence; layout 15 is the validation target.
-- Preserve the parallel YMA/ROM-dialogue town-label work and use it to attach human names to rendered map IDs without shape-only guessing.
+- Connect the corrected tileset-4 resident CHR at VRAM 0x0000 back to its compressed ROM asset source/decompression loader.
+- Continue YMA + ROM-dialogue identification against the corrected full-map renders.
 
 ## Next actions
 
-1. Resolve the correct tileset-7 CHR graphics source/base and validate it by reproducing known runtime layout 15.
-2. Commit the next `map_###` render batch only after that known-map visual validation passes.
-3. Continue the YMA + ROM-dialogue crosslink so rendered IDs receive evidence-backed human-facing names.
-4. Then expand to the remaining tilesets and later attach collision, warp, event-trigger and encounter layers.
+1. Trace the ROM graphics loader/decompressor that populates field/town CHR at VRAM 0x0000 and identify its source pointer table/asset boundaries.
+2. Reproduce the resident tileset-4 CHR directly from ROM without relying on runtime VRAM.
+3. Resolve additional tilesets' CHR sources and add their map render batches only after known-map visual validation.
+4. Attach human-facing map names from corrected renders plus YMA/ROM-dialogue/runtime evidence.
 
 ## Do not redo
 
-- Do not regenerate the committed tileset-4 render batch; `2d38f9a` already stores 29 canonical `map_###` images and metadata.
+- Do not use tileset-4 4bpp char-base 0x8000; it is disproven. The corrected field/town basis is VRAM byte base 0x0000.
+- Do not classify DA:3800 as map-chip CHR; decoded samples are glyph/font-like.
+- Do not classify CF:0000 as a CHR bitmap pointer table; its normal form tracks one attribute byte per CE metatile.
 - Do not treat the current all-zero CGRAM capture as palette evidence.
 - Do not use tileset-7 char-base 0xC000 as canonical; the known layout-15 visual validation failed.
 - Do not redesign the pause/exact-frame remote-lab model.

@@ -143,7 +143,7 @@ def main() -> None:
     ap.add_argument("rom", type=Path)
     ap.add_argument("capture_dir", type=Path)
     ap.add_argument("--tileset-id", type=int, required=True)
-    ap.add_argument("--char-base", type=lambda v: int(v, 0), default=0x8000)
+    ap.add_argument("--char-base", type=lambda v: int(v, 0), default=0x0000)
     ap.add_argument("--config-index", type=Path, default=DEFAULT_CONFIG_INDEX)
     ap.add_argument("--out-dir", type=Path, required=True)
     args = ap.parse_args()

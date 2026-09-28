@@ -25,7 +25,7 @@ The renderer uses:
 
 1. `decode_map_layout.py` to decode the CF layout records,
 2. CE tileset-4 metatile definitions to expand the logical map to SNES tilemap entries,
-3. 4bpp CHR data at VRAM character base `0x8000` from the runtime-confirmed pack-0x50 capture.
+3. 4bpp CHR data at VRAM byte base `0x0000` from the runtime-confirmed pack-0x50 capture. This base was corrected by direct comparison against the live 旅立ちの村 screen; the earlier 0x8000 assumption was wrong.
 
 Raw ROM, VRAM and CGRAM are not committed.
 ## Palette status
