@@ -60,6 +60,15 @@ STATE0_PREFIX_SAFE_LENGTHS = {
     0x08: 4,
     0x2D: 2,
     0xA3: 2,
+    # E-range expression operators are intercepted by the scheduler. The
+    # E dispatcher advances the stream by one byte before executing the
+    # operator handler. E1 and E8 are mode-safe boolean/comparison operators
+    # needed by the residual state0 map-entry CFG.
+    0xC2: 1,
+    0xE0: 1,
+    0xE1: 1,
+    0xE7: 1,
+    0xE8: 1,
     # 0x15 is allowed only when it is the final instruction before the
     # candidate 0x50; see state0_prefix_mode_safe().
     0x15: 3,
@@ -311,6 +320,110 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
         (0xC4, 0x9679): bytes.fromhex(
             "AD 06 03 38 F7 98 20 3F 89 4C 5E 89"
         ),
+        # C0..CD encode small unsigned literals directly in the low nibble.
+        # CE/CF are extended literal forms, but residual state0 uses C2 only.
+        (0xC4, 0x814F): bytes.fromhex(
+            "29 0F 85 9E 64 9F C9 0E F0 10 C9 0F D0 11 B7 98 85 "
+            "9E C8 B7 98 85 9F C8 80 05 B7 98 85 9E C8 20 0F 84 "
+            "A5 9E A6 9F 20 24 84 4C 8C 80"
+        ),
+        # E0..EF scheduler: subtract E0, advance current script by one byte,
+        # then jump through the E-handler table at C4:81BD.
+        (0xC4, 0x812D): bytes.fromhex(
+            "38 E9 E0 0A 48 A9 01 20 10 84 20 42 84 85 A0 86 A1 "
+            "FA 20 BA 81 4C 8C 80"
+        ),
+        # E0/E1/E7/E8 handler entries.
+        (0xC4, 0x81BD): bytes.fromhex("BC 82"),
+        (0xC4, 0x81BF): bytes.fromhex("51 83"),
+        (0xC4, 0x81CB): bytes.fromhex("2F 83"),
+        (0xC4, 0x81CD): bytes.fromhex("40 83"),
+        # E0 is a no-op over the prepared expression accumulator.
+        (0xC4, 0x82BC): bytes.fromhex("60"),
+        # E1: boolean zero-test over the expression accumulator.
+        (0xC4, 0x8351): bytes.fromhex(
+            "A5 A0 05 A1 D0 35 80 2E"
+        ),
+        # E7: boolean conjunction over the expression accumulator
+        # and the previously stacked operand.
+        (0xC4, 0x832F): bytes.fromhex(
+            "20 9B 83 A5 A0 05 A1 F0 54 A5 9E 05 9F F0 4E 80 47"
+        ),
+        # E8: expression-stack comparison/boolean operator.
+        (0xC4, 0x8340): bytes.fromhex(
+            "20 9B 83 A5 A0 05 A1 D0 3E A5 9E 05 9F D0 38 80 3B"
+        ),
+        # Helpers used by the E comparison family remain inside the expression
+        # stack and do not touch map-mode state.
+        (0xC4, 0x8391): bytes.fromhex(
+            "20 42 84 E4 A1 D0 02 C5 A0 60"
+        ),
+        (0xC4, 0x839B): bytes.fromhex(
+            "20 42 84 85 9E 86 9F 60"
+        ),
+        # Normal opcode 0x64 consumes one flag byte. The residual
+        # state0 family uses 64 00: it clears $0307, skips the optional bit
+        # branches, calls 81:98A6, and advances the VM pointer by two bytes.
+        (0xC4, 0x92A9): bytes.fromhex(
+            "B7 98 8D 07 03 89 02 F0 06 AD 05 03 8D 06 03 AD 07 03 "
+            "89 01 F0 04 22 04 82 81 22 A6 98 81 4C 5E 89"
+        ),
+        (0xC4, 0x895E): bytes.fromhex(
+            "A9 02 4C 10 84"
+        ),
+        (0xC1, 0x98A6): bytes.fromhex(
+            "AD 5A 15 8D 59 15 AD 5F 15 0D 0A 03 D0 07 AD 07 03 "
+            "89 05 F0 05 A9 01 8D 59 15 6B"
+        ),
+        # Normal opcode 0x13 writes one operand to $035F and advances
+        # by two bytes. The state0 residual family uses 13 02, which preserves
+        # the already proven descriptor index 2.
+        (0xC4, 0x8A94): bytes.fromhex(
+            "B7 98 C8 8D 5F 03 4C 0F 84"
+        ),
+        # D0..DF scheduler consumes two operand bytes before dispatch.
+        (0xC4, 0x8108): bytes.fromhex(
+            "48 B7 98 85 9C C8 B7 98 85 9D C8 20 0F 84 A0 01 68 "
+            "29 0F 0A AA 20 9B 81 4C 8C 80"
+        ),
+        (0xC4, 0x819E): bytes.fromhex("4F 82"),
+        (0xC4, 0x81A8): bytes.fromhex("6D 82"),
+        # D0 reads a 16-bit value through the operand pointer and pushes it.
+        (0xC4, 0x824F): bytes.fromhex(
+            "B2 9C 4C 1E 84"
+        ),
+        # D5 pops one expression value and stores it through the operand pointer.
+        (0xC4, 0x826D): bytes.fromhex(
+            "20 5E 84 92 9C 60"
+        ),
+        (0xC4, 0x841E): bytes.fromhex(
+            "A2 00 20 24 84 60"
+        ),
+        (0xC4, 0x845E): bytes.fromhex(
+            "C2 10 A6 96 BF 8A 71 7E 48 BF 89 71 7E E2 10 FA 60"
+        ),
+        # Normal opcode 0x3D is variable-length. The residual state0 family
+        # uses only subtype 0x02. 935C calls C2CC, whose subtype-2 dispatch
+        # entry is C3:A9; both outcomes there return A=2, and 935C increments
+        # that to three bytes before advancing the VM pointer.
+        (0xC4, 0x935C): bytes.fromhex(
+            "9C 57 19 20 14 89 22 CC C2 84 1A 20 10 84 AD 57 19 "
+            "20 1E 84 60"
+        ),
+        (0xC4, 0xC2CC): bytes.fromhex(
+            "5A DA A7 0F 0A AA A0 01 20 DA C2 FA 7A 6B"
+        ),
+        (0xC4, 0xC2E1): bytes.fromhex("A9 C3"),
+        (0xC4, 0xC3A9): bytes.fromhex(
+            "B7 0F F0 04 C9 0E 90 04 00 EA A9 01 CD 49 18 D0 A8 "
+            "4C 53 C3"
+        ),
+        (0xC4, 0xC353): bytes.fromhex(
+            "A9 02 80 02 A9 01 8D 57 19 18 60"
+        ),
+        (0xC4, 0xC362): bytes.fromhex(
+            "A9 02 80 02 A9 01 9C 57 19 18 60"
+        ),
     }
     for (bank, addr), expected in anchors.items():
         o = file_from_cpu(bank, addr)
@@ -389,9 +502,40 @@ def state0_prefix_mode_safe(
                 queue.append(branch)
             continue
 
-        length = STATE0_PREFIX_SAFE_LENGTHS.get(op)
-        if length is None or p + length > stream_end:
-            continue
+        # Opcode 0x64 is admitted only for the residual 64 00 form.
+        if op == 0x64:
+            if p + 2 > stream_end or rom[p + 1] != 0x00:
+                continue
+            length = 2
+        # Opcode 0x13 writes its one-byte operand to $035F. Admit it
+        # only when it preserves the state0 descriptor index proven by 81:98D1.
+        elif op == 0x13:
+            if p + 2 > stream_end or rom[p + 1] != STATE0_DESCRIPTOR_INDEX:
+                continue
+            length = 2
+        # D-range operations are three bytes: opcode + 16-bit pointer.
+        # Only the concrete residual operands proven mode-safe here are
+        # admitted. D0 reads $1984; D5 writes $035E. Neither aliases
+        # $035F/$1398/$1399 or changes the map-mode dispatcher.
+        elif op in (0xD0, 0xD5):
+            if p + 3 > stream_end:
+                continue
+            operand = rom[p + 1] | (rom[p + 2] << 8)
+            if (op, operand) not in {(0xD0, 0x1984), (0xD5, 0x035E)}:
+                continue
+            length = 3
+        # Opcode 0x3D is variable length in general. The residual
+        # state0 map-entry family uses subtype 0x02 only; static anchors above
+        # prove that subtype returns payload length 2 and therefore advances
+        # the VM pointer by exactly 3 bytes including the opcode.
+        elif op == 0x3D:
+            if p + 3 > stream_end or rom[p + 1] != 0x02:
+                continue
+            length = 3
+        else:
+            length = STATE0_PREFIX_SAFE_LENGTHS.get(op)
+            if length is None or p + length > stream_end:
+                continue
 
         descriptor_id = None
         if op == 0x10:
@@ -748,8 +892,9 @@ def main() -> None:
             "the C4 BRK handler cannot be interpreted as special 0x50 and are "
             "promoted to confirmed normal mode. In addition, a narrowly proven "
             "state0 record0/entry1 family is promoted through a small safe CFG "
-            "(96/10/11/33/08/2D/A3, B2/B3/B4 branches, plus terminal-only "
-            "0x15); the state0 helper seeds $035F=2, and every "
+            "(96/10/11/33/08/2D/A3, C2/E0/E1/E7/E8 expression ops, "
+            "B2/B3/B4 branches, concrete-safe 13/3D/D0/D5/64 forms, plus "
+            "terminal-only 0x15); the state0 helper seeds $035F=2, and every "
             "descriptor-resolved B910 indirect target is one of the cleared "
             "B924/B944 routines. Other rows remain mode-gate unresolved."
         ),

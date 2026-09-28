@@ -10,7 +10,7 @@ Updated: 2026-09-28
 - Status: **active**
 - Workstream: `map-world-reconstruction`
 - Title: **Enumerate map-selector bytecode and build the ROM map corpus index**
-- Base main HEAD verified: `dbee54aa275f37354f76cd1cccde5718c724d3c4`
+- Base main HEAD verified: `2dec88319879f11a2fc292d8166fa163eb3c9727`
 
 Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.
 
@@ -131,26 +131,35 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/state0_safe_prefix_promotions.csv`
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md`
+- Residual state0 VM grammar is expanded with anchored E0/E1/E7/E8 expression operators, C2 literal, subtype-2 opcode 0x3D, concrete D0:$1984 and D5:$035E forms, descriptor-preserving 13 02, and 64 00. Canonical confirmed primary rises 225->240, unresolved falls 38->23, and confirmed immediate secondary pairs rise 101->104. Only four record0/entry1 primaries remain, all blocked exclusively by A0 nested-call semantics.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/secondary_map_selector_candidates.csv`
+  - `data/maps/selectors/state0_safe_prefix_promotions.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_residual_vm_promotion_20260928.md`
 
 ## Observed but not yet promoted
 
-- **confirmed_catalog**: Only 38/263 primary shapes remain mode-unresolved after the upper-range CFG promotion. The old A3/B3 stop counts are obsolete.
-  - Why not promoted: The residual rows require a fresh post-promotion distribution and additional meta/ordinary opcode grammar.
-- **confirmed_catalog**: Only 4/105 immediate 0x50+0x51 pairs remain mode-unresolved; 79 standalone 0x51 shapes remain mode-ambiguous.
-  - Why not promoted: Standalone 0x51 semantics still depend on $1398 and the four unresolved pairs inherit unresolved parent primaries.
+- **confirmed_catalog_and_cfg**: Only four record0/entry1 primary selectors remain unresolved: CC:0929, CC:0931, CD:EF0A and CD:EF1C. Every remaining blocker is opcode A0 nested-call behavior.
+  - Why not promoted: A0 saves/restores VM context and transfers to a 24-bit nested script; it must be modeled with a call/return CFG rather than flattened as a fixed-length instruction.
+- **strong_static_call_return_model**: A0 call targets used by the four residual state0 rows are CC:1828, CD:F037, CD:6C9C and CD:E34F. B0 routes through C4:81EA -> C4:80C5, decrements $1266, and may restore context through C4:84D9.
+  - Why not promoted: Nested target paths still need fail-closed mode-safety and return proofs.
+- **confirmed_catalog**: Nineteen later-record primary selectors remain unresolved outside record0/entry1, while only one of 105 immediate 0x50+0x51 pairs is still unresolved.
+  - Why not promoted: These rows use other entry families/mode contexts and will be recomputed after the A0 state0 tail is closed.
 
 ## In progress
 
-- Recompute the exact 38-row unresolved primary distribution after the A3/B2/B3/B4 CFG promotion.
-- Reverse the next dominant residual grammar from that fresh distribution, including D/E upper-range meta operations where they block record0/entry1 paths.
-- Propagate every new primary confirmation into the remaining four immediate 0x51 pairs.
+- Build a fail-closed A0/B0 nested-call CFG for the four concrete state0 call targets CC:1828, CD:F037, CD:6C9C and CD:E34F.
+- Promote only outer selectors whose entire nested call path remains mode-safe and returns through B0.
+- After state0 is closed, recompute the 19 later-record unresolved rows by entry family and first blocking grammar.
 
 ## Next actions
 
-1. Recompute unresolved rows by record index, entry id, first blocking grammar and pack after the 225-primary promotion.
-2. Decode the highest-yield remaining meta/ordinary VM family from the fresh backlog, using the proven C4:809C range grammar instead of the ordinary dispatch table for bytes >=A0.
-3. Extend the state0 CFG only with fail-closed anchor checks and rerun the canonical catalog.
-4. Use runtime traces only for residual branch/wait/multi-mode cases that cannot be closed statically.
+1. Implement concrete A0 call handling: save caller continuation, transfer to the embedded 24-bit target, and recognize B0 return through the proven $1266/C4:84D9 path.
+2. Run the nested CFG over CC:1828, CD:F037, CD:6C9C and CD:E34F with fail-closed opcode semantics; promote only fully returning mode-safe paths.
+3. Recompute the later-record unresolved 19 rows by record index, entry id and first blocker after any A0 promotions.
+4. Resolve the last unresolved immediate 0x51 pair together with its parent primary.
 5. Cross-link confirmed selector pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels.
 
 ## Do not redo
@@ -191,6 +200,9 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not interpret A3/B2/B3/B4 through the ordinary C4:87D4 opcode table; the scheduler intercepts A0..AF and B0..BF first.
 - Do not use the old 182/81 selector counts after the upper-range CFG proof; canonical counts are now 225 confirmed / 38 unresolved.
 - Do not linearize B3/B4; both runtime branch outcomes must be represented in the safe CFG.
+- Do not use the old 225 confirmed / 38 unresolved counts after the residual state0 grammar pass; canonical counts are now 240 confirmed / 23 unresolved.
+- Do not flatten opcode A0 as a simple four-byte instruction. It changes $98/$99/$9A to a nested 24-bit target and uses B0/$1266/C4:84D9 return machinery.
+- Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.
 
 ## Runtime-only artifacts
 
@@ -250,6 +262,7 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `docs/analysis/map_selector_state0_promotion_20260928.md`
 - `docs/analysis/map_selector_opcode15_promotion_20260928.md`
 - `docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md`
+- `docs/analysis/map_selector_residual_vm_promotion_20260928.md`
 
 ## Resume instruction
 

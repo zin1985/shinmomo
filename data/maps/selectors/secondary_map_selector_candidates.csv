@@ -107,7 +107,7 @@
 163,0xA3,0,CD:0D49,CD:0DB1,1,0x01,CD:0D56,CD:0D75,CD:0D64,0x51,24,CE:7DB8,126,CF:4BEA,confirmed_normal_immediate_secondary_pair
 164,0xA4,0,CD:0FFD,CD:109F,1,0x01,CD:100D,CD:102B,CD:101B,0x51,24,CE:7DB8,128,CF:4D26,confirmed_normal_immediate_secondary_pair
 165,0xA5,0,CD:149E,CD:14F7,1,0x01,CD:14AB,CD:14C9,CD:14B9,0x51,24,CE:7DB8,126,CF:4BEA,confirmed_normal_immediate_secondary_pair
-166,0xA6,0,CD:175E,CD:188B,1,0x01,CD:1792,CD:17DF,CD:17C7,0x51,23,CE:7A68,124,CF:4ADE,strong_immediate_secondary_pair_mode_gate_unresolved
+166,0xA6,0,CD:175E,CD:188B,1,0x01,CD:1792,CD:17DF,CD:17C7,0x51,23,CE:7A68,124,CF:4ADE,confirmed_normal_immediate_secondary_pair
 167,0xA7,0,CD:1991,CD:1BFD,1,0x01,CD:19D1,CD:19F5,CD:19DF,0x51,23,CE:7A68,124,CF:4ADE,confirmed_normal_immediate_secondary_pair
 168,0xA8,0,CD:1D6C,CD:1ED5,1,0x01,CD:1D91,CD:1DB5,CD:1D9F,0x51,23,CE:7A68,124,CF:4ADE,confirmed_normal_immediate_secondary_pair
 171,0xAB,0,CD:3071,CD:30B8,1,0x01,CD:307E,CD:3097,CD:308A,0x51,49,CE:C7C0,177,CF:5B08,confirmed_normal_immediate_secondary_pair
@@ -115,7 +115,7 @@
 174,0xAE,0,CD:35D0,CD:389E,1,0x01,CD:361C,CD:3639,CD:3626,0x51,12,CE:59D0,102,CF:4101,confirmed_normal_immediate_secondary_pair
 175,0xAF,0,CD:3CDB,CD:3EAB,1,0x01,CD:3D12,CD:3D2A,CD:3D1C,0x51,12,CE:59D0,102,CF:4101,confirmed_normal_immediate_secondary_pair
 176,0xB0,0,CD:404E,CD:409D,1,0x01,CD:405B,CD:4073,CD:4065,0x51,12,CE:59D0,102,CF:4101,confirmed_normal_immediate_secondary_pair
-177,0xB1,0,CD:4264,CD:437B,1,0x01,CD:42A7,CD:42E6,CD:42CE,0x51,29,CE:8910,139,CF:503F,strong_immediate_secondary_pair_mode_gate_unresolved
+177,0xB1,0,CD:4264,CD:437B,1,0x01,CD:42A7,CD:42E6,CD:42CE,0x51,29,CE:8910,139,CF:503F,confirmed_normal_immediate_secondary_pair
 178,0xB2,0,CD:45FB,CD:47AC,1,0x01,CD:4629,CD:4646,CD:4633,0x51,29,CE:8910,139,CF:503F,confirmed_normal_immediate_secondary_pair
 179,0xB3,0,CD:489A,CD:49C2,1,0x01,CD:48BC,CD:48D9,CD:48C6,0x51,29,CE:8910,139,CF:503F,confirmed_normal_immediate_secondary_pair
 179,0xB3,0,CD:489A,CD:49C2,4,0x04,CD:490A,CD:4921,CD:491C,0x51,12,CE:59D0,81,CF:3AFB,mode_ambiguous_secondary_shape
@@ -125,7 +125,7 @@
 179,0xB3,3,CD:49DC,CD:49E9,119,0x77,CD:49E0,CD:49E9,CD:49E1,0x51,12,CE:59D0,179,CF:5C14,mode_ambiguous_secondary_shape
 179,0xB3,4,CD:49E9,CD:49F6,119,0x77,CD:49ED,CD:49F6,CD:49EE,0x51,17,CE:65E8,179,CF:5C14,mode_ambiguous_secondary_shape
 180,0xB4,0,CD:4B39,CD:4CB6,1,0x01,CD:4B61,CD:4B7E,CD:4B6B,0x51,29,CE:8910,139,CF:503F,confirmed_normal_immediate_secondary_pair
-181,0xB5,0,CD:4E0E,CD:4F7C,1,0x01,CD:4E33,CD:4E5F,CD:4E4C,0x51,29,CE:8910,139,CF:503F,strong_immediate_secondary_pair_mode_gate_unresolved
+181,0xB5,0,CD:4E0E,CD:4F7C,1,0x01,CD:4E33,CD:4E5F,CD:4E4C,0x51,29,CE:8910,139,CF:503F,confirmed_normal_immediate_secondary_pair
 182,0xB6,0,CD:5228,CD:530C,1,0x01,CD:5241,CD:525A,CD:524F,0x51,30,CE:8D48,141,CF:50E2,confirmed_normal_immediate_secondary_pair
 183,0xB7,0,CD:53AF,CD:5537,1,0x01,CD:53D4,CD:5409,CD:53F0,0x51,47,CE:C1B8,173,CF:5A0A,confirmed_normal_immediate_secondary_pair
 184,0xB8,0,CD:56A6,CD:575D,1,0x01,CD:56BC,CD:56F1,CD:56D8,0x51,47,CE:C1B8,173,CF:5A0A,confirmed_normal_immediate_secondary_pair
