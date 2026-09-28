@@ -1,0 +1,31 @@
+{
+  "tileset_id": 4,
+  "layout_id": 86,
+  "layout_flags": 128,
+  "layout_width_chunks": 3,
+  "layout_height_chunks": 3,
+  "cell_count": 9,
+  "expanded_width_tiles": 96,
+  "expanded_height_tiles": 96,
+  "image_width_px": 768,
+  "image_height_px": 768,
+  "capture_id": "1790586286976-e56502b3",
+  "char_base": "0x8000",
+  "bpp": 4,
+  "palette_mode": "tile_index_grayscale",
+  "source_hashes": {
+    "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+    "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+  },
+  "config_ids": [
+    "cfg_t04_l086_v2"
+  ],
+  "pack_ids_hex": [
+    "0xCE"
+  ],
+  "command_addresses": [
+    "CD:9156"
+  ],
+  "output_png": "map_086.png",
+  "output_png_sha256": "D64E394DEC0BAF441649203FB5555C5C8F1FFAE7BD4ACD6E3FD7592C8AD8642C"
+}

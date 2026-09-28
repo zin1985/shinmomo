@@ -1,0 +1,934 @@
+{
+  "schema_version": 1,
+  "kind": "derived_map_layout_render_index",
+  "tileset_id": 4,
+  "capture_id": "1790586286976-e56502b3",
+  "char_base": "0x8000",
+  "bpp": 4,
+  "palette_mode": "tile_index_grayscale",
+  "source_hashes": {
+    "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+    "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+  },
+  "map_count": 29,
+  "maps": [
+    {
+      "tileset_id": 4,
+      "layout_id": 6,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l006_v2"
+      ],
+      "pack_ids_hex": [
+        "0x4D"
+      ],
+      "command_addresses": [
+        "CC:18A4"
+      ],
+      "output_png": "map_006.png",
+      "output_png_sha256": "0A2CBE2FD535C3EE84E9CDAC2CDD3B0F342BE761295E0C59BD323EEEA7A86C19"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 8,
+      "layout_flags": 128,
+      "layout_width_chunks": 5,
+      "layout_height_chunks": 5,
+      "cell_count": 25,
+      "expanded_width_tiles": 160,
+      "expanded_height_tiles": 160,
+      "image_width_px": 1280,
+      "image_height_px": 1280,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l008_v2"
+      ],
+      "pack_ids_hex": [
+        "0x50",
+        "0xF0",
+        "0xF1"
+      ],
+      "command_addresses": [
+        "CC:1C3F",
+        "CD:F6FF",
+        "CD:FB40"
+      ],
+      "output_png": "map_008.png",
+      "output_png_sha256": "82F677FC7BCC3B45E18543A08C5EB67571C55D2743F0A1AA0F645C9EAA65708B"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 18,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l018_v2"
+      ],
+      "pack_ids_hex": [
+        "0x5A",
+        "0x5B",
+        "0x5D",
+        "0x5E"
+      ],
+      "command_addresses": [
+        "CC:32E0",
+        "CC:33F4",
+        "CC:36F1",
+        "CC:382D"
+      ],
+      "output_png": "map_018.png",
+      "output_png_sha256": "9677B106CABBE1B0B5E1984B6B38E0C2A095ABB499956D031925CA5B06A72ADC"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 19,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l019_v1"
+      ],
+      "pack_ids_hex": [
+        "0x5C"
+      ],
+      "command_addresses": [
+        "CC:359A"
+      ],
+      "output_png": "map_019.png",
+      "output_png_sha256": "A6C40D90EB83979E1F9F6CF180D6C13B598D0D13545474C12DFAFB1C7D58D72C"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 28,
+      "layout_flags": 128,
+      "layout_width_chunks": 2,
+      "layout_height_chunks": 2,
+      "cell_count": 4,
+      "expanded_width_tiles": 64,
+      "expanded_height_tiles": 64,
+      "image_width_px": 512,
+      "image_height_px": 512,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l028_v2"
+      ],
+      "pack_ids_hex": [
+        "0x54",
+        "0xCA"
+      ],
+      "command_addresses": [
+        "CC:27E5",
+        "CD:8DE6"
+      ],
+      "output_png": "map_028.png",
+      "output_png_sha256": "BC8F88145EEF462F0C59F8BBB447C303F0ED4BB3B870A5A30ADE67F885E2110C"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 29,
+      "layout_flags": 128,
+      "layout_width_chunks": 2,
+      "layout_height_chunks": 2,
+      "cell_count": 4,
+      "expanded_width_tiles": 64,
+      "expanded_height_tiles": 64,
+      "image_width_px": 512,
+      "image_height_px": 512,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l029_v2"
+      ],
+      "pack_ids_hex": [
+        "0x54"
+      ],
+      "command_addresses": [
+        "CC:27D4"
+      ],
+      "output_png": "map_029.png",
+      "output_png_sha256": "2D6ACBF35AA90ACF36A7731B4E0A56948AB029E2D5B720540A3675E261A48981"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 30,
+      "layout_flags": 128,
+      "layout_width_chunks": 2,
+      "layout_height_chunks": 2,
+      "cell_count": 4,
+      "expanded_width_tiles": 64,
+      "expanded_height_tiles": 64,
+      "image_width_px": 512,
+      "image_height_px": 512,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l030_v2"
+      ],
+      "pack_ids_hex": [
+        "0x54"
+      ],
+      "command_addresses": [
+        "CC:27DF"
+      ],
+      "output_png": "map_030.png",
+      "output_png_sha256": "24CFDC46C7B13E59D9AB17BC2AB48CADC25AB5EAA2EC9A336892DFFD786D8948"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 31,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 4,
+      "cell_count": 12,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 128,
+      "image_width_px": 768,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l031_v2"
+      ],
+      "pack_ids_hex": [
+        "0x56"
+      ],
+      "command_addresses": [
+        "CC:28AC"
+      ],
+      "output_png": "map_031.png",
+      "output_png_sha256": "E92083A4AED67E38E4F7B86E48775EB2FB6D54C5092D629751CCB73050015564"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 34,
+      "layout_flags": 128,
+      "layout_width_chunks": 4,
+      "layout_height_chunks": 4,
+      "cell_count": 16,
+      "expanded_width_tiles": 128,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1024,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l034_v2"
+      ],
+      "pack_ids_hex": [
+        "0x60"
+      ],
+      "command_addresses": [
+        "CC:3B83"
+      ],
+      "output_png": "map_034.png",
+      "output_png_sha256": "6DFAD4C6669D67C19BCA2A43A93059F3C74D736142C5BD0E59CE747861096C82"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 35,
+      "layout_flags": 128,
+      "layout_width_chunks": 4,
+      "layout_height_chunks": 4,
+      "cell_count": 16,
+      "expanded_width_tiles": 128,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1024,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l035_v2"
+      ],
+      "pack_ids_hex": [
+        "0x60"
+      ],
+      "command_addresses": [
+        "CC:3B89"
+      ],
+      "output_png": "map_035.png",
+      "output_png_sha256": "D8873464BCF0E0BAC3030B40BFA7A26592D7115EE2B4CC82438B2D8547670429"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 39,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 4,
+      "cell_count": 12,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 128,
+      "image_width_px": 768,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l039_v2"
+      ],
+      "pack_ids_hex": [
+        "0x67"
+      ],
+      "command_addresses": [
+        "CC:4D2A"
+      ],
+      "output_png": "map_039.png",
+      "output_png_sha256": "851A11AE6370D4BF6820F18C39ED082668A2DF93AA5D2CA9B889D48271575E4C"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 44,
+      "layout_flags": 128,
+      "layout_width_chunks": 5,
+      "layout_height_chunks": 4,
+      "cell_count": 20,
+      "expanded_width_tiles": 160,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1280,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l044_v2"
+      ],
+      "pack_ids_hex": [
+        "0x65"
+      ],
+      "command_addresses": [
+        "CC:458F"
+      ],
+      "output_png": "map_044.png",
+      "output_png_sha256": "38FBC80CBFDB024785535468DBA62FFB747F736CD882514926292D0AD4BF1BEC"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 45,
+      "layout_flags": 128,
+      "layout_width_chunks": 7,
+      "layout_height_chunks": 7,
+      "cell_count": 49,
+      "expanded_width_tiles": 224,
+      "expanded_height_tiles": 224,
+      "image_width_px": 1792,
+      "image_height_px": 1792,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l045_v2"
+      ],
+      "pack_ids_hex": [
+        "0x6F",
+        "0x70"
+      ],
+      "command_addresses": [
+        "CC:66E2",
+        "CC:6DB6"
+      ],
+      "output_png": "map_045.png",
+      "output_png_sha256": "5FED126BE291E5AFC4BDF9149A5795F8A45B68572856B00ADA31A2D7011E0C77"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 57,
+      "layout_flags": 128,
+      "layout_width_chunks": 5,
+      "layout_height_chunks": 4,
+      "cell_count": 20,
+      "expanded_width_tiles": 160,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1280,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l057_v2"
+      ],
+      "pack_ids_hex": [
+        "0x81"
+      ],
+      "command_addresses": [
+        "CC:A8D9"
+      ],
+      "output_png": "map_057.png",
+      "output_png_sha256": "BCFCEC2ED503606DE4786BC280A1797C48347FD1B27FF799EE079C677A649B21"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 58,
+      "layout_flags": 128,
+      "layout_width_chunks": 5,
+      "layout_height_chunks": 4,
+      "cell_count": 20,
+      "expanded_width_tiles": 160,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1280,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l058_v2"
+      ],
+      "pack_ids_hex": [
+        "0x81"
+      ],
+      "command_addresses": [
+        "CC:A8E2"
+      ],
+      "output_png": "map_058.png",
+      "output_png_sha256": "404B3878B1570F0486B66E87DB70664F4916F78657614E9D20279E3FA433F0E4"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 59,
+      "layout_flags": 128,
+      "layout_width_chunks": 5,
+      "layout_height_chunks": 5,
+      "cell_count": 25,
+      "expanded_width_tiles": 160,
+      "expanded_height_tiles": 160,
+      "image_width_px": 1280,
+      "image_height_px": 1280,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l059_v2"
+      ],
+      "pack_ids_hex": [
+        "0x82"
+      ],
+      "command_addresses": [
+        "CC:B2BB"
+      ],
+      "output_png": "map_059.png",
+      "output_png_sha256": "0F07139E1229ECDCC389CEE62BD9945049C1ACD78D7033983BCBEBD847EE8796"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 60,
+      "layout_flags": 128,
+      "layout_width_chunks": 4,
+      "layout_height_chunks": 5,
+      "cell_count": 20,
+      "expanded_width_tiles": 128,
+      "expanded_height_tiles": 160,
+      "image_width_px": 1024,
+      "image_height_px": 1280,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l060_v1"
+      ],
+      "pack_ids_hex": [
+        "0x8E"
+      ],
+      "command_addresses": [
+        "CC:CCA1"
+      ],
+      "output_png": "map_060.png",
+      "output_png_sha256": "39A2C70B62A959F4644F11FABFB9C8C322695D03E0EEA604CAD4E572AA1B7835"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 61,
+      "layout_flags": 128,
+      "layout_width_chunks": 4,
+      "layout_height_chunks": 4,
+      "cell_count": 16,
+      "expanded_width_tiles": 128,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1024,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l061_v2"
+      ],
+      "pack_ids_hex": [
+        "0x8B"
+      ],
+      "command_addresses": [
+        "CC:C708"
+      ],
+      "output_png": "map_061.png",
+      "output_png_sha256": "165EFA2F8CE8E20859E50B9631D5B70AD4F045E7F9989A3F499BFBE9C8B86FD1"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 62,
+      "layout_flags": 128,
+      "layout_width_chunks": 4,
+      "layout_height_chunks": 4,
+      "cell_count": 16,
+      "expanded_width_tiles": 128,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1024,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l062_v2"
+      ],
+      "pack_ids_hex": [
+        "0x8C"
+      ],
+      "command_addresses": [
+        "CC:C8E8"
+      ],
+      "output_png": "map_062.png",
+      "output_png_sha256": "1E74964B08AFA015BC9FFCF9601B16EF34B261BC4D6B2D63A73AACFAF7D3076C"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 70,
+      "layout_flags": 128,
+      "layout_width_chunks": 4,
+      "layout_height_chunks": 4,
+      "cell_count": 16,
+      "expanded_width_tiles": 128,
+      "expanded_height_tiles": 128,
+      "image_width_px": 1024,
+      "image_height_px": 1024,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l070_v2"
+      ],
+      "pack_ids_hex": [
+        "0x83",
+        "0xF3"
+      ],
+      "command_addresses": [
+        "CC:B7FF",
+        "CE:028D"
+      ],
+      "output_png": "map_070.png",
+      "output_png_sha256": "0601E780FF215B87455C6898FEB4BFF362E689E5AE948CB10E2A539B5826619C"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 73,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l073_v2"
+      ],
+      "pack_ids_hex": [
+        "0x85"
+      ],
+      "command_addresses": [
+        "CC:BC2A"
+      ],
+      "output_png": "map_073.png",
+      "output_png_sha256": "C199886BEF65F9E45BEC21416848E980461EAEA0EEBE8753C7C9CCEBEBB746B1"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 74,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l074_v2"
+      ],
+      "pack_ids_hex": [
+        "0x85",
+        "0xF6"
+      ],
+      "command_addresses": [
+        "CC:BC22",
+        "CE:0BD6"
+      ],
+      "output_png": "map_074.png",
+      "output_png_sha256": "D468B4E0511E5BF68DDD6A56D8ACE0C2AEF9700078EA4444ECFDAD88886709FF"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 81,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l081_v2"
+      ],
+      "pack_ids_hex": [
+        "0x90"
+      ],
+      "command_addresses": [
+        "CC:D168"
+      ],
+      "output_png": "map_081.png",
+      "output_png_sha256": "2DC671632AE58DFE500713C8C3E8524BE9B21A10DD2FC7B7F0B32B78DAF59D23"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 82,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l082_v2"
+      ],
+      "pack_ids_hex": [
+        "0xCB"
+      ],
+      "command_addresses": [
+        "CD:8E91"
+      ],
+      "output_png": "map_082.png",
+      "output_png_sha256": "81470B8F96F0F91F5B6150C0FAA3C3B9675B9E9FB32CB8EC1D6019D329568838"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 85,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l085_v2"
+      ],
+      "pack_ids_hex": [
+        "0xCE"
+      ],
+      "command_addresses": [
+        "CD:91CC"
+      ],
+      "output_png": "map_085.png",
+      "output_png_sha256": "4F40FD40DC0701000D795EE613ABBFBDE9247DDC942EE4A6877830AAED95B87D"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 86,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l086_v2"
+      ],
+      "pack_ids_hex": [
+        "0xCE"
+      ],
+      "command_addresses": [
+        "CD:9156"
+      ],
+      "output_png": "map_086.png",
+      "output_png_sha256": "D64E394DEC0BAF441649203FB5555C5C8F1FFAE7BD4ACD6E3FD7592C8AD8642C"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 88,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l088_v2"
+      ],
+      "pack_ids_hex": [
+        "0xCE"
+      ],
+      "command_addresses": [
+        "CD:9186"
+      ],
+      "output_png": "map_088.png",
+      "output_png_sha256": "1D51D7510578E23C3B712EA4BF80359C7F2C2354B7F73B3682578175F641BBAE"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 89,
+      "layout_flags": 128,
+      "layout_width_chunks": 3,
+      "layout_height_chunks": 3,
+      "cell_count": 9,
+      "expanded_width_tiles": 96,
+      "expanded_height_tiles": 96,
+      "image_width_px": 768,
+      "image_height_px": 768,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l089_v2"
+      ],
+      "pack_ids_hex": [
+        "0xCE"
+      ],
+      "command_addresses": [
+        "CD:919F"
+      ],
+      "output_png": "map_089.png",
+      "output_png_sha256": "E7B1F97F1CBA6B2BE07F14DEE86005C72A1B5738EC20722E782431CDB1D0B57F"
+    },
+    {
+      "tileset_id": 4,
+      "layout_id": 91,
+      "layout_flags": 128,
+      "layout_width_chunks": 2,
+      "layout_height_chunks": 2,
+      "cell_count": 4,
+      "expanded_width_tiles": 64,
+      "expanded_height_tiles": 64,
+      "image_width_px": 512,
+      "image_height_px": 512,
+      "capture_id": "1790586286976-e56502b3",
+      "char_base": "0x8000",
+      "bpp": 4,
+      "palette_mode": "tile_index_grayscale",
+      "source_hashes": {
+        "vram_sha256": "87131F0B36912AE6484C979E325794C74356D38B34698645AAAFD420E9108022",
+        "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+      },
+      "config_ids": [
+        "cfg_t04_l091_v1"
+      ],
+      "pack_ids_hex": [
+        "0xEE"
+      ],
+      "command_addresses": [
+        "CD:EC1B"
+      ],
+      "output_png": "map_091.png",
+      "output_png_sha256": "5989897042DF2D55636D095FDD909A24511E242844C45707C9B9C65C2EFB9914"
+    }
+  ],
+  "policy": "Raw ROM/VRAM/CGRAM are local-only; only derived renders and hashes are canonical."
+}
