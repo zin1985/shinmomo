@@ -5,7 +5,7 @@ cfg_t02_l003_v1,2,CE:2400,3,CF:286B,1,0x01,8,8,128,128,2,0xCF;0xF1,0xCF:r0;0xF1:
 cfg_t02_l004_v1,2,CE:2400,4,CF:2930,1,0x01,8,8,128,128,1,0xCF,0xCF:r0,0x01,CD:92F4,0,,confirmed_normal_state0_safe_prefix:1,0,,,,,unknown,,,
 cfg_t03_l005_v1,3,CE:269C,5,CF:29F5,1,0x01,16,16,256,256,1,0xDF,0xDF:r0,0x01,CD:B8D7,0,,confirmed_normal_special_parse_impossible:1,0,,,,,unknown,,,
 cfg_t04_l006_v2,4,CE:2800,6,CF:2CFA,2,0x80,3,3,48,48,1,0x4D,0x4D:r0,0x01,CC:18A4,0,,confirmed_normal_state0_safe_prefix:1,0,,,,,unknown,,,
-cfg_t04_l008_v2,4,CE:2800,8,CF:2D40,2,0x80,5,5,80,80,3,0x50;0xF0;0xF1,0x50:r0;0xF0:r2;0xF1:r4,0x01;0x6C,CC:1C3F;CD:F6FF;CD:FB40,0,,confirmed_normal_state0_a0_nested_entry:2;confirmed_normal_state0_safe_prefix:1,0,,,,,unknown,,,
+cfg_t04_l008_v2,4,CE:2800,8,CF:2D40,2,0x80,5,5,80,80,3,0x50;0xF0;0xF1,0x50:r0;0xF0:r2;0xF1:r4,0x01;0x6C,CC:1C3F;CD:F6FF;CD:FB40,0,,confirmed_normal_state0_a0_nested_entry:2;confirmed_normal_state0_safe_prefix:1,1,0x50,CC:1C3F,pack50_shrine_exterior_l1,data/maps/samples/pack50_shrine_exterior_runtime_identity.json,outdoor_village_shrine,,pack50_shrine_exterior_l1,data/maps/samples/pack50_shrine_exterior_runtime_identity.json
 cfg_t04_l018_v2,4,CE:2800,18,CF:2E5C,2,0x80,3,3,48,48,4,0x5A;0x5B;0x5D;0x5E,0x5A:r0;0x5B:r0;0x5D:r0;0x5E:r0,0x01,CC:32E0;CC:33F4;CC:36F1;CC:382D,0,,confirmed_normal_state0_safe_prefix:4,0,,,,,unknown,,,
 cfg_t04_l019_v1,4,CE:2800,19,CF:2E97,1,0x80,3,3,48,48,1,0x5C,0x5C:r0,0x01,CC:359A,0,,confirmed_normal_state0_safe_prefix:1,0,,,,,unknown,,,
 cfg_t04_l028_v2,4,CE:2800,28,CF:2F6F,2,0x80,2,2,32,32,2,0x54;0xCA,0x54:r0;0xCA:r0,0x01,CC:27E5;CD:8DE6,0,,confirmed_normal_state0_safe_prefix:2,0,,,,,unknown,,,

@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-world-reconstruction",
   "title": "Cross-link confirmed ROM map selectors to human-facing locations",
-  "base_main_head_verified": "4b00bbbc18cf4bfed67ba63769ecc6f770d236c7",
+  "base_main_head_verified": "096fccfe5d24e21e6f4e3536e5690de449d1f141",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Use the closed 260-primary selector corpus as the structural backbone for assigning village, town, interior, dungeon and world-map identities, then attach collision/warp/event/encounter evidence without weakening the ROM-side proofs.",
   "definition_of_done": [
@@ -314,45 +314,70 @@
         "data/maps/configurations/map_configuration_index.csv",
         "data/maps/configurations/map_configuration_summary.json"
       ]
+    },
+    {
+      "item": "The active BizHawk bridge was refreshed and map-capture manifest schema v2 was validated on the running core. A fresh frame-3253 capture embeds $0305/$126E/$12B4=0x2E and selector 7/15/2 and resolves again to pack 0x2E / CB:DE70.",
+      "evidence": [
+        "data/maps/samples/stable_interior_runtime_identity.json",
+        "docs/analysis/stable_interior_runtime_identity_20260928.md",
+        "tools/remote_lab/shinmomo_remote_bridge.lua",
+        "tools/python/resolve_map_runtime_identity.py"
+      ]
+    },
+    {
+      "item": "A second visited configuration is runtime-bound exactly: the shrine/village exterior is cfg_t04_l008_v2 with runtime pack 0x50, uniquely resolving the three same-configuration occurrences to CC:1C3F. The configuration index now has two runtime-bound configurations and two unique occurrences.",
+      "evidence": [
+        "data/maps/samples/pack50_shrine_exterior_runtime_identity.json",
+        "data/maps/samples/pack50_shrine_exterior_runtime_resolution.json",
+        "data/maps/configurations/map_configuration_index.csv",
+        "data/maps/configurations/map_configuration_summary.json"
+      ]
+    },
+    {
+      "item": "The first runtime-confirmed map transition edge is captured from the stable interior to the pack-0x50 exterior: CB:DE70 -> CC:1C3F. The observed transition order is destination $0305 switch, pack-context convergence plus selector clear, new selector installation while black, then visible destination.",
+      "evidence": [
+        "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
+        "docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
     {
-      "observation": "Stable interior runtime identity is exact at the script-occurrence level: cfg_t07_l015_v2 / pack 0x2E / CB:DE70.",
-      "confidence": "confirmed_runtime_join",
-      "reason_not_promoted": "The exact in-game place name is still not independently proven; keep only the descriptive indoor/shrine-like classification."
+      "observation": "pack 0x50 / cfg_t04_l008_v2 / CC:1C3F is a forest shrine/village exterior directly connected to the stable save/shrine interior.",
+      "confidence": "confirmed_runtime_join_and_transition",
+      "reason_not_promoted": "The exact in-game human-facing place name has not yet been read from game text."
     },
     {
-      "observation": "The active BizHawk process still has the older bridge loaded: the identity probe map manifest was schema version 1 even though repository bridge code implements schema version 2.",
-      "confidence": "confirmed_runtime_version_gap",
-      "reason_not_promoted": "A bridge reload/restart is required before schema-v2 map_state embedding can be validated on the active core."
+      "observation": "????? is a strong external-corroboration candidate for pack 0x50: the playlog's ???1????1??100? state matches published opening guides, and published ????? descriptions include a shrine and fields matching the observed exterior.",
+      "confidence": "strong_external_corroboration",
+      "reason_not_promoted": "Keep display_name blank until an in-game text/event/location source independently names the map."
     },
     {
-      "observation": "Pack 0x2E dialogue source family is currently not useful for naming the room; the known selected source rows are empty/minimal.",
-      "confidence": "confirmed_context_limit",
-      "reason_not_promoted": "Use warp/event/playlog or another runtime-bound location transition for place-name proof rather than dialogue inference."
+      "observation": "The bridge schema-v2 runtime validation gap is closed on the active emulator core.",
+      "confidence": "confirmed_runtime_validation",
+      "reason_not_promoted": "No further bridge reload task remains; future captures can use embedded map_state directly."
     }
   ],
   "in_progress": [
-    "Use the exact pack-0x2E / CB:DE70 runtime anchor to search existing warp/event/location evidence for a human-facing place identity.",
-    "Keep the schema-v2 bridge reload as a runtime validation task; the resolver itself is already validated against a schema-v2 fixture."
+    "Obtain a direct in-game text/event/location-name source for pack 0x50 / CC:1C3F to confirm or reject the ????? candidate.",
+    "Continue binding additional visited maps through schema-v2 captures while preserving exact transition edges."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Cross-link pack 0x2E / CB:DE70 with existing event, warp, transition and playlog evidence; assign a display_name only if an independent location name is supported."
+      "action": "Talk to an accessible pack-0x50 villager or trigger a location-bearing event/text source; confirm a human-facing name only if the game itself supports it."
     },
     {
       "order": 2,
-      "action": "Build or extend the runtime identity capture/resolution flow for additional visited maps so more of the 149 configurations become occurrence-bound."
+      "action": "Record additional schema-v2 runtime identities and transitions so more of the 149 configurations become exact occurrence-bound."
     },
     {
       "order": 3,
-      "action": "On the next safe emulator restart/reload, validate map-capture manifest schema v2 map_state fields against the already proven frame-3253 scalar semantics."
+      "action": "For the confirmed CB:DE70 -> CC:1C3F edge, locate the underlying warp/exit trigger data and reconstruct source/destination coordinates."
     },
     {
       "order": 4,
-      "action": "For each runtime-bound/labeled map, add collision, warp, event-trigger and encounter reconstruction layers."
+      "action": "Then add collision, event-trigger and encounter layers for runtime-bound maps."
     }
   ],
   "do_not_redo": [
@@ -404,7 +429,10 @@
     "Do not commit raw WRAM when capturing map identity; manifest schema v2 stores only the small derived map_state scalars needed for joins.",
     "Do not leave stable_interior_l1 at the three-occurrence selector ambiguity; frame 3253 proves pack 0x2E and uniquely resolves CB:DE70.",
     "Do not assign a human place name to stable_interior_l1 from the shrine-like visual description or pack-0x2E dialogue family alone.",
-    "Do not commit the local WRAM capture files used for runtime identity; only hashes, scalar values and derived joins are canonical."
+    "Do not commit the local WRAM capture files used for runtime identity; only hashes, scalar values and derived joins are canonical.",
+    "Do not leave the old schema-v2 runtime-version gap open; the active BizHawk bridge was refreshed and a schema-v2 frame-3253 capture matched the proven stable-interior state.",
+    "Do not leave cfg_t04_l008_v2 unbound for the observed exterior; runtime pack 0x50 uniquely resolves CC:1C3F.",
+    "Do not promote the ????? candidate to display_name from external walkthrough/state/visual corroboration alone; require direct in-game text or event/location evidence."
   ],
   "runtime_only_artifacts": [
     {
@@ -430,6 +458,26 @@
     {
       "path": "%LOCALAPPDATA%/shinmomo-lab/captures/mem_1790585492082-e529ace2.json",
       "description": "Local-only bounded WRAM scalar window proving $126E/$12B4 and $1398..$139F at frame 3253."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586092190-25934fb7_schema_v2_reloadtest",
+      "description": "Fresh schema-v2 frame-3253 capture proving embedded map_state matches the stable-interior scalar identity."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586286976-e56502b3_exit_transition_step150",
+      "description": "Visible pack-0x50 shrine/village exterior capture used for exact runtime occurrence binding."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586206665-a0cf2d8f_exit_probe_down24",
+      "description": "Transition phase: $0305 switched to 0x50 while old selector/interior remained."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586225731-87ee48d9_exit_transition_step30",
+      "description": "Transition phase: pack contexts 0x50 with selector cleared and black screen."
+    },
+    {
+      "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586245967-3d0e1449_exit_transition_step60",
+      "description": "Transition phase: new 4/8/2 selector installed while screen remained black."
     }
   ],
   "canonical_evidence": [
@@ -496,7 +544,11 @@
     "data/maps/samples/stable_interior_runtime_identity.json",
     "data/maps/samples/stable_interior_runtime_resolution.json",
     "tools/python/resolve_map_runtime_identity.py",
-    "docs/analysis/stable_interior_runtime_identity_20260928.md"
+    "docs/analysis/stable_interior_runtime_identity_20260928.md",
+    "data/maps/samples/pack50_shrine_exterior_runtime_identity.json",
+    "data/maps/samples/pack50_shrine_exterior_runtime_resolution.json",
+    "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
+    "docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",

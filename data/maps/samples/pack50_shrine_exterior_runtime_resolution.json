@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_map_selector_resolution",
+  "sample_id": "pack50_shrine_exterior_l1",
+  "runtime_frame": 3447,
+  "runtime_state": {
+    "mode_1398": 0,
+    "current_pack_0305": 80,
+    "vm_pack_126e": 80,
+    "resolved_pack_12b4": 80,
+    "primary_tileset_139c": 4,
+    "primary_layout_139e": 8,
+    "map_variant_139b": 2
+  },
+  "config_id": "cfg_t04_l008_v2",
+  "selector_match_count": 3,
+  "selector_match_addresses": [
+    "CC:1C3F",
+    "CD:F6FF",
+    "CD:FB40"
+  ],
+  "pack_filtered_match_count": 1,
+  "pack_filtered_match_addresses": [
+    "CC:1C3F"
+  ],
+  "resolved_unique_occurrence": true,
+  "resolved_occurrence": {
+    "pack_id_hex": "0x50",
+    "record_index": 0,
+    "entry_id_hex": "0x01",
+    "substream_start": "CC:1C35",
+    "command_addr": "CC:1C3F",
+    "layout_ptr": "CF:2D40",
+    "primary_tileset_ptr": "CE:2800"
+  },
+  "embedded_resolution_checks": {
+    "config_id": true,
+    "command_addr": true,
+    "pack_id_hex": true
+  }
+}

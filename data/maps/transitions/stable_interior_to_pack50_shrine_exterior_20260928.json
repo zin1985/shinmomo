@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_map_transition_evidence",
+  "policy": "Only manifest hashes and scalar map state are canonical; raw render artifacts remain local-only.",
+  "from": {
+    "sample_id": "stable_interior_l1",
+    "config_id": "cfg_t07_l015_v2",
+    "pack_id_hex": "0x2E",
+    "command_addr": "CB:DE70"
+  },
+  "to": {
+    "sample_id": "pack50_shrine_exterior_l1",
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "command_addr": "CC:1C3F"
+  },
+  "trigger_observation": "Player walked south through the central exit of the save/shrine-like interior.",
+  "phases": [
+    {
+      "phase": "pack_switch_before_selector_change",
+      "capture_id": "1790586206665-a0cf2d8f",
+      "manifest_sha256": "0B0F07DC6C050A855DEF964434E38B5599AA35BF3CF2C0971B79DBDFED6AE60F",
+      "frame": 3277,
+      "map_state": {
+        "current_pack_0305": 80,
+        "vm_pack_126e": 46,
+        "resolved_pack_12b4": 46,
+        "mode_1398": 0,
+        "pending_mode_1399": 0,
+        "map_variant_139b": 2,
+        "primary_tileset_139c": 7,
+        "secondary_tileset_139d": 0,
+        "primary_layout_139e": 15,
+        "secondary_layout_139f": 0
+      }
+    },
+    {
+      "phase": "black_clear_phase",
+      "capture_id": "1790586225731-87ee48d9",
+      "manifest_sha256": "1F966CE5E95EB85201677E49D55D2B69B4E4B0168CFCD99DDE6451C6BD612B60",
+      "frame": 3315,
+      "map_state": {
+        "current_pack_0305": 80,
+        "vm_pack_126e": 80,
+        "resolved_pack_12b4": 80,
+        "mode_1398": 0,
+        "pending_mode_1399": 0,
+        "map_variant_139b": 0,
+        "primary_tileset_139c": 0,
+        "secondary_tileset_139d": 0,
+        "primary_layout_139e": 0,
+        "secondary_layout_139f": 0
+      }
+    },
+    {
+      "phase": "new_selector_while_black",
+      "capture_id": "1790586245967-3d0e1449",
+      "manifest_sha256": "CD7F950ADE71C2ACE6BE76906DE4D869F4CBE42891CD1880D1C443CD92D80D04",
+      "frame": 3357,
+      "map_state": {
+        "current_pack_0305": 80,
+        "vm_pack_126e": 80,
+        "resolved_pack_12b4": 80,
+        "mode_1398": 0,
+        "pending_mode_1399": 0,
+        "map_variant_139b": 2,
+        "primary_tileset_139c": 4,
+        "secondary_tileset_139d": 0,
+        "primary_layout_139e": 8,
+        "secondary_layout_139f": 0
+      }
+    },
+    {
+      "phase": "new_map_visible",
+      "capture_id": "1790586286976-e56502b3",
+      "manifest_sha256": "64CB6B305953992DB11DF0BA24D7858A97BFE440302104C3AD59753C86C9A1FE",
+      "frame": 3447,
+      "map_state": {
+        "current_pack_0305": 80,
+        "vm_pack_126e": 80,
+        "resolved_pack_12b4": 80,
+        "mode_1398": 0,
+        "pending_mode_1399": 0,
+        "map_variant_139b": 2,
+        "primary_tileset_139c": 4,
+        "secondary_tileset_139d": 0,
+        "primary_layout_139e": 8,
+        "secondary_layout_139f": 0
+      }
+    }
+  ],
+  "derived_sequence": [
+    "$0305 changes 0x2E -> 0x50 before the old selector is replaced",
+    "$126E/$12B4 then converge to 0x50 while $139B..$139F are cleared",
+    "new selector 50 04 08 02 appears while the screen is still black",
+    "the forest shrine/village exterior becomes visible with the same pack/selector identity"
+  ],
+  "relation_status": "confirmed_runtime_transition",
+  "human_location_name": null,
+  "human_location_candidate": "?????"
+}

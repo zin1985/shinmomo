@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "kind": "derived_runtime_map_identity",
+  "sample_id": "pack50_shrine_exterior_l1",
+  "policy": "Raw screenshots/VRAM/CGRAM/OAM remain local-only; this file stores only scalar state, hashes, derived joins and bounded semantic observations.",
+  "runtime_frame": 3447,
+  "local_capture_evidence": [
+    {
+      "capture_id": "1790586286976-e56502b3",
+      "kind": "map_capture_manifest_schema2",
+      "sha256": "64CB6B305953992DB11DF0BA24D7858A97BFE440302104C3AD59753C86C9A1FE"
+    }
+  ],
+  "map_state": {
+    "current_pack_0305": 80,
+    "vm_pack_126e": 80,
+    "resolved_pack_12b4": 80,
+    "mode_1398": 0,
+    "pending_mode_1399": 0,
+    "map_variant_139b": 2,
+    "primary_tileset_139c": 4,
+    "secondary_tileset_139d": 0,
+    "primary_layout_139e": 8,
+    "secondary_layout_139f": 0,
+    "current_pack_hex": "0x50"
+  },
+  "resolved_rom_identity": {
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "record_index": 0,
+    "entry_id_hex": "0x01",
+    "command_addr": "CC:1C3F",
+    "other_same_configuration_occurrences": [
+      "CD:F6FF",
+      "CD:FB40"
+    ],
+    "resolution_basis": "Schema-v2 runtime pack id 0x50 plus selector 50 04 08 02 uniquely selects the pack-0x50 occurrence."
+  },
+  "scene_observation": {
+    "scene_class": "outdoor_village_shrine",
+    "description": "forest shrine grounds connected southward to cultivated fields and village buildings",
+    "exact_in_game_place_name": null,
+    "label_candidate": {
+      "name": "?????",
+      "status": "strong_external_corroboration_not_game_text_confirmed",
+      "basis": [
+        "runtime playlog shows ???1????1??100? at this save",
+        "external walkthroughs independently describe that exact opening state and direct the party to ?????",
+        "external location references describe ????? as having a shrine and fields, matching the observed exterior"
+      ]
+    },
+    "evidence": [
+      "docs/evidence/playlog/2026-09-27/20260927_1255_1323_playlog.md"
+    ]
+  }
+}

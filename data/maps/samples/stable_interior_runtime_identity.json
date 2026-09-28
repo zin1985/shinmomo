@@ -19,6 +19,11 @@
       "capture_id": "1790585492082-e529ace2",
       "kind": "wram_scalar_window_126e_139f",
       "sha256": "74BCA066A690CB1685A845A7FE3F4AE83FC9E17925A5A268A24891DCAA3FF61F"
+    },
+    {
+      "capture_id": "1790586092190-25934fb7",
+      "kind": "map_capture_manifest_schema2",
+      "sha256": "018B8E92720EE4AFF49BF35C4833757BF87A4091A704E4B9888D9DBA4886865C"
     }
   ],
   "map_state": {
@@ -55,5 +60,6 @@
       "docs/evidence/playlog/2026-09-27/20260927_1255_1323_playlog.md",
       "docs/analysis/map_sample_stable_interior_l1.md"
     ]
-  }
+  },
+  "schema_v2_runtime_revalidated": true
 }

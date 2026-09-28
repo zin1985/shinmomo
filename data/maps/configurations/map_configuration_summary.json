@@ -18,11 +18,11 @@
   },
   "max_occurrence_count": 9,
   "stable_interior_config_id": "cfg_t07_l015_v2",
-  "runtime_identity_sample_count": 1,
-  "runtime_bound_configuration_count": 1,
-  "runtime_bound_unique_occurrence_count": 1,
+  "runtime_identity_sample_count": 2,
+  "runtime_bound_configuration_count": 2,
+  "runtime_bound_unique_occurrence_count": 2,
   "human_labeled_configuration_count": 0,
-  "scene_class_hint_count": 1,
+  "scene_class_hint_count": 2,
   "outputs": [
     "map_configuration_index.csv",
     "map_configuration_summary.json"

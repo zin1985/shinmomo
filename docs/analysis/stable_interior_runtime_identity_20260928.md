@@ -73,12 +73,15 @@ The runtime identity result should be used as the anchor for later warp/event
 or playlog evidence that can establish the actual place name.
 ## Remote-lab note
 
-The active BizHawk session was still running the previous Lua bridge when the
-identity probe was taken, so its map-capture manifest remained schema version 1.
+The active BizHawk Lua Console was refreshed from the current repository bridge
+on 2026-09-28. A fresh frame-3253 map capture then returned manifest schema
+version 2 with embedded map_state values matching the previously proven scalar
+captures exactly:
 
-The committed bridge now implements schema version 2 with the same scalar
-map-state fields embedded directly in each future map-capture manifest.
-That implementation still requires a fresh bridge reload/runtime validation.
+- $0305/$126E/$12B4 = 0x2E
+- $1398/$1399 = 0
+- $139B/$139C/$139E = 2/7/15
 
-Until then, the frame-3253 identity above is independently reproducible from
-the local bounded WRAM scalar captures and the committed resolver.
+The schema-v2 manifest resolves through the committed runtime resolver to the
+same unique occurrence, pack 0x2E / CB:DE70. The earlier runtime-version gap is
+therefore closed.

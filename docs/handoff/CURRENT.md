@@ -144,6 +144,13 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/selectors/state0_safe_prefix_promotions.csv`
   - `data/maps/selectors/primary_map_selector_summary.json`
   - `docs/analysis/map_selector_a0_nested_promotion_20260928.md`
+- `data/maps/samples/stable_interior_runtime_identity.json`
+- `data/maps/samples/stable_interior_runtime_resolution.json`
+- `data/maps/samples/pack50_shrine_exterior_runtime_identity.json`
+- `data/maps/samples/pack50_shrine_exterior_runtime_resolution.json`
+- `data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json`
+- `docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md`
+
 
 - State0-reachable A0 nested-entry seeding now promotes 16 later-record selectors in packs 0xED/0xEE/0xF0/0xF1. Confirmed primary rises 244->260, unresolved falls 19->3, and CD:E353/CD:E357 closes the final unresolved immediate pair so all 105/105 immediate secondary pairs are confirmed.
   - tools/python/catalog_map_selectors.py
@@ -183,25 +190,36 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - `data/maps/configurations/map_configuration_index.csv`
   - `data/maps/configurations/map_configuration_summary.json`
 
+- Active BizHawk was refreshed to the current Lua bridge and schema-v2 map_state embedding was validated on the running core. A fresh frame-3253 capture reproduces pack 0x2E / selector 7/15/2 and resolves again to CB:DE70.
+  - `data/maps/samples/stable_interior_runtime_identity.json`
+  - `docs/analysis/stable_interior_runtime_identity_20260928.md`
+- A second visited map is exact at occurrence level: the forest shrine/village exterior is cfg_t04_l008_v2, runtime pack 0x50, uniquely resolving to CC:1C3F. Runtime-bound totals are now 2 configurations / 2 unique occurrences.
+  - `data/maps/samples/pack50_shrine_exterior_runtime_identity.json`
+  - `data/maps/samples/pack50_shrine_exterior_runtime_resolution.json`
+  - `data/maps/configurations/map_configuration_index.csv`
+- The first runtime-confirmed transition edge is recorded as CB:DE70 -> CC:1C3F. The observed order is destination $0305 switch, pack-context convergence plus selector clear, new selector install while black, then visible destination.
+  - `data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json`
+  - `docs/analysis/map_runtime_transition_pack2e_to_pack50_20260928.md`
+
 ## Observed but not yet promoted
 
-- **confirmed_runtime_join**: stable_interior_l1 is exact at the occurrence level: cfg_t07_l015_v2 / pack 0x2E / CB:DE70.
-  - Why not named: the exact in-game place name is not independently proven.
-- **confirmed_runtime_version_gap**: the currently running BizHawk still has the previous Lua bridge loaded; its fresh identity-probe manifest is schema v1.
-  - Why not closed: reload/restart is required to validate schema-v2 map_state embedding on the active core.
-- **confirmed_context_limit**: pack 0x2E dialogue sources are empty/minimal and do not establish a place name.
+- **confirmed_runtime_join_and_transition**: pack 0x50 / cfg_t04_l008_v2 / CC:1C3F is a forest shrine/village exterior directly connected to the stable save/shrine interior.
+  - Why not named: direct in-game place-name text has not yet been captured.
+- **strong_external_corroboration**: ????? is the current label candidate because the playlog state ???1????1??100? matches published opening walkthroughs and published ????? descriptions include a shrine and fields.
+  - Why not promoted: keep `display_name` blank until game text/event/location data names it directly.
+- **confirmed_runtime_validation**: the old bridge-version gap is closed; active-core schema-v2 map_state capture now works.
 
 ## In progress
 
-- Cross-link exact pack 0x2E / CB:DE70 with event, warp, transition and playlog evidence.
-- Expand runtime occurrence identity to additional visited maps.
+- Obtain a direct game-text/event location name for pack 0x50 / CC:1C3F.
+- Continue schema-v2 runtime binding and transition capture for additional maps.
 
 ## Next actions
 
-1. Search existing event/warp/location evidence around pack 0x2E / CB:DE70; assign a human-facing place name only with independent support.
-2. Extend runtime identity capture/resolution to additional maps and configurations.
-3. On the next safe emulator reload, validate schema-v2 map_state fields on the active core.
-4. Add collision, warp, event-trigger and encounter layers for runtime-bound/labeled maps.
+1. Talk to an accessible pack-0x50 villager or trigger another location-bearing text/event source; confirm the human-facing name only with direct in-game support.
+2. Bind additional visited configurations and exact script occurrences through schema-v2 captures.
+3. Trace the confirmed CB:DE70 -> CC:1C3F exit to its underlying warp trigger and source/destination coordinates.
+4. Add collision, event-trigger and encounter layers for runtime-bound maps.
 
 ## Do not redo
 
@@ -249,6 +267,9 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established.
 - Do not flatten opcode A0 as a simple four-byte instruction. It changes $98/$99/$9A to a nested 24-bit target and uses B0/$1266/C4:84D9 return machinery.
 - Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.
+- Do not leave the old schema-v2 runtime-version gap open; the active bridge was refreshed and validated with a fresh frame-3253 schema-v2 capture.
+- Do not leave cfg_t04_l008_v2 unbound for the observed exterior; runtime pack 0x50 uniquely resolves CC:1C3F.
+- Do not promote the ????? candidate to `display_name` from external walkthrough/state/visual corroboration alone; require direct in-game evidence.
 
 ## Runtime-only artifacts
 
@@ -258,6 +279,17 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - Fresh stable-room capture at frame 3253 used for L1 page stability.
 - `%LOCALAPPDATA%/shinmomo-lab/map_captures/1790520426924-2a33d5df_field_transition_probe`
   - Transition control used to prove that pages 0x1000/0x1800 are scene-specific.
+
+- `%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586092190-25934fb7_schema_v2_reloadtest`
+  - Fresh schema-v2 stable-interior map_state validation.
+- `%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586286976-e56502b3_exit_transition_step150`
+  - Visible pack-0x50 shrine/village exterior runtime capture.
+- `%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586206665-a0cf2d8f_exit_probe_down24`
+  - Transition phase with destination pack selected before selector replacement.
+- `%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586225731-87ee48d9_exit_transition_step30`
+  - Black/clear transition phase.
+- `%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586245967-3d0e1449_exit_transition_step60`
+  - New selector installed while screen remained black.
 
 ## Canonical evidence / save locations
 
