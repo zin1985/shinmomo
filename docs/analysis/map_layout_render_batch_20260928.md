@@ -30,17 +30,34 @@ The renderer uses:
 Raw ROM, VRAM and CGRAM are not committed.
 ## Palette status
 
-The active Snes9x capture exposes a 512-byte CGRAM file containing only zero bytes.
-Therefore color reconstruction from that capture is not valid.
+The Snes9x core does not expose CGRAM as a readable memory domain, but ROM tracing
+identified the game's canonical 512-byte CGRAM staging buffer at WRAM
+`$7E:21C2..$23C1`.
 
-The committed images intentionally use `tile_index_grayscale`:
+The tileset-4 batch is now rendered in color from that staging buffer:
 
-- 4bpp pixel index 0..15 is rendered as grayscale 0..255,
-- tile shape, flip state, map placement and metatile composition remain preserved,
-- no false color information is invented.
+- palette mode: `wram_cgram_staging`
+- staging capture frame: 6429 on pack `0x50` / tileset 4 / layout 8
+- palette SHA-256: `323A1D99B931576D513F3953BE90976C1ADAE2E5124BB207C52101836F30B878`
+- derived palette catalog: `data/maps/rendered/tileset_04/palette.json`
 
-When a non-zero CGRAM capture becomes available, the same renderer automatically
-switches to captured-CGRAM color mode and can regenerate the batch.
+The raw WRAM capture remains local-only. Only the derived BGR555/RGB palette,
+hashes and colored render outputs are canonical.
+
+`map_008` is runtime-validated against the live 旅立ちの村 screen. The other
+28 tileset-4 renders use the same proven staging palette set but remain individually
+unverified until their corresponding runtime scenes are captured.
+
+## Why map numbers are sparse
+
+`map_###` is the global ROM layout-record ID from the 203-entry CF layout table,
+not a per-town sequential number. This directory contains only layouts currently
+used with primary tileset 4, so IDs belonging to other tilesets appear as gaps.
+
+A layout ID can also be referenced by multiple packs/configurations. For example,
+layout 8 is used by packs `0x50`, `0xF0` and `0xF1`; the runtime pack context
+selects the exact occurrence.
+
 ## First-batch map IDs
 
 `006, 008, 018, 019, 028, 029, 030, 031, 034, 035, 039, 044, 045,

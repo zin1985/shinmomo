@@ -28,6 +28,10 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest().upper()
 
 
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest().upper()
+
+
 def decode_4bpp_tile(vram: bytes, char_base: int, tile_index: int) -> list[list[int]]:
     base = char_base + tile_index * 32
     if base < 0 or base + 32 > len(vram):
@@ -62,6 +66,24 @@ def decode_cgram(cgram: bytes) -> list[tuple[int, int, int]]:
             round(b5 * 255 / 31),
         ))
     return colors
+
+
+def load_wram_palette_capture(path: Path) -> tuple[bytes, dict]:
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    raw = payload.get("bytes")
+    if not isinstance(raw, list) or len(raw) < 512:
+        raise ValueError("WRAM palette capture must contain at least 512 bytes")
+    data = bytes(int(v) & 0xFF for v in raw[:512])
+    meta = {
+        "kind": "wram_cgram_staging",
+        "domain": payload.get("domain", "WRAM"),
+        "start": payload.get("start"),
+        "length": 512,
+        "frame": payload.get("frame"),
+        "capture_id": payload.get("id"),
+        "bytes_sha256": sha256_bytes(data),
+    }
+    return data, meta
 
 
 def read_config_rows(path: Path, tileset_id: int) -> dict[int, list[dict[str, str]]]:
@@ -144,6 +166,11 @@ def main() -> None:
     ap.add_argument("capture_dir", type=Path)
     ap.add_argument("--tileset-id", type=int, required=True)
     ap.add_argument("--char-base", type=lambda v: int(v, 0), default=0x0000)
+    ap.add_argument(
+        "--palette-wram-json",
+        type=Path,
+        help="capture-memory JSON for the 512-byte CGRAM staging buffer",
+    )
     ap.add_argument("--config-index", type=Path, default=DEFAULT_CONFIG_INDEX)
     ap.add_argument("--out-dir", type=Path, required=True)
     args = ap.parse_args()
@@ -153,12 +180,25 @@ def main() -> None:
     cgram_path = args.capture_dir / "cgram.bin"
     vram = vram_path.read_bytes()
     cgram = cgram_path.read_bytes()
-    if len(set(cgram)) <= 1:
+    palette_bytes: bytes | None = None
+    palette_source: dict | None = None
+    if args.palette_wram_json:
+        palette_bytes, palette_source = load_wram_palette_capture(
+            args.palette_wram_json
+        )
+        palette = decode_cgram(palette_bytes)
+        palette_mode = "wram_cgram_staging"
+    elif len(set(cgram)) <= 1:
         palette = None
         palette_mode = "tile_index_grayscale"
     else:
-        palette = decode_cgram(cgram)
+        palette_bytes = cgram[:512]
+        palette = decode_cgram(palette_bytes)
         palette_mode = "captured_cgram"
+        palette_source = {
+            "kind": "captured_cgram",
+            "bytes_sha256": sha256_bytes(palette_bytes),
+        }
     manifest = load_capture_manifest(args.capture_dir)
     grouped = read_config_rows(args.config_index, args.tileset_id)
 
@@ -168,6 +208,9 @@ def main() -> None:
     source_hashes = {
         "vram_sha256": sha256_file(vram_path),
         "cgram_sha256": sha256_file(cgram_path),
+        "palette_sha256": (
+            sha256_bytes(palette_bytes) if palette_bytes is not None else None
+        ),
     }
     for layout_id in sorted(grouped):
         image, meta = render_one(
@@ -185,6 +228,7 @@ def main() -> None:
             "char_base": f"0x{args.char_base:04X}",
             "bpp": 4,
             "palette_mode": palette_mode,
+            "palette_source": palette_source,
             "source_hashes": source_hashes,
             "config_ids": [r["config_id"] for r in configs],
             "pack_ids_hex": sorted({
@@ -202,6 +246,28 @@ def main() -> None:
         )
         rows.append(meta)
         print(f"rendered map {layout_id:03d}: {image.width}x{image.height}")
+
+    if palette_bytes is not None:
+        palette_json = {
+            "schema_version": 1,
+            "kind": "derived_snes_palette",
+            "palette_mode": palette_mode,
+            "palette_source": palette_source,
+            "bytes_sha256": sha256_bytes(palette_bytes),
+            "entries": [],
+        }
+        for i, rgb in enumerate(decode_cgram(palette_bytes)):
+            word = palette_bytes[i * 2] | (palette_bytes[i * 2 + 1] << 8)
+            palette_json["entries"].append({
+                "index": i,
+                "bgr555": f"0x{word:04X}",
+                "rgb888": list(rgb),
+            })
+        (args.out_dir / "palette.json").write_text(
+            json.dumps(palette_json, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
     index_json = {
         "schema_version": 1,
         "kind": "derived_map_layout_render_index",
@@ -210,6 +276,7 @@ def main() -> None:
         "char_base": f"0x{args.char_base:04X}",
         "bpp": 4,
         "palette_mode": palette_mode,
+        "palette_source": palette_source,
         "source_hashes": source_hashes,
         "map_count": len(rows),
         "maps": rows,
@@ -224,7 +291,8 @@ def main() -> None:
         "layout_id", "tileset_id", "layout_flags",
         "layout_width_chunks", "layout_height_chunks", "cell_count",
         "image_width_px", "image_height_px", "capture_id",
-        "char_base", "bpp", "palette_mode", "output_png", "output_png_sha256",
+        "char_base", "bpp", "palette_mode", "palette_sha256",
+        "output_png", "output_png_sha256",
         "config_ids", "pack_ids_hex", "command_addresses",
     ]
     with (args.out_dir / "index.csv").open(
@@ -235,6 +303,7 @@ def main() -> None:
         for row in rows:
             writer.writerow({
                 **{k: row.get(k, "") for k in fieldnames},
+                "palette_sha256": source_hashes.get("palette_sha256") or "",
                 "config_ids": ";".join(row["config_ids"]),
                 "pack_ids_hex": ";".join(row["pack_ids_hex"]),
                 "command_addresses": ";".join(row["command_addresses"]),

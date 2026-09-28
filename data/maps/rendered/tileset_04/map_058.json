@@ -12,10 +12,20 @@
   "capture_id": "1790606361549-521e63f9",
   "char_base": "0x0000",
   "bpp": 4,
-  "palette_mode": "tile_index_grayscale",
+  "palette_mode": "wram_cgram_staging",
+  "palette_source": {
+    "kind": "wram_cgram_staging",
+    "domain": "WRAM",
+    "start": 8642,
+    "length": 512,
+    "frame": 6429,
+    "capture_id": "1790608557520-c38b4ce1",
+    "bytes_sha256": "323A1D99B931576D513F3953BE90976C1ADAE2E5124BB207C52101836F30B878"
+  },
   "source_hashes": {
     "vram_sha256": "7BD7CD55C4B7E4016693B79FCEEDC1E5013EF70881DF9311D56D722062C4B3CA",
-    "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560"
+    "cgram_sha256": "076A27C79E5ACE2A3D47F9DD2E83E4FF6EA8872B3C2218F66C92B89B55F36560",
+    "palette_sha256": "323A1D99B931576D513F3953BE90976C1ADAE2E5124BB207C52101836F30B878"
   },
   "config_ids": [
     "cfg_t04_l058_v2"
@@ -27,5 +37,5 @@
     "CC:A8E2"
   ],
   "output_png": "map_058.png",
-  "output_png_sha256": "18DC3FF5C7C6B0F5E67AC923F38698B76A5A9B6C1F2B1D94E4DC72BB701484FC"
+  "output_png_sha256": "AC3CA5907AF3ECF6333A35E799260CE4D22014112AAFE1FA6D1E14A3F6A28578"
 }
