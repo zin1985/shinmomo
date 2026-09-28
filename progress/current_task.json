@@ -1,14 +1,14 @@
-{
+﻿{
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
   "updated_at": "2026-09-28",
   "status": "active",
   "workstream": "map-world-reconstruction",
-  "title": "Enumerate map-selector bytecode and build the ROM map corpus index",
-  "base_main_head_verified": "c84d2cb5456af35b8b96912e97ccf34630aa2528",
+  "title": "Cross-link confirmed ROM map selectors to human-facing locations",
+  "base_main_head_verified": "0f042c22c93bb0302158501931f4e7b3906ab241",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
-  "goal": "Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record interpreter, join each command to the 60-entry tileset/config and 203-entry layout catalogs, and build a derived ROM map corpus index suitable for classifying villages, world-map regions, interiors and dungeon floors.",
+  "goal": "Use the closed 260-primary selector corpus as the structural backbone for assigning village, town, interior, dungeon and world-map identities, then attach collision/warp/event/encounter evidence without weakening the ROM-side proofs.",
   "definition_of_done": [
     "The bank-C4 interpreter path supplying the $98 script pointer is identified well enough to distinguish valid opcode streams from blind byte-pattern matches.",
     "A reproducible tool enumerates valid 0x50 primary and 0x51 secondary map-selection commands with ROM addresses and argument IDs.",
@@ -255,45 +255,45 @@
         "data/maps/selectors/primary_map_selector_summary.json",
         "docs/analysis/map_selector_later_a0_promotion_20260928.md"
       ]
+    },
+    {
+      "item": "Instruction-boundary closure removes the final three false primary shapes: CC:A71F is operand 3 of five-byte opcode 0x63, while CC:FD5C and CC:FE6D are operand 1 of six-byte opcode 0x59. The raw 263 range-plausible shapes therefore contain exactly 260 instruction-level primary selectors, all 260 are confirmed normal, and primary mode-gate unresolved is zero.",
+      "evidence": [
+        "tools/python/catalog_map_selectors.py",
+        "data/maps/selectors/non_opcode_primary_50_shapes.csv",
+        "data/maps/selectors/primary_map_selector_catalog.csv",
+        "data/maps/selectors/primary_map_selector_summary.json",
+        "docs/analysis/map_selector_instruction_boundary_closure_20260928.md"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
     {
-      "observation": "Only three primary selectors remain unresolved: pack 0x7F record 3 / entry 0x88 at CC:A71F, and pack 0x9D records 4/5 entries 0x6D/0x6C at CC:FD5C/CC:FE6D.",
+      "observation": "All 260 instruction-level primary 0x50 selectors are confirmed normal; all 105 immediate 0x51 pairs are confirmed. 79 range-plausible standalone 0x51 byte shapes remain mode/instruction-boundary ambiguous and are retained separately rather than promoted.",
       "confidence": "confirmed_catalog",
-      "reason_not_promoted": "Their entry-family normal-mode reachability is not yet fully proven."
-    },
-    {
-      "observation": "State-0 native initialization contains an unconditional LDA #$88 ; JSL $84:858D at 81:96FE after establishing dynamic pack $0305.",
-      "confidence": "strong_static_seed",
-      "reason_not_promoted": "The 0x7F entry-0x88 substream prefix uses additional grammar not yet covered by the fail-closed selector CFG, so the candidate boundary is not yet proven normal."
-    },
-    {
-      "observation": "The two pack-0x9D residual substreams have same-pack raw A0 callers: CC:FD57 is targeted from entry 0x76 at CC:FE45; CC:FE68 is targeted from entry 0x7C at CC:FD2A.",
-      "confidence": "strong_structural_call_edges",
-      "reason_not_promoted": "The caller entries 0x76/0x7C still need an independently proven normal-mode seed and instruction-aligned reachability to those A0 callsites."
+      "reason_not_promoted": "Standalone 0x51 shapes do not inherit a parent 0x50 proof and need their own instruction-boundary/mode evidence if they become relevant to a location reconstruction."
     }
   ],
   "in_progress": [
-    "Resolve pack 0x7F entry 0x88 from the direct state-0 native seed at 81:96FE, then bound the CC:A6CE -> CC:A71F prefix without guessing opcode lengths.",
-    "Resolve pack 0x9D entries 0x6D/0x6C by tracing the entry 0x76/0x7C A0 caller chains back to a proven mode-state seed."
+    "Group the 260 confirmed primary selectors into the 149 unique tileset/layout/variant configurations and cross-link pack/record/substream context.",
+    "Attach human-facing village/town/interior/dungeon/world identities from existing dialogue, event, warp and location evidence."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Prove the 81:96FE state-0 entry-0x88 start and decode the pack-0x7F CC:A6CE -> CC:A71F prefix fail-closed; promote only if the whole reachable path stays normal."
+      "action": "Build a configuration-centric index for all 260 confirmed primary selectors, including immediate secondary layouts and every pack/record/substream occurrence."
     },
     {
       "order": 2,
-      "action": "Trace pack-0x9D entry 0x76 and 0x7C activation/caller paths, then validate their A0 calls to CC:FD57 and CC:FE68 as instruction-aligned normal-mode edges."
+      "action": "Cross-link selector occurrences with existing dialogue/event/location artifacts and assign only evidence-backed human-facing location labels."
     },
     {
       "order": 3,
-      "action": "Classify the final three selectors or retain any genuinely special-mode row with explicit evidence."
+      "action": "For labeled locations, add collision, warp, event-trigger and encounter evidence as separate reconstruction layers."
     },
     {
       "order": 4,
-      "action": "After selector semantics are closed, cross-link confirmed pack/record/substream addresses with dialogue/event/location evidence to assign town/interior/dungeon/world labels."
+      "action": "Resolve standalone 0x51 instruction boundaries only where they affect a map reconstruction or location identity; do not bulk-promote raw byte shapes."
     }
   ],
   "do_not_redo": [
@@ -338,7 +338,9 @@
     "Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.",
     "Do not use the old 240 confirmed / 23 unresolved counts after the A0/B0 nested-call proof; canonical counts are now 244 confirmed / 19 unresolved, with record0/entry1 fully closed.",
     "Do not use the old 244 confirmed / 19 unresolved counts after later-record A0 nested-entry seeding; canonical counts are now 260 confirmed / 3 unresolved, with all 105 immediate secondary pairs confirmed.",
-    "Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established."
+    "Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established.",
+    "Do not use the intermediate 260 confirmed / 3 unresolved state as the final primary corpus. Those three rows are now proven operand bytes, so canonical primary selector count is 260 / 260 confirmed with zero unresolved.",
+    "Do not reintroduce CC:A71F, CC:FD5C or CC:FE6D as primary selectors; they are preserved only in non_opcode_primary_50_shapes.csv as negative evidence."
   ],
   "runtime_only_artifacts": [
     {
@@ -405,7 +407,9 @@
     "docs/analysis/map_selector_residual_vm_promotion_20260928.md",
     "docs/analysis/map_selector_a0_nested_promotion_20260928.md",
     "data/maps/selectors/state0_a0_nested_promotions.csv",
-    "docs/analysis/map_selector_later_a0_promotion_20260928.md"
+    "docs/analysis/map_selector_later_a0_promotion_20260928.md",
+    "data/maps/selectors/non_opcode_primary_50_shapes.csv",
+    "docs/analysis/map_selector_instruction_boundary_closure_20260928.md"
   ],
   "chat_policy": {
     "narration": "minimal",
@@ -413,3 +417,4 @@
     "resume_behavior": "Read this file, verify latest main, then continue from next_actions[0] without redoing done/do_not_redo items."
   }
 }
+

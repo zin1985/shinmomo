@@ -32,6 +32,20 @@ from pathlib import Path
 EXPECTED_SIZE = 2_097_152
 EXPECTED_SHA256 = "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98"
 
+# Three range-plausible 0x50 byte shapes are now proven to sit inside operand
+# fields of real VM instructions.  Keep them as explicit negative evidence so
+# future raw-shape scans cannot resurrect them as map selectors.
+PROVEN_NON_OPCODE_PRIMARY_SHAPES = {
+    (0xCC, 0xA71F): ("CC:A6CE", "operand_of_opcode_63"),
+    (0xCC, 0xFD5C): ("CC:FD57", "operand_of_opcode_59"),
+    (0xCC, 0xFE6D): ("CC:FE68", "operand_of_opcode_59"),
+}
+PROVEN_NON_OPCODE_STREAM_HASHES = {
+    "CC:A6CE": ("CC:A731", "29eb54a98ede2df90e3a5db83a2a89d65bc6f3a62ce36f18a3fe19505b6ad7e7"),
+    "CC:FD57": ("CC:FD63", "c07beacee2ed9e4c4fb7d4b8f54ff8cb6a5f41ab2491a70baef9d533b1c87768"),
+    "CC:FE68": ("CC:FE74", "24dcaae0a8ce515cd8f6448195ebd9355ed64917cc762c7aa812321b0babbcad"),
+}
+
 CA_TABLE_FILE = 0x0AC000
 FIRST_REAL_PACK = 0x14
 LAST_REAL_PACK = 0xF9
@@ -140,6 +154,31 @@ def u16_file(rom: bytes, off: int) -> int:
 
 def u24_file(rom: bytes, off: int) -> int:
     return rom[off] | (rom[off + 1] << 8) | (rom[off + 2] << 16)
+
+
+def cpu_text_to_file(cpu: str) -> int:
+    bank_s, addr_s = cpu.split(":")
+    return file_from_cpu(int(bank_s, 16), int(addr_s, 16))
+
+
+def proven_non_opcode_primary_shape(
+    rom: bytes, stream_start: int, command_off: int
+) -> str | None:
+    """Return negative instruction-boundary evidence for three proven shapes."""
+    bank = 0xC0 + (command_off >> 16)
+    addr = command_off & 0xFFFF
+    spec = PROVEN_NON_OPCODE_PRIMARY_SHAPES.get((bank, addr))
+    if spec is None:
+        return None
+    expected_start, reason = spec
+    if stream_start != cpu_text_to_file(expected_start):
+        return None
+    end_cpu, expected_sha = PROVEN_NON_OPCODE_STREAM_HASHES[expected_start]
+    begin = cpu_text_to_file(expected_start)
+    end = cpu_text_to_file(end_cpu)
+    if hashlib.sha256(rom[begin:end]).hexdigest() != expected_sha:
+        raise SystemExit(f"unexpected non-opcode proof stream at {expected_start}")
+    return reason
 
 
 def read_pack_root(rom: bytes, pack_id: int) -> tuple[int, int, int]:
@@ -523,12 +562,45 @@ def validate_state0_prefix_anchors(rom: bytes) -> None:
         (0xC4, 0x9ACB): bytes.fromhex(
             "9C 57 19 20 14 89 22 26 D2 83 08 1A 20 10 84 28"
         ),
+        # Final negative-boundary proofs. Opcode 0x09 consumes a 24-bit
+        # operand (4 bytes total); opcode 0x59 consumes five operands (6 total).
+        # Opcode 0x63 calls 9280, which consumes four operands (5 total).
+        (0xC4, 0x8A3A): bytes.fromhex(
+            "C2 20 B7 98 85 A4 E2 20 C8 C8 B7 98 85 A6 C8 4C 0F 84"
+        ),
+        (0xC4, 0x8F93): bytes.fromhex(
+            "B7 98 99 55 18 C8 C0 06 90 F6 C2 20 A5 A4 8D 5B 18 "
+            "E2 20 A5 A6 8D 5D 18 20 0F 84"
+        ),
+        (0xC4, 0x9240): bytes.fromhex(
+            "20 80 92 22 B0 D5 80 4C 0F 84"
+        ),
+        (0xC4, 0x9280): bytes.fromhex(
+            "B7 98 8D BB 13 C8 B7 98 48 10 06 22 D1 CD 80 80 04 "
+            "22 85 CD 80 68 29 7F 8D BC 13 C8 B7 98 8D 0B 03 C8 "
+            "B7 98 8D 0D 03 C8 60"
+        ),
+        # 0x3D subtype 4 can advance two or three bytes. Both outcomes feed
+        # the bounded entry-0x88 CFG that makes CC:A708 an instruction boundary.
+        (0xC4, 0xC2E5): bytes.fromhex("E8 C3"),
+        (0xC4, 0xC3E8): bytes.fromhex(
+            "20 D1 C3 8D 3B 19 A9 01 8D 2A 19 22 2B DE 80 90 03 "
+            "4C 57 C3 4C 66 C3"
+        ),
     }
     for (bank, addr), expected in anchors.items():
         o = file_from_cpu(bank, addr)
         if rom[o : o + len(expected)] != expected:
             raise SystemExit(
                 f"unexpected state0 CFG anchor at {bank:02X}:{addr:04X}"
+            )
+
+    # Dispatch-table identities behind the final negative-boundary proof.
+    for op, expected_handler in {0x09: 0x8A3A, 0x59: 0x8F93, 0x63: 0x9240}.items():
+        got_handler = u16_file(rom, file_from_cpu(0xC4, 0x87D4 + 2 * op))
+        if got_handler != expected_handler:
+            raise SystemExit(
+                f"unexpected handler for opcode {op:02X}: C4:{got_handler:04X}"
             )
 
     # The four approved A0 targets are exact pack-record substreams.  Hash the
@@ -1051,9 +1123,12 @@ def state0_reachable_a0_substreams(
     return reachable
 
 
-def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[dict]]:
+def candidate_rows(
+    rom: bytes, records: list[dict]
+) -> tuple[list[dict], list[dict], list[dict]]:
     primary = []
     all_secondary_shape = []
+    rejected_primary_shape = []
     state0_nested_seeds = state0_reachable_a0_substreams(rom, records)
 
     for record in records:
@@ -1084,6 +1159,27 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     continue
                 # C0:C6FD is 1-based and wrappers feed 1/2/3.
                 if not (1 <= variant <= 3):
+                    continue
+
+                non_opcode_reason = proven_non_opcode_primary_shape(
+                    rom, stream_start, p
+                )
+                if non_opcode_reason is not None:
+                    containing_start = p - (3 if non_opcode_reason.endswith("63") else 1)
+                    rejected_primary_shape.append(
+                        {
+                            "pack_id_dec": pack_id,
+                            "pack_id_hex": f"0x{pack_id:02X}",
+                            "record_index": record_index,
+                            "entry_id_dec": entry_id,
+                            "entry_id_hex": f"0x{entry_id:02X}",
+                            "substream_start": cpu_from_file(stream_start),
+                            "shape_addr": cpu_from_file(p),
+                            "shape_bytes": f"50 {tileset_id:02X} {layout_id:02X} {variant:02X}",
+                            "rejection_reason": non_opcode_reason,
+                            "containing_instruction_start": cpu_from_file(containing_start),
+                        }
+                    )
                     continue
 
                 confirmed_signature = (
@@ -1271,7 +1367,7 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
         else:
             row["evidence_class"] = "strong_immediate_secondary_pair_mode_gate_unresolved"
 
-    return primary, all_secondary_shape
+    return primary, all_secondary_shape, rejected_primary_shape
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
@@ -1300,7 +1396,7 @@ def main() -> None:
 
     validate_state0_prefix_anchors(rom)
     records, corpus = build_corpus(rom)
-    primary, secondary = candidate_rows(rom, records)
+    primary, secondary, rejected_primary = candidate_rows(rom, records)
 
     signature_confirmed = [r for r in primary if r["confirmed_setup_signature"]]
     special_impossible = [r for r in primary if r["special_interpretation_impossible"]]
@@ -1339,6 +1435,10 @@ def main() -> None:
         args.out_dir / "state0_a0_nested_promotions.csv",
         state0_nested_promoted,
     )
+    write_csv(
+        args.out_dir / "non_opcode_primary_50_shapes.csv",
+        rejected_primary,
+    )
 
     summary = {
         "schema_version": 1,
@@ -1362,10 +1462,19 @@ def main() -> None:
             "when an instruction-aligned A0 callsite is itself proven reachable "
             "from state0 entry1, targets that exact parsed substream in the same "
             "pack, and the nested substream reaches the candidate through the "
-            "same fail-closed CFG. Other rows remain mode-gate unresolved."
+            "same fail-closed CFG. Finally, three historical range-plausible "
+            "0x50 byte shapes are excluded by exact instruction-boundary proofs: "
+            "CC:A71F is operand 3 of a five-byte opcode 0x63, while CC:FD5C and "
+            "CC:FE6D are operand 1 of six-byte opcode 0x59. After these negative "
+            "proofs, every remaining primary selector is confirmed normal."
         ),
         "corpus": corpus,
         "primary": {
+            "raw_range_plausible_shape_total": len(primary) + len(rejected_primary),
+            "proven_non_opcode_shape_count": len(rejected_primary),
+            "proven_non_opcode_shape_addresses": [
+                r["shape_addr"] for r in rejected_primary
+            ],
             "strong_shape_total": len(primary),
             "confirmed_setup_signature": len(signature_confirmed),
             "confirmed_special_interpretation_impossible": len(special_impossible),
@@ -1448,6 +1557,7 @@ def main() -> None:
             "secondary_map_selector_candidates.csv",
             "state0_safe_prefix_promotions.csv",
             "state0_a0_nested_promotions.csv",
+            "non_opcode_primary_50_shapes.csv",
             "primary_map_selector_summary.json",
         ],
     }

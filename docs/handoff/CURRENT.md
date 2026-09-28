@@ -153,26 +153,30 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
   - data/maps/selectors/primary_map_selector_summary.json
   - docs/analysis/map_selector_later_a0_promotion_20260928.md
 
+- Instruction-boundary closure resolves the final three historical primary shapes as false positives rather than map commands. CC:A71F is operand 3 of five-byte opcode 0x63; CC:FD5C and CC:FE6D are operand 1 of six-byte opcode 0x59. The canonical primary corpus is therefore 260 instruction-level selectors, all 260/260 confirmed normal, with zero unresolved.
+  - `tools/python/catalog_map_selectors.py`
+  - `data/maps/selectors/non_opcode_primary_50_shapes.csv`
+  - `data/maps/selectors/primary_map_selector_catalog.csv`
+  - `data/maps/selectors/primary_map_selector_summary.json`
+  - `docs/analysis/map_selector_instruction_boundary_closure_20260928.md`
+
 ## Observed but not yet promoted
 
-- confirmed_catalog: Only three primary selectors remain unresolved: 0x7F/r3/e88 at CC:A71F and 0x9D/r4/e6D + r5/e6C at CC:FD5C / CC:FE6D.
-  - Why not promoted: their entry-family normal-mode reachability is not yet fully proven.
-- strong_static_seed: State-0 native initialization unconditionally executes LDA #$88 ; JSL $84:858D at 81:96FE after establishing dynamic pack $0305.
-  - Why not promoted: pack 0x7F entry-0x88 uses prefix grammar not yet covered by the fail-closed selector CFG.
-- strong_structural_call_edges: Pack 0x9D CC:FD57 and CC:FE68 have same-pack A0 callers from entry 0x76 at CC:FE45 and entry 0x7C at CC:FD2A.
-  - Why not promoted: the source entry activation/mode seeds still need proof.
+- **confirmed_catalog**: All 260 instruction-level primary 0x50 selectors are confirmed normal and all 105 immediate 0x51 pairs are confirmed.
+- **conservative_secondary_backlog**: 79 range-plausible standalone 0x51 byte shapes remain mode/instruction-boundary ambiguous.
+  - Why not promoted: they have no parent-primary proof and are retained separately until a concrete reconstruction needs them.
 
 ## In progress
 
-- Prove the 81:96FE state-0 entry-0x88 start and decode CC:A6CE -> CC:A71F fail-closed.
-- Trace pack 0x9D entry 0x76 / 0x7C activation paths and validate their A0 caller edges.
+- Build a configuration-centric index for the 260 confirmed primary selectors / 149 unique configurations.
+- Cross-link pack/record/substream occurrences with dialogue, event, warp and location evidence.
 
 ## Next actions
 
-1. Prove state0 entry-0x88 reachability for pack 0x7F and bound the CC:A6CE -> CC:A71F prefix without guessing opcode lengths.
-2. Resolve pack 0x9D entry 0x76 / 0x7C caller mode contexts, then validate A0 calls to CC:FD57 and CC:FE68.
-3. Classify the final three selectors or retain any genuinely special-mode row with explicit evidence.
-4. After selector semantics are closed, cross-link selectors with dialogue/event/location evidence for town/interior/dungeon/world labels.
+1. Build the confirmed configuration index with primary and immediate-secondary occurrence context.
+2. Assign evidence-backed village/town/interior/dungeon/world labels from existing project artifacts.
+3. Add collision, warp, event-trigger and encounter layers for labeled maps.
+4. Resolve standalone 0x51 boundaries only where needed; do not bulk-promote raw shapes.
 
 ## Do not redo
 
@@ -215,6 +219,8 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - Do not use the old 225 confirmed / 38 unresolved counts after the residual state0 grammar pass; that intermediate pass yielded 240 confirmed / 23 unresolved.
 - Do not use the old 240 confirmed / 23 unresolved counts after the A0/B0 nested-call proof; canonical counts are now 244 confirmed / 19 unresolved, with record0/entry1 fully closed.
 - Do not use the old 244 confirmed / 19 unresolved counts after later-record A0 nested-entry seeding; canonical counts are now 260 confirmed / 3 unresolved, with all 105 immediate secondary pairs confirmed.
+- Do not use the intermediate 260 confirmed / 3 unresolved state as final. The three residual rows are proven operand bytes; canonical primary selector count is 260 / 260 confirmed with zero unresolved.
+- Do not reintroduce CC:A71F, CC:FD5C or CC:FE6D as primary selectors; keep them only as negative evidence.
 - Do not treat the raw pack-0x9D A0 references as mode proof until the source entry 0x76/0x7C activation context and instruction boundary are independently established.
 - Do not flatten opcode A0 as a simple four-byte instruction. It changes $98/$99/$9A to a nested 24-bit target and uses B0/$1266/C4:84D9 return machinery.
 - Do not generalize 0x3D, D0/D5, 0x13 or 0x64 beyond the concrete operand/subtype forms anchored by the current state0 proof.
