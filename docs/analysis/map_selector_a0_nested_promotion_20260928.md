@@ -61,5 +61,3 @@ The only remaining unresolved primary selectors are later-record rows outside th
 ## Safety boundary
 
 Do not generalize A0 handling to arbitrary targets. Promotion is limited to SHA-anchored concrete substreams whose nested CFG is fully recognized. Raw ROM payloads are not written to repository outputs.
-
-[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
