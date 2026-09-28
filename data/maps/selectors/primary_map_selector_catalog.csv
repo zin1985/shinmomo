@@ -262,5 +262,3 @@
 247,0xF7,29,CE:10B7,CE:10D6,108,0x6C,CE:10BE,CE:10CB,CE:10C4,0x50,7,CE:44C0,10,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,False,False,,False,True,CF:2DE6,0x80,1,1,1,16,16,False,,,,,
 248,0xF8,0,CE:1124,CE:1157,1,0x01,CE:1131,CE:1145,CE:1139,0x50,7,CE:44C0,63,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:392D,0x80,1,1,1,16,16,False,,,,,
 249,0xF9,0,CE:11DD,CE:1216,1,0x01,CE:11EA,CE:11FC,CE:11F2,0x50,7,CE:44C0,9,2,confirmed_setup_signature,True,possible_normal_low_opcode,False,True,False,C0:B924,False,True,CF:2DDB,0x80,1,1,1,16,16,False,,,,,
-
-[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
