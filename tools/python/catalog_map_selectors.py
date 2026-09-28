@@ -998,5 +998,309 @@ def candidate_rows(rom: bytes, records: list[dict]) -> tuple[list[dict], list[di
                     state0_safe,
                     state0_b910_targets,
                     state0_cfg_branch_used,
+                ) = state0_prefix_mode_safe(
+                    rom,
+                    record_index,
+                    entry_id,
+                    stream_start,
+                    stream_end,
+                    p,
+                )
+                # Count this proof as a promotion only when earlier independent
+                # proofs did not already confirm the row.
+                state0_prefix_promoted = (
+                    state0_safe
+                    and not confirmed_signature
+                    and not special_impossible
+                )
+                normal_mode_confirmed = (
+                    confirmed_signature
+                    or special_impossible
+                    or state0_prefix_promoted
+                )
+                if confirmed_signature and special_impossible:
+                    evidence = "confirmed_setup_signature_and_special_parse_impossible"
+                elif confirmed_signature:
+                    evidence = "confirmed_setup_signature"
+                elif special_impossible:
+                    evidence = "confirmed_normal_special_parse_impossible"
+                elif state0_prefix_promoted:
+                    evidence = "confirmed_normal_state0_safe_prefix"
+                else:
+                    evidence = "strong_structural_candidate_mode_gate_unresolved"
 
-[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
+                tptr = tileset_pointer(rom, tileset_id)
+                meta = layout_meta(rom, layout_id)
+
+                row = {
+                    "pack_id_dec": pack_id,
+                    "pack_id_hex": f"0x{pack_id:02X}",
+                    "record_index": record_index,
+                    "record_start": cpu_from_file(record_start),
+                    "record_end_exclusive": cpu_from_file(record_end),
+                    "entry_id_dec": entry_id,
+                    "entry_id_hex": f"0x{entry_id:02X}",
+                    "substream_start": cpu_from_file(stream_start),
+                    "substream_end_exclusive": cpu_from_file(stream_end),
+                    "command_addr": cpu_from_file(p),
+                    "opcode": "0x50",
+                    "primary_tileset_id": tileset_id,
+                    "primary_tileset_ptr": f"CE:{tptr:04X}",
+                    "primary_layout_id": layout_id,
+                    "map_variant": variant,
+                    "evidence_class": evidence,
+                    "confirmed_setup_signature": confirmed_signature,
+                    "special_interpretation_status": special_status,
+                    "special_interpretation_impossible": special_impossible,
+                    "state0_prefix_mode_safe": state0_safe,
+                    "state0_prefix_promoted": state0_prefix_promoted,
+                    "state0_prefix_b910_targets": state0_b910_targets,
+                    "state0_cfg_branch_used": state0_cfg_branch_used,
+                    "normal_mode_confirmed": normal_mode_confirmed,
+                    **meta,
+                    "immediate_secondary": False,
+                    "secondary_command_addr": "",
+                    "secondary_tileset_id": "",
+                    "secondary_tileset_ptr": "",
+                    "secondary_layout_id": "",
+                    "secondary_layout_ptr": "",
+                }
+
+                # Immediate 0x51 is structurally compelling because normal 0x50
+                # consumes exactly four bytes.
+                if p + 7 <= stream_end and rom[p + 4] == 0x51:
+                    st = rom[p + 5]
+                    sl = rom[p + 6]
+                    if 1 <= st <= 60 and 1 <= sl <= 203:
+                        sptr = tileset_pointer(rom, st)
+                        lptr = layout_pointer(rom, sl)
+                        row.update(
+                            {
+                                "immediate_secondary": True,
+                                "secondary_command_addr": cpu_from_file(p + 4),
+                                "secondary_tileset_id": st,
+                                "secondary_tileset_ptr": f"CE:{sptr:04X}",
+                                "secondary_layout_id": sl,
+                                "secondary_layout_ptr": f"{(lptr >> 16) & 0xFF:02X}:{lptr & 0xFFFF:04X}",
+                            }
+                        )
+                primary.append(row)
+
+            # Keep range-plausible standalone 0x51 rows separately. These are
+            # mode-ambiguous because $1398 can route the same opcode to bank82.
+            for p in range(stream_start, max(stream_start, stream_end - 2)):
+                if rom[p] != 0x51 or p + 3 > stream_end:
+                    continue
+                st = rom[p + 1]
+                sl = rom[p + 2]
+                if not (1 <= st <= 60 and 1 <= sl <= 203):
+                    continue
+                sptr = tileset_pointer(rom, st)
+                lptr = layout_pointer(rom, sl)
+                all_secondary_shape.append(
+                    {
+                        "pack_id_dec": pack_id,
+                        "pack_id_hex": f"0x{pack_id:02X}",
+                        "record_index": record_index,
+                        "record_start": cpu_from_file(record_start),
+                        "record_end_exclusive": cpu_from_file(record_end),
+                        "entry_id_dec": entry_id,
+                        "entry_id_hex": f"0x{entry_id:02X}",
+                        "substream_start": cpu_from_file(stream_start),
+                        "substream_end_exclusive": cpu_from_file(stream_end),
+                        "command_addr": cpu_from_file(p),
+                        "opcode": "0x51",
+                        "secondary_tileset_id": st,
+                        "secondary_tileset_ptr": f"CE:{sptr:04X}",
+                        "secondary_layout_id": sl,
+                        "secondary_layout_ptr": f"{(lptr >> 16) & 0xFF:02X}:{lptr & 0xFFFF:04X}",
+                        "evidence_class": "mode_ambiguous_secondary_shape",
+                    }
+                )
+
+    paired_primary_by_secondary = {
+        r["secondary_command_addr"]: r
+        for r in primary
+        if r["immediate_secondary"]
+    }
+    for row in all_secondary_shape:
+        parent = paired_primary_by_secondary.get(row["command_addr"])
+        if parent is None:
+            continue
+        if parent["normal_mode_confirmed"]:
+            row["evidence_class"] = "confirmed_normal_immediate_secondary_pair"
+        else:
+            row["evidence_class"] = "strong_immediate_secondary_pair_mode_gate_unresolved"
+
+    return primary, all_secondary_shape
+
+
+def write_csv(path: Path, rows: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not rows:
+        path.write_text("", encoding="utf-8")
+        return
+    with path.open("w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("rom", type=Path)
+    ap.add_argument("--out-dir", type=Path, default=Path("data/maps/selectors"))
+    args = ap.parse_args()
+
+    rom = args.rom.read_bytes()
+    sha = hashlib.sha256(rom).hexdigest().upper()
+    if len(rom) != EXPECTED_SIZE:
+        raise SystemExit(f"unexpected ROM size: {len(rom)}")
+    if sha != EXPECTED_SHA256:
+        raise SystemExit(f"unexpected ROM SHA-256: {sha}")
+
+    validate_state0_prefix_anchors(rom)
+    records, corpus = build_corpus(rom)
+    primary, secondary = candidate_rows(rom, records)
+
+    signature_confirmed = [r for r in primary if r["confirmed_setup_signature"]]
+    special_impossible = [r for r in primary if r["special_interpretation_impossible"]]
+    state0_prefix_safe = [r for r in primary if r["state0_prefix_mode_safe"]]
+    state0_prefix_promoted = [r for r in primary if r["state0_prefix_promoted"]]
+    state0_cfg_promoted = [
+        r for r in state0_prefix_promoted if r["state0_cfg_branch_used"]
+    ]
+    normal_confirmed = [r for r in primary if r["normal_mode_confirmed"]]
+    unresolved_primary = [r for r in primary if not r["normal_mode_confirmed"]]
+    paired = [r for r in primary if r["immediate_secondary"]]
+    secondary_confirmed = [
+        r for r in secondary
+        if r["evidence_class"] == "confirmed_normal_immediate_secondary_pair"
+    ]
+    secondary_strong_unresolved = [
+        r for r in secondary
+        if r["evidence_class"] == "strong_immediate_secondary_pair_mode_gate_unresolved"
+    ]
+    secondary_ambiguous = [
+        r for r in secondary
+        if r["evidence_class"] == "mode_ambiguous_secondary_shape"
+    ]
+
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+    write_csv(args.out_dir / "primary_map_selector_catalog.csv", primary)
+    write_csv(args.out_dir / "secondary_map_selector_candidates.csv", secondary)
+    write_csv(
+        args.out_dir / "state0_safe_prefix_promotions.csv",
+        state0_prefix_promoted,
+    )
+
+    summary = {
+        "schema_version": 1,
+        "kind": "derived_map_selector_catalog",
+        "rom_sha256": sha,
+        "policy": "Addresses/IDs/derived metadata only; no ROM payloads.",
+        "normal_vs_special_dispatch_caveat": (
+            "For opcode >= 0x50, C4:87A2 routes to bank82 special dispatch when "
+            "$1398 != 0. The bank82-special 0x50 consumes two bytes; therefore "
+            "its next opcode would be the normal-map candidate's layout_id byte. "
+            "Rows whose layout_id is outside the proven special range or maps to "
+            "the C4 BRK handler cannot be interpreted as special 0x50 and are "
+            "promoted to confirmed normal mode. In addition, a narrowly proven "
+            "state0 record0/entry1 family is promoted through a small safe CFG "
+            "(96/10/11/33/08/2D/A3, C0..CD literals, E0/E1/E7/E8 expression "
+            "ops, B2/B3/B4 branches, concrete-safe 13/3D/D0/D5/64 forms, "
+            "terminal-only 0x15, and SHA-bounded A0/B0 nested calls); the "
+            "state0 helper seeds $035F=2, and every "
+            "descriptor-resolved B910 indirect target is one of the cleared "
+            "B924/B944 routines. Other rows remain mode-gate unresolved."
+        ),
+        "corpus": corpus,
+        "primary": {
+            "strong_shape_total": len(primary),
+            "confirmed_setup_signature": len(signature_confirmed),
+            "confirmed_special_interpretation_impossible": len(special_impossible),
+            "state0_prefix_mode_safe_rows": len(state0_prefix_safe),
+            "newly_promoted_state0_safe_prefix": len(state0_prefix_promoted),
+            "newly_promoted_state0_cfg_branch_rows": len(state0_cfg_promoted),
+            "state0_prefix_b910_targets": sorted(
+                {
+                    target
+                    for r in state0_prefix_promoted
+                    for target in r["state0_prefix_b910_targets"].split(",")
+                    if target
+                }
+            ),
+            "confirmed_normal_union": len(normal_confirmed),
+            "mode_gate_unresolved": len(unresolved_primary),
+            "special_interpretation_status_counts": {
+                k: v
+                for k, v in sorted(
+                    Counter(r["special_interpretation_status"] for r in primary).items()
+                )
+            },
+            "unique_configurations": len(
+                {
+                    (
+                        r["primary_tileset_id"],
+                        r["primary_layout_id"],
+                        r["map_variant"],
+                    )
+                    for r in primary
+                }
+            ),
+            "distinct_tileset_ids": len({r["primary_tileset_id"] for r in primary}),
+            "distinct_layout_ids": len({r["primary_layout_id"] for r in primary}),
+            "variant_counts": {
+                str(k): v
+                for k, v in sorted(Counter(r["map_variant"] for r in primary).items())
+            },
+            "families_with_candidates": len({r["pack_id_dec"] for r in primary}),
+            "immediate_secondary_pair_rows": len(paired),
+        },
+        "secondary": {
+            "range_plausible_substream_rows": len(secondary),
+            "immediate_pair_rows_total": len(paired),
+            "confirmed_normal_immediate_pairs": len(secondary_confirmed),
+            "strong_immediate_pairs_mode_gate_unresolved": len(secondary_strong_unresolved),
+            "mode_ambiguous_standalone_rows": len(secondary_ambiguous),
+            "unique_immediate_pair_configurations": len(
+                {
+                    (
+                        r["primary_tileset_id"],
+                        r["primary_layout_id"],
+                        r["map_variant"],
+                        r["secondary_tileset_id"],
+                        r["secondary_layout_id"],
+                    )
+                    for r in paired
+                }
+            ),
+        },
+        "stable_interior": {
+            "expected_primary_command": "50 07 0F 02",
+            "confirmed_addresses": ["CB:DE70", "CC:5391", "CE:0F2B"],
+            "catalog_matches": [
+                r["command_addr"]
+                for r in primary
+                if r["primary_tileset_id"] == 7
+                and r["primary_layout_id"] == 15
+                and r["map_variant"] == 2
+            ],
+        },
+        "outputs": [
+            "primary_map_selector_catalog.csv",
+            "secondary_map_selector_candidates.csv",
+            "state0_safe_prefix_promotions.csv",
+            "primary_map_selector_summary.json",
+        ],
+    }
+
+    (args.out_dir / "primary_map_selector_summary.json").write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
