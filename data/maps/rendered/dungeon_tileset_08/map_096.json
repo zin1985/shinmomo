@@ -1,0 +1,20 @@
+{
+  "tileset_id": 8,
+  "layout_id": 96,
+  "render_mode": "normal_4bpp_rom_setup",
+  "transparent_color_index_zero": true,
+  "graphics_operands": [
+    12,
+    13
+  ],
+  "palette_operand": 10,
+  "state0_descriptor_index": 2,
+  "config_ids": [
+    "cfg_t08_l096_v2"
+  ],
+  "pack_ids_hex": [
+    "0x95"
+  ],
+  "output_png": "map_096.png",
+  "output_png_sha256": "5C47EDE5F7D05B2136DDF19DCC478FDC393378F9694CEBCDBE2550E302B3AD7B"
+}
