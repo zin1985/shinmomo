@@ -278,5 +278,3 @@ On a short request such as **「続きを進めて」**:
 4. continue from the first unfinished `next_actions` entry;
 5. do not redo `done` / `do_not_redo` items;
 6. checkpoint again after the next meaningful durable result.
-
-[executed on device: DESKTOP-ST98DLH (bbb9b24e-eabb-4d13-97ce-0934a2264659)]
