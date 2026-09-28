@@ -1,0 +1,14 @@
+{
+  "tileset_id": 1,
+  "layout_id": 2,
+  "layout_flags": 1,
+  "map_mode_low_nibble": 1,
+  "definition_bytes_per_id": 4,
+  "definition_block_ptr": "CE:2100",
+  "max_definition_id": 191,
+  "image_width_px": 4096,
+  "image_height_px": 4096,
+  "render_mode": "snes_mode7",
+  "output_png": "map_002.png",
+  "output_png_sha256": "D37E8FF24DAA0E4FFD2E3B7025F71DEADA7E44E9CF2E40DD820B8221CBB1238D"
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "kind": "mode7_world_render_index",
+  "tileset_id": 1,
+  "palette_source": {
+    "kind": "wram_cgram_staging",
+    "domain": "WRAM",
+    "start": 8642,
+    "length": 512,
+    "frame": 6985,
+    "capture_id": "1790616779651-8de6fe96",
+    "bytes_sha256": "14B1B47D7D7D04769830943B364F0B73A7D3E3B79DB85C0F479CB0EE1817319D"
+  },
+  "vram_sha256": "0B87DCB471651C85A1E5CDC5D58865E8AB562D40EF1F524CB1DBC741CF7F774F",
+  "map_count": 2,
+  "maps": [
+    {
+      "tileset_id": 1,
+      "layout_id": 1,
+      "layout_flags": 1,
+      "map_mode_low_nibble": 1,
+      "definition_bytes_per_id": 4,
+      "definition_block_ptr": "CE:2100",
+      "max_definition_id": 191,
+      "image_width_px": 4096,
+      "image_height_px": 4096,
+      "render_mode": "snes_mode7",
+      "output_png": "map_001.png",
+      "output_png_sha256": "90A66997632F88F46B4F2D300091EC43835FC84938D7F275C749A9AEFFE8ACA1"
+    },
+    {
+      "tileset_id": 1,
+      "layout_id": 2,
+      "layout_flags": 1,
+      "map_mode_low_nibble": 1,
+      "definition_bytes_per_id": 4,
+      "definition_block_ptr": "CE:2100",
+      "max_definition_id": 191,
+      "image_width_px": 4096,
+      "image_height_px": 4096,
+      "render_mode": "snes_mode7",
+      "output_png": "map_002.png",
+      "output_png_sha256": "D37E8FF24DAA0E4FFD2E3B7025F71DEADA7E44E9CF2E40DD820B8221CBB1238D"
+    }
+  ],
+  "policy": "Raw ROM/VRAM/WRAM captures remain local-only."
+}
