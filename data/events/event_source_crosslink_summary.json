@@ -1,13 +1,21 @@
 {
   "structural_record_count": 816,
   "structural_record_families": 107,
-  "validated_high_conf_source_pairs_considered": 2202,
-  "validated_script_callsites_considered": 2202,
-  "mapped_source_callsites": 1124,
-  "records_with_mapped_source": 713,
+  "validated_high_conf_source_pairs_considered": 2235,
+  "validated_script_callsites_considered": 2235,
+  "mapped_source_callsites": 1134,
+  "records_with_mapped_source": 722,
   "families_with_mapped_source": 98,
-  "unmapped_validated_script_callsites": 1078,
-  "records_without_mapped_source": 103,
-  "mapped_sources_per_record": {"1":444,"2":174,"3":64,"4":22,"5":5,"6":1,"7":3},
-  "interpretation": "structural event framing is directly linked to source selections that passed the canonical source-reader reachability filter; semantic event meaning and runtime reachability remain separate"
+  "unmapped_validated_script_callsites": 1101,
+  "records_without_mapped_source": 94,
+  "mapped_sources_per_record": {
+    "1": 453,
+    "2": 173,
+    "3": 65,
+    "4": 22,
+    "5": 5,
+    "6": 1,
+    "7": 3
+  },
+  "interpretation": "structural event framing is now directly linked to already-validated source selections; semantic event meaning and runtime reachability remain separate"
 }

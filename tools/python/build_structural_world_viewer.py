@@ -73,6 +73,56 @@ def main():
             if not any(x.get("role") == "secondary" for x in maps[config_id]["layers"]):
                 maps[config_id]["layers"].append(secondary)
 
+    events = []
+    event_path = ROOT / "data/events/event_record_frame_catalog.csv"
+    source_path = ROOT / "data/events/event_source_crosslink.csv"
+    map_event_path = ROOT / "data/maps/context/map_dialogue_pack_crosslink.csv"
+    source_counts = {}
+    if source_path.exists():
+        for row in csv.DictReader(source_path.open(encoding="utf-8-sig")):
+            source_counts[row["record_id"]] = source_counts.get(row["record_id"], 0) + 1
+    events_by_family = {}
+    if event_path.exists():
+        for row in csv.DictReader(event_path.open(encoding="utf-8-sig")):
+            event = {
+                "event_id": row["record_id"],
+                "family_id": int(row["family_id"]),
+                "record_start": row["record_start"],
+                "record_end_exclusive": row["record_end_exclusive"],
+                "source_link_count": source_counts.get(row["record_id"], 0),
+                "evidence_class": row["evidence_class"],
+                "semantic_status": row["semantic_status"],
+            }
+            events.append(event)
+            events_by_family.setdefault(int(row["family_id"]), []).append(row["record_id"])
+    if map_event_path.exists():
+        for row in csv.DictReader(map_event_path.open(encoding="utf-8-sig")):
+            config_id = row["config_id"]
+            family = int(row["source_family_hex"], 16)
+            if config_id in maps and family in events_by_family:
+                refs = maps[config_id].setdefault("event_families", [])
+                if not any(x["family_id"] == family for x in refs):
+                    refs.append({
+                        "family_id": family,
+                        "event_ids": events_by_family[family],
+                        "relation": "pack_family_context",
+                        "provenance": "map_dialogue_pack_crosslink",
+                    })
+
+    sprite_groups = []
+    sprite_path = ROOT / "data/npc_display/shinmomo_B294_sprite_groups_summary_20260425.csv"
+    if sprite_path.exists():
+        for row in csv.DictReader(sprite_path.open(encoding="utf-8-sig")):
+            sprite_groups.append({
+                "sprite_group_id": int(row["group"]),
+                "pointer": row["pointer"],
+                "first_frame_ptr": row["first_frame_ptr"],
+                "inferred_frame_pointer_count": int(row["inferred_pointer_entries_until_first_frame"]),
+                "first_frame_piece_count": int(row["first_frame_piece_count"]),
+                "provenance": str(sprite_path.relative_to(ROOT)).replace("\\", "/"),
+                "binding_status": "asset_only_unbound_to_map_entity",
+            })
+
     world = {
         "schema_version": 1,
         "kind": "shinmomo_structural_world",
@@ -82,7 +132,8 @@ def main():
         },
         "maps": sorted(maps.values(), key=lambda x: x["config_id"]),
         "transitions": transitions,
-        "events": [],
+        "events": events,
+        "sprite_groups": sprite_groups,
         "entities": [],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
