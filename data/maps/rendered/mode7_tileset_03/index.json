@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "mode7_rom_render_index",
+  "tileset_id": 3,
+  "graphics_operand": 3,
+  "palette_operand": 5,
+  "map_count": 1,
+  "maps": [
+    {
+      "schema_version": 1,
+      "tileset_id": 3,
+      "layout_id": 5,
+      "render_mode": "snes_mode7_rom_setup",
+      "image_mode": "RGBA",
+      "transparent_color_index": 0,
+      "image_width_px": 4096,
+      "image_height_px": 4096,
+      "graphics_operand": 3,
+      "palette_operand": 5,
+      "output_png": "map_005.png",
+      "output_png_sha256": "727238E808E10B80ECE62C873A7FAB973E3F617999CBD97F739DE70FB376DA02"
+    }
+  ]
+}

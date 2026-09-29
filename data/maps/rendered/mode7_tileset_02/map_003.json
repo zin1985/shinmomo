@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "tileset_id": 2,
+  "layout_id": 3,
+  "render_mode": "snes_mode7_rom_setup",
+  "image_mode": "RGBA",
+  "transparent_color_index": 0,
+  "image_width_px": 2048,
+  "image_height_px": 2048,
+  "graphics_operand": 2,
+  "palette_operand": 4,
+  "output_png": "map_003.png",
+  "output_png_sha256": "E324CD21620F1672BFCBA7328D8DF74DDA26FF89A559524357290CF211664E82"
+}
