@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_visible_object_observation",
+  "frame": 8130,
+  "config_id": "cfg_t01_l001_v1",
+  "active_count_wram_0AE5": 10,
+  "active_chain": [
+    11,
+    2,
+    10,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    3,
+    1
+  ],
+  "active_chain_end": 255,
+  "objects": [
+    {
+      "slot": 11,
+      "sprite_group_raw": 34,
+      "sprite_group_index": 2,
+      "sprite_group_flags": 32,
+      "frame_state": 0,
+      "x": 208,
+      "y": 147,
+      "sort_key": 55,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 2,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 4,
+      "x": 112,
+      "y": 127,
+      "sort_key": 56,
+      "renderable_frame_nonzero": true
+    },
+    {
+      "slot": 10,
+      "sprite_group_raw": 35,
+      "sprite_group_index": 3,
+      "sprite_group_flags": 32,
+      "frame_state": 0,
+      "x": 208,
+      "y": 127,
+      "sort_key": 56,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 4,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 0,
+      "x": 128,
+      "y": 111,
+      "sort_key": 57,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 5,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 0,
+      "x": 144,
+      "y": 111,
+      "sort_key": 57,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 6,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 0,
+      "x": 160,
+      "y": 111,
+      "sort_key": 57,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 7,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 0,
+      "x": 176,
+      "y": 111,
+      "sort_key": 57,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 8,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 0,
+      "x": 192,
+      "y": 111,
+      "sort_key": 57,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 9,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 0,
+      "x": 208,
+      "y": 111,
+      "sort_key": 57,
+      "renderable_frame_nonzero": false
+    },
+    {
+      "slot": 3,
+      "sprite_group_raw": 16,
+      "sprite_group_index": 0,
+      "sprite_group_flags": 16,
+      "frame_state": 33,
+      "x": 176,
+      "y": 95,
+      "sort_key": 58,
+      "renderable_frame_nonzero": true
+    },
+    {
+      "slot": 1,
+      "sprite_group_raw": 18,
+      "sprite_group_index": 2,
+      "sprite_group_flags": 16,
+      "frame_state": 1,
+      "x": 0,
+      "y": 0,
+      "sort_key": 255,
+      "renderable_frame_nonzero": true
+    }
+  ],
+  "coordinate_space": "runtime object/screen coordinate; map-world transform not yet proven",
+  "confidence": "confirmed_runtime_object_state",
+  "raw_capture_committed": false
+}

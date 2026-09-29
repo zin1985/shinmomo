@@ -25,6 +25,8 @@ def main():
     doc={
       "schema_version":1,
       "kind":"runtime_logical_entity_observation",
+      "engine_layer":"script_event_logical_actor",
+      "not_a_visible_object_inventory":True,
       "frame":man["frame"],
       "map_selector":{
         "pack_id":s["current_pack_0305"],

@@ -147,6 +147,36 @@ def main():
                 if doc["config_id"] in maps:
                     maps[doc["config_id"]]["entities"].append(entity["entity_id"])
 
+    # Visible object observations are a separate engine layer from $1569 logical actors.
+    # Only nonzero frame-state objects are promoted to viewer entities for now.
+    if entity_dir.exists():
+        for path in sorted(entity_dir.glob("runtime_visible_objects_*.json")):
+            doc = json.loads(path.read_text(encoding="utf-8"))
+            if doc.get("kind") != "runtime_visible_object_observation":
+                continue
+            for obj in doc.get("objects", []):
+                if not obj.get("renderable_frame_nonzero"):
+                    continue
+                entity = {
+                    "entity_id": f"{path.stem}_slot{obj['slot']:02X}",
+                    "map_config_id": doc["config_id"],
+                    "logical_object_id": None,
+                    "visible_slot": obj["slot"],
+                    "entity_type": None,
+                    "x": obj["x"],
+                    "y": obj["y"],
+                    "coordinate_space": doc.get("coordinate_space"),
+                    "sprite_group": obj["sprite_group_index"],
+                    "sprite_group_raw": obj["sprite_group_raw"],
+                    "frame_state": obj["frame_state"],
+                    "event_refs": [],
+                    "confidence": doc["confidence"],
+                    "provenance": str(path.relative_to(ROOT)).replace("\\", "/"),
+                }
+                entities.append(entity)
+                if doc["config_id"] in maps:
+                    maps[doc["config_id"]]["entities"].append(entity["entity_id"])
+
     world = {
         "schema_version": 1,
         "kind": "shinmomo_structural_world",
