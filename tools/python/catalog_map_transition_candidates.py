@@ -204,6 +204,38 @@ def main() -> None:
             row["destination_coordinate_addr"] = coord["addr"]
         return entry is not None, coord is not None
 
+    def route57_final(route_index: int) -> dict | None:
+        if not 0 <= route_index < 16:
+            return None
+        table_off = cpu_to_file("C6:8060") + route_index * 2
+        ptr = rom[table_off] | (rom[table_off + 1] << 8)
+        pos = cpu_to_file(f"C6:{ptr:04X}")
+        context_0306 = rom[pos]
+        pos += 1
+        nodes = []
+        while pos + 3 < len(rom):
+            pack_id = rom[pos]
+            pos += 1
+            if pack_id == 0:
+                break
+            x = rom[pos]
+            y = rom[pos + 1]
+            entrance = rom[pos + 2]
+            pos += 3
+            nodes.append((pack_id, x, y, entrance))
+        if not nodes:
+            return None
+        pack_id, x, y, entrance = nodes[-1]
+        return {
+            "route_ptr": f"C6:{ptr:04X}",
+            "context_0306": context_0306,
+            "pack_id": pack_id,
+            "x": x,
+            "y": y,
+            "entrance": entrance,
+            "saved_node_count": max(0, len(nodes) - 1),
+        }
+
     rows: list[dict] = []
     seen_triggers: set[str] = set()
 
@@ -249,6 +281,7 @@ def main() -> None:
     terminal55_dest_entry = 0
     terminal55_coord = 0
     nonterminal55_coord = 0
+    terminal57_count = 0
 
     # Conservative static family: bounded substreams whose exact tail is
     # 56 <destination_pack> <destination_entry> B0.
@@ -689,6 +722,81 @@ def main() -> None:
                     nonterminal55_coord += 1
 
 
+    # Opcode 0x57 selects one of the 16 native C6:8000 route-stack
+    # definitions. Only exact terminal 57 <index> B0 forms are promoted here;
+    # non-terminal raw 0x57 shapes remain unpromoted until source opcode
+    # alignment is proven.
+    for script_pack, pack in sorted(packs.items()):
+        for record in pack["records"]:
+            if (script_pack, record["record_index"]) in cms.EXCLUDED_NON_VM_RECORDS:
+                continue
+            header = cms.parse_record_header(rom, record)
+            if not header:
+                continue
+            for entry in header["entries"]:
+                body = rom[entry["start"]:entry["end"]]
+                if len(body) < 3 or body[-3] != 0x57 or body[-1] != 0xB0:
+                    continue
+                route_index = body[-2]
+                route = route57_final(route_index)
+                if route is None:
+                    continue
+                addr = cpu_addr(entry["end"] - 3)
+                seen_triggers.add(addr)
+                terminal57_count += 1
+                record_id, event_sources = event_context(script_pack, addr)
+
+                row = blank_row()
+                row.update({
+                    "script_pack": hx(script_pack),
+                    "script_record": record["record_index"],
+                    "script_entry": hx(entry["entry_id"]),
+                    "trigger_type": "vm_opcode_0x57_native_route_terminal",
+                    "trigger_addr": addr,
+                    "event_record": record_id,
+                    "vm_context": (
+                        f"pack={hx(script_pack)};record={record['record_index']};"
+                        f"entry={hx(entry['entry_id'])}"
+                    ),
+                    "event_sources": event_sources,
+                    "destination_pack": hx(route["pack_id"]),
+                    "destination_x": route["x"],
+                    "destination_y": route["y"],
+                    "confidence": "strong_candidate",
+                    "condition": (
+                        f"exact bounded tail 57 {hx(route_index)} B0; "
+                        f"C4:8BD4 guard $13B8 != 0; route_ptr={route['route_ptr']}; "
+                        f"context_0306={hx(route['context_0306'])}; "
+                        f"destination_entrance={hx(route['entrance'])}"
+                    ),
+                    "evidence": (
+                        "C4:8BD4 opcode 0x57 reads one route-index operand when "
+                        "$13B8 != 0 and JSLs 86:8000 (LoROM mirror of C6:8000). "
+                        "C6:8000 doubles the index, loads a route pointer from "
+                        "C6:8060, clears the saved-map-state stack via 81:8204, "
+                        "walks [pack,x,y,entrance] nodes, saves non-final nodes "
+                        "through 81:8207, and leaves the final node active"
+                    ),
+                    "provenance": (
+                        f"canonical_rom_sha256={sha};"
+                        "tools/python/catalog_map_transition_candidates.py;"
+                        "C4:8BD4;C6:8000;C6:8060;81:8204;81:8207"
+                    ),
+                })
+                cfg = destination_config(route["pack_id"])
+                if cfg:
+                    row["destination_config_id"] = cfg["config_id"]
+                    row["destination_layout"] = cfg["primary_layout_id"]
+                    row["destination_tileset"] = cfg["primary_tileset_id"]
+                    row["destination_variant"] = cfg["map_variant"]
+                if record_id:
+                    row["provenance"] += (
+                        ";data/events/event_record_frame_catalog.csv"
+                        ";data/events/event_source_crosslink.csv"
+                    )
+                rows.append(row)
+
+
     # Promote static transition rows only when a canonical runtime evidence file
     # names the exact static trigger and all destination fields agree.
     runtime_static_confirmation_count = 0
@@ -896,6 +1004,7 @@ def main() -> None:
         "terminal_opcode55_destination_entry_match_count": terminal55_dest_entry,
         "terminal_opcode55_coordinate_match_count": terminal55_coord,
         "nonterminal_opcode55_coordinate_crosslink_count": nonterminal55_coord,
+        "terminal_opcode57_route_candidate_count": terminal57_count,
         "handler_findings": {
             "opcode_0x53": {
                 "handler": "C4:8B3F",
@@ -922,6 +1031,15 @@ def main() -> None:
                     "operand2 -> $13B8/$13B9; JSL 81:837F"
                 ),
             },
+            "opcode_0x57": {
+                "handler": "C4:8BD4",
+                "instruction_length": 2,
+                "guard": "$13B8 != 0",
+                "effect": (
+                    "operand is route index; JSL 86:8000/C6:8000; index selects "
+                    "C6:8060 pointer table; route stack leaves final pack/x/y/entrance active"
+                ),
+            },
             "opcode_0x58": {
                 "handler": "C4:8BE2",
                 "instruction_length": 5,
@@ -936,6 +1054,7 @@ def main() -> None:
             "static source map/config is not inferred from script-pack identity",
             "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
             "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
+            "non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
@@ -977,6 +1096,11 @@ The handler copies the old global map pack $0305 to $15CF, writes operand 1
 to both $15D0 and $0305, writes operand 2 to $13B8/$13B9, calls
 81:837F, clears $1984, and advances by three bytes.
 
+Normal VM opcode 0x57 dispatches to C4:8BD4. When $13B8 != 0, its one-byte
+operand is passed to 86:8000, the LoROM mirror of C6:8000. C6:8000 doubles
+the route index, loads a route pointer from C6:8060, builds saved map-state
+nodes, and leaves the final pack/X/Y/entrance active.
+
 Normal VM opcode 0x58 dispatches to C4:8BE2. When $13B8 != 0, its four
 operands are written to primary map coordinates $1573/$157D and secondary
 map coordinates $15C3/$15C4. Existing map analysis independently identifies
@@ -991,7 +1115,9 @@ these fields as current-map coordinates.
   53 <destination_pack> <destination_entry> B0,
   55 <destination_pack> <destination_entry> B0, or
   56 <destination_pack> <destination_entry> B0, with the same destination
-  entry present in destination record 0.
+  entry present in destination record 0. Exact terminal
+  57 <route_index> B0 is also strong_candidate when route_index resolves through
+  the proven C6:8060 route table.
 - structural_candidate: a terminal form whose destination entry is unresolved,
   or a non-terminal raw 0x53/0x55/0x56 shape retained only because its
   destination entry independently contains an aligned 0x58 coordinate setter.
@@ -1026,6 +1152,11 @@ remain blank unless independently proven.
 - terminal 0x55 forms with matching destination entry: {terminal55_entry}
 - terminal 0x55 forms with aligned destination 0x58 coordinates: {terminal55_coords}
 - non-terminal 0x55 coordinate-crosslinked structural rows: {nonterminal55}
+- terminal 0x57 route-table forms: {terminal57}
+
+Opcode 0x54 is destination-indirect: it requests a saved-map-state return
+rather than encoding a destination beside the opcode. Its exact terminal forms
+are cataloged separately in saved_state_return_candidates.csv.
 
 ## Runtime-confirmed anchor
 
@@ -1065,6 +1196,11 @@ the arrival/current-map coordinates can be extracted without guessing.
 For pack 0x50, the independently found 0x56 shapes using entry IDs 0x04, 0x0B
 and 0x10 cross-link to record-0 entries carrying 0x58 coordinate setters,
 including coordinates (29,55) and (34,49).
+
+Opcode 0x57 forms a second transition grammar: the operand is a native route
+index rather than a destination pack. Two exact terminal forms are currently
+proven, route index 3 ending at pack 0x50 / (39,37) / entrance 0x02 and route
+index 14 ending at pack 0x6A / (88,20) / entrance 0x02.
 
 ## Deliberate non-promotions
 
@@ -1112,6 +1248,10 @@ PC was observed.
 - tools/python/catalog_map_transition_candidates.py
 - data/maps/transitions/world_pack4c_to_pack50_entry02_20260929.json
 - data/maps/transitions/tabidachi_village_to_world_pack4c_restore_20260929.json
+- data/maps/transitions/saved_state_return_candidates.csv
+- data/maps/transitions/saved_state_return_summary.json
+- docs/analysis/map_saved_state_return_catalog.md
+- tools/python/catalog_saved_state_return_candidates.py
 
 ## Remaining blockers
 
@@ -1141,6 +1281,7 @@ PC was observed.
         terminal55_entry=terminal55_dest_entry,
         terminal55_coords=terminal55_coord,
         nonterminal55=nonterminal55_coord,
+        terminal57=terminal57_count,
         terminal_matches=terminal_dest_entry + terminal53_dest_entry + terminal55_dest_entry,
         terminal_total=terminal_count + terminal53_count + terminal55_count,
     )

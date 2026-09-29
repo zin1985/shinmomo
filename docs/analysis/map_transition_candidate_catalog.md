@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: 8a9729d9b01629b29f7b1bcc74bca3d86f9e6701
+Git HEAD used for generation: dd87624d58ebea065d54ae8af2ed63ad425d22f8
 
 ## Handler-level promotion
 
@@ -26,6 +26,11 @@ The handler copies the old global map pack $0305 to $15CF, writes operand 1
 to both $15D0 and $0305, writes operand 2 to $13B8/$13B9, calls
 81:837F, clears $1984, and advances by three bytes.
 
+Normal VM opcode 0x57 dispatches to C4:8BD4. When $13B8 != 0, its one-byte
+operand is passed to 86:8000, the LoROM mirror of C6:8000. C6:8000 doubles
+the route index, loads a route pointer from C6:8060, builds saved map-state
+nodes, and leaves the final pack/X/Y/entrance active.
+
 Normal VM opcode 0x58 dispatches to C4:8BE2. When $13B8 != 0, its four
 operands are written to primary map coordinates $1573/$157D and secondary
 map coordinates $15C3/$15C4. Existing map analysis independently identifies
@@ -38,7 +43,9 @@ these fields as current-map coordinates.
   53 <destination_pack> <destination_entry> B0,
   55 <destination_pack> <destination_entry> B0, or
   56 <destination_pack> <destination_entry> B0, with the same destination
-  entry present in destination record 0.
+  entry present in destination record 0. Exact terminal
+  57 <route_index> B0 is also strong_candidate when route_index resolves through
+  the proven C6:8060 route table.
 - structural_candidate: a terminal form whose destination entry is unresolved,
   or a non-terminal raw 0x53/0x55/0x56 shape retained only because its
   destination entry independently contains an aligned 0x58 coordinate setter.
@@ -49,16 +56,16 @@ remain blank unless independently proven.
 
 ## Counts
 
-- total candidate rows: 1291
+- total candidate rows: 1293
 - confirmed: 3
-- strong candidates: 1131
+- strong candidates: 1133
 - structural candidates: 157
 - rows with source configuration: 3
 - runtime-confirmed static triggers: 1
 - runtime-confirmed edges without observed trigger PC: 1
-- rows with destination pack: 1291
-- rows with unique destination configuration: 1059
-- rows with destination X/Y: 768
+- rows with destination pack: 1293
+- rows with unique destination configuration: 1061
+- rows with destination X/Y: 770
 - rows cross-linked to structural event records: 27
 - rows carrying existing event-source xrefs: 17
 - terminal 0x56 forms: 724
@@ -73,6 +80,11 @@ remain blank unless independently proven.
 - terminal 0x55 forms with matching destination entry: 40
 - terminal 0x55 forms with aligned destination 0x58 coordinates: 35
 - non-terminal 0x55 coordinate-crosslinked structural rows: 12
+- terminal 0x57 route-table forms: 2
+
+Opcode 0x54 is destination-indirect: it requests a saved-map-state return
+rather than encoding a destination beside the opcode. Its exact terminal forms
+are cataloged separately in saved_state_return_candidates.csv.
 
 ## Runtime-confirmed anchor
 
@@ -112,6 +124,11 @@ the arrival/current-map coordinates can be extracted without guessing.
 For pack 0x50, the independently found 0x56 shapes using entry IDs 0x04, 0x0B
 and 0x10 cross-link to record-0 entries carrying 0x58 coordinate setters,
 including coordinates (29,55) and (34,49).
+
+Opcode 0x57 forms a second transition grammar: the operand is a native route
+index rather than a destination pack. Two exact terminal forms are currently
+proven, route index 3 ending at pack 0x50 / (39,37) / entrance 0x02 and route
+index 14 ending at pack 0x6A / (88,20) / entrance 0x02.
 
 ## Deliberate non-promotions
 
@@ -159,12 +176,17 @@ PC was observed.
 - tools/python/catalog_map_transition_candidates.py
 - data/maps/transitions/world_pack4c_to_pack50_entry02_20260929.json
 - data/maps/transitions/tabidachi_village_to_world_pack4c_restore_20260929.json
+- data/maps/transitions/saved_state_return_candidates.csv
+- data/maps/transitions/saved_state_return_summary.json
+- docs/analysis/map_saved_state_return_catalog.md
+- tools/python/catalog_saved_state_return_candidates.py
 
 ## Remaining blockers
 
 - static source map/config is not inferred from script-pack identity
 - five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry
 - non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven
+- non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven
 - destination config stays null when destination pack record0/entry1 has multiple confirmed selectors
 - 0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix
 - exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified

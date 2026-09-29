@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "8a9729d9b01629b29f7b1bcc74bca3d86f9e6701",
+  "generated_against_git_head": "dd87624d58ebea065d54ae8af2ed63ad425d22f8",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
-  "candidate_count": 1291,
+  "candidate_count": 1293,
   "confidence_counts": {
     "confirmed": 3,
-    "strong_candidate": 1131,
+    "strong_candidate": 1133,
     "structural_candidate": 157
   },
   "source_config_resolved_count": 3,
@@ -15,9 +15,9 @@
     "CC:0B08"
   ],
   "runtime_only_confirmation_count": 1,
-  "destination_pack_identified_count": 1291,
-  "destination_config_resolved_count": 1059,
-  "destination_coordinate_resolved_count": 768,
+  "destination_pack_identified_count": 1293,
+  "destination_config_resolved_count": 1061,
+  "destination_coordinate_resolved_count": 770,
   "event_record_crosslink_count": 27,
   "event_source_crosslink_count": 17,
   "additional_native_0305_writer_sites": [
@@ -46,6 +46,7 @@
   "terminal_opcode55_destination_entry_match_count": 40,
   "terminal_opcode55_coordinate_match_count": 35,
   "nonterminal_opcode55_coordinate_crosslink_count": 12,
+  "terminal_opcode57_route_candidate_count": 2,
   "handler_findings": {
     "opcode_0x53": {
       "handler": "C4:8B3F",
@@ -62,6 +63,12 @@
       "instruction_length": 3,
       "effect": "operand1 -> $15D0 and $0305; old $0305 -> $15CF; operand2 -> $13B8/$13B9; JSL 81:837F"
     },
+    "opcode_0x57": {
+      "handler": "C4:8BD4",
+      "instruction_length": 2,
+      "guard": "$13B8 != 0",
+      "effect": "operand is route index; JSL 86:8000/C6:8000; index selects C6:8060 pointer table; route stack leaves final pack/x/y/entrance active"
+    },
     "opcode_0x58": {
       "handler": "C4:8BE2",
       "instruction_length": 5,
@@ -73,6 +80,7 @@
     "static source map/config is not inferred from script-pack identity",
     "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
     "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
+    "non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven",
     "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
     "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
     "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
