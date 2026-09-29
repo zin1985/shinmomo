@@ -15,6 +15,8 @@
   ],
   "notes": [
     "Semantic names for states 5-12 are intentionally conservative until runtime event binding is observed.",
-    "Group 2 contains many repeated directional families and longer event-oriented sequences."
+    "Raw frames 23+ visually include fragmentary villager/person-like parts and must not be interpreted as one continuous Momotaro strip.",
+    "B294 group/frame defines shared OAM geometry/pose data; character identity also depends on the runtime per-object tile displacement and palette state.",
+    "Group 2 contains many repeated directional families and longer event-oriented sequences shared across actors."
   ]
 }
