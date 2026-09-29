@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "opcode51_secondary_layer_render",
+  "tileset_id": 43,
+  "layout_id": 166,
+  "parent_resource_dir": "data\\maps\\rendered\\dungeon_tileset_43",
+  "parents": [
+    {
+      "primary_tileset_id": 43,
+      "primary_layout_id": 165,
+      "config_id": "cfg_t43_l165_v2",
+      "pack_ids_hex": "0x86",
+      "command_addresses": "CC:BE02",
+      "map_json": "data\\maps\\rendered\\dungeon_tileset_43\\map_165.json"
+    }
+  ],
+  "graphics_operands": [
+    18,
+    21
+  ],
+  "graphics_overrides": [],
+  "zero_fill_ranges": [],
+  "palette_operand": 37,
+  "validation": {
+    "used_tile_ids": [
+      256,
+      287,
+      319,
+      416,
+      417,
+      420,
+      421,
+      422,
+      423,
+      424,
+      432,
+      433
+    ],
+    "used_palette_indices_nonzero": [
+      34,
+      35,
+      36,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      65,
+      66,
+      67,
+      68,
+      69,
+      77,
+      78
+    ],
+    "graphics_resource_coverage_complete": true,
+    "palette_resource_coverage_complete": true
+  },
+  "image_width_px": 768,
+  "image_height_px": 1024,
+  "parent_image_width_px": 768,
+  "parent_image_height_px": 1024,
+  "same_dimensions_as_parent": true,
+  "output_png": "t43_l166.png",
+  "output_png_sha256": "F43F264BD4861334764561BBD149122775010CC95737D3538BE98924062C82D8"
+}
