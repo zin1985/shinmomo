@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "kind": "rom_map_setup_resources",
+  "tileset_id": 44,
+  "state0_descriptor_index": 2,
+  "graphics_resources": [
+    {
+      "operand": 18,
+      "descriptor_addr": "C3:08D8",
+      "descriptor_raw": "00 10 00 19 25 50 d4 12",
+      "vram_word_addr": 4096,
+      "vram_byte_addr": 8192,
+      "output_size": 6400,
+      "source_bank": 212,
+      "source_addr": 20517,
+      "source": "D4:5025",
+      "reader_kind": 2,
+      "reader_dispatch_index": 2,
+      "decoded_sha256": "4B630E23B26CFFD28CD091AF98B205D011872C3CBC24A472A0E870599D0D1CE3",
+      "decoded_end_byte": 14592
+    }
+  ],
+  "palette_resource": {
+    "operand": 43,
+    "state0_descriptor_index": 2,
+    "first_level_table": "C0:4C11",
+    "descriptor_addr": "C0:626B",
+    "destination_index": 32,
+    "color_count": 16,
+    "payload_addr": "C0:626F",
+    "entries": [
+      {
+        "index": 32,
+        "bgr555": "0x0000",
+        "rgb888": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "index": 33,
+        "bgr555": "0x7B7B",
+        "rgb888": [
+          222,
+          222,
+          247
+        ]
+      },
+      {
+        "index": 34,
+        "bgr555": "0x66D6",
+        "rgb888": [
+          181,
+          181,
+          206
+        ]
+      },
+      {
+        "index": 35,
+        "bgr555": "0x460F",
+        "rgb888": [
+          123,
+          132,
+          140
+        ]
+      },
+      {
+        "index": 36,
+        "bgr555": "0x398B",
+        "rgb888": [
+          90,
+          99,
+          115
+        ]
+      },
+      {
+        "index": 37,
+        "bgr555": "0x2D49",
+        "rgb888": [
+          74,
+          82,
+          90
+        ]
+      },
+      {
+        "index": 38,
+        "bgr555": "0x3AF4",
+        "rgb888": [
+          165,
+          189,
+          115
+        ]
+      },
+      {
+        "index": 39,
+        "bgr555": "0x3291",
+        "rgb888": [
+          140,
+          165,
+          99
+        ]
+      },
+      {
+        "index": 40,
+        "bgr555": "0x326C",
+        "rgb888": [
+          99,
+          156,
+          99
+        ]
+      },
+      {
+        "index": 41,
+        "bgr555": "0x322A",
+        "rgb888": [
+          82,
+          140,
+          99
+        ]
+      },
+      {
+        "index": 42,
+        "bgr555": "0x2DEB",
+        "rgb888": [
+          90,
+          123,
+          90
+        ]
+      },
+      {
+        "index": 43,
+        "bgr555": "0x25A7",
+        "rgb888": [
+          58,
+          107,
+          74
+        ]
+      },
+      {
+        "index": 44,
+        "bgr555": "0x0CA4",
+        "rgb888": [
+          33,
+          41,
+          25
+        ]
+      },
+      {
+        "index": 45,
+        "bgr555": "0x14A4",
+        "rgb888": [
+          33,
+          41,
+          41
+        ]
+      },
+      {
+        "index": 46,
+        "bgr555": "0x2506",
+        "rgb888": [
+          49,
+          66,
+          74
+        ]
+      },
+      {
+        "index": 47,
+        "bgr555": "0x6B5C",
+        "rgb888": [
+          230,
+          214,
+          214
+        ]
+      }
+    ]
+  }
+}

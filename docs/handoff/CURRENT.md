@@ -364,6 +364,27 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 - `docs/analysis/map_selector_residual_vm_promotion_20260928.md`
 - `docs/analysis/map_selector_a0_nested_promotion_20260928.md`
 
+## Dungeon ROM reconstruction checkpoint — 2026-09-29 batch 5
+
+- Latest verified base before this checkpoint: `88ff9a867f733b4df73998eea77e8482e81c3963` (`Render fourth ROM-derived dungeon batch`).
+- Batches 1-4 are already canonical. Do not regenerate or replace them from older runtime captures.
+- Graphics reader dispatch 0 (`C0:BCEE` / `C0:BD28`) is now proven. Effective back-reference length is **nibble+2 (2..17 bytes)**.
+- Runtime proof on 旅立ちの村 / pack `0x50`: operand `04` = 8192/8192 exact, `05` = 8192/8192 exact, `06` = 3040/3040 exact.
+- New strict ROM-only render families pass for tilesets `6,39,44,50,51,52,53,54,55,60`, producing 15 map-ID images.
+- Canonical batch-5 analysis: `docs/analysis/dungeon_rom_setup_batch5_20260929.md`.
+- Remaining normal-map failures stay fail-closed. Most need opcode-`0x33` graphics descriptors and/or inherited setup state.
+- Tilesets `2` and `3` are mode-`0x01`; keep them on the Mode-7/world-style path.
+- Tileset `42` needs inherited palette-state proof before rendering.
+- User-reported world-map forest/tree color and transparency issue remains open; dungeon reconstruction stays the active priority.
+
+### Immediate next actions
+
+1. model opcode `0x33` graphics-resource selection and inherited setup state;
+2. rerun strict coverage for tilesets `5,22-30,32,37,58`;
+3. resolve tileset `42` palette inheritance;
+4. adapt the Mode-7 path for tilesets `2/3`;
+5. then return to world-map palette/transparency cleanup.
+
 ## Resume instruction
 
 On a short request such as **「続きを進めて」**:

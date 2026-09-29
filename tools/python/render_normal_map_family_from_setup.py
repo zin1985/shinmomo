@@ -90,22 +90,99 @@ def decode_context4(rom: bytes, bank: int, addr: int, output_size: int) -> bytes
     return bytes(out)
 
 
+def decode_ring_lzss(rom: bytes, bank: int, addr: int, output_size: int) -> bytes:
+    """Decode graphics reader dispatch 0 (C0:BCEE/BD28).
+
+    The runtime reader uses a 256-byte dictionary page initially filled with
+    zeroes.  The write cursor starts at 0xEF.  Flag bits are consumed MSB-first:
+    bit 1 emits one literal byte, while bit 0 reads an 8-bit dictionary offset.
+    One length byte is shared by each pair of back-references.  The runtime
+    stores nibble+1 in $7D, immediately copies one byte at BD2E, and decrements
+    $7D only on later reader calls, so the effective copy length is nibble+2
+    (2..17 bytes), not nibble+1.
+    """
+    p = file_off(bank, addr)
+    ring = bytearray(256)
+    write_pos = 0xEF
+
+    control = 0
+    bits_left = 0
+    length_pair = 0
+    use_low_nibble = False
+
+    out = bytearray()
+    while len(out) < output_size:
+        if bits_left == 0:
+            if p >= len(rom):
+                raise ValueError("dispatch-0 stream truncated at flag byte")
+            control = rom[p]
+            p += 1
+            bits_left = 8
+
+        literal = bool(control & 0x80)
+        control = (control << 1) & 0xFF
+        bits_left -= 1
+
+        if p >= len(rom):
+            raise ValueError("dispatch-0 stream truncated at token byte")
+        value = rom[p]
+        p += 1
+
+        if literal:
+            out.append(value)
+            ring[write_pos] = value
+            write_pos = (write_pos + 1) & 0xFF
+            continue
+
+        read_pos = value
+        if not use_low_nibble:
+            if p >= len(rom):
+                raise ValueError("dispatch-0 stream truncated at length byte")
+            length_pair = rom[p]
+            p += 1
+            copy_len = (length_pair >> 4) + 2
+            use_low_nibble = True
+        else:
+            copy_len = (length_pair & 0x0F) + 2
+            use_low_nibble = False
+
+        for _ in range(copy_len):
+            value = ring[read_pos]
+            read_pos = (read_pos + 1) & 0xFF
+            out.append(value)
+            ring[write_pos] = value
+            write_pos = (write_pos + 1) & 0xFF
+            if len(out) == output_size:
+                break
+
+    return bytes(out)
+
+
 def reconstruct_vram(rom: bytes, operands: list[int], descriptor_index: int):
     vram = bytearray(0x10000)
     resources = []
     for operand in operands:
         desc = graphics_descriptor(rom, operand, descriptor_index)
-        if desc["reader_dispatch_index"] != 2:
+        dispatch = desc["reader_dispatch_index"]
+        if dispatch == 0:
+            decoded = decode_ring_lzss(
+                rom,
+                desc["source_bank"],
+                desc["source_addr"],
+                desc["output_size"],
+            )
+        elif dispatch == 2:
+            decoded = decode_context4(
+                rom,
+                desc["source_bank"],
+                desc["source_addr"],
+                desc["output_size"],
+            )
+        else:
             raise ValueError(
                 f"opcode10 operand {operand:#x}: unsupported reader dispatch "
-                f"{desc['reader_dispatch_index']}"
+                f"{dispatch}"
             )
-        decoded = decode_context4(
-            rom,
-            desc["source_bank"],
-            desc["source_addr"],
-            desc["output_size"],
-        )
         start = desc["vram_byte_addr"]
         end = start + len(decoded)
         if end > len(vram):

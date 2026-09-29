@@ -2,13 +2,13 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-28",
+  "updated_at": "2026-09-29",
   "status": "active",
-  "workstream": "map-world-reconstruction",
-  "title": "Cross-link confirmed ROM map selectors to human-facing locations",
-  "base_main_head_verified": "2d38f9afc6efcd6dc760a0b7699b03a430b7bf9b",
+  "workstream": "map-dungeon-reconstruction",
+  "title": "Reconstruct remaining dungeon/special map families from ROM setup resources",
+  "base_main_head_verified": "88ff9a867f733b4df73998eea77e8482e81c3963",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
-  "goal": "Use the closed 260-primary selector corpus as the structural backbone for assigning village, town, interior, dungeon and world-map identities, then attach collision/warp/event/encounter evidence without weakening the ROM-side proofs.",
+  "goal": "Recover dungeon/interior/special maps directly from ROM-selected graphics and palette resources, fail closed on incomplete CHR/palette coverage, and preserve runtime-validated decoder semantics.",
   "definition_of_done": [
     "The bank-C4 interpreter path supplying the $98 script pointer is identified well enough to distinguish valid opcode streams from blind byte-pattern matches.",
     "A reproducible tool enumerates valid 0x50 primary and 0x51 secondary map-selection commands with ROM addresses and argument IDs.",
@@ -358,6 +358,47 @@
         "docs/analysis/mapchip_chr_trace_20260928.md",
         "docs/analysis/map_layout_render_batch_20260928.md"
       ]
+    },
+    {
+      "item": "Mode-7 world reconstruction is canonical: tileset 1 layouts 1 and 2 render at 4096x4096 from ROM definitions and runtime-validated Mode-7 CHR/palette semantics.",
+      "evidence": [
+        "tools/python/render_world_mode7_maps.py",
+        "data/maps/rendered/world_mode7_tileset_01/index.json",
+        "docs/analysis/world_mode7_reconstruction_20260929.md"
+      ]
+    },
+    {
+      "item": "ROM-derived dungeon/special rendering batches 1-4 are canonical through main 88ff9a8, covering tilesets 7,8,9,11,13-21,26-27,31,33-36,38,40,43,45-49,56 and 59 with strict CHR/palette coverage.",
+      "evidence": [
+        "docs/analysis/dungeon_tileset08_reconstruction_20260929.md",
+        "docs/analysis/dungeon_rom_setup_batch2_20260929.md",
+        "docs/analysis/dungeon_rom_setup_batch3_20260929.md",
+        "docs/analysis/dungeon_rom_setup_batch4_20260929.md",
+        "tools/python/render_normal_map_family_from_setup.py"
+      ]
+    },
+    {
+      "item": "Graphics reader dispatch 0 (C0:BCEE/BD28) is reconstructed correctly: effective back-reference copy length is nibble+2, not nibble+1. Operands 04/05/06 reproduce stable pack-0x50 runtime VRAM exactly byte-for-byte.",
+      "evidence": [
+        "tools/python/render_normal_map_family_from_setup.py",
+        "docs/analysis/dungeon_rom_setup_batch5_20260929.md"
+      ]
+    },
+    {
+      "item": "Dungeon/special batch 5 passes strict ROM-only coverage for tilesets 6,39,44,50,51,52,53,54,55 and 60, producing 15 coherent map images without runtime VRAM/CGRAM payloads.",
+      "evidence": [
+        "docs/analysis/dungeon_rom_setup_batch5_20260929.md",
+        "data/maps/rendered/dungeon_tileset_06/index.json",
+        "data/maps/rendered/dungeon_tileset_39/index.json",
+        "data/maps/rendered/dungeon_tileset_44/index.json",
+        "data/maps/rendered/dungeon_tileset_50/index.json",
+        "data/maps/rendered/dungeon_tileset_51/index.json",
+        "data/maps/rendered/dungeon_tileset_52/index.json",
+        "data/maps/rendered/dungeon_tileset_53/index.json",
+        "data/maps/rendered/dungeon_tileset_54/index.json",
+        "data/maps/rendered/dungeon_tileset_55/index.json",
+        "data/maps/rendered/dungeon_tileset_60/index.json"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
@@ -393,25 +434,26 @@
     }
   ],
   "in_progress": [
-    "Connect the corrected tileset-4 resident CHR at VRAM 0x0000 back to its compressed ROM asset source/decompression loader.",
-    "Continue the YMA + ROM-dialogue crosslink using the corrected full-map renders, preserving runtime-confirmed selector/pack identities."
+    "Resolve missing graphics regions for remaining normal-map families that currently fail strict CHR coverage, especially opcode-0x33-selected and inherited resources.",
+    "Handle mode-0x01 tilesets 2 and 3 through the Mode-7/world-style renderer rather than forcing the normal 4bpp path.",
+    "Keep the user-reported world-map forest/tree palette and transparency issue as a later renderer correction; dungeon reconstruction remains the active priority."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "Trace the ROM graphics loader/decompressor that populates field/town CHR at VRAM 0x0000; identify source pointer table and compressed asset boundaries."
+      "action": "For remaining normal families (notably tilesets 5,22-30,32,37,58), model opcode 0x33 graphics descriptors and inherited setup state, then rerun strict CHR/palette coverage."
     },
     {
       "order": 2,
-      "action": "Validate the recovered ROM-side CHR decoder by reproducing the resident tileset-4 CHR without relying on runtime VRAM."
+      "action": "Resolve tileset 42's inherited palette/setup context before rendering; do not invent a palette."
     },
     {
       "order": 3,
-      "action": "Then resolve additional tilesets' CHR sources and regenerate their map_### batches only after known-map visual validation."
+      "action": "Adapt the proven Mode-7 path for tilesets 2 and 3 mode-0x01 layouts and validate them independently."
     },
     {
       "order": 4,
-      "action": "Use corrected rendered layouts plus YMA/ROM dialogue evidence to attach human-facing names without shape-only guessing."
+      "action": "After remaining dungeon/special families are closed, return to the world-map forest/tree color and transparent-index handling issue."
     }
   ],
   "do_not_redo": [
@@ -471,7 +513,8 @@
     "Do not promote tileset-7 char_base 0xC000 as correct merely because it fits some tile indices; the map_015 visual test failed.",
     "Do not use tileset-4 4bpp char_base 0x8000; that basis was disproven by the runtime VRAM contents and visual reconstruction. Use VRAM byte base 0x0000 for the corrected tileset-4 render batch.",
     "Do not classify DA:3800 as map-chip CHR; decoded samples are glyph/font-like.",
-    "Do not classify CF:0000 as a CHR bitmap pointer table; its dominant structure is one parallel attribute byte per CE metatile."
+    "Do not classify CF:0000 as a CHR bitmap pointer table; its dominant structure is one parallel attribute byte per CE metatile.",
+    "Do not use nibble+1 as the dispatch-0 back-reference copy length. C0:BD28 effectively copies nibble+2 bytes, and that rule reproduces pack-0x50 graphics operands 04/05/06 byte-for-byte."
   ],
   "runtime_only_artifacts": [
     {
@@ -592,7 +635,19 @@
     "data/maps/rendered/tileset_04/index.json",
     "data/maps/rendered/tileset_04/index.csv",
     "docs/analysis/map_layout_render_batch_20260928.md",
-    "docs/analysis/mapchip_chr_trace_20260928.md"
+    "docs/analysis/mapchip_chr_trace_20260928.md",
+    "tools/python/render_normal_map_family_from_setup.py",
+    "docs/analysis/dungeon_rom_setup_batch5_20260929.md",
+    "data/maps/rendered/dungeon_tileset_06/index.json",
+    "data/maps/rendered/dungeon_tileset_39/index.json",
+    "data/maps/rendered/dungeon_tileset_44/index.json",
+    "data/maps/rendered/dungeon_tileset_50/index.json",
+    "data/maps/rendered/dungeon_tileset_51/index.json",
+    "data/maps/rendered/dungeon_tileset_52/index.json",
+    "data/maps/rendered/dungeon_tileset_53/index.json",
+    "data/maps/rendered/dungeon_tileset_54/index.json",
+    "data/maps/rendered/dungeon_tileset_55/index.json",
+    "data/maps/rendered/dungeon_tileset_60/index.json"
   ],
   "chat_policy": {
     "narration": "minimal",
