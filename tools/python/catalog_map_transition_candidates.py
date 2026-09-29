@@ -537,6 +537,84 @@ def main() -> None:
                     seen_triggers.add(addr)
                     nonterminal53_coord += 1
 
+
+    # Promote static transition rows only when a canonical runtime evidence file
+    # names the exact static trigger and all destination fields agree.
+    runtime_static_confirmation_count = 0
+    runtime_static_confirmation_triggers: list[str] = []
+    transitions_dir = root / "data/maps/transitions"
+    for evidence_path in sorted(transitions_dir.glob("*.json")):
+        try:
+            runtime_evidence = json.loads(evidence_path.read_text(encoding="utf-8-sig"))
+        except Exception:
+            continue
+        if runtime_evidence.get("kind") != "runtime_map_transition_evidence":
+            continue
+        static_match = runtime_evidence.get("trigger", {}).get("static_match")
+        if not static_match or not static_match.get("trigger_addr"):
+            continue
+
+        trigger_addr = static_match["trigger_addr"]
+        matches = [r for r in rows if r["trigger_addr"] == trigger_addr]
+        if len(matches) != 1:
+            raise SystemExit(
+                f"runtime confirmation {evidence_path.name} expected exactly one "
+                f"static row for {trigger_addr}, found {len(matches)}"
+            )
+        row = matches[0]
+
+        expected_pairs = {
+            "script_pack": static_match.get("script_pack", ""),
+            "destination_pack": static_match.get("destination_pack", ""),
+            "destination_entry_id": static_match.get("destination_entry_id", ""),
+        }
+        for key, expected in expected_pairs.items():
+            if expected and row[key] != expected:
+                raise SystemExit(
+                    f"runtime confirmation mismatch {evidence_path.name}: "
+                    f"{key} static={row[key]!r} runtime={expected!r}"
+                )
+
+        destination = runtime_evidence.get("to", {})
+        coord = destination.get("coordinate", {})
+        if coord:
+            if str(coord.get("x", "")) != str(row["destination_x"]):
+                raise SystemExit(
+                    f"runtime confirmation x mismatch at {trigger_addr}: "
+                    f"static={row['destination_x']} runtime={coord.get('x')}"
+                )
+            if str(coord.get("y", "")) != str(row["destination_y"]):
+                raise SystemExit(
+                    f"runtime confirmation y mismatch at {trigger_addr}: "
+                    f"static={row['destination_y']} runtime={coord.get('y')}"
+                )
+
+        source = runtime_evidence.get("from", {})
+        source_selector = source.get("selector", {})
+        row["source_config_id"] = source.get("config_id", "")
+        row["source_pack"] = source.get("pack_id_hex", "")
+        row["source_layout"] = source_selector.get("primary_layout", "")
+        row["source_tileset"] = source_selector.get("primary_tileset", "")
+        row["confidence"] = "confirmed"
+        row["condition"] += (
+            f"; runtime frame {runtime_evidence.get('trigger', {}).get('observed_frame')} "
+            f"confirms {row['source_pack']} -> {row['destination_pack']}"
+        )
+        row["evidence"] += (
+            f"; runtime $0305 switch at frame "
+            f"{runtime_evidence.get('trigger', {}).get('observed_frame')} and "
+            f"arrival coordinates ({row['destination_x']},{row['destination_y']}) "
+            f"match the static destination entry"
+        )
+        visible_name = destination.get("human_location_name")
+        if visible_name:
+            row["evidence"] += f"; visible destination label={visible_name}"
+        row["provenance"] += (
+            f";data/maps/transitions/{evidence_path.name}"
+        )
+        runtime_static_confirmation_count += 1
+        runtime_static_confirmation_triggers.append(trigger_addr)
+
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=COLUMNS)
@@ -575,6 +653,9 @@ def main() -> None:
         "rom_sha256": sha,
         "candidate_count": len(rows),
         "confidence_counts": dict(sorted(confidence_counts.items())),
+        "source_config_resolved_count": sum(bool(r["source_config_id"]) for r in rows),
+        "runtime_static_confirmation_count": runtime_static_confirmation_count,
+        "runtime_static_confirmation_triggers": runtime_static_confirmation_triggers,
         "destination_pack_identified_count": destination_pack_count,
         "destination_config_resolved_count": destination_config_count,
         "destination_coordinate_resolved_count": coordinate_count,
@@ -685,6 +766,8 @@ remain blank unless independently proven.
 - confirmed: {confirmed}
 - strong candidates: {strong}
 - structural candidates: {structural}
+- rows with source configuration: {source_configs}
+- runtime-confirmed static triggers: {runtime_static}
 - rows with destination pack: {dest_pack}
 - rows with unique destination configuration: {dest_config}
 - rows with destination X/Y: {coords}
@@ -701,10 +784,20 @@ remain blank unless independently proven.
 
 ## Runtime-confirmed anchor
 
-The existing runtime trace confirms cfg_t07_l015_v2 / pack 0x2E transitions
-to cfg_t04_l008_v2 / pack 0x50. During the transition, $0305 changes first,
+Two runtime anchors are now preserved.
+
+The earlier trace confirms cfg_t07_l015_v2 / pack 0x2E transitions to
+cfg_t04_l008_v2 / pack 0x50. During that transition, $0305 changes first,
 then $126E/$12B4 converge to 0x50, and selector 4/8/2 becomes active.
-The exact event opcode address for this observed edge is still unknown.
+The exact event opcode address for that interior-to-exterior edge remains unknown.
+
+The 2026-09-29 world-map trace confirms cfg_t01_l001_v1 / pack 0x4C at
+coordinate (54,236) entering pack 0x50. At frame 14455 $0305 changes
+0x4C -> 0x50. The only matching terminal 0x53 static row in script pack 0x4C
+is record 2 / entry 0x77 / trigger CC:0B08, targeting destination entry 0x02.
+That entry's aligned 0x58 setter at CC:1C4E predicts (29,55), and runtime
+coordinates become exactly (29,55) by frame 14657. The visible destination
+label is 旅立ちの村. This promotes CC:0B08 from strong_candidate to confirmed.
 
 ## Important structural finding
 
@@ -762,6 +855,7 @@ flow are proven.
 - data/maps/transitions/map_transition_candidates_summary.json
 - docs/analysis/map_transition_candidate_catalog.md
 - tools/python/catalog_map_transition_candidates.py
+- data/maps/transitions/world_pack4c_to_pack50_entry02_20260929.json
 
 ## Remaining blockers
 
@@ -770,6 +864,8 @@ flow are proven.
         confirmed=confidence_counts.get("confirmed", 0),
         strong=confidence_counts.get("strong_candidate", 0),
         structural=confidence_counts.get("structural_candidate", 0),
+        source_configs=summary["source_config_resolved_count"],
+        runtime_static=runtime_static_confirmation_count,
         dest_pack=destination_pack_count,
         dest_config=destination_config_count,
         coords=coordinate_count,

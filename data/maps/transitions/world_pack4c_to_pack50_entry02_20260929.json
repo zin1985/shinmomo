@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_map_transition_evidence",
+  "policy": "Raw screenshots, WRAM snapshots and atomic capture remain local-only; this file stores scalar state, hashes, addresses and derived joins only.",
+  "from": {
+    "config_id": "cfg_t01_l001_v1",
+    "pack_id_hex": "0x4C",
+    "selector": {
+      "primary_tileset": 1,
+      "primary_layout": 1,
+      "map_variant": 1
+    },
+    "coordinate": {
+      "x": 54,
+      "y": 236
+    },
+    "capture_id": "1790672423001-f5ff0f03",
+    "frame": 14437,
+    "manifest_sha256": "1D24215F79352CDE77C7DC7F3A8FA48973FFF8CFF6B37C2F5627033B3E52FCDD",
+    "coordinate_capture_sha256": "72B5AADDF19B331AE6795890457392284088446F846B783AA888EEF33E54F6B3"
+  },
+  "trigger": {
+    "observed_frame": 14455,
+    "input": "Down",
+    "input_frame_index": 18,
+    "current_pack_before_hex": "0x4C",
+    "current_pack_after_hex": "0x50",
+    "dp_pointer_before": "CD:FA4F",
+    "dp_pointer_after": "CC:07DE",
+    "vm_slot_before": 9,
+    "vm_slot_after": 10,
+    "new_slot_pack_context_0759_hex": "0x4C",
+    "atomic_capture_sha256": "D8FC26060AF89587DC837F34F04E714F0A68A6F18F33C544401C7BB086D0AD48",
+    "static_match": {
+      "script_pack": "0x4C",
+      "script_record": 2,
+      "script_entry": "0x77",
+      "trigger_addr": "CC:0B08",
+      "opcode": "0x53",
+      "destination_pack": "0x50",
+      "destination_entry_id": "0x02",
+      "destination_coordinate_addr": "CC:1C4E"
+    }
+  },
+  "to": {
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "selector": {
+      "primary_tileset": 4,
+      "primary_layout": 8,
+      "map_variant": 2
+    },
+    "destination_entry_id": "0x02",
+    "coordinate": {
+      "x": 29,
+      "y": 55
+    },
+    "arrival_capture_id": "1790672566565-b214be39",
+    "arrival_frame": 14657,
+    "arrival_manifest_sha256": "0E3238AA3F55F4B6A8F9C581ABBE510352272705855FD7A7782B609006517BDA",
+    "coordinate_capture_sha256": "F2EF1D3795807B8CAA6849967574EF21DB9A86E7E851A593F2B3088D40F5049D",
+    "visible_capture_id": "1790672614705-5bacae57",
+    "visible_frame": 14777,
+    "visible_manifest_sha256": "205CB70FF632804AE86B59A8734410B7B3D1DC7EA753420C3A8896D6A2A4041D",
+    "human_location_name": "旅立ちの村",
+    "name_evidence": "Exact in-game location label visible in the runtime capture."
+  },
+  "derived_sequence": [
+    "At frame 14437 the active world-map identity is pack 0x4C with selector 1/1/1 and coordinate (54,236).",
+    "At frame 14455 $0305 changes 0x4C -> 0x50 while the new VM slot still carries pack context 0x4C in $0759,X.",
+    "The only static terminal 0x53 candidate in script pack 0x4C targeting pack 0x50 is CC:0B08, record 2 entry 0x77, destination entry 0x02.",
+    "The destination entry 0x02 coordinate setter at CC:1C4E statically predicts (29,55).",
+    "At frame 14657 runtime coordinates become exactly (29,55) with selector 4/8/2 under current pack 0x50.",
+    "At frame 14777 the destination is visibly labeled 旅立ちの村."
+  ],
+  "relation_status": "confirmed_runtime_static_transition_match"
+}

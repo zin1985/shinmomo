@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: d11d3b1514a5ce1abce3b3608a6d0a228f106b3a
+Git HEAD used for generation: 0c61932e542d378a882c747446625bf2556984e5
 
 ## Handler-level promotion
 
@@ -44,9 +44,11 @@ remain blank unless independently proven.
 ## Counts
 
 - total candidate rows: 1238
-- confirmed: 1
-- strong candidates: 1092
+- confirmed: 2
+- strong candidates: 1091
 - structural candidates: 145
+- rows with source configuration: 2
+- runtime-confirmed static triggers: 1
 - rows with destination pack: 1238
 - rows with unique destination configuration: 1048
 - rows with destination X/Y: 720
@@ -63,10 +65,20 @@ remain blank unless independently proven.
 
 ## Runtime-confirmed anchor
 
-The existing runtime trace confirms cfg_t07_l015_v2 / pack 0x2E transitions
-to cfg_t04_l008_v2 / pack 0x50. During the transition, $0305 changes first,
+Two runtime anchors are now preserved.
+
+The earlier trace confirms cfg_t07_l015_v2 / pack 0x2E transitions to
+cfg_t04_l008_v2 / pack 0x50. During that transition, $0305 changes first,
 then $126E/$12B4 converge to 0x50, and selector 4/8/2 becomes active.
-The exact event opcode address for this observed edge is still unknown.
+The exact event opcode address for that interior-to-exterior edge remains unknown.
+
+The 2026-09-29 world-map trace confirms cfg_t01_l001_v1 / pack 0x4C at
+coordinate (54,236) entering pack 0x50. At frame 14455 $0305 changes
+0x4C -> 0x50. The only matching terminal 0x53 static row in script pack 0x4C
+is record 2 / entry 0x77 / trigger CC:0B08, targeting destination entry 0x02.
+That entry's aligned 0x58 setter at CC:1C4E predicts (29,55), and runtime
+coordinates become exactly (29,55) by frame 14657. The visible destination
+label is 旅立ちの村. This promotes CC:0B08 from strong_candidate to confirmed.
 
 ## Important structural finding
 
@@ -124,6 +136,7 @@ flow are proven.
 - data/maps/transitions/map_transition_candidates_summary.json
 - docs/analysis/map_transition_candidate_catalog.md
 - tools/python/catalog_map_transition_candidates.py
+- data/maps/transitions/world_pack4c_to_pack50_entry02_20260929.json
 
 ## Remaining blockers
 

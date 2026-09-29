@@ -1,14 +1,19 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "d11d3b1514a5ce1abce3b3608a6d0a228f106b3a",
+  "generated_against_git_head": "0c61932e542d378a882c747446625bf2556984e5",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
   "candidate_count": 1238,
   "confidence_counts": {
-    "confirmed": 1,
-    "strong_candidate": 1092,
+    "confirmed": 2,
+    "strong_candidate": 1091,
     "structural_candidate": 145
   },
+  "source_config_resolved_count": 2,
+  "runtime_static_confirmation_count": 1,
+  "runtime_static_confirmation_triggers": [
+    "CC:0B08"
+  ],
   "destination_pack_identified_count": 1238,
   "destination_config_resolved_count": 1048,
   "destination_coordinate_resolved_count": 720,
