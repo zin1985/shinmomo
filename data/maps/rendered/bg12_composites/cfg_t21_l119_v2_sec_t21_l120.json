@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "mode1_bg12_composite",
+  "config_id": "cfg_t21_l119_v2",
+  "variant": 2,
+  "primary": {
+    "tileset_id": 21,
+    "layout_id": 119,
+    "bg": 2,
+    "map_json": "data\\maps\\rendered\\dungeon_tileset_21\\map_119.json",
+    "png": "data\\maps\\rendered\\dungeon_tileset_21\\map_119.png",
+    "png_sha256": "CD803604A5059CFE646DCCB7E1B492F27F5A0B9DF83D12AA0F939FA0A6626077"
+  },
+  "secondary": {
+    "tileset_id": 21,
+    "layout_id": 120,
+    "bg": 1,
+    "layer_json": "data\\maps\\rendered\\secondary_layers\\t21_l120.json",
+    "png": "data\\maps\\rendered\\secondary_layers\\t21_l120.png",
+    "png_sha256": "F354860F9F77219234A3D9613165EECBB5BAEC1ECCF962F1925D694BBEAB5B79",
+    "palette_operand": 22
+  },
+  "bgmode": 1,
+  "priority_order": [
+    "BG1_high",
+    "BG2_high",
+    "BG1_low",
+    "BG2_low"
+  ],
+  "includes": [
+    "BG1",
+    "BG2"
+  ],
+  "excludes": [
+    "BG3",
+    "OBJ"
+  ],
+  "image_width_px": 1536,
+  "image_height_px": 1024,
+  "stats": {
+    "primary_visible_pixels": 1376196,
+    "secondary_visible_pixels": 100144,
+    "overlap_pixels": 100144,
+    "primary_wins_overlap": 0,
+    "secondary_wins_overlap": 100144,
+    "primary_high_priority_visible_pixels": 0,
+    "secondary_high_priority_visible_pixels": 94640
+  },
+  "output_png": "cfg_t21_l119_v2_sec_t21_l120.png",
+  "output_png_sha256": "D9D5610C5C667E47746ACD43C893AC84EB51D734B78FE2E56FB691EBA888E0BF"
+}
