@@ -49,6 +49,30 @@ def main():
             "provenance": str(path.relative_to(ROOT)).replace("\\", "/"),
         })
 
+    composites = [r for r in rows if r["artifact_role"] == "bg12_composite"]
+    for row in composites:
+        for config_id in split_ids(row["config_ids"]):
+            if config_id not in maps:
+                continue
+            assignment = {}
+            for part in row["bg_assignment"].split(";"):
+                if "=" in part:
+                    k, v = part.split("=", 1)
+                    assignment[k] = v
+            primary = maps[config_id]["layers"][0]
+            primary["bg"] = assignment.get("primary")
+            secondary = {
+                "kind": "structural_metatile",
+                "role": "secondary",
+                "bg": assignment.get("secondary"),
+                "tileset_id": int(row["secondary_tileset_id"]),
+                "layout_id": int(row["secondary_layout_id"]),
+                "data": f"layers/t{int(row['secondary_tileset_id']):02d}_l{int(row['secondary_layout_id']):03d}.json",
+                "confidence": row["confidence"],
+            }
+            if not any(x.get("role") == "secondary" for x in maps[config_id]["layers"]):
+                maps[config_id]["layers"].append(secondary)
+
     world = {
         "schema_version": 1,
         "kind": "shinmomo_structural_world",

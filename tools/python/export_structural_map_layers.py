@@ -53,7 +53,10 @@ def main():
     if a.catalog:
         rows=list(csv.DictReader(a.catalog.open(encoding="utf-8-sig")))
         pairs=sorted({(int(r["tileset_id"]),int(r["layout_id"]))
-            for r in rows if r["artifact_role"] in {"normal_primary","mode7_primary"}})
+            for r in rows if r["artifact_role"] in {
+                "normal_primary","mode7_primary","secondary_layer",
+                "secondary_layer_non_immediate","unreferenced_probe"
+            }})
         a.out_dir.mkdir(parents=True,exist_ok=True)
         for ts,lid in pairs:
             doc=export_layout(rom,ts,lid)
