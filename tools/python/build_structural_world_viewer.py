@@ -25,7 +25,10 @@ def main():
                 "pixel_width": int(row["image_width_px"] or 0),
                 "pixel_height": int(row["image_height_px"] or 0),
                 "render_kind": row["artifact_role"],
-                "layers": [],
+                "layers": [{
+                    "kind": "structural_metatile",
+                    "data": f"layers/t{int(row['tileset_id']):02d}_l{int(row['layout_id']):03d}.json",
+                }],
                 "entities": [],
                 "confidence": row["confidence"],
                 "provenance": "map_render_catalog",
