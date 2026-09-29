@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-dungeon-reconstruction",
   "title": "Reconstruct remaining dungeon/special map families from ROM setup resources",
-  "base_main_head_verified": "88ff9a867f733b4df73998eea77e8482e81c3963",
+  "base_main_head_verified": "956011a03092eefea665852402dbd7d2960efd94",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Recover dungeon/interior/special maps directly from ROM-selected graphics and palette resources, fail closed on incomplete CHR/palette coverage, and preserve runtime-validated decoder semantics.",
   "definition_of_done": [
@@ -399,6 +399,21 @@
         "data/maps/rendered/dungeon_tileset_55/index.json",
         "data/maps/rendered/dungeon_tileset_60/index.json"
       ]
+    },
+    {
+      "item": "Normal-VM opcode 0x33 is modeled as a graphics descriptor load with an explicit VRAM-word destination override, closing tilesets 22,23,24,25,28,29,30 and 37 under strict ROM-only coverage (9 maps).",
+      "evidence": [
+        "tools/python/render_normal_map_family_from_setup.py",
+        "docs/analysis/dungeon_rom_setup_batch6_20260929.md",
+        "data/maps/rendered/dungeon_tileset_22/index.json",
+        "data/maps/rendered/dungeon_tileset_23/index.json",
+        "data/maps/rendered/dungeon_tileset_24/index.json",
+        "data/maps/rendered/dungeon_tileset_25/index.json",
+        "data/maps/rendered/dungeon_tileset_28/index.json",
+        "data/maps/rendered/dungeon_tileset_29/index.json",
+        "data/maps/rendered/dungeon_tileset_30/index.json",
+        "data/maps/rendered/dungeon_tileset_37/index.json"
+      ]
     }
   ],
   "observed_not_yet_promoted": [
@@ -434,26 +449,26 @@
     }
   ],
   "in_progress": [
-    "Resolve missing graphics regions for remaining normal-map families that currently fail strict CHR coverage, especially opcode-0x33-selected and inherited resources.",
-    "Handle mode-0x01 tilesets 2 and 3 through the Mode-7/world-style renderer rather than forcing the normal 4bpp path.",
-    "Keep the user-reported world-map forest/tree palette and transparency issue as a later renderer correction; dungeon reconstruction remains the active priority."
+    "Resolve inherited or otherwise missing setup resources for tilesets 5,32,42 and 58 without borrowing unrelated runtime CHR/palette.",
+    "Adapt the proven Mode-7 path for tilesets 2 and 3 mode-0x01 layouts.",
+    "Keep the user-reported world-map forest/tree palette and transparency issue for later cleanup after dungeon/special closure."
   ],
   "next_actions": [
     {
       "order": 1,
-      "action": "For remaining normal families (notably tilesets 5,22-30,32,37,58), model opcode 0x33 graphics descriptors and inherited setup state, then rerun strict CHR/palette coverage."
+      "action": "Trace inherited/setup graphics needed by tilesets 5,32 and 58 and rerun strict coverage."
     },
     {
       "order": 2,
-      "action": "Resolve tileset 42's inherited palette/setup context before rendering; do not invent a palette."
+      "action": "Resolve tileset 42's inherited palette/setup context before rendering."
     },
     {
       "order": 3,
-      "action": "Adapt the proven Mode-7 path for tilesets 2 and 3 mode-0x01 layouts and validate them independently."
+      "action": "Adapt the Mode-7/world renderer for tilesets 2 and 3 mode-0x01 layouts."
     },
     {
       "order": 4,
-      "action": "After remaining dungeon/special families are closed, return to the world-map forest/tree color and transparent-index handling issue."
+      "action": "Return to world-map forest/tree palette and transparent-index handling only after dungeon/special families are closed."
     }
   ],
   "do_not_redo": [
@@ -514,7 +529,8 @@
     "Do not use tileset-4 4bpp char_base 0x8000; that basis was disproven by the runtime VRAM contents and visual reconstruction. Use VRAM byte base 0x0000 for the corrected tileset-4 render batch.",
     "Do not classify DA:3800 as map-chip CHR; decoded samples are glyph/font-like.",
     "Do not classify CF:0000 as a CHR bitmap pointer table; its dominant structure is one parallel attribute byte per CE metatile.",
-    "Do not use nibble+1 as the dispatch-0 back-reference copy length. C0:BD28 effectively copies nibble+2 bytes, and that rule reproduces pack-0x50 graphics operands 04/05/06 byte-for-byte."
+    "Do not use nibble+1 as the dispatch-0 back-reference copy length. C0:BD28 effectively copies nibble+2 bytes, and that rule reproduces pack-0x50 graphics operands 04/05/06 byte-for-byte.",
+    "Do not treat opcode 0x33 as a normal descriptor-destination load. Its first two operands override the VRAM word destination while the final operand selects the graphics descriptor/source/size."
   ],
   "runtime_only_artifacts": [
     {
@@ -647,7 +663,16 @@
     "data/maps/rendered/dungeon_tileset_53/index.json",
     "data/maps/rendered/dungeon_tileset_54/index.json",
     "data/maps/rendered/dungeon_tileset_55/index.json",
-    "data/maps/rendered/dungeon_tileset_60/index.json"
+    "data/maps/rendered/dungeon_tileset_60/index.json",
+    "docs/analysis/dungeon_rom_setup_batch6_20260929.md",
+    "data/maps/rendered/dungeon_tileset_22/index.json",
+    "data/maps/rendered/dungeon_tileset_23/index.json",
+    "data/maps/rendered/dungeon_tileset_24/index.json",
+    "data/maps/rendered/dungeon_tileset_25/index.json",
+    "data/maps/rendered/dungeon_tileset_28/index.json",
+    "data/maps/rendered/dungeon_tileset_29/index.json",
+    "data/maps/rendered/dungeon_tileset_30/index.json",
+    "data/maps/rendered/dungeon_tileset_37/index.json"
   ],
   "chat_policy": {
     "narration": "minimal",

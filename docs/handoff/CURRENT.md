@@ -385,6 +385,20 @@ Enumerate opcode 0x50/0x51 map-selection commands through the bank-C4 record int
 4. adapt the Mode-7 path for tilesets `2/3`;
 5. then return to world-map palette/transparency cleanup.
 
+## Dungeon ROM reconstruction checkpoint — 2026-09-29 batch 6
+
+- Opcode `0x33` is now modeled: `33 <VRAM word low> <VRAM word high> <graphics descriptor>`.
+- `C4:8A5E` stores the explicit destination in `$0F/$10`; `B557` resolves the descriptor but restores that destination before the common transfer path.
+- Strict ROM-only coverage now passes for tilesets `22,23,24,25,28,29,30,37`, producing 9 additional maps.
+- Canonical batch-6 analysis: `docs/analysis/dungeon_rom_setup_batch6_20260929.md`.
+- Remaining immediate normal-map gaps are tilesets `5,32,42,58`; tilesets `2/3` stay on the Mode-7 path.
+
+### Batch-6 next actions
+
+1. resolve inherited/setup graphics for tilesets `5,32,58`;
+2. prove tileset `42` inherited palette/setup state;
+3. adapt Mode-7 reconstruction for tilesets `2/3`.
+
 ## Resume instruction
 
 On a short request such as **「続きを進めて」**:

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "kind": "normal_4bpp_map_family_render_index",
+  "tileset_id": 28,
+  "graphics_operands": [
+    13
+  ],
+  "graphics_overrides": [
+    {
+      "operand": 15,
+      "vram_word_addr": 4096
+    }
+  ],
+  "palette_operand": 25,
+  "map_count": 1,
+  "maps": [
+    {
+      "tileset_id": 28,
+      "layout_id": 136,
+      "render_mode": "normal_4bpp_rom_setup",
+      "transparent_color_index_zero": true,
+      "graphics_operands": [
+        13
+      ],
+      "graphics_overrides": [
+        {
+          "operand": 15,
+          "vram_word_addr": 4096
+        }
+      ],
+      "palette_operand": 25,
+      "state0_descriptor_index": 2,
+      "used_tile_ids": [
+        272,
+        456,
+        457,
+        458,
+        459,
+        460,
+        461,
+        462,
+        512,
+        513,
+        516,
+        517,
+        518,
+        519,
+        523,
+        524,
+        525,
+        526,
+        528,
+        529,
+        530,
+        531,
+        532,
+        533,
+        534,
+        535,
+        538,
+        539,
+        540,
+        541,
+        542,
+        547,
+        548,
+        549,
+        759,
+        760,
+        761,
+        762
+      ],
+      "used_palette_indices_nonzero": [
+        33,
+        73,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        106,
+        107
+      ],
+      "graphics_resource_coverage_complete": true,
+      "palette_resource_coverage_complete": true,
+      "config_ids": [
+        "cfg_t28_l136_v2"
+      ],
+      "pack_ids_hex": [
+        "0x77"
+      ],
+      "output_png": "map_136.png",
+      "output_png_sha256": "EFBD78C6DB9306784231FB3A359C50EDEEA2F7E6DD9E7B3F398F176E17078527"
+    }
+  ],
+  "policy": "Derived entirely from ROM; normal-BG color index 0 is transparent."
+}

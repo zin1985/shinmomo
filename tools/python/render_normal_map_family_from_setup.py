@@ -158,31 +158,48 @@ def decode_ring_lzss(rom: bytes, bank: int, addr: int, output_size: int) -> byte
     return bytes(out)
 
 
-def reconstruct_vram(rom: bytes, operands: list[int], descriptor_index: int):
+def decode_graphics_resource(rom: bytes, desc: dict, operand: int) -> bytes:
+    dispatch = desc["reader_dispatch_index"]
+    if dispatch == 0:
+        return decode_ring_lzss(
+            rom,
+            desc["source_bank"],
+            desc["source_addr"],
+            desc["output_size"],
+        )
+    if dispatch == 2:
+        return decode_context4(
+            rom,
+            desc["source_bank"],
+            desc["source_addr"],
+            desc["output_size"],
+        )
+    raise ValueError(
+        f"graphics operand {operand:#x}: unsupported reader dispatch {dispatch}"
+    )
+
+
+def reconstruct_vram(
+    rom: bytes,
+    operands: list[int],
+    descriptor_index: int,
+    overrides: list[tuple[int, int]] | None = None,
+):
     vram = bytearray(0x10000)
     resources = []
-    for operand in operands:
+    placements = [(operand, None) for operand in operands]
+    placements.extend((operand, word_addr) for operand, word_addr in (overrides or []))
+    for operand, override_word_addr in placements:
         desc = graphics_descriptor(rom, operand, descriptor_index)
-        dispatch = desc["reader_dispatch_index"]
-        if dispatch == 0:
-            decoded = decode_ring_lzss(
-                rom,
-                desc["source_bank"],
-                desc["source_addr"],
-                desc["output_size"],
-            )
-        elif dispatch == 2:
-            decoded = decode_context4(
-                rom,
-                desc["source_bank"],
-                desc["source_addr"],
-                desc["output_size"],
-            )
+        decoded = decode_graphics_resource(rom, desc, operand)
+        desc["descriptor_vram_word_addr"] = desc["vram_word_addr"]
+        desc["descriptor_vram_byte_addr"] = desc["vram_byte_addr"]
+        if override_word_addr is None:
+            desc["placement_source"] = "opcode10_descriptor_destination"
         else:
-            raise ValueError(
-                f"opcode10 operand {operand:#x}: unsupported reader dispatch "
-                f"{dispatch}"
-            )
+            desc["placement_source"] = "opcode33_explicit_destination"
+            desc["vram_word_addr"] = override_word_addr
+            desc["vram_byte_addr"] = override_word_addr * 2
         start = desc["vram_byte_addr"]
         end = start + len(decoded)
         if end > len(vram):
@@ -192,6 +209,18 @@ def reconstruct_vram(rom: bytes, operands: list[int], descriptor_index: int):
         desc["decoded_end_byte"] = end
         resources.append(desc)
     return bytes(vram), resources
+
+
+def parse_gfx_override(value: str) -> tuple[int, int]:
+    try:
+        operand_text, word_addr_text = value.split("@", 1)
+        return int(operand_text, 0), int(word_addr_text, 0)
+    except Exception as exc:
+        raise argparse.ArgumentTypeError(
+            "graphics override must be OPERAND@VRAM_WORD, e.g. 0x0F@0x1000"
+        ) from exc
+
+
 def palette_from_opcode11(rom: bytes, operand: int, descriptor_index: int):
     table = u16_cpu(rom, 0xC0, 0xB516 + descriptor_index * 2)
     entry_ptr = u16_cpu(rom, 0xC0, table + (operand - 1) * 2)
@@ -321,7 +350,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("rom", type=Path)
     ap.add_argument("--tileset-id", type=int, required=True)
-    ap.add_argument("--gfx-operand", type=lambda x: int(x, 0), action="append", required=True)
+    ap.add_argument("--gfx-operand", type=lambda x: int(x, 0), action="append", default=[])
+    ap.add_argument(
+        "--gfx-override",
+        type=parse_gfx_override,
+        action="append",
+        default=[],
+        help="opcode-0x33 resource as OPERAND@VRAM_WORD, e.g. 0x0F@0x1000",
+    )
     ap.add_argument("--palette-operand", type=lambda x: int(x, 0), required=True)
     ap.add_argument("--descriptor-index", type=int, default=2)
     ap.add_argument("--layout-id", type=int, action="append")
@@ -329,9 +365,15 @@ def main():
     ap.add_argument("--out-dir", type=Path, required=True)
     args = ap.parse_args()
 
+    if not args.gfx_operand and not args.gfx_override:
+        ap.error("at least one --gfx-operand or --gfx-override is required")
+
     rom = args.rom.read_bytes()
     vram, resources = reconstruct_vram(
-        rom, args.gfx_operand, args.descriptor_index
+        rom,
+        args.gfx_operand,
+        args.descriptor_index,
+        args.gfx_override,
     )
     palette, palette_meta = palette_from_opcode11(
         rom, args.palette_operand, args.descriptor_index
@@ -363,6 +405,10 @@ def main():
             "render_mode": "normal_4bpp_rom_setup",
             "transparent_color_index_zero": True,
             "graphics_operands": args.gfx_operand,
+            "graphics_overrides": [
+                {"operand": operand, "vram_word_addr": word_addr}
+                for operand, word_addr in args.gfx_override
+            ],
             "palette_operand": args.palette_operand,
             "state0_descriptor_index": args.descriptor_index,
             **coverage,
@@ -409,6 +455,10 @@ def main():
             "kind": "normal_4bpp_map_family_render_index",
             "tileset_id": args.tileset_id,
             "graphics_operands": args.gfx_operand,
+            "graphics_overrides": [
+                {"operand": operand, "vram_word_addr": word_addr}
+                for operand, word_addr in args.gfx_override
+            ],
             "palette_operand": args.palette_operand,
             "map_count": len(maps),
             "maps": maps,
