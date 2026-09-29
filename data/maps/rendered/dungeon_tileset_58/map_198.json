@@ -4,10 +4,16 @@
   "render_mode": "normal_4bpp_rom_setup",
   "transparent_color_index_zero": true,
   "graphics_operands": [
-    13,
-    27
+    27,
+    13
   ],
   "graphics_overrides": [],
+  "zero_fill_ranges": [
+    {
+      "start_byte": 0,
+      "end_byte_exclusive": 8192
+    }
+  ],
   "palette_operand": 55,
   "state0_descriptor_index": 2,
   "used_tile_ids": [

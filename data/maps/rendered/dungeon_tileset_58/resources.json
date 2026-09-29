@@ -5,22 +5,22 @@
   "state0_descriptor_index": 2,
   "graphics_resources": [
     {
-      "operand": 13,
-      "descriptor_addr": "C3:08B0",
-      "descriptor_raw": "00 20 00 20 02 e9 d3 12",
-      "vram_word_addr": 8192,
-      "vram_byte_addr": 16384,
+      "operand": null,
+      "descriptor_addr": null,
+      "descriptor_raw": null,
+      "vram_word_addr": 0,
+      "vram_byte_addr": 0,
       "output_size": 8192,
-      "source_bank": 211,
-      "source_addr": 59650,
-      "source": "D3:E902",
-      "reader_kind": 2,
-      "reader_dispatch_index": 2,
-      "descriptor_vram_word_addr": 8192,
-      "descriptor_vram_byte_addr": 16384,
-      "placement_source": "opcode10_descriptor_destination",
-      "decoded_sha256": "1FA0B969901B3CB85FBDB69429E661E72CDC2F7682DBF271C3C31565BB384735",
-      "decoded_end_byte": 24576
+      "source_bank": null,
+      "source_addr": null,
+      "source": null,
+      "reader_kind": null,
+      "reader_dispatch_index": null,
+      "descriptor_vram_word_addr": null,
+      "descriptor_vram_byte_addr": null,
+      "placement_source": "proven_transition_zero_fill",
+      "decoded_sha256": "9F1DCBC35C350D6027F98BE0F5C8B43B42CA52B7604459C0C42BE3AA88913D47",
+      "decoded_end_byte": 8192
     },
     {
       "operand": 27,
@@ -39,6 +39,30 @@
       "placement_source": "opcode10_descriptor_destination",
       "decoded_sha256": "8024A4328BB018937314568A582D65504BE9A92D8EEAE6889BA905479087261F",
       "decoded_end_byte": 15168
+    },
+    {
+      "operand": 13,
+      "descriptor_addr": "C3:08B0",
+      "descriptor_raw": "00 20 00 20 02 e9 d3 12",
+      "vram_word_addr": 8192,
+      "vram_byte_addr": 16384,
+      "output_size": 8192,
+      "source_bank": 211,
+      "source_addr": 59650,
+      "source": "D3:E902",
+      "reader_kind": 2,
+      "reader_dispatch_index": 2,
+      "descriptor_vram_word_addr": 8192,
+      "descriptor_vram_byte_addr": 16384,
+      "placement_source": "opcode10_descriptor_destination",
+      "decoded_sha256": "1FA0B969901B3CB85FBDB69429E661E72CDC2F7682DBF271C3C31565BB384735",
+      "decoded_end_byte": 24576
+    }
+  ],
+  "zero_fill_ranges": [
+    {
+      "start_byte": 0,
+      "end_byte_exclusive": 8192
     }
   ],
   "palette_resource": {

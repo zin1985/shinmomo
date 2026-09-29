@@ -221,6 +221,55 @@ def parse_gfx_override(value: str) -> tuple[int, int]:
         ) from exc
 
 
+def parse_zero_fill_range(value: str) -> tuple[int, int]:
+    try:
+        start_text, end_text = value.split(":", 1)
+        start = int(start_text, 0)
+        end = int(end_text, 0)
+        if start < 0 or end <= start or end > 0x10000:
+            raise ValueError("range outside VRAM")
+        return start, end
+    except Exception as exc:
+        raise argparse.ArgumentTypeError(
+            "zero-fill range must be BYTE_START:BYTE_END, e.g. 0x0000:0x2000"
+        ) from exc
+
+
+def apply_zero_fill_resources(
+    vram: bytes,
+    resources: list[dict],
+    ranges: list[tuple[int, int]],
+) -> tuple[bytes, list[dict]]:
+    """Add provenance for VRAM ranges proven zero before map-specific loads.
+
+    reconstruct_vram() already starts from zero-filled VRAM and then applies the
+    explicit map graphics resources.  Therefore the final bytes already model
+    the correct runtime ordering.  This helper adds the transition zero-fill
+    ranges to the coverage ledger without overwriting later map graphics.
+    """
+    zero_resources = []
+    for start, end in ranges:
+        zero_resources.append({
+            "operand": None,
+            "descriptor_addr": None,
+            "descriptor_raw": None,
+            "vram_word_addr": start // 2,
+            "vram_byte_addr": start,
+            "output_size": end - start,
+            "source_bank": None,
+            "source_addr": None,
+            "source": None,
+            "reader_kind": None,
+            "reader_dispatch_index": None,
+            "descriptor_vram_word_addr": None,
+            "descriptor_vram_byte_addr": None,
+            "placement_source": "proven_transition_zero_fill",
+            "decoded_sha256": sha256_bytes(bytes(end - start)),
+            "decoded_end_byte": end,
+        })
+    return vram, zero_resources + resources
+
+
 def palette_from_opcode11(rom: bytes, operand: int, descriptor_index: int):
     table = u16_cpu(rom, 0xC0, 0xB516 + descriptor_index * 2)
     entry_ptr = u16_cpu(rom, 0xC0, table + (operand - 1) * 2)
@@ -358,6 +407,16 @@ def main():
         default=[],
         help="opcode-0x33 resource as OPERAND@VRAM_WORD, e.g. 0x0F@0x1000",
     )
+    ap.add_argument(
+        "--zero-fill-range",
+        type=parse_zero_fill_range,
+        action="append",
+        default=[],
+        help=(
+            "VRAM byte range proven zero before map graphics loads, "
+            "e.g. 0x0000:0x2000"
+        ),
+    )
     ap.add_argument("--palette-operand", type=lambda x: int(x, 0), required=True)
     ap.add_argument("--descriptor-index", type=int, default=2)
     ap.add_argument("--layout-id", type=int, action="append")
@@ -374,6 +433,11 @@ def main():
         args.gfx_operand,
         args.descriptor_index,
         args.gfx_override,
+    )
+    vram, resources = apply_zero_fill_resources(
+        vram,
+        resources,
+        args.zero_fill_range,
     )
     palette, palette_meta = palette_from_opcode11(
         rom, args.palette_operand, args.descriptor_index
@@ -409,6 +473,10 @@ def main():
                 {"operand": operand, "vram_word_addr": word_addr}
                 for operand, word_addr in args.gfx_override
             ],
+            "zero_fill_ranges": [
+                {"start_byte": start, "end_byte_exclusive": end}
+                for start, end in args.zero_fill_range
+            ],
             "palette_operand": args.palette_operand,
             "state0_descriptor_index": args.descriptor_index,
             **coverage,
@@ -435,6 +503,10 @@ def main():
         "tileset_id": args.tileset_id,
         "state0_descriptor_index": args.descriptor_index,
         "graphics_resources": resources,
+        "zero_fill_ranges": [
+            {"start_byte": start, "end_byte_exclusive": end}
+            for start, end in args.zero_fill_range
+        ],
         "palette_resource": palette_meta,
     }
     (args.out_dir / "resources.json").write_text(
@@ -458,6 +530,10 @@ def main():
             "graphics_overrides": [
                 {"operand": operand, "vram_word_addr": word_addr}
                 for operand, word_addr in args.gfx_override
+            ],
+            "zero_fill_ranges": [
+                {"start_byte": start, "end_byte_exclusive": end}
+                for start, end in args.zero_fill_range
             ],
             "palette_operand": args.palette_operand,
             "map_count": len(maps),
