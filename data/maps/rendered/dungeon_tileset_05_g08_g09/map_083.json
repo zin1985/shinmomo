@@ -1,0 +1,54 @@
+{
+  "tileset_id": 5,
+  "layout_id": 83,
+  "render_mode": "normal_4bpp_rom_setup",
+  "transparent_color_index_zero": true,
+  "graphics_operands": [
+    8,
+    9
+  ],
+  "graphics_overrides": [],
+  "palette_operand": 8,
+  "state0_descriptor_index": 2,
+  "used_tile_ids": [
+    257,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286
+  ],
+  "used_palette_indices_nonzero": [
+    49,
+    50,
+    51,
+    53,
+    54,
+    56,
+    57,
+    58,
+    60,
+    61,
+    62,
+    63,
+    71,
+    79
+  ],
+  "graphics_resource_coverage_complete": true,
+  "palette_resource_coverage_complete": true,
+  "config_ids": [
+    "cfg_t05_l083_v2"
+  ],
+  "pack_ids_hex": [
+    "0xCD"
+  ],
+  "output_png": "map_083.png",
+  "output_png_sha256": "E7624BE153AC9C634B6D325C0CAFCBEBC381E05EE1F3515247BDE4A3E3DD58BC"
+}
