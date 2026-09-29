@@ -1,65 +1,81 @@
-# World Mode-7 map reconstruction 2026-09-29
+# Mode-7 world reconstruction — 2026-09-29
 
-## Runtime identity
+## Canonical result
 
-Walking south out of the runtime-bound 旅立ちの村 sample produced:
+Tileset 1 world layouts are rendered at:
 
-- source: pack `0x50`, tileset 4, layout 8, variant 2
-- transition pack: `0x4C`
-- after selector installation: tileset 1, layout 1, variant 1
-- layout 1 header: mode `0x01`, 16x16 chunks, 256 cells
+```text
+data/maps/rendered/world_mode7_tileset_01/
+```
 
-This is the first direct runtime binding of the large mode-0x01 map family to the
-world-map transition from 旅立ちの村.
-## Alternate map expansion format
+Outputs:
 
-`C0:D19E` branches on `$113C`, which is loaded from the layout header low nibble.
-
-Normal maps use `C0:D1B2`:
-
-- combine the metatile ID,
-- multiply it by 8,
-- read four 16-bit SNES tilemap entries.
-
-Mode-0x01 world layouts use `C0:D1F3` instead:
-
-- mask the staged ID to 8 bits,
-- multiply the ID by 4,
-- read four single-byte entries with `C0:D225`.
-
-For tileset 1, `CE:2100..CE:23FF` is 768 bytes, exactly 192 definitions of
-4 bytes each. Layout 1's maximum ID is 191, which closes the format boundary exactly.
-## Mode-7 VRAM proof
-
-The runtime world capture has coherent 8-bit graphics when VRAM is interpreted using
-the SNES Mode-7 interleaving:
-
-- even byte of each VRAM word: tilemap-side data
-- odd byte of each VRAM word: 8-bit tile pixel data
-
-The odd-byte stream yields exactly 256 x 64 pixel bytes, i.e. 256 8x8 tiles.
-Applying the WRAM `$7E:21C2..$23C1` palette staging image produces coherent terrain
-tiles including mountains, roads, caves, bridges, snow, vegetation and structures.
-
-The renderer therefore expands each world definition as four 8-bit tile IDs in
-TL, TR, BL, BR order.
-## Canonical outputs
-
-Reproducible renderer:
-
-- `tools/python/render_world_mode7_maps.py`
-
-Derived outputs:
-
-- `data/maps/rendered/world_mode7_tileset_01/map_001.png`
-- `data/maps/rendered/world_mode7_tileset_01/map_002.png`
+- `map_001.png` — 4096 x 4096
+- `map_002.png` — 4096 x 4096
 - same-ID JSON metadata
-- `data/maps/rendered/world_mode7_tileset_01/index.json`
-- `data/maps/rendered/world_mode7_tileset_01/palette.json`
+- ROM resource metadata and palette files
+- `index.json`
 
-Both maps render at 4096x4096 pixels.
+## Layout format
 
-`map_001` forms a coherent full world map. `map_002` is a sparse alternate map using
-the same world tileset; its semantic role remains intentionally unresolved.
+Mode-0x01 layouts use 4 bytes per CE definition.  Each definition expands to a
+2x2 group of Mode-7 8x8 tile IDs:
 
-Raw ROM, VRAM and WRAM capture bytes remain local-only.
+```text
+byte0 byte1
+byte2 byte3
+```
+
+The four tile IDs therefore produce one 16x16 map cell.
+
+## ROM graphics and palette setup
+
+Tileset 1 graphics are loaded by opcode `10 01`.
+
+Canonical palette setup is layout-specific:
+
+- layout 1: opcode `11 01`
+- layout 2: opcode `11 02`
+
+A separate layout-1 state using `11 03` exists in pack 0xED and is retained as
+an alternate visual-state lead rather than being mixed into the canonical map.
+
+## EXTBG correction
+
+The initial reconstruction correctly recovered geometry and raw Mode-7 pixel
+bytes, but treated pixel bit 7 as part of an 8-bit CGRAM index.  Runtime state
+shows that EXTBG is enabled:
+
+```text
+TM     = 0x03  (BG1 + BG2)
+TS     = 0x00
+CGADSUB= 0x23
+SETINI = 0x40  (EXTBG)
+```
+
+With EXTBG, BG2 interprets pixel bit 7 as priority and uses the lower seven bits
+as its visible color index.  Re-rendering with this rule removes the magenta and
+other false colors that were most visible in forests, trees and mountain detail.
+
+No recovered TS1 layout uses raw pixel 0x80, so the visible-background
+interpretation is unambiguous for the current world maps.
+
+The renderer is now ROM-only:
+
+```text
+tools/python/render_mode7_map_family_from_setup.py
+```
+
+and does not require captured VRAM/CGRAM as source data.
+
+## Transparency
+
+Raw pixel 0 is exported as alpha-transparent.  In the currently recovered TS1
+layouts the graphics do not use raw index 0, so this mainly defines the correct
+renderer behavior for future Mode-7 resources rather than changing large areas
+of the present maps.
+
+## Provenance
+
+Raw ROM and emulator capture bytes remain local-only.  Runtime captures are used
+only as validation evidence, not as committed rendering inputs.

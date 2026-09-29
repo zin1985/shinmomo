@@ -1,66 +1,53 @@
-# ROM-derived Mode-7 map reconstruction — 2026-09-29
+# ROM-derived Mode-7 / EXTBG map reconstruction — 2026-09-29
 
 ## Result
 
-The remaining mode-0x01 map families are now renderable from ROM resources.
+All recovered mode-0x01 map families now render from ROM setup resources with
+the SNES Mode-7 EXTBG priority semantics applied.
 
-New outputs:
+Canonical outputs:
 
-- tileset 2 / layout 3
-- tileset 2 / layout 4
-- tileset 3 / layout 5
+- tileset 1 / layout 1 and 2:
+  `data/maps/rendered/world_mode7_tileset_01/`
+- tileset 2 / layout 3 and 4:
+  `data/maps/rendered/mode7_tileset_02/`
+- tileset 3 / layout 5:
+  `data/maps/rendered/mode7_tileset_03/`
 
-Canonical directories:
-
-- `data/maps/rendered/mode7_tileset_02/`
-- `data/maps/rendered/mode7_tileset_03/`
-
-The renderer is:
+Renderer:
 
 - `tools/python/render_mode7_map_family_from_setup.py`
 
-It does not require a runtime VRAM or WRAM/CGRAM capture as input.
+Runtime VRAM/CGRAM is not required as rendering input.
 
-## Explicit selector setup
+## ROM setup
 
-Tileset 2 uses:
-
-```text
-10 02
-11 04
-50 02 03 01
-```
-
-with the alternate layout-4 selector in the same family.
-
-Tileset 3 uses:
+Observed selector setup:
 
 ```text
-10 03
-11 05
-50 03 05 01
+TS1 layout 1: 10 01 / 11 01 / 50 01 01 01
+TS1 layout 2: 10 01 / 11 02 / 50 01 02 01
+TS2:          10 02 / 11 04 / 50 02 ...
+TS3:          10 03 / 11 05 / 50 03 05 01
 ```
 
-Thus:
+Tileset 1 also has a special layout-1 state using palette operand `11 03`;
+that is an alternate visual state and is not used for the canonical normal
+layout-1 image.
 
-- tileset 2 graphics resource = opcode `10 02`;
-- tileset 2 low/mid palette resource = opcode `11 04`;
-- tileset 3 graphics resource = opcode `10 03`;
-- tileset 3 low/mid palette resource = opcode `11 05`.
+## Graphics proof
 
-## Mode-7 graphics proof
+The established tileset-1 runtime capture provides a byte-level oracle.
 
-The already-bound tileset-1 world map provides a runtime oracle.
-
-Tileset 1 uses graphics operand `10 01`.
-ROM decoding produces 16384 bytes.
-
-The Mode-7 runtime VRAM graphics plane is the odd byte of each VRAM word.
-Comparing the decoded ROM resource with that runtime plane gives:
+ROM decoding of opcode `10 01` yields 16384 bytes.  Mode-7 stores its chunky
+8-bit pixel stream in the odd byte of each VRAM word.  The decoded ROM resource
+is:
 
 ```text
 16384 / 16384 bytes identical
 ```
+
+to the captured runtime pixel plane.
 
 SHA-256 on both sides:
 
@@ -68,123 +55,97 @@ SHA-256 on both sides:
 5521AEB3F5990961D9510CF88FF671A180D2555EF762E451912E3EC54B303ECE
 ```
 
-This directly validates that the opcode-0x10 resource decoder produces the
-Mode-7 8-bit tile-pixel stream without requiring runtime VRAM as rendering input.
+## Palette proof
 
-## Opcode-0x11 palette proof
+For normal tileset-1 layout 1, opcode `11 01` provides CGRAM indices
+`0x20..0x7F`.
 
-For tileset-1 layout 1, opcode `11 01` loads CGRAM indices `0x20..0x7F`.
-
-The ROM-derived 192 payload bytes are:
+Its 192 ROM payload bytes are:
 
 ```text
 192 / 192 bytes identical
 ```
 
-to the corresponding validated runtime WRAM/CGRAM staging capture.
+to the matching runtime WRAM/CGRAM staging bytes.
 
-SHA-256 on both sides:
+SHA-256:
 
 ```text
 17A06D5A727CF0B2028A53032AD5FC0CE369AA0E930FE998371095F05AD4B284
 ```
 
-## Common high-CGRAM profile
+## EXTBG correction
 
-Mode-7 graphics also reference CGRAM indices above the immediate opcode-0x11
-range.  The validated tileset-1 runtime high half (`0x80..0xFF`) is exactly
-reconstructable from four ROM-resident segments:
+The first world-map renderer treated each 8-bit Mode-7 pixel as a direct
+0x00..0xFF CGRAM index.  That reproduced the captured raw VRAM/CGRAM inputs but
+was not the final visible-layer interpretation used by the PPU.
 
-| CGRAM range | ROM source | bytes |
-|---|---|---:|
-| 0x80..0x9F | C0:4A8D | 64 |
-| 0xA0..0xAF | C0:1DBF | 32 |
-| 0xB0..0xC7 | C0:26D9 | 48 |
-| 0xC8..0xFF | CA:C4EB | 112 |
-
-Combined high-half SHA-256:
+The runtime PPU mirror state proves EXTBG:
 
 ```text
-87F72E94BCC2A789E67E2EA53381B00B1A53D93C0B09F64149E2A8D8C4784966
+WRAM $0379 = 0x03  -> TM: BG1 + BG2 on main screen
+WRAM $037A = 0x00  -> TS: no BG layer on subscreen
+WRAM $037E = 0x23  -> color math enabled for BG1/BG2/backdrop
+WRAM $0382 = 0x40  -> SETINI bit 6: EXTBG enabled
+CGRAM 0x00 = 0x0000 -> black backdrop
 ```
 
-The combined 256 bytes are 256/256 byte-identical to the validated tileset-1
-runtime CGRAM high half.
+The NMI/display register writer at `C0:F38A..` copies these mirrors to
+`$212C/$212D/$2131/$2133`.
 
-The exact runtime loader path for these four common high-CGRAM segments is not
-yet fully traced.  Therefore tileset-2/3 color provenance is recorded honestly
-as:
+In Mode-7 EXTBG, BG2 uses the same pixel stream but interprets bit 7 as its
+priority flag.  For raw pixels `0x81..0xFF`, BG2 is visible above BG1 and
+uses `raw & 0x7F` as its color index.
+
+For every recovered TS1/TS2/TS3 layout:
+
+- raw `0x80` occurs zero times;
+- after applying EXTBG priority semantics, every visible color index is covered
+  by that layout's explicit opcode-0x11 palette resource.
+
+Therefore the static visible-background rule used by the renderer is:
 
 ```text
-common Mode-7 high-palette profile,
-runtime-validated on tileset 1,
-applied to the same Mode-7 render path for tilesets 2/3
+raw 0x00       -> transparent/backdrop
+raw 0x01..0x7F -> CGRAM[raw]
+raw 0x81..0xFF -> CGRAM[raw & 0x7F]
+raw 0x80       -> fail closed (not present in recovered layouts)
 ```
 
-No alternate high-half profile has yet been proven for tilesets 2 or 3.
+This removes the false magenta/high-palette colors that previously appeared in
+forest, mountain and tree features.
 
-## Full tileset-1 regression
+Because the runtime backdrop is black and the subscreen has no BG layer, the
+observed additive color-math state does not alter these background colors.
 
-Rendering tileset 1 / layout 1 entirely from:
+## Palette coverage after EXTBG
 
-- ROM opcode `10 01`,
-- ROM opcode `11 01`,
-- the ROM common high-CGRAM profile,
+Visible indices are completely covered by the immediate setup palette:
 
-reproduces the existing validated `world_mode7_tileset_01/map_001.png`
-pixel-for-pixel.
+- TS1 layout 1 / `11 01`: complete
+- TS1 layout 2 / `11 02`: complete
+- TS2 layouts 3/4 / `11 04`: complete
+- TS3 layout 5 / `11 05`: complete
 
-Both PNG SHA-256 values are:
+The previously identified high-CGRAM ROM byte sequences remain useful runtime
+data, but they are not required to color the visible EXTBG map background.
 
-```text
-90A66997632F88F46B4F2D300091EC43835FC84938D7F275C749A9AEFFE8ACA1
-```
+## Output dimensions
 
-This closes the dependency on runtime VRAM/CGRAM for reproducing the established
-tileset-1 image.
+- TS1 map 001: 4096 x 4096
+- TS1 map 002: 4096 x 4096
+- TS2 map 003: 2048 x 2048
+- TS2 map 004: 2048 x 2048
+- TS3 map 005: 4096 x 4096
 
-## Transparency
+Outputs are RGBA PNGs.  Raw color index 0 is represented with alpha 0.
 
-The new Mode-7 family renderer exports RGBA PNGs and treats Mode-7 color index 0
-as transparent.
+## Status
 
-This differs deliberately from the original tileset-1 RGB exporter, which
-painted index 0 as an opaque RGB value.  It addresses the previously observed
-transparent-color artifacts in standalone map images.
+Every recovered map-configuration family now has a ROM-derived rendering path.
 
-Black regions remaining in layout 5 after this change are generated by
-non-zero color indices, not by transparent index 0.
+Remaining map-output work is refinement:
 
-## Outputs
-
-Tileset 2:
-
-- `map_003.png` — 2048x2048 RGBA
-- `map_004.png` — 2048x2048 RGBA
-
-Tileset 3:
-
-- `map_005.png` — 4096x4096 RGBA
-
-Each directory also contains:
-
-- same-ID JSON metadata;
-- `resources.json`;
-- `palette.json`;
-- `index.json`.
-
-## Status after this batch
-
-Every tileset currently present in the recovered map-configuration index now has
-a map-rendering path:
-
-- normal 4bpp families: tilesets 4..60 as applicable;
-- Mode-7 families: tilesets 1, 2 and 3.
-
-The remaining map-output work is quality/provenance refinement rather than an
-unrendered configuration family:
-
-1. trace the common high-CGRAM loader path;
-2. regenerate tileset-1 world images with alpha-zero semantics;
-3. investigate the user's reported forest/tree color anomalies in the world map;
-4. continue semantic place-name/event binding without changing recovered geometry.
+1. bind alternate visual/palette states such as TS1 layout1 + `11 03`;
+2. attach human-facing location names using event/dialogue/warp evidence;
+3. preserve runtime-only effects separately from canonical geometry images.
