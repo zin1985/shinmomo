@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_logical_entity_observation",
+  "frame": 8130,
+  "map_selector": {
+    "pack_id": 76,
+    "variant": 1,
+    "tileset_id": 1,
+    "layout_id": 1
+  },
+  "config_id": "cfg_t01_l001_v1",
+  "logical_object_ids": [
+    1,
+    13
+  ],
+  "logical_object_list_wram": "$1569[0..9]",
+  "semantic_classification": null,
+  "coordinates": null,
+  "sprite_binding": null,
+  "confidence": "confirmed_runtime_presence",
+  "raw_capture_committed": false
+}

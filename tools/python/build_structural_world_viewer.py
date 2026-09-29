@@ -123,6 +123,30 @@ def main():
                 "binding_status": "asset_only_unbound_to_map_entity",
             })
 
+    entities = []
+    entity_dir = ROOT / "data/entities"
+    if entity_dir.exists():
+        for path in sorted(entity_dir.glob("runtime_entity_observation_*.json")):
+            doc = json.loads(path.read_text(encoding="utf-8"))
+            if doc.get("kind") != "runtime_logical_entity_observation":
+                continue
+            for object_id in doc.get("logical_object_ids", []):
+                entity = {
+                    "entity_id": f"{path.stem}_obj{object_id:02X}",
+                    "map_config_id": doc["config_id"],
+                    "logical_object_id": object_id,
+                    "entity_type": doc.get("semantic_classification"),
+                    "x": None,
+                    "y": None,
+                    "sprite_group": None,
+                    "event_refs": [],
+                    "confidence": doc["confidence"],
+                    "provenance": str(path.relative_to(ROOT)).replace("\\", "/"),
+                }
+                entities.append(entity)
+                if doc["config_id"] in maps:
+                    maps[doc["config_id"]]["entities"].append(entity["entity_id"])
+
     world = {
         "schema_version": 1,
         "kind": "shinmomo_structural_world",
@@ -134,7 +158,7 @@ def main():
         "transitions": transitions,
         "events": events,
         "sprite_groups": sprite_groups,
-        "entities": [],
+        "entities": entities,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(world, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
