@@ -1,0 +1,66 @@
+{
+  "tileset_id": 58,
+  "layout_id": 198,
+  "render_mode": "normal_4bpp_rom_setup",
+  "transparent_color_index_zero": true,
+  "graphics_operands": [
+    13,
+    27
+  ],
+  "graphics_overrides": [],
+  "palette_operand": 55,
+  "state0_descriptor_index": 2,
+  "used_tile_ids": [
+    256,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318
+  ],
+  "used_palette_indices_nonzero": [
+    33,
+    34,
+    35,
+    37,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44
+  ],
+  "graphics_resource_coverage_complete": true,
+  "palette_resource_coverage_complete": true,
+  "config_ids": [
+    "cfg_t58_l198_v1"
+  ],
+  "pack_ids_hex": [
+    "0xE3"
+  ],
+  "output_png": "map_198.png",
+  "output_png_sha256": "CCCD04100D3A8284747177CEC56C0682C2A54E29997ED7627549E6D917F54641"
+}
