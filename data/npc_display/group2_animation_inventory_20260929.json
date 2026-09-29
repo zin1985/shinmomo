@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "group": 2,
+  "state_count": 229,
+  "unique_sequence_count": 124,
+  "sets": [
+    {"states":[1,2,3,4],"kind":"momotaro_normal_walk","frames":[[1,2],[3,4],[5,6],[7,8]],"durations":[32,32]},
+    {"states":[5,6,7,8],"kind":"alternate_four_direction_two_frame_set","frames":[[9,10],[11,12],[13,14],[15,16]],"durations":[32,32]},
+    {"states":[9],"kind":"fixed_special_pose","frames":[17],"durations":[255]},
+    {"states":[10],"kind":"special_sequence","frames":[18,19,20,21,22],"durations":[5,5,5,5,255]},
+    {"states":[11],"kind":"special_sequence","frames":[23,24,25,26,26],"durations":[5,6,7,8,255]},
+    {"states":[12],"kind":"special_sequence","frames":[27,28,27,28,27,29,30,27,28,27,28],"durations":[13,10,8,4,2,16,16,16,32,48,64]},
+    {"states":[14,15,16,17],"kind":"ginji_normal_walk","frames":[[31,32],[22,33],[6,5],[34,35]],"durations":[32,32]}
+  ],
+  "notes": [
+    "Semantic names for states 5-12 are intentionally conservative until runtime event binding is observed.",
+    "Group 2 contains many repeated directional families and longer event-oriented sequences."
+  ]
+}
