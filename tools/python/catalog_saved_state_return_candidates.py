@@ -151,6 +151,46 @@ def main() -> None:
     for row in rows:
         by_pack[row["script_pack"]] += 1
 
+    event_linked_rows = [r for r in rows if r["event_record"]]
+    event_linked_candidate = None
+    if len(event_linked_rows) == 1:
+        r = event_linked_rows[0]
+        event_linked_candidate = {
+            "script_pack": r["script_pack"],
+            "script_record": int(r["script_record"]),
+            "script_entry": r["script_entry"],
+            "trigger_addr": r["trigger_addr"],
+            "event_record": r["event_record"],
+            "event_sources": r["event_sources"],
+            "entry_boundary_status": "exact_parsed_entry",
+        }
+
+    runtime_evidence_path = (
+        root / "data/maps/transitions/tabidachi_village_to_world_pack4c_restore_20260929.json"
+    )
+    runtime_evidence = json.loads(runtime_evidence_path.read_text(encoding="utf-8-sig"))
+    runtime_dp = runtime_evidence.get("trigger", {}).get("dp_pointer_before", "")
+    runtime_context = {
+        "dp_pointer": runtime_dp,
+        "containing_script_pack": "",
+        "containing_record": "",
+        "terminal_opcode54_count_in_containing_pack": 0,
+    }
+    if runtime_dp:
+        dp_off = cpu_to_file(runtime_dp)
+        for pack_id in range(cms.FIRST_REAL_PACK, cms.LAST_REAL_PACK + 1):
+            pack = cms.parse_pack(rom, pack_id)
+            if not pack:
+                continue
+            for record in pack["records"]:
+                if record["start"] <= dp_off < record["end"]:
+                    pack_hex = hx(pack_id)
+                    runtime_context["containing_script_pack"] = pack_hex
+                    runtime_context["containing_record"] = record["record_index"]
+                    runtime_context["terminal_opcode54_count_in_containing_pack"] = by_pack.get(
+                        pack_hex, 0
+                    )
+
     summary = {
         "schema_version": 1,
         "kind": "saved_state_return_candidate_catalog",
@@ -162,6 +202,7 @@ def main() -> None:
         "script_pack_counts": dict(sorted(by_pack.items())),
         "event_record_crosslink_count": sum(bool(r["event_record"]) for r in rows),
         "event_source_crosslink_count": sum(bool(r["event_sources"]) for r in rows),
+        "event_linked_candidate": event_linked_candidate,
         "handler_chain": {
             "opcode_0x54": "C4:8B4F",
             "transition_request_helper": "C1:895A",
@@ -174,10 +215,12 @@ def main() -> None:
             "edge": "0x50 -> 0x4C",
             "relation_status": "confirmed_runtime_transition",
             "static_opcode54_match": None,
+            "runtime_dp_context": runtime_context,
             "note": (
                 "The runtime edge behavior is compatible with saved-state restore, "
-                "but the execution PC was not captured and no exact 0x54 row is "
-                "promoted to confirmed."
+                "but the execution PC was not captured. The captured DP pointer is "
+                "mapped only to its containing script pack/record and must not be "
+                "treated as the executing opcode address."
             ),
         },
         "unresolved": [
@@ -191,9 +234,13 @@ def main() -> None:
         encoding="utf-8",
     )
 
+    runtime_pack = runtime_context["containing_script_pack"] or "(unresolved)"
+    runtime_record = runtime_context["containing_record"]
+    runtime_pack_54_count = runtime_context["terminal_opcode54_count_in_containing_pack"]
+
     doc = f"""# Saved-state map return candidate catalog
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 This catalog covers VM opcode 0x54 separately from explicit-destination
 opcodes 0x53/0x55/0x56.
@@ -221,6 +268,11 @@ Unique script packs: **{len(by_pack)}**
 Event-record crosslinks: **{sum(bool(r['event_record']) for r in rows)}**
 Event-source crosslinks: **{sum(bool(r['event_sources']) for r in rows)}**
 
+The sole event-frame crosslink is pack 0xF9 / record 10 / entry 0x89 at
+CE:1314, whose complete parsed body is exactly 54 B0. It belongs to structural
+event frame FF9-L009. No event-source crosslink is currently available for
+that frame, so its game-facing caller/source remains unresolved.
+
 Source map/config and destination fields stay blank unless independently
 proven. In particular, script pack must not be treated as source map pack.
 
@@ -230,6 +282,14 @@ The existing 2026-09-29 runtime evidence confirms 旅立ちの村 / pack 0x50
 returning to world map pack 0x4C at coordinate (54,237). That behavior is
 compatible with saved-map-state restore, but the execution PC was not captured.
 No individual 0x54 candidate is therefore marked confirmed.
+
+The captured DP context before the reverse transition is **{runtime_dp}**.
+Static pack-range mapping places that pointer inside script pack
+**{runtime_pack} / record {runtime_record}**. That script pack contains
+**{runtime_pack_54_count}** exact terminal 54 B0 candidates. This is negative
+evidence against simply treating the captured DP pointer as the executing 0x54
+stream. It also reinforces the rule that runtime map pack, script pack, and
+controller/context pointer are separate layers.
 
 ## Outputs
 

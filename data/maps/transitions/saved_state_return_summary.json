@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "saved_state_return_candidate_catalog",
-  "generated_against_git_head": "dd87624d58ebea065d54ae8af2ed63ad425d22f8",
+  "generated_against_git_head": "944e26e14ac6c232ef3c40b601f4046c6b04e5cf",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
   "candidate_count": 51,
   "confidence": "strong_candidate",
@@ -51,6 +51,15 @@
   },
   "event_record_crosslink_count": 1,
   "event_source_crosslink_count": 0,
+  "event_linked_candidate": {
+    "script_pack": "0xF9",
+    "script_record": 10,
+    "script_entry": "0x89",
+    "trigger_addr": "CE:1314",
+    "event_record": "FF9-L009",
+    "event_sources": "",
+    "entry_boundary_status": "exact_parsed_entry"
+  },
   "handler_chain": {
     "opcode_0x54": "C4:8B4F",
     "transition_request_helper": "C1:895A",
@@ -63,7 +72,13 @@
     "edge": "0x50 -> 0x4C",
     "relation_status": "confirmed_runtime_transition",
     "static_opcode54_match": null,
-    "note": "The runtime edge behavior is compatible with saved-state restore, but the execution PC was not captured and no exact 0x54 row is promoted to confirmed."
+    "runtime_dp_context": {
+      "dp_pointer": "CD:FA4F",
+      "containing_script_pack": "0xF1",
+      "containing_record": 1,
+      "terminal_opcode54_count_in_containing_pack": 0
+    },
+    "note": "The runtime edge behavior is compatible with saved-state restore, but the execution PC was not captured. The captured DP pointer is mapped only to its containing script pack/record and must not be treated as the executing opcode address."
   },
   "unresolved": [
     "source map/config cannot be inferred from script_pack",

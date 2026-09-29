@@ -1,6 +1,6 @@
 # Saved-state map return candidate catalog
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 This catalog covers VM opcode 0x54 separately from explicit-destination
 opcodes 0x53/0x55/0x56.
@@ -28,6 +28,11 @@ Unique script packs: **41**
 Event-record crosslinks: **1**
 Event-source crosslinks: **0**
 
+The sole event-frame crosslink is pack 0xF9 / record 10 / entry 0x89 at
+CE:1314, whose complete parsed body is exactly 54 B0. It belongs to structural
+event frame FF9-L009. No event-source crosslink is currently available for
+that frame, so its game-facing caller/source remains unresolved.
+
 Source map/config and destination fields stay blank unless independently
 proven. In particular, script pack must not be treated as source map pack.
 
@@ -37,6 +42,14 @@ The existing 2026-09-29 runtime evidence confirms 旅立ちの村 / pack 0x50
 returning to world map pack 0x4C at coordinate (54,237). That behavior is
 compatible with saved-map-state restore, but the execution PC was not captured.
 No individual 0x54 candidate is therefore marked confirmed.
+
+The captured DP context before the reverse transition is **CD:FA4F**.
+Static pack-range mapping places that pointer inside script pack
+**0xF1 / record 1**. That script pack contains
+**0** exact terminal 54 B0 candidates. This is negative
+evidence against simply treating the captured DP pointer as the executing 0x54
+stream. It also reinforces the rule that runtime map pack, script pack, and
+controller/context pointer are separate layers.
 
 ## Outputs
 

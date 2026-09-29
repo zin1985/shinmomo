@@ -282,6 +282,7 @@ def main() -> None:
     terminal55_coord = 0
     nonterminal55_coord = 0
     terminal57_count = 0
+    entry_start57_count = 0
 
     # Conservative static family: bounded substreams whose exact tail is
     # 56 <destination_pack> <destination_entry> B0.
@@ -797,6 +798,114 @@ def main() -> None:
                 rows.append(row)
 
 
+    # A second high-confidence 0x57 family begins at an independently
+    # proven entry boundary. These rows are non-terminal but instruction
+    # alignment is exact because byte 0 of the bounded entry is opcode 0x57.
+    # When opcode 0x58 immediately follows, its aligned coordinate operands
+    # replace the route-table final X/Y as the effective post-route position.
+    for script_pack, pack in sorted(packs.items()):
+        for record in pack["records"]:
+            if (script_pack, record["record_index"]) in cms.EXCLUDED_NON_VM_RECORDS:
+                continue
+            header = cms.parse_record_header(rom, record)
+            if not header:
+                continue
+            for entry in header["entries"]:
+                body = rom[entry["start"]:entry["end"]]
+                if len(body) < 2 or body[0] != 0x57:
+                    continue
+                route_index = body[1]
+                route = route57_final(route_index)
+                if route is None:
+                    continue
+                # Exact terminal forms are already cataloged above.
+                if len(body) == 3 and body[2] == 0xB0:
+                    continue
+
+                addr = cpu_addr(entry["start"])
+                if addr in seen_triggers:
+                    continue
+                seen_triggers.add(addr)
+                entry_start57_count += 1
+                record_id, event_sources = event_context(script_pack, addr)
+
+                effective_x = route["x"]
+                effective_y = route["y"]
+                secondary_x = ""
+                secondary_y = ""
+                coordinate_addr = ""
+                coord_note = "route-table final X/Y retained"
+                if len(body) >= 7 and body[2] == 0x58:
+                    effective_x = body[3]
+                    effective_y = body[4]
+                    secondary_x = body[5]
+                    secondary_y = body[6]
+                    coordinate_addr = cpu_addr(entry["start"] + 2)
+                    coord_note = (
+                        f"aligned immediate 0x58 at {coordinate_addr} overrides "
+                        "primary/secondary coordinates"
+                    )
+
+                row = blank_row()
+                row.update({
+                    "script_pack": hx(script_pack),
+                    "script_record": record["record_index"],
+                    "script_entry": hx(entry["entry_id"]),
+                    "trigger_type": "vm_opcode_0x57_entry_start_route",
+                    "trigger_addr": addr,
+                    "event_record": record_id,
+                    "vm_context": (
+                        f"pack={hx(script_pack)};record={record['record_index']};"
+                        f"entry={hx(entry['entry_id'])}"
+                    ),
+                    "event_sources": event_sources,
+                    "destination_pack": hx(route["pack_id"]),
+                    "destination_x": effective_x,
+                    "destination_y": effective_y,
+                    "destination_secondary_x": secondary_x,
+                    "destination_secondary_y": secondary_y,
+                    "destination_coordinate_addr": coordinate_addr,
+                    "confidence": "strong_candidate",
+                    "condition": (
+                        f"entry-start instruction boundary; route_index={hx(route_index)}; "
+                        f"route_ptr={route['route_ptr']}; "
+                        f"context_0306={hx(route['context_0306'])}; "
+                        f"destination_entrance={hx(route['entrance'])}; {coord_note}"
+                    ),
+                    "evidence": (
+                        "entry byte 0 is opcode 0x57, so source opcode alignment is "
+                        "independently exact. C4:8BD4 passes its one-byte route index "
+                        "to 86:8000/C6:8000, which selects C6:8060 and constructs "
+                        "the saved map-state route. "
+                        + (
+                            "The next aligned instruction is opcode 0x58, whose four "
+                            "operands write $1573/$157D/$15C3/$15C4."
+                            if coordinate_addr else
+                            "No immediate aligned 0x58 follows, so the route-table "
+                            "final coordinates are retained."
+                        )
+                    ),
+                    "provenance": (
+                        f"canonical_rom_sha256={sha};"
+                        "tools/python/catalog_map_transition_candidates.py;"
+                        "C4:8BD4;C6:8000;C6:8060;81:8204;81:8207"
+                        + (";C4:8BE2" if coordinate_addr else "")
+                    ),
+                })
+                cfg = destination_config(route["pack_id"])
+                if cfg:
+                    row["destination_config_id"] = cfg["config_id"]
+                    row["destination_layout"] = cfg["primary_layout_id"]
+                    row["destination_tileset"] = cfg["primary_tileset_id"]
+                    row["destination_variant"] = cfg["map_variant"]
+                if record_id:
+                    row["provenance"] += (
+                        ";data/events/event_record_frame_catalog.csv"
+                        ";data/events/event_source_crosslink.csv"
+                    )
+                rows.append(row)
+
+
     # Promote static transition rows only when a canonical runtime evidence file
     # names the exact static trigger and all destination fields agree.
     runtime_static_confirmation_count = 0
@@ -1005,6 +1114,7 @@ def main() -> None:
         "terminal_opcode55_coordinate_match_count": terminal55_coord,
         "nonterminal_opcode55_coordinate_crosslink_count": nonterminal55_coord,
         "terminal_opcode57_route_candidate_count": terminal57_count,
+        "entry_start_opcode57_route_candidate_count": entry_start57_count,
         "handler_findings": {
             "opcode_0x53": {
                 "handler": "C4:8B3F",
@@ -1054,7 +1164,7 @@ def main() -> None:
             "static source map/config is not inferred from script-pack identity",
             "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
             "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
-            "non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven",
+            "remaining non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
@@ -1070,7 +1180,7 @@ def main() -> None:
 
     doc = """# Map transition candidate catalog
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 ## Scope
 
@@ -1153,6 +1263,7 @@ remain blank unless independently proven.
 - terminal 0x55 forms with aligned destination 0x58 coordinates: {terminal55_coords}
 - non-terminal 0x55 coordinate-crosslinked structural rows: {nonterminal55}
 - terminal 0x57 route-table forms: {terminal57}
+- entry-start non-terminal 0x57 route-table forms: {entry_start57}
 
 Opcode 0x54 is destination-indirect: it requests a saved-map-state return
 rather than encoding a destination beside the opcode. Its exact terminal forms
@@ -1201,6 +1312,12 @@ Opcode 0x57 forms a second transition grammar: the operand is a native route
 index rather than a destination pack. Two exact terminal forms are currently
 proven, route index 3 ending at pack 0x50 / (39,37) / entrance 0x02 and route
 index 14 ending at pack 0x6A / (88,20) / entrance 0x02.
+
+Eight additional non-terminal forms are promoted because 0x57 is byte 0 of the
+parsed entry, independently proving the instruction boundary. All eight are
+immediately followed by aligned opcode 0x58, so the route table supplies the
+destination pack while 0x58 supplies the effective X/Y and secondary X/Y.
+Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
 
 ## Deliberate non-promotions
 
@@ -1282,6 +1399,7 @@ PC was observed.
         terminal55_coords=terminal55_coord,
         nonterminal55=nonterminal55_coord,
         terminal57=terminal57_count,
+        entry_start57=entry_start57_count,
         terminal_matches=terminal_dest_entry + terminal53_dest_entry + terminal55_dest_entry,
         terminal_total=terminal_count + terminal53_count + terminal55_count,
     )

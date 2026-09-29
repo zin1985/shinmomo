@@ -1,6 +1,6 @@
 # Map transition candidate catalog
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 ## Scope
 
@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: dd87624d58ebea065d54ae8af2ed63ad425d22f8
+Git HEAD used for generation: 944e26e14ac6c232ef3c40b601f4046c6b04e5cf
 
 ## Handler-level promotion
 
@@ -56,16 +56,16 @@ remain blank unless independently proven.
 
 ## Counts
 
-- total candidate rows: 1293
+- total candidate rows: 1301
 - confirmed: 3
-- strong candidates: 1133
+- strong candidates: 1141
 - structural candidates: 157
 - rows with source configuration: 3
 - runtime-confirmed static triggers: 1
 - runtime-confirmed edges without observed trigger PC: 1
-- rows with destination pack: 1293
-- rows with unique destination configuration: 1061
-- rows with destination X/Y: 770
+- rows with destination pack: 1301
+- rows with unique destination configuration: 1066
+- rows with destination X/Y: 778
 - rows cross-linked to structural event records: 27
 - rows carrying existing event-source xrefs: 17
 - terminal 0x56 forms: 724
@@ -81,6 +81,7 @@ remain blank unless independently proven.
 - terminal 0x55 forms with aligned destination 0x58 coordinates: 35
 - non-terminal 0x55 coordinate-crosslinked structural rows: 12
 - terminal 0x57 route-table forms: 2
+- entry-start non-terminal 0x57 route-table forms: 8
 
 Opcode 0x54 is destination-indirect: it requests a saved-map-state return
 rather than encoding a destination beside the opcode. Its exact terminal forms
@@ -129,6 +130,12 @@ Opcode 0x57 forms a second transition grammar: the operand is a native route
 index rather than a destination pack. Two exact terminal forms are currently
 proven, route index 3 ending at pack 0x50 / (39,37) / entrance 0x02 and route
 index 14 ending at pack 0x6A / (88,20) / entrance 0x02.
+
+Eight additional non-terminal forms are promoted because 0x57 is byte 0 of the
+parsed entry, independently proving the instruction boundary. All eight are
+immediately followed by aligned opcode 0x58, so the route table supplies the
+destination pack while 0x58 supplies the effective X/Y and secondary X/Y.
+Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
 
 ## Deliberate non-promotions
 
@@ -186,7 +193,7 @@ PC was observed.
 - static source map/config is not inferred from script-pack identity
 - five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry
 - non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven
-- non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven
+- remaining non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven
 - destination config stays null when destination pack record0/entry1 has multiple confirmed selectors
 - 0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix
 - exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified
