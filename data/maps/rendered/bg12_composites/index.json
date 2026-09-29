@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "kind": "mode1_bg12_composite_index",
-  "composite_count": 49,
-  "skipped_count": 3,
+  "composite_count": 52,
+  "skipped_count": 0,
   "composites": [
     {
       "schema_version": 1,
@@ -40,6 +40,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2304,
+        1024
+      ],
+      "secondary_source_size": [
+        2304,
+        1024
       ],
       "image_width_px": 2304,
       "image_height_px": 1024,
@@ -92,6 +101,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1280,
+        512
+      ],
+      "secondary_source_size": [
+        1280,
+        512
+      ],
       "image_width_px": 1280,
       "image_height_px": 512,
       "stats": {
@@ -105,6 +123,66 @@
       },
       "output_png": "cfg_t08_l094_v2_sec_t08_l095.png",
       "output_png_sha256": "7AB4051C312E624DE02B4DB85882BB4EFC5F11D0E91BC698557CFCB69AD1DF08"
+    },
+    {
+      "schema_version": 1,
+      "kind": "mode1_bg12_composite",
+      "config_id": "cfg_t08_l096_v2",
+      "variant": 2,
+      "primary": {
+        "tileset_id": 8,
+        "layout_id": 96,
+        "bg": 2,
+        "map_json": "data\\maps\\rendered\\dungeon_tileset_08\\map_096.json",
+        "png": "data\\maps\\rendered\\dungeon_tileset_08\\map_096.png",
+        "png_sha256": "5C47EDE5F7D05B2136DDF19DCC478FDC393378F9694CEBCDBE2550E302B3AD7B"
+      },
+      "secondary": {
+        "tileset_id": 8,
+        "layout_id": 93,
+        "bg": 1,
+        "layer_json": "data\\maps\\rendered\\secondary_layers\\t08_l093.json",
+        "png": "data\\maps\\rendered\\secondary_layers\\t08_l093.png",
+        "png_sha256": "50617F64A77D742E65F3F7633F37FFEA0D7F901512C10429C7E34D11904181E1",
+        "palette_operand": 10
+      },
+      "bgmode": 1,
+      "priority_order": [
+        "BG1_high",
+        "BG2_high",
+        "BG1_low",
+        "BG2_low"
+      ],
+      "includes": [
+        "BG1",
+        "BG2"
+      ],
+      "excludes": [
+        "BG3",
+        "OBJ"
+      ],
+      "layer_alignment": "same_origin_clip_or_transparent_pad",
+      "primary_source_size": [
+        768,
+        1024
+      ],
+      "secondary_source_size": [
+        2304,
+        1024
+      ],
+      "image_width_px": 768,
+      "image_height_px": 1024,
+      "stats": {
+        "primary_visible_pixels": 786432,
+        "secondary_visible_pixels": 0,
+        "overlap_pixels": 0,
+        "primary_wins_overlap": 0,
+        "secondary_wins_overlap": 0,
+        "primary_high_priority_visible_pixels": 0,
+        "secondary_high_priority_visible_pixels": 0
+      },
+      "output_png": "cfg_t08_l096_v2_sec_t08_l093.png",
+      "output_png_sha256": "5C47EDE5F7D05B2136DDF19DCC478FDC393378F9694CEBCDBE2550E302B3AD7B"
     },
     {
       "schema_version": 1,
@@ -142,6 +220,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        4096,
+        1024
+      ],
+      "secondary_source_size": [
+        4096,
+        1024
       ],
       "image_width_px": 4096,
       "image_height_px": 1024,
@@ -194,6 +281,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        768,
+        1024
+      ],
+      "secondary_source_size": [
+        768,
+        1024
+      ],
       "image_width_px": 768,
       "image_height_px": 1024,
       "stats": {
@@ -244,6 +340,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3840,
+        1536
+      ],
+      "secondary_source_size": [
+        3840,
+        1536
       ],
       "image_width_px": 3840,
       "image_height_px": 1536,
@@ -296,6 +401,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1536,
+        2816
+      ],
+      "secondary_source_size": [
+        1536,
+        2816
+      ],
       "image_width_px": 1536,
       "image_height_px": 2816,
       "stats": {
@@ -346,6 +460,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3584,
+        1280
+      ],
+      "secondary_source_size": [
+        3584,
+        1280
       ],
       "image_width_px": 3584,
       "image_height_px": 1280,
@@ -398,6 +521,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3584,
+        1280
+      ],
+      "secondary_source_size": [
+        3584,
+        1280
+      ],
       "image_width_px": 3584,
       "image_height_px": 1280,
       "stats": {
@@ -448,6 +580,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        1536
+      ],
+      "secondary_source_size": [
+        1024,
+        1536
       ],
       "image_width_px": 1024,
       "image_height_px": 1536,
@@ -500,6 +641,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        768
+      ],
+      "secondary_source_size": [
+        1024,
+        768
+      ],
       "image_width_px": 1024,
       "image_height_px": 768,
       "stats": {
@@ -550,6 +700,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1536,
+        1024
+      ],
+      "secondary_source_size": [
+        1536,
+        1024
       ],
       "image_width_px": 1536,
       "image_height_px": 1024,
@@ -602,6 +761,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        768,
+        512
+      ],
+      "secondary_source_size": [
+        768,
+        512
+      ],
       "image_width_px": 768,
       "image_height_px": 512,
       "stats": {
@@ -652,6 +820,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        768
+      ],
+      "secondary_source_size": [
+        512,
+        768
       ],
       "image_width_px": 512,
       "image_height_px": 768,
@@ -704,6 +881,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1536,
+        1024
+      ],
+      "secondary_source_size": [
+        1536,
+        1024
+      ],
       "image_width_px": 1536,
       "image_height_px": 1024,
       "stats": {
@@ -755,6 +941,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        4096,
+        1280
+      ],
+      "secondary_source_size": [
+        4096,
+        1280
+      ],
       "image_width_px": 4096,
       "image_height_px": 1280,
       "stats": {
@@ -768,6 +963,126 @@
       },
       "output_png": "cfg_t22_l121_v2_sec_t22_l122.png",
       "output_png_sha256": "4DE7E0CCBC7129FF285A41C55E64CFFC2A2D526B7ADAD7B8E0A79B52887F8576"
+    },
+    {
+      "schema_version": 1,
+      "kind": "mode1_bg12_composite",
+      "config_id": "cfg_t23_l123_v1",
+      "variant": 1,
+      "primary": {
+        "tileset_id": 23,
+        "layout_id": 123,
+        "bg": 1,
+        "map_json": "data\\maps\\rendered\\dungeon_tileset_23\\map_123.json",
+        "png": "data\\maps\\rendered\\dungeon_tileset_23\\map_123.png",
+        "png_sha256": "11F67CF00B3C85694FFA1BD766DDE13E38CAB6F500129923857890A218EF5CDE"
+      },
+      "secondary": {
+        "tileset_id": 23,
+        "layout_id": 124,
+        "bg": 2,
+        "layer_json": "data\\maps\\rendered\\secondary_layers\\t23_l124.json",
+        "png": "data\\maps\\rendered\\secondary_layers\\t23_l124.png",
+        "png_sha256": "48B2F3C87B8693B529C7568259B02F78F04E153D6A5D625D4D7BC6E0770D2993",
+        "palette_operand": 25
+      },
+      "bgmode": 1,
+      "priority_order": [
+        "BG1_high",
+        "BG2_high",
+        "BG1_low",
+        "BG2_low"
+      ],
+      "includes": [
+        "BG1",
+        "BG2"
+      ],
+      "excludes": [
+        "BG3",
+        "OBJ"
+      ],
+      "layer_alignment": "same_origin_clip_or_transparent_pad",
+      "primary_source_size": [
+        3328,
+        1024
+      ],
+      "secondary_source_size": [
+        2816,
+        1024
+      ],
+      "image_width_px": 3328,
+      "image_height_px": 1024,
+      "stats": {
+        "primary_visible_pixels": 3258360,
+        "secondary_visible_pixels": 86272,
+        "overlap_pixels": 86272,
+        "primary_wins_overlap": 2976,
+        "secondary_wins_overlap": 83296,
+        "primary_high_priority_visible_pixels": 0,
+        "secondary_high_priority_visible_pixels": 83296
+      },
+      "output_png": "cfg_t23_l123_v1_sec_t23_l124.png",
+      "output_png_sha256": "25D047B1A242C191097D54F43F7A4CAAA700A1082E16A0ABCCA07C6BE05D867F"
+    },
+    {
+      "schema_version": 1,
+      "kind": "mode1_bg12_composite",
+      "config_id": "cfg_t23_l123_v2",
+      "variant": 2,
+      "primary": {
+        "tileset_id": 23,
+        "layout_id": 123,
+        "bg": 2,
+        "map_json": "data\\maps\\rendered\\dungeon_tileset_23\\map_123.json",
+        "png": "data\\maps\\rendered\\dungeon_tileset_23\\map_123.png",
+        "png_sha256": "11F67CF00B3C85694FFA1BD766DDE13E38CAB6F500129923857890A218EF5CDE"
+      },
+      "secondary": {
+        "tileset_id": 23,
+        "layout_id": 124,
+        "bg": 1,
+        "layer_json": "data\\maps\\rendered\\secondary_layers\\t23_l124.json",
+        "png": "data\\maps\\rendered\\secondary_layers\\t23_l124.png",
+        "png_sha256": "48B2F3C87B8693B529C7568259B02F78F04E153D6A5D625D4D7BC6E0770D2993",
+        "palette_operand": 25
+      },
+      "bgmode": 1,
+      "priority_order": [
+        "BG1_high",
+        "BG2_high",
+        "BG1_low",
+        "BG2_low"
+      ],
+      "includes": [
+        "BG1",
+        "BG2"
+      ],
+      "excludes": [
+        "BG3",
+        "OBJ"
+      ],
+      "layer_alignment": "same_origin_clip_or_transparent_pad",
+      "primary_source_size": [
+        3328,
+        1024
+      ],
+      "secondary_source_size": [
+        2816,
+        1024
+      ],
+      "image_width_px": 3328,
+      "image_height_px": 1024,
+      "stats": {
+        "primary_visible_pixels": 3258360,
+        "secondary_visible_pixels": 86272,
+        "overlap_pixels": 86272,
+        "primary_wins_overlap": 0,
+        "secondary_wins_overlap": 86272,
+        "primary_high_priority_visible_pixels": 0,
+        "secondary_high_priority_visible_pixels": 83296
+      },
+      "output_png": "cfg_t23_l123_v2_sec_t23_l124.png",
+      "output_png_sha256": "EECF397488823E512AAE7C5CDF14A5D5DCFFA19404A5EEC1B483B6385664ABD8"
     },
     {
       "schema_version": 1,
@@ -805,6 +1120,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3584,
+        768
+      ],
+      "secondary_source_size": [
+        3584,
+        768
       ],
       "image_width_px": 3584,
       "image_height_px": 768,
@@ -857,6 +1181,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2560,
+        1536
+      ],
+      "secondary_source_size": [
+        2560,
+        1536
+      ],
       "image_width_px": 2560,
       "image_height_px": 1536,
       "stats": {
@@ -907,6 +1240,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2304,
+        768
+      ],
+      "secondary_source_size": [
+        2304,
+        768
       ],
       "image_width_px": 2304,
       "image_height_px": 768,
@@ -959,6 +1301,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        512
+      ],
+      "secondary_source_size": [
+        512,
+        512
+      ],
       "image_width_px": 512,
       "image_height_px": 512,
       "stats": {
@@ -1009,6 +1360,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        512
+      ],
+      "secondary_source_size": [
+        512,
+        512
       ],
       "image_width_px": 512,
       "image_height_px": 512,
@@ -1061,6 +1421,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        1024
+      ],
+      "secondary_source_size": [
+        1024,
+        1024
+      ],
       "image_width_px": 1024,
       "image_height_px": 1024,
       "stats": {
@@ -1111,6 +1480,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3840,
+        768
+      ],
+      "secondary_source_size": [
+        3840,
+        768
       ],
       "image_width_px": 3840,
       "image_height_px": 768,
@@ -1163,6 +1541,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        768,
+        512
+      ],
+      "secondary_source_size": [
+        768,
+        512
+      ],
       "image_width_px": 768,
       "image_height_px": 512,
       "stats": {
@@ -1213,6 +1600,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        512
+      ],
+      "secondary_source_size": [
+        1024,
+        512
       ],
       "image_width_px": 1024,
       "image_height_px": 512,
@@ -1265,6 +1661,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3584,
+        1024
+      ],
+      "secondary_source_size": [
+        3584,
+        1024
+      ],
       "image_width_px": 3584,
       "image_height_px": 1024,
       "stats": {
@@ -1315,6 +1720,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        4096,
+        1024
+      ],
+      "secondary_source_size": [
+        4096,
+        1024
       ],
       "image_width_px": 4096,
       "image_height_px": 1024,
@@ -1367,6 +1781,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        1024
+      ],
+      "secondary_source_size": [
+        512,
+        1024
+      ],
       "image_width_px": 512,
       "image_height_px": 1024,
       "stats": {
@@ -1417,6 +1840,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        1024
+      ],
+      "secondary_source_size": [
+        512,
+        1024
       ],
       "image_width_px": 512,
       "image_height_px": 1024,
@@ -1469,6 +1901,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        512
+      ],
+      "secondary_source_size": [
+        512,
+        512
+      ],
       "image_width_px": 512,
       "image_height_px": 512,
       "stats": {
@@ -1519,6 +1960,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2048,
+        1024
+      ],
+      "secondary_source_size": [
+        2048,
+        1024
       ],
       "image_width_px": 2048,
       "image_height_px": 1024,
@@ -1571,6 +2021,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2048,
+        1280
+      ],
+      "secondary_source_size": [
+        2048,
+        1280
+      ],
       "image_width_px": 2048,
       "image_height_px": 1280,
       "stats": {
@@ -1621,6 +2080,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        768,
+        1024
+      ],
+      "secondary_source_size": [
+        768,
+        1024
       ],
       "image_width_px": 768,
       "image_height_px": 1024,
@@ -1673,6 +2141,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        768
+      ],
+      "secondary_source_size": [
+        1024,
+        768
+      ],
       "image_width_px": 1024,
       "image_height_px": 768,
       "stats": {
@@ -1723,6 +2200,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1792,
+        512
+      ],
+      "secondary_source_size": [
+        1792,
+        512
       ],
       "image_width_px": 1792,
       "image_height_px": 512,
@@ -1775,6 +2261,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1792,
+        512
+      ],
+      "secondary_source_size": [
+        1792,
+        512
+      ],
       "image_width_px": 1792,
       "image_height_px": 512,
       "stats": {
@@ -1825,6 +2320,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2048,
+        512
+      ],
+      "secondary_source_size": [
+        2048,
+        512
       ],
       "image_width_px": 2048,
       "image_height_px": 512,
@@ -1877,6 +2381,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2048,
+        1024
+      ],
+      "secondary_source_size": [
+        2048,
+        1024
+      ],
       "image_width_px": 2048,
       "image_height_px": 1024,
       "stats": {
@@ -1927,6 +2440,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2304,
+        1536
+      ],
+      "secondary_source_size": [
+        2304,
+        1536
       ],
       "image_width_px": 2304,
       "image_height_px": 1536,
@@ -1979,6 +2501,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2048,
+        1280
+      ],
+      "secondary_source_size": [
+        2048,
+        1280
+      ],
       "image_width_px": 2048,
       "image_height_px": 1280,
       "stats": {
@@ -2029,6 +2560,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1280,
+        1280
+      ],
+      "secondary_source_size": [
+        1280,
+        1280
       ],
       "image_width_px": 1280,
       "image_height_px": 1280,
@@ -2081,6 +2621,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        4096,
+        1536
+      ],
+      "secondary_source_size": [
+        4096,
+        1536
+      ],
       "image_width_px": 4096,
       "image_height_px": 1536,
       "stats": {
@@ -2131,6 +2680,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        4096
+      ],
+      "secondary_source_size": [
+        1024,
+        4096
       ],
       "image_width_px": 1024,
       "image_height_px": 4096,
@@ -2183,6 +2741,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        512
+      ],
+      "secondary_source_size": [
+        512,
+        512
+      ],
       "image_width_px": 512,
       "image_height_px": 512,
       "stats": {
@@ -2233,6 +2800,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1792,
+        1280
+      ],
+      "secondary_source_size": [
+        1792,
+        1280
       ],
       "image_width_px": 1792,
       "image_height_px": 1280,
@@ -2285,6 +2861,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1792,
+        1280
+      ],
+      "secondary_source_size": [
+        1792,
+        1280
+      ],
       "image_width_px": 1792,
       "image_height_px": 1280,
       "stats": {
@@ -2335,6 +2920,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        1024,
+        1024
+      ],
+      "secondary_source_size": [
+        1024,
+        1024
       ],
       "image_width_px": 1024,
       "image_height_px": 1024,
@@ -2387,6 +2981,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        3840,
+        2048
+      ],
+      "secondary_source_size": [
+        3840,
+        2048
+      ],
       "image_width_px": 3840,
       "image_height_px": 2048,
       "stats": {
@@ -2437,6 +3040,15 @@
       "excludes": [
         "BG3",
         "OBJ"
+      ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        2048,
+        1792
+      ],
+      "secondary_source_size": [
+        2048,
+        1792
       ],
       "image_width_px": 2048,
       "image_height_px": 1792,
@@ -2489,6 +3101,15 @@
         "BG3",
         "OBJ"
       ],
+      "layer_alignment": "same_dimensions",
+      "primary_source_size": [
+        512,
+        512
+      ],
+      "secondary_source_size": [
+        512,
+        512
+      ],
       "image_width_px": 512,
       "image_height_px": 512,
       "stats": {
@@ -2504,58 +3125,6 @@
       "output_png_sha256": "DAEA6B150184F2C363EE9B3BBA21335ADDE452474EB41C6F802E83FE436D6CDA"
     }
   ],
-  "skipped": [
-    {
-      "config_id": "cfg_t08_l096_v2",
-      "variant": 2,
-      "primary_tileset_id": 8,
-      "primary_layout_id": 96,
-      "primary_size": [
-        768,
-        1024
-      ],
-      "secondary_tileset_id": 8,
-      "secondary_layout_id": 93,
-      "secondary_size": [
-        2304,
-        1024
-      ],
-      "reason": "primary/secondary dimensions differ; runtime scroll/wrap alignment not yet proven"
-    },
-    {
-      "config_id": "cfg_t23_l123_v1",
-      "variant": 1,
-      "primary_tileset_id": 23,
-      "primary_layout_id": 123,
-      "primary_size": [
-        3328,
-        1024
-      ],
-      "secondary_tileset_id": 23,
-      "secondary_layout_id": 124,
-      "secondary_size": [
-        2816,
-        1024
-      ],
-      "reason": "primary/secondary dimensions differ; runtime scroll/wrap alignment not yet proven"
-    },
-    {
-      "config_id": "cfg_t23_l123_v2",
-      "variant": 2,
-      "primary_tileset_id": 23,
-      "primary_layout_id": 123,
-      "primary_size": [
-        3328,
-        1024
-      ],
-      "secondary_tileset_id": 23,
-      "secondary_layout_id": 124,
-      "secondary_size": [
-        2816,
-        1024
-      ],
-      "reason": "primary/secondary dimensions differ; runtime scroll/wrap alignment not yet proven"
-    }
-  ],
-  "policy": "Only same-dimension primary/secondary pairs are composited. Output models BG1/BG2 only; BG3 and sprites are excluded."
+  "skipped": [],
+  "policy": "Equal-dimension layers compose directly. Proven same-origin unequal-size configurations are clipped/padded to the primary extent; unknown future dimension mismatches remain fail-closed. Output models BG1/BG2 only; BG3 and sprites are excluded."
 }

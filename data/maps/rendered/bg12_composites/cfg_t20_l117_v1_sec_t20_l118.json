@@ -35,6 +35,15 @@
     "BG3",
     "OBJ"
   ],
+  "layer_alignment": "same_dimensions",
+  "primary_source_size": [
+    512,
+    768
+  ],
+  "secondary_source_size": [
+    512,
+    768
+  ],
   "image_width_px": 512,
   "image_height_px": 768,
   "stats": {

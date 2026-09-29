@@ -17,16 +17,16 @@ Renderer:
 tools/python/render_bg12_map_composites.py
 ```
 
-The current batch contains:
+The current output contains:
 
-- 49 composite PNGs;
-- 49 same-name JSON metadata files;
+- 52 composite PNGs;
+- 52 same-name JSON metadata files;
 - one `index.json`;
-- 3 skipped configuration occurrences whose primary/secondary dimensions differ.
+- zero skipped immediate-secondary configurations.
 
-These are **BG1+BG2 background composites**, not complete screenshots.  BG3,
-sprites/OBJ, windows, color math and event objects are intentionally not
-flattened into these images.
+These are **BG1+BG2 background composites**, not complete screenshots. BG3,
+sprites/OBJ, windows, event objects and other runtime-only effects remain
+separate.
 
 ## BGMODE proof
 
@@ -40,7 +40,7 @@ LDA #$01
 JSL $80:A065
 ```
 
-and the same Mode-1 selection appears at `80:CBCD`.
+and the same Mode-1 selection occurs at `80:CBCD`.
 
 `80:A065` preserves the upper BGMODE control bits and replaces the low three
 mode bits:
@@ -54,11 +54,11 @@ STA $0376
 RTL
 ```
 
-One normal initialization path also enables the Mode-1 BG3-priority option via
-`80:A0A3`.  That changes BG3's position in the priority stack, but does not
-change the relative BG1/BG2 ordering used by this renderer.
+One normal initialization path also enables the Mode-1 BG3-priority option.
+That changes BG3's place in the complete PPU priority stack but does not change
+the relative BG1/BG2 order used by this background-only renderer.
 
-## Primary/secondary BG assignment
+## Primary / secondary BG assignment
 
 `80:C6A8` copies the PPU screen-base registers into WRAM mirrors:
 
@@ -95,7 +95,7 @@ assignment is unambiguous:
 ## Tile priority
 
 Expanded normal-map tilemap words are standard SNES BG tilemap entries.
-Bit `0x2000` / bit 13 is the tile priority flag.
+Bit `0x2000` / bit 13 is the tile-priority flag.
 
 For Mode 1, considering BG1 and BG2 only, the relative order is:
 
@@ -106,79 +106,145 @@ BG1 low
 BG2 low
 ```
 
-At each non-transparent pixel the composite renderer compares the BG assignment
-and tile priority from the ROM-derived expanded tilemap and selects the visible
-BG1/BG2 pixel accordingly.
+At every non-transparent pixel the renderer compares BG assignment and tile
+priority, then selects the visible BG1/BG2 pixel.
 
-Transparent color-index-zero pixels remain transparent and expose the other
-layer when present.
+Color-index-zero pixels remain transparent and expose the other layer.
 
-## Origin / scrolling
+## Shared origin proof
 
-The secondary update path adds values derived from `$1516/$1518` while
-building the currently resident tilemap window.
+The secondary current-map coordinates are stored at `$15C3/$15C4`.
+Normal transition and restore paths initialize them to the same position as the
+primary current-map coordinates `$1573/$157D`.
 
-Those bytes are the high bytes of the 16-bit scrolling accumulators
-`$1515/$1517`; the C1 movement/update logic modifies those accumulators at
-runtime.  They are therefore current scroll/window state, not a fixed static
-secondary-map origin.
-
-For equal-dimension primary/secondary layouts, the canonical full-map layers
-share the same zero-scroll origin and are composited at (0,0).
-
-Dimension-mismatched configurations remain fail-closed because wrapping/window
-alignment across unequal map extents has not yet been proven.
-
-## Skipped dimension-mismatched configurations
-
-Three configuration occurrences are intentionally not flattened:
+There is a dedicated VM command for introducing a different secondary origin:
 
 ```text
-cfg_t08_l096_v2:
-  primary t08/l096 = 768 x 1024
-  secondary t08/l093 = 2304 x 1024
-
-cfg_t23_l123_v1:
-  primary t23/l123 = 3328 x 1024
-  secondary t23/l124 = 2816 x 1024
-
-cfg_t23_l123_v2:
-  primary t23/l123 = 3328 x 1024
-  secondary t23/l124 = 2816 x 1024
+opcode 0x62 -> handler C4:9217
 ```
 
-Their separate primary and secondary RGBA layers remain canonical and usable.
+Its handler explicitly computes:
+
+```text
+$15C3 = $1573 + operand_x
+$15C4 = $157D + operand_y
+```
+
+None of the three formerly dimension-mismatched configuration streams uses
+opcode `0x62`.
+
+Therefore their static primary and secondary layouts share top-left origin
+`(0,0)`.
+
+## No-wrap proof for the unequal-size cases
+
+`A0:D01A` converts current map coordinates into layout-cell addresses.
+
+Normally it range-checks the coordinate against the active primary or secondary
+layout dimensions. An optional special path first masks coordinates:
+
+```text
+if ($0307 & 0x10):
+    x &= $15CB
+    y &= $15CD
+```
+
+The four `$15CA..$15CD` values are populated by VM opcode `0x52`.
+
+`$0307` itself is explicitly set by VM opcode `0x64` (handler
+`C4:92A9`). In the relevant configuration streams the observed `0x64`
+operands are `0x24` and `0x04`; neither sets bit `0x10`.
+
+Thus the special mask/wrap path is not active for these configurations.
+
+When a secondary coordinate is outside that layout's normal bounds,
+`A0:D01A` marks it invalid with `$13A4 = 0xFE`. Downstream
+`A0:CFF4` emits zero tilemap entries for that invalid area.
+
+This proves the static unequal-size rule:
+
+- same top-left origin;
+- if secondary is larger than primary, clip it to the primary extent;
+- if secondary is smaller than primary, pad the uncovered primary extent with
+  transparent/zero secondary pixels;
+- do not tile or wrap the secondary image.
+
+## Formerly mismatched configurations now resolved
+
+### cfg_t08_l096_v2
+
+```text
+primary   t08/l096 = 768 x 1024
+secondary t08/l093 = 2304 x 1024
+```
+
+The composite uses the leftmost 768-pixel portion of the secondary at shared
+origin.
+
+### cfg_t23_l123_v1
+
+```text
+primary   t23/l123 = 3328 x 1024
+secondary t23/l124 = 2816 x 1024
+```
+
+The secondary is placed at shared origin. The remaining 512 pixels on the
+right are primary-only because secondary coordinates are out of range.
+
+### cfg_t23_l123_v2
+
+The same geometry rule applies; only the BG1/BG2 assignment changes with
+variant 2.
+
+These three configurations are allow-listed in the renderer because their
+same-origin/no-wrap behavior is now proven. Any future unknown dimension
+mismatch remains fail-closed.
+
+## Runtime scrolling versus static origin
+
+The secondary update path adds values derived from `$1516/$1518` when
+building the resident tilemap window.
+
+Those bytes are the high bytes of the 16-bit scrolling accumulators
+`$1515/$1517`; the C1 movement/update logic modifies them during play. They
+describe the current resident-window scroll state, not a persistent static
+offset between the two source layouts.
+
+The canonical composite therefore represents the zero-scroll source-map
+geometry.
 
 ## Palette-state multiplicity
 
 `t14/l105 -> t14/l106` has two proven parent resource/palette states.
-Both are preserved as separate composites rather than selecting one by
-appearance.
+Both are retained rather than selecting one by appearance.
 
-This is why 48 same-dimension configuration occurrences produce 49 composite
-PNGs.
+This is why the recovered immediate-secondary configuration set produces 52
+composite PNGs rather than a one-image-per-secondary-pair count.
 
 ## Validation
 
 The composite tool consumes:
 
-1. the canonical ROM-derived primary map PNG/JSON;
-2. the canonical ROM-derived opcode-0x51 secondary layer PNG/JSON;
-3. the ROM-derived expanded primary/secondary tilemaps for priority bit 13;
+1. canonical ROM-derived primary map PNG/JSON;
+2. canonical ROM-derived opcode-0x51 secondary layer PNG/JSON;
+3. ROM-derived expanded primary and secondary tilemaps for priority bit 13;
 4. configuration-index map variant for BG assignment.
 
 No emulator screenshot, runtime VRAM, runtime CGRAM, savestate or SRAM is used
-to create the composite images.
+as rendering input.
 
-Representative contact-sheet inspection shows the secondary layer restoring
-water surfaces, cliff/building outlines, vegetation/foreground detail and other
-map structure that was absent from primary-only renders.
+Representative inspection shows the secondary layer restoring water surfaces,
+cliff/building outlines, vegetation and foreground detail that is absent from
+primary-only renders.
 
-## Next work
+## Status
 
-1. prove wrap/alignment for the three unequal-dimension configuration
-   occurrences;
-2. identify whether BG3 carries any map-static content worth exporting;
-3. keep sprite/event/object layers separate from canonical background geometry;
-4. continue human-facing place-name binding without altering recovered map
+All currently recovered immediate opcode-0x51 secondary configurations now have
+a BG1/BG2 composite rendering path.
+
+Remaining map-output refinements are:
+
+1. identify whether BG3 carries map-static content worth exporting;
+2. keep sprite/event/object layers separate from canonical background geometry;
+3. continue semantic place-name/event binding without altering recovered
    geometry.

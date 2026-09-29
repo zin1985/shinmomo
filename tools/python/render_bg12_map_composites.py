@@ -13,9 +13,10 @@ Evidence used by this tool:
 - Mode-1 BG1/BG2 relative order is:
   BG1 high > BG2 high > BG1 low > BG2 low.
 
-Only same-dimension primary/secondary configurations are composed.  Mismatched
-dimensions are retained as separate layers until their runtime wrap/alignment is
-proven.
+Equal-dimension layers are composed directly.  Three unequal-dimension
+configurations have independently proven same-origin/no-wrap behavior and are
+composed by clipping or transparent-padding the secondary layer to the primary
+extent.  Any future unproven size mismatch remains fail-closed.
 """
 from __future__ import annotations
 
@@ -39,6 +40,12 @@ DEFAULT_CONFIG = REPO / "data/maps/configurations/map_configuration_index.csv"
 DEFAULT_RENDERED = REPO / "data/maps/rendered"
 DEFAULT_SECONDARY = DEFAULT_RENDERED / "secondary_layers"
 
+PROVEN_SAME_ORIGIN_MISMATCHES = {
+    "cfg_t08_l096_v2",
+    "cfg_t23_l123_v1",
+    "cfg_t23_l123_v2",
+}
+
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest().upper()
@@ -60,6 +67,19 @@ def bg_rank(bg: int, priority: np.ndarray) -> np.ndarray:
     if bg == 2:
         return np.where(priority != 0, 3, 1).astype(np.uint8)
     raise ValueError(f"unsupported BG {bg}")
+
+
+def fit_same_origin(array: np.ndarray, target_shape: tuple[int, int], fill=0):
+    """Clip/pad a 2D or 3D array at the shared top-left origin."""
+    th, tw = target_shape
+    if array.ndim == 2:
+        out = np.full((th, tw), fill, dtype=array.dtype)
+    else:
+        out = np.full((th, tw, array.shape[2]), fill, dtype=array.dtype)
+    h = min(th, array.shape[0])
+    w = min(tw, array.shape[1])
+    out[:h, :w] = array[:h, :w]
+    return out
 
 
 def read_secondary_index(path: Path):
@@ -155,28 +175,35 @@ def main() -> None:
                     Image.open(secondary_png).convert("RGBA")
                 )
 
+                source_secondary_size = [
+                    int(secondary_rgba.shape[1]),
+                    int(secondary_rgba.shape[0]),
+                ]
+                primary_size = [
+                    int(primary_rgba.shape[1]),
+                    int(primary_rgba.shape[0]),
+                ]
+                alignment = "same_dimensions"
                 if primary_rgba.shape != secondary_rgba.shape:
-                    skipped.append({
-                        "config_id": config_id,
-                        "variant": variant,
-                        "primary_tileset_id": primary[0],
-                        "primary_layout_id": primary[1],
-                        "primary_size": [
-                            int(primary_rgba.shape[1]),
-                            int(primary_rgba.shape[0]),
-                        ],
-                        "secondary_tileset_id": secondary[0],
-                        "secondary_layout_id": secondary[1],
-                        "secondary_size": [
-                            int(secondary_rgba.shape[1]),
-                            int(secondary_rgba.shape[0]),
-                        ],
-                        "reason": (
-                            "primary/secondary dimensions differ; "
-                            "runtime scroll/wrap alignment not yet proven"
-                        ),
-                    })
-                    continue
+                    if config_id not in PROVEN_SAME_ORIGIN_MISMATCHES:
+                        skipped.append({
+                            "config_id": config_id,
+                            "variant": variant,
+                            "primary_tileset_id": primary[0],
+                            "primary_layout_id": primary[1],
+                            "primary_size": primary_size,
+                            "secondary_tileset_id": secondary[0],
+                            "secondary_layout_id": secondary[1],
+                            "secondary_size": source_secondary_size,
+                            "reason": (
+                                "unproven primary/secondary dimension mismatch"
+                            ),
+                        })
+                        continue
+                    alignment = "same_origin_clip_or_transparent_pad"
+                    secondary_rgba = fit_same_origin(
+                        secondary_rgba, primary_rgba.shape[:2], fill=0
+                    )
 
                 primary_priority = priority_mask(
                     rom, primary[0], primary[1]
@@ -185,12 +212,17 @@ def main() -> None:
                     rom, secondary[0], secondary[1]
                 )
                 shape = primary_rgba.shape[:2]
-                if (
-                    primary_priority.shape != shape
-                    or secondary_priority.shape != shape
-                ):
+                if primary_priority.shape != shape:
                     raise ValueError(
-                        f"{config_id}: priority/image shape mismatch"
+                        f"{config_id}: primary priority/image shape mismatch"
+                    )
+                if secondary_priority.shape != shape:
+                    if config_id not in PROVEN_SAME_ORIGIN_MISMATCHES:
+                        raise ValueError(
+                            f"{config_id}: secondary priority/image shape mismatch"
+                        )
+                    secondary_priority = fit_same_origin(
+                        secondary_priority, shape, fill=0
                     )
 
                 primary_rank = bg_rank(
@@ -304,6 +336,9 @@ def main() -> None:
                     ],
                     "includes": ["BG1", "BG2"],
                     "excludes": ["BG3", "OBJ"],
+                    "layer_alignment": alignment,
+                    "primary_source_size": primary_size,
+                    "secondary_source_size": source_secondary_size,
                     "image_width_px": int(composite.shape[1]),
                     "image_height_px": int(composite.shape[0]),
                     "stats": stats,
@@ -331,7 +366,9 @@ def main() -> None:
         "composites": results,
         "skipped": skipped,
         "policy": (
-            "Only same-dimension primary/secondary pairs are composited. "
+            "Equal-dimension layers compose directly. Proven same-origin "
+            "unequal-size configurations are clipped/padded to the primary "
+            "extent; unknown future dimension mismatches remain fail-closed. "
             "Output models BG1/BG2 only; BG3 and sprites are excluded."
         ),
     }
