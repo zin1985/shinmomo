@@ -236,6 +236,47 @@ def main() -> None:
             "saved_node_count": max(0, len(nodes) - 1),
         }
 
+    # Fail-closed control-flow decoder used only to prove additional 0x57
+    # instruction boundaries. Unknown/variable opcodes stop that path.
+    cfg_safe_lengths = {
+        0x04: 2, 0x08: 4, 0x09: 4, 0x10: 2, 0x11: 2, 0x13: 2,
+        0x15: 3, 0x2A: 1, 0x2D: 2, 0x33: 4, 0x43: 2, 0x50: 4,
+        0x53: 3, 0x54: 1, 0x55: 3, 0x56: 3, 0x57: 2, 0x58: 5,
+        0x59: 6, 0x5D: 5, 0x69: 3, 0x71: 3, 0x96: 2, 0xA0: 4,
+        0xA3: 2, 0xA4: 2, 0xE0: 1, 0xE1: 1, 0xE7: 1, 0xE8: 1,
+    }
+
+    def signed8(value: int) -> int:
+        return value - 0x100 if value & 0x80 else value
+
+    def cfg_reachable_57_offsets(body: bytes) -> list[int]:
+        queue = [0]
+        seen: set[int] = set()
+        found: set[int] = set()
+        while queue:
+            pos = queue.pop(0)
+            if pos in seen or not (0 <= pos < len(body)):
+                continue
+            seen.add(pos)
+            op = body[pos]
+            if op == 0xB0:
+                continue
+            if op in {0xB2, 0xB3, 0xB4}:
+                if pos + 2 > len(body):
+                    continue
+                target = pos + signed8(body[pos + 1])
+                if op in {0xB3, 0xB4}:
+                    queue.append(pos + 2)
+                queue.append(target)
+                continue
+            length = cfg_safe_lengths.get(op)
+            if length is None or pos + length > len(body):
+                continue
+            if op == 0x57 and pos + 1 < len(body) and body[pos + 1] < 16:
+                found.add(pos)
+            queue.append(pos + length)
+        return sorted(found)
+
     rows: list[dict] = []
     seen_triggers: set[str] = set()
 
@@ -283,6 +324,7 @@ def main() -> None:
     nonterminal55_coord = 0
     terminal57_count = 0
     entry_start57_count = 0
+    cfg_reachable57_count = 0
 
     # Conservative static family: bounded substreams whose exact tail is
     # 56 <destination_pack> <destination_entry> B0.
@@ -906,6 +948,97 @@ def main() -> None:
                 rows.append(row)
 
 
+    # Branch-reachable non-terminal 0x57 instructions. This pass uses a
+    # fail-closed CFG from the parsed entry start: unknown/variable opcodes stop
+    # a path, B2 is unconditional rel8, and B3/B4 explore both branch and
+    # fallthrough. Rows already proven by terminal or entry-start rules are
+    # skipped through seen_triggers.
+    for script_pack, pack in sorted(packs.items()):
+        for record in pack["records"]:
+            if (script_pack, record["record_index"]) in cms.EXCLUDED_NON_VM_RECORDS:
+                continue
+            header = cms.parse_record_header(rom, record)
+            if not header:
+                continue
+            for entry in header["entries"]:
+                body = rom[entry["start"]:entry["end"]]
+                for pos in cfg_reachable_57_offsets(body):
+                    if pos == 0:
+                        continue
+                    # Exact terminal form was already cataloged above.
+                    if pos == len(body) - 3 and body[-1] == 0xB0:
+                        continue
+                    addr = cpu_addr(entry["start"] + pos)
+                    if addr in seen_triggers:
+                        continue
+                    route_index = body[pos + 1]
+                    route = route57_final(route_index)
+                    if route is None:
+                        continue
+
+                    seen_triggers.add(addr)
+                    cfg_reachable57_count += 1
+                    record_id, event_sources = event_context(script_pack, addr)
+                    next_opcode = (
+                        f"0x{body[pos + 2]:02X}"
+                        if pos + 2 < len(body)
+                        else ""
+                    )
+
+                    row = blank_row()
+                    row.update({
+                        "script_pack": hx(script_pack),
+                        "script_record": record["record_index"],
+                        "script_entry": hx(entry["entry_id"]),
+                        "trigger_type": "vm_opcode_0x57_cfg_reachable_route",
+                        "trigger_addr": addr,
+                        "event_record": record_id,
+                        "vm_context": (
+                            f"pack={hx(script_pack)};record={record['record_index']};"
+                            f"entry={hx(entry['entry_id'])}"
+                        ),
+                        "event_sources": event_sources,
+                        "destination_pack": hx(route["pack_id"]),
+                        "destination_x": route["x"],
+                        "destination_y": route["y"],
+                        "confidence": "strong_candidate",
+                        "condition": (
+                            "instruction boundary is reachable from parsed entry start "
+                            "under fail-closed CFG; "
+                            f"route_index={hx(route_index)}; route_ptr={route['route_ptr']}; "
+                            f"context_0306={hx(route['context_0306'])}; "
+                            f"destination_entrance={hx(route['entrance'])}; "
+                            f"next_opcode={next_opcode}"
+                        ),
+                        "evidence": (
+                            "C4:8BD4 opcode 0x57 route-index semantics are proven. "
+                            "Source alignment is independently established by a "
+                            "fail-closed control-flow walk from the parsed entry start "
+                            "using only independently bounded instruction lengths and "
+                            "the proven B2/B3/B4 relative-branch grammar. Unknown or "
+                            "variable-length opcodes terminate that CFG path."
+                        ),
+                        "provenance": (
+                            f"canonical_rom_sha256={sha};"
+                            "tools/python/catalog_map_transition_candidates.py;"
+                            "cfg_reachable_57_offsets;"
+                            "C4:8BD4;C6:8000;C6:8060;81:8204;81:8207"
+                        ),
+                    })
+                    cfg = destination_config(route["pack_id"])
+                    if cfg:
+                        row["destination_config_id"] = cfg["config_id"]
+                        row["destination_layout"] = cfg["primary_layout_id"]
+                        row["destination_tileset"] = cfg["primary_tileset_id"]
+                        row["destination_variant"] = cfg["map_variant"]
+                    if record_id:
+                        row["provenance"] += (
+                            ";data/events/event_record_frame_catalog.csv"
+                            ";data/events/event_source_crosslink.csv"
+                        )
+                    rows.append(row)
+
+
     # Promote static transition rows only when a canonical runtime evidence file
     # names the exact static trigger and all destination fields agree.
     runtime_static_confirmation_count = 0
@@ -1115,6 +1248,7 @@ def main() -> None:
         "nonterminal_opcode55_coordinate_crosslink_count": nonterminal55_coord,
         "terminal_opcode57_route_candidate_count": terminal57_count,
         "entry_start_opcode57_route_candidate_count": entry_start57_count,
+        "cfg_reachable_opcode57_route_candidate_count": cfg_reachable57_count,
         "handler_findings": {
             "opcode_0x53": {
                 "handler": "C4:8B3F",
@@ -1164,7 +1298,7 @@ def main() -> None:
             "static source map/config is not inferred from script-pack identity",
             "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
             "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
-            "remaining non-terminal raw 0x57 route-index shapes are not promoted until source opcode alignment is proven",
+            "remaining non-terminal raw 0x57 route-index shapes are not promoted unless entry-start or fail-closed CFG alignment is proven",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
@@ -1264,6 +1398,7 @@ remain blank unless independently proven.
 - non-terminal 0x55 coordinate-crosslinked structural rows: {nonterminal55}
 - terminal 0x57 route-table forms: {terminal57}
 - entry-start non-terminal 0x57 route-table forms: {entry_start57}
+- branch-reachable non-terminal 0x57 route-table forms: {cfg_reachable57}
 
 Opcode 0x54 is destination-indirect: it requests a saved-map-state return
 rather than encoding a destination beside the opcode. Its exact terminal forms
@@ -1317,7 +1452,11 @@ Eight additional non-terminal forms are promoted because 0x57 is byte 0 of the
 parsed entry, independently proving the instruction boundary. All eight are
 immediately followed by aligned opcode 0x58, so the route table supplies the
 destination pack while 0x58 supplies the effective X/Y and secondary X/Y.
-Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
+A further three non-terminal 0x57 instructions in pack 0xDD / record 1 /
+entry 0x79 are reachable from the parsed entry start through a fail-closed CFG
+using proven B2/B3/B4 branch semantics and independently bounded opcode lengths.
+Their route indices are 0x06, 0x07 and 0x08. Raw non-terminal 0x57-shaped bytes
+elsewhere remain excluded.
 
 ## Deliberate non-promotions
 
@@ -1400,6 +1539,7 @@ PC was observed.
         nonterminal55=nonterminal55_coord,
         terminal57=terminal57_count,
         entry_start57=entry_start57_count,
+        cfg_reachable57=cfg_reachable57_count,
         terminal_matches=terminal_dest_entry + terminal53_dest_entry + terminal55_dest_entry,
         terminal_total=terminal_count + terminal53_count + terminal55_count,
     )
