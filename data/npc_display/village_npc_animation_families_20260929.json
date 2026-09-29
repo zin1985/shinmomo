@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "location": "旅立ちの村",
+  "families": [
+    {
+      "sprite_group": 2,
+      "runtime_slot": 13,
+      "tile_offset_signed": -32,
+      "character_class": "village_npc",
+      "states": [
+        {"state": 216, "direction": "right", "frames": [237,238], "duration_each": 64},
+        {"state": 217, "direction": "down", "frames": [239,240], "duration_each": 64},
+        {"state": 218, "direction": "left", "frames": [241,242], "duration_each": 64},
+        {"state": 219, "direction": "up", "frames": [243,244], "duration_each": 64}
+      ],
+      "runtime_confirmation": "state 217 pair F239/F240 observed while screen Y increased during idle stepping",
+      "confidence": "confirmed_runtime_direction"
+    },
+    {
+      "sprite_group": 3,
+      "runtime_slot": 17,
+      "tile_offset_signed": 32,
+      "character_class": "village_npc_red_hat",
+      "states": [
+        {"state": 5, "direction": "right", "frames": [9,10], "duration_each": 16},
+        {"state": 6, "direction": "down", "frames": [11,12], "duration_each": 16},
+        {"state": 7, "direction": "left", "frames": [13,14], "duration_each": 16},
+        {"state": 8, "direction": "up", "frames": [15,16], "duration_each": 16}
+      ],
+      "runtime_confirmation": "F15 observed while actor moved upward during no-input stepping",
+      "confidence": "confirmed_runtime_direction"
+    },
+    {
+      "sprite_group": 3,
+      "runtime_slot": 15,
+      "tile_offset_signed": 8,
+      "character_class": "village_npc_purple_green",
+      "states": [
+        {"state": 17, "direction": "right", "frames": [33,34], "duration_each": 16},
+        {"state": 18, "direction": "down", "frames": [35,36], "duration_each": 16},
+        {"state": 19, "direction": "left", "frames": [37,38], "duration_each": 16},
+        {"state": 20, "direction": "up", "frames": [39,40], "duration_each": 16}
+      ],
+      "runtime_confirmation": "runtime switched from F39 while moving up to F33 while moving right",
+      "confidence": "confirmed_runtime_direction"
+    },
+    {
+      "sprite_group": 7,
+      "runtime_slot": 22,
+      "tile_offset_signed": 136,
+      "character_class": "village_npc_blue",
+      "state": 6,
+      "frames": [15,16],
+      "duration_each": 32,
+      "motion": "stationary_idle_pair",
+      "direction": null,
+      "runtime_confirmation": "F15/F16 alternated every 32 frames while x/y stayed fixed",
+      "confidence": "confirmed_runtime_idle_pair"
+    }
+  ]
+}
