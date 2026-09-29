@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "sprite_group": 2,
+  "runtime_scene": "world map",
+  "runtime_split": {
+    "slot_2": {"character": "Momotaro", "frame": 4, "oam_entries": [0,1], "confidence": "confirmed_visual_runtime"},
+    "slot_3": {"character": "Ginji", "frame": 33, "oam_entries": [2], "confidence": "confirmed_visual_runtime"}
+  },
+  "momotaro_walk": {
+    "right": {"state": 1, "frames": [1,2], "durations": [32,32]},
+    "down": {"state": 2, "frames": [3,4], "durations": [32,32]},
+    "left": {"state": 3, "frames": [5,6], "durations": [32,32]},
+    "up": {"state": 4, "frames": [7,8], "durations": [32,32]},
+    "confidence": "confirmed_rom_plus_runtime_visual"
+  },
+  "ginji_walk": {
+    "right": {"state": 14, "frames": [31,32], "durations": [32,32]},
+    "down": {"state": 15, "frames": [22,33], "durations": [32,32]},
+    "left": {"state": 16, "frames": [6,5], "durations": [32,32]},
+    "up": {"state": 17, "frames": [34,35], "durations": [32,32]},
+    "dynamic_tile_offset": 32,
+    "confidence": "strong_rom_plus_visual_reconstruction"
+  }
+}

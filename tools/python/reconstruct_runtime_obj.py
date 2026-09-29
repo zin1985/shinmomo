@@ -16,8 +16,8 @@ v=bytearray(65536)
 for s in range(0,65536,4096):
  j=latest('VRAM',s);v[s:s+4096]=bytes(j['bytes'])
 obsel=latest('WRAM',934)['bytes'][0]
-base=(obsel&7)*0x2000
-name=((obsel>>3)&3)*0x1000+0x1000
+base=(obsel&7)*0x4000
+name=((obsel>>3)&3)*0x2000+0x2000
 sizepair=[((8,8),(16,16)),((8,8),(32,32)),((8,8),(64,64)),((16,16),(32,32)),((16,16),(64,64)),((32,32),(64,64)),((16,32),(32,64)),((16,32),(32,32))][(obsel>>5)&7]
 print('OBSEL',hex(obsel),'base',hex(base),'nameoff',hex(name),'sizes',sizepair)
 def rgb(i):
