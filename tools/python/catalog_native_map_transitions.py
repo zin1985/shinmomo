@@ -119,7 +119,7 @@ def writer_rows() -> list[dict]:
             "write_source": "$1521,X -> $0305",
             "state_effect": "restores saved pack/x/y/secondary-x/secondary-y/entrance",
             "confidence": "confirmed",
-            "evidence": "indexed state fields $151D..$1522 are copied back to active map state",
+            "evidence": "indexed state fields $151D..$1522 are copied back to active map state; a runtime 0x50->0x4C return edge is consistent with this mechanism, but the execution PC was not captured",
         },
         {
             "writer_addr": "C1:99ED", "routine": "C1:99CF",
@@ -416,7 +416,9 @@ def main() -> None:
             "to indexed $151D..$1522 state slots and advances $DD by 6"
         ),
         "state_stack_restore": (
-            "C1:8244 restores indexed saved map state from $151D..$1522"
+            "C1:8244 restores indexed saved map state from $151D..$1522; "
+            "runtime evidence confirms a 0x50->0x4C return edge compatible with "
+            "this mechanism, while the exact restore caller PC remains unobserved"
         ),
         "c6_8000_route_format": (
             "context_0306:1, then repeated [pack,x,y,entrance]:4, then 00"
@@ -427,7 +429,7 @@ def main() -> None:
         ),
     }
     summary["unresolved"] = [
-        "native routine callers/triggers are not yet semantically named",
+        "native routine callers/triggers are not yet semantically named; the 0x50->0x4C runtime return edge narrows C1:8244/C1:8255 to a strong mechanism candidate without an observed execution PC",
         "source map/config remains null because caller-time $0305 is not statically proven",
         "C5:CB81 has no local transition-finalizer call and stays structural_candidate",
         "native route stack entries are state-stack construction; only the final active destination is promoted",
@@ -445,7 +447,7 @@ Updated: 2026-09-29
 ## Scope
 
 This pass inventories exact native STA $0305 sites outside the already
-cataloged C4 VM opcode 0x53/0x56 transition grammar. No HTML viewer or NPC/sprite
+cataloged C4 VM opcode 0x53/0x55/0x56 transition grammar. No HTML viewer or NPC/sprite
 integration is included.
 
 Canonical ROM SHA-256: {sha}
@@ -454,14 +456,18 @@ Git HEAD used for generation: {head}
 ## Writer classification
 
 There are **{writer_sites}** exact native STA $0305 sites outside C4:8B7B.
-Five are confirmed restore/temporary-context writes and are excluded from
-transition candidates. Six belong to routines that construct or leave a
-destination map state.
+Five are restore/temporary-context writes and are excluded from the
+statically enumerable destination-candidate rows. This does not mean they can
+never realize a runtime edge: C1:8244/C1:8255 is now a strong mechanism
+candidate for the confirmed 0x50 -> 0x4C return transition. Six other sites
+belong to routines that construct or leave an explicit destination map state.
 
 The key correction in this pass is 81:8207: it is a map-state **save** routine,
 not a renderer. It copies active $0305/$1573/$157D/$15C3/$15C4/$13B9 into
 indexed $151D..$1522 slots and advances $DD by six. 81:8204 clears that stack
-and C1:8244 restores an indexed saved state.
+and C1:8244 restores an indexed saved state. The exact caller PC for the
+confirmed 旅立ちの村 -> world-map return edge was not captured, so this restore
+mechanism is not promoted to an observed trigger address.
 """.format(
         sha=sha,
         head=summary["generated_against_git_head"],
@@ -494,7 +500,7 @@ entrance 0x02, clears $1399, and jumps to 80:C9E7.
 
 - native writer sites: {writer_sites}
 - writer sites producing candidate families: {candidate_writer_sites}
-- restore/temporary-context writer sites excluded: {excluded_writer_sites}
+- restore/temporary-context writer sites excluded from statically enumerable destination rows: {excluded_writer_sites}
 - native transition candidate rows: {candidate_count}
 - strong candidates: {strong}
 - structural candidates: {structural}

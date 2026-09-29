@@ -5,23 +5,27 @@ Updated: 2026-09-29
 ## Scope
 
 This pass inventories exact native STA $0305 sites outside the already
-cataloged C4 VM opcode 0x53/0x56 transition grammar. No HTML viewer or NPC/sprite
+cataloged C4 VM opcode 0x53/0x55/0x56 transition grammar. No HTML viewer or NPC/sprite
 integration is included.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: 2d58e836ab1d8fedb205c83f15a06ff70830234e
+Git HEAD used for generation: 8a9729d9b01629b29f7b1bcc74bca3d86f9e6701
 
 ## Writer classification
 
 There are **11** exact native STA $0305 sites outside C4:8B7B.
-Five are confirmed restore/temporary-context writes and are excluded from
-transition candidates. Six belong to routines that construct or leave a
-destination map state.
+Five are restore/temporary-context writes and are excluded from the
+statically enumerable destination-candidate rows. This does not mean they can
+never realize a runtime edge: C1:8244/C1:8255 is now a strong mechanism
+candidate for the confirmed 0x50 -> 0x4C return transition. Six other sites
+belong to routines that construct or leave an explicit destination map state.
 
 The key correction in this pass is 81:8207: it is a map-state **save** routine,
 not a renderer. It copies active $0305/$1573/$157D/$15C3/$15C4/$13B9 into
 indexed $151D..$1522 slots and advances $DD by six. 81:8204 clears that stack
-and C1:8244 restores an indexed saved state.
+and C1:8244 restores an indexed saved state. The exact caller PC for the
+confirmed 旅立ちの村 -> world-map return edge was not captured, so this restore
+mechanism is not promoted to an observed trigger address.
 
 ## Candidate families
 
@@ -46,7 +50,7 @@ entrance 0x02, clears $1399, and jumps to 80:C9E7.
 
 - native writer sites: 11
 - writer sites producing candidate families: 6
-- restore/temporary-context writer sites excluded: 5
+- restore/temporary-context writer sites excluded from statically enumerable destination rows: 5
 - native transition candidate rows: 54
 - strong candidates: 53
 - structural candidates: 1
@@ -70,7 +74,7 @@ visible map-to-map edges. Only the final active destination state is cataloged.
 - tools/python/catalog_native_map_transitions.py
 
 ## Remaining blockers
-- native routine callers/triggers are not yet semantically named
+- native routine callers/triggers are not yet semantically named; the 0x50->0x4C runtime return edge narrows C1:8244/C1:8255 to a strong mechanism candidate without an observed execution PC
 - source map/config remains null because caller-time $0305 is not statically proven
 - C5:CB81 has no local transition-finalizer call and stays structural_candidate
 - native route stack entries are state-stack construction; only the final active destination is promoted

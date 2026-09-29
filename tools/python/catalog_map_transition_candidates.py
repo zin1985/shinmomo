@@ -245,6 +245,10 @@ def main() -> None:
     terminal53_dest_entry = 0
     terminal53_coord = 0
     nonterminal53_coord = 0
+    terminal55_count = 0
+    terminal55_dest_entry = 0
+    terminal55_coord = 0
+    nonterminal55_coord = 0
 
     # Conservative static family: bounded substreams whose exact tail is
     # 56 <destination_pack> <destination_entry> B0.
@@ -538,6 +542,153 @@ def main() -> None:
                     nonterminal53_coord += 1
 
 
+    # Opcode 0x55 restores an indexed saved map state through 81:8244,
+    # preserves the current primary X/Y pair, then falls through to the
+    # C4:8B6A transition core. It therefore uses the same explicit
+    # <destination_pack> <destination_entry> operand pair as 0x56.
+    for script_pack, pack in sorted(packs.items()):
+        for record in pack["records"]:
+            if (script_pack, record["record_index"]) in cms.EXCLUDED_NON_VM_RECORDS:
+                continue
+            header = cms.parse_record_header(rom, record)
+            if not header:
+                continue
+            for entry in header["entries"]:
+                body = rom[entry["start"]:entry["end"]]
+                if len(body) < 4 or body[-4] != 0x55 or body[-1] != 0xB0:
+                    continue
+                dest_pack, dest_entry = body[-3], body[-2]
+                if not (cms.FIRST_REAL_PACK <= dest_pack <= cms.LAST_REAL_PACK):
+                    continue
+                addr = cpu_addr(entry["end"] - 4)
+                seen_triggers.add(addr)
+                terminal55_count += 1
+                record_id, event_sources = event_context(script_pack, addr)
+                row = blank_row()
+                row.update({
+                    "script_pack": hx(script_pack),
+                    "script_record": record["record_index"],
+                    "script_entry": hx(entry["entry_id"]),
+                    "trigger_type": "vm_opcode_0x55_restore_context_terminal",
+                    "trigger_addr": addr,
+                    "event_record": record_id,
+                    "vm_context": (
+                        f"pack={hx(script_pack)};record={record['record_index']};"
+                        f"entry={hx(entry['entry_id'])}"
+                    ),
+                    "event_sources": event_sources,
+                })
+                dest_exists, coord_exists = apply_destination(
+                    row, dest_pack, dest_entry
+                )
+                if dest_exists:
+                    terminal55_dest_entry += 1
+                    row["confidence"] = "strong_candidate"
+                    row["condition"] = (
+                        f"bounded substream tail; destination record0 entry "
+                        f"{hx(dest_entry)} exists"
+                    )
+                else:
+                    row["confidence"] = "structural_candidate"
+                    row["condition"] = (
+                        f"bounded substream tail; destination record0 entry "
+                        f"{hx(dest_entry)} not resolved"
+                    )
+                if coord_exists:
+                    terminal55_coord += 1
+                    row["condition"] += (
+                        f"; destination entry has aligned 0x58 coordinate setter "
+                        f"at {row['destination_coordinate_addr']}"
+                    )
+                row["evidence"] = (
+                    "C4:8B56 opcode 0x55 saves current $157D/$1573 on the CPU "
+                    "stack, calls 81:8244 to restore indexed map state, restores "
+                    "the current primary X/Y pair, then falls through to C4:8B6A; "
+                    "the transition core writes operand1 to $0305 and operand2 "
+                    "to $13B8/$13B9"
+                )
+                if coord_exists:
+                    row["evidence"] += (
+                        "; C4:8BE2 opcode 0x58 writes destination coordinates"
+                    )
+                row["provenance"] = (
+                    f"canonical_rom_sha256={sha};"
+                    "tools/python/catalog_map_transition_candidates.py;"
+                    "C4:8B56;C1:8244;C4:8B6A;C4:8BE2"
+                )
+                if record_id:
+                    row["provenance"] += (
+                        ";data/events/event_record_frame_catalog.csv"
+                        ";data/events/event_source_crosslink.csv"
+                    )
+                rows.append(row)
+
+    # Non-terminal 0x55 shapes are kept only when destination coordinates
+    # independently anchor the destination pack/entry relationship.
+    for script_pack, pack in sorted(packs.items()):
+        for record in pack["records"]:
+            if (script_pack, record["record_index"]) in cms.EXCLUDED_NON_VM_RECORDS:
+                continue
+            header = cms.parse_record_header(rom, record)
+            if not header:
+                continue
+            for entry in header["entries"]:
+                body = rom[entry["start"]:entry["end"]]
+                for pos in range(max(0, len(body) - 2)):
+                    if body[pos] != 0x55:
+                        continue
+                    addr = cpu_addr(entry["start"] + pos)
+                    if addr in seen_triggers:
+                        continue
+                    dest_pack, dest_entry = body[pos + 1], body[pos + 2]
+                    if not (cms.FIRST_REAL_PACK <= dest_pack <= cms.LAST_REAL_PACK):
+                        continue
+                    dent = record0_entry(dest_pack, dest_entry)
+                    coord = coordinate_setter(rom, dent)
+                    if coord is None:
+                        continue
+                    record_id, event_sources = event_context(script_pack, addr)
+                    row = blank_row()
+                    row.update({
+                        "script_pack": hx(script_pack),
+                        "script_record": record["record_index"],
+                        "script_entry": hx(entry["entry_id"]),
+                        "trigger_type": "vm_opcode_0x55_nonterminal_shape",
+                        "trigger_addr": addr,
+                        "event_record": record_id,
+                        "vm_context": (
+                            f"pack={hx(script_pack)};record={record['record_index']};"
+                            f"entry={hx(entry['entry_id'])}"
+                        ),
+                        "event_sources": event_sources,
+                        "confidence": "structural_candidate",
+                        "condition": (
+                            "source opcode boundary not yet proven; destination "
+                            "record0 entry exists and has aligned 0x58 setter"
+                        ),
+                        "evidence": (
+                            "raw 0x55 shape inside bounded VM substream; C4:8B56 "
+                            "restores saved map context then falls through to the "
+                            "C4:8B6A transition core; destination entry independently "
+                            "has aligned 0x58 coordinates"
+                        ),
+                        "provenance": (
+                            f"canonical_rom_sha256={sha};"
+                            "tools/python/catalog_map_transition_candidates.py;"
+                            "C4:8B56;C1:8244;C4:8B6A;C4:8BE2"
+                        ),
+                    })
+                    if record_id:
+                        row["provenance"] += (
+                            ";data/events/event_record_frame_catalog.csv"
+                            ";data/events/event_source_crosslink.csv"
+                        )
+                    apply_destination(row, dest_pack, dest_entry)
+                    rows.append(row)
+                    seen_triggers.add(addr)
+                    nonterminal55_coord += 1
+
+
     # Promote static transition rows only when a canonical runtime evidence file
     # names the exact static trigger and all destination fields agree.
     runtime_static_confirmation_count = 0
@@ -615,6 +766,75 @@ def main() -> None:
         runtime_static_confirmation_count += 1
         runtime_static_confirmation_triggers.append(trigger_addr)
 
+    # Runtime-only edges can be projected into the catalog even when the
+    # exact execution PC was not captured. These remain confirmed edges while
+    # any proposed static mechanism keeps its own lower confidence in evidence.
+    runtime_only_confirmation_count = 0
+    for evidence_path in sorted(transitions_dir.glob("*.json")):
+        try:
+            runtime_evidence = json.loads(evidence_path.read_text(encoding="utf-8-sig"))
+        except Exception:
+            continue
+        if runtime_evidence.get("kind") != "runtime_map_transition_evidence":
+            continue
+        projection = runtime_evidence.get("catalog_projection")
+        if not projection:
+            continue
+        if runtime_evidence.get("relation_status") != "confirmed_runtime_transition":
+            raise SystemExit(
+                f"runtime-only projection {evidence_path.name} is not a confirmed edge"
+            )
+
+        source = runtime_evidence.get("from", {})
+        destination = runtime_evidence.get("to", {})
+        source_selector = source.get("selector", {})
+        dest_selector = destination.get("selector", {})
+        coord = destination.get("coordinate", {})
+        trigger = runtime_evidence.get("trigger", {})
+        mechanism = runtime_evidence.get("mechanism", {})
+
+        row = blank_row()
+        row.update({
+            "source_config_id": source.get("config_id", ""),
+            "source_pack": source.get("pack_id_hex", ""),
+            "source_layout": source_selector.get("primary_layout", ""),
+            "source_tileset": source_selector.get("primary_tileset", ""),
+            "trigger_type": projection.get("trigger_type", "runtime_only_transition"),
+            "trigger_addr": projection.get("trigger_addr", ""),
+            "destination_pack": destination.get("pack_id_hex", ""),
+            "destination_config_id": destination.get("config_id", ""),
+            "destination_layout": dest_selector.get("primary_layout", ""),
+            "destination_tileset": dest_selector.get("primary_tileset", ""),
+            "destination_variant": dest_selector.get("map_variant", ""),
+            "destination_x": coord.get("x", ""),
+            "destination_y": coord.get("y", ""),
+            "confidence": projection.get("confidence", "confirmed"),
+            "condition": (
+                f"runtime frame {trigger.get('observed_frame')} confirms "
+                f"{source.get('pack_id_hex', '')} -> "
+                f"{destination.get('pack_id_hex', '')}; exact execution PC not observed"
+            ),
+            "evidence": (
+                f"atomic capture hash={trigger.get('atomic_capture_sha256', '')}; "
+                f"arrival selector="
+                f"{dest_selector.get('primary_tileset', '')}/"
+                f"{dest_selector.get('primary_layout', '')}/"
+                f"{dest_selector.get('map_variant', '')}; "
+                f"arrival coordinate=({coord.get('x', '')},{coord.get('y', '')}); "
+                f"mechanism={mechanism.get('status', 'unresolved')}"
+            ),
+            "provenance": f"data/maps/transitions/{evidence_path.name}",
+        })
+        mechanism_addr = projection.get("mechanism_addr", "")
+        if mechanism_addr:
+            row["evidence"] += (
+                f"; candidate mechanism writer={mechanism_addr} "
+                f"(execution PC not observed)"
+            )
+        rows.append(row)
+        runtime_only_confirmation_count += 1
+
+
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=COLUMNS)
@@ -656,6 +876,7 @@ def main() -> None:
         "source_config_resolved_count": sum(bool(r["source_config_id"]) for r in rows),
         "runtime_static_confirmation_count": runtime_static_confirmation_count,
         "runtime_static_confirmation_triggers": runtime_static_confirmation_triggers,
+        "runtime_only_confirmation_count": runtime_only_confirmation_count,
         "destination_pack_identified_count": destination_pack_count,
         "destination_config_resolved_count": destination_config_count,
         "destination_coordinate_resolved_count": coordinate_count,
@@ -671,6 +892,10 @@ def main() -> None:
         "terminal_opcode53_destination_entry_match_count": terminal53_dest_entry,
         "terminal_opcode53_coordinate_match_count": terminal53_coord,
         "nonterminal_opcode53_coordinate_crosslink_count": nonterminal53_coord,
+        "terminal_opcode55_candidate_count": terminal55_count,
+        "terminal_opcode55_destination_entry_match_count": terminal55_dest_entry,
+        "terminal_opcode55_coordinate_match_count": terminal55_coord,
+        "nonterminal_opcode55_coordinate_crosslink_count": nonterminal55_coord,
         "handler_findings": {
             "opcode_0x53": {
                 "handler": "C4:8B3F",
@@ -678,6 +903,15 @@ def main() -> None:
                 "effect": (
                     "transition wrapper; performs pre-work then JSR C4:8B6A, "
                     "therefore sharing the 0x56 destination-pack/entry core"
+                ),
+            },
+            "opcode_0x55": {
+                "handler": "C4:8B56",
+                "instruction_length": 3,
+                "effect": (
+                    "save current primary X/Y on CPU stack; JSL 81:8244 to "
+                    "restore indexed saved map state; restore current primary X/Y; "
+                    "fall through to C4:8B6A destination-pack/entry transition core"
                 ),
             },
             "opcode_0x56": {
@@ -701,13 +935,13 @@ def main() -> None:
         "unresolved_patterns": [
             "static source map/config is not inferred from script-pack identity",
             "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
-            "non-terminal 0x53/0x56 shapes remain structural unless source instruction alignment is proven",
+            "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
             "opcode 0x04 changes VM pack context $126E and is not promoted as a map transition by itself",
             "event-record crosslink coverage is partial; rows outside the structural frame catalog retain vm_context only",
-            "eleven additional native STA $0305 sites remain outside the promoted opcode 0x53/0x56 transition grammar",
+            "native STA $0305 restore/context writers outside the explicit 0x53/0x55/0x56 destination operand grammar remain separately inventoried",
         ],
     }
     args.summary.write_text(
@@ -733,6 +967,11 @@ Normal VM opcode 0x53 dispatches to C4:8B3F, performs transition pre-work,
 then directly JSRs C4:8B6A. It therefore shares the same two transition
 operands and three-byte advance as the 0x56 core.
 
+Normal VM opcode 0x55 dispatches to C4:8B56. It saves the current primary
+X/Y pair on the CPU stack, calls 81:8244 to restore an indexed saved map state,
+restores the current primary X/Y pair, and then falls through to the C4:8B6A
+transition core. It therefore also consumes destination pack/entry operands.
+
 Normal VM opcode 0x56 dispatches to C4:8B6A and is three bytes total.
 The handler copies the old global map pack $0305 to $15CF, writes operand 1
 to both $15D0 and $0305, writes operand 2 to $13B8/$13B9, calls
@@ -748,15 +987,16 @@ these fields as current-map coordinates.
 ## Confidence policy
 
 - confirmed: preserved runtime-observed transition evidence.
-- strong_candidate: an exact bounded VM-substream tail of either
-  53 <destination_pack> <destination_entry> B0 or
+- strong_candidate: an exact bounded VM-substream tail of
+  53 <destination_pack> <destination_entry> B0,
+  55 <destination_pack> <destination_entry> B0, or
   56 <destination_pack> <destination_entry> B0, with the same destination
   entry present in destination record 0.
 - structural_candidate: a terminal form whose destination entry is unresolved,
-  or a non-terminal raw 0x53/0x56 shape retained only because its destination
-  entry independently contains an aligned 0x58 coordinate setter.
+  or a non-terminal raw 0x53/0x55/0x56 shape retained only because its
+  destination entry independently contains an aligned 0x58 coordinate setter.
 
-The script-pack containing 0x53/0x56 is not automatically treated as the source map
+The script-pack containing 0x53/0x55/0x56 is not automatically treated as the source map
 pack. VM pack context and global map pack can differ, so static source map fields
 remain blank unless independently proven.
 
@@ -768,6 +1008,7 @@ remain blank unless independently proven.
 - structural candidates: {structural}
 - rows with source configuration: {source_configs}
 - runtime-confirmed static triggers: {runtime_static}
+- runtime-confirmed edges without observed trigger PC: {runtime_only}
 - rows with destination pack: {dest_pack}
 - rows with unique destination configuration: {dest_config}
 - rows with destination X/Y: {coords}
@@ -781,10 +1022,14 @@ remain blank unless independently proven.
 - terminal 0x53 forms with matching destination entry: {terminal53_entry}
 - terminal 0x53 forms with aligned destination 0x58 coordinates: {terminal53_coords}
 - non-terminal 0x53 coordinate-crosslinked structural rows: {nonterminal53}
+- terminal 0x55 forms: {terminal55}
+- terminal 0x55 forms with matching destination entry: {terminal55_entry}
+- terminal 0x55 forms with aligned destination 0x58 coordinates: {terminal55_coords}
+- non-terminal 0x55 coordinate-crosslinked structural rows: {nonterminal55}
 
 ## Runtime-confirmed anchor
 
-Two runtime anchors are now preserved.
+Three runtime anchors are now preserved.
 
 The earlier trace confirms cfg_t07_l015_v2 / pack 0x2E transitions to
 cfg_t04_l008_v2 / pack 0x50. During that transition, $0305 changes first,
@@ -799,9 +1044,18 @@ That entry's aligned 0x58 setter at CC:1C4E predicts (29,55), and runtime
 coordinates become exactly (29,55) by frame 14657. The visible destination
 label is 旅立ちの村. This promotes CC:0B08 from strong_candidate to confirmed.
 
+A second 2026-09-29 trace captures the reverse edge from 旅立ちの村 /
+cfg_t04_l008_v2 / pack 0x50 back to cfg_t01_l001_v1 / pack 0x4C.
+During a Down atomic capture, $0305 changes 0x50 -> 0x4C at frame 14787
+while the active DP pointer remains CD:FA4F. By frame 14937 selector 1/1/1 is
+active under pack 0x4C at coordinate (54,237). The edge is confirmed, but the
+exact execution PC was not captured. C1:8244/C1:8255 saved-map-state restore is
+therefore recorded only as a strong mechanism candidate, not as the observed
+trigger address.
+
 ## Important structural finding
 
-The second transition operand used by both 0x53 and 0x56 behaves as a
+The second transition operand used by 0x53, 0x55 and 0x56 behaves as a
 destination entry selector. Across the conservative terminal corpus,
 destination record 0 contains the same entry ID for
 {terminal_matches} of {terminal_total} rows. Where that entry begins with opcode
@@ -817,13 +1071,13 @@ including coordinates (29,55) and (34,49).
 Opcode 0x04 is a proven VM pack-context switch for $126E, but it is not treated
 as a global map transition because it does not itself write $0305.
 
-Raw 0x53/0x56-shaped bytes outside the bounded policy are not cataloged.
+Raw 0x53/0x55/0x56-shaped bytes outside the bounded policy are not cataloged.
 Non-terminal shapes are retained only when a destination-entry/0x58 coordinate cross-link
 provides an independent structural anchor.
 
 ## Related state fields
 
-- $0305 is the global current-map pack field written by the C4:8B6A core used by opcode 0x56 and the opcode 0x53 wrapper.
+- $0305 is the global current-map pack field written by the C4:8B6A core used by opcodes 0x53, 0x55 and 0x56.
 - $126E is VM pack context. Opcode 0x04 changes $126E, so it is useful context
   but is not sufficient evidence for a global map transition.
 - $12B4 is the resolved current source family/pack context used by source
@@ -845,9 +1099,10 @@ provides an independent structural anchor.
 Outside C4:8B7B inside opcode 0x56, exact STA-absolute $0305 byte patterns occur
 at: {native_writers}
 
-These sites are retained as unresolved native writer candidates and are not
-promoted into transition rows until native instruction boundary and source-value
-flow are proven.
+These sites are separately inventoried because some are save/restore or
+temporary-context writes rather than explicit destination operands. Runtime-only
+edges may still use them as mechanism candidates without claiming the execution
+PC was observed.
 
 ## Reproducible outputs
 
@@ -856,6 +1111,7 @@ flow are proven.
 - docs/analysis/map_transition_candidate_catalog.md
 - tools/python/catalog_map_transition_candidates.py
 - data/maps/transitions/world_pack4c_to_pack50_entry02_20260929.json
+- data/maps/transitions/tabidachi_village_to_world_pack4c_restore_20260929.json
 
 ## Remaining blockers
 
@@ -866,6 +1122,7 @@ flow are proven.
         structural=confidence_counts.get("structural_candidate", 0),
         source_configs=summary["source_config_resolved_count"],
         runtime_static=runtime_static_confirmation_count,
+        runtime_only=runtime_only_confirmation_count,
         dest_pack=destination_pack_count,
         dest_config=destination_config_count,
         coords=coordinate_count,
@@ -880,8 +1137,12 @@ flow are proven.
         terminal53_entry=terminal53_dest_entry,
         terminal53_coords=terminal53_coord,
         nonterminal53=nonterminal53_coord,
-        terminal_matches=terminal_dest_entry + terminal53_dest_entry,
-        terminal_total=terminal_count + terminal53_count,
+        terminal55=terminal55_count,
+        terminal55_entry=terminal55_dest_entry,
+        terminal55_coords=terminal55_coord,
+        nonterminal55=nonterminal55_coord,
+        terminal_matches=terminal_dest_entry + terminal53_dest_entry + terminal55_dest_entry,
+        terminal_total=terminal_count + terminal53_count + terminal55_count,
     )
 
     for item in summary["unresolved_patterns"]:

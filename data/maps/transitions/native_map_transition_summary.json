@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "native_map_transition_candidate_catalog",
-  "generated_against_git_head": "2d58e836ab1d8fedb205c83f15a06ff70830234e",
+  "generated_against_git_head": "8a9729d9b01629b29f7b1bcc74bca3d86f9e6701",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
   "writer_site_count": 11,
   "writer_transition_candidate_site_count": 6,
@@ -23,12 +23,12 @@
   "structural_findings": {
     "state_stack_clear": "81:8204 sets $DD=0",
     "state_stack_save": "81:8207 stores $0305/$1573/$157D/$15C3/$15C4/$13B9 to indexed $151D..$1522 state slots and advances $DD by 6",
-    "state_stack_restore": "C1:8244 restores indexed saved map state from $151D..$1522",
+    "state_stack_restore": "C1:8244 restores indexed saved map state from $151D..$1522; runtime evidence confirms a 0x50->0x4C return edge compatible with this mechanism, while the exact restore caller PC remains unobserved",
     "c6_8000_route_format": "context_0306:1, then repeated [pack,x,y,entrance]:4, then 00",
     "c6_8164_route_format": "key0306 + ptr16 table; route contains repeated [pack,x,y,entrance], 00 terminator, final_pack, final_entrance"
   },
   "unresolved": [
-    "native routine callers/triggers are not yet semantically named",
+    "native routine callers/triggers are not yet semantically named; the 0x50->0x4C runtime return edge narrows C1:8244/C1:8255 to a strong mechanism candidate without an observed execution PC",
     "source map/config remains null because caller-time $0305 is not statically proven",
     "C5:CB81 has no local transition-finalizer call and stays structural_candidate",
     "native route stack entries are state-stack construction; only the final active destination is promoted"

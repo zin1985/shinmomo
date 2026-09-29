@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_map_transition_evidence",
+  "policy": "Raw screenshots, WRAM snapshots and atomic capture remain local-only; this file stores scalar state, hashes, addresses and derived joins only.",
+  "from": {
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "selector": {
+      "primary_tileset": 4,
+      "primary_layout": 8,
+      "map_variant": 2
+    },
+    "human_location_name": "旅立ちの村",
+    "last_confirmed_coordinate": {
+      "x": 29,
+      "y": 55,
+      "frame": 14657,
+      "provenance": "data/maps/transitions/world_pack4c_to_pack50_entry02_20260929.json"
+    },
+    "visible_frame": 14777,
+    "visible_capture_id": "1790672614705-5bacae57",
+    "visible_manifest_sha256": "205CB70FF632804AE86B59A8734410B7B3D1DC7EA753420C3A8896D6A2A4041D"
+  },
+  "trigger": {
+    "observed_frame": 14787,
+    "input": "Down",
+    "input_frame_index": 10,
+    "current_pack_before_hex": "0x50",
+    "current_pack_after_hex": "0x4C",
+    "dp_pointer_before": "CD:FA4F",
+    "dp_pointer_after": "CD:FA4F",
+    "vm_slot_before": 7,
+    "vm_slot_after": 7,
+    "atomic_capture_sha256": "251C806AA44250E87DAC4139D3A5210CF2E73195443AC239B6FF1EF55666F59D",
+    "static_match": null
+  },
+  "to": {
+    "config_id": "cfg_t01_l001_v1",
+    "pack_id_hex": "0x4C",
+    "selector": {
+      "primary_tileset": 1,
+      "primary_layout": 1,
+      "map_variant": 1
+    },
+    "coordinate": {
+      "x": 54,
+      "y": 237
+    },
+    "arrival_frame": 14937,
+    "arrival_capture_id": "1790673054673-148c446a",
+    "arrival_manifest_sha256": "EF233180E4DA6F38AE1FF3013401379331E63108513669504F680A8B0A159108",
+    "coordinate_capture_sha256": "DD5CFB196D2B3D6125DB770A30357861A387231F603239ED3F76AF4730E5BA76"
+  },
+  "mechanism": {
+    "status": "strong_candidate_saved_map_state_restore",
+    "writer_addr": "C1:8255",
+    "restore_routine": "C1:8244",
+    "candidate_callers": [
+      "C1:82D6",
+      "C1:97C1",
+      "C4:8B4A",
+      "C4:8B5E",
+      "C5:92AF"
+    ],
+    "evidence": [
+      "C1:8244 restores indexed saved map state from $151D..$1522, including saved pack through C1:8255.",
+      "The runtime transition restores pack 0x4C without changing the active DP pointer CD:FA4F.",
+      "No terminal 0x53/0x56 static row resolves destination pack 0x4C at arrival coordinates (54,237).",
+      "C1:97C1 conditionally calls 81:8244 when $13B8 is zero, but execution of that caller was not captured."
+    ],
+    "execution_pc_observed": false
+  },
+  "catalog_projection": {
+    "trigger_type": "runtime_saved_map_state_restore_transition",
+    "trigger_addr": "",
+    "mechanism_addr": "C1:8255",
+    "confidence": "confirmed"
+  },
+  "derived_sequence": [
+    "At frame 14777 the visible source is 旅立ちの村 under pack 0x50 and selector 4/8/2.",
+    "During a Down atomic capture, $0305 changes 0x50 -> 0x4C at frame 14787 while the DP pointer remains CD:FA4F.",
+    "By frame 14937 $0305/$126E/$12B4 are all 0x4C and selector 1/1/1 is active.",
+    "At frame 14937 runtime coordinates are (54,237) on cfg_t01_l001_v1.",
+    "The edge is runtime-confirmed; the exact restore caller PC remains unobserved."
+  ],
+  "relation_status": "confirmed_runtime_transition",
+  "mechanism_status": "strong_candidate"
+}
