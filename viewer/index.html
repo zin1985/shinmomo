@@ -1,0 +1,15 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Shinmomo Structural World</title>
+<style>
+body{font:14px system-ui;margin:0;display:grid;grid-template-columns:300px 1fr;height:100vh}
+aside{padding:12px;overflow:auto;border-right:1px solid #aaa}
+main{padding:16px;overflow:auto} button{display:block;width:100%;text-align:left}
+pre{white-space:pre-wrap} .edge{padding:8px;border:1px solid #aaa;margin:8px 0}
+</style>
+<aside><h1>World</h1><label>Assets <select id="profile">
+<option value="canonical">canonical / local</option>
+<option value="public_redrawn">public redrawn</option>
+</select></label><p id="summary"></p><div id="maps"></div></aside>
+<main><h2 id="title">Select map</h2><div id="edges"></div><pre id="detail"></pre></main>
+<script type="module" src="viewer.js"></script>
