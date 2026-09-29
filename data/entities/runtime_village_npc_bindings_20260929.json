@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-29",
+  "location": "旅立ちの村",
+  "pack_id_hex": "0x50",
+  "evidence_frame": 15753,
+  "raw_runtime_capture_committed": false,
+  "bindings": [
+    {
+      "slot": 13,
+      "sprite_group": 2,
+      "frame": 240,
+      "tile_offset_signed": -32,
+      "palette_base": 0,
+      "screen_anchor": {"x": 48, "y": 11},
+      "classification": "village_npc",
+      "family": "group2_frames_237_244",
+      "confidence": "confirmed_runtime_visual"
+    },
+    {
+      "slot": 22,
+      "sprite_group": 7,
+      "frame": 15,
+      "tile_offset_signed": 136,
+      "palette_base": 0,
+      "screen_anchor": {"x": 64, "y": 91},
+      "classification": "village_npc",
+      "confidence": "confirmed_runtime_visual"
+    },
+    {
+      "slot": 15,
+      "sprite_group": 3,
+      "frame": 35,
+      "tile_offset_signed": 8,
+      "palette_base": 0,
+      "screen_anchor": {"x": 64, "y": 155},
+      "classification": "village_npc",
+      "confidence": "confirmed_runtime_visual"
+    },
+    {
+      "slot": 17,
+      "sprite_group": 3,
+      "frame": 11,
+      "tile_offset_signed": 32,
+      "palette_base": 0,
+      "screen_anchor": {"x": 240, "y": 203},
+      "classification": "village_npc",
+      "confidence": "confirmed_runtime_visual"
+    },
+    {
+      "slot": 23,
+      "sprite_group": 5,
+      "frame": 6,
+      "tile_offset_signed": 154,
+      "palette_base": 0,
+      "screen_anchor": {"x": 80, "y": 92},
+      "classification": "effect_flame_like",
+      "confidence": "confirmed_runtime_visual"
+    }
+  ],
+  "notes": [
+    "Group 2 frames 237-244 are now runtime-bound to a village NPC in pack 0x50.",
+    "Village NPC rendering spans multiple sprite groups; group 2 is not a complete NPC-only bank.",
+    "Raw screenshot, WRAM, VRAM and palette staging captures remain local-only."
+  ]
+}
