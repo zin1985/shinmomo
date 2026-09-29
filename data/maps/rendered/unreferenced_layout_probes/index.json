@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "kind": "unreferenced_layout_probe_index",
+  "policy": "Derived images are probes for CF layouts without recovered runtime selector references. Do not treat candidate tileset assignments as gameplay reachability evidence.",
+  "probe_count": 5,
+  "probes": [
+    {
+      "layout_id": 17,
+      "tileset_id_candidate": 7,
+      "resource_status": "strict_existing_ts7_resources",
+      "reference_status": "no recovered primary/secondary selector reference",
+      "confidence": "strong_render_candidate_not_runtime_reference",
+      "dir": "ts07",
+      "reason": "CF-order neighborhood is TS7 and the proven TS7 ROM resources pass complete CHR/palette coverage.",
+      "png": "data/maps/rendered/unreferenced_layout_probes/ts07/map_017.png",
+      "json": "data/maps/rendered/unreferenced_layout_probes/ts07/map_017.json",
+      "png_sha256": "BED8F4E44949314C2ED4373A0217090B175613EA63D0DC3D72F2A8EFED72F9E0"
+    },
+    {
+      "layout_id": 66,
+      "tileset_id_candidate": 7,
+      "resource_status": "strict_existing_ts7_resources",
+      "reference_status": "no recovered primary/secondary selector reference",
+      "confidence": "strong_render_candidate_not_runtime_reference",
+      "dir": "ts07",
+      "reason": "Immediately between referenced TS7 layouts 65 and 67; proven TS7 resources pass complete coverage.",
+      "png": "data/maps/rendered/unreferenced_layout_probes/ts07/map_066.png",
+      "json": "data/maps/rendered/unreferenced_layout_probes/ts07/map_066.json",
+      "png_sha256": "0618C5C47A7685579D5E1C14DFC0A76403375C706FCD9D8D4816342DBF0A8C4F"
+    },
+    {
+      "layout_id": 79,
+      "tileset_id_candidate": 7,
+      "resource_status": "strict_existing_ts7_resources",
+      "reference_status": "no recovered primary/secondary selector reference",
+      "confidence": "strong_render_candidate_not_runtime_reference",
+      "dir": "ts07",
+      "reason": "Immediately between referenced TS7 layouts 78 and 80; proven TS7 resources pass complete coverage.",
+      "png": "data/maps/rendered/unreferenced_layout_probes/ts07/map_079.png",
+      "json": "data/maps/rendered/unreferenced_layout_probes/ts07/map_079.json",
+      "png_sha256": "9BFA74EBDD88E18AE510DF7885D33A3DE3EB55B9DEC7E5B7284BB83705A6C10A"
+    },
+    {
+      "layout_id": 161,
+      "tileset_id_candidate": 41,
+      "resource_status": "inferred_setup_10_13_10_14_11_27_strict_pass",
+      "reference_status": "no recovered selector reference",
+      "confidence": "structural_candidate_only",
+      "dir": "ts41_candidate",
+      "reason": "Layout numbering fills the missing TS41 slot between TS40 and TS42; inferred sequential setup passes complete coverage, but no 50 29 A1 selector/setup script is found.",
+      "png": "data/maps/rendered/unreferenced_layout_probes/ts41_candidate/map_161.png",
+      "json": "data/maps/rendered/unreferenced_layout_probes/ts41_candidate/map_161.json",
+      "png_sha256": "C5D504A1ACED73B7A5E346C3EFDFBE7F8544BD4DB3F57A0EBD22C7C5BF527FFE"
+    },
+    {
+      "layout_id": 162,
+      "tileset_id_candidate": 41,
+      "resource_status": "inferred_setup_10_13_10_14_11_27_strict_pass",
+      "reference_status": "no recovered selector reference",
+      "confidence": "structural_candidate_only",
+      "dir": "ts41_candidate",
+      "reason": "Pairs naturally with 161 as a sparse secondary-like layer; inferred TS41 setup passes complete coverage, but no 51 29 A2 selector is found.",
+      "png": "data/maps/rendered/unreferenced_layout_probes/ts41_candidate/map_162.png",
+      "json": "data/maps/rendered/unreferenced_layout_probes/ts41_candidate/map_162.json",
+      "png_sha256": "4A2BC3B7312E0F15CFE2E1395C3C27A01FB62176E0786AD59C294B5BA2233754"
+    }
+  ]
+}
