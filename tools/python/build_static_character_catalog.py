@@ -3,7 +3,7 @@ from pathlib import Path
 import csv, json, importlib.util
 from PIL import Image, ImageDraw
 
-ROOT=Path(r'C:\Users\zin\Documents\GitHub\shinmomo')
+ROOT=Path(__file__).resolve().parents[2]
 spec=importlib.util.spec_from_file_location('static_chars',ROOT/'tools/python/render_static_character_selectors.py')
 m=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
@@ -15,6 +15,18 @@ rows=[]
 rejected=[]
 seen={}
 atlas_entries=[]
+
+directional_front={}
+directional_path=ROOT/'data/npc_display/static_character_directional_catalog_20260930.csv'
+if directional_path.exists():
+    with directional_path.open(encoding='utf-8-sig',newline='') as f:
+        for row in csv.DictReader(f):
+            status=row.get('direction_binding_status') or ''
+            # Shared-state-family promotions can prove direction semantics even when this
+            # selector's CHR window cannot render that family. Only use front frames that
+            # are independently drawable/visually validated for representative artwork.
+            if status in {'confirmed_control_flow_plus_visual','confirmed_visual_state_order'} and row.get('front_frames'):
+                directional_front[row['selector_hex']]=int(row['front_frames'].split(',')[0])
 
 for sel in range(1,TABLE_END):
     rec=m.selector_record(sel)
@@ -36,7 +48,12 @@ for sel in range(1,TABLE_END):
         # established ordering is right, down(front), left, up(back).
         display_frame=frames[0]
         display_orientation='base_state_first_frame'
-        if g in {2,3} and all(m.states.get((g,base+i)) for i in range(4)):
+        selector_hex=f'0x{sel:02X}'
+        if selector_hex in directional_front:
+            display_frame=directional_front[selector_hex]
+            display_orientation='front_from_directional_catalog'
+        elif g in {2,3} and all(m.states.get((g,base+i)) for i in range(4)):
+            # Preserve the established group-2/group-3 representative-frame behavior.
             display_frame=m.states[(g,base+1)][0]
             display_orientation='front_preferred_state_plus_1'
         im,desc,info=m.render_frame(rec,display_frame)

@@ -129,6 +129,25 @@ selector
 
 This removes dynamic VRAM allocation from the reconstruction problem.
 
+## Viewer representative orientation
+
+`build_static_character_catalog.py` now reads the resolved directional catalog when choosing
+the single representative PNG used by the HTML viewer. Confirmed drawable directional
+selectors use the first front/down frame instead of blindly using the selector base state.
+This extends the earlier group-2/group-3 front preference to visual-confirmed group-4/5/7
+families without forcing shared-family selectors whose own CHR windows cannot draw those
+frames.
+
+After regeneration, the static viewer corpus still contains 817 opcode-59 actors.
+The established group-2/group-3 representative-frame behavior is deliberately unchanged.
+For the newly visual-confirmed group-4/5/7 selectors, 39 mapped actor rows now explicitly
+carry `front_from_directional_catalog`; their representative frame is the proven front/down
+state rather than the selector base state. The remaining pose/special/direction-invariant
+families are not promoted to four-direction actors.
+
+This fixes the newly resolved sideways NPC thumbnails without broad, unrelated sprite-image
+churn or pretending that non-directional objects have a facing direction.
+
 ## Current known selector examples
 
 - `0x01`: resource 1, group 2, state seed 1, Momotaro
