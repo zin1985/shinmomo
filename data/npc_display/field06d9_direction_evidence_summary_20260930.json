@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "field": "$06D9,X",
+  "opcode59_actor_rows": 817,
+  "value_counts": {
+    "1": 27,
+    "2": 717,
+    "3": 31,
+    "4": 42
+  },
+  "candidate_direction_mapping": {
+    "1": "right",
+    "2": "down/front",
+    "3": "left",
+    "4": "up/back"
+  },
+  "runtime_front_corroboration": [
+    {
+      "selector_hex": "0x24",
+      "field_value": 2,
+      "runtime_group": 2,
+      "runtime_frame": 240,
+      "confirmed_front_frames": [
+        239,
+        240
+      ],
+      "record_ids": [
+        "F50-L002"
+      ]
+    },
+    {
+      "selector_hex": "0x59",
+      "field_value": 2,
+      "runtime_group": 3,
+      "runtime_frame": 35,
+      "confirmed_front_frames": [
+        35,
+        36
+      ],
+      "record_ids": [
+        "F50-L003",
+        "F50-L004"
+      ]
+    },
+    {
+      "selector_hex": "0x40",
+      "field_value": 2,
+      "runtime_group": 3,
+      "runtime_frame": 11,
+      "confirmed_front_frames": [
+        11,
+        12
+      ],
+      "record_ids": [
+        "F50-L001",
+        "F50-L006"
+      ]
+    }
+  ],
+  "shared_soa_counterexample": {
+    "scope": "non-opcode59 C0 handler",
+    "addresses": [
+      "C0:BAEA",
+      "C0:BB33",
+      "C0:BB4D"
+    ],
+    "interpretation": "script/table cursor or index",
+    "significance": "proves $06D9 column semantics are handler-local, not globally direction"
+  },
+  "conclusion_status": "strong_candidate_not_confirmed",
+  "conclusion": "For the opcode59 actor path, field06D9 is strongly consistent with an initial-facing/direction seed and value 2 is independently runtime-corroborated as front in three selector families. Direct opcode59-handler reader linkage remains missing, so the field is not promoted to confirmed initial facing."
+}

@@ -203,9 +203,20 @@ summary = {
         class_counts["dialogue_actor_strong_candidate"]
         + class_counts["dialogue_actor_confirmed_cfg"]
     ),
+    "field06d9_evidence_catalog": "data/npc_display/field06d9_direction_evidence_20260930.csv",
+    "field06d9_evidence_summary": "data/npc_display/field06d9_direction_evidence_summary_20260930.json",
+    "initial_facing_runtime_corroboration": {
+        "field_value": 2,
+        "direction": "down/front",
+        "selector_families": ["0x24", "0x59", "0x40"],
+        "runtime_frames": [240, 35, 11],
+        "status": "confirmed_runtime_visual_support_but_direct_reader_unresolved",
+    },
     "initial_facing_scope": (
-        "candidate only: field06D9 uses exactly the confirmed motion-pattern value domain "
-        "1..4, but the controller-field reader has not yet been statically linked"
+        "strong candidate only: field06D9 exactly uses motion-pattern values 1..4; "
+        "pack 0x50 independently corroborates value 2 as front in three selector families; "
+        "a non-opcode59 C0 handler uses the same shared SoA column as a script cursor, "
+        "so direct opcode59-handler reader linkage is still required"
     ),
     "field0719_scope": "raw controller seed/flags only; semantics unresolved",
 }

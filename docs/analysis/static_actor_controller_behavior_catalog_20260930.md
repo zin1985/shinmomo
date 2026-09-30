@@ -194,3 +194,62 @@ The machine-readable columns include:
 - `spawn_condition_status`
 - `spawn_condition_expr`
 - `spawn_visibility_when_state_unknown`
+
+
+## field06D9 runtime corroboration and shared-overlay counterexample
+
+The initial-facing interpretation has gained two independent pieces of evidence, but is
+still intentionally **not promoted to confirmed**.
+
+### Runtime front corroboration
+
+All ten pack-0x50 actor records use `field06D9=2`. Three independently reconstructed
+runtime sprite families provide direct visual cross-checks:
+
+| selector | actor record scope | runtime group/frame | statically confirmed front frames |
+| --- | --- | --- | --- |
+| 0x24 | F50-L002 | group 2 / F240 | F239,F240 |
+| 0x59 | F50-L003 / F50-L004 | group 3 / F35 | F35,F36 |
+| 0x40 | F50-L001 / F50-L006 | group 3 / F11 | F11,F12 |
+
+Thus three distinct selector families independently agree with the candidate mapping
+`field06D9=2 -> down/front`.
+
+### Shared-SoA counterexample
+
+The same WRAM column cannot be given a universal global label. The available C0
+disassembly contains a separate non-opcode59 handler:
+
+```
+C0:BAE8  LDA #$FE
+C0:BAEA  STA $06D9,X
+
+C0:BB33  LDA $06D9,X
+C0:BB36  CLC
+C0:BB37  ADC #$02
+C0:BB39  TAY
+C0:BB3A  LDA [$2A],Y
+...
+C0:BB4C  TYA
+C0:BB4D  STA $06D9,X
+```
+
+Here the field is plainly acting as a script/table cursor or index. This directly
+validates the repository's shared-SoA warning: column semantics are handler-local.
+
+### Current conclusion
+
+For the opcode59 actor path:
+
+- the 817-row value domain exactly matches cardinal motion patterns 1..4;
+- value 2 is independently runtime-corroborated as front in three sprite families;
+- but the exact opcode59-specific reader from `$06D9,X` into a facing/animation path
+  remains missing from the committed static evidence.
+
+Therefore the field remains a **strong initial-facing candidate**, not a confirmed label.
+
+Machine-readable evidence:
+
+- `data/npc_display/field06d9_direction_evidence_20260930.csv`
+- `data/npc_display/field06d9_direction_evidence_summary_20260930.json`
+- `tools/python/build_field06d9_direction_evidence.py`
