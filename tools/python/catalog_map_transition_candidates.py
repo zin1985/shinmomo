@@ -288,8 +288,8 @@ def main() -> None:
     for _op in range(0xD0, 0xE0):
         cfg_safe_lengths[_op] = 3
     cfg_safe_lengths.update({
-        0x0A: 4, 0x14: 2, 0x1A: 4, 0x4A: 5, 0x4F: 5,
-        0x66: 4, 0x6C: 2, 0x6F: 2, 0x89: 1,
+        0x0A: 4, 0x14: 2, 0x1A: 4, 0x42: 2, 0x4A: 5, 0x4F: 5,
+        0x66: 4, 0x6C: 2, 0x6F: 2, 0x80: 1, 0x89: 1,
         0xB6: 1, 0xEF: 1, 0xF0: 1,
     })
 
@@ -448,9 +448,10 @@ def main() -> None:
             if op in {0xB0, 0xB5}:
                 found_return = True
                 continue
-            if op == 0x8C:
-                # C4:8963 begins with BRK. This is a proven non-returning
-                # VM trap path, not an unknown instruction boundary.
+            if op in {0x7D, 0x8C}:
+                # Both table entries dispatch to C4:8963, whose first
+                # instruction is BRK. These are proven non-returning VM trap
+                # paths, not unknown instruction boundaries.
                 continue
 
             if op in {0xB2, 0xB3, 0xB4}:
@@ -475,6 +476,9 @@ def main() -> None:
                     ok, returned, child_blockers = cfg_prove_return(child, depth + 1)
                     if ok and returned:
                         found_return = True
+                    elif not returned and not child_blockers:
+                        # Proven tail path that never returns.
+                        pass
                     else:
                         blockers.add(f"B1:{child >> 16:02X}:{child & 0xFFFF:04X}")
                         blockers.update(child_blockers)
@@ -488,6 +492,9 @@ def main() -> None:
                 ok, returned, child_blockers = cfg_prove_return(child, depth + 1)
                 if ok and returned:
                     queue.append(pos + 4)
+                elif not returned and not child_blockers:
+                    # Proven non-returning nested call terminates this path.
+                    pass
                 else:
                     blockers.add(f"A0:{child >> 16:02X}:{child & 0xFFFF:04X}")
                     blockers.update(child_blockers)
@@ -520,7 +527,7 @@ def main() -> None:
 
             if op in {0xB0, 0xB5}:
                 continue
-            if op == 0x8C:
+            if op in {0x7D, 0x8C}:
                 continue
 
             if op in {0xB2, 0xB3, 0xB4}:
@@ -576,7 +583,7 @@ def main() -> None:
             op = body[pos]
             if op in {0xB0, 0xB5}:
                 continue
-            if op == 0x8C:
+            if op in {0x7D, 0x8C}:
                 continue
 
             if op in {0xB2, 0xB3, 0xB4}:
@@ -607,6 +614,9 @@ def main() -> None:
                 ok, returned, child_blockers = cfg_prove_return(child)
                 if ok and returned:
                     queue.append(pos + 4)
+                elif not returned and not child_blockers:
+                    # Proven non-returning nested call terminates this path.
+                    pass
                 else:
                     blockers.add(f"A0:{child >> 16:02X}:{child & 0xFFFF:04X}")
                     blockers.update(child_blockers)
@@ -683,6 +693,31 @@ def main() -> None:
     terminal57_count = 0
     entry_start57_count = 0
     cfg_reachable57_count = 0
+    terminal_unresolved_cfg_promoted = Counter()
+    terminal_unresolved_cfg_dropped = Counter()
+    terminal_unresolved_cfg_blocked = Counter()
+    terminal_unresolved_cfg_promoted_addrs: list[str] = []
+    terminal_unresolved_cfg_dropped_addrs: list[str] = []
+    terminal_unresolved_cfg_blocked_addrs: list[str] = []
+
+    def audit_unresolved_terminal(
+        body: bytes, entry: dict, addr: str, opcode: int
+    ) -> tuple[str, set[str]]:
+        reachable, blockers = cfg_target_reachability(
+            body, entry["start"], len(body) - 4
+        )
+        key = f"0x{opcode:02X}"
+        if reachable:
+            terminal_unresolved_cfg_promoted[key] += 1
+            terminal_unresolved_cfg_promoted_addrs.append(addr)
+            return "promoted", blockers
+        if blockers:
+            terminal_unresolved_cfg_blocked[key] += 1
+            terminal_unresolved_cfg_blocked_addrs.append(addr)
+            return "blocked", blockers
+        terminal_unresolved_cfg_dropped[key] += 1
+        terminal_unresolved_cfg_dropped_addrs.append(addr)
+        return "dropped", blockers
 
     # Conservative static family: bounded substreams whose exact tail is
     # 56 <destination_pack> <destination_entry> B0.
@@ -739,11 +774,26 @@ def main() -> None:
                             f"{hx(dest_entry)} exists in record {dest_record_index}"
                         )
                 else:
-                    row["confidence"] = "structural_candidate"
-                    row["condition"] = (
-                        f"bounded substream tail; destination pack-wide unique entry "
-                        f"{hx(dest_entry)} not resolved"
+                    terminal_cfg_status, terminal_cfg_blockers = audit_unresolved_terminal(
+                        body, entry, addr, 0x56
                     )
+                    if terminal_cfg_status == "dropped":
+                        terminal_count -= 1
+                        continue
+                    if terminal_cfg_status == "promoted":
+                        row["confidence"] = "strong_candidate"
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} not resolved; source opcode boundary "
+                            "is CFG-reachable"
+                        )
+                    else:
+                        row["confidence"] = "structural_candidate"
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} not resolved; source CFG blockers: "
+                            + "|".join(sorted(terminal_cfg_blockers))
+                        )
                 if coord_exists:
                     terminal_coord += 1
 
@@ -920,11 +970,26 @@ def main() -> None:
                             f"{hx(dest_entry)} exists in record {dest_record_index}"
                         )
                 else:
-                    row["confidence"] = "structural_candidate"
-                    row["condition"] = (
-                        f"bounded substream tail; destination pack-wide unique entry "
-                        f"{hx(dest_entry)} not resolved"
+                    terminal_cfg_status, terminal_cfg_blockers = audit_unresolved_terminal(
+                        body, entry, addr, 0x53
                     )
+                    if terminal_cfg_status == "dropped":
+                        terminal53_count -= 1
+                        continue
+                    if terminal_cfg_status == "promoted":
+                        row["confidence"] = "strong_candidate"
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} not resolved; source opcode boundary "
+                            "is CFG-reachable"
+                        )
+                    else:
+                        row["confidence"] = "structural_candidate"
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} not resolved; source CFG blockers: "
+                            + "|".join(sorted(terminal_cfg_blockers))
+                        )
                 if coord_exists:
                     terminal53_coord += 1
                     row["condition"] += (
@@ -1100,11 +1165,26 @@ def main() -> None:
                             f"{hx(dest_entry)} exists in record {dest_record_index}"
                         )
                 else:
-                    row["confidence"] = "structural_candidate"
-                    row["condition"] = (
-                        f"bounded substream tail; destination pack-wide unique entry "
-                        f"{hx(dest_entry)} not resolved"
+                    terminal_cfg_status, terminal_cfg_blockers = audit_unresolved_terminal(
+                        body, entry, addr, 0x55
                     )
+                    if terminal_cfg_status == "dropped":
+                        terminal55_count -= 1
+                        continue
+                    if terminal_cfg_status == "promoted":
+                        row["confidence"] = "strong_candidate"
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} not resolved; source opcode boundary "
+                            "is CFG-reachable"
+                        )
+                    else:
+                        row["confidence"] = "structural_candidate"
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} not resolved; source CFG blockers: "
+                            + "|".join(sorted(terminal_cfg_blockers))
+                        )
                 if coord_exists:
                     terminal55_coord += 1
                     row["condition"] += (
@@ -1826,6 +1906,15 @@ def main() -> None:
             + (terminal53_count - terminal53_dest_entry)
             + (terminal55_count - terminal55_dest_entry)
         ),
+        "terminal_unresolved_cfg_promoted_count": sum(terminal_unresolved_cfg_promoted.values()),
+        "terminal_unresolved_cfg_dropped_count": sum(terminal_unresolved_cfg_dropped.values()),
+        "terminal_unresolved_cfg_blocked_count": sum(terminal_unresolved_cfg_blocked.values()),
+        "terminal_unresolved_cfg_promoted_by_opcode": dict(terminal_unresolved_cfg_promoted),
+        "terminal_unresolved_cfg_dropped_by_opcode": dict(terminal_unresolved_cfg_dropped),
+        "terminal_unresolved_cfg_blocked_by_opcode": dict(terminal_unresolved_cfg_blocked),
+        "terminal_unresolved_cfg_promoted_addrs": terminal_unresolved_cfg_promoted_addrs,
+        "terminal_unresolved_cfg_dropped_addrs": terminal_unresolved_cfg_dropped_addrs,
+        "terminal_unresolved_cfg_blocked_addrs": terminal_unresolved_cfg_blocked_addrs,
         "terminal_opcode57_route_candidate_count": terminal57_count,
         "entry_start_opcode57_route_candidate_count": entry_start57_count,
         "cfg_reachable_opcode57_route_candidate_count": cfg_reachable57_count,
@@ -1846,13 +1935,14 @@ def main() -> None:
             },
             "residual_nonterminal_closure": {
                 "fixed_lengths": {
-                    "0x0A": 4, "0x14": 2, "0x1A": 4, "0x4A": 5,
-                    "0x4F": 5, "0x66": 4, "0x6C": 2, "0x6F": 2,
-                    "0x89": 1, "0xB6": 1, "0xEF": 1, "0xF0": 1
+                    "0x0A": 4, "0x14": 2, "0x1A": 4, "0x42": 2,
+                    "0x4A": 5, "0x4F": 5, "0x66": 4, "0x6C": 2,
+                    "0x6F": 2, "0x80": 1, "0x89": 1, "0xB6": 1,
+                    "0xEF": 1, "0xF0": 1
                 },
                 "opcode_0x3D_subtypes": "02 -> 3; 03/04/05/06 -> 2; 29 -> 5 bytes",
                 "opcode_0x45": "operand1 == 0 -> 2 bytes; otherwise 5 bytes",
-                "opcode_0x8C": "C4:8963 begins BRK; proven non-returning trap path",
+                "nonreturning_vm_traps": "0x7D and 0x8C both dispatch to C4:8963 BRK",
             },
             "opcode_0x2F": {
                 "handler": "C4:968E",
@@ -1948,9 +2038,10 @@ def main() -> None:
 
         "unresolved_patterns": [
             "static source map/config is not inferred from script-pack identity",
-            f"{terminal_count - terminal_dest_entry} terminal 0x56 shapes and "
-            f"{terminal53_count - terminal53_dest_entry} terminal 0x53 shapes do not "
-            "resolve a unique destination entry anywhere in the destination pack",
+            f"{terminal_count - terminal_dest_entry} reachable terminal 0x56 shapes and "
+            f"{terminal53_count - terminal53_dest_entry} reachable terminal 0x53 shapes do not "
+            "resolve a unique destination entry; transition pack is proven but arrival-entry "
+            "semantics remain unresolved",
             *([
                 f"{nonterminal56_cfg_blocked + nonterminal53_cfg_blocked + nonterminal55_cfg_blocked} "
                 "non-terminal 0x53/0x55/0x56 coordinate-anchored shapes remain structural "
@@ -2016,13 +2107,14 @@ length proofs without guessing unknown instructions:
   0x5E: C4:895E advances the caller by 2 bytes before the indirect call, and
   each inspected target returns through RTL.
 - residual fixed lengths proven from handlers: 0x0A=4, 0x14=2, 0x1A=4,
-  0x4A=5, 0x4F=5, 0x66=4, 0x6C=2, 0x6F=2, 0x89=1, compact B6=1,
-  E-range 0xEF=1 and 0xF0=1.
+  0x42=2, 0x4A=5, 0x4F=5, 0x66=4, 0x6C=2, 0x6F=2, 0x80=1, 0x89=1,
+  compact B6=1, E-range 0xEF=1 and 0xF0=1.
 - opcode 0x3D / C4:935C: subtype 0x02 consumes 3 bytes; 0x03/0x04/0x05/0x06
   consume 2 bytes; subtype 0x29 consumes 5 bytes.
 - opcode 0x45 / C4:98AC: operand1 0 consumes 2 bytes; nonzero consumes 5.
-- opcode 0x8C dispatches to C4:8963, whose first instruction is BRK. CFG
-  treats this as a proven non-returning trap path and never invents fallthrough.
+- opcodes 0x7D and 0x8C both dispatch to C4:8963, whose first instruction is
+  BRK. CFG treats either as a proven non-returning trap path and never invents
+  fallthrough.
 - opcode 0x2F / C4:968E: six operand bytes are consumed, so 7 bytes total.
 - opcode 0x30 / C4:96CC: two 16-bit operands plus one byte are consumed, so
   6 bytes total.
@@ -2054,13 +2146,12 @@ length proofs without guessing unknown instructions:
 - strong_candidate: an exact bounded VM-substream tail of
   53 <destination_pack> <destination_entry> B0,
   55 <destination_pack> <destination_entry> B0, or
-  56 <destination_pack> <destination_entry> B0, with the same destination
-  entry present in destination record 0. Exact terminal
-  57 <route_index> B0 is also strong_candidate when route_index resolves through
-  the proven C6:8060 route table.
-- structural_candidate: a terminal form whose destination entry is unresolved,
-  or a non-terminal raw 0x53/0x55/0x56 shape retained only because its
-  destination entry independently contains an aligned 0x58 coordinate setter.
+  56 <destination_pack> <destination_entry> B0, with a resolved destination
+  entry, or an unresolved destination entry whose source opcode boundary is
+  independently CFG-reachable. Exact terminal 57 <route_index> B0 is also
+  strong_candidate when route_index resolves through the proven C6:8060 route table.
+- structural_candidate: an unresolved terminal or non-terminal shape retained
+  only while fail-closed source CFG analysis still contains blockers.
 
 The script-pack containing 0x53/0x55/0x56 is not automatically treated as the source map
 pack. VM pack context and global map pack can differ, so static source map fields
@@ -2104,6 +2195,9 @@ remain blank unless independently proven.
 - non-terminal 0x55 CFG-promoted strong rows: {nonterminal55_promoted}
 - non-terminal 0x55 CFG-unreachable raw shapes dropped: {nonterminal55_dropped}
 - non-terminal 0x55 CFG-blocked structural rows: {nonterminal55_blocked}
+- unmatched terminal tails CFG-promoted by source reachability: {terminal_unresolved_cfg_promoted}
+- unmatched terminal tails proven CFG-unreachable and dropped: {terminal_unresolved_cfg_dropped}
+- unmatched terminal tails still CFG-blocked: {terminal_unresolved_cfg_blocked}
 - terminal 0x57 route-table forms: {terminal57}
 - entry-start non-terminal 0x57 route-table forms: {entry_start57}
 - branch-reachable non-terminal 0x57 route-table forms: {cfg_reachable57}
@@ -2295,6 +2389,9 @@ PC was observed.
         nonterminal55_promoted=nonterminal55_cfg_promoted,
         nonterminal55_dropped=nonterminal55_cfg_dropped_unreachable,
         nonterminal55_blocked=nonterminal55_cfg_blocked,
+        terminal_unresolved_cfg_promoted=sum(terminal_unresolved_cfg_promoted.values()),
+        terminal_unresolved_cfg_dropped=sum(terminal_unresolved_cfg_dropped.values()),
+        terminal_unresolved_cfg_blocked=sum(terminal_unresolved_cfg_blocked.values()),
         terminal57=terminal57_count,
         entry_start57=entry_start57_count,
         cfg_reachable57=cfg_reachable57_count,
