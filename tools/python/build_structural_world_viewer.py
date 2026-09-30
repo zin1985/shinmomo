@@ -14,6 +14,7 @@ DIRECTIONAL_CATALOG = ROOT / "data/npc_display/static_character_directional_cata
 SOURCE_HOTSPOTS = TRANSITIONS / "source_transition_hotspots.csv"
 LOCATION_CANDIDATES = ROOT / "data/maps/context/map_location_identity_candidates_20260930.csv"
 ACTOR_SPAWN_CONDITIONS = ROOT / "data/npc_display/static_actor_spawn_conditions_20260930.csv"
+ACTOR_SPAWN_PREDICATE_TERMS = ROOT / "data/npc_display/static_actor_spawn_predicate_terms_20260930.csv"
 SCENE_STATE_REQUIREMENTS = ROOT / "data/npc_display/static_scene_state_requirements_20260930.json"
 
 def split_ids(value):
@@ -367,6 +368,7 @@ def main():
                     "decode_status": source.get("decode_status") or None,
                     "condition": condition.get("description") or None,
                     "condition_status": condition.get("status") or None,
+                    "condition_detail": condition,
                     "binding_status": seq.get("sequence_kind") or None,
                     "confidence": seq.get("confidence") or None,
                     "evidence": seq.get("evidence") or None,
@@ -524,6 +526,30 @@ def main():
                 "provenance": row.get("provenance") or str(LOCATION_CANDIDATES.relative_to(ROOT)).replace("\\", "/"),
             })
 
+    spawn_predicate_terms_by_actor = {}
+    if ACTOR_SPAWN_PREDICATE_TERMS.exists():
+        for row in csv.DictReader(ACTOR_SPAWN_PREDICATE_TERMS.open(encoding="utf-8-sig", newline="")):
+            key = (row.get("scene_id") or "", row.get("record_id") or "", row.get("selector_hex") or "")
+            spawn_predicate_terms_by_actor.setdefault(key, []).append({
+                "term_order": int(row["term_order"]),
+                "source_bytecode": row.get("source_bytecode") or None,
+                "producer": row.get("producer") or None,
+                "subtype_or_key": row.get("subtype_or_key") or None,
+                "operand_id_hex": row.get("operand_id_hex") or None,
+                "mask_bit_index": int(row["mask_bit_index"]),
+                "bitset_base_wram": row.get("bitset_base_wram") or None,
+                "wram": row.get("resolved_wram") or None,
+                "bit": int(row["resolved_bit"]),
+                "expected_value": int(row["expected_value"]),
+                "term_expr": row.get("term_expr") or None,
+                "condition_status": row.get("condition_status") or None,
+                "handler_chain": row.get("handler_chain") or None,
+                "evidence": row.get("evidence") or None,
+                "provenance": str(ACTOR_SPAWN_PREDICATE_TERMS.relative_to(ROOT)).replace("\\", "/"),
+            })
+    for terms in spawn_predicate_terms_by_actor.values():
+        terms.sort(key=lambda x: x["term_order"])
+
     spawn_conditions_by_actor = {}
     if ACTOR_SPAWN_CONDITIONS.exists():
         for row in csv.DictReader(ACTOR_SPAWN_CONDITIONS.open(encoding="utf-8-sig", newline="")):
@@ -575,6 +601,9 @@ def main():
             directional = directional_by_selector.get(selector_key)
             actor_dialogue_refs = dialogue_by_actor.get(actor_key, [])
             spawn_condition = spawn_conditions_by_actor.get(actor_key)
+            spawn_terms = spawn_predicate_terms_by_actor.get(actor_key, [])
+            if spawn_condition and spawn_terms:
+                spawn_condition = {**spawn_condition, "terms": spawn_terms}
             entity = {
                 "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
                 "map_config_id": config_id,
@@ -672,7 +701,7 @@ def main():
         m["transition_arrivals"].append(arrival["arrival_id"])
 
     world = {
-        "schema_version": 6,
+        "schema_version": 7,
         "kind": "shinmomo_structural_world",
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
