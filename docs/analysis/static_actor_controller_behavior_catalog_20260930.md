@@ -253,3 +253,44 @@ Machine-readable evidence:
 - `data/npc_display/field06d9_direction_evidence_20260930.csv`
 - `data/npc_display/field06d9_direction_evidence_summary_20260930.json`
 - `tools/python/build_field06d9_direction_evidence.py`
+
+
+## field0719 corpus decomposition — 2026-10-01
+
+A full re-aggregation of all 817 opcode-0x59 actor rows narrows the fifth operand from an
+opaque byte to a sparse handler-local seed bitfield.
+
+Observed byte values are exactly:
+
+| value | rows | active bits |
+| ---: | ---: | --- |
+| 0x00 | 207 | none |
+| 0x10 | 549 | bit4 |
+| 0x41 | 5 | bit6 + bit0 |
+| 0x50 | 13 | bit6 + bit4 |
+| 0x80 | 16 | bit7 |
+| 0x90 | 27 | bit7 + bit4 |
+
+Therefore only bits 7, 6, 4 and 0 are seeded by the current static actor corpus. Bits 5, 3,
+2 and 1 are never seeded in any of the 817 rows. The low two-bit field is consequently
+restricted to values 0 or 1 in this corpus.
+
+Cross-field correlation gives one additional fail-closed constraint: all 207 rows with
+field0719=0x00 have field06D9=2, and all 16 rows with field0719=0x80 also have
+field06D9=2. This is useful for future consumer tracing but is not enough to name either
+bit as a facing or movement flag. The 0x10 population spans all four facing seeds, so bit4
+is not merely a duplicate encoding of initial facing.
+
+Current evidence classification:
+
+- **confirmed:** opcode59 static actors seed a sparse field0719 bitfield using only
+  bits {7,6,4,0}; bit4 is the dominant seed (589/817 rows when 0x10/0x50/0x90 are
+  combined).
+- **confirmed negative:** bit4 cannot be a simple copy of field06D9 initial facing,
+  because its population spans facing values 1..4.
+- **strong hypothesis:** the active bits are independent actor-state/behavior gates.
+- **unconfirmed:** game-facing meanings of bit7, bit6, bit4 and bit0.
+
+The next useful boundary is therefore not further corpus counting but tracing the
+handler-local consumers of these four active bits. ROM-dependent naming must remain
+fail-closed until those consumers are recovered.
