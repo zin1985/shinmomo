@@ -126,3 +126,15 @@ Priority 1 remains visibility and context classification.
 3. render the visible subset through the existing dictionary/control decoder;
 4. attach event, speaker and location provenance;
 5. compare against runtime-observed dialogue roots to measure coverage.
+
+
+## 2026-09-30 family 0x50 CFG-boundary extension
+
+The linear A4 pattern scanner missed two valid source selections inside
+non-linear conditional CFGs. Exact instruction-boundary evidence now adds:
+
+- family 0x50 / subindex 0x07 at CC:1D80 -> C8:AD3D
+- family 0x50 / subindex 0x0C at CC:1DC4 -> C8:AED1
+
+Both are source-reader reachable and are retained through explicit
+CFG-boundary seeds so regeneration no longer drops them.

@@ -82,6 +82,15 @@ VM_BOUNDARY_A4_SEEDS = {
         "opcode 09 at CC:1B1A is 4 bytes; A4 handler consumes opcode+operand"),
 }
 
+FAMILY50_CFG_A4_SEEDS = {
+    (0x50,0x07):("CC:1D80",
+        "data/npc_display/static_actor_dialogue_conditions_20260930.csv",
+        "F50-L005 CFG-proven source selection: common predicate true -> A4 07"),
+    (0x50,0x0C):("CC:1DC4",
+        "data/npc_display/static_actor_dialogue_conditions_20260930.csv",
+        "F50-L007 CFG-proven source selection: common predicate true -> A4 0C"),
+}
+
 def cpu_from_file(off: int) -> str:
     return f"{0xC0 + (off >> 16):02X}:{off & 0xFFFF:04X}"
 
@@ -180,6 +189,13 @@ def scan_script_packs(rom: bytes) -> dict:
         off = file_from_cpu(bank, addr)
         if rom[off:off+2] != bytes([0xA4, sub]):
             raise ValueError(f"VM-boundary A4 seed mismatch at {cpu}")
+        add_occ(uses, family, sub, "A4_xx_VM_boundary_proven", off)
+    for (family, sub), (cpu, _source, _details) in FAMILY50_CFG_A4_SEEDS.items():
+        bank = int(cpu[0:2], 16)
+        addr = int(cpu[3:7], 16)
+        off = file_from_cpu(bank, addr)
+        if rom[off:off+2] != bytes([0xA4, sub]):
+            raise ValueError(f"F50 CFG-boundary A4 seed mismatch at {cpu}")
         add_occ(uses, family, sub, "A4_xx_VM_boundary_proven", off)
     return uses
 
@@ -409,6 +425,7 @@ def main():
     pairs.update(DIALOGUE_SEEDS)
     pairs.update(VISIBLE_TEXT_SEEDS)
     pairs.update(VM_BOUNDARY_A4_SEEDS)
+    pairs.update(FAMILY50_CFG_A4_SEEDS)
     decoded=decode_requested(mod,rom,entries,pairs)
     # Keep only pairs that are either statically decodable or special overrides.
     # This removes false-positive A4-like byte patterns in non-script payload.
@@ -448,6 +465,11 @@ def main():
             _cpu,det=VM_BOUNDARY_A4_SEEDS[(family,sub)]
             ev.append("confirmed_vm_boundary_A4")
             sources.append("docs/analysis/family4e_compact_vm_revalidation.md")
+            details.append(det)
+        if (family,sub) in FAMILY50_CFG_A4_SEEDS:
+            _cpu,src,det=FAMILY50_CFG_A4_SEEDS[(family,sub)]
+            ev.append("confirmed_vm_boundary_A4")
+            sources.append(src)
             details.append(det)
         meta=decoded[(family,sub)]
         if du and du["display"] and visible=="unknown":

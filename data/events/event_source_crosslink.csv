@@ -141,6 +141,7 @@ F4C-L003,76,0x4C,CC:11B7,CC:11C5,6,0x06,CC:11B8,A4_xx_B0,C8:A48D,unknown,validat
 F4C-L004,76,0x4C,CC:11C5,CC:11D3,7,0x07,CC:11C6,A4_xx_B0,C8:A49D,unknown,validated_source_selection_in_structural_record
 F4C-L005,76,0x4C,CC:11D3,CC:11E1,8,0x08,CC:11D4,A4_xx_B0,C8:A4C9,unknown,validated_source_selection_in_structural_record
 F4C-L006,76,0x4C,CC:11E1,CC:11EF,9,0x09,CC:11E2,A4_xx_B0,C8:A4CC,unknown,validated_source_selection_in_structural_record
+F4C-L006,76,0x4C,CC:11E1,CC:11EF,131,0x83,CC:11ED,A4_xx_B0,C8:BAA7,unknown,validated_source_selection_in_structural_record
 F4C-L007,76,0x4C,CC:11EF,CC:11FD,10,0x0A,CC:11F0,A4_xx_B0,C8:A4FC,unknown,validated_source_selection_in_structural_record
 F4C-L008,76,0x4C,CC:11FD,CC:120B,11,0x0B,CC:11FE,A4_xx_B0,C8:A502,unknown,validated_source_selection_in_structural_record
 F4C-L009,76,0x4C,CC:120B,CC:1219,12,0x0C,CC:120C,A4_xx_B0,C8:A531,unknown,validated_source_selection_in_structural_record
@@ -185,7 +186,6 @@ F4C-L023,76,0x4C,CC:13DB,CC:1405,50,0x32,CC:13F8,A4_xx_B0;A4_xx_B2_dd_A4_yy:seco
 F4C-L024,76,0x4C,CC:1405,CC:142F,51,0x33,CC:141A,A4_xx_B2_dd_A4_yy:first,C8:B23E,unknown,validated_source_selection_in_structural_record
 F4C-L024,76,0x4C,CC:1405,CC:142F,52,0x34,CC:141E,A4_xx_B2_dd_A4_yy:first;A4_xx_B2_dd_A4_yy:second,C8:B24B,unknown,validated_source_selection_in_structural_record
 F4C-L024,76,0x4C,CC:1405,CC:142F,53,0x35,CC:1422,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,C8:B2D7,unknown,validated_source_selection_in_structural_record
-F4C-L006,76,0x4C,CC:11E1,CC:11EF,131,0x83,CC:11ED,A4_xx_B0,C8:BAA7,unknown,validated_source_selection_in_structural_record
 F4F-L001,79,0x4F,CC:1BC1,CC:1BD8,0,0x00,CC:1BC2,A4_xx_B0,C8:A7DD,confirmed_dialogue,validated_source_selection_in_structural_record
 F50-L001,80,0x50,CC:1D0B,CC:1D1C,0,0x00,CC:1D0C,A4_xx_B0,C8:ABC5,unknown,validated_source_selection_in_structural_record
 F50-L002,80,0x50,CC:1D1C,CC:1D3A,1,0x01,CC:1D26,A4_xx_B2_dd_A4_yy:first,C8:ABEF,unknown,validated_source_selection_in_structural_record
@@ -194,10 +194,12 @@ F50-L003,80,0x50,CC:1D3A,CC:1D58,3,0x03,CC:1D44,A4_xx_B2_dd_A4_yy:first,C8:AC73,
 F50-L003,80,0x50,CC:1D3A,CC:1D58,4,0x04,CC:1D48,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,C8:ACA8,unknown,validated_source_selection_in_structural_record
 F50-L004,80,0x50,CC:1D58,CC:1D76,5,0x05,CC:1D62,A4_xx_B2_dd_A4_yy:first,C8:ACCE,unknown,validated_source_selection_in_structural_record
 F50-L004,80,0x50,CC:1D58,CC:1D76,6,0x06,CC:1D66,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,C8:ACF8,unknown,validated_source_selection_in_structural_record
+F50-L005,80,0x50,CC:1D76,CC:1D9C,7,0x07,CC:1D80,A4_xx_VM_boundary_proven,C8:AD3D,unknown,validated_source_selection_in_structural_record
 F50-L005,80,0x50,CC:1D76,CC:1D9C,8,0x08,CC:1D88,A4_xx_B2_dd_A4_yy:first,C8:AD66,unknown,validated_source_selection_in_structural_record
 F50-L005,80,0x50,CC:1D76,CC:1D9C,9,0x09,CC:1D8C,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,C8:AD8F,unknown,validated_source_selection_in_structural_record
 F50-L006,80,0x50,CC:1D9C,CC:1DBA,10,0x0A,CC:1DA6,A4_xx_B2_dd_A4_yy:first,C8:ADCF,unknown,validated_source_selection_in_structural_record
 F50-L006,80,0x50,CC:1D9C,CC:1DBA,11,0x0B,CC:1DAA,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,C8:AE18,unknown,validated_source_selection_in_structural_record
+F50-L007,80,0x50,CC:1DBA,CC:1DE0,12,0x0C,CC:1DC4,A4_xx_VM_boundary_proven,C8:AED1,unknown,validated_source_selection_in_structural_record
 F50-L007,80,0x50,CC:1DBA,CC:1DE0,13,0x0D,CC:1DCC,A4_xx_B2_dd_A4_yy:first,C8:AF18,unknown,validated_source_selection_in_structural_record
 F50-L007,80,0x50,CC:1DBA,CC:1DE0,14,0x0E,CC:1DD0,A4_xx_B0;A4_xx_B2_dd_A4_yy:second,C8:AF58,unknown,validated_source_selection_in_structural_record
 F50-L008,80,0x50,CC:1DE0,CC:1DFE,15,0x0F,CC:1DEA,A4_xx_B2_dd_A4_yy:first,C8:AF71,unknown,validated_source_selection_in_structural_record
