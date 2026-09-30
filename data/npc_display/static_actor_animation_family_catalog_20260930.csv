@@ -21,7 +21,7 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x14,2,181,directional_4x2_confirmed_order,181,0,"31,32","22,33","6,5","34,35","32,32","right,down,left,up"
 0x15,3,1,directional_4x2_confirmed_order,1,0,"1,2","3,4","5,6","7,8","16,16","right,down,left,up"
 0x16,3,166,directional_4x2_confirmed_order,166,0,"145,146","147,148","149,150","151,152","22,22","right,down,left,up"
-0x17,5,25,four_state_2frame_candidate,25,0,"52,53","54,55","56,57","58,59","16,16","unverified_slot0,slot1,slot2,slot3"
+0x17,5,25,directional_4x2_confirmed_order,25,0,"52,53","54,55","56,57","58,59","16,16","right,down,left,up"
 0x18,5,40,special_sequence,,,"83,84,83,84,83,84,83,84,83,84,83,84,56,85,86,57,58,59",,,,"16,16,16,16,16,16,16,16,16,16,4,4,4,4,4,4,4,4",
 0x19,5,49,special_sequence,,,"96,97,96,97",,,,"16,16,16,16",
 0x1A,2,199,special_sequence,,,"98,100,98,99,94,101,94,95",,,,"5,5,5,5,5,5,5,5",
@@ -37,7 +37,7 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x26,3,129,directional_4x2_confirmed_order,129,0,"126,126","126,126","126,126","126,126","16,16","right,down,left,up"
 0x27,3,13,directional_4x2_confirmed_order,13,0,"25,26","27,28","29,30","31,32","16,16","right,down,left,up"
 0x28,3,33,directional_4x2_confirmed_order,33,0,"63,64","65,66","67,14","68,69","16,16","right,down,left,up"
-0x29,7,69,four_state_2frame_candidate,69,0,"151,152","153,154","155,156","157,158","32,32","unverified_slot0,slot1,slot2,slot3"
+0x29,7,69,directional_4x2_confirmed_order,69,0,"151,152","153,154","155,156","157,158","32,32","right,down,left,up"
 0x2A,3,204,directional_4x2_confirmed_order,204,0,"59,182","59,182","59,182","59,182","32,32","right,down,left,up"
 0x2C,3,49,directional_4x2_confirmed_order,49,0,"72,73","74,75","76,77","78,79","16,16","right,down,left,up"
 0x2D,2,223,fixed,,,98,,,,255,
@@ -92,7 +92,7 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x67,0,65,fixed,,,122,,,,16,
 0x68,0,60,fixed,,,35,,,,16,
 0x69,2,48,directional_4x2_confirmed_order,48,0,"32,33","6,31","5,22","34,35","32,32","right,down,left,up"
-0x6A,5,12,four_state_2frame_candidate,12,0,"24,25","26,27","28,29","30,31","48,48","unverified_slot0,slot1,slot2,slot3"
+0x6A,5,12,directional_4x2_confirmed_order,12,0,"24,25","26,27","28,29","30,31","48,48","right,down,left,up"
 0x6B,3,212,directional_4x2_confirmed_order,212,0,"184,185","184,185","186,187","186,187","14,48","right,down,left,up"
 0x6C,3,216,directional_4x2_confirmed_order,216,0,"17,18","19,20","21,22","23,24","32,32","right,down,left,up"
 0x6D,3,220,directional_4x2_confirmed_order,220,0,"70,71","27,28","29,30","31,32","32,32","right,down,left,up"
@@ -113,7 +113,7 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x7C,7,1,four_state_2frame_candidate,6,5,"15,16","17,18","19,18","19,18","32,32","unverified_slot0,slot1,slot2,slot3"
 0x7D,7,6,four_state_2frame_candidate,6,0,"15,16","17,18","19,18","19,18","32,32","unverified_slot0,slot1,slot2,slot3"
 0x7E,7,20,fixed,,,40,,,,255,
-0x7F,7,29,four_state_2frame_candidate,29,0,"51,52","53,54","55,56","57,58","32,32","unverified_slot0,slot1,slot2,slot3"
+0x7F,7,29,directional_4x2_confirmed_order,29,0,"51,52","53,54","55,56","57,58","32,32","right,down,left,up"
 0x80,7,33,special_sequence,,,"59,60,61,62,63",,,,"5,5,5,5,5",
 0x81,7,35,special_sequence,,,"64,65,66,67,68",,,,"5,5,5,5,5",
 0x82,7,38,fixed,,,70,,,,16,
@@ -144,12 +144,12 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x9B,2,122,directional_4x2_confirmed_order,122,0,"140,141","142,143","144,145","146,147","48,48","right,down,left,up"
 0x9C,7,51,four_state_2frame_candidate,51,0,"120,121","120,122","123,124","123,124","32,32","unverified_slot0,slot1,slot2,slot3"
 0x9D,7,55,four_state_2frame_candidate,59,4,"127,128","129,130","131,132","133,134","11,11","unverified_slot0,slot1,slot2,slot3"
-0x9E,7,59,four_state_2frame_candidate,59,0,"127,128","129,130","131,132","133,134","11,11","unverified_slot0,slot1,slot2,slot3"
-0x9F,7,63,four_state_2frame_candidate,63,0,"135,136","137,138","139,140","141,142","11,11","unverified_slot0,slot1,slot2,slot3"
+0x9E,7,59,directional_4x2_confirmed_order,59,0,"127,128","129,130","131,132","133,134","11,11","right,down,left,up"
+0x9F,7,63,directional_4x2_confirmed_order,63,0,"135,136","137,138","139,140","141,142","11,11","right,down,left,up"
 0xA0,7,39,fixed,,,72,,,,255,
 0xA1,2,33,directional_4x2_confirmed_order,37,4,"31,32","22,33","6,5","34,35","32,32","right,down,left,up"
 0xA2,2,34,directional_4x2_confirmed_order,37,3,"31,32","22,33","6,5","34,35","32,32","right,down,left,up"
-0xA3,7,73,four_state_2frame_candidate,73,0,"159,160","161,162","163,164","165,56","16,16","unverified_slot0,slot1,slot2,slot3"
+0xA3,7,73,directional_4x2_confirmed_order,73,0,"159,160","161,162","163,164","165,56","16,16","right,down,left,up"
 0xA4,3,37,directional_4x2_confirmed_order,37,0,"17,18","19,20","21,22","23,24","16,16","right,down,left,up"
 0xA5,3,194,directional_4x2_confirmed_order,198,4,"82,83","82,83","82,83","82,83","12,12","right,down,left,up"
 0xA6,7,96,fixed,,,237,,,,255,

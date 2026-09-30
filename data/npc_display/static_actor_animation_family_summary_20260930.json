@@ -2,6 +2,11 @@
   "unique_graphics_signatures": 158,
   "directional_4x2": 123,
   "non_directional": 35,
+  "directional_4x2_detected": 123,
+  "directional_4x2_confirmed": 112,
+  "directional_4x2_candidate_unbound": 11,
+  "group5_group7_newly_confirmed": 7,
+  "group5_group7_evidence": "data/npc_display/group5_group7_directional_family_evidence_20260930.csv",
   "directional_family_offsets": {
     "0": 93,
     "2": 3,

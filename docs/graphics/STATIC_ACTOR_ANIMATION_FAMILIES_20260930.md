@@ -10,8 +10,10 @@ Among the 158 unique reconstructable graphics signatures:
 - 123 have a nearby contiguous four-state / two-frame family.
 - 105 of those are in sprite groups 2 or 3, where runtime village/player tracing has
   directly confirmed the state order as right, down, left, up.
-- 18 are in groups 4, 5, or 7. Their four-state / two-frame structure is static fact,
-  but the semantic direction order remains unverified.
+- 7 additional group-5/group-7 families are now confirmed by common control-flow plus
+  visual reconstruction, bringing the unique confirmed total to 112.
+- 11 four-state / two-frame candidates remain direction-unbound; they are kept as candidates
+  because their selector resource is non-rendering/incomplete or the frames do not show four distinct directions.
 - 25 signatures have a fixed one-frame base state.
 - 10 signatures begin with longer/special animation sequences.
 
@@ -41,8 +43,11 @@ For groups 2 and 3 the order is:
 
 This order is supported by live movement observations for Momotaro and multiple village NPCs.
 
-For groups 4, 5, and 7 the catalog records neutral slot0..slot3 ordering until runtime or
-control-flow evidence proves the same direction mapping.
+For groups 4, 5, and 7 the catalog remains neutral by default. A family is promoted only
+when common control-flow and visual evidence agree. C1:9090 converts motion pattern 1..4 to
+animation offsets 0..3, while the 81:81D3/81D4 delta table proves 1=right, 2=down/front,
+3=left, 4=up/back. Seven group-5/group-7 selector families visually match that order and are
+now promoted; unresolved families retain slot0..slot3 semantics.
 
 ## Non-directional actors
 
@@ -59,6 +64,9 @@ semantic character names should not be inferred from the graphics alone.
 
 - `data/npc_display/static_actor_animation_family_catalog_20260930.csv`
 - `data/npc_display/static_actor_animation_family_summary_20260930.json`
+- `data/npc_display/group5_group7_directional_family_evidence_20260930.csv`
+- `data/npc_display/actor_motion_direction_pattern_table_20260930.csv`
+- `data/npc_display/static_character_directional_catalog_20260930.csv`
 - `graphics/static_character_reconstruction/static_directional_animation_atlas_20260930.png`
 - `graphics/static_character_reconstruction/static_special_animation_atlas_20260930.png`
 - `tools/python/build_static_actor_animation_catalog.py`

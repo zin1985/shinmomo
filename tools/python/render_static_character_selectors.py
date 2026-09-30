@@ -3,7 +3,7 @@ from pathlib import Path
 import csv, json, sys
 from PIL import Image, ImageDraw
 
-ROOT=Path(r'C:\Users\zin\Documents\GitHub\shinmomo')
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools/python'))
 from render_normal_map_family_from_setup import file_off, u16_cpu, graphics_descriptor, decode_graphics_resource
 

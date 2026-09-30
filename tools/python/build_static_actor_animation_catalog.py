@@ -1,7 +1,7 @@
 from pathlib import Path
 import csv,json,collections,importlib.util
 from PIL import Image,ImageDraw
-ROOT=Path(r'C:\Users\zin\Documents\GitHub\shinmomo')
+ROOT=Path(__file__).resolve().parents[2]
 spec=importlib.util.spec_from_file_location('sc',ROOT/'tools/python/render_static_character_selectors.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 
@@ -13,6 +13,11 @@ with open(ROOT/'data/npc_display/shinmomo_B2C1_animation_state_scripts_20260425.
   dur[k]=[int(x) for x in r['duration_sequence_dec'].split(',') if x.strip().isdigit()]
 
 cat=[r for r in csv.DictReader(open(ROOT/'data/npc_display/static_character_selector_catalog_20260930.csv',encoding='utf8')) if not r['duplicate_of']]
+evidence_path=ROOT/'data/npc_display/group5_group7_directional_family_evidence_20260930.csv'
+extra_directional=set()
+if evidence_path.exists():
+ with evidence_path.open(encoding='utf-8-sig') as f:
+  extra_directional={r['selector_hex'] for r in csv.DictReader(f) if r['status'].startswith('confirmed_')}
 rows=[];directional=[];special=[]
 for r in cat:
  sel=int(r['selector']);g=int(r['sprite_group']);base=int(r['base_state']);hit=None
@@ -23,12 +28,14 @@ for r in cat:
    hit=(off,qs,ds[0]);break
  if hit:
   off,qs,dd=hit
-  row={'selector':f'0x{sel:02X}','sprite_group':g,'base_state':base,'kind':('directional_4x2_confirmed_order' if g in (2,3) else 'four_state_2frame_candidate'),
+  selector_hex=f'0x{sel:02X}'
+  direction_confirmed=(g in (2,3) or selector_hex in extra_directional)
+  row={'selector':selector_hex,'sprite_group':g,'base_state':base,'kind':('directional_4x2_confirmed_order' if direction_confirmed else 'four_state_2frame_candidate'),
        'family_state_start':base+off,'family_offset':off,
        'slot0_frames':','.join(map(str,qs[0])),'slot1_frames':','.join(map(str,qs[1])),
        'slot2_frames':','.join(map(str,qs[2])),'slot3_frames':','.join(map(str,qs[3])),
        'duration_pair':','.join(map(str,dd)),
-       'direction_order':'right,down,left,up' if g in (2,3) else 'unverified_slot0,slot1,slot2,slot3'}
+       'direction_order':'right,down,left,up' if direction_confirmed else 'unverified_slot0,slot1,slot2,slot3'}
   directional.append((r,row,qs))
  else:
   q=seq.get((g,base),[]);d=dur.get((g,base),[])
@@ -76,7 +83,13 @@ for i,(r,row,q) in enumerate(special):
   t=render_thumb(sel,fr,40,40);px=x+4+(j%10)*50;py=y+28+(j//10)*65;B.alpha_composite(t,(px,py));dr.text((px,py+42),f'F{fr}',fill=(190,190,190,255))
 specialpath=ROOT/'graphics/static_character_reconstruction/static_special_animation_atlas_20260930.png';B.save(specialpath)
 
+confirmed_count=sum(x[1]['kind']=='directional_4x2_confirmed_order' for x in directional)
+candidate_count=sum(x[1]['kind']=='four_state_2frame_candidate' for x in directional)
 summary={'unique_graphics_signatures':len(cat),'directional_4x2':len(directional),'non_directional':len(special),
+         'directional_4x2_detected':len(directional),'directional_4x2_confirmed':confirmed_count,
+         'directional_4x2_candidate_unbound':candidate_count,
+         'group5_group7_newly_confirmed':len(extra_directional),
+         'group5_group7_evidence':'data/npc_display/group5_group7_directional_family_evidence_20260930.csv',
          'directional_family_offsets':dict(collections.Counter(str(x[1]['family_offset']) for x in directional)),
          'non_directional_kinds':dict(collections.Counter(x[1]['kind'] for x in special)),
          'directional_atlas':str(dirpath.relative_to(ROOT)),'special_atlas':str(specialpath.relative_to(ROOT)),
