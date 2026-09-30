@@ -27,6 +27,9 @@ UNRESOLVED = {
     "0x9D": "selector resource does not render the candidate family",
 }
 
+def selector_key(value):
+    return f"0x{int(value, 16):02X}"
+
 def read_csv(path):
     with path.open(encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
@@ -41,9 +44,9 @@ families = read_csv(fam_path)
 original_kind = {r["selector"]: r["kind"] for r in families}
 evidence = []
 for r in families:
-    if r["sprite_group"] not in ("5", "7") or r["kind"] != "four_state_2frame_candidate":
+    sel = selector_key(r["selector"])
+    if r["sprite_group"] not in ("5", "7") or sel not in (PROMOTIONS | UNRESOLVED):
         continue
-    sel = r["selector"]
     promoted = sel in PROMOTIONS
     note = PROMOTIONS[sel][0] if promoted else UNRESOLVED.get(sel, "direction semantics unresolved")
     evidence.append({
@@ -85,11 +88,11 @@ summary["group5_group7_newly_confirmed"] = len(PROMOTIONS)
 summary["group5_group7_evidence"] = "data/npc_display/group5_group7_directional_family_evidence_20260930.csv"
 summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 selectors = read_csv(NPC / "static_character_selector_catalog_20260930.csv")
-family_by_sel = {r["selector"].upper(): r for r in families}
+family_by_sel = {selector_key(r["selector"]): r for r in families}
 dir_rows = []
 for s in selectors:
     hexsel = f"0x{int(s['selector']):02X}"
-    canonical = (s["duplicate_of"] or hexsel).upper()
+    canonical = selector_key(s["duplicate_of"] or hexsel)
     r = family_by_sel.get(canonical)
     if not r:
         continue
@@ -148,7 +151,7 @@ write_csv(NPC / "actor_motion_direction_pattern_table_20260930.csv", pattern_row
 # Build compact finalized RIGHT | FRONT | LEFT | BACK atlases from the existing source atlas.
 source_atlas = Image.open(GFX / "static_directional_animation_atlas_20260930.png").convert("RGBA")
 detected_before = [r for r in families if original_kind[r["selector"]] in ("directional_4x2_confirmed_order", "four_state_2frame_candidate")]
-block_index = {r["selector"].upper(): i for i, r in enumerate(detected_before)}
+block_index = {selector_key(r["selector"]): i for i, r in enumerate(detected_before)}
 BLOCK_W, BLOCK_H, COLS = 420, 126, 4
 targets = ["0x40","0x24","0x59","0x5A","0x27","0x25","0x5B","0x13"] + list(PROMOTIONS)
 sel_by_hex = {f"0x{int(s['selector']):02X}": s for s in selectors}
@@ -156,7 +159,7 @@ labels = ["RIGHT", "FRONT", "LEFT", "BACK"]
 
 for target in targets:
     s = sel_by_hex[target]
-    canonical = (s["duplicate_of"] or target).upper()
+    canonical = selector_key(s["duplicate_of"] or target)
     idx = block_index[canonical]
     bx = (idx % COLS) * BLOCK_W
     by = (idx // COLS) * BLOCK_H
