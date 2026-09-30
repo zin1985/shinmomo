@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory","save-state")]
   [string]$Command,
 
   [int]$X = 0,
@@ -22,6 +22,7 @@ param(
   [int]$Length = 256,
 
   [string]$SceneTag = "scene",
+  [string]$StateName = "mole_remote",
   [string]$Out = "",
   [string]$LabDir = "",
   [int]$TimeoutMs = 8000
@@ -40,9 +41,10 @@ if ([string]::IsNullOrWhiteSpace($LabDir)) {
 $ScreensDir = Join-Path $LabDir "screens"
 $ResponsesDir = Join-Path $LabDir "responses"
 $CapturesDir = Join-Path $LabDir "captures"
+$StatesDir = Join-Path $LabDir "states"
 $CommandPath = Join-Path $LabDir "command.tsv"
 
-New-Item -ItemType Directory -Force -Path $LabDir,$ScreensDir,$ResponsesDir,$CapturesDir | Out-Null
+New-Item -ItemType Directory -Force -Path $LabDir,$ScreensDir,$ResponsesDir,$CapturesDir,$StatesDir | Out-Null
 
 function Emit-Result([hashtable]$Data) {
   $Data | ConvertTo-Json -Compress -Depth 6
@@ -197,5 +199,12 @@ public static class ShinMomoMouse {
     if ($Length -lt 1 -or $Length -gt 4096) { throw "-Length must be 1..4096." }
     $payload = Invoke-Bridge @("CAPTURE_MEMORY", $Domain, $Start, "$Length")
     Emit-Result @{ ok=$true; command="capture-memory"; domain=$Domain; start=$Start; length=$Length; path=$payload }
+  }
+
+  "save-state" {
+    if ([string]::IsNullOrWhiteSpace($StateName)) { throw "-StateName must not be empty." }
+    if ($StateName -notmatch '^[A-Za-z0-9_-]{1,64}) { throw "-StateName may contain only A-Z, a-z, 0-9, _ and -." }
+    $payload = Invoke-Bridge @("SAVE_STATE", $StateName)
+    Emit-Result @{ ok=$true; command="save-state"; name=$StateName; path=$payload }
   }
 }

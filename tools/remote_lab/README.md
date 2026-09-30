@@ -1,8 +1,8 @@
 # ShinMomo Remote Lab
 
-A thin control layer for running repeatable Shin Momotarou Densetsu experiments from Chat through Remote Desktop Commander.
+A thin control layer for running repeatable Shin Momotarou Densetsu experiments from Chat through Remote Desktop Commander or Mole Remote.
 
-It exposes six operator commands:
+It exposes seven operator commands:
 
 1. **screen** - capture the current Windows virtual desktop to PNG.
 2. **click** - click a Windows desktop coordinate.
@@ -10,6 +10,7 @@ It exposes six operator commands:
 4. **gamepad** - inject SNES controller input through BizHawk for an exact number of frames.
 5. **capture-memory** - capture a bounded BizHawk memory-domain range to local JSON.
 6. **map-capture** - capture map-render artifacts plus a small derived map-state manifest.
+7. **save-state** - save a BizHawk savestate into the local-only lab state directory.
 
 The ROM, savestates, screenshots, and raw memory captures are runtime-only. Do not commit them.
 
@@ -50,6 +51,9 @@ Default runtime directory: %LOCALAPPDATA%\shinmomo-lab
     # 6. Capture map artifacts. manifest.json stores only small derived WRAM
     # selectors/pack state alongside local-only VRAM/CGRAM/OAM/screenshot files.
     .\tools\remote_lab\shinmomo_lab.ps1 map-capture -SceneTag "visited_location"
+
+    # 7. Save a local-only BizHawk state without depending on GUI hotkeys.
+    .\tools\remote_lab\shinmomo_lab.ps1 save-state -StateName "mole_remote"
 
 The map manifest includes current pack $0305, VM/resolved pack context $126E/$12B4,
 mode $1398/$1399, and map selectors $139B..$139F. These values are intended to

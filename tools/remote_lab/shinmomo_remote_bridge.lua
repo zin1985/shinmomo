@@ -9,6 +9,7 @@ local RESPONSES = LAB_DIR .. SEP .. "responses"
 local CAPTURES = LAB_DIR .. SEP .. "captures"
 local SCREENS = LAB_DIR .. SEP .. "screens"
 local MAP_CAPTURES = LAB_DIR .. SEP .. "map_captures"
+local STATES = LAB_DIR .. SEP .. "states"
 
 local pending_gamepad = nil -- retained for compatibility; command mode is synchronous
 local goal13_trace_active = false
@@ -677,6 +678,23 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
   respond(id, "OK", path)
 end
 
+local function do_save_state(id, name)
+  local base = clean_id(name or "mole_remote")
+  if base == "" then base = "mole_remote" end
+  ensure_dir(STATES)
+  local path = STATES .. SEP .. base .. ".State"
+  if not savestate or not savestate.save then
+    respond(id, "ERR", "savestate.save unavailable")
+    return
+  end
+  local ok, result = pcall(savestate.save, path)
+  if not ok or result == false then
+    respond(id, "ERR", ok and "savestate.save returned false" or tostring(result))
+    return
+  end
+  respond(id, "OK", path)
+end
+
 local function process_command()
   local line = read_all(COMMAND)
   if not line or line == "" then return end
@@ -757,6 +775,11 @@ local function process_command()
 
   if cmd == "CAPTURE_MEMORY" then
     do_capture(id, p[3] or "WRAM", p[4] or "0", p[5] or "256")
+    return
+  end
+
+  if cmd == "SAVE_STATE" then
+    do_save_state(id, p[3] or "mole_remote")
     return
   end
 
