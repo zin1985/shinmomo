@@ -650,6 +650,15 @@ def main() -> None:
     terminal55_nonrecord0_entry = 0
     terminal55_coord = 0
     nonterminal55_coord = 0
+    nonterminal56_cfg_promoted = 0
+    nonterminal56_cfg_dropped_unreachable = 0
+    nonterminal56_cfg_blocked = 0
+    nonterminal53_cfg_promoted = 0
+    nonterminal53_cfg_dropped_unreachable = 0
+    nonterminal53_cfg_blocked = 0
+    nonterminal55_cfg_promoted = 0
+    nonterminal55_cfg_dropped_unreachable = 0
+    nonterminal55_cfg_blocked = 0
     terminal57_count = 0
     entry_start57_count = 0
     cfg_reachable57_count = 0
@@ -772,6 +781,17 @@ def main() -> None:
                     if coord is None:
                         continue
 
+                    reachable, reachability_blockers = cfg_target_reachability(
+                        body, entry["start"], pos
+                    )
+                    if not reachable and not reachability_blockers:
+                        nonterminal56_cfg_dropped_unreachable += 1
+                        continue
+                    if reachable:
+                        nonterminal56_cfg_promoted += 1
+                    else:
+                        nonterminal56_cfg_blocked += 1
+
                     record_id, event_sources = event_context(script_pack, addr)
                     row = blank_row()
                     row.update({
@@ -786,15 +806,30 @@ def main() -> None:
                             f"entry={hx(entry['entry_id'])}"
                         ),
                         "event_sources": event_sources,
-                        "confidence": "structural_candidate",
+                        "confidence": (
+                            "strong_candidate" if reachable else "structural_candidate"
+                        ),
                         "condition": (
-                            "source opcode boundary not yet proven; destination "
-                            "record0 entry exists and has aligned 0x58 setter"
+                            (
+                                "source opcode boundary proven reachable by fail-closed CFG; "
+                                "destination record0 entry exists and has aligned 0x58 setter"
+                            )
+                            if reachable else
+                            (
+                                "source opcode boundary not yet proven; destination "
+                                "record0 entry exists and has aligned 0x58 setter; "
+                                "CFG blockers=" + ",".join(sorted(reachability_blockers))
+                            )
                         ),
                         "evidence": (
                             "raw 0x56 shape inside a structurally bounded VM substream; "
                             "destination pack/entry cross-links to aligned opcode 0x58 "
-                            "coordinate setter; source alignment deliberately unpromoted"
+                            "coordinate setter; "
+                            + (
+                                "source opcode boundary proven reachable by fail-closed CFG"
+                                if reachable else
+                                "source opcode boundary remains blocked by fail-closed CFG"
+                            )
                         ),
                         "provenance": (
                             f"canonical_rom_sha256={sha};"
@@ -921,6 +956,18 @@ def main() -> None:
                     coord = coordinate_setter(rom, dent)
                     if coord is None:
                         continue
+
+                    reachable, reachability_blockers = cfg_target_reachability(
+                        body, entry["start"], pos
+                    )
+                    if not reachable and not reachability_blockers:
+                        nonterminal53_cfg_dropped_unreachable += 1
+                        continue
+                    if reachable:
+                        nonterminal53_cfg_promoted += 1
+                    else:
+                        nonterminal53_cfg_blocked += 1
+
                     record_id, event_sources = event_context(script_pack, addr)
                     row = blank_row()
                     row.update({
@@ -935,15 +982,30 @@ def main() -> None:
                             f"entry={hx(entry['entry_id'])}"
                         ),
                         "event_sources": event_sources,
-                        "confidence": "structural_candidate",
+                        "confidence": (
+                            "strong_candidate" if reachable else "structural_candidate"
+                        ),
                         "condition": (
-                            "source opcode boundary not yet proven; destination "
-                            "record0 entry exists and has aligned 0x58 setter"
+                            (
+                                "source opcode boundary proven reachable by fail-closed CFG; "
+                                "destination record0 entry exists and has aligned 0x58 setter"
+                            )
+                            if reachable else
+                            (
+                                "source opcode boundary not yet proven; destination "
+                                "record0 entry exists and has aligned 0x58 setter; "
+                                "CFG blockers=" + ",".join(sorted(reachability_blockers))
+                            )
                         ),
                         "evidence": (
                             "raw 0x53 shape inside bounded VM substream; C4:8B3F "
                             "is the transition wrapper for C4:8B6A; destination "
-                            "entry independently has aligned 0x58 coordinates"
+                            "entry independently has aligned 0x58 coordinates; "
+                            + (
+                                "source opcode boundary proven reachable by fail-closed CFG"
+                                if reachable else
+                                "source opcode boundary remains blocked by fail-closed CFG"
+                            )
                         ),
                         "provenance": (
                             f"canonical_rom_sha256={sha};"
@@ -1075,6 +1137,18 @@ def main() -> None:
                     coord = coordinate_setter(rom, dent)
                     if coord is None:
                         continue
+
+                    reachable, reachability_blockers = cfg_target_reachability(
+                        body, entry["start"], pos
+                    )
+                    if not reachable and not reachability_blockers:
+                        nonterminal55_cfg_dropped_unreachable += 1
+                        continue
+                    if reachable:
+                        nonterminal55_cfg_promoted += 1
+                    else:
+                        nonterminal55_cfg_blocked += 1
+
                     record_id, event_sources = event_context(script_pack, addr)
                     row = blank_row()
                     row.update({
@@ -1089,16 +1163,31 @@ def main() -> None:
                             f"entry={hx(entry['entry_id'])}"
                         ),
                         "event_sources": event_sources,
-                        "confidence": "structural_candidate",
+                        "confidence": (
+                            "strong_candidate" if reachable else "structural_candidate"
+                        ),
                         "condition": (
-                            "source opcode boundary not yet proven; destination "
-                            "record0 entry exists and has aligned 0x58 setter"
+                            (
+                                "source opcode boundary proven reachable by fail-closed CFG; "
+                                "destination record0 entry exists and has aligned 0x58 setter"
+                            )
+                            if reachable else
+                            (
+                                "source opcode boundary not yet proven; destination "
+                                "record0 entry exists and has aligned 0x58 setter; "
+                                "CFG blockers=" + ",".join(sorted(reachability_blockers))
+                            )
                         ),
                         "evidence": (
                             "raw 0x55 shape inside bounded VM substream; C4:8B56 "
                             "restores saved map context then falls through to the "
                             "C4:8B6A transition core; destination entry independently "
-                            "has aligned 0x58 coordinates"
+                            "has aligned 0x58 coordinates; "
+                            + (
+                                "source opcode boundary proven reachable by fail-closed CFG"
+                                if reachable else
+                                "source opcode boundary remains blocked by fail-closed CFG"
+                            )
                         ),
                         "provenance": (
                             f"canonical_rom_sha256={sha};"
@@ -1672,16 +1761,40 @@ def main() -> None:
         "terminal_opcode56_nonrecord0_unique_entry_match_count": terminal_nonrecord0_entry,
         "terminal_opcode56_coordinate_match_count": terminal_coord,
         "nonterminal_opcode56_coordinate_crosslink_count": nonterminal_coord,
+        "nonterminal_opcode56_cfg_promoted_count": nonterminal56_cfg_promoted,
+        "nonterminal_opcode56_cfg_unreachable_drop_count": nonterminal56_cfg_dropped_unreachable,
+        "nonterminal_opcode56_cfg_blocked_count": nonterminal56_cfg_blocked,
         "terminal_opcode53_candidate_count": terminal53_count,
         "terminal_opcode53_destination_entry_match_count": terminal53_dest_entry,
         "terminal_opcode53_nonrecord0_unique_entry_match_count": terminal53_nonrecord0_entry,
         "terminal_opcode53_coordinate_match_count": terminal53_coord,
         "nonterminal_opcode53_coordinate_crosslink_count": nonterminal53_coord,
+        "nonterminal_opcode53_cfg_promoted_count": nonterminal53_cfg_promoted,
+        "nonterminal_opcode53_cfg_unreachable_drop_count": nonterminal53_cfg_dropped_unreachable,
+        "nonterminal_opcode53_cfg_blocked_count": nonterminal53_cfg_blocked,
         "terminal_opcode55_candidate_count": terminal55_count,
         "terminal_opcode55_destination_entry_match_count": terminal55_dest_entry,
         "terminal_opcode55_nonrecord0_unique_entry_match_count": terminal55_nonrecord0_entry,
         "terminal_opcode55_coordinate_match_count": terminal55_coord,
         "nonterminal_opcode55_coordinate_crosslink_count": nonterminal55_coord,
+        "nonterminal_opcode55_cfg_promoted_count": nonterminal55_cfg_promoted,
+        "nonterminal_opcode55_cfg_unreachable_drop_count": nonterminal55_cfg_dropped_unreachable,
+        "nonterminal_opcode55_cfg_blocked_count": nonterminal55_cfg_blocked,
+        "nonterminal_cfg_promoted_count": (
+            nonterminal56_cfg_promoted
+            + nonterminal53_cfg_promoted
+            + nonterminal55_cfg_promoted
+        ),
+        "nonterminal_cfg_unreachable_drop_count": (
+            nonterminal56_cfg_dropped_unreachable
+            + nonterminal53_cfg_dropped_unreachable
+            + nonterminal55_cfg_dropped_unreachable
+        ),
+        "nonterminal_cfg_blocked_count": (
+            nonterminal56_cfg_blocked
+            + nonterminal53_cfg_blocked
+            + nonterminal55_cfg_blocked
+        ),
         "terminal_packwide_nonrecord0_unique_match_count": (
             terminal_nonrecord0_entry
             + terminal53_nonrecord0_entry
@@ -1807,7 +1920,9 @@ def main() -> None:
             f"{terminal_count - terminal_dest_entry} terminal 0x56 shapes and "
             f"{terminal53_count - terminal53_dest_entry} terminal 0x53 shapes do not "
             "resolve a unique destination entry anywhere in the destination pack",
-            "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
+            f"{nonterminal56_cfg_blocked + nonterminal53_cfg_blocked + nonterminal55_cfg_blocked} "
+            "non-terminal 0x53/0x55/0x56 coordinate-anchored shapes remain structural "
+            "because fail-closed CFG paths still contain unresolved blockers",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
@@ -1927,17 +2042,26 @@ remain blank unless independently proven.
 - terminal 0x56 forms with matching destination entry: {terminal56_entry}
 - terminal 0x56 matches resolved outside record 0: {terminal56_nonrecord0}
 - terminal 0x56 forms with aligned destination 0x58 coordinates: {terminal56_coords}
-- non-terminal 0x56 coordinate-crosslinked structural rows: {nonterminal56}
+- non-terminal 0x56 coordinate-crosslinked retained rows: {nonterminal56}
+- non-terminal 0x56 CFG-promoted strong rows: {nonterminal56_promoted}
+- non-terminal 0x56 CFG-unreachable raw shapes dropped: {nonterminal56_dropped}
+- non-terminal 0x56 CFG-blocked structural rows: {nonterminal56_blocked}
 - terminal 0x53 forms: {terminal53}
 - terminal 0x53 forms with matching destination entry: {terminal53_entry}
 - terminal 0x53 matches resolved outside record 0: {terminal53_nonrecord0}
 - terminal 0x53 forms with aligned destination 0x58 coordinates: {terminal53_coords}
-- non-terminal 0x53 coordinate-crosslinked structural rows: {nonterminal53}
+- non-terminal 0x53 coordinate-crosslinked retained rows: {nonterminal53}
+- non-terminal 0x53 CFG-promoted strong rows: {nonterminal53_promoted}
+- non-terminal 0x53 CFG-unreachable raw shapes dropped: {nonterminal53_dropped}
+- non-terminal 0x53 CFG-blocked structural rows: {nonterminal53_blocked}
 - terminal 0x55 forms: {terminal55}
 - terminal 0x55 forms with matching destination entry: {terminal55_entry}
 - terminal 0x55 matches resolved outside record 0: {terminal55_nonrecord0}
 - terminal 0x55 forms with aligned destination 0x58 coordinates: {terminal55_coords}
-- non-terminal 0x55 coordinate-crosslinked structural rows: {nonterminal55}
+- non-terminal 0x55 coordinate-crosslinked retained rows: {nonterminal55}
+- non-terminal 0x55 CFG-promoted strong rows: {nonterminal55_promoted}
+- non-terminal 0x55 CFG-unreachable raw shapes dropped: {nonterminal55_dropped}
+- non-terminal 0x55 CFG-blocked structural rows: {nonterminal55_blocked}
 - terminal 0x57 route-table forms: {terminal57}
 - entry-start non-terminal 0x57 route-table forms: {entry_start57}
 - branch-reachable non-terminal 0x57 route-table forms: {cfg_reachable57}
@@ -2042,8 +2166,10 @@ Opcode 0x04 is a proven VM pack-context switch for $126E, but it is not treated
 as a global map transition because it does not itself write $0305.
 
 Raw 0x53/0x55/0x56-shaped bytes outside the bounded policy are not cataloged.
-Non-terminal shapes are retained only when a destination-entry/0x58 coordinate cross-link
-provides an independent structural anchor.
+Non-terminal shapes first require a destination-entry/0x58 coordinate cross-link.
+The fail-closed CFG then promotes reachable opcode boundaries to strong candidates,
+drops coordinate-anchored raw shapes that are provably unreachable from the parsed
+entry start, and retains only blocker-bearing shapes as structural candidates.
 
 ## Related state fields
 
@@ -2108,16 +2234,25 @@ PC was observed.
         terminal56_nonrecord0=terminal_nonrecord0_entry,
         terminal56_coords=terminal_coord,
         nonterminal56=nonterminal_coord,
+        nonterminal56_promoted=nonterminal56_cfg_promoted,
+        nonterminal56_dropped=nonterminal56_cfg_dropped_unreachable,
+        nonterminal56_blocked=nonterminal56_cfg_blocked,
         terminal53=terminal53_count,
         terminal53_entry=terminal53_dest_entry,
         terminal53_nonrecord0=terminal53_nonrecord0_entry,
         terminal53_coords=terminal53_coord,
         nonterminal53=nonterminal53_coord,
+        nonterminal53_promoted=nonterminal53_cfg_promoted,
+        nonterminal53_dropped=nonterminal53_cfg_dropped_unreachable,
+        nonterminal53_blocked=nonterminal53_cfg_blocked,
         terminal55=terminal55_count,
         terminal55_entry=terminal55_dest_entry,
         terminal55_nonrecord0=terminal55_nonrecord0_entry,
         terminal55_coords=terminal55_coord,
         nonterminal55=nonterminal55_coord,
+        nonterminal55_promoted=nonterminal55_cfg_promoted,
+        nonterminal55_dropped=nonterminal55_cfg_dropped_unreachable,
+        nonterminal55_blocked=nonterminal55_cfg_blocked,
         terminal57=terminal57_count,
         entry_start57=entry_start57_count,
         cfg_reachable57=cfg_reachable57_count,

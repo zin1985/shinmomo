@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: f87f7232b3bbd006042002e44629b0680a5016c0
+Git HEAD used for generation: 2e6aebcf376de39e0149f8f488437314ba099aac
 
 ## Handler-level promotion
 
@@ -86,33 +86,42 @@ remain blank unless independently proven.
 
 ## Counts
 
-- total candidate rows: 1308
+- total candidate rows: 1300
 - confirmed: 3
-- strong candidates: 1167
-- structural candidates: 138
+- strong candidates: 1273
+- structural candidates: 24
 - rows with source configuration: 3
 - runtime-confirmed static triggers: 1
 - runtime-confirmed edges without observed trigger PC: 1
-- rows with destination pack: 1308
-- rows with unique destination configuration: 1073
-- rows with destination X/Y: 802
-- rows cross-linked to structural event records: 27
-- rows carrying existing event-source xrefs: 17
+- rows with destination pack: 1300
+- rows with unique destination configuration: 1066
+- rows with destination X/Y: 794
+- rows cross-linked to structural event records: 22
+- rows carrying existing event-source xrefs: 12
 - terminal 0x56 forms: 724
 - terminal 0x56 forms with matching destination entry: 721
 - terminal 0x56 matches resolved outside record 0: 2
 - terminal 0x56 forms with aligned destination 0x58 coordinates: 272
-- non-terminal 0x56 coordinate-crosslinked structural rows: 25
+- non-terminal 0x56 coordinate-crosslinked retained rows: 21
+- non-terminal 0x56 CFG-promoted strong rows: 15
+- non-terminal 0x56 CFG-unreachable raw shapes dropped: 4
+- non-terminal 0x56 CFG-blocked structural rows: 6
 - terminal 0x53 forms: 394
 - terminal 0x53 forms with matching destination entry: 390
 - terminal 0x53 matches resolved outside record 0: 17
 - terminal 0x53 forms with aligned destination 0x58 coordinates: 346
-- non-terminal 0x53 coordinate-crosslinked structural rows: 94
+- non-terminal 0x53 coordinate-crosslinked retained rows: 93
+- non-terminal 0x53 CFG-promoted strong rows: 83
+- non-terminal 0x53 CFG-unreachable raw shapes dropped: 1
+- non-terminal 0x53 CFG-blocked structural rows: 10
 - terminal 0x55 forms: 40
 - terminal 0x55 forms with matching destination entry: 40
 - terminal 0x55 matches resolved outside record 0: 0
 - terminal 0x55 forms with aligned destination 0x58 coordinates: 35
-- non-terminal 0x55 coordinate-crosslinked structural rows: 12
+- non-terminal 0x55 coordinate-crosslinked retained rows: 9
+- non-terminal 0x55 CFG-promoted strong rows: 8
+- non-terminal 0x55 CFG-unreachable raw shapes dropped: 3
+- non-terminal 0x55 CFG-blocked structural rows: 1
 - terminal 0x57 route-table forms: 2
 - entry-start non-terminal 0x57 route-table forms: 8
 - branch-reachable non-terminal 0x57 route-table forms: 7
@@ -217,8 +226,10 @@ Opcode 0x04 is a proven VM pack-context switch for $126E, but it is not treated
 as a global map transition because it does not itself write $0305.
 
 Raw 0x53/0x55/0x56-shaped bytes outside the bounded policy are not cataloged.
-Non-terminal shapes are retained only when a destination-entry/0x58 coordinate cross-link
-provides an independent structural anchor.
+Non-terminal shapes first require a destination-entry/0x58 coordinate cross-link.
+The fail-closed CFG then promotes reachable opcode boundaries to strong candidates,
+drops coordinate-anchored raw shapes that are provably unreachable from the parsed
+entry start, and retains only blocker-bearing shapes as structural candidates.
 
 ## Related state fields
 
@@ -266,7 +277,7 @@ PC was observed.
 
 - static source map/config is not inferred from script-pack identity
 - 3 terminal 0x56 shapes and 4 terminal 0x53 shapes do not resolve a unique destination entry anywhere in the destination pack
-- non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven
+- 17 non-terminal 0x53/0x55/0x56 coordinate-anchored shapes remain structural because fail-closed CFG paths still contain unresolved blockers
 - destination config stays null when destination pack record0/entry1 has multiple confirmed selectors
 - 0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix
 - exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified
