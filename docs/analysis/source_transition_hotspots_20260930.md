@@ -166,3 +166,19 @@ decoded or every cell is independently verified.
 
 This raises the source-hotspot catalog to **56 rows** and gives the viewer a
 confirmed clickable source point for both directions of the world/village pair.
+
+
+## pack 0x2E -> 旅立ちの村 native south-return candidate
+
+Opcode `0x52` at `CB:DE74` now proves movement bounds `X=0..19,Y=0..12`
+for `cfg_t07_l015_v2`. The decoded map layer has a three-cell central floor
+opening at `x=8..10,y=12`; the independently resolved forward transition
+arrives at the center `(9,12)`.
+
+The older runtime trace already proves that walking south through the central
+exit returns to `cfg_t04_l008_v2 / pack 0x50`. The source hotspot catalog now
+emits `x=8..10,y=12` as a **strong candidate corridor** targeting the saved
+return coordinate `(29,17)`.
+
+This deliberately does **not** close the exact reverse source cell. Runtime
+pre-exit X and collision/passability for all three cells were not captured.

@@ -309,6 +309,58 @@ def main() -> None:
         ),
     })
 
+    pack2e_native_path = root / "data/maps/transitions/pack2e_south_boundary_to_tabidachi_20260930.json"
+    pack2e_native = json.loads(pack2e_native_path.read_text(encoding="utf-8"))
+    pack2e_src = pack2e_native["source"]
+    pack2e_dest = pack2e_native["destination"]
+    pack2e_corridor = pack2e_src["candidate_exit_corridor"]
+    if not (
+        pack2e_src["config_id"] == "cfg_t07_l015_v2"
+        and pack2e_src["pack_id_hex"] == "0x2E"
+        and pack2e_src["native_bounds"] == {"min_x": 0, "max_x": 19, "min_y": 0, "max_y": 12}
+        and pack2e_corridor["x_min"] == 8
+        and pack2e_corridor["x_max"] == 10
+        and pack2e_corridor["y"] == 12
+        and pack2e_dest["config_id"] == "cfg_t04_l008_v2"
+        and pack2e_dest["saved_return_coordinate"] == [29, 17]
+        and pack2e_native["confidence"] == "strong_static_runtime_candidate"
+    ):
+        raise SystemExit("pack0x2E native south-return candidate fixture changed")
+
+    rows.append({
+        "hotspot_id": "hotspot_native_pack2e_south_exit_candidate",
+        "source_config_id": "cfg_t07_l015_v2",
+        "source_grid_x": 8,
+        "source_grid_y": 12,
+        "source_width": 3,
+        "source_height": 1,
+        "hotspot_type": "native_boundary_saved_return_candidate_corridor",
+        "trigger_type": "native_out_of_bounds_saved_state_restore",
+        "trigger_addr": "C1:8955",
+        "event_record": "",
+        "transition_id": "runtime_restore_cfg_t07_l015_v2_to_cfg_t04_l008_v2",
+        "destination_config_id": "cfg_t04_l008_v2",
+        "destination_x": 29,
+        "destination_y": 17,
+        "confidence": "strong_candidate",
+        "evidence": (
+            "opcode 0x52 at CB:DE74 proves native bounds X=0..19,Y=0..12; "
+            "decoded layer t07/l015 has a central floor opening x=8..10 at y=12; "
+            "the forward CC:1CDA transition arrives at center (9,12); runtime "
+            "evidence independently confirms walking south through the central exit "
+            "returns pack 0x2E->0x50. Exact runtime pre-exit X and collision "
+            "passability of all three cells were not captured."
+        ),
+        "provenance": (
+            "data/maps/transitions/pack2e_south_boundary_to_tabidachi_20260930.json;"
+            "data/maps/transitions/map_native_bounds_catalog.csv;"
+            "viewer/data/layers/t07_l015.json;"
+            "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json;"
+            "data/maps/transitions/source_saved_return_origins.csv;"
+            "C4:8B16;C1:8943;81:81DD;C1:8955;81:895A;81:8244"
+        ),
+    })
+
     rows.sort(key=lambda r: (r["source_config_id"], r["trigger_addr"]))
     if len({r["hotspot_id"] for r in rows}) != len(rows):
         raise SystemExit("duplicate hotspot ids")
@@ -372,6 +424,19 @@ def main() -> None:
             "status": "strong_static_crosslink",
         },
         "pack2e_to_tabidachi_source_hotspot_closed": False,
+        "pack2e_to_tabidachi_native_candidate": {
+            "source_grid_x": 8,
+            "source_grid_y": 12,
+            "source_width": 3,
+            "source_height": 1,
+            "center_candidate_x": 9,
+            "native_bounds": {"min_x": 0, "max_x": 19, "min_y": 0, "max_y": 12},
+            "trigger_addr": "C1:8955",
+            "destination_config_id": "cfg_t04_l008_v2",
+            "destination_x": 29,
+            "destination_y": 17,
+            "status": "strong_candidate_exact_source_cell_open",
+        },
         "scope": (
             "Exact opcode0x5D rectangle and opcode0x69 point predicates from "
             "independently runtime-anchored source packs, plus runtime+static "
