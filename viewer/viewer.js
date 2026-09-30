@@ -22,6 +22,7 @@ const actorLayer=q('#actorLayer'), arrivalLayer=q('#arrivalLayer'), hotspotLayer
 const focusLayer=q('#focusLayer'), dialogueLayer=q('#dialogueLayer'), gridLayer=q('#gridLayer');
 let selectedMap=null;
 let selectedFocus=null;
+let selectedPack=null;
 
 const staticActors=world.entities.filter(e=>e.entity_type==='static_actor_candidate');
 const catalogEdges=world.transition_edges||[];
@@ -60,8 +61,46 @@ function mapEntities(m){
   return (m.entities||[]).map(id=>entityById.get(id)).filter(Boolean);
 }
 
-function mapDisplayName(m){
+function mapActorPacks(m){
+  return [...new Set(
+    mapEntities(m)
+      .filter(e=>e.entity_type==='static_actor_candidate'&&e.pack_id_hex)
+      .map(e=>e.pack_id_hex)
+  )].sort();
+}
+
+function sceneActors(m,pack=selectedPack){
   const actors=mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate');
+  const packs=mapActorPacks(m);
+  if(pack)return actors.filter(e=>e.pack_id_hex===pack);
+  if(packs.length===1)return actors.filter(e=>e.pack_id_hex===packs[0]);
+  return [];
+}
+
+function populateScenePack(m,requestedPack=null){
+  const sel=q('#scenePack');
+  const packs=mapActorPacks(m);
+  const options=[...packs];
+  if(requestedPack&&!options.includes(requestedPack))options.push(requestedPack);
+  sel.replaceChildren();
+  const placeholder=document.createElement('option');
+  placeholder.value='';
+  placeholder.textContent=packs.length>1?'select scene pack':'auto';
+  sel.append(placeholder);
+  for(const pack of options.sort()){
+    const o=document.createElement('option');
+    o.value=pack;
+    const count=mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate'&&e.pack_id_hex===pack).length;
+    o.textContent=pack+(count?' ('+count+' actors)':' (no mapped actor set)');
+    sel.append(o);
+  }
+  sel.value=requestedPack||'';
+}
+
+function mapDisplayName(m,pack=null){
+  const actors=pack
+    ? mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate'&&e.pack_id_hex===pack)
+    : mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate');
   const labels=[...new Set(actors.map(e=>e.location_label).filter(Boolean))];
   if(labels.length===1)return labels[0];
   if(labels.length>1)return m.config_id+' ('+labels.join(' / ')+')';
@@ -267,7 +306,7 @@ function renderHotspots(m){
           grid_x:h.destination_x,
           grid_y:h.destination_y,
           source_hotspot_id:h.hotspot_id
-        });
+        },h.destination_pack||null);
       }
     };
     hotspotLayer.append(b);
@@ -308,7 +347,7 @@ function renderActors(m){
   const labels=q('#labelsToggle').checked;
   if(!show)return;
   const canonical=q('#profile').value==='canonical';
-  for(const e of mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate')){
+  for(const e of sceneActors(m)){
     const b=document.createElement('button');
     b.className='actor candidate';
     b.style.left=e.x+'px'; b.style.top=e.y+'px';
@@ -347,17 +386,25 @@ function renderMap(m){
   renderHotspots(m); renderArrivals(m); renderActors(m); renderFocus(m); applyZoom();
 }
 
-async function selectMap(m,focus=null){
-  selectedMap=m; selectedFocus=focus; clearDialogue();
+async function selectMap(m,focus=null,pack=undefined){
+  const packs=mapActorPacks(m);
+  selectedMap=m;
+  selectedFocus=focus;
+  selectedPack=(pack!==undefined&&pack!==null&&pack!=='') ? pack : (packs.length===1?packs[0]:null);
+  populateScenePack(m,selectedPack);
+  clearDialogue();
   document.querySelectorAll('.mapButton').forEach(b=>b.classList.toggle('active',b.dataset.id===m.config_id));
-  q('#title').textContent=mapDisplayName(m);
+  q('#title').textContent=mapDisplayName(m,selectedPack)+(selectedPack?' ['+selectedPack+']':(packs.length>1?' [scene pack unresolved]':''));
   renderMap(m);
   detail.textContent='loading structural layers...';
   detail.textContent=JSON.stringify({
     ...m,
     entity_count:mapEntities(m).length,
-    static_actor_count:mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate').length,
-    dialogue_branch_count:mapEntities(m).reduce((n,e)=>n+(e.dialogue_refs||[]).length,0),
+    active_scene_pack:selectedPack,
+    available_actor_packs:mapActorPacks(m),
+    static_actor_count:sceneActors(m).length,
+    all_static_actor_count:mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate').length,
+    dialogue_branch_count:sceneActors(m).reduce((n,e)=>n+(e.dialogue_refs||[]).length,0),
     source_transition_hotspot_count:mapHotspots(m).length,
     transition_arrival_count:mapArrivals(m).length,
     layer_summary:await layerSummary(m)
@@ -380,7 +427,8 @@ async function selectMap(m,focus=null){
       ev.stopPropagation();
       if(byId.has(other)){
         const focus=forward&&e.destination_x!=null&&e.destination_y!=null?{map_config_id:other,grid_x:e.destination_x,grid_y:e.destination_y}:null;
-        selectMap(byId.get(other),focus);
+        const targetPack=forward?(e.destination_pack||null):(e.source_pack||null);
+        selectMap(byId.get(other),focus,targetPack);
       }
     };
     div.append(go);
@@ -411,8 +459,11 @@ for(const m of world.maps){
   b.onclick=()=>selectMap(m); list.append(b);
 }
 for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){
-  q('#'+id).addEventListener('change',()=>selectedMap&&(id==='transitionsToggle'?selectMap(selectedMap,selectedFocus):renderMap(selectedMap)));
+  q('#'+id).addEventListener('change',()=>selectedMap&&(id==='transitionsToggle'?selectMap(selectedMap,selectedFocus,selectedPack):renderMap(selectedMap)));
 }
+q('#scenePack').addEventListener('change',()=>{
+  if(selectedMap)selectMap(selectedMap,selectedFocus,q('#scenePack').value||null);
+});
 q('#zoom').addEventListener('input',()=>{applyZoom();if(selectedMap)renderFocus(selectedMap);});
 stage.addEventListener('click',()=>clearDialogue());
 if(world.maps[0])selectMap(world.maps[0]);

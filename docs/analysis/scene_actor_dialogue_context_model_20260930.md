@@ -45,3 +45,12 @@ The world-viewer build now preserves scene context through dialogue association.
 - static actor entities retain scene_id;
 - config_id remains geometry identity rather than runtime scene identity;
 - story/event flags remain a later selection layer and unresolved branches stay separate.
+
+The HTML viewer now applies the active pack as an actual rendering filter.
+
+- transition hotspots pass destination_pack into the destination scene;
+- transition edge navigation passes destination_pack/source_pack when known;
+- one-pack configs select that pack automatically;
+- multi-pack configs opened without scene context show no static actors until a pack is selected;
+- a scene-pack selector exposes each mapped actor set;
+- a selected pack with no mapped actor rows stays empty rather than borrowing actors from another pack.
