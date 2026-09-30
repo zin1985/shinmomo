@@ -171,6 +171,29 @@ def main() -> None:
             None,
         )
 
+    def pack_unique_entry(pack_id: int, entry_id: int) -> dict | None:
+        """Return the unique matching entry anywhere in a parsed pack.
+
+        Transition operand2 is treated conservatively: promotion is allowed
+        only when exactly one parsed entry in the destination pack carries the
+        requested entry ID. The returned copy records its owning record index
+        for diagnostics/documentation.
+        """
+        pack = packs.get(pack_id)
+        if not pack:
+            return None
+        matches = []
+        for record in pack["records"]:
+            header = cms.parse_record_header(rom, record)
+            if not header:
+                continue
+            for entry in header["entries"]:
+                if entry["entry_id"] == entry_id:
+                    item = dict(entry)
+                    item["_record_index"] = record["record_index"]
+                    matches.append(item)
+        return matches[0] if len(matches) == 1 else None
+
     def destination_config(pack_id: int) -> dict | None:
         ids = pack_configs.get(pack_id, set())
         if len(ids) != 1:
@@ -185,7 +208,7 @@ def main() -> None:
                 return record_id, ";".join(sources_by_record.get(record_id, []))
         return "", ""
 
-    def apply_destination(row: dict, pack_id: int, entry_id: int) -> tuple[bool, bool]:
+    def apply_destination(row: dict, pack_id: int, entry_id: int) -> tuple[bool, bool, int | None]:
         row["destination_pack"] = hx(pack_id)
         row["destination_entry_id"] = hx(entry_id)
         cfg = destination_config(pack_id)
@@ -194,7 +217,7 @@ def main() -> None:
             row["destination_layout"] = cfg["primary_layout_id"]
             row["destination_tileset"] = cfg["primary_tileset_id"]
             row["destination_variant"] = cfg["map_variant"]
-        entry = record0_entry(pack_id, entry_id)
+        entry = pack_unique_entry(pack_id, entry_id)
         coord = coordinate_setter(rom, entry)
         if coord:
             row["destination_x"] = coord["x"]
@@ -202,7 +225,11 @@ def main() -> None:
             row["destination_secondary_x"] = coord["secondary_x"]
             row["destination_secondary_y"] = coord["secondary_y"]
             row["destination_coordinate_addr"] = coord["addr"]
-        return entry is not None, coord is not None
+        return (
+            entry is not None,
+            coord is not None,
+            entry.get("_record_index") if entry is not None else None,
+        )
 
     def route57_final(route_index: int) -> dict | None:
         if not 0 <= route_index < 16:
@@ -610,14 +637,17 @@ def main() -> None:
 
     terminal_count = 0
     terminal_dest_entry = 0
+    terminal_nonrecord0_entry = 0
     terminal_coord = 0
     nonterminal_coord = 0
     terminal53_count = 0
     terminal53_dest_entry = 0
+    terminal53_nonrecord0_entry = 0
     terminal53_coord = 0
     nonterminal53_coord = 0
     terminal55_count = 0
     terminal55_dest_entry = 0
+    terminal55_nonrecord0_entry = 0
     terminal55_coord = 0
     nonterminal55_coord = 0
     terminal57_count = 0
@@ -660,20 +690,28 @@ def main() -> None:
                     ),
                     "event_sources": event_sources,
                 })
-                dest_exists, coord_exists = apply_destination(
+                dest_exists, coord_exists, dest_record_index = apply_destination(
                     row, dest_pack, dest_entry
                 )
                 if dest_exists:
                     terminal_dest_entry += 1
+                    if dest_record_index not in (None, 0):
+                        terminal_nonrecord0_entry += 1
                     row["confidence"] = "strong_candidate"
-                    row["condition"] = (
-                        f"bounded substream tail; destination record0 entry "
-                        f"{hx(dest_entry)} exists"
-                    )
+                    if dest_record_index == 0:
+                        row["condition"] = (
+                            f"bounded substream tail; destination record0 entry "
+                            f"{hx(dest_entry)} exists"
+                        )
+                    else:
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} exists in record {dest_record_index}"
+                        )
                 else:
                     row["confidence"] = "structural_candidate"
                     row["condition"] = (
-                        f"bounded substream tail; destination record0 entry "
+                        f"bounded substream tail; destination pack-wide unique entry "
                         f"{hx(dest_entry)} not resolved"
                     )
                 if coord_exists:
@@ -809,18 +847,26 @@ def main() -> None:
                     ),
                     "event_sources": event_sources,
                 })
-                dest_exists, coord_exists = apply_destination(row, dest_pack, dest_entry)
+                dest_exists, coord_exists, dest_record_index = apply_destination(row, dest_pack, dest_entry)
                 if dest_exists:
                     terminal53_dest_entry += 1
+                    if dest_record_index not in (None, 0):
+                        terminal53_nonrecord0_entry += 1
                     row["confidence"] = "strong_candidate"
-                    row["condition"] = (
-                        f"bounded substream tail; destination record0 entry "
-                        f"{hx(dest_entry)} exists"
-                    )
+                    if dest_record_index == 0:
+                        row["condition"] = (
+                            f"bounded substream tail; destination record0 entry "
+                            f"{hx(dest_entry)} exists"
+                        )
+                    else:
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} exists in record {dest_record_index}"
+                        )
                 else:
                     row["confidence"] = "structural_candidate"
                     row["condition"] = (
-                        f"bounded substream tail; destination record0 entry "
+                        f"bounded substream tail; destination pack-wide unique entry "
                         f"{hx(dest_entry)} not resolved"
                     )
                 if coord_exists:
@@ -952,20 +998,28 @@ def main() -> None:
                     ),
                     "event_sources": event_sources,
                 })
-                dest_exists, coord_exists = apply_destination(
+                dest_exists, coord_exists, dest_record_index = apply_destination(
                     row, dest_pack, dest_entry
                 )
                 if dest_exists:
                     terminal55_dest_entry += 1
+                    if dest_record_index not in (None, 0):
+                        terminal55_nonrecord0_entry += 1
                     row["confidence"] = "strong_candidate"
-                    row["condition"] = (
-                        f"bounded substream tail; destination record0 entry "
-                        f"{hx(dest_entry)} exists"
-                    )
+                    if dest_record_index == 0:
+                        row["condition"] = (
+                            f"bounded substream tail; destination record0 entry "
+                            f"{hx(dest_entry)} exists"
+                        )
+                    else:
+                        row["condition"] = (
+                            f"bounded substream tail; destination pack-wide unique entry "
+                            f"{hx(dest_entry)} exists in record {dest_record_index}"
+                        )
                 else:
                     row["confidence"] = "structural_candidate"
                     row["condition"] = (
-                        f"bounded substream tail; destination record0 entry "
+                        f"bounded substream tail; destination pack-wide unique entry "
                         f"{hx(dest_entry)} not resolved"
                     )
                 if coord_exists:
@@ -1615,16 +1669,29 @@ def main() -> None:
         "unique_destination_pack_count": len(unique_destination_packs),
         "terminal_opcode56_candidate_count": terminal_count,
         "terminal_opcode56_destination_entry_match_count": terminal_dest_entry,
+        "terminal_opcode56_nonrecord0_unique_entry_match_count": terminal_nonrecord0_entry,
         "terminal_opcode56_coordinate_match_count": terminal_coord,
         "nonterminal_opcode56_coordinate_crosslink_count": nonterminal_coord,
         "terminal_opcode53_candidate_count": terminal53_count,
         "terminal_opcode53_destination_entry_match_count": terminal53_dest_entry,
+        "terminal_opcode53_nonrecord0_unique_entry_match_count": terminal53_nonrecord0_entry,
         "terminal_opcode53_coordinate_match_count": terminal53_coord,
         "nonterminal_opcode53_coordinate_crosslink_count": nonterminal53_coord,
         "terminal_opcode55_candidate_count": terminal55_count,
         "terminal_opcode55_destination_entry_match_count": terminal55_dest_entry,
+        "terminal_opcode55_nonrecord0_unique_entry_match_count": terminal55_nonrecord0_entry,
         "terminal_opcode55_coordinate_match_count": terminal55_coord,
         "nonterminal_opcode55_coordinate_crosslink_count": nonterminal55_coord,
+        "terminal_packwide_nonrecord0_unique_match_count": (
+            terminal_nonrecord0_entry
+            + terminal53_nonrecord0_entry
+            + terminal55_nonrecord0_entry
+        ),
+        "terminal_unresolved_unique_entry_count": (
+            (terminal_count - terminal_dest_entry)
+            + (terminal53_count - terminal53_dest_entry)
+            + (terminal55_count - terminal55_dest_entry)
+        ),
         "terminal_opcode57_route_candidate_count": terminal57_count,
         "entry_start_opcode57_route_candidate_count": entry_start57_count,
         "cfg_reachable_opcode57_route_candidate_count": cfg_reachable57_count,
@@ -1737,7 +1804,9 @@ def main() -> None:
 
         "unresolved_patterns": [
             "static source map/config is not inferred from script-pack identity",
-            "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
+            f"{terminal_count - terminal_dest_entry} terminal 0x56 shapes and "
+            f"{terminal53_count - terminal53_dest_entry} terminal 0x53 shapes do not "
+            "resolve a unique destination entry anywhere in the destination pack",
             "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
@@ -1856,14 +1925,17 @@ remain blank unless independently proven.
 - rows carrying existing event-source xrefs: {event_sources}
 - terminal 0x56 forms: {terminal56}
 - terminal 0x56 forms with matching destination entry: {terminal56_entry}
+- terminal 0x56 matches resolved outside record 0: {terminal56_nonrecord0}
 - terminal 0x56 forms with aligned destination 0x58 coordinates: {terminal56_coords}
 - non-terminal 0x56 coordinate-crosslinked structural rows: {nonterminal56}
 - terminal 0x53 forms: {terminal53}
 - terminal 0x53 forms with matching destination entry: {terminal53_entry}
+- terminal 0x53 matches resolved outside record 0: {terminal53_nonrecord0}
 - terminal 0x53 forms with aligned destination 0x58 coordinates: {terminal53_coords}
 - non-terminal 0x53 coordinate-crosslinked structural rows: {nonterminal53}
 - terminal 0x55 forms: {terminal55}
 - terminal 0x55 forms with matching destination entry: {terminal55_entry}
+- terminal 0x55 matches resolved outside record 0: {terminal55_nonrecord0}
 - terminal 0x55 forms with aligned destination 0x58 coordinates: {terminal55_coords}
 - non-terminal 0x55 coordinate-crosslinked structural rows: {nonterminal55}
 - terminal 0x57 route-table forms: {terminal57}
@@ -1909,15 +1981,28 @@ trigger address.
 ## Important structural finding
 
 The second transition operand used by 0x53, 0x55 and 0x56 behaves as a
-destination entry selector. Across the conservative terminal corpus,
-destination record 0 contains the same entry ID for
-{terminal_matches} of {terminal_total} rows. Where that entry begins with opcode
-0x58, or with the independently proven two-byte 0x96 prefix followed by 0x58,
-the arrival/current-map coordinates can be extracted without guessing.
+destination entry selector. A pack-wide uniqueness audit across the conservative
+terminal corpus finds {terminal_matches} of {terminal_total} rows with exactly
+one matching parsed entry anywhere in the destination pack. Of those,
+{terminal_nonrecord0_total} resolve outside record 0. No terminal row has a
+duplicated matching entry ID within its destination pack. The remaining
+{terminal_unresolved_total} rows have no matching parsed entry anywhere in that
+pack.
+
+Where the unique entry begins with opcode 0x58, or with the independently proven
+two-byte 0x96 prefix followed by 0x58, the arrival/current-map coordinates can
+be extracted without guessing.
 
 For pack 0x50, the independently found 0x56 shapes using entry IDs 0x04, 0x0B
-and 0x10 cross-link to record-0 entries carrying 0x58 coordinate setters,
+and 0x10 cross-link to unique entries carrying 0x58 coordinate setters,
 including coordinates (29,55) and (34,49).
+
+The non-record0 extension is especially visible for destination pack 0xF7:
+terminal 0x53 rows from packs 0xF3/0xF4 select entry IDs 0x02..0x07 and
+0x0C..0x14. Each requested ID exists exactly once in pack 0xF7, in records
+outside record 0, and the matched entries carry aligned 0x58 arrival setters.
+The same unique non-record0 pattern resolves destination entries 0x0B/0x0C/0x0D
+in pack 0xEE and entry 0x07 in pack 0xF0.
 
 Opcode 0x57 forms a second transition grammar: the operand is a native route
 index rather than a destination pack. Two exact terminal forms are currently
@@ -2020,14 +2105,17 @@ PC was observed.
         native_writers=", ".join(native_0305_writers),
         terminal56=terminal_count,
         terminal56_entry=terminal_dest_entry,
+        terminal56_nonrecord0=terminal_nonrecord0_entry,
         terminal56_coords=terminal_coord,
         nonterminal56=nonterminal_coord,
         terminal53=terminal53_count,
         terminal53_entry=terminal53_dest_entry,
+        terminal53_nonrecord0=terminal53_nonrecord0_entry,
         terminal53_coords=terminal53_coord,
         nonterminal53=nonterminal53_coord,
         terminal55=terminal55_count,
         terminal55_entry=terminal55_dest_entry,
+        terminal55_nonrecord0=terminal55_nonrecord0_entry,
         terminal55_coords=terminal55_coord,
         nonterminal55=nonterminal55_coord,
         terminal57=terminal57_count,
@@ -2041,6 +2129,16 @@ PC was observed.
         raw57_nested_returns=opcode57_nested_return_proof_count,
         terminal_matches=terminal_dest_entry + terminal53_dest_entry + terminal55_dest_entry,
         terminal_total=terminal_count + terminal53_count + terminal55_count,
+        terminal_nonrecord0_total=(
+            terminal_nonrecord0_entry
+            + terminal53_nonrecord0_entry
+            + terminal55_nonrecord0_entry
+        ),
+        terminal_unresolved_total=(
+            (terminal_count - terminal_dest_entry)
+            + (terminal53_count - terminal53_dest_entry)
+            + (terminal55_count - terminal55_dest_entry)
+        ),
     )
 
     for item in summary["unresolved_patterns"]:

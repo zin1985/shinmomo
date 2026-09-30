@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: 82ff272d59b628cdae097c8ed3a5841a443a9485
+Git HEAD used for generation: f87f7232b3bbd006042002e44629b0680a5016c0
 
 ## Handler-level promotion
 
@@ -88,26 +88,29 @@ remain blank unless independently proven.
 
 - total candidate rows: 1308
 - confirmed: 3
-- strong candidates: 1148
-- structural candidates: 157
+- strong candidates: 1167
+- structural candidates: 138
 - rows with source configuration: 3
 - runtime-confirmed static triggers: 1
 - runtime-confirmed edges without observed trigger PC: 1
 - rows with destination pack: 1308
 - rows with unique destination configuration: 1073
-- rows with destination X/Y: 785
+- rows with destination X/Y: 802
 - rows cross-linked to structural event records: 27
 - rows carrying existing event-source xrefs: 17
 - terminal 0x56 forms: 724
-- terminal 0x56 forms with matching destination entry: 719
-- terminal 0x56 forms with aligned destination 0x58 coordinates: 271
+- terminal 0x56 forms with matching destination entry: 721
+- terminal 0x56 matches resolved outside record 0: 2
+- terminal 0x56 forms with aligned destination 0x58 coordinates: 272
 - non-terminal 0x56 coordinate-crosslinked structural rows: 25
 - terminal 0x53 forms: 394
-- terminal 0x53 forms with matching destination entry: 373
-- terminal 0x53 forms with aligned destination 0x58 coordinates: 330
+- terminal 0x53 forms with matching destination entry: 390
+- terminal 0x53 matches resolved outside record 0: 17
+- terminal 0x53 forms with aligned destination 0x58 coordinates: 346
 - non-terminal 0x53 coordinate-crosslinked structural rows: 94
 - terminal 0x55 forms: 40
 - terminal 0x55 forms with matching destination entry: 40
+- terminal 0x55 matches resolved outside record 0: 0
 - terminal 0x55 forms with aligned destination 0x58 coordinates: 35
 - non-terminal 0x55 coordinate-crosslinked structural rows: 12
 - terminal 0x57 route-table forms: 2
@@ -153,15 +156,28 @@ trigger address.
 ## Important structural finding
 
 The second transition operand used by 0x53, 0x55 and 0x56 behaves as a
-destination entry selector. Across the conservative terminal corpus,
-destination record 0 contains the same entry ID for
-1132 of 1158 rows. Where that entry begins with opcode
-0x58, or with the independently proven two-byte 0x96 prefix followed by 0x58,
-the arrival/current-map coordinates can be extracted without guessing.
+destination entry selector. A pack-wide uniqueness audit across the conservative
+terminal corpus finds 1151 of 1158 rows with exactly
+one matching parsed entry anywhere in the destination pack. Of those,
+19 resolve outside record 0. No terminal row has a
+duplicated matching entry ID within its destination pack. The remaining
+7 rows have no matching parsed entry anywhere in that
+pack.
+
+Where the unique entry begins with opcode 0x58, or with the independently proven
+two-byte 0x96 prefix followed by 0x58, the arrival/current-map coordinates can
+be extracted without guessing.
 
 For pack 0x50, the independently found 0x56 shapes using entry IDs 0x04, 0x0B
-and 0x10 cross-link to record-0 entries carrying 0x58 coordinate setters,
+and 0x10 cross-link to unique entries carrying 0x58 coordinate setters,
 including coordinates (29,55) and (34,49).
+
+The non-record0 extension is especially visible for destination pack 0xF7:
+terminal 0x53 rows from packs 0xF3/0xF4 select entry IDs 0x02..0x07 and
+0x0C..0x14. Each requested ID exists exactly once in pack 0xF7, in records
+outside record 0, and the matched entries carry aligned 0x58 arrival setters.
+The same unique non-record0 pattern resolves destination entries 0x0B/0x0C/0x0D
+in pack 0xEE and entry 0x07 in pack 0xF0.
 
 Opcode 0x57 forms a second transition grammar: the operand is a native route
 index rather than a destination pack. Two exact terminal forms are currently
@@ -249,7 +265,7 @@ PC was observed.
 ## Remaining blockers
 
 - static source map/config is not inferred from script-pack identity
-- five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry
+- 3 terminal 0x56 shapes and 4 terminal 0x53 shapes do not resolve a unique destination entry anywhere in the destination pack
 - non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven
 - destination config stays null when destination pack record0/entry1 has multiple confirmed selectors
 - 0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix
