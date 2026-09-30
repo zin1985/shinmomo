@@ -1,7 +1,7 @@
 {
-  "unique_graphics_signatures": 150,
+  "unique_graphics_signatures": 158,
   "directional_4x2": 123,
-  "non_directional": 27,
+  "non_directional": 35,
   "directional_family_offsets": {
     "0": 93,
     "2": 3,
@@ -12,7 +12,7 @@
   },
   "non_directional_kinds": {
     "special_sequence": 10,
-    "fixed": 17
+    "fixed": 25
   },
   "directional_atlas": "graphics\\static_character_reconstruction\\static_directional_animation_atlas_20260930.png",
   "special_atlas": "graphics\\static_character_reconstruction\\static_special_animation_atlas_20260930.png",

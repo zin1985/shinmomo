@@ -5,14 +5,14 @@ frame per selector to animation-family extraction.
 
 ## Coverage
 
-Among the 150 unique reconstructable graphics signatures:
+Among the 158 unique reconstructable graphics signatures:
 
 - 123 have a nearby contiguous four-state / two-frame family.
 - 105 of those are in sprite groups 2 or 3, where runtime village/player tracing has
   directly confirmed the state order as right, down, left, up.
 - 18 are in groups 4, 5, or 7. Their four-state / two-frame structure is static fact,
   but the semantic direction order remains unverified.
-- 17 signatures have a fixed one-frame base state.
+- 25 signatures have a fixed one-frame base state.
 - 10 signatures begin with longer/special animation sequences.
 
 The family finder searches up to seven states after the selector's base state. This matters
@@ -46,9 +46,9 @@ control-flow evidence proves the same direction mapping.
 
 ## Non-directional actors
 
-The remaining 27 unique signatures are intentionally kept separate:
+The remaining 35 unique signatures are intentionally kept separate:
 
-- 17 fixed-base actors/objects
+- 25 fixed-base actors/objects
 - 10 special-sequence actors/objects
 
 The special atlas preserves the base-state frame sequence in order, including repeated

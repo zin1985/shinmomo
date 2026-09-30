@@ -29,6 +29,7 @@
       "count": 32
     },
     "decoded_size": 1984,
+    "graphics_context": 5,
     "descriptor": {
       "operand": 1,
       "descriptor_addr": "C3:0678",
@@ -73,6 +74,7 @@
       "count": 32
     },
     "decoded_size": 1280,
+    "graphics_context": 5,
     "descriptor": {
       "operand": 8,
       "descriptor_addr": "C3:06B0",
@@ -117,6 +119,7 @@
       "count": 32
     },
     "decoded_size": 4096,
+    "graphics_context": 5,
     "descriptor": {
       "operand": 29,
       "descriptor_addr": "C3:0758",
@@ -161,6 +164,7 @@
       "count": 32
     },
     "decoded_size": 4096,
+    "graphics_context": 5,
     "descriptor": {
       "operand": 29,
       "descriptor_addr": "C3:0758",
@@ -205,6 +209,7 @@
       "count": 32
     },
     "decoded_size": 4096,
+    "graphics_context": 5,
     "descriptor": {
       "operand": 29,
       "descriptor_addr": "C3:0758",
@@ -249,6 +254,7 @@
       "count": 32
     },
     "decoded_size": 3968,
+    "graphics_context": 5,
     "descriptor": {
       "operand": 42,
       "descriptor_addr": "C3:07C0",

@@ -9,7 +9,13 @@ from render_normal_map_family_from_setup import file_off, u16_cpu, graphics_desc
 
 ROM_PATH=Path(r'C:\Users\zin\Downloads\Shin Momotarou Densetsu (J)\Shin Momotarou Densetsu (J)_original.smc')
 rom=ROM_PATH.read_bytes()
-CTX=5
+DEFAULT_CTX=5
+
+
+def context_for_group(group):
+    # Object/resource setup at physical ROM 0x1AE70 selects context 0 for
+    # sprite groups 0/1 and context 5 for groups >=2.
+    return 0 if group < 2 else DEFAULT_CTX
 
 def ptr24_table(addr,index):
     off=file_off(0xC0,addr+index*3)
@@ -31,8 +37,8 @@ def chr_window(g,index):
     off=file_off(bank,(base+(index-1)*2)&0xffff)
     return rom[off],rom[off+1]
 
-def palette_payload(resource_id):
-    table=u16_cpu(rom,0xC0,0xB516+CTX*2)
+def palette_payload(resource_id, context):
+    table=u16_cpu(rom,0xC0,0xB516+context*2)
     entry=u16_cpu(rom,0xC0,table+(resource_id-1)*2)
     off=file_off(0xC0,entry)
     destination=rom[off] | (rom[off+1]<<8)
@@ -74,21 +80,32 @@ with open(ROOT/'data/npc_display/shinmomo_B2C1_animation_state_scripts_20260425.
         states[(int(r['group']),int(r['state_no_1_based']))]=seq
 
 def render_frame(rec,fr):
-    desc=graphics_descriptor(rom,rec['chr_resource'],CTX)
+    group=rec['sprite_group']
+    context=context_for_group(group)
+    desc=graphics_descriptor(rom,rec['chr_resource'],context)
     data=decode_graphics_resource(rom,desc,rec['chr_resource'])
-    source_tile_start,tile_count=chr_window(rec['sprite_group'],rec['chr_window_index'])
+    if group < 2 and rec['chr_window_index'] == 0:
+        # Special group-0/1 path: object setup clears $1122/$1121 and skips
+        # B25E when the selector's window byte is zero. The entire decoded
+        # resource is therefore packed from source tile 0.
+        source_tile_start=0
+        tile_count=len(data)//32
+    else:
+        source_tile_start,tile_count=chr_window(group,rec['chr_window_index'])
     obj_base_tile=(source_tile_start&0xE0)|((source_tile_start&0x1F)>>1)
 
-    # B893 OBJ packing: sequential decoded tiles are written as
-    # local tile 0,16,1,17,2,18,... inside the allocated OBJ region.
+    # B893 OBJ packing: each 32-tile source block is swizzled as
+    # 0,16,1,17,...,15,31, then the next block continues at +32.
     packed={}
     for j in range(tile_count):
         src=source_tile_start+j
         chunk=data[src*32:(src+1)*32]
         if len(chunk)==32:
-            packed[(j//2)+(16 if (j&1) else 0)]=chunk
+            within=j & 0x1F
+            local=(j & ~0x1F) + (within//2) + (16 if (within&1) else 0)
+            packed[local]=chunk
 
-    palette,pmeta=palette_payload(rec['palette_resource'])
+    palette,pmeta=palette_payload(rec['palette_resource'],context)
     ps=frame_pieces(rec['sprite_group'],fr)
     entries=[]
     for fl,xb,yb,tile in ps:
@@ -124,7 +141,8 @@ def render_frame(rec,fr):
         'tile_count':tile_count,
         'obj_base_tile':obj_base_tile,
         'palette':pmeta,
-        'decoded_size':len(data)
+        'decoded_size':len(data),
+        'graphics_context':context
     }
 
 sels=[0x01,0x0D,0x24,0x40,0x3F,0x7D]

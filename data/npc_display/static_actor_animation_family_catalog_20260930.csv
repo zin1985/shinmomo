@@ -83,6 +83,14 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x5E,5,16,special_sequence,,,"32,33,40,38,41,39,34,35,36,35,36,35,36,32,37",,,,"128,8,10,10,10,10,21,5,5,5,5,5,5,16,32",
 0x5F,5,21,four_state_2frame_candidate,25,4,"52,53","54,55","56,57","58,59","16,16","unverified_slot0,slot1,slot2,slot3"
 0x60,5,8,four_state_2frame_candidate,12,4,"24,25","26,27","28,29","30,31","48,48","unverified_slot0,slot1,slot2,slot3"
+0x61,0,58,fixed,,,117,,,,16,
+0x62,0,59,fixed,,,34,,,,16,
+0x63,0,62,fixed,,,119,,,,16,
+0x64,0,61,fixed,,,118,,,,16,
+0x65,0,63,fixed,,,120,,,,16,
+0x66,0,64,fixed,,,121,,,,16,
+0x67,0,65,fixed,,,122,,,,16,
+0x68,0,60,fixed,,,35,,,,16,
 0x69,2,48,directional_4x2_confirmed_order,48,0,"32,33","6,31","5,22","34,35","32,32","right,down,left,up"
 0x6A,5,12,four_state_2frame_candidate,12,0,"24,25","26,27","28,29","30,31","48,48","unverified_slot0,slot1,slot2,slot3"
 0x6B,3,212,directional_4x2_confirmed_order,212,0,"184,185","184,185","186,187","186,187","14,48","right,down,left,up"

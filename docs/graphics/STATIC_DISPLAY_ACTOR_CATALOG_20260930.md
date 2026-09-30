@@ -9,9 +9,9 @@ At selector 0xAB the byte pattern changes into a different table structure, so b
 - table records: 171 including selector 0x00
 - selector 0x00: reserved/empty
 - nonzero selectors: 170
-- directly reconstructable with the proven context-5 pipeline: 162
-- unique graphics signatures among those 162: 150
-- unresolved: 8
+- directly reconstructable: 170 / 170 nonzero selectors
+- unique graphics signatures among those 170: 158
+- unresolved: 0
 
 The 160 reconstructed entries include player/party-looking actors, village NPCs, animals,
 monsters, large field actors, effects, and object-like graphics. Therefore this is a
@@ -21,10 +21,11 @@ monsters, large field actors, effects, and object-like graphics. Therefore this 
 
 - 0x20 and 0xA9 were recovered after decoding graphics-reader dispatch 4. Both reconstruct
   as large gray armored/warrior-like field actors.
-- 0x61..0x68 remain unresolved. They are group 0 with CHR-window selector 0; B25E therefore
-  resolves the window through transient low-WRAM $01FE/$01FF rather than a ROM B2EE table.
-  Treat them as a separate runtime-window display/resource subtype until their caller path
-  and scratch-window initialization are understood.
+- 0x61..0x68 were recovered by following the group-0 setup path. The setup selects graphics
+  context 0, clears $1122/$1121, and skips B25E when the selector's CHR-window byte is zero.
+  This means window 0 is a special full-resource path rather than an invalid B2EE index.
+  Selector 0x61 reconstructs as a purple-gray mask/stone-like object; 0x62..0x68 are seven
+  color variants of a small orb/sphere-like object.
 
 ## Validation basis
 
@@ -46,6 +47,6 @@ names to unknown entries.
 
 ## Next static targets
 
-1. Trace the special low-WRAM window/resource path used by 0x61..0x68.
-2. Continue expanding selector animation families while preserving duplicate selectors as aliases.
-3. Bind selector ids to event/map actors separately using runtime/event evidence.
+1. Bind selector ids to event/map actors separately using runtime/event evidence.
+2. Classify the 158 unique display signatures semantically: party/NPC/enemy/animal/effect/object.
+3. Continue expanding special animation sequences beyond the normal four-state/two-frame families.
