@@ -244,10 +244,11 @@ def main() -> None:
     # reachable.
     cfg_safe_lengths = {
         0x04: 2, 0x08: 4, 0x09: 4, 0x10: 2, 0x11: 2, 0x13: 2,
-        0x15: 3, 0x2A: 1, 0x2D: 2, 0x33: 4, 0x43: 2, 0x47: 5, 0x50: 4,
-        0x53: 3, 0x54: 1, 0x55: 3, 0x56: 3, 0x57: 2, 0x58: 5,
-        0x59: 6, 0x5D: 5, 0x69: 3, 0x71: 3, 0x74: 3, 0x96: 2,
-        0xA3: 2, 0xA4: 2, 0xD0: 3, 0xD5: 3,
+        0x15: 3, 0x2A: 1, 0x2D: 2, 0x2F: 7, 0x30: 6, 0x33: 4,
+        0x43: 2, 0x47: 5, 0x50: 4, 0x53: 3, 0x54: 1, 0x55: 3,
+        0x56: 3, 0x57: 2, 0x58: 5, 0x59: 6, 0x5D: 5, 0x67: 7,
+        0x69: 3, 0x71: 3, 0x74: 3, 0x96: 2, 0xA1: 2, 0xA3: 2,
+        0xA4: 2, 0xD0: 3, 0xD5: 3,
         0xE0: 1, 0xE1: 1, 0xE7: 1, 0xE8: 1,
     }
 
@@ -256,6 +257,15 @@ def main() -> None:
 
     def cfg_opcode_length(body: bytes, pos: int) -> int | None:
         op = body[pos]
+
+        # 0x02 operand 0x41 is a specifically bounded continuation.
+        # C4:89A5 resolves it through the 84:9BEE routine table to 81:EC60.
+        # C4:895E advances the caller by two bytes before the indirect call;
+        # 81:EC60 returns through RTL at 81:EC80.
+        if op == 0x02:
+            if pos + 2 <= len(body) and body[pos + 1] == 0x41:
+                return 2
+            return None
 
         # 0x52 is variable but fully bounded by operand1.
         # C4:8B16: values < FE copy four bytes to $15C9..15CC (5 total);
@@ -1314,6 +1324,20 @@ def main() -> None:
         "entry_start_opcode57_route_candidate_count": entry_start57_count,
         "cfg_reachable_opcode57_route_candidate_count": cfg_reachable57_count,
         "cfg_boundary_grammar": {
+            "opcode_0x02_operand_0x41": {
+                "handler": "C4:89A5",
+                "instruction_length": 2,
+                "target": "81:EC60",
+                "return": "RTL at 81:EC80",
+            },
+            "opcode_0x2F": {
+                "handler": "C4:968E",
+                "instruction_length": 7,
+            },
+            "opcode_0x30": {
+                "handler": "C4:96CC",
+                "instruction_length": 6,
+            },
             "opcode_0x47": {
                 "handler": "C4:992F",
                 "instruction_length": 5,
@@ -1329,9 +1353,17 @@ def main() -> None:
                     "3/4 -> 3 bytes; other -> 5 bytes"
                 ),
             },
+            "opcode_0x67": {
+                "handler": "C4:924A",
+                "instruction_length": 7,
+            },
             "opcode_0x74": {
                 "handler": "C4:9488",
                 "instruction_length": 3,
+            },
+            "compact_A1": {
+                "handler": "C4:83CD",
+                "instruction_length": 2,
             },
             "compact_D0_D5": {
                 "dispatcher": "C4:8108",
@@ -1448,12 +1480,20 @@ these fields as current-map coordinates.
 The fail-closed 0x57 reachability walk now carries additional handler-level
 length proofs without guessing unknown instructions:
 
+- opcode 0x02 with operand 0x41: C4:89A5 resolves 81:EC60, while C4:895E
+  advances the caller by 2 bytes before the call; 81:EC60 returns through RTL.
+- opcode 0x2F / C4:968E: six operand bytes are consumed, so 7 bytes total.
+- opcode 0x30 / C4:96CC: two 16-bit operands plus one byte are consumed, so
+  6 bytes total.
 - opcode 0x47 / C4:992F: four operand bytes are consumed, so 5 bytes total.
 - opcode 0x52 / C4:8B16: operand1 below 0xFE consumes 5 bytes total; 0xFE/0xFF
   consumes 6 bytes total.
 - opcode 0x5B / C4:8FF2: subtype at operand2 selects total length
   1 -> 4 bytes, 2 -> 5 bytes, 3/4 -> 3 bytes, all other values -> 5 bytes.
+- opcode 0x67 / C4:924A: helper C4:9280 consumes four operand bytes and the
+  caller consumes two more, so 7 bytes total.
 - opcode 0x74 / C4:9488: all paths converge at Y=3, so 3 bytes total.
+- compact A1 / C4:83CD consumes one operand and advances 2 bytes total.
 - compact D0 and D5 use the D-range dispatcher at C4:8108 and consume two
   operand bytes, so 3 bytes total.
 - opcode A0 is a nested VM call and is deliberately not flattened. A path
@@ -1561,7 +1601,7 @@ Eight additional non-terminal forms are promoted because 0x57 is byte 0 of the
 parsed entry, independently proving the instruction boundary. All eight are
 immediately followed by aligned opcode 0x58, so the route table supplies the
 destination pack while 0x58 supplies the effective X/Y and secondary X/Y.
-Four further non-terminal 0x57 instructions are reachable from parsed entry
+Seven further non-terminal 0x57 instructions are reachable from parsed entry
 starts through the fail-closed CFG using proven B2/B3/B4 branch semantics and
 independently bounded opcode lengths.
 
@@ -1570,6 +1610,11 @@ independently bounded opcode lengths.
   58 07 03 07 03 establishes effective coordinates (7,3).
 - pack 0xDD / record 1 / entry 0x79: CD:B652, CD:B664 and CD:B676 with route
   indices 0x06, 0x07 and 0x08.
+- the same pack/record/entry later reaches CD:B68D, CD:B6A1 and CD:B6B5 with
+  route indices 0x09, 0x0A and 0x0B. Each is immediately preceded by opcode
+  02 41. That opcode resolves to routine 81:EC60, while C4:895E advances the
+  caller by two bytes before the indirect call and 81:EC60 returns through RTL,
+  proving continuation to the following 0x57 instructions.
 
 Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
 

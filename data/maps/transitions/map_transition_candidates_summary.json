@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "ec1eb6f912da694fed331a4f0ffe0316d961509f",
+  "generated_against_git_head": "60f43983adbc3fbbcd327721d6af970c352c5a64",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
-  "candidate_count": 1305,
+  "candidate_count": 1308,
   "confidence_counts": {
     "confirmed": 3,
-    "strong_candidate": 1145,
+    "strong_candidate": 1148,
     "structural_candidate": 157
   },
   "source_config_resolved_count": 3,
@@ -15,9 +15,9 @@
     "CC:0B08"
   ],
   "runtime_only_confirmation_count": 1,
-  "destination_pack_identified_count": 1305,
-  "destination_config_resolved_count": 1070,
-  "destination_coordinate_resolved_count": 782,
+  "destination_pack_identified_count": 1308,
+  "destination_config_resolved_count": 1073,
+  "destination_coordinate_resolved_count": 785,
   "event_record_crosslink_count": 27,
   "event_source_crosslink_count": 17,
   "additional_native_0305_writer_sites": [
@@ -48,8 +48,22 @@
   "nonterminal_opcode55_coordinate_crosslink_count": 12,
   "terminal_opcode57_route_candidate_count": 2,
   "entry_start_opcode57_route_candidate_count": 8,
-  "cfg_reachable_opcode57_route_candidate_count": 4,
+  "cfg_reachable_opcode57_route_candidate_count": 7,
   "cfg_boundary_grammar": {
+    "opcode_0x02_operand_0x41": {
+      "handler": "C4:89A5",
+      "instruction_length": 2,
+      "target": "81:EC60",
+      "return": "RTL at 81:EC80"
+    },
+    "opcode_0x2F": {
+      "handler": "C4:968E",
+      "instruction_length": 7
+    },
+    "opcode_0x30": {
+      "handler": "C4:96CC",
+      "instruction_length": 6
+    },
     "opcode_0x47": {
       "handler": "C4:992F",
       "instruction_length": 5
@@ -62,9 +76,17 @@
       "handler": "C4:8FF2",
       "length_rule": "subtype operand2 1 -> 4 bytes; 2 -> 5 bytes; 3/4 -> 3 bytes; other -> 5 bytes"
     },
+    "opcode_0x67": {
+      "handler": "C4:924A",
+      "instruction_length": 7
+    },
     "opcode_0x74": {
       "handler": "C4:9488",
       "instruction_length": 3
+    },
+    "compact_A1": {
+      "handler": "C4:83CD",
+      "instruction_length": 2
     },
     "compact_D0_D5": {
       "dispatcher": "C4:8108",
