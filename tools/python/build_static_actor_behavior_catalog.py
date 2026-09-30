@@ -22,6 +22,7 @@ visual_rows = read_csv(NPC / "static_map_bound_selector_visual_form_20260930.csv
 frames = read_csv(EVENTS / "event_record_frame_catalog.csv")
 semantics = read_csv(NPC / "static_actor_sprite_semantics_20260930.csv")
 motion = read_csv(NPC / "actor_motion_direction_pattern_table_20260930.csv")
+spawn_rows = read_csv(NPC / "static_actor_spawn_conditions_20260930.csv")
 
 visual_by_selector = {r["selector_hex"]: r for r in visual_rows}
 frame_by_record = {r["record_id"]: r for r in frames}
@@ -36,6 +37,9 @@ facing_by_pattern = {
 bindings_by_key = collections.defaultdict(list)
 for r in bindings:
     bindings_by_key[(r["config_id"], r["record_id"], r["selector_hex"])].append(r)
+spawn_by_key = {
+    (r["config_id"], r["record_id"], r["selector_hex"]): r for r in spawn_rows
+}
 
 out = []
 for actor in actors:
@@ -46,6 +50,7 @@ for actor in actors:
     frame = frame_by_record.get(actor["record_id"], {})
     visual = visual_by_selector.get(actor["selector_hex"], {})
     semantic = semantic_by_key.get(key, {})
+    spawn = spawn_by_key.get(key, {})
 
     cfg_confirmed = any(
         r.get("binding_status") == "actor_to_event_dialogue_static_cfg"
@@ -83,6 +88,20 @@ for actor in actors:
             "reader linkage not yet proven"
         )
 
+    body_bytes = [x for x in (actor.get("body_hex") or "").split() if x]
+    actor_offset = int(actor.get("actor_command_offset") or 0)
+    prefix_size = actor_offset
+    suffix_size = max(0, len(body_bytes) - actor_offset - 6)
+    if actor.get("binding_evidence") == "static_event_head_opcode59_actor_controller":
+        record_body_shape = (
+            "head_exact_placement_only" if len(body_bytes) == 6
+            else "head_placement_plus_suffix"
+        )
+    elif actor.get("binding_evidence") == "static_event_tail_opcode59_actor_controller":
+        record_body_shape = "prefix_plus_tail_placement"
+    else:
+        record_body_shape = "other_or_unresolved"
+
     flag_seed = actor.get("field_0719_seed") or ""
     out.append({
         "config_id": actor["config_id"],
@@ -101,6 +120,15 @@ for actor in actors:
             if frame.get("trailer_grammar") else ""
         ),
         "actor_command_position": actor.get("binding_evidence", ""),
+        "record_body_shape": record_body_shape,
+        "record_body_size": len(body_bytes),
+        "actor_command_offset": actor_offset,
+        "body_prefix_size": prefix_size,
+        "body_suffix_size": suffix_size,
+        "body_suffix_hex": " ".join(body_bytes[actor_offset + 6:]),
+        "spawn_condition_status": spawn.get("condition_status", ""),
+        "spawn_condition_expr": spawn.get("condition_expr", ""),
+        "spawn_visibility_when_state_unknown": spawn.get("visibility_when_state_unknown", ""),
         "field_06D9_seed": facing_seed,
         "initial_facing_candidate": facing,
         "initial_facing_status": (
@@ -130,6 +158,8 @@ with catalog_path.open("w", encoding="utf-8", newline="") as f:
     w.writerows(out)
 
 class_counts = collections.Counter(r["behavior_class"] for r in out)
+body_shape_counts = collections.Counter(r["record_body_shape"] for r in out)
+spawn_status_counts = collections.Counter(r["spawn_condition_status"] for r in out)
 facing_counts = collections.Counter(r["initial_facing_candidate"] for r in out)
 flag_counts = collections.Counter(r["field_0719_seed_hex"] for r in out)
 pointer_matches = sum(
@@ -156,6 +186,8 @@ summary = {
     "controller_pointer_matches_event_trailer": pointer_matches,
     "controller_pointer_mismatches": len(out) - pointer_matches,
     "actor_behavior_class_counts": dict(class_counts),
+    "record_body_shape_counts": dict(body_shape_counts),
+    "spawn_condition_status_counts": dict(spawn_status_counts),
     "unique_record_behavior_class_counts": dict(collections.Counter(record_class.values())),
     "initial_facing_candidate_counts": dict(facing_counts),
     "field_0719_seed_counts": dict(flag_counts),
@@ -193,6 +225,14 @@ for r in out:
             "controller_pointer": r["controller_pointer"],
             "controller_pointer_status": r["controller_pointer_status"],
             "controller_dispatch_grammar": r["controller_dispatch_grammar"],
+            "record_body_shape": r["record_body_shape"],
+            "record_body_size": int(r["record_body_size"]),
+            "body_prefix_size": int(r["body_prefix_size"]),
+            "body_suffix_size": int(r["body_suffix_size"]),
+            "body_suffix_hex": r["body_suffix_hex"] or None,
+            "spawn_condition_status": r["spawn_condition_status"] or None,
+            "spawn_condition_expr": r["spawn_condition_expr"] or None,
+            "spawn_visibility_when_state_unknown": r["spawn_visibility_when_state_unknown"] or None,
             "initial_facing_candidate": r["initial_facing_candidate"] or None,
             "initial_facing_status": r["initial_facing_status"],
             "field_0719_seed_hex": r["field_0719_seed_hex"] or None,

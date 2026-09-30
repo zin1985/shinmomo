@@ -142,3 +142,55 @@ This keeps behavior evidence separate from semantic-role guesses.
    caller evidence.
 4. Use controller/event actions, not dialogue wording, to promote service/shop/inn/scripted
    actor roles.
+
+
+## Record-body placement structure
+
+The framed opcode-0x59 actor corpus also separates cleanly by where the six-byte actor
+placement command appears inside the validated event body:
+
+| record body shape | actor rows | meaning |
+| --- | ---: | --- |
+| `head_exact_placement_only` | 326 | the body is exactly the six-byte opcode-0x59 placement command |
+| `prefix_plus_tail_placement` | 490 | validated VM/control prefix appears before a final six-byte opcode-0x59 placement |
+| `head_placement_plus_suffix` | 1 | placement is at the body head and a short suffix follows |
+
+The single suffix case is:
+
+```
+FF9-L005 / selector 0x03
+59 03 02 03 01 10 71 0C 00
+```
+
+The existing opcode table maps 0x71 to the special >=0x50 handler at 82:8840 with a
+two-byte instruction model. The current evidence does not yet provide a safe game-facing
+label for opcode 0x71, so the catalog preserves the suffix bytes without inventing a role.
+
+This body-shape classification is structural only. Prefix bytes are not equated with
+movement, shop, dialogue, or other gameplay actions unless their VM semantics are
+independently proven.
+
+## Spawn-condition integration
+
+The behavior catalog now also carries the independently generated actor-spawn condition
+classification. Current actor-row counts are:
+
+- 327 `confirmed_static_unconditional`
+- 182 `confirmed_static_flag`
+- 153 `confirmed_static_branch_unresolved_predicate`
+- 112 `confirmed_static_control_partial_predicate`
+- 43 `unresolved_complex_control_flow`
+
+These fields remain orthogonal to semantic role. A conditional actor is not automatically
+a story NPC, enemy, or service actor; the catalog only records that its placement is gated.
+
+The machine-readable columns include:
+
+- `record_body_shape`
+- `record_body_size`
+- `body_prefix_size`
+- `body_suffix_size`
+- `body_suffix_hex`
+- `spawn_condition_status`
+- `spawn_condition_expr`
+- `spawn_visibility_when_state_unknown`
