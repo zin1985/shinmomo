@@ -1,0 +1,4036 @@
+{
+  "schema_version": 1,
+  "generated_from_head": "f2c6f66ab81158c797deb1b1126099de1379c165",
+  "scene_count": 114,
+  "scenes": [
+    {
+      "scene_id": "cfg_t04_l008_v2@0x50",
+      "config_id": "cfg_t04_l008_v2",
+      "pack_id_hex": "0x50",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 19,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "dialogue",
+          "spec": "0x65",
+          "wram": "$1252",
+          "bit": 5,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "relation_resolver_condition",
+          "source": "dialogue",
+          "key": "0x90",
+          "subkey": "0x00",
+          "resolver": "80:DA57",
+          "status": "confirmed_static_structure",
+          "semantic_identity": "unresolved_relation_key"
+        },
+        {
+          "kind": "flag",
+          "source": "dialogue",
+          "spec": "0x0B",
+          "wram": "$1247",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "3d 13 13 3d 15 13 e1 e7 17 07 13 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 3,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t04_l018_v2@0x5A",
+      "config_id": "cfg_t04_l018_v2",
+      "pack_id_hex": "0x5A",
+      "spawn_actor_count": 4,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l018_v2@0x5B",
+      "config_id": "cfg_t04_l018_v2",
+      "pack_id_hex": "0x5B",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l018_v2@0x5D",
+      "config_id": "cfg_t04_l018_v2",
+      "pack_id_hex": "0x5D",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l018_v2@0x5E",
+      "config_id": "cfg_t04_l018_v2",
+      "pack_id_hex": "0x5E",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l019_v1@0x5C",
+      "config_id": "cfg_t04_l019_v1",
+      "pack_id_hex": "0x5C",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l034_v2@0x60",
+      "config_id": "cfg_t04_l034_v2",
+      "pack_id_hex": "0x60",
+      "spawn_actor_count": 12,
+      "conditional_spawn_actor_count": 5,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3E",
+          "wram": "$124D",
+          "bit": 6,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x13",
+          "wram": "$1248",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x24",
+          "wram": "$124A",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 03 b3 0a 59 17 14 0c 02 10 b2 10 a3 24 a3 29 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 3,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t04_l035_v2@0x60",
+      "config_id": "cfg_t04_l035_v2",
+      "pack_id_hex": "0x60",
+      "spawn_actor_count": 12,
+      "conditional_spawn_actor_count": 5,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3E",
+          "wram": "$124D",
+          "bit": 6,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x13",
+          "wram": "$1248",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x24",
+          "wram": "$124A",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 03 b3 0a 59 17 14 0c 02 10 b2 10 a3 24 a3 29 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 3,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t04_l039_v2@0x67",
+      "config_id": "cfg_t04_l039_v2",
+      "pack_id_hex": "0x67",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l044_v2@0x65",
+      "config_id": "cfg_t04_l044_v2",
+      "pack_id_hex": "0x65",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 6,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x7C",
+          "wram": "$1255",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 7c 17 07 0a e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t04_l045_v2@0x6F",
+      "config_id": "cfg_t04_l045_v2",
+      "pack_id_hex": "0x6F",
+      "spawn_actor_count": 9,
+      "conditional_spawn_actor_count": 9,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91302",
+          "bytecode": "08 b9 13 02",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91303",
+          "bytecode": "08 b9 13 03",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 81 b4 0e 08 b9 13 02",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 83 b4 0e 08 b9 13 02",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 4
+    },
+    {
+      "scene_id": "cfg_t04_l045_v2@0x70",
+      "config_id": "cfg_t04_l045_v2",
+      "pack_id_hex": "0x70",
+      "spawn_actor_count": 22,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l057_v2@0x81",
+      "config_id": "cfg_t04_l057_v2",
+      "pack_id_hex": "0x81",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 8,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xA3",
+          "wram": "$125A",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xA4",
+          "wram": "$125A",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l058_v2@0x81",
+      "config_id": "cfg_t04_l058_v2",
+      "pack_id_hex": "0x81",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 8,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xA3",
+          "wram": "$125A",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xA4",
+          "wram": "$125A",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l059_v2@0x82",
+      "config_id": "cfg_t04_l059_v2",
+      "pack_id_hex": "0x82",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 10,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xAD",
+          "wram": "$125B",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l060_v1@0x8E",
+      "config_id": "cfg_t04_l060_v1",
+      "pack_id_hex": "0x8E",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 e9 b4 0a 59 3c 1f 3d 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "21 8b 80 e1 a3 c6 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t04_l061_v2@0x8B",
+      "config_id": "cfg_t04_l061_v2",
+      "pack_id_hex": "0x8B",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 3,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "21 a0 80 b4 0a 59 71 1f 20 03 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "21 a0 80 b4 0a 59 71 1d 22 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "21 a0 80 b4 0a 59 71 1b 20 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 3
+    },
+    {
+      "scene_id": "cfg_t04_l062_v2@0x8C",
+      "config_id": "cfg_t04_l062_v2",
+      "pack_id_hex": "0x8C",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xAB",
+          "wram": "$125B",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l070_v2@0x83",
+      "config_id": "cfg_t04_l070_v2",
+      "pack_id_hex": "0x83",
+      "spawn_actor_count": 11,
+      "conditional_spawn_actor_count": 11,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB9",
+          "wram": "$125D",
+          "bit": 1,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l070_v2@0xF3",
+      "config_id": "cfg_t04_l070_v2",
+      "pack_id_hex": "0xF3",
+      "spawn_actor_count": 9,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t04_l073_v2@0x85",
+      "config_id": "cfg_t04_l073_v2",
+      "pack_id_hex": "0x85",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 02 a3 bd e7 b3 0a 59 24 12 0e 02 10 b2 0e 08 b9 13 15",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 02 a3 bd e7 b3 0a 59 23 13 0f 03 10 b2 0e 08 b9 13 15",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t04_l074_v2@0x85",
+      "config_id": "cfg_t04_l074_v2",
+      "pack_id_hex": "0x85",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 02 a3 bd e7 b3 0a 59 24 12 0e 02 10 b2 0e 08 b9 13 15",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 02 a3 bd e7 b3 0a 59 23 13 0f 03 10 b2 0e 08 b9 13 15",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t04_l074_v2@0xF6",
+      "config_id": "cfg_t04_l074_v2",
+      "pack_id_hex": "0xF6",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "08 b9 13 02 b4 03 b0",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t05_l020_v2@0x80",
+      "config_id": "cfg_t05_l020_v2",
+      "pack_id_hex": "0x80",
+      "spawn_actor_count": 4,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t05_l043_v2@0x6E",
+      "config_id": "cfg_t05_l043_v2",
+      "pack_id_hex": "0x6E",
+      "spawn_actor_count": 17,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x74",
+          "wram": "$1254",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t06_l021_v2@0x5F",
+      "config_id": "cfg_t06_l021_v2",
+      "pack_id_hex": "0x5F",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t06_l021_v2@0xF4",
+      "config_id": "cfg_t06_l021_v2",
+      "pack_id_hex": "0xF4",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t06_l037_v2@0x68",
+      "config_id": "cfg_t06_l037_v2",
+      "pack_id_hex": "0x68",
+      "spawn_actor_count": 20,
+      "conditional_spawn_actor_count": 18,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3E",
+          "wram": "$124D",
+          "bit": 6,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 24 3c 2b 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 59 0c 2c 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 3f 39 26 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 3e 29 2f 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 3f 19 17 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 27 20 2b 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 23 1d 10 02 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "3d 13 0a 3d 15 0a e1 e7 17 07 0a e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 8
+    },
+    {
+      "scene_id": "cfg_t06_l038_v2@0x68",
+      "config_id": "cfg_t06_l038_v2",
+      "pack_id_hex": "0x68",
+      "spawn_actor_count": 20,
+      "conditional_spawn_actor_count": 18,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3E",
+          "wram": "$124D",
+          "bit": 6,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 24 3c 2b 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 59 0c 2c 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 3f 39 26 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 3e 29 2f 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 3f 19 17 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 27 20 2b 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 3e b4 0a 59 23 1d 10 02 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "3d 13 0a 3d 15 0a e1 e7 17 07 0a e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 8
+    },
+    {
+      "scene_id": "cfg_t06_l040_v2@0x6A",
+      "config_id": "cfg_t06_l040_v2",
+      "pack_id_hex": "0x6A",
+      "spawn_actor_count": 12,
+      "conditional_spawn_actor_count": 4,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x45",
+          "wram": "$124E",
+          "bit": 5,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x63",
+          "wram": "$1252",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l007_v2@0xEC",
+      "config_id": "cfg_t07_l007_v2",
+      "pack_id_hex": "0xEC",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xEE",
+          "wram": "$1263",
+          "bit": 6,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l009_v2@0x51",
+      "config_id": "cfg_t07_l009_v2",
+      "pack_id_hex": "0x51",
+      "spawn_actor_count": 11,
+      "conditional_spawn_actor_count": 11,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x50",
+          "bytecode": "2d 50",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6A",
+          "bytecode": "2d 6a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x67",
+          "bytecode": "2d 67",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6b a3 73 e1 a3 70 e8 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6E",
+          "bytecode": "2d 6e",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x70",
+          "bytecode": "2d 70",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 7
+    },
+    {
+      "scene_id": "cfg_t07_l009_v2@0x62",
+      "config_id": "cfg_t07_l009_v2",
+      "pack_id_hex": "0x62",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 7,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x68",
+          "bytecode": "2d 68",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 3e 2d 68 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6A",
+          "bytecode": "2d 6a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x82",
+          "bytecode": "2d 82",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 82 a3 ad e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 6
+    },
+    {
+      "scene_id": "cfg_t07_l009_v2@0xF9",
+      "config_id": "cfg_t07_l009_v2",
+      "pack_id_hex": "0xF9",
+      "spawn_actor_count": 9,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l010_v2@0x52",
+      "config_id": "cfg_t07_l010_v2",
+      "pack_id_hex": "0x52",
+      "spawn_actor_count": 9,
+      "conditional_spawn_actor_count": 9,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x67",
+          "bytecode": "2d 67",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6E",
+          "bytecode": "2d 6e",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 65 a3 7e e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 83 a3 b9 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 83 a3 bd e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 6
+    },
+    {
+      "scene_id": "cfg_t07_l010_v2@0x63",
+      "config_id": "cfg_t07_l010_v2",
+      "pack_id_hex": "0x63",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 7,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 3e e1 2d 68 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x68",
+          "bytecode": "2d 68",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 82 a3 ad e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x82",
+          "bytecode": "2d 82",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 82 a3 b2 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 5
+    },
+    {
+      "scene_id": "cfg_t07_l011_v2@0x2C",
+      "config_id": "cfg_t07_l011_v2",
+      "pack_id_hex": "0x2C",
+      "spawn_actor_count": 18,
+      "conditional_spawn_actor_count": 18,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a0 fd cd cb b6 b3 03 b0 08 b9 13 03 08 b9 13 04 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91305",
+          "bytecode": "08 b9 13 05",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 60 08 b9 13 02 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x68",
+          "bytecode": "2d 68",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 68 a3 2a e1 e7 a3 3e e1 e7 17 07 0d e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6A",
+          "bytecode": "2d 6a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6b a3 73 e1 a3 70 e8 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6f 08 b9 13 02 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6f 08 b9 13 03 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x82",
+          "bytecode": "2d 82",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xCA",
+          "bytecode": "2d ca",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 12
+    },
+    {
+      "scene_id": "cfg_t07_l013_v2@0x2D",
+      "config_id": "cfg_t07_l013_v2",
+      "pack_id_hex": "0x2D",
+      "spawn_actor_count": 4,
+      "conditional_spawn_actor_count": 4,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a0 fd cd cb b6 b3 03 b0 08 b9 13 03 08 b9 13 04 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a0 fd cd cb b6 b3 03 b0 08 b9 13 05",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB9130B",
+          "bytecode": "08 b9 13 0b",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 3
+    },
+    {
+      "scene_id": "cfg_t07_l015_v2@0x2E",
+      "config_id": "cfg_t07_l015_v2",
+      "pack_id_hex": "0x2E",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 3,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6A",
+          "bytecode": "2d 6a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6F",
+          "bytecode": "2d 6f",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t07_l016_v2@0x2A",
+      "config_id": "cfg_t07_l016_v2",
+      "pack_id_hex": "0x2A",
+      "spawn_actor_count": 11,
+      "conditional_spawn_actor_count": 11,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x68",
+          "bytecode": "2d 68",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6A",
+          "bytecode": "2d 6a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6b a3 73 e1 a3 70 e8 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6F",
+          "bytecode": "2d 6f",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x82",
+          "bytecode": "2d 82",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 83 a3 b9 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 83 a3 bd e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xCA",
+          "bytecode": "2d ca",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 9
+    },
+    {
+      "scene_id": "cfg_t07_l022_v2@0x34",
+      "config_id": "cfg_t07_l022_v2",
+      "pack_id_hex": "0x34",
+      "spawn_actor_count": 9,
+      "conditional_spawn_actor_count": 9,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5B",
+          "bytecode": "2d 5b",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5C",
+          "bytecode": "2d 5c",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x80",
+          "bytecode": "2d 80",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5D",
+          "bytecode": "2d 5d",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5E",
+          "bytecode": "2d 5e",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5F",
+          "bytecode": "2d 5f",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 5f a3 bd e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 7
+    },
+    {
+      "scene_id": "cfg_t07_l023_v2@0x35",
+      "config_id": "cfg_t07_l023_v2",
+      "pack_id_hex": "0x35",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 03 08 b9 13 04 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l026_v2@0x33",
+      "config_id": "cfg_t07_l026_v2",
+      "pack_id_hex": "0x33",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 6,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5A",
+          "bytecode": "2d 5a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5B",
+          "bytecode": "2d 5b",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x5C",
+          "bytecode": "2d 5c",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 5f a3 bd e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 4
+    },
+    {
+      "scene_id": "cfg_t07_l033_v2@0x2C",
+      "config_id": "cfg_t07_l033_v2",
+      "pack_id_hex": "0x2C",
+      "spawn_actor_count": 18,
+      "conditional_spawn_actor_count": 18,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a0 fd cd cb b6 b3 03 b0 08 b9 13 03 08 b9 13 04 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91305",
+          "bytecode": "08 b9 13 05",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 60 08 b9 13 02 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x68",
+          "bytecode": "2d 68",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 68 a3 2a e1 e7 a3 3e e1 e7 17 07 0d e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x6A",
+          "bytecode": "2d 6a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6b a3 73 e1 a3 70 e8 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x65",
+          "bytecode": "2d 65",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6f 08 b9 13 02 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "2d 6f 08 b9 13 03 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x82",
+          "bytecode": "2d 82",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xCA",
+          "bytecode": "2d ca",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 12
+    },
+    {
+      "scene_id": "cfg_t07_l033_v2@0x3D",
+      "config_id": "cfg_t07_l033_v2",
+      "pack_id_hex": "0x3D",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x70",
+          "bytecode": "2d 70",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l033_v2@0x4F",
+      "config_id": "cfg_t07_l033_v2",
+      "pack_id_hex": "0x4F",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91303",
+          "bytecode": "08 b9 13 03",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l049_v2@0x3F",
+      "config_id": "cfg_t07_l049_v2",
+      "pack_id_hex": "0x3F",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 6,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x84",
+          "wram": "$1256",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 89 17 08 0d e1 e7 a3 8b e1 a3 8a e1 e8 e7 b3 0c 3d 28",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l050_v2@0x41",
+      "config_id": "cfg_t07_l050_v2",
+      "pack_id_hex": "0x41",
+      "spawn_actor_count": 11,
+      "conditional_spawn_actor_count": 11,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a0 66 f4 cb b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l051_v2@0x40",
+      "config_id": "cfg_t07_l051_v2",
+      "pack_id_hex": "0x40",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l051_v2@0xEC",
+      "config_id": "cfg_t07_l051_v2",
+      "pack_id_hex": "0xEC",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xEE",
+          "wram": "$1263",
+          "bit": 6,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l053_v2@0x43",
+      "config_id": "cfg_t07_l053_v2",
+      "pack_id_hex": "0x43",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l054_v2@0x44",
+      "config_id": "cfg_t07_l054_v2",
+      "pack_id_hex": "0x44",
+      "spawn_actor_count": 13,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a0 1a ce cb b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l063_v2@0x47",
+      "config_id": "cfg_t07_l063_v2",
+      "pack_id_hex": "0x47",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "d0 70 19 c0 ec a3 d7 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l064_v2@0x66",
+      "config_id": "cfg_t07_l064_v2",
+      "pack_id_hex": "0x66",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 10,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x7C",
+          "wram": "$1255",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 7c b4 0a 59 59 10 08 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 7c b4 0a 59 5a 12 0a 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 7c b4 0a 59 3e 0f 0b 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 7c b4 0a 59 5b 10 0c 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 7c b4 0a 59 3f 0d 0d 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 5
+    },
+    {
+      "scene_id": "cfg_t07_l068_v2@0x3D",
+      "config_id": "cfg_t07_l068_v2",
+      "pack_id_hex": "0x3D",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x70",
+          "bytecode": "2d 70",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l069_v2@0x71",
+      "config_id": "cfg_t07_l069_v2",
+      "pack_id_hex": "0x71",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x84",
+          "wram": "$1256",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t07_l072_v2@0x84",
+      "config_id": "cfg_t07_l072_v2",
+      "pack_id_hex": "0x84",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "08 b9 13 15 b4 0e a3 bd b4 08 59 23 05 0c 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l072_v2@0xF6",
+      "config_id": "cfg_t07_l072_v2",
+      "pack_id_hex": "0xF6",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "08 b9 13 02 b4 03 b0",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l076_v2@0x6C",
+      "config_id": "cfg_t07_l076_v2",
+      "pack_id_hex": "0x6C",
+      "spawn_actor_count": 16,
+      "conditional_spawn_actor_count": 16,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 73 a3 70 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t07_l078_v2@0x72",
+      "config_id": "cfg_t07_l078_v2",
+      "pack_id_hex": "0x72",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 10,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 02 08 b9 13 03 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 06 08 b9 13 07 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 08 08 b9 13 09 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 3
+    },
+    {
+      "scene_id": "cfg_t07_l078_v2@0x73",
+      "config_id": "cfg_t07_l078_v2",
+      "pack_id_hex": "0x73",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 8,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 02 08 b9 13 03 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 04 08 b9 13 05 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 06 08 b9 13 07 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "08 b9 13 08 08 b9 13 09 e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 4
+    },
+    {
+      "scene_id": "cfg_t07_l084_v2@0x8D",
+      "config_id": "cfg_t07_l084_v2",
+      "pack_id_hex": "0x8D",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 8,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91303",
+          "bytecode": "08 b9 13 03",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91304",
+          "bytecode": "08 b9 13 04",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91306",
+          "bytecode": "08 b9 13 06",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91307",
+          "bytecode": "08 b9 13 07",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91308",
+          "bytecode": "08 b9 13 08",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91309",
+          "bytecode": "08 b9 13 09",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB9130A",
+          "bytecode": "08 b9 13 0a",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB9130B",
+          "bytecode": "08 b9 13 0b",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 8
+    },
+    {
+      "scene_id": "cfg_t08_l092_v2@0x91",
+      "config_id": "cfg_t08_l092_v2",
+      "pack_id_hex": "0x91",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x0A",
+          "wram": "$1247",
+          "bit": 2,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t08_l092_v2@0x92",
+      "config_id": "cfg_t08_l092_v2",
+      "pack_id_hex": "0x92",
+      "spawn_actor_count": 5,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t08_l092_v2@0x93",
+      "config_id": "cfg_t08_l092_v2",
+      "pack_id_hex": "0x93",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t08_l092_v2@0x95",
+      "config_id": "cfg_t08_l092_v2",
+      "pack_id_hex": "0x95",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x0A",
+          "wram": "$1247",
+          "bit": 2,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t08_l094_v2@0x53",
+      "config_id": "cfg_t08_l094_v2",
+      "pack_id_hex": "0x53",
+      "spawn_actor_count": 18,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t08_l096_v2@0x95",
+      "config_id": "cfg_t08_l096_v2",
+      "pack_id_hex": "0x95",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x0A",
+          "wram": "$1247",
+          "bit": 2,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t09_l097_v2@0x97",
+      "config_id": "cfg_t09_l097_v2",
+      "pack_id_hex": "0x97",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x13",
+          "wram": "$1248",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t11_l101_v2@0xAE",
+      "config_id": "cfg_t11_l101_v2",
+      "pack_id_hex": "0xAE",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 6,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x9B",
+          "wram": "$1259",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x9E",
+          "wram": "$1259",
+          "bit": 6,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t11_l101_v2@0xAF",
+      "config_id": "cfg_t11_l101_v2",
+      "pack_id_hex": "0xAF",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x9C",
+          "wram": "$1259",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t13_l103_v2@0xBE",
+      "config_id": "cfg_t13_l103_v2",
+      "pack_id_hex": "0xBE",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t14_l105_v2@0xC0",
+      "config_id": "cfg_t14_l105_v2",
+      "pack_id_hex": "0xC0",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t14_l105_v2@0xC3",
+      "config_id": "cfg_t14_l105_v2",
+      "pack_id_hex": "0xC3",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t15_l107_v2@0xC1",
+      "config_id": "cfg_t15_l107_v2",
+      "pack_id_hex": "0xC1",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t16_l109_v2@0xC2",
+      "config_id": "cfg_t16_l109_v2",
+      "pack_id_hex": "0xC2",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t17_l111_v2@0xC4",
+      "config_id": "cfg_t17_l111_v2",
+      "pack_id_hex": "0xC4",
+      "spawn_actor_count": 4,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t18_l112_v2@0xC5",
+      "config_id": "cfg_t18_l112_v2",
+      "pack_id_hex": "0xC5",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t22_l121_v2@0x9A",
+      "config_id": "cfg_t22_l121_v2",
+      "pack_id_hex": "0x9A",
+      "spawn_actor_count": 19,
+      "conditional_spawn_actor_count": 4,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x2E",
+          "wram": "$124B",
+          "bit": 6,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x2F",
+          "wram": "$124B",
+          "bit": 7,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x30",
+          "wram": "$124C",
+          "bit": 0,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x31",
+          "wram": "$124C",
+          "bit": 1,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 4,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t22_l121_v2@0x9B",
+      "config_id": "cfg_t22_l121_v2",
+      "pack_id_hex": "0x9B",
+      "spawn_actor_count": 25,
+      "conditional_spawn_actor_count": 10,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3A",
+          "wram": "$124D",
+          "bit": 2,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3B",
+          "wram": "$124D",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3C",
+          "wram": "$124D",
+          "bit": 4,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x3D",
+          "wram": "$124D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 40 b4 17 a3 f4 b4 0d 59 5c e3 31 02 10 71 11 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 40 b4 17 a3 f4 b4 0d 59 5d e5 32 02 10 71 11 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 40 b4 17 a3 f4 b4 0d 59 5c e7 34 02 10 71 11 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 40 b4 17 a3 f4 b4 0d 59 5d e9 34 02 10 71 11 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 40 b4 17 a3 f4 b4 0d 59 5c eb 32 02 10 71 11 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 40 b4 17 a3 f4 b4 0d 59 5d ed 31 02 10 71 11 00 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 4,
+      "unresolved_predicate_count": 6
+    },
+    {
+      "scene_id": "cfg_t22_l121_v2@0x9C",
+      "config_id": "cfg_t22_l121_v2",
+      "pack_id_hex": "0x9C",
+      "spawn_actor_count": 5,
+      "conditional_spawn_actor_count": 5,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x34",
+          "wram": "$124C",
+          "bit": 4,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x35",
+          "wram": "$124C",
+          "bit": 5,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x36",
+          "wram": "$124C",
+          "bit": 6,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x37",
+          "wram": "$124C",
+          "bit": 7,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x38",
+          "wram": "$124D",
+          "bit": 0,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 5,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t29_l138_v2@0xB1",
+      "config_id": "cfg_t29_l138_v2",
+      "pack_id_hex": "0xB1",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xA2",
+          "wram": "$125A",
+          "bit": 2,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t29_l138_v2@0xB5",
+      "config_id": "cfg_t29_l138_v2",
+      "pack_id_hex": "0xB5",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t31_l142_v2@0xE9",
+      "config_id": "cfg_t31_l142_v2",
+      "pack_id_hex": "0xE9",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 3,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 de e1 21 9a 80 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 de b4 0a 59 26 2d 0c 02 90 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 de b4 0a 59 26 32 0f 02 90 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 3
+    },
+    {
+      "scene_id": "cfg_t32_l144_v1@0xBA",
+      "config_id": "cfg_t32_l144_v1",
+      "pack_id_hex": "0xBA",
+      "spawn_actor_count": 24,
+      "conditional_spawn_actor_count": 24,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB9",
+          "wram": "$125D",
+          "bit": 1,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t32_l144_v1@0xBB",
+      "config_id": "cfg_t32_l144_v1",
+      "pack_id_hex": "0xBB",
+      "spawn_actor_count": 12,
+      "conditional_spawn_actor_count": 12,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB9",
+          "wram": "$125D",
+          "bit": 1,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t32_l144_v1@0xBC",
+      "config_id": "cfg_t32_l144_v1",
+      "pack_id_hex": "0xBC",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xBD",
+          "wram": "$125D",
+          "bit": 5,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t33_l146_v1@0x48",
+      "config_id": "cfg_t33_l146_v1",
+      "pack_id_hex": "0x48",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t39_l156_v1@0x7C",
+      "config_id": "cfg_t39_l156_v1",
+      "pack_id_hex": "0x7C",
+      "spawn_actor_count": 4,
+      "conditional_spawn_actor_count": 4,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x16",
+          "wram": "$1248",
+          "bit": 6,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x17",
+          "wram": "$1248",
+          "bit": 7,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x18",
+          "wram": "$1249",
+          "bit": 0,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x19",
+          "wram": "$1249",
+          "bit": 1,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 4,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t40_l159_v2@0x7D",
+      "config_id": "cfg_t40_l159_v2",
+      "pack_id_hex": "0x7D",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t44_l167_v1@0x87",
+      "config_id": "cfg_t44_l167_v1",
+      "pack_id_hex": "0x87",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t45_l168_v2@0x88",
+      "config_id": "cfg_t45_l168_v2",
+      "pack_id_hex": "0x88",
+      "spawn_actor_count": 3,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t45_l168_v2@0x89",
+      "config_id": "cfg_t45_l168_v2",
+      "pack_id_hex": "0x89",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x93",
+          "wram": "$1258",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t46_l170_v2@0x78",
+      "config_id": "cfg_t46_l170_v2",
+      "pack_id_hex": "0x78",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t46_l170_v2@0x79",
+      "config_id": "cfg_t46_l170_v2",
+      "pack_id_hex": "0x79",
+      "spawn_actor_count": 4,
+      "conditional_spawn_actor_count": 4,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91306",
+          "bytecode": "08 b9 13 06",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91307",
+          "bytecode": "08 b9 13 07",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x08_condition",
+          "operand": "0xB91308",
+          "bytecode": "08 b9 13 08",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 3
+    },
+    {
+      "scene_id": "cfg_t47_l172_v2@0xB8",
+      "config_id": "cfg_t47_l172_v2",
+      "pack_id_hex": "0xB8",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 10,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB3",
+          "wram": "$125C",
+          "bit": 3,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB4",
+          "wram": "$125C",
+          "bit": 4,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB5",
+          "wram": "$125C",
+          "bit": 5,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xB6",
+          "wram": "$125C",
+          "bit": 6,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 b7 a3 b8 e1 e7 b3 0a 59 29 56 12 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 b7 a3 b8 e1 e7 b3 0a 59 29 56 13 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 b7 a3 b8 e1 e7 b3 0a 59 29 56 14 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 b7 a3 b8 e1 e7 b3 0a 59 29 56 15 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 b7 a3 b8 e1 e7 b3 0a 59 29 56 16 01 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 b7 a3 b8 e1 e7 b3 0a 59 29 57 17 04 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 4,
+      "unresolved_predicate_count": 6
+    },
+    {
+      "scene_id": "cfg_t50_l178_v1@0x75",
+      "config_id": "cfg_t50_l178_v1",
+      "pack_id_hex": "0x75",
+      "spawn_actor_count": 32,
+      "conditional_spawn_actor_count": 29,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "7b 35 02",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 d8 b4 0a 59 29 13 12 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 00 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 1a 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 3f 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 64 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 87 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 ad 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 d2 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "09 f7 82 cc 7b 35 08",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c5 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c2 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c3 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c4 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c9 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c6 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c7 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 11 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 0f d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 10 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "c8 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 12 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 13 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "cd d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 0e d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ce 14 d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "ca d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "cc d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "cb d5 29 19 e0 a0 f6 88 cc b6",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 29
+    },
+    {
+      "scene_id": "cfg_t50_l178_v1@0xF5",
+      "config_id": "cfg_t50_l178_v1",
+      "pack_id_hex": "0xF5",
+      "spawn_actor_count": 25,
+      "conditional_spawn_actor_count": 19,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 05 e1 17 07 05 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 02 e1 17 07 02 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 03 e1 17 07 03 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 04 e1 17 07 04 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 09 e1 17 07 09 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 06 e1 17 07 06 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 07 e1 17 07 07 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 11 e1 17 07 11 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 0f e1 17 07 0f e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 10 e1 17 07 10 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 08 e1 17 07 08 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 12 e1 17 07 12 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 13 e1 17 07 13 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 0d e1 17 07 0d e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 0e e1 17 07 0e e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 14 e1 17 07 14 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 0a e1 17 07 0a e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 0c e1 17 07 0c e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "17 08 0b e1 17 07 0b e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 19
+    },
+    {
+      "scene_id": "cfg_t51_l180_v2@0xDB",
+      "config_id": "cfg_t51_l180_v2",
+      "pack_id_hex": "0xDB",
+      "spawn_actor_count": 10,
+      "conditional_spawn_actor_count": 10,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xDB",
+          "wram": "$1261",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "a3 01 b3 14 a3 04 b4 0a 59 2f 68 09 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t51_l180_v2@0xDC",
+      "config_id": "cfg_t51_l180_v2",
+      "pack_id_hex": "0xDC",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xEA",
+          "wram": "$1263",
+          "bit": 2,
+          "status": "confirmed_static"
+        },
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0xDB",
+          "wram": "$1261",
+          "bit": 3,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 2,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t53_l184_v2@0xD0",
+      "config_id": "cfg_t53_l184_v2",
+      "pack_id_hex": "0xD0",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t53_l184_v2@0xD5",
+      "config_id": "cfg_t53_l184_v2",
+      "pack_id_hex": "0xD5",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t53_l184_v2@0xD7",
+      "config_id": "cfg_t53_l184_v2",
+      "pack_id_hex": "0xD7",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t53_l184_v2@0xD8",
+      "config_id": "cfg_t53_l184_v2",
+      "pack_id_hex": "0xD8",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t53_l186_v2@0x8F",
+      "config_id": "cfg_t53_l186_v2",
+      "pack_id_hex": "0x8F",
+      "spawn_actor_count": 7,
+      "conditional_spawn_actor_count": 0,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "not_required_by_current_catalog",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 0
+    },
+    {
+      "scene_id": "cfg_t54_l190_v2@0x38",
+      "config_id": "cfg_t54_l190_v2",
+      "pack_id_hex": "0x38",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD8",
+          "bytecode": "2d d8",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t54_l190_v2@0x39",
+      "config_id": "cfg_t54_l190_v2",
+      "pack_id_hex": "0x39",
+      "spawn_actor_count": 1,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD0",
+          "bytecode": "2d d0",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t54_l190_v2@0xD1",
+      "config_id": "cfg_t54_l190_v2",
+      "pack_id_hex": "0xD1",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 8,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x8F",
+          "bytecode": "2d 8f",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD0",
+          "bytecode": "2d d0",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD7",
+          "bytecode": "2d d7",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD5",
+          "bytecode": "2d d5",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD8",
+          "bytecode": "2d d8",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 5
+    },
+    {
+      "scene_id": "cfg_t54_l190_v2@0xD2",
+      "config_id": "cfg_t54_l190_v2",
+      "pack_id_hex": "0xD2",
+      "spawn_actor_count": 5,
+      "conditional_spawn_actor_count": 5,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x8F",
+          "bytecode": "2d 8f",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD0",
+          "bytecode": "2d d0",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD5",
+          "bytecode": "2d d5",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD8",
+          "bytecode": "2d d8",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 4
+    },
+    {
+      "scene_id": "cfg_t54_l190_v2@0xD3",
+      "config_id": "cfg_t54_l190_v2",
+      "pack_id_hex": "0xD3",
+      "spawn_actor_count": 8,
+      "conditional_spawn_actor_count": 8,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x8F",
+          "bytecode": "2d 8f",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD0",
+          "bytecode": "2d d0",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD7",
+          "bytecode": "2d d7",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD5",
+          "bytecode": "2d d5",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0xD8",
+          "bytecode": "2d d8",
+          "status": "confirmed_static_control_partial_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 5
+    },
+    {
+      "scene_id": "cfg_t54_l190_v2@0xD4",
+      "config_id": "cfg_t54_l190_v2",
+      "pack_id_hex": "0xD4",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "0x2D_condition_compare_0306",
+          "operand": "0x8F",
+          "bytecode": "2d 8f",
+          "status": "confirmed_static_control_partial_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "nonlocal_or_multi_actor_cfg",
+          "operand": null,
+          "bytecode": "2d d5 b3 16 08 b9 13 07 b4 0a 59 33 37 06 02 10 b2 08",
+          "status": "unresolved_complex_control_flow"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 0,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t55_l192_v2@0xE0",
+      "config_id": "cfg_t55_l192_v2",
+      "pack_id_hex": "0xE0",
+      "spawn_actor_count": 11,
+      "conditional_spawn_actor_count": 3,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x5A",
+          "wram": "$1251",
+          "bit": 2,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 56 e1 a3 5a e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        },
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 57 e1 a3 5a e8",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 2
+    },
+    {
+      "scene_id": "cfg_t55_l192_v2@0xE1",
+      "config_id": "cfg_t55_l192_v2",
+      "pack_id_hex": "0xE1",
+      "spawn_actor_count": 6,
+      "conditional_spawn_actor_count": 2,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x62",
+          "wram": "$1252",
+          "bit": 2,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [
+        {
+          "kind": "predicate",
+          "source": "actor_spawn",
+          "producer_kind": "compound_vm_expression",
+          "operand": null,
+          "bytecode": "a3 5a e1 a3 f0 e1 e7",
+          "status": "confirmed_static_branch_unresolved_predicate"
+        }
+      ],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 1
+    },
+    {
+      "scene_id": "cfg_t55_l192_v2@0xE2",
+      "config_id": "cfg_t55_l192_v2",
+      "pack_id_hex": "0xE2",
+      "spawn_actor_count": 2,
+      "conditional_spawn_actor_count": 1,
+      "dialogue_variant_count": 0,
+      "state_inputs": [
+        {
+          "kind": "flag",
+          "source": "actor_spawn",
+          "spec": "0x54",
+          "wram": "$1250",
+          "bit": 4,
+          "status": "confirmed_static"
+        }
+      ],
+      "unresolved_predicates": [],
+      "state_evaluation_status": "required_or_partial",
+      "known_state_input_count": 1,
+      "unresolved_predicate_count": 0
+    }
+  ],
+  "policy": {
+    "unknown_state": "do not choose a current dialogue branch; render conditional spawn actors as candidates",
+    "evaluation_order": [
+      "select scene by config_id + active pack",
+      "evaluate actor spawn predicates",
+      "show active actors",
+      "evaluate selected actor dialogue predicates",
+      "play chosen dialogue pages"
+    ],
+    "shared_state_object": true
+  },
+  "f50_focus": {
+    "scene_id": "cfg_t04_l008_v2@0x50",
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "spawn_actor_count": 10,
+    "conditional_spawn_actor_count": 1,
+    "dialogue_variant_count": 19,
+    "state_inputs": [
+      {
+        "kind": "flag",
+        "source": "dialogue",
+        "spec": "0x65",
+        "wram": "$1252",
+        "bit": 5,
+        "status": "confirmed_static"
+      },
+      {
+        "kind": "relation_resolver_condition",
+        "source": "dialogue",
+        "key": "0x90",
+        "subkey": "0x00",
+        "resolver": "80:DA57",
+        "status": "confirmed_static_structure",
+        "semantic_identity": "unresolved_relation_key"
+      },
+      {
+        "kind": "flag",
+        "source": "dialogue",
+        "spec": "0x0B",
+        "wram": "$1247",
+        "bit": 3,
+        "status": "confirmed_static"
+      }
+    ],
+    "unresolved_predicates": [
+      {
+        "kind": "predicate",
+        "source": "actor_spawn",
+        "producer_kind": "compound_vm_expression",
+        "operand": null,
+        "bytecode": "3d 13 13 3d 15 13 e1 e7 17 07 13 e1 e7",
+        "status": "confirmed_static_branch_unresolved_predicate"
+      }
+    ],
+    "state_evaluation_status": "required_or_partial",
+    "known_state_input_count": 3,
+    "unresolved_predicate_count": 1
+  }
+}

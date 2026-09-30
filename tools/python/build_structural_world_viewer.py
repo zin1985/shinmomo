@@ -14,6 +14,7 @@ DIRECTIONAL_CATALOG = ROOT / "data/npc_display/static_character_directional_cata
 SOURCE_HOTSPOTS = TRANSITIONS / "source_transition_hotspots.csv"
 LOCATION_CANDIDATES = ROOT / "data/maps/context/map_location_identity_candidates_20260930.csv"
 ACTOR_SPAWN_CONDITIONS = ROOT / "data/npc_display/static_actor_spawn_conditions_20260930.csv"
+SCENE_STATE_REQUIREMENTS = ROOT / "data/npc_display/static_scene_state_requirements_20260930.json"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -711,6 +712,7 @@ def main():
             "plotted_candidate_rows": sum(x["candidate_row_count"] for x in transition_arrivals),
         },
         "actor_seed_position_audit": actor_seed_audit,
+        "scene_state_requirements": (json.loads(SCENE_STATE_REQUIREMENTS.read_text(encoding="utf-8")) if SCENE_STATE_REQUIREMENTS.exists() else None),
         "actor_spawn_condition_summary": {
             "catalog_row_count": len(spawn_conditions_by_actor),
             "unconditional_actor_count": sum(1 for e in entities if e.get("entity_type") == "static_actor_candidate" and (e.get("spawn_condition") or {}).get("visibility_when_state_unknown") == "visible"),
