@@ -265,8 +265,8 @@ def build(source_head=None):
         "coverage": coverage,
         "actors": actor_list
     }
-    const jsonText=json.dumps(obj, ensure_ascii=False, indent=2) + "\n"
-    OUT_JSON.write_text(jsonText, encoding="utf-8")
+    json_text = json.dumps(obj, ensure_ascii=False, indent=2) + "\n"
+    OUT_JSON.write_text(json_text, encoding="utf-8")
     with OUT_PAGES.open("w", encoding="utf-8-sig", newline="") as f:
         w=csv.DictWriter(f,fieldnames=PAGE_COLS); w.writeheader(); w.writerows(page_rows)
     print(json.dumps(coverage, ensure_ascii=False))
