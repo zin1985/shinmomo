@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "kind": "source_saved_return_origin_catalog_summary",
+  "generated_from_head": "11a815e6fccdf4878faa6778f6383e59ea116380",
+  "origin_count": 54,
+  "exact_saved_coordinate_count": 36,
+  "region_saved_coordinate_count": 18,
+  "reverse_runtime_crosslink_count": 2,
+  "confidence_counts": {
+    "strong_static_saved_return_origin": 52,
+    "confirmed_runtime_and_static_saved_return": 1,
+    "strong_static_saved_return_with_confirmed_reverse_edge": 1
+  },
+  "native_boundary_return_mechanism": {
+    "current_coordinate_checker": "C1:8943",
+    "bounds_helper": "81:81DD",
+    "bounds_fields": [
+      "$15CA",
+      "$15CB",
+      "$15CC",
+      "$15CD"
+    ],
+    "out_of_bounds_request_callsite": "C1:8955",
+    "transition_request_helper": "81:895A",
+    "restore_gate": "C1:97BC..C1:97C5",
+    "saved_state_restore": "81:8244",
+    "pack_restore_write": "C1:8255",
+    "status": "static_mechanism_proven_concrete_source_bounds_unresolved"
+  },
+  "known_reverse_edges": {
+    "cfg_t04_l008_v2_to_cfg_t01_l001_v1": "runtime confirmed; saved return target runtime-confirmed at (54,237)",
+    "cfg_t07_l015_v2_to_cfg_t04_l008_v2": "runtime confirmed; static saved return target from CC:1CDA is exact (29,17), but runtime arrival X/Y was not captured"
+  }
+}
