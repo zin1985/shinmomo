@@ -39,3 +39,15 @@ Dungeon `normal_primary` catalog rows may omit explicit pixel dimensions. The vi
 When a BG1+BG2 composite exists for a configuration, the canonical viewer preview prefers that composite while retaining both structural layers.
 
 Static selector catalog thumbnails keep the original animation base metadata unchanged. For group 2/3 selectors that expose four consecutive directional states, the representative viewer artwork uses the first frame of `base_state + 1`, matching the established right / down(front) / left / up(back) ordering. This is a display choice, not a rewrite of the actor's animation state.
+
+## Actor dialogue windows
+
+The viewer imports `data/npc_display/static_actor_event_dialogue_binding_20260930.csv` and links rows back to static opcode-0x59 actors by configuration, record ID and selector.
+
+Clicking an actor opens a game-style dialogue window above the sprite. Multiple event-source branches remain selectable instead of being collapsed into one representative line. Historical decoded text keeps its embedded line breaks; quote-delimited blocks are exposed as candidate pages for browser playback. These page boundaries are explicitly marked as decoder-derived candidates unless later runtime/static evidence confirms exact in-game pagination.
+
+The same actor payload now also carries sprite semantic and four-direction metadata from the dedicated sprite catalogs.
+
+## Source transition hotspots
+
+The viewer imports `data/maps/transitions/source_transition_hotspots.csv`. Resolved source rectangles are clickable on the map when transitions are enabled. A hotspot with a resolved destination config opens that map directly and highlights/centers the resolved destination arrival coordinate when available. Source coordinates are never inferred from script-pack identity.

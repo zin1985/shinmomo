@@ -11,8 +11,21 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 #mapViewport{overflow:auto;max-height:68vh;border:1px solid #777;background:#222;min-height:240px}
 #mapSizer{position:relative}.mapStage{position:absolute;left:0;top:0;transform-origin:0 0;background:#333}
 #mapImage{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;image-rendering:pixelated}
-#gridLayer,#arrivalLayer,#actorLayer{position:absolute;inset:0;pointer-events:none}
+#gridLayer,#hotspotLayer,#arrivalLayer,#actorLayer,#focusLayer,#dialogueLayer{position:absolute;inset:0;pointer-events:none}
 #gridLayer.on{background-image:linear-gradient(to right,#ffffff33 1px,transparent 1px),linear-gradient(to bottom,#ffffff33 1px,transparent 1px)}
+.hotspot{position:absolute;pointer-events:auto;cursor:pointer;padding:0;border:1px dashed #f6d365;background:#ffd54f28;box-shadow:inset 0 0 0 1px #0008}
+.hotspot:hover{background:#ffd54f66;border-style:solid}.hotspot.confirmed{border:2px solid #7fffb2;background:#30d97835}
+.focusMarker{position:absolute;pointer-events:none;width:24px;height:24px;border:3px solid #fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px #20d6ff88,0 0 14px #20d6ff;animation:focusPulse .9s ease-in-out infinite alternate}
+@keyframes focusPulse{to{transform:translate(-50%,-50%) scale(1.35);opacity:.55}}
+.dialogueWindow{position:absolute;pointer-events:auto;z-index:30;width:320px;max-width:42vw;transform:translate(-50%,calc(-100% - 42px));background:#07131ff2;color:#fff;border:3px solid #f5f1d8;box-shadow:0 0 0 2px #101820,inset 0 0 0 1px #8796a5,0 4px 12px #000a;border-radius:3px;padding:8px 10px;font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;font-weight:600;line-height:1.65}
+.dialogueWindow.below{transform:translate(-50%,34px)}
+.dialogueWindow::after{content:"";position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);border:6px solid transparent;border-top-color:#f5f1d8}
+.dialogueWindow.below::after{top:-12px;bottom:auto;border-top-color:transparent;border-bottom-color:#f5f1d8}
+.dialogueHeader{display:flex;gap:6px;align-items:center;margin-bottom:5px;font-size:11px;opacity:.9}
+.dialogueHeader strong{font-size:12px;margin-right:auto}.dialogueBranch{max-width:190px;font:11px system-ui}
+.dialogueText{white-space:pre-wrap;min-height:4.5em;font-size:14px;letter-spacing:.02em}
+.dialogueMeta{font:10px monospace;opacity:.68;border-top:1px solid #ffffff33;margin-top:6px;padding-top:4px}
+.dialogueControls{display:flex;gap:6px;margin-top:6px;align-items:center}.dialogueControls button{display:inline-block;width:auto;padding:2px 8px}.dialoguePage{margin-left:auto;font:11px monospace;opacity:.8}
 .actor{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;cursor:pointer;border:0;background:transparent;padding:0;width:auto}
 .actor img,.actor canvas{display:block;width:32px;height:auto;image-rendering:pixelated;filter:drop-shadow(0 1px 1px #000)}
 .actor.candidate img,.actor.candidate canvas{outline:1px dashed #ffd54f}.actor .dot{display:block;width:8px;height:8px;border-radius:50%;background:#ffd54f;border:1px solid #111}
@@ -41,7 +54,7 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
     <label>zoom <input id="zoom" type="range" min="0.25" max="2" step="0.05" value="0.75"><span id="zoomValue">75%</span></label>
   </div>
   <div id="assetStatus"></div>
-  <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="arrivalLayer"></div><div id="actorLayer"></div></div></div></div>
+  <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="hotspotLayer"></div><div id="arrivalLayer"></div><div id="focusLayer"></div><div id="actorLayer"></div><div id="dialogueLayer"></div></div></div></div>
   <div id="positionNotice" class="notice"></div>
   <h3>Transitions</h3><div id="edges"></div>
   <details open><summary>Unbound transitions <span id="unboundCount"></span></summary><div id="unbound"></div></details>

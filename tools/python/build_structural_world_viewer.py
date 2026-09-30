@@ -7,6 +7,11 @@ CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
 TRANSITIONS = ROOT / "data/maps/transitions"
 OUT = ROOT / "viewer/data/world.json"
 SELECTOR_CATALOG = ROOT / "data/npc_display/static_character_selector_catalog_20260930.csv"
+DIALOGUE_BINDING = ROOT / "data/npc_display/static_actor_event_dialogue_binding_20260930.csv"
+DIALOGUE_SEQUENCE_CATALOG = ROOT / "data/npc_display/static_actor_dialogue_sequences_20260930.json"
+SPRITE_SEMANTICS = ROOT / "data/npc_display/static_actor_sprite_semantics_20260930.csv"
+DIRECTIONAL_CATALOG = ROOT / "data/npc_display/static_character_directional_catalog_20260930.csv"
+SOURCE_HOTSPOTS = TRANSITIONS / "source_transition_hotspots.csv"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -17,6 +22,28 @@ def layer_grid_dimensions(tileset_id, layout_id, pixel_width, pixel_height):
         doc = json.loads(path.read_text(encoding="utf-8"))
         return int(doc["metatile_width"]), int(doc["metatile_height"])
     return max(1, pixel_width // 16), max(1, pixel_height // 16)
+
+def dialogue_page_candidates(text):
+    """Preserve decoder line breaks while exposing quote-delimited window candidates."""
+    text = (text or "").replace("\r\n", "\n").replace("<00>", "").strip()
+    if not text:
+        return []
+    pages = []
+    pos = 0
+    while True:
+        start = text.find("「", pos)
+        if start < 0:
+            break
+        end = text.find("」", start + 1)
+        if end < 0:
+            break
+        page = text[start:end + 1].strip()
+        if page:
+            pages.append(page)
+        pos = end + 1
+    if pages:
+        return pages
+    return [x.strip() for x in text.split("\n\n") if x.strip()]
 
 def main():
     rows = list(csv.DictReader(CATALOG.open(encoding="utf-8-sig")))
@@ -55,6 +82,7 @@ def main():
                 }],
                 "entities": [],
                 "transition_arrivals": [],
+                "source_transition_hotspots": [],
                 "confidence": row["confidence"],
                 "provenance": "map_render_catalog",
             }
@@ -155,6 +183,33 @@ def main():
             }
             if not any(x.get("role") == "secondary" for x in maps[config_id]["layers"]):
                 maps[config_id]["layers"].append(secondary)
+
+    source_transition_hotspots = []
+    if SOURCE_HOTSPOTS.exists():
+        for row in csv.DictReader(SOURCE_HOTSPOTS.open(encoding="utf-8-sig", newline="")):
+            source_config_id = row.get("source_config_id") or None
+            hotspot = {
+                "hotspot_id": row.get("hotspot_id"),
+                "source_config_id": source_config_id,
+                "source_grid_x": int(row["source_grid_x"]) if row.get("source_grid_x") else None,
+                "source_grid_y": int(row["source_grid_y"]) if row.get("source_grid_y") else None,
+                "source_width": int(row["source_width"]) if row.get("source_width") else 1,
+                "source_height": int(row["source_height"]) if row.get("source_height") else 1,
+                "hotspot_type": row.get("hotspot_type") or None,
+                "trigger_type": row.get("trigger_type") or None,
+                "trigger_addr": row.get("trigger_addr") or None,
+                "event_record": row.get("event_record") or None,
+                "transition_id": row.get("transition_id") or None,
+                "destination_config_id": row.get("destination_config_id") or None,
+                "destination_x": int(row["destination_x"]) if row.get("destination_x") else None,
+                "destination_y": int(row["destination_y"]) if row.get("destination_y") else None,
+                "confidence": row.get("confidence") or "unknown",
+                "evidence": row.get("evidence") or None,
+                "provenance": row.get("provenance") or str(SOURCE_HOTSPOTS.relative_to(ROOT)).replace("\\", "/"),
+            }
+            source_transition_hotspots.append(hotspot)
+            if source_config_id in maps:
+                maps[source_config_id]["source_transition_hotspots"].append(hotspot["hotspot_id"])
 
     events = []
     event_path = ROOT / "data/events/event_record_frame_catalog.csv"
@@ -260,6 +315,160 @@ def main():
                 if doc["config_id"] in maps:
                     maps[doc["config_id"]]["entities"].append(entity["entity_id"])
 
+    dialogue_sequences = []
+    dialogue_by_actor = {}
+    canonical_sequence_ids = set()
+
+    # Prefer the reproducible page-level sequence catalog when available. It
+    # preserves explicit 0x01 line breaks and quote-delimited page candidates.
+    if DIALOGUE_SEQUENCE_CATALOG.exists():
+        doc = json.loads(DIALOGUE_SEQUENCE_CATALOG.read_text(encoding="utf-8"))
+        for actor in doc.get("actors", []):
+            key = (
+                actor.get("config_id") or "",
+                actor.get("record_id") or "",
+                actor.get("selector_hex") or "",
+            )
+            for seq in actor.get("dialogue_sequences", []):
+                source = seq.get("source") or {}
+                event = seq.get("event") or {}
+                condition = seq.get("condition") or {}
+                sequence_id = seq.get("sequence_id")
+                item = {
+                    "dialogue_sequence_id": sequence_id,
+                    "config_id": actor.get("config_id") or None,
+                    "record_id": actor.get("record_id") or None,
+                    "selector_hex": actor.get("selector_hex") or None,
+                    "controller_pointer": actor.get("controller_pointer") or None,
+                    "event_record": event.get("record_id") or None,
+                    "event_source": source.get("text_pointer") or None,
+                    "event_source_addr": source.get("text_pointer") or None,
+                    "dialogue_command_addr": event.get("dialogue_command_addr") or None,
+                    "text_record_id": source.get("text_record_id") or None,
+                    "text_pointer": source.get("text_pointer") or None,
+                    "decoded_text": "\n\n".join(
+                        p.get("page_text", "") for p in seq.get("pages", []) if p.get("page_text")
+                    ) or None,
+                    "decode_status": source.get("decode_status") or None,
+                    "condition": condition.get("description") or None,
+                    "condition_status": condition.get("status") or None,
+                    "binding_status": seq.get("sequence_kind") or None,
+                    "confidence": seq.get("confidence") or None,
+                    "evidence": seq.get("evidence") or None,
+                    "provenance": seq.get("provenance") or str(DIALOGUE_SEQUENCE_CATALOG.relative_to(ROOT)).replace("\\", "/"),
+                    "pages": [
+                        {
+                            "page_index": page.get("page_index"),
+                            "display_order": page.get("display_order"),
+                            "text": page.get("page_text") or "",
+                            "lines": page.get("lines") or [],
+                            "line_count": page.get("line_count"),
+                            "page_status": (page.get("page_boundary") or {}).get("status"),
+                            "page_boundary": page.get("page_boundary"),
+                            "advance": page.get("advance"),
+                            "source_token_span": page.get("source_token_span"),
+                        }
+                        for page in seq.get("pages", [])
+                    ],
+                    "page_segmentation_status": "reproducible_sequence_catalog",
+                    "choice_status": seq.get("choice_status"),
+                    "choices": seq.get("choices") or [],
+                    "branch_target": seq.get("branch_target"),
+                    "termination": seq.get("termination"),
+                    "variant_order": seq.get("variant_order"),
+                    "sequence_kind": seq.get("sequence_kind"),
+                }
+                dialogue_sequences.append(item)
+                dialogue_by_actor.setdefault(key, []).append(sequence_id)
+                canonical_sequence_ids.add(sequence_id)
+
+    # Keep event/source bindings for the broader actor corpus even when no
+    # page-level text reconstruction exists yet.
+    if DIALOGUE_BINDING.exists():
+        for n, row in enumerate(csv.DictReader(DIALOGUE_BINDING.open(encoding="utf-8-sig", newline=""))):
+            key = (row.get("config_id") or "", row.get("record_id") or "", row.get("selector_hex") or "")
+            sequence_id = (
+                f'{row.get("config_id")}:{row.get("record_id")}:{row.get("text_record_id")}'
+                if row.get("text_record_id")
+                else f'binding_{n:04d}'
+            )
+            if sequence_id in canonical_sequence_ids:
+                continue
+            decoded_text = row.get("decoded_text") or ""
+            page_texts = dialogue_page_candidates(decoded_text)
+            item = {
+                "dialogue_sequence_id": sequence_id,
+                "config_id": row.get("config_id") or None,
+                "record_id": row.get("record_id") or None,
+                "selector_hex": row.get("selector_hex") or None,
+                "controller_pointer": row.get("controller_pointer") or None,
+                "event_record": row.get("event_record") or None,
+                "event_source": row.get("event_source") or None,
+                "event_source_addr": row.get("event_source_addr") or None,
+                "dialogue_command_addr": row.get("dialogue_command_addr") or None,
+                "text_record_id": row.get("text_record_id") or None,
+                "text_pointer": row.get("text_pointer") or None,
+                "decoded_text": decoded_text or None,
+                "decode_status": row.get("decode_status") or None,
+                "condition": row.get("condition") or None,
+                "binding_status": row.get("binding_status") or None,
+                "confidence": row.get("confidence") or None,
+                "evidence": row.get("evidence") or None,
+                "provenance": row.get("provenance") or str(DIALOGUE_BINDING.relative_to(ROOT)).replace("\\", "/"),
+                "pages": [
+                    {
+                        "page_index": i + 1,
+                        "display_order": i + 1,
+                        "text": page,
+                        "page_status": "fallback_decoder_candidate_page",
+                    }
+                    for i, page in enumerate(page_texts)
+                ],
+                "page_segmentation_status": "fallback_binding_decoder",
+            }
+            dialogue_sequences.append(item)
+            dialogue_by_actor.setdefault(key, []).append(sequence_id)
+
+    dialogue_sequence_by_id = {x["dialogue_sequence_id"]: x for x in dialogue_sequences}
+
+    sprite_semantics = {}
+    if SPRITE_SEMANTICS.exists():
+        for row in csv.DictReader(SPRITE_SEMANTICS.open(encoding="utf-8-sig", newline="")):
+            key = (row.get("config_id") or "", row.get("record_id") or "", row.get("selector_hex") or "")
+            sprite_semantics[key] = {
+                "semantic_role": row.get("semantic_role") or None,
+                "character_name": row.get("character_name") or None,
+                "appearance_class": row.get("appearance_class") or None,
+                "confidence": row.get("confidence") or None,
+                "evidence": row.get("evidence") or None,
+                "provenance": row.get("provenance") or None,
+            }
+
+    directional_by_selector = {}
+    if DIRECTIONAL_CATALOG.exists():
+        for row in csv.DictReader(DIRECTIONAL_CATALOG.open(encoding="utf-8-sig", newline="")):
+            selector_hex = row.get("selector_hex") or ""
+            directional_by_selector[selector_hex] = {
+                "sprite_group": int(row["sprite_group"]) if row.get("sprite_group") else None,
+                "base_state": int(row["base_state"]) if row.get("base_state") else None,
+                "right_state": int(row["right_state"]) if row.get("right_state") else None,
+                "right_frames": row.get("right_frames") or None,
+                "front_state": int(row["front_state"]) if row.get("front_state") else None,
+                "front_frames": row.get("front_frames") or None,
+                "left_state": int(row["left_state"]) if row.get("left_state") else None,
+                "left_frames": row.get("left_frames") or None,
+                "back_state": int(row["back_state"]) if row.get("back_state") else None,
+                "back_frames": row.get("back_frames") or None,
+                "walk_animation": row.get("walk_animation") or None,
+                "idle_state": int(row["idle_state"]) if row.get("idle_state") else None,
+                "idle_frames": row.get("idle_frames") or None,
+                "sprite_alias": row.get("sprite_alias") or None,
+                "direction_binding_status": row.get("direction_binding_status") or None,
+                "confidence": row.get("confidence") or None,
+                "evidence": row.get("evidence") or None,
+                "provenance": row.get("provenance") or None,
+            }
+
     # Static opcode59 actor coordinates are proven for this renderer path only.
     # The shared WRAM columns must not be generalized to unrelated handlers.
     # Current corpus audit: every seed pair falls inside its mapped structural map grid.
@@ -293,14 +502,27 @@ def main():
             actor_seed_audit["rows"] += 1
             actor_seed_audit["in_bounds" if in_bounds else "out_of_bounds"] += 1
             selector_hex = row["selector_hex"].replace("0x", "").upper().zfill(2)
+            selector_key = f"0x{selector_hex}"
             asset_selector_hex = selector_asset_alias.get(selector_hex, selector_hex)
+            actor_key = (config_id, row["record_id"], selector_key)
+            semantic = sprite_semantics.get(actor_key)
+            directional = directional_by_selector.get(selector_key)
+            actor_dialogue_refs = dialogue_by_actor.get(actor_key, [])
             entity = {
                 "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
                 "map_config_id": config_id,
                 "entity_type": "static_actor_candidate",
                 "record_id": row["record_id"],
-                "selector_hex": f"0x{selector_hex}",
+                "selector_hex": selector_key,
                 "sprite_group": int(row["sprite_group"]),
+                "sprite_semantics": semantic,
+                "directional_sprite": directional,
+                "dialogue_refs": actor_dialogue_refs,
+                "event_refs": sorted({
+                    dialogue_sequence_by_id[ref]["event_record"]
+                    for ref in actor_dialogue_refs
+                    if ref in dialogue_sequence_by_id and dialogue_sequence_by_id[ref].get("event_record")
+                }),
                 "animation_base_state": int(row["animation_base_state"]),
                 "grid_x_seed": gx,
                 "grid_y_seed": gy,
@@ -374,7 +596,7 @@ def main():
         m["transition_arrivals"].append(arrival["arrival_id"])
 
     world = {
-        "schema_version": 4,
+        "schema_version": 5,
         "kind": "shinmomo_structural_world",
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
@@ -392,8 +614,20 @@ def main():
             "unbound_count": sum(not x["source_config_id"] for x in transition_candidates),
         },
         "events": events,
+        "dialogue_sequences": dialogue_sequences,
+        "dialogue_summary": {
+            "sequence_count": len(dialogue_sequences),
+            "decoded_sequence_count": sum(bool(x["pages"]) for x in dialogue_sequences),
+            "actor_binding_count": len(dialogue_by_actor),
+        },
         "sprite_groups": sprite_groups,
         "entities": entities,
+        "source_transition_hotspots": source_transition_hotspots,
+        "source_transition_hotspot_summary": {
+            "hotspot_count": len(source_transition_hotspots),
+            "confirmed_count": sum(x["confidence"].startswith("confirmed") for x in source_transition_hotspots),
+            "navigable_count": sum(bool(x["destination_config_id"]) for x in source_transition_hotspots),
+        },
         "transition_arrivals": transition_arrivals,
         "transition_arrival_summary": {
             "group_count": len(transition_arrivals),
