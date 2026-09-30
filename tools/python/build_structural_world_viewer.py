@@ -68,6 +68,52 @@ def main():
             "provenance": str(path.relative_to(ROOT)).replace("\\", "/"),
         })
 
+    transition_candidates = []
+    transition_edges = []
+    candidate_path = TRANSITIONS / "map_transition_candidates.csv"
+    if candidate_path.exists():
+        for n, row in enumerate(csv.DictReader(candidate_path.open(encoding="utf-8-sig"))):
+            source_config_id = row.get("source_config_id") or None
+            destination_config_id = row.get("destination_config_id") or None
+            confidence = row.get("confidence") or "unknown"
+            tier = "tier1_confirmed" if confidence == "confirmed" else (
+                "tier2_strong_bound" if source_config_id and destination_config_id else "tier3_unbound"
+            )
+            item = {
+                "transition_id": f"catalog_transition_{n:04d}",
+                "tier": tier,
+                "source_config_id": source_config_id,
+                "source_pack": row.get("source_pack") or None,
+                "source_layout": int(row["source_layout"]) if row.get("source_layout") else None,
+                "source_tileset": int(row["source_tileset"]) if row.get("source_tileset") else None,
+                "script_pack": row.get("script_pack") or None,
+                "script_record": int(row["script_record"]) if row.get("script_record") else None,
+                "script_entry": row.get("script_entry") or None,
+                "trigger_type": row.get("trigger_type") or None,
+                "trigger_addr": row.get("trigger_addr") or None,
+                "event_record": row.get("event_record") or None,
+                "vm_context": row.get("vm_context") or None,
+                "event_sources": row.get("event_sources") or None,
+                "destination_pack": row.get("destination_pack") or None,
+                "destination_entry_id": row.get("destination_entry_id") or None,
+                "destination_config_id": destination_config_id,
+                "destination_layout": int(row["destination_layout"]) if row.get("destination_layout") else None,
+                "destination_tileset": int(row["destination_tileset"]) if row.get("destination_tileset") else None,
+                "destination_variant": int(row["destination_variant"]) if row.get("destination_variant") else None,
+                "destination_x": int(row["destination_x"]) if row.get("destination_x") else None,
+                "destination_y": int(row["destination_y"]) if row.get("destination_y") else None,
+                "destination_secondary_x": int(row["destination_secondary_x"]) if row.get("destination_secondary_x") else None,
+                "destination_secondary_y": int(row["destination_secondary_y"]) if row.get("destination_secondary_y") else None,
+                "destination_coordinate_addr": row.get("destination_coordinate_addr") or None,
+                "condition": row.get("condition") or None,
+                "confidence": confidence,
+                "evidence": row.get("evidence") or None,
+                "provenance": row.get("provenance") or "data/maps/transitions/map_transition_candidates.csv",
+            }
+            transition_candidates.append(item)
+            if source_config_id and destination_config_id:
+                transition_edges.append(item)
+
     composites = [r for r in rows if r["artifact_role"] == "bg12_composite"]
     for row in composites:
         for config_id in split_ids(row["config_ids"]):
@@ -196,8 +242,8 @@ def main():
                 if doc["config_id"] in maps:
                     maps[doc["config_id"]]["entities"].append(entity["entity_id"])
 
-    # Static opcode59 actor bindings carry two placement-like seed bytes.
-    # Their universal semantics are not proven yet, so expose them as a candidate layer only.
+    # Static opcode59 actor coordinates are proven for this renderer path only.
+    # The shared WRAM columns must not be generalized to unrelated handlers.
     # Current corpus audit: every seed pair falls inside its mapped structural map grid.
     actor_seed_audit = {"rows": 0, "in_bounds": 0, "out_of_bounds": 0}
     selector_asset_alias = {}
@@ -303,7 +349,7 @@ def main():
         m["transition_arrivals"].append(arrival["arrival_id"])
 
     world = {
-        "schema_version": 3,
+        "schema_version": 4,
         "kind": "shinmomo_structural_world",
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
@@ -311,6 +357,15 @@ def main():
         },
         "maps": sorted(maps.values(), key=lambda x: x["config_id"]),
         "transitions": transitions,
+        "transition_candidates": transition_candidates,
+        "transition_edges": transition_edges,
+        "transition_catalog_summary": {
+            "candidate_count": len(transition_candidates),
+            "confirmed_count": sum(x["confidence"] == "confirmed" for x in transition_candidates),
+            "strong_candidate_count": sum(x["confidence"] == "strong_candidate" for x in transition_candidates),
+            "bound_edge_count": len(transition_edges),
+            "unbound_count": sum(not x["source_config_id"] for x in transition_candidates),
+        },
         "events": events,
         "sprite_groups": sprite_groups,
         "entities": entities,

@@ -19,7 +19,10 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 .actorLabel,.arrivalLabel{position:absolute;left:50%;top:100%;transform:translateX(-50%);white-space:nowrap;font:11px monospace;background:#000c;color:#fff;padding:1px 3px;border-radius:2px}
 .arrival{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer;width:13px;height:13px;border-radius:50%;border:2px solid #73e6ff;background:#001b24aa;padding:0}
 .arrival.confirmed{width:17px;height:17px;border-width:3px;background:#73e6ff88}
-.edge{padding:7px;border:1px solid #888;margin:6px 0;cursor:pointer}
+.edge,.unboundRow{padding:7px;border:1px solid #888;margin:6px 0;cursor:pointer}
+.edge.strong{border-style:dashed}.edge.confirmed{border-width:2px}
+.edgeGo{display:inline-block;width:auto;margin-left:8px;padding:2px 6px}
+#unbound{max-height:240px;overflow:auto}.muted{opacity:.72}
 .notice{padding:7px;border:1px solid #b88;margin:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}
 #assetStatus{font-size:12px;opacity:.85}h1,h2,h3{margin:.4em 0}
 </style><aside>
@@ -30,6 +33,7 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 <main>
   <h2 id="title">Select map</h2>
   <div class="toolbar">
+    <label><input id="transitionsToggle" type="checkbox" checked>transitions</label>
     <label><input id="actorsToggle" type="checkbox" checked>actor sprites</label>
     <label><input id="arrivalsToggle" type="checkbox">arrival points</label>
     <label><input id="labelsToggle" type="checkbox">labels</label>
@@ -40,6 +44,7 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
   <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="arrivalLayer"></div><div id="actorLayer"></div></div></div></div>
   <div id="positionNotice" class="notice"></div>
   <h3>Transitions</h3><div id="edges"></div>
+  <details open><summary>Unbound transitions <span id="unboundCount"></span></summary><div id="unbound"></div></details>
   <h3>Selection / structure</h3><pre id="detail"></pre>
 </main>
 <script type="module" src="viewer.js"></script>

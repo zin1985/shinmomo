@@ -3,16 +3,20 @@ const byId=new Map(world.maps.map(m=>[m.config_id,m]));
 const entityById=new Map(world.entities.map(e=>[e.entity_id,e]));
 const arrivalById=new Map((world.transition_arrivals||[]).map(a=>[a.arrival_id,a]));
 const q=s=>document.querySelector(s);
-const list=q('#maps'), edges=q('#edges'), detail=q('#detail');
+const list=q('#maps'), edges=q('#edges'), unbound=q('#unbound'), detail=q('#detail');
 const stage=q('#mapStage'), sizer=q('#mapSizer'), mapImage=q('#mapImage');
 const actorLayer=q('#actorLayer'), arrivalLayer=q('#arrivalLayer'), gridLayer=q('#gridLayer');
 let selectedMap=null;
 
 const staticActors=world.entities.filter(e=>e.entity_type==='static_actor_candidate');
+const catalogEdges=world.transition_edges||[];
+const catalogCandidates=world.transition_candidates||[];
+const transitionSummary=world.transition_catalog_summary||{};
 const audit=world.actor_seed_position_audit||{};
 q('#summary').textContent=
-  `${world.maps.length} maps / ${world.transitions.length} confirmed transitions / `+
-  `${staticActors.length} static actors / ${(world.transition_arrivals||[]).length} grouped arrival points`;
+  String(world.maps.length)+' maps / '+String(transitionSummary.candidate_count||0)+' transition candidates ('+
+  String(transitionSummary.confirmed_count||0)+' confirmed / '+String(transitionSummary.strong_candidate_count||0)+' strong) / '+
+  String(staticActors.length)+' static actors / '+String((world.transition_arrivals||[]).length)+' grouped arrival points';
 q('#positionNotice').textContent=
   `Actor coordinates are statically confirmed for the opcode 0x59 actor renderer: field0659/0699 -> $030B/$030D -> 81:B10F -> 16px render coordinates. `+
   `Corpus bounds check: ${audit.in_bounds??'?'} / ${audit.rows??'?'} in bounds. Sprite artwork uses a viewer bottom-center anchor approximation. `+
@@ -155,14 +159,35 @@ async function selectMap(m){
     layer_summary:await layerSummary(m)
   },null,2);
   edges.replaceChildren();
-  const es=world.transitions.filter(e=>e.source_config_id===m.config_id||e.destination_config_id===m.config_id);
+  unbound.replaceChildren();
+  const showTransitions=q('#transitionsToggle').checked;
+  if(!showTransitions){ q('#unboundCount').textContent=''; return; }
+  const es=catalogEdges.filter(e=>e.source_config_id===m.config_id||e.destination_config_id===m.config_id);
   for(const e of es){
-    const div=document.createElement('div'); div.className='edge';
+    const div=document.createElement('div');
+    div.className='edge '+(e.confidence==='confirmed'?'confirmed':'strong');
     const forward=e.source_config_id===m.config_id;
     const other=forward?e.destination_config_id:e.source_config_id;
-    div.textContent=(forward?'→ ':'← ')+(byId.get(other)?.display_name||other)+' | '+(e.trigger||e.status||'transition');
-    div.onclick=()=>byId.has(other)&&selectMap(byId.get(other)); edges.append(div);
+    const otherName=(byId.get(other)?.display_name)||other;
+    const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
+    div.append(document.createTextNode((forward?'→ ':'← ')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
+    const go=document.createElement('button'); go.className='edgeGo'; go.textContent='open map';
+    go.onclick=ev=>{ev.stopPropagation(); if(byId.has(other))selectMap(byId.get(other));};
+    div.append(go);
+    div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};
+    edges.append(div);
   }
+  if(!es.length){ const p=document.createElement('div'); p.className='muted'; p.textContent='No bound transition edge for this map yet.'; edges.append(p); }
+  const us=catalogCandidates.filter(e=>!e.source_config_id&&e.destination_config_id===m.config_id);
+  q('#unboundCount').textContent='('+us.length+')';
+  for(const e of us){
+    const div=document.createElement('div'); div.className='unboundRow';
+    const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
+    div.textContent=(e.destination_pack||'?')+' entry '+(e.destination_entry_id||'?')+arrival+' | '+(e.trigger_type||'transition')+' | '+e.confidence;
+    div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};
+    unbound.append(div);
+  }
+  if(!us.length){ const p=document.createElement('div'); p.className='muted'; p.textContent='No destination-bound/source-unresolved rows for this map.'; unbound.append(p); }
 }
 
 for(const m of world.maps){
@@ -172,8 +197,8 @@ for(const m of world.maps){
   b.textContent=(m.display_name||m.config_id)+(count?` [A:${count}]`:'')+(arrivals?` [T:${arrivals}]`:'');
   b.onclick=()=>selectMap(m); list.append(b);
 }
-for(const id of ['actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){
-  q('#'+id).addEventListener('change',()=>selectedMap&&renderMap(selectedMap));
+for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){
+  q('#'+id).addEventListener('change',()=>selectedMap&&(id==='transitionsToggle'?selectMap(selectedMap):renderMap(selectedMap)));
 }
 q('#zoom').addEventListener('input',applyZoom);
 if(world.maps[0])selectMap(world.maps[0]);
