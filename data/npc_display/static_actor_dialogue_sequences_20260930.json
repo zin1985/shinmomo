@@ -1,6 +1,6 @@
 {
-  "schema_version": "2026-09-30-dialogue-sequence-v1",
-  "source_main_head": "64ee23855d06b94012270a5be150b7107525db77",
+  "schema_version": "2026-09-30-dialogue-sequence-v2",
+  "source_main_head": "3f9df95cb2f12852a0c586db1ddb328bdc6dca7b",
   "purpose": "HTML actor click -> event -> conditional dialogue sequence -> display page playback",
   "rom_text_control_facts": {
     "0x00": {
@@ -22,7 +22,7 @@
     "page_boundary": {
       "role": "quote-delimited 0x7D..0x7E block used as display-page candidate",
       "status": "strong_candidate",
-      "evidence": "all 32 recovered F50 pages have <=3 explicit lines; long records split into multiple quote-delimited blocks"
+      "evidence": "all 36 canonical-direct F50 quote blocks have <=3 explicit lines; long records split into multiple quote-delimited blocks"
     },
     "button_advance": {
       "role": "advance between display pages",
@@ -34,16 +34,48 @@
       "status": "not_identified_static"
     }
   },
+  "condition_vm_facts": {
+    "A3": {
+      "role": "flag bit test; pushes boolean",
+      "status": "confirmed_static"
+    },
+    "B2": {
+      "role": "unconditional signed rel8 branch",
+      "status": "confirmed_static"
+    },
+    "B3": {
+      "role": "branch on zero, otherwise fall through",
+      "status": "confirmed_static"
+    },
+    "B4": {
+      "role": "branch on nonzero, otherwise fall through",
+      "status": "confirmed_static"
+    },
+    "E1": {
+      "role": "boolean zero-test over expression accumulator",
+      "status": "confirmed_static"
+    },
+    "E7": {
+      "role": "boolean conjunction with previously stacked operand",
+      "status": "confirmed_static"
+    },
+    "f50_common_predicate": {
+      "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+      "status": "confirmed_static_structure",
+      "semantic_note": "relation key 0x90 identity remains unresolved; do not label it as a specific character without independent evidence"
+    }
+  },
   "coverage": {
-    "selected_actor_bindings": 18,
-    "decoded_sequences": 17,
-    "page_rows": 34,
+    "selected_actor_bindings": 20,
+    "decoded_sequences": 20,
+    "page_rows": 38,
     "max_lines_per_recovered_page": 3,
     "pages_over_3_lines": 0,
     "f50_actors": 10,
-    "f50_sequence_variants": 17,
-    "f50_decoded_sequence_variants": 16,
-    "f50_pages": 32
+    "f50_sequence_variants": 19,
+    "f50_decoded_sequence_variants": 19,
+    "f50_pages": 36,
+    "f50_exact_condition_actors": 7
   },
   "actors": [
     {
@@ -70,11 +102,12 @@
           "source": {
             "text_record_id": "0x50:0x00",
             "text_pointer": "C8:ABC5",
-            "decode_status": "not_decoded_or_no_historical_match",
-            "decoder_score": null,
-            "decoder_unknown_tokens": null,
-            "raw_tokens": null,
-            "record_terminator": "0x00"
+            "decode_status": "confirmed_static_direct_decode",
+            "decoder_score": 66,
+            "decoder_unknown_tokens": 0,
+            "raw_tokens": "7D 19 1E 18 17 9B 9F 50 93 BD AE 19 07 D0 01 50 18 DB 9F A0 A8 50 90 91 DA BE 50 AA F8 92 DE BD D0 01 50 B5 97 A4 91 A4 BD A2 5C 50 1A 08 D6 B6 B9 BD 5C 7E 00",
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L001",
@@ -82,12 +115,295 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "single validated source selection",
-            "status": "no_alternative_source_detected_in_record",
+            "description": "always_for_record_entry",
+            "status": "confirmed_static_single_path",
             "source_variant_count": 1,
-            "guarded_selector_subform": null
+            "expression": "always_for_record_entry",
+            "condition_id": "always",
+            "common_predicate": null,
+            "flag_tests": [],
+            "relation_test": null,
+            "branch_path": "single source selection"
           },
-          "pages": [],
+          "pages": [
+            {
+              "page_index": 1,
+              "display_order": 1,
+              "page_text": "「改心した えんま様が\n 鬼たちの あいだで ひょうばんが\n よくないなんて! 信じられん!」",
+              "lines": [
+                {
+                  "line_index": 1,
+                  "text": "「改心した えんま様が",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 2,
+                  "text": " 鬼たちの あいだで ひょうばんが",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 3,
+                  "text": " よくないなんて! 信じられん!」",
+                  "line_break_after": false,
+                  "line_break_token": null
+                }
+              ],
+              "line_count": 3,
+              "source_token_span": {
+                "start_index": 1,
+                "end_index": 52
+              },
+              "source_events": [
+                {
+                  "idx": 1,
+                  "token": "7D",
+                  "decoded": "「"
+                },
+                {
+                  "idx": 2,
+                  "token": "191E",
+                  "decoded": "改"
+                },
+                {
+                  "idx": 4,
+                  "token": "1817",
+                  "decoded": "心"
+                },
+                {
+                  "idx": 6,
+                  "token": "9B",
+                  "decoded": "し"
+                },
+                {
+                  "idx": 7,
+                  "token": "9F",
+                  "decoded": "た"
+                },
+                {
+                  "idx": 8,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 9,
+                  "token": "93",
+                  "decoded": "え"
+                },
+                {
+                  "idx": 10,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 11,
+                  "token": "AE",
+                  "decoded": "ま"
+                },
+                {
+                  "idx": 12,
+                  "token": "1907",
+                  "decoded": "様"
+                },
+                {
+                  "idx": 14,
+                  "token": "D0",
+                  "decoded": "が"
+                },
+                {
+                  "idx": 15,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 16,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 17,
+                  "token": "18DB",
+                  "decoded": "鬼"
+                },
+                {
+                  "idx": 19,
+                  "token": "9F",
+                  "decoded": "た"
+                },
+                {
+                  "idx": 20,
+                  "token": "A0",
+                  "decoded": "ち"
+                },
+                {
+                  "idx": 21,
+                  "token": "A8",
+                  "decoded": "の"
+                },
+                {
+                  "idx": 22,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 23,
+                  "token": "90",
+                  "decoded": "あ"
+                },
+                {
+                  "idx": 24,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 25,
+                  "token": "DA",
+                  "decoded": "だ"
+                },
+                {
+                  "idx": 26,
+                  "token": "BE",
+                  "decoded": "で"
+                },
+                {
+                  "idx": 27,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 28,
+                  "token": "AA",
+                  "decoded": "ひ"
+                },
+                {
+                  "idx": 29,
+                  "token": "F8",
+                  "decoded": "ょ"
+                },
+                {
+                  "idx": 30,
+                  "token": "92",
+                  "decoded": "う"
+                },
+                {
+                  "idx": 31,
+                  "token": "DE",
+                  "decoded": "ば"
+                },
+                {
+                  "idx": 32,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 33,
+                  "token": "D0",
+                  "decoded": "が"
+                },
+                {
+                  "idx": 34,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 35,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 36,
+                  "token": "B5",
+                  "decoded": "よ"
+                },
+                {
+                  "idx": 37,
+                  "token": "97",
+                  "decoded": "く"
+                },
+                {
+                  "idx": 38,
+                  "token": "A4",
+                  "decoded": "な"
+                },
+                {
+                  "idx": 39,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 40,
+                  "token": "A4",
+                  "decoded": "な"
+                },
+                {
+                  "idx": 41,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 42,
+                  "token": "A2",
+                  "decoded": "て"
+                },
+                {
+                  "idx": 43,
+                  "token": "5C",
+                  "decoded": "!"
+                },
+                {
+                  "idx": 44,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 45,
+                  "token": "1A08",
+                  "decoded": "信"
+                },
+                {
+                  "idx": 47,
+                  "token": "D6",
+                  "decoded": "じ"
+                },
+                {
+                  "idx": 48,
+                  "token": "B6",
+                  "decoded": "ら"
+                },
+                {
+                  "idx": 49,
+                  "token": "B9",
+                  "decoded": "れ"
+                },
+                {
+                  "idx": 50,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 51,
+                  "token": "5C",
+                  "decoded": "!"
+                },
+                {
+                  "idx": 52,
+                  "token": "7E",
+                  "decoded": "」"
+                }
+              ],
+              "page_boundary": {
+                "basis": "quote_delimited_7D_7E_block",
+                "status": "strong_candidate",
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+              },
+              "advance": {
+                "required_between_pages": "no_next_page",
+                "input": null,
+                "status": "not_applicable"
+              }
+            }
+          ],
           "choices": [],
           "choice_status": "no_choice_control_identified_static",
           "branch_target": {
@@ -96,12 +412,12 @@
           },
           "termination": {
             "text_record_end": "0x00",
-            "text_record_end_status": "source_known_decode_unavailable",
+            "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "candidate",
-          "evidence": "opcode59 controller CC:1D0F belongs to F50-L001; source selection 0x00 at CC:1D0C -> C8:ABC5",
-          "provenance": "event_record_frame_catalog + event_source_crosslink"
+          "confidence": "confirmed_static",
+          "evidence": "single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -129,11 +445,12 @@
           "source": {
             "text_record_id": "0x50:0x01",
             "text_pointer": "C8:ABEF",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 105,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 18 50 18 51 9A BD A9 50 18 80 18 49 A5 50 55 1A 04 A8 01 50 19 D4 19 4D BC 50 90 A1 95 93 B8 BD BE 9C A7 5C 7E 01 01 7D DD A8 19 D4 19 4D BC 50 93 B6 E0 95 5C 01 50 1A 2D 1A 31 18 47 A8 50 19 77 A8 01 50 18 B0 9D DD 99 BA BE 9C A7 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L002",
@@ -141,10 +458,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 01"
           },
           "pages": [
             {
@@ -330,11 +663,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -537,11 +870,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -557,9 +890,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D2D belongs to F50-L002; source selection 0x01 at CC:1D26 -> C8:ABEF",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 27; exact token hash 9d0770ae92a2095a5935ac72a8950233b39ff68eb301a66e41dec96fc1785b0a"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 01; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L002:0x50:0x02",
@@ -573,11 +906,12 @@
           "source": {
             "text_record_id": "0x50:0x02",
             "text_pointer": "C8:AC2F",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 100,
             "decoder_unknown_tokens": 1,
             "raw_tokens": "7D 18 04 18 05 9A BD A9 50 18 8C A8 19 88 18 47 9A AE A5 01 50 1A DB DE B9 A2 50 19 CC 95 98 9F 98 DD 01 50 1A DB DF A5 96 9F 18 47 A9 50 90 B3 9B 95 F5 9F BB 5C 7E 01 7D 18 04 18 05 9A BD A9 01 50 18 47 D0 50 91 91 95 B6 01 50 18 40 18 6A 18 6B 95 9B B6 A7 5B 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L002",
@@ -585,10 +919,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "condition_id": "common_false",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 branch selects A4 02"
           },
           "pages": [
             {
@@ -855,11 +1205,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -1027,11 +1377,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -1047,9 +1397,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D2D belongs to F50-L002; source selection 0x02 at CC:1D2A -> C8:AC2F",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 28; exact token hash 22e194b66137afff01ccd16a107779b693e7ef22b49a7c813663ea7143332329"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 branch selects A4 02; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -1077,11 +1427,12 @@
           "source": {
             "text_record_id": "0x50:0x03",
             "text_pointer": "C8:AC73",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 93,
             "decoder_unknown_tokens": 1,
             "raw_tokens": "7D AE 90 50 18 04 18 05 9A BD 5C 01 50 02 A0 9A BD A3 50 90 93 A2 01 50 B5 95 F5 9F BE 9C A7 5C 7E 01 7D 99 B9 A9 50 A1 AE B6 A4 91 B2 A8 DA 98 DD 01 50 18 DB 9F 91 D6 A5 50 19 16 19 9C A2 A2 02 C5 A7 5C 7E 01 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L003",
@@ -1089,10 +1440,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 03"
           },
           "pages": [
             {
@@ -1279,11 +1646,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -1470,11 +1837,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -1490,9 +1857,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D4B belongs to F50-L003; source selection 0x03 at CC:1D44 -> C8:AC73",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 29; exact token hash 42a6e3db3e352aac3f7a964ccf7d7fbb372f5b6e9bd272e04306833b2b4b8bb4"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 03; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L003:0x50:0x04",
@@ -1506,11 +1873,12 @@
           "source": {
             "text_record_id": "0x50:0x04",
             "text_pointer": "C8:ACA8",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 24,
             "decoder_unknown_tokens": 1,
             "raw_tokens": "7D 18 B7 18 0A 9A AE A9 50 18 D4 A8 50 B5 92 A5 01 50 18 17 A8 50 AA BA 91 50 94 95 9F BE 9C 5C 01 50 DD 92 95 50 18 DB 95 B6 50 94 1A 1B B7 02 C5 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L003",
@@ -1518,10 +1886,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "condition_id": "common_false",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 branch selects A4 04"
           },
           "pages": [
             {
@@ -1773,11 +2157,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -1793,9 +2177,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D4B belongs to F50-L003; source selection 0x04 at CC:1D48 -> C8:ACA8",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 30; exact token hash 2d3548ff7386af14c2b390cb8e676d6e56ac5fcad65ead8e0b613370a4dd8d71"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 branch selects A4 04; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -1823,11 +2207,12 @@
           "source": {
             "text_record_id": "0x50:0x05",
             "text_pointer": "C8:ACCE",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 72,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 18 14 A8 AF BD A4 A9 50 18 04 18 05 9A BD D0 50 18 28 96 5C 01 50 1A 0F 1A F3 B5 B7 B2 50 AD 95 A8 18 47 BC 01 50 9B BD E3 91 9C B8 50 18 47 DA 95 B6 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L004",
@@ -1835,10 +2220,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 05"
           },
           "pages": [
             {
@@ -2100,11 +2501,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -2120,9 +2521,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D69 belongs to F50-L004; source selection 0x05 at CC:1D62 -> C8:ACCE",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 31; exact token hash 5458bcb82cdeff596033275ec65bb1d667e61c59d2f1be584e315c8e8e6e9fa7"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 05; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L004:0x50:0x06",
@@ -2136,11 +2537,12 @@
           "source": {
             "text_record_id": "0x50:0x06",
             "text_pointer": "C8:ACF8",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 107,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 99 A8 18 14 A9 50 19 8C 19 8D A8 19 8E A8 50 94 95 D3 BE 01 50 AF BD A4 50 91 A1 B2 50 1A CB 18 48 A4 BD DA B5 5C 7E 01 01 7D BE B2 50 99 A8 AE AE 50 19 8E D0 01 50 18 FC B9 9F AE AE DA A3 50 AF BD A4 01 50 18 E7 A5 50 19 CC B9 A4 97 A4 F5 A0 F6 92 B5 80 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L004",
@@ -2148,10 +2550,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "condition_id": "common_false",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 branch selects A4 06"
           },
           "pages": [
             {
@@ -2352,11 +2770,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -2604,11 +3022,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -2624,9 +3042,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D69 belongs to F50-L004; source selection 0x06 at CC:1D66 -> C8:ACF8",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 32; exact token hash 6881c726e12b09ee2fa5aef21a2df35c3c560b71429cbe9655091a4950c395bd"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 branch selects A4 06; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -2643,8 +3061,353 @@
       ],
       "dialogue_sequences": [
         {
-          "sequence_id": "cfg_t04_l008_v2:F50-L005:0x50:0x08",
+          "sequence_id": "cfg_t04_l008_v2:F50-L005:0x50:0x07",
           "variant_order": 1,
+          "sequence_kind": "conditional_variant",
+          "event": {
+            "record_id": "F50-L005",
+            "controller_pointer": "CC:1D8F",
+            "dialogue_command_addr": "CC:1D80"
+          },
+          "source": {
+            "text_record_id": "0x50:0x07",
+            "text_pointer": "C8:AD3D",
+            "decode_status": "direct_decode_with_unknown_tokens",
+            "decoder_score": 42,
+            "decoder_unknown_tokens": 2,
+            "raw_tokens": "7D 02 A0 9A BD 5C 50 18 04 18 05 9A BD A9 01 50 18 15 50 1A 93 91 F5 A2 50 91 BB B9 A2 B8 98 DD 01 50 04 B2 B7 03 A8 50 92 AE 9A A9 50 18 14 91 A0 DE BD DA B5 7E 00",
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
+          },
+          "speaker": {
+            "actor_record_id": "F50-L005",
+            "name": null,
+            "status": "actor_bound_speaker_identity_unresolved"
+          },
+          "condition": {
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
+            "source_variant_count": 3,
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 07 then B2 0C exits selector chain"
+          },
+          "pages": [
+            {
+              "page_index": 1,
+              "display_order": 1,
+              "page_text": "「桃太郎さん! 浦島さんは\n 体 弱いって いわれてるけど\n {04}もり{03}の うまさは 村いちばんだよ」",
+              "lines": [
+                {
+                  "line_index": 1,
+                  "text": "「桃太郎さん! 浦島さんは",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 2,
+                  "text": " 体 弱いって いわれてるけど",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 3,
+                  "text": " {04}もり{03}の うまさは 村いちばんだよ」",
+                  "line_break_after": false,
+                  "line_break_token": null
+                }
+              ],
+              "line_count": 3,
+              "source_token_span": {
+                "start_index": 1,
+                "end_index": 54
+              },
+              "source_events": [
+                {
+                  "idx": 1,
+                  "token": "7D",
+                  "decoded": "「"
+                },
+                {
+                  "idx": 2,
+                  "token": "02A0",
+                  "decoded": "桃太郎"
+                },
+                {
+                  "idx": 4,
+                  "token": "9A",
+                  "decoded": "さ"
+                },
+                {
+                  "idx": 5,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 6,
+                  "token": "5C",
+                  "decoded": "!"
+                },
+                {
+                  "idx": 7,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 8,
+                  "token": "1804",
+                  "decoded": "浦"
+                },
+                {
+                  "idx": 10,
+                  "token": "1805",
+                  "decoded": "島"
+                },
+                {
+                  "idx": 12,
+                  "token": "9A",
+                  "decoded": "さ"
+                },
+                {
+                  "idx": 13,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 14,
+                  "token": "A9",
+                  "decoded": "は"
+                },
+                {
+                  "idx": 15,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 16,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 17,
+                  "token": "1815",
+                  "decoded": "体"
+                },
+                {
+                  "idx": 19,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 20,
+                  "token": "1A93",
+                  "decoded": "弱"
+                },
+                {
+                  "idx": 22,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 23,
+                  "token": "F5",
+                  "decoded": "っ"
+                },
+                {
+                  "idx": 24,
+                  "token": "A2",
+                  "decoded": "て"
+                },
+                {
+                  "idx": 25,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 26,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 27,
+                  "token": "BB",
+                  "decoded": "わ"
+                },
+                {
+                  "idx": 28,
+                  "token": "B9",
+                  "decoded": "れ"
+                },
+                {
+                  "idx": 29,
+                  "token": "A2",
+                  "decoded": "て"
+                },
+                {
+                  "idx": 30,
+                  "token": "B8",
+                  "decoded": "る"
+                },
+                {
+                  "idx": 31,
+                  "token": "98",
+                  "decoded": "け"
+                },
+                {
+                  "idx": 32,
+                  "token": "DD",
+                  "decoded": "ど"
+                },
+                {
+                  "idx": 33,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 34,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 35,
+                  "token": "04",
+                  "decoded": "{04}"
+                },
+                {
+                  "idx": 36,
+                  "token": "B2",
+                  "decoded": "も"
+                },
+                {
+                  "idx": 37,
+                  "token": "B7",
+                  "decoded": "り"
+                },
+                {
+                  "idx": 38,
+                  "token": "03",
+                  "decoded": "{03}"
+                },
+                {
+                  "idx": 39,
+                  "token": "A8",
+                  "decoded": "の"
+                },
+                {
+                  "idx": 40,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 41,
+                  "token": "92",
+                  "decoded": "う"
+                },
+                {
+                  "idx": 42,
+                  "token": "AE",
+                  "decoded": "ま"
+                },
+                {
+                  "idx": 43,
+                  "token": "9A",
+                  "decoded": "さ"
+                },
+                {
+                  "idx": 44,
+                  "token": "A9",
+                  "decoded": "は"
+                },
+                {
+                  "idx": 45,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 46,
+                  "token": "1814",
+                  "decoded": "村"
+                },
+                {
+                  "idx": 48,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 49,
+                  "token": "A0",
+                  "decoded": "ち"
+                },
+                {
+                  "idx": 50,
+                  "token": "DE",
+                  "decoded": "ば"
+                },
+                {
+                  "idx": 51,
+                  "token": "BD",
+                  "decoded": "ん"
+                },
+                {
+                  "idx": 52,
+                  "token": "DA",
+                  "decoded": "だ"
+                },
+                {
+                  "idx": 53,
+                  "token": "B5",
+                  "decoded": "よ"
+                },
+                {
+                  "idx": 54,
+                  "token": "7E",
+                  "decoded": "」"
+                }
+              ],
+              "page_boundary": {
+                "basis": "quote_delimited_7D_7E_block",
+                "status": "strong_candidate",
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+              },
+              "advance": {
+                "required_between_pages": "no_next_page",
+                "input": null,
+                "status": "not_applicable"
+              }
+            }
+          ],
+          "choices": [],
+          "choice_status": "no_choice_control_identified_static",
+          "branch_target": {
+            "status": "event_continuation_unresolved",
+            "target": null
+          },
+          "termination": {
+            "text_record_end": "0x00",
+            "text_record_end_status": "confirmed_static",
+            "event_end_status": "unresolved_static"
+          },
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 07 then B2 0C exits selector chain; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+        },
+        {
+          "sequence_id": "cfg_t04_l008_v2:F50-L005:0x50:0x08",
+          "variant_order": 2,
           "sequence_kind": "conditional_variant",
           "event": {
             "record_id": "F50-L005",
@@ -2654,11 +3417,12 @@
           "source": {
             "text_record_id": "0x50:0x08",
             "text_pointer": "C8:AD66",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 67,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 18 04 18 05 9A BD 5C 50 18 DB 9F 91 D6 50 18 FD F5 9F B6 01 50 18 EE A8 50 D6 F8 92 D7 A4 50 19 AD B7 1A 24 01 50 94 9B 93 A2 50 A0 F8 92 DA 91 A7 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L005",
@@ -2666,10 +3430,31 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",
-            "status": "predicate_unresolved_static",
-            "source_variant_count": 2,
-            "guarded_selector_subform": "0x07"
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",
+            "status": "confirmed_static_cfg",
+            "source_variant_count": 3,
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",
+            "condition_id": "common_false_flag0B_clear",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              },
+              {
+                "spec": "0x0B",
+                "wram": "$1247",
+                "bit": 3
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 enters secondary guard; B4 06 falls through to A4 08; B2 04 skips A4 09"
           },
           "pages": [
             {
@@ -2931,11 +3716,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -2951,13 +3736,13 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D8F belongs to F50-L005; source selection 0x08 at CC:1D88 -> C8:AD66",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 34; exact token hash 9fb6bcd8efb0175f1eec54e2a0709a750f9ef6197f236a2e87c90bc396f68d15"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 enters secondary guard; B4 06 falls through to A4 08; B2 04 skips A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L005:0x50:0x09",
-          "variant_order": 2,
+          "variant_order": 3,
           "sequence_kind": "conditional_variant",
           "event": {
             "record_id": "F50-L005",
@@ -2967,11 +3752,12 @@
           "source": {
             "text_record_id": "0x50:0x09",
             "text_pointer": "C8:AD8F",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 87,
             "decoder_unknown_tokens": 1,
             "raw_tokens": "7D 90 B9 80 5C 50 18 04 18 05 9A BD 50 91 A4 91 A8 5B 01 50 A9 B3 97 50 18 EE A8 50 19 AD B7 1A 24 01 50 94 9B 93 A2 50 AD 9B 91 A4 90 5C 7E 01 7D 18 DB 9F 91 D6 50 18 FD F5 9F B6 01 50 94 9B 93 A2 97 B9 B8 F5 A2 01 50 B3 97 9E 97 50 9B 9F BD DA B5 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L005",
@@ -2979,10 +3765,31 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",
-            "status": "predicate_unresolved_static",
-            "source_variant_count": 2,
-            "guarded_selector_subform": "0x07"
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",
+            "status": "confirmed_static_cfg",
+            "source_variant_count": 3,
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",
+            "condition_id": "common_false_flag0B_set",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              },
+              {
+                "spec": "0x0B",
+                "wram": "$1247",
+                "bit": 3
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 enters secondary guard; B4 06 branches to A4 09"
           },
           "pages": [
             {
@@ -3229,11 +4036,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -3446,11 +4253,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -3466,9 +4273,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1D8F belongs to F50-L005; source selection 0x09 at CC:1D8C -> C8:AD8F",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 35; exact token hash 15aea0d047319f1b2ee1432911a6e38865e275ea3f149b23fcda6039e72aa624"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 enters secondary guard; B4 06 branches to A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -3496,11 +4303,12 @@
           "source": {
             "text_record_id": "0x50:0x0A",
             "text_pointer": "C8:ADCF",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 113,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 18 45 A3 91 92 A8 A9 50 D8 BD E0 BE 01 50 54 51 51 9B F7 B8 91 B2 50 90 B8 9E 92 D6 F6 A4 7E 01 01 7D 18 47 19 B6 A3 50 18 DB BE 50 53 9B F7 B8 91 5C 50 A4 B6 DE 01 50 18 47 19 B6 B2 50 18 DB B2 50 91 96 B2 A8 50 A3 91 92 01 50 AA A3 A1 A8 19 AC BE 50 B5 91 BE A9 A4 91 95 5F 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L006",
@@ -3508,10 +4316,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 0A"
           },
           "pages": [
             {
@@ -3697,11 +4521,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -4004,11 +4828,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -4024,9 +4848,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1DAD belongs to F50-L006; source selection 0x0A at CC:1DA6 -> C8:ADCF",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 36; exact token hash 28d769fea8def6f98357a344c5214736d3293dddcdf271bdaa269e41241ba8db"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 0A; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L006:0x50:0x0B",
@@ -4040,11 +4864,12 @@
           "source": {
             "text_record_id": "0x50:0x0B",
             "text_pointer": "C8:AE18",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 191,
             "decoder_unknown_tokens": 4,
             "raw_tokens": "7D 18 06 18 01 18 02 A8 99 A3 95 5B 50 AE 9F 01 50 54 1A 0B B2 50 A7 B0 B7 B5 F5 A2 A4 5C 7E 01 01 7D 18 96 A8 19 91 A8 50 9B 99 B1 19 07 D0 50 19 93 F5 A2 B8 01 50 18 96 1A E8 A8 98 D7 B7 AA BE 50 94 96 B8 BD D6 F6 D0 01 50 18 DB D0 91 A2 50 1A 94 B2 50 19 AD B7 A5 19 BF 98 BD 5C 7E 01 7D 18 54 5B 50 90 BD 9F D0 50 19 AD B7 A5 19 BF 97 5B 01 50 9E B7 F6 50 90 E0 A4 91 5C 01 50 5F 5F BE B2 50 18 54 DA F5 A2 5B 7E 01 7D 1A 17 19 D9 A9 50 18 96 1A E8 A8 98 D7 B7 AA A9 01 50 18 96 A8 19 91 95 B6 50 B2 A0 DA 9B 9F 50 A3 9F BD 01 50 A3 98 A2 9B AE F5 9F A3 A4 5C 7E 01 7D 18 29 18 17 9D 91 5C 50 91 AE A9 50 9B 99 B1 19 07 D0 01 50 18 96 1A E8 A8 96 BD A0 F6 97 A5 01 50 19 D7 B9 A2 97 DA 9A B8 A9 D7 D6 F6 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L006",
@@ -4052,10 +4877,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "condition_id": "common_false",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 branch selects A4 0B"
           },
           "pages": [
             {
@@ -4221,11 +5062,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -4523,11 +5364,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -4760,11 +5601,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -5017,11 +5858,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -5269,11 +6110,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -5289,9 +6130,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1DAD belongs to F50-L006; source selection 0x0B at CC:1DAA -> C8:AE18",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 37; exact token hash 871a0a26ec11c9cb99b5b36ee0ad84d94398c614a94b479ad89acba39d063b4b"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 branch selects A4 0B; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -5308,8 +6149,564 @@
       ],
       "dialogue_sequences": [
         {
-          "sequence_id": "cfg_t04_l008_v2:F50-L007:0x50:0x0D",
+          "sequence_id": "cfg_t04_l008_v2:F50-L007:0x50:0x0C",
           "variant_order": 1,
+          "sequence_kind": "conditional_variant",
+          "event": {
+            "record_id": "F50-L007",
+            "controller_pointer": "CC:1DD3",
+            "dialogue_command_addr": "CC:1DC4"
+          },
+          "source": {
+            "text_record_id": "0x50:0x0C",
+            "text_pointer": "C8:AED1",
+            "decode_status": "confirmed_static_direct_decode",
+            "decoder_score": 121,
+            "decoder_unknown_tokens": 0,
+            "raw_tokens": "7D 90 B7 D0 A3 92 50 D4 D8 93 AE 9C DA 5C 01 50 99 B9 95 B6 50 18 07 93 97 E2 A8 50 96 9D A1 D6 F6 7E 01 01 7D 94 1A 03 9A AE A8 50 19 E8 B7 BC 50 92 98 A2 01 50 18 07 A8 50 18 89 A9 DA D0 50 A3 98 A2 91 96 AE 9C 01 50 18 DB A8 18 17 B2 50 A3 98 B8 A3 50 B5 91 BE 9C A4 90 7E 00",
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
+          },
+          "speaker": {
+            "actor_record_id": "F50-L007",
+            "name": null,
+            "status": "actor_bound_speaker_identity_unresolved"
+          },
+          "condition": {
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
+            "source_variant_count": 3,
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 0C then B2 0C exits selector chain"
+          },
+          "pages": [
+            {
+              "page_index": 1,
+              "display_order": 1,
+              "page_text": "「ありがとう ごぜえますだ!\n これから 雪えくぼの きせつじゃ」",
+              "lines": [
+                {
+                  "line_index": 1,
+                  "text": "「ありがとう ごぜえますだ!",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 2,
+                  "text": " これから 雪えくぼの きせつじゃ」",
+                  "line_break_after": false,
+                  "line_break_token": null
+                }
+              ],
+              "line_count": 2,
+              "source_token_span": {
+                "start_index": 1,
+                "end_index": 34
+              },
+              "source_events": [
+                {
+                  "idx": 1,
+                  "token": "7D",
+                  "decoded": "「"
+                },
+                {
+                  "idx": 2,
+                  "token": "90",
+                  "decoded": "あ"
+                },
+                {
+                  "idx": 3,
+                  "token": "B7",
+                  "decoded": "り"
+                },
+                {
+                  "idx": 4,
+                  "token": "D0",
+                  "decoded": "が"
+                },
+                {
+                  "idx": 5,
+                  "token": "A3",
+                  "decoded": "と"
+                },
+                {
+                  "idx": 6,
+                  "token": "92",
+                  "decoded": "う"
+                },
+                {
+                  "idx": 7,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 8,
+                  "token": "D4",
+                  "decoded": "ご"
+                },
+                {
+                  "idx": 9,
+                  "token": "D8",
+                  "decoded": "ぜ"
+                },
+                {
+                  "idx": 10,
+                  "token": "93",
+                  "decoded": "え"
+                },
+                {
+                  "idx": 11,
+                  "token": "AE",
+                  "decoded": "ま"
+                },
+                {
+                  "idx": 12,
+                  "token": "9C",
+                  "decoded": "す"
+                },
+                {
+                  "idx": 13,
+                  "token": "DA",
+                  "decoded": "だ"
+                },
+                {
+                  "idx": 14,
+                  "token": "5C",
+                  "decoded": "!"
+                },
+                {
+                  "idx": 15,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 16,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 17,
+                  "token": "99",
+                  "decoded": "こ"
+                },
+                {
+                  "idx": 18,
+                  "token": "B9",
+                  "decoded": "れ"
+                },
+                {
+                  "idx": 19,
+                  "token": "95",
+                  "decoded": "か"
+                },
+                {
+                  "idx": 20,
+                  "token": "B6",
+                  "decoded": "ら"
+                },
+                {
+                  "idx": 21,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 22,
+                  "token": "1807",
+                  "decoded": "雪"
+                },
+                {
+                  "idx": 24,
+                  "token": "93",
+                  "decoded": "え"
+                },
+                {
+                  "idx": 25,
+                  "token": "97",
+                  "decoded": "く"
+                },
+                {
+                  "idx": 26,
+                  "token": "E2",
+                  "decoded": "ぼ"
+                },
+                {
+                  "idx": 27,
+                  "token": "A8",
+                  "decoded": "の"
+                },
+                {
+                  "idx": 28,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 29,
+                  "token": "96",
+                  "decoded": "き"
+                },
+                {
+                  "idx": 30,
+                  "token": "9D",
+                  "decoded": "せ"
+                },
+                {
+                  "idx": 31,
+                  "token": "A1",
+                  "decoded": "つ"
+                },
+                {
+                  "idx": 32,
+                  "token": "D6",
+                  "decoded": "じ"
+                },
+                {
+                  "idx": 33,
+                  "token": "F6",
+                  "decoded": "ゃ"
+                },
+                {
+                  "idx": 34,
+                  "token": "7E",
+                  "decoded": "」"
+                }
+              ],
+              "page_boundary": {
+                "basis": "quote_delimited_7D_7E_block",
+                "status": "strong_candidate",
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+              },
+              "advance": {
+                "required_between_pages": "candidate",
+                "input": null,
+                "status": "unresolved_static"
+              }
+            },
+            {
+              "page_index": 2,
+              "display_order": 2,
+              "page_text": "「お日さまの 光りを うけて\n 雪の 山はだが とけていきます\n 鬼の心も とけると よいですなあ」",
+              "lines": [
+                {
+                  "line_index": 1,
+                  "text": "「お日さまの 光りを うけて",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 2,
+                  "text": " 雪の 山はだが とけていきます",
+                  "line_break_after": true,
+                  "line_break_token": "0x01"
+                },
+                {
+                  "line_index": 3,
+                  "text": " 鬼の心も とけると よいですなあ」",
+                  "line_break_after": false,
+                  "line_break_token": null
+                }
+              ],
+              "line_count": 3,
+              "source_token_span": {
+                "start_index": 37,
+                "end_index": 92
+              },
+              "source_events": [
+                {
+                  "idx": 37,
+                  "token": "7D",
+                  "decoded": "「"
+                },
+                {
+                  "idx": 38,
+                  "token": "94",
+                  "decoded": "お"
+                },
+                {
+                  "idx": 39,
+                  "token": "1A03",
+                  "decoded": "日"
+                },
+                {
+                  "idx": 41,
+                  "token": "9A",
+                  "decoded": "さ"
+                },
+                {
+                  "idx": 42,
+                  "token": "AE",
+                  "decoded": "ま"
+                },
+                {
+                  "idx": 43,
+                  "token": "A8",
+                  "decoded": "の"
+                },
+                {
+                  "idx": 44,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 45,
+                  "token": "19E8",
+                  "decoded": "光"
+                },
+                {
+                  "idx": 47,
+                  "token": "B7",
+                  "decoded": "り"
+                },
+                {
+                  "idx": 48,
+                  "token": "BC",
+                  "decoded": "を"
+                },
+                {
+                  "idx": 49,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 50,
+                  "token": "92",
+                  "decoded": "う"
+                },
+                {
+                  "idx": 51,
+                  "token": "98",
+                  "decoded": "け"
+                },
+                {
+                  "idx": 52,
+                  "token": "A2",
+                  "decoded": "て"
+                },
+                {
+                  "idx": 53,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 54,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 55,
+                  "token": "1807",
+                  "decoded": "雪"
+                },
+                {
+                  "idx": 57,
+                  "token": "A8",
+                  "decoded": "の"
+                },
+                {
+                  "idx": 58,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 59,
+                  "token": "1889",
+                  "decoded": "山"
+                },
+                {
+                  "idx": 61,
+                  "token": "A9",
+                  "decoded": "は"
+                },
+                {
+                  "idx": 62,
+                  "token": "DA",
+                  "decoded": "だ"
+                },
+                {
+                  "idx": 63,
+                  "token": "D0",
+                  "decoded": "が"
+                },
+                {
+                  "idx": 64,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 65,
+                  "token": "A3",
+                  "decoded": "と"
+                },
+                {
+                  "idx": 66,
+                  "token": "98",
+                  "decoded": "け"
+                },
+                {
+                  "idx": 67,
+                  "token": "A2",
+                  "decoded": "て"
+                },
+                {
+                  "idx": 68,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 69,
+                  "token": "96",
+                  "decoded": "き"
+                },
+                {
+                  "idx": 70,
+                  "token": "AE",
+                  "decoded": "ま"
+                },
+                {
+                  "idx": 71,
+                  "token": "9C",
+                  "decoded": "す"
+                },
+                {
+                  "idx": 72,
+                  "token": "01",
+                  "decoded": "<NL>"
+                },
+                {
+                  "idx": 73,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 74,
+                  "token": "18DB",
+                  "decoded": "鬼"
+                },
+                {
+                  "idx": 76,
+                  "token": "A8",
+                  "decoded": "の"
+                },
+                {
+                  "idx": 77,
+                  "token": "1817",
+                  "decoded": "心"
+                },
+                {
+                  "idx": 79,
+                  "token": "B2",
+                  "decoded": "も"
+                },
+                {
+                  "idx": 80,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 81,
+                  "token": "A3",
+                  "decoded": "と"
+                },
+                {
+                  "idx": 82,
+                  "token": "98",
+                  "decoded": "け"
+                },
+                {
+                  "idx": 83,
+                  "token": "B8",
+                  "decoded": "る"
+                },
+                {
+                  "idx": 84,
+                  "token": "A3",
+                  "decoded": "と"
+                },
+                {
+                  "idx": 85,
+                  "token": "50",
+                  "decoded": " "
+                },
+                {
+                  "idx": 86,
+                  "token": "B5",
+                  "decoded": "よ"
+                },
+                {
+                  "idx": 87,
+                  "token": "91",
+                  "decoded": "い"
+                },
+                {
+                  "idx": 88,
+                  "token": "BE",
+                  "decoded": "で"
+                },
+                {
+                  "idx": 89,
+                  "token": "9C",
+                  "decoded": "す"
+                },
+                {
+                  "idx": 90,
+                  "token": "A4",
+                  "decoded": "な"
+                },
+                {
+                  "idx": 91,
+                  "token": "90",
+                  "decoded": "あ"
+                },
+                {
+                  "idx": 92,
+                  "token": "7E",
+                  "decoded": "」"
+                }
+              ],
+              "page_boundary": {
+                "basis": "quote_delimited_7D_7E_block",
+                "status": "strong_candidate",
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+              },
+              "advance": {
+                "required_between_pages": "no_next_page",
+                "input": null,
+                "status": "not_applicable"
+              }
+            }
+          ],
+          "choices": [],
+          "choice_status": "no_choice_control_identified_static",
+          "branch_target": {
+            "status": "event_continuation_unresolved",
+            "target": null
+          },
+          "termination": {
+            "text_record_end": "0x00",
+            "text_record_end_status": "confirmed_static",
+            "event_end_status": "unresolved_static"
+          },
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 0C then B2 0C exits selector chain; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+        },
+        {
+          "sequence_id": "cfg_t04_l008_v2:F50-L007:0x50:0x0D",
+          "variant_order": 2,
           "sequence_kind": "conditional_variant",
           "event": {
             "record_id": "F50-L007",
@@ -5319,11 +6716,12 @@
           "source": {
             "text_record_id": "0x50:0x0D",
             "text_pointer": "C8:AF18",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 76,
             "decoder_unknown_tokens": 1,
             "raw_tokens": "7D 18 96 A8 19 91 A9 50 18 14 A8 01 50 D7 F5 A3 50 18 11 A5 50 90 B7 AE 9C 5C 7E 01 01 7D 19 FB 9A BE 50 18 15 18 16 D0 50 92 DE BB B9 AE 9C 95 B6 01 50 96 DF DA BD D4 B3 50 02 C0 BC 50 9F 97 9A BD 01 50 19 93 F5 A2 50 BE 95 98 A2 02 C5 A7 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L007",
@@ -5331,10 +6729,31 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",
-            "status": "predicate_unresolved_static",
-            "source_variant_count": 2,
-            "guarded_selector_subform": "0x0C"
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",
+            "status": "confirmed_static_cfg",
+            "source_variant_count": 3,
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",
+            "condition_id": "common_false_flag0B_clear",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              },
+              {
+                "spec": "0x0B",
+                "wram": "$1247",
+                "bit": 3
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 enters secondary guard; B4 06 falls through to A4 0D; B2 04 skips A4 0E"
           },
           "pages": [
             {
@@ -5480,11 +6899,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -5757,11 +7176,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -5777,13 +7196,13 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1DD3 belongs to F50-L007; source selection 0x0D at CC:1DCC -> C8:AF18",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 39; exact token hash 25ee8300e26514128342e2b8472bcfac40145c00e75cdbf2a50552213f08c455"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 enters secondary guard; B4 06 falls through to A4 0D; B2 04 skips A4 0E; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L007:0x50:0x0E",
-          "variant_order": 2,
+          "variant_order": 3,
           "sequence_kind": "conditional_variant",
           "event": {
             "record_id": "F50-L007",
@@ -5793,11 +7212,12 @@
           "source": {
             "text_record_id": "0x50:0x0E",
             "text_pointer": "C8:AF58",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 55,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D DD 92 D9 5C 50 02 A0 9A BD 5C 01 50 AE DA AE DA 50 1A 01 A9 50 A4 D0 91 BE 9C 95 B6 A7 5C 7E 01 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L007",
@@ -5805,10 +7225,31 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",
-            "status": "predicate_unresolved_static",
-            "source_variant_count": 2,
-            "guarded_selector_subform": "0x0C"
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",
+            "status": "confirmed_static_cfg",
+            "source_variant_count": 3,
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",
+            "condition_id": "common_false_flag0B_set",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              },
+              {
+                "spec": "0x0B",
+                "wram": "$1247",
+                "bit": 3
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 enters secondary guard; B4 06 branches to A4 0E"
           },
           "pages": [
             {
@@ -5989,11 +7430,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -6009,9 +7450,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1DD3 belongs to F50-L007; source selection 0x0E at CC:1DD0 -> C8:AF58",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 40; exact token hash 44cae582cdd08b1865d6f0d70cdd2f4f192de1298f356d26658a6041ea4e0126"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 enters secondary guard; B4 06 branches to A4 0E; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -6039,11 +7480,12 @@
           "source": {
             "text_record_id": "0x50:0x0F",
             "text_pointer": "C8:AF71",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 42,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 18 06 18 01 18 02 A8 50 18 10 A8 18 14 A5 A9 01 50 18 DB B2 50 91 A4 91 9E 92 BE 9C 5C 7E 01 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L008",
@@ -6051,10 +7493,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+            "condition_id": "common_true",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 fallthrough selects A4 0F"
           },
           "pages": [
             {
@@ -6210,11 +7668,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -6230,9 +7688,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1DF1 belongs to F50-L008; source selection 0x0F at CC:1DEA -> C8:AF71",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 41; exact token hash 2a83f06f2ac29cbee03ff9be798bacf7f677db27d1cf8107c67522b9473a85c9"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 fallthrough selects A4 0F; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L008:0x50:0x10",
@@ -6246,11 +7704,12 @@
           "source": {
             "text_record_id": "0x50:0x10",
             "text_pointer": "C8:AF88",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "confirmed_static_direct_decode",
             "decoder_score": 98,
             "decoder_unknown_tokens": 0,
             "raw_tokens": "7D 99 99 95 B6 50 D7 F5 A3 50 D7 F5 A3 01 50 18 12 A5 50 18 4B F5 A2 19 BF 97 A3 01 50 19 A4 19 A5 A8 19 A6 D0 50 90 B8 BD D6 F6 5C 7E 01 7D 19 A6 A9 50 18 40 96 91 5C 01 50 D8 BD E0 18 B0 A2 50 1A 11 97 DA 98 BE 01 50 53 1A 03 A9 50 95 95 B7 AE 9C D9 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L008",
@@ -6258,10 +7717,26 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "multiple source selections in event record; exact branch predicate unresolved",
-            "status": "predicate_unresolved_static",
+            "description": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "status": "confirmed_static_cfg",
             "source_variant_count": 2,
-            "guarded_selector_subform": null
+            "expression": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+            "condition_id": "common_false",
+            "common_predicate": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))",
+            "flag_tests": [
+              {
+                "spec": "0x65",
+                "wram": "$1252",
+                "bit": 5
+              }
+            ],
+            "relation_test": {
+              "key": "0x90",
+              "subkey": "0x00",
+              "resolver": "80:DA57",
+              "semantic_identity": "unresolved_relation_key"
+            },
+            "branch_path": "B3 06 branch selects A4 10"
           },
           "pages": [
             {
@@ -6493,11 +7968,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -6710,11 +8185,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -6730,9 +8205,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1DF1 belongs to F50-L008; source selection 0x10 at CC:1DEE -> C8:AF88",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 42; exact token hash ff65c9813dd4b8dc945a112beaa034cdff65074ec15cf46aecff15bb40fc6c22"
+          "confidence": "confirmed_static",
+          "evidence": "B3 06 branch selects A4 10; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -6760,11 +8235,12 @@
           "source": {
             "text_record_id": "0x50:0x11",
             "text_pointer": "C8:AFCC",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": 109,
             "decoder_unknown_tokens": 3,
             "raw_tokens": "7D 19 A4 19 A5 A8 19 A6 A5 A9 50 B1 D7 B6 9B 91 01 50 94 19 C1 D0 50 91 F5 E3 91 01 50 90 B8 F5 A2 50 92 BB 9A BE 9C B5 5C 7E 01 7D 04 DA 91 99 BD 03 BC 50 A1 98 B2 A8 9B A2 97 B9 9F B7 01 50 97 D6 BC 50 AA 91 A2 50 94 18 03 D0 01 50 B2 B6 93 B8 A3 99 BA D0 50 90 F5 9F B7 5C 7E 01 7D AD 95 A5 50 DD BD A4 50 94 19 C1 D0 01 50 90 B8 BD BE 9B F8 92 A7 5C 01 50 02 C9 B2 50 18 80 18 49 19 BF F5 A2 AF 9F 91 A4 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L009",
@@ -6772,10 +8248,15 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "single validated source selection",
-            "status": "no_alternative_source_detected_in_record",
+            "description": "always_for_record_entry",
+            "status": "confirmed_static_single_path",
             "source_variant_count": 1,
-            "guarded_selector_subform": null
+            "expression": "always_for_record_entry",
+            "condition_id": "always",
+            "common_predicate": null,
+            "flag_tests": [],
+            "relation_test": null,
+            "branch_path": "single source selection"
           },
           "pages": [
             {
@@ -7002,11 +8483,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -7289,11 +8770,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -7526,11 +9007,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -7546,9 +9027,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1E02 belongs to F50-L009; source selection 0x11 at CC:1DFF -> C8:AFCC",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 43; exact token hash f1a2fa9b93dddfb4728208e83bad862b23bf6f400bb0e2cd790448b6a61b8944"
+          "confidence": "confirmed_static",
+          "evidence": "single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -7576,11 +9057,12 @@
           "source": {
             "text_record_id": "0x50:0x12",
             "text_pointer": "C8:B036",
-            "decode_status": "strong_dialogue_historical",
+            "decode_status": "direct_decode_with_unknown_tokens",
             "decoder_score": -34,
             "decoder_unknown_tokens": 3,
             "raw_tokens": "7D 50 50 50 50 92 50 50 50 50 50 50 50 50 19 32 50 01 50 50 50 50 50 50 50 50 50 50 50 50 5C 01 50 90 50 50 50 50 50 AE D0 50 50 50 50 50 50 B8 7E 01 7D 02 A0 9A BD 5C 50 96 99 93 A7 93 DA 95 5B 01 50 B2 92 18 80 18 49 50 18 1A 9C DA A4 7E 01 01 7D 18 80 1A 03 D6 F7 92 50 AE 9B B6 A5 50 99 A8 19 32 BC 01 50 96 95 9A B9 A2 50 91 B8 A8 BE 9C 5C 01 50 90 90 5C 50 90 9F AE D0 50 04 D0 BD D0 BD 03 9C B8 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "canonical_direct_family50"
           },
           "speaker": {
             "actor_record_id": "F50-L010",
@@ -7588,10 +9070,15 @@
             "status": "actor_bound_speaker_identity_unresolved"
           },
           "condition": {
-            "description": "single validated source selection",
-            "status": "no_alternative_source_detected_in_record",
+            "description": "always_for_record_entry",
+            "status": "confirmed_static_single_path",
             "source_variant_count": 1,
-            "guarded_selector_subform": null
+            "expression": "always_for_record_entry",
+            "condition_id": "always",
+            "common_predicate": null,
+            "flag_tests": [],
+            "relation_test": null,
+            "branch_path": "single source selection"
           },
           "pages": [
             {
@@ -7868,11 +9355,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -8034,11 +9521,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -8326,11 +9813,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }
@@ -8346,9 +9833,9 @@
             "text_record_end_status": "confirmed_static",
             "event_end_status": "unresolved_static"
           },
-          "confidence": "strong_candidate",
-          "evidence": "opcode59 controller CC:1E13 belongs to F50-L010; source selection 0x12 at CC:1E10 -> C8:B036",
-          "provenance": "data/csv/shinmomo_v33_test_C8_A7DD.csv row 44; exact token hash fef9f958df41b286dd1d5d49058951af5bc13a8d2885e8cee0090a59109277f9"
+          "confidence": "confirmed_static",
+          "evidence": "single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
         }
       ]
     },
@@ -8380,7 +9867,8 @@
             "decoder_score": 103,
             "decoder_unknown_tokens": 1,
             "raw_tokens": "7D 02 A0 5C 50 18 50 18 51 A8 50 9E 92 DF BC 01 50 A3 A3 A8 93 9F 95 5B 01 50 18 50 18 51 A9 50 18 4C B2 50 9E 92 DF BE 96 B8 5C 7E 01 7D 18 50 18 51 A8 50 9E 92 DF A9 50 1A 59 1A 5F 9B DA 5C 01 50 A9 A0 AE 96 A3 50 BB B6 D6 A9 01 50 02 A0 A3 50 91 F5 9B F8 DA D0 A4 5C 7E 00",
-            "record_terminator": "0x00"
+            "record_terminator": "0x00",
+            "decode_provenance": "historical_exact_token_overlay"
           },
           "speaker": {
             "actor_record_id": "F4F-L001",
@@ -8391,7 +9879,12 @@
             "description": "single validated source selection",
             "status": "no_alternative_source_detected_in_record",
             "source_variant_count": 1,
-            "guarded_selector_subform": null
+            "expression": null,
+            "condition_id": null,
+            "common_predicate": null,
+            "flag_tests": [],
+            "relation_test": null,
+            "branch_path": null
           },
           "pages": [
             {
@@ -8618,11 +10111,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "candidate",
-                "input": "unknown",
+                "input": null,
                 "status": "unresolved_static"
               }
             },
@@ -8865,11 +10358,11 @@
               "page_boundary": {
                 "basis": "quote_delimited_7D_7E_block",
                 "status": "strong_candidate",
-                "evidence": "decoded F50 quote blocks align to <=3 display lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
-                "input": "unknown",
+                "input": null,
                 "status": "not_applicable"
               }
             }

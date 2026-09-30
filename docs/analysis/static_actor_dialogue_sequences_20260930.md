@@ -4,70 +4,95 @@ Updated: 2026-09-30
 
 ## Purpose
 
-This layer exists for the HTML viewer playback path:
+This layer is the machine-readable playback path for the HTML viewer:
 
-`actor click -> event -> conditional dialogue sequence -> page 1 -> page 2 -> ...`
+`actor click -> event -> condition variant -> dialogue sequence -> page 1 -> page 2 -> ...`
 
-It does not replace `static_actor_event_dialogue_binding_20260930.csv`. It adds the display-order/page layer keyed by actor/event/text pointer.
+It extends, rather than replaces, the actor/event/source binding layer.
 
-## Confirmed ROM/source facts
+## Family 0x50 canonical direct decode
 
-- `0x00` terminates the decoded logical text record.
-- `0x01` is an explicit in-record line break.
-- `0x7D` / `0x7E` decode as literal `「` / `」` glyphs.
-- text source pointer and event source-selection callsite remain separate fields.
+Family 0x50 is mode 2. Its master entry is `C8:ABC4`; the mode byte occupies the root byte and the fresh BD98 stream starts at `C8:ABC5`.
 
-## Strong page-boundary candidate
+A canonical-ROM direct chain from `C8:ABC5 / bitcnt=0 / bitbuf=0` decodes subindices `0x00..0x12` continuously. All 19 logical records terminate cleanly at `0x00`.
 
-For the recovered family-0x50 dialogue corpus, every quote-delimited `0x7D ... 0x7E` block is at most three explicit lines.
+This closes the previous F50-L001 gap and also recovers the two conditionally reachable source records `0x07` (`C8:AD3D`) and `0x0C` (`C8:AED1`) that the older A4-pair callsite catalog did not emit.
 
-Current recovered F50 coverage:
+Machine evidence:
+- `data/dialogue/family50_canonical_direct_decode_20260930.csv`
+- canonical ROM SHA-256: `F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98`
 
-- 10 static actors.
-- 17 event-source variants.
-- 16 variants have historical exact-token decode evidence.
-- 32 quote-delimited display-page candidates.
-- maximum recovered page height: 3 lines.
-- zero recovered F50 page candidates exceed 3 lines.
+## Confirmed condition VM grammar
 
-Long dialogue records split naturally into multiple quote-delimited blocks instead of one long text blob. This is strong evidence that these blocks are useful game-window page units for HTML playback.
+The existing upper-range VM proof is reused:
 
-This is still intentionally labeled `strong_candidate`, not `confirmed_static`, because `0x7D/0x7E` themselves are visible quote glyphs and the exact input-wait routine between blocks has not yet been statically linked.
+- `A3 xx`: state/flag bit test, pushes boolean.
+- `B2 rel8`: unconditional relative branch.
+- `B3 rel8`: branch on zero.
+- `B4 rel8`: branch on nonzero.
+- `E1`: boolean zero-test.
+- `E7`: boolean conjunction with the previously stacked operand.
 
-## Button advance
+For F50-L002..L008, the common prefix is:
 
-No ROM-side A/B/button wait handler has yet been closed to the quote-block boundary.
+`A3 65 21 90 80 E1 E7 B3 06`
 
-Therefore:
+`A3 65` resolves to WRAM `$1252 bit5`.
 
-- page ordering is preserved;
-- a possible advance between pages is represented;
-- the actual input and wait semantics are `unresolved_static`.
+Opcode `21 90 80` temporarily uses relation key `$1923=0x90`, subkey/type `$1924=0x00`, and the already analysed `80:DA57` relation-to-entity resolver. `E1` zero-tests that condition result and `E7` ANDs it with the `A3 65` flag result.
 
-The HTML viewer may use these page candidates for playback, but should keep the distinction between reproduced presentation and confirmed controller semantics.
+The exact semantic identity of relation key `0x90` remains unresolved. It must not be labelled as a specific character merely from dialogue context.
 
-## Conditions and branches
+The machine expression is therefore:
 
-Multiple source selections in one actor event record are kept as separate sequence variants.
+`and(flag_test(spec=0x65,wram=$1252,bit=5), zero_test(relation_resolver_condition(key=0x90,subkey=0x00)))`
 
-They are **not** concatenated.
+## Three-way records
 
-For F50 records using the `A4 xx / B2 dd / A4 yy` form, the static evidence supports conditional selector structure, but the predicate meaning is still unresolved. The JSON therefore carries `predicate_unresolved_static` instead of inventing story/item/party semantics.
+F50-L005 and F50-L007 contain a second guard:
 
-F50-L005 and F50-L007 also retain the known guarded selector subforms `0x07` and `0x0C`.
+`A3 0B B4 06`
 
-## Speaker / choices / event continuation
+`A3 0B` resolves to WRAM `$1247 bit3`.
 
-The actor is bound to the event record, but current evidence does not prove a human-readable speaker name for each source. Speaker identity is retained as `actor_bound_speaker_identity_unresolved`.
+F50-L005:
+- common predicate != 0 -> source `0x07`
+- common predicate == 0 and `$1247 bit3 == 0` -> `0x08`
+- common predicate == 0 and `$1247 bit3 != 0` -> `0x09`
 
-No choice/menu control has been proven in these recovered source records. Empty `choices` means “not identified statically”, not “the game can never branch here”.
+F50-L007:
+- common predicate != 0 -> source `0x0C`
+- common predicate == 0 and `$1247 bit3 == 0` -> `0x0D`
+- common predicate == 0 and `$1247 bit3 != 0` -> `0x0E`
 
-The logical text record ends at `0x00`; what the event VM does after dialogue return remains a separate unresolved event-continuation field.
+These variants are kept separately in `static_actor_dialogue_conditions_20260930.csv` and in the sequence JSON.
 
-## Outputs
+## Current F50 playback coverage
 
-- `data/npc_display/static_actor_dialogue_sequences_20260930.json`
-- `data/npc_display/static_actor_dialogue_sequence_pages_20260930.csv`
-- `tools/python/build_static_actor_dialogue_sequences.py`
+- static actors: 10 / 10
+- source/sequence variants: 19
+- canonical-direct decoded variants: 19
+- display-page candidates: 36
+- maximum recovered page height: 3 lines
+- recovered pages over 3 lines: 0
+- actors with condition branching: 7
 
-These are machine-readable inputs for later `world.json` actor.event_refs / actor.dialogue_refs integration.
+The two hidden source variants add three pages total: one page for `0x07` and two pages for `0x0C`.
+
+## Page and input semantics
+
+Confirmed:
+- `0x00` logical text-record terminator
+- `0x01` explicit in-record line break
+- `0x7D` / `0x7E` literal `「` / `」`
+
+Strong candidate:
+- each quote-delimited `0x7D..0x7E` block is a display page. All 36 F50 blocks fit the observed three-line window shape.
+
+Still unresolved:
+- the exact controller-input routine that advances between pages
+- speaker display/name semantics
+- choice/menu control opcode
+- event continuation after the text record returns
+
+These remain separate status fields so the HTML viewer can reproduce page order without pretending the input semantics are already proven.

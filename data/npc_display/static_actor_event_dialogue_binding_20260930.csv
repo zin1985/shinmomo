@@ -188,52 +188,57 @@ cfg_t07_l033_v2,F4F-L001,0x3C,CC:1BC5,F4F-L001,C8:A7DD,C8:A7DD,CC:1BC2,0x4F:0x00
 「銀次の そうびは 着流しだ!
  はちまきと わらじは
  桃太郎と いっしょだがな!」<00>",confirmed_dialogue,single validated source selection,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1BC5 belongs to F4F-L001; source selection 0x00 at CC:1BC2 -> C8:A7DD,data/csv/shinmomo_v33_scan_C8_A7D0_A960.csv row 26; exact token hash 78e95672383e5b1600ea5e6213fb07351cffb28c859fa3f8cd7e052dc547ab6b
-cfg_t04_l008_v2,F50-L001,0x40,CC:1D0F,F50-L001,C8:ABC5,C8:ABC5,CC:1D0C,0x50:0x00,C8:ABC5,,not_decoded_or_no_historical_match,single validated source selection,actor_to_event_source_static,candidate,opcode59 controller CC:1D0F belongs to F50-L001; source selection 0x00 at CC:1D0C -> C8:ABC5,event_record_frame_catalog + event_source_crosslink
+cfg_t04_l008_v2,F50-L001,0x40,CC:1D0F,F50-L001,C8:ABC5,C8:ABC5,CC:1D0C,0x50:0x00,C8:ABC5,"「改心した えんま様が
+ 鬼たちの あいだで ひょうばんが
+ よくないなんて! 信じられん!」<00>",confirmed_static_direct_decode,always_for_record_entry,actor_to_event_dialogue_static_cfg,confirmed_static,"single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L002,0x24,CC:1D2D,F50-L002,C8:ABEF,C8:ABEF,CC:1D26,0x50:0x01,C8:ABEF,"「銀次さんは 一度に 4本の
  包丁を あつかえるんですね!」
 
 「どの包丁を えらぶか!
  料理人の 腕の
- 見せどころですね!」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D2D belongs to F50-L002; source selection 0x01 at CC:1D26 -> C8:ABEF,data/csv/shinmomo_v33_test_C8_A7DD.csv row 27; exact token hash 9d0770ae92a2095a5935ac72a8950233b39ff68eb301a66e41dec96fc1785b0a
+ 見せどころですね!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 01; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L002,0x24,CC:1D2D,F50-L002,C8:AC2F,C8:AC2F,CC:1D2A,0x50:0x02,C8:AC2F,"「浦島さんは 天の仙人さまに
  呼ばれて 出かけたけど
  呼びにきた人は あやしかったわ!」
 「浦島さんは
  人が いいから
- 大丈夫かしらね{5B}」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D2D belongs to F50-L002; source selection 0x02 at CC:1D2A -> C8:AC2F,data/csv/shinmomo_v33_test_C8_A7DD.csv row 28; exact token hash 22e194b66137afff01ccd16a107779b693e7ef22b49a7c813663ea7143332329
+ 大丈夫かしらね{5B}」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 02; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L003,0x59,CC:1D4B,F50-L003,C8:AC73,C8:AC73,CC:1D44,0x50:0x03,C8:AC73,"「まあ 浦島さん!
  桃太郎さんと あえて
  よかったですね!」
 「これは つまらないものだけど
  鬼たいじに 役立てて{02C5}ね!」
-<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D4B belongs to F50-L003; source selection 0x03 at CC:1D44 -> C8:AC73,data/csv/shinmomo_v33_test_C8_A7DD.csv row 29; exact token hash 42a6e3db3e352aac3f7a964ccf7d7fbb372f5b6e9bd272e04306833b2b4b8bb4
+<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 03; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L003,0x59,CC:1D4B,F50-L003,C8:ACA8,C8:ACA8,CC:1D48,0x50:0x04,C8:ACA8,"「乙姫さまは 海の ように
  心の ひろい おかたです!
- どうか 鬼から お守り{02C5}」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D4B belongs to F50-L003; source selection 0x04 at CC:1D48 -> C8:ACA8,data/csv/shinmomo_v33_test_C8_A7DD.csv row 30; exact token hash 2d3548ff7386af14c2b390cb8e676d6e56ac5fcad65ead8e0b613370a4dd8d71
+ どうか 鬼から お守り{02C5}」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 04; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L004,0x59,CC:1D69,F50-L004,C8:ACCE,C8:ACCE,CC:1D62,0x50:0x05,C8:ACCE,"「村のみんなは 浦島さんが 好き!
  自分よりも ほかの人を
- しんぱいする 人だから!」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D69 belongs to F50-L004; source selection 0x05 at CC:1D62 -> C8:ACCE,data/csv/shinmomo_v33_test_C8_A7DD.csv row 31; exact token hash 5458bcb82cdeff596033275ec65bb1d667e61c59d2f1be584e315c8e8e6e9fa7
+ しんぱいする 人だから!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 05; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L004,0x59,CC:1D69,F50-L004,C8:ACF8,C8:ACF8,CC:1D66,0x50:0x06,C8:ACF8,"「この村は 養老の滝の おかげで
  みんな いつも 元気なんだよ!」
 
 「でも このまま 滝が
  枯れたままだと みんな
- 漁に 出れなくなっちゃうよー!」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D69 belongs to F50-L004; source selection 0x06 at CC:1D66 -> C8:ACF8,data/csv/shinmomo_v33_test_C8_A7DD.csv row 32; exact token hash 6881c726e12b09ee2fa5aef21a2df35c3c560b71429cbe9655091a4950c395bd
+ 漁に 出れなくなっちゃうよー!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 06; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
+cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD3D,C8:AD3D,CC:1D80,0x50:0x07,C8:AD3D,"「桃太郎さん! 浦島さんは
+ 体 弱いって いわれてるけど
+ {04}もり{03}の うまさは 村いちばんだよ」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 07 then B2 0C exits selector chain; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD66,C8:AD66,CC:1D88,0x50:0x08,C8:AD66,"「浦島さん! 鬼たいじ 終ったら
  魚の じょうずな 取り方
- おしえて ちょうだいね!」<00>",strong_dialogue_historical,"multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D8F belongs to F50-L005; source selection 0x08 at CC:1D88 -> C8:AD66,data/csv/shinmomo_v33_test_C8_A7DD.csv row 34; exact token hash 9fb6bcd8efb0175f1eec54e2a0709a750f9ef6197f236a2e87c90bc396f68d15
+ おしえて ちょうだいね!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 falls through to A4 08; B2 04 skips A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD8F,C8:AD8F,CC:1D8C,0x50:0x09,C8:AD8F,"「あれー! 浦島さん いないの{5B}
  はやく 魚の 取り方
  おしえて ほしいなあ!」
 「鬼たいじ 終ったら
  おしえてくれるって
- やくそく したんだよ!」<00>",strong_dialogue_historical,"multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",actor_to_event_source_static,strong_candidate,opcode59 controller CC:1D8F belongs to F50-L005; source selection 0x09 at CC:1D8C -> C8:AD8F,data/csv/shinmomo_v33_test_C8_A7DD.csv row 35; exact token hash 15aea0d047319f1b2ee1432911a6e38865e275ea3f149b23fcda6039e72aa624
+ やくそく したんだよ!」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 branches to A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L006,0x40,CC:1DAD,F50-L006,C8:ADCF,C8:ADCF,CC:1DA6,0x50:0x0A,C8:ADCF,"「梅というのは ぜんぶで
  300しゅるいも あるそうじゃな」
 
 「人間と 鬼で 2しゅるい! ならば
  人間も 鬼も いきもの という
- ひとつの名で よいではないか…」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1DAD belongs to F50-L006; source selection 0x0A at CC:1DA6 -> C8:ADCF,data/csv/shinmomo_v33_test_C8_A7DD.csv row 36; exact token hash 28d769fea8def6f98357a344c5214736d3293dddcdf271bdaa269e41241ba8db
+ ひとつの名で よいではないか…」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 0A; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L006,0x40,CC:1DAD,F50-L006,C8:AE18,C8:AE18,CC:1DAA,0x50:0x0B,C8:AE18,"「寝太郎のことか{5B} また
  3年も ねむりよってな!」
 
@@ -248,25 +253,31 @@ cfg_t04_l008_v2,F50-L006,0x40,CC:1DAD,F50-L006,C8:AE18,C8:AE18,CC:1DAA,0x50:0x0B
  とけてしまったとな!」
 「安心せい! いまは しこめ様が
  氷室のきんちゃくに
- 入れてくださるはずじゃ!」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1DAD belongs to F50-L006; source selection 0x0B at CC:1DAA -> C8:AE18,data/csv/shinmomo_v33_test_C8_A7DD.csv row 37; exact token hash 871a0a26ec11c9cb99b5b36ee0ad84d94398c614a94b479ad89acba39d063b4b
+ 入れてくださるはずじゃ!」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 0B; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
+cfg_t04_l008_v2,F50-L007,0x27,CC:1DD3,F50-L007,C8:AED1,C8:AED1,CC:1DC4,0x50:0x0C,C8:AED1,"「ありがとう ごぜえますだ!
+ これから 雪えくぼの きせつじゃ」
+
+「お日さまの 光りを うけて
+ 雪の 山はだが とけていきます
+ 鬼の心も とけると よいですなあ」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 0C then B2 0C exits selector chain; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L007,0x27,CC:1DD3,F50-L007,C8:AF18,C8:AF18,CC:1DCC,0x50:0x0D,C8:AF18,"「氷の塔は 村の
  ずっと 西に あります!」
 
 「寒さで 体力が うばわれますから
  きびだんごや おにぎりを たくさん
- 持って でかけて{02C5}ね!」<00>",strong_dialogue_historical,"multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",actor_to_event_source_static,strong_candidate,opcode59 controller CC:1DD3 belongs to F50-L007; source selection 0x0D at CC:1DCC -> C8:AF18,data/csv/shinmomo_v33_test_C8_A7DD.csv row 39; exact token hash 25ee8300e26514128342e2b8472bcfac40145c00e75cdbf2a50552213f08c455
+ 持って でかけて{02C5}ね!」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 falls through to A4 0D; B2 04 skips A4 0E; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L007,0x27,CC:1DD3,F50-L007,C8:AF58,C8:AF58,CC:1DD0,0x50:0x0E,C8:AF58,"「どうぞ! 桃太郎さん!
  まだまだ 先は ながいですからね!」
-<00>",strong_dialogue_historical,"multiple source selections in event record; exact branch predicate unresolved; guarded alternate-selection subform also present, semantics unresolved",actor_to_event_source_static,strong_candidate,opcode59 controller CC:1DD3 belongs to F50-L007; source selection 0x0E at CC:1DD0 -> C8:AF58,data/csv/shinmomo_v33_test_C8_A7DD.csv row 40; exact token hash 44cae582cdd08b1865d6f0d70cdd2f4f192de1298f356d26658a6041ea4e0126
+<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 branches to A4 0E; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L008,0x25,CC:1DF1,F50-L008,C8:AF71,C8:AF71,CC:1DEA,0x50:0x0F,C8:AF71,"「寝太郎の 東の村には
  鬼も いないそうです!」
-<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1DF1 belongs to F50-L008; source selection 0x0F at CC:1DEA -> C8:AF71,data/csv/shinmomo_v33_test_C8_A7DD.csv row 41; exact token hash 2a83f06f2ac29cbee03ff9be798bacf7f677db27d1cf8107c67522b9473a85c9
+<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 0F; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L008,0x25,CC:1DF1,F50-L008,C8:AF88,C8:AF88,CC:1DEE,0x50:0x10,C8:AF88,"「ここから ずっと ずっと
  南に 下って行くと
  希望の都が あるんじゃ!」
 「都は 大きい!
  ぜんぶ見て 歩くだけで
- 2日は かかりますぞ!」<00>",strong_dialogue_historical,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1DF1 belongs to F50-L008; source selection 0x10 at CC:1DEE -> C8:AF88,data/csv/shinmomo_v33_test_C8_A7DD.csv row 42; exact token hash ff65c9813dd4b8dc945a112beaa034cdff65074ec15cf46aecff15bb40fc6c22
+ 2日は かかりますぞ!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 10; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L009,0x5B,CC:1E02,F50-L009,C8:AFCC,C8:AFCC,CC:1DFF,0x50:0x11,C8:AFCC,"「希望の都には めずらしい
  お店が いっぱい
  あるって うわさですよ!」
@@ -275,7 +286,7 @@ cfg_t04_l008_v2,F50-L009,0x5B,CC:1E02,F50-L009,C8:AFCC,C8:AFCC,CC:1DFF,0x50:0x11
  もらえるところが あったり!」
 「ほかに どんな お店が
  あるんでしょうね!
- {02C9}も 一度行ってみたいな!」<00>",strong_dialogue_historical,single validated source selection,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1E02 belongs to F50-L009; source selection 0x11 at CC:1DFF -> C8:AFCC,data/csv/shinmomo_v33_test_C8_A7DD.csv row 43; exact token hash f1a2fa9b93dddfb4728208e83bad862b23bf6f400bb0e2cd790448b6a61b8944
+ {02C9}も 一度行ってみたいな!」<00>",direct_decode_with_unknown_tokens,always_for_record_entry,actor_to_event_dialogue_static_cfg,confirmed_static,"single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2,F50-L010,0x13,CC:1E13,F50-L010,C8:B036,C8:B036,CC:1E10,0x50:0x12,C8:B036,"「    う        歌 
             !
  あ     まが      る」
@@ -284,7 +295,7 @@ cfg_t04_l008_v2,F50-L010,0x13,CC:1E13,F50-L010,C8:B036,C8:B036,CC:1E10,0x50:0x12
 
 「一日じゅう ましらに この歌を
  きかされて いるのです!
- ああ! あたまが {04}がんがん{03}する」<00>",strong_dialogue_historical,single validated source selection,actor_to_event_source_static,strong_candidate,opcode59 controller CC:1E13 belongs to F50-L010; source selection 0x12 at CC:1E10 -> C8:B036,data/csv/shinmomo_v33_test_C8_A7DD.csv row 44; exact token hash fef9f958df41b286dd1d5d49058951af5bc13a8d2885e8cee0090a59109277f9
+ ああ! あたまが {04}がんがん{03}する」<00>",direct_decode_with_unknown_tokens,always_for_record_entry,actor_to_event_dialogue_static_cfg,confirmed_static,"single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t07_l009_v2,F51-L001,0x5A,CC:1F6A,F51-L001,C8:B1D6,C8:B1D6,CC:1F67,0x51:0x00,C8:B1D6,,not_decoded_or_no_historical_match,single validated source selection,actor_to_event_source_static,candidate,opcode59 controller CC:1F6A belongs to F51-L001; source selection 0x00 at CC:1F67 -> C8:B1D6,event_record_frame_catalog + event_source_crosslink
 cfg_t07_l009_v2,F51-L002,0x59,CC:1F7F,F51-L002,C8:B200,C8:B200,CC:1F7C,0x51:0x01,C8:B200,,not_decoded_or_no_historical_match,single validated source selection,actor_to_event_source_static,candidate,opcode59 controller CC:1F7F belongs to F51-L002; source selection 0x01 at CC:1F7C -> C8:B200,event_record_frame_catalog + event_source_crosslink
 cfg_t07_l009_v2,F51-L003,0x5B,CC:1FB2,F51-L003,C8:B265,C8:B265,CC:1FAB,0x51:0x04,C8:B265,,not_decoded_or_no_historical_match,multiple source selections in event record; exact branch predicate unresolved,actor_to_event_source_static,candidate,opcode59 controller CC:1FB2 belongs to F51-L003; source selection 0x04 at CC:1FAB -> C8:B265,event_record_frame_catalog + event_source_crosslink
