@@ -174,3 +174,32 @@ blank cells. This is why semantic identity must be keyed by selector, not only b
    evidence rather than dialogue guesses.
 4. Merge the separate logical-actor path ($1569 IDs) and special 9-byte object-preset path
    into the same selector-centric actor catalog.
+
+## Promoted actor semantic output
+
+The later actor-bound dialogue CFG work closes all ten opcode-0x59 actors in the
+旅立ちの村 pack/config at speaker-record level. F50-L001 and F50-L010 are no
+longer left semantically unknown: both have direct actor-bound decoded dialogue,
+and all F50-L001..L010 are now conservatively promoted to `villager` with high
+confidence.
+
+This promotion proves that they are speaking village NPC actors. It does not
+infer an occupation or named identity from dialogue wording alone.
+
+Across the full 817-row static opcode-0x59 actor corpus, the generated semantic
+layer now has:
+
+- 10 high-confidence `villager` rows (旅立ちの村 F50-L001..L010)
+- 36 high-confidence `animal` rows
+- 4 `effect` candidates from object/plant-effect visual classes
+- 12 monster/small-creature rows retained as `unknown` candidates because enemy allegiance is not proven
+- 755 rows remaining fully unknown
+
+The generated per-actor output is
+`data/npc_display/static_actor_sprite_semantics_20260930.csv`.
+
+The HTML viewer loads `viewer/data/actor_semantics.json` as a small semantic
+override layer. This lets semantic-only improvements reach the viewer without
+rewriting the multi-megabyte `world.json` every time. The canonical build
+pipeline can still regenerate embedded `sprite_semantics` through
+`tools/python/build_structural_world_viewer.py`.

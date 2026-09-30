@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import csv, collections
+
+ROOT = Path(__file__).resolve().parents[2]
+NPC = ROOT / "data/npc_display"
+
+def read_csv(path):
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+actors = read_csv(NPC / "static_map_actor_selector_crosslink_20260930.csv")
+candidates = read_csv(NPC / "static_map_actor_semantic_candidates_20260930.csv")
+bindings = read_csv(NPC / "static_actor_event_dialogue_binding_20260930.csv")
+
+cand_by_key = {(r["config_id"], r["record_id"], r["selector_hex"]): r for r in candidates}
+dialogue_by_key = collections.defaultdict(list)
+for r in bindings:
+    dialogue_by_key[(r["config_id"], r["record_id"], r["selector_hex"])].append(r)
+
+out = []
+for actor in actors:
+    key = (actor["config_id"], actor["record_id"], actor["selector_hex"])
+    c = cand_by_key.get(key, {})
+    decoded = [x for x in dialogue_by_key.get(key, []) if x.get("decoded_text")]
+    form, detail = c.get("visual_form", ""), c.get("visual_detail", "")
+
+    role, confidence, evidence = "unknown", "unknown", "no semantic evidence joined"
+
+    if form == "animal_like":
+        role, confidence = "animal", "high"
+        evidence = f"visual classification={form}; {detail}; static opcode59 map binding"
+    elif form == "object_like":
+        role, confidence = "effect", "candidate"
+        evidence = f"object-like static actor; {detail}; gameplay role not yet proven"
+    elif form == "plant_or_effect_like":
+        role, confidence = "effect", "candidate"
+        evidence = f"plant/effect-like static actor; {detail}; gameplay role not yet proven"
+    elif form in ("monster_like", "small_creature_like"):
+        confidence = "candidate"
+        evidence = f"{form}; {detail}; enemy allegiance not proven"
+
+    if actor["config_id"] == "cfg_t04_l008_v2" and actor["record_id"].startswith("F50-L") and decoded:
+        role, confidence = "villager", "high"
+        evidence = (
+            f"旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)={len(decoded)}; "
+            f"speaker record={actor['record_id']}; visual={detail or form or 'unclassified'}; "
+            "finer occupation/name intentionally not inferred from dialogue alone"
+        )
+
+    out.append({
+        "config_id": actor["config_id"],
+        "record_id": actor["record_id"],
+        "selector_hex": actor["selector_hex"],
+        "semantic_role": role,
+        "character_name": "",
+        "appearance_class": detail or form,
+        "confidence": confidence,
+        "evidence": evidence,
+        "provenance": (
+            "static_map_actor_selector_crosslink_20260930.csv;"
+            "static_map_actor_semantic_candidates_20260930.csv;"
+            "static_actor_event_dialogue_binding_20260930.csv"
+        ),
+    })
+
+path = NPC / "static_actor_sprite_semantics_20260930.csv"
+with path.open("w", encoding="utf-8", newline="") as f:
+    w = csv.DictWriter(f, fieldnames=list(out[0].keys()))
+    w.writeheader()
+    w.writerows(out)
+
+print("rows", len(out))
+print("role_counts", dict(collections.Counter(r["semantic_role"] for r in out)))
+print(
+    "tabidachi",
+    [
+        (r["record_id"], r["selector_hex"], r["semantic_role"], r["confidence"])
+        for r in out
+        if r["config_id"] == "cfg_t04_l008_v2"
+    ],
+)

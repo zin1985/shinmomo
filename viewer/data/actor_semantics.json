@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "purpose": "semantic overrides applied by viewer without regenerating world.json",
+  "actor_overrides": [
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L001",
+      "selector_hex": "0x40",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "red-hat human figure",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=1; speaker record=F50-L001; visual=red-hat human figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L002",
+      "selector_hex": "0x24",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "red-hat elder-like figure",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L002; visual=red-hat elder-like figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L003",
+      "selector_hex": "0x59",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "purple-green human graphics alias",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L003; visual=purple-green human graphics alias; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L004",
+      "selector_hex": "0x59",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "purple-green human graphics alias",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L004; visual=purple-green human graphics alias; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L005",
+      "selector_hex": "0x5A",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "human graphics alias",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=3; speaker record=F50-L005; visual=human graphics alias; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L006",
+      "selector_hex": "0x40",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "red-hat human figure",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L006; visual=red-hat human figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L007",
+      "selector_hex": "0x27",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "hooded or white-haired figure",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=3; speaker record=F50-L007; visual=hooded or white-haired figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L008",
+      "selector_hex": "0x25",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "dark-haired human figure",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L008; visual=dark-haired human figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L009",
+      "selector_hex": "0x5B",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": "blue-haired or blue-hat human figure",
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=1; speaker record=F50-L009; visual=blue-haired or blue-hat human figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l008_v2",
+      "record_id": "F50-L010",
+      "selector_hex": "0x13",
+      "sprite_semantics": {
+        "semantic_role": "villager",
+        "character_name": null,
+        "appearance_class": null,
+        "confidence": "high",
+        "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=1; speaker record=F50-L010; visual=unclassified; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    }
+  ]
+}

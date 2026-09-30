@@ -2,7 +2,7 @@
 from pathlib import Path
 import csv,json,collections
 
-ROOT=Path(r'C:\Users\zin\Documents\GitHub\shinmomo')
+ROOT=Path(__file__).resolve().parents[2]
 dialogue=list(csv.DictReader(open(
     ROOT/'data/npc_display/static_map_actor_dialogue_crosslink_20260930.csv',
     encoding='utf-8-sig'

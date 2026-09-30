@@ -1,4 +1,15 @@
 const world=await fetch('./data/world.json').then(r=>r.json());
+const semanticOverrideDoc=await fetch('./data/actor_semantics.json').then(r=>r.ok?r.json():null).catch(()=>null);
+if(semanticOverrideDoc?.actor_overrides){
+  const semanticOverrideByKey=new Map(semanticOverrideDoc.actor_overrides.map(x=>[
+    [x.config_id,x.record_id,x.selector_hex].join('|'),x.sprite_semantics
+  ]));
+  for(const e of world.entities||[]){
+    if(e.entity_type!=='static_actor_candidate')continue;
+    const sem=semanticOverrideByKey.get([e.map_config_id,e.record_id,e.selector_hex].join('|'));
+    if(sem)e.sprite_semantics=sem;
+  }
+}
 const byId=new Map(world.maps.map(m=>[m.config_id,m]));
 const entityById=new Map(world.entities.map(e=>[e.entity_id,e]));
 const arrivalById=new Map((world.transition_arrivals||[]).map(a=>[a.arrival_id,a]));
@@ -122,6 +133,26 @@ function openDialogue(e){
     header.append(tag);
   }
 
+  const actorMeta=document.createElement('div'); actorMeta.className='dialogueMeta actorSpriteMeta';
+  const sem=e.sprite_semantics||{}, dir=e.directional_sprite||{};
+  const actorBits=[
+    e.record_id,e.selector_hex,
+    e.sprite_group!=null?'group '+e.sprite_group:null,
+    sem.semantic_role&&sem.semantic_role!=='unknown'?'role '+sem.semantic_role:null,
+    sem.confidence?'semantic '+sem.confidence:null,
+    dir.direction_binding_status||null,
+  ].filter(Boolean);
+  actorMeta.textContent=actorBits.join(' | ');
+  actorMeta.title=[
+    sem.appearance_class?'appearance: '+sem.appearance_class:null,
+    sem.character_name?'identity: '+sem.character_name:null,
+    dir.right_frames?'RIGHT '+dir.right_frames:null,
+    dir.front_frames?'FRONT '+dir.front_frames:null,
+    dir.left_frames?'LEFT '+dir.left_frames:null,
+    dir.back_frames?'BACK '+dir.back_frames:null,
+    dir.walk_animation?'walk '+dir.walk_animation:null,
+    sem.evidence?'semantic evidence: '+sem.evidence:null,
+  ].filter(Boolean).join('\n');
   const text=document.createElement('div'); text.className='dialogueText';
   const meta=document.createElement('div'); meta.className='dialogueMeta';
   const controls=document.createElement('div'); controls.className='dialogueControls';
@@ -130,7 +161,7 @@ function openDialogue(e){
   const close=document.createElement('button'); close.textContent='閉じる';
   const page=document.createElement('span'); page.className='dialoguePage';
   controls.append(prev,next,close,page);
-  win.append(header,text,meta,controls);
+  win.append(header,actorMeta,text,meta,controls);
   dialogueLayer.append(win);
 
   let branchIndex=sequences.findIndex(seq=>(seq.pages||[]).length);
