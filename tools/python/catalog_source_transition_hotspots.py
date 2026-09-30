@@ -262,6 +262,53 @@ def main() -> None:
                 ),
             })
 
+    native_path = root / "data/maps/transitions/tabidachi_south_boundary_to_world_20260930.json"
+    native = json.loads(native_path.read_text(encoding="utf-8"))
+    src = native["source"]
+    obs = native["transition_observation"]
+    if not (
+        src["config_id"] == "cfg_t04_l008_v2"
+        and src["pack_id_hex"] == "0x50"
+        and src["confirmed_hotspot"] == {"x": 28, "y": 55, "width": 1, "height": 1}
+        and src["first_out_of_bounds"] == {"x": 28, "y": 56}
+        and src["native_bounds"] == {"min_x": 9, "max_x": 70, "min_y": 8, "max_y": 55}
+        and obs["destination_pack_after"] == "0x4C"
+        and obs["destination_config_id"] == "cfg_t01_l001_v1"
+        and obs["destination_coordinate"] == [54, 237]
+        and native["confidence"] == "confirmed_runtime_and_static"
+    ):
+        raise SystemExit("Tabidachi native boundary fixture changed")
+
+    rows.append({
+        "hotspot_id": "hotspot_native_tabidachi_south_exit_x28_y55",
+        "source_config_id": "cfg_t04_l008_v2",
+        "source_grid_x": 28,
+        "source_grid_y": 55,
+        "source_width": 1,
+        "source_height": 1,
+        "hotspot_type": "native_boundary_saved_return_exit",
+        "trigger_type": "native_out_of_bounds_saved_state_restore",
+        "trigger_addr": "C1:8955",
+        "event_record": "",
+        "transition_id": "runtime_restore_cfg_t04_l008_v2_to_cfg_t01_l001_v1",
+        "destination_config_id": "cfg_t01_l001_v1",
+        "destination_x": 54,
+        "destination_y": 237,
+        "confidence": "confirmed_runtime_and_static",
+        "evidence": (
+            "runtime frame 16065 current=(28,55) with bounds X=9..70,Y=8..55; "
+            "Down reaches (28,56) at frame 16070; static C1:8943/81:81DD "
+            "classifies that coordinate out of bounds, C1:8955 calls 81:895A, "
+            "and C1:97BC/81:8244 restores saved map state; within the next "
+            "8 neutral frames pack 0x50->0x4C and current coordinate=(54,237)"
+        ),
+        "provenance": (
+            "data/maps/transitions/tabidachi_south_boundary_to_world_20260930.json;"
+            "data/maps/transitions/tabidachi_village_to_world_pack4c_restore_20260929.json;"
+            "C1:8943;81:81DD;C1:8955;81:895A;C1:97BC;81:8244;C1:8255"
+        ),
+    })
+
     rows.sort(key=lambda r: (r["source_config_id"], r["trigger_addr"]))
     if len({r["hotspot_id"] for r in rows}) != len(rows):
         raise SystemExit("duplicate hotspot ids")
@@ -285,7 +332,7 @@ def main() -> None:
     pack2e = next(r for r in rows if r["trigger_addr"] == "CC:1CDA")
 
     summary = {
-        "schema_version": 2,
+        "schema_version": 3,
         "kind": "source_transition_hotspot_catalog_summary",
         "canonical_rom_sha256": EXPECTED_SHA256,
         "generated_from_head": current_head(root),
@@ -302,7 +349,21 @@ def main() -> None:
         "hotspot_type_counts": dict(sorted(type_counts.items())),
         "source_config_counts": dict(sorted(source_counts.items())),
         "world_to_tabidachi_closed": True,
-        "tabidachi_to_world_source_hotspot_closed": False,
+        "tabidachi_to_world_source_hotspot_closed": True,
+        "tabidachi_to_world_source_hotspot": {
+            "source_grid_x": 28,
+            "source_grid_y": 55,
+            "source_width": 1,
+            "source_height": 1,
+            "first_out_of_bounds_x": 28,
+            "first_out_of_bounds_y": 56,
+            "native_bounds": {"min_x": 9, "max_x": 70, "min_y": 8, "max_y": 55},
+            "trigger_addr": "C1:8955",
+            "destination_config_id": "cfg_t01_l001_v1",
+            "destination_x": 54,
+            "destination_y": 237,
+            "status": "confirmed_runtime_and_static",
+        },
         "tabidachi_to_pack2e_hotspot": {
             "trigger_addr": pack2e["trigger_addr"],
             "source_grid_x": pack2e["source_grid_x"],
@@ -312,9 +373,10 @@ def main() -> None:
         },
         "pack2e_to_tabidachi_source_hotspot_closed": False,
         "scope": (
-            "Only exact opcode0x5D rectangle and opcode0x69 point predicates "
-            "from source packs whose pack/config relation is independently "
-            "runtime-anchored; no generic script_pack==source-map inference."
+            "Exact opcode0x5D rectangle and opcode0x69 point predicates from "
+            "independently runtime-anchored source packs, plus runtime+static "
+            "native boundary saved-return hotspots; no generic "
+            "script_pack==source-map inference."
         ),
     }
     (root / args.summary).write_text(

@@ -131,3 +131,38 @@ Destination-resolution counts are recorded in the generated summary JSON.
 - graphics/viewer_validation/world_to_tabidachi_source_hotspot.svg
 - graphics/viewer_validation/world_source_hotspots.svg
 - graphics/viewer_validation/tabidachi_source_hotspots.svg
+
+
+## Confirmed native south exit: 旅立ちの村 -> world
+
+A fresh Remote Lab reproduction closes one physical source cell for the reverse
+saved-state transition.
+
+~~~text
+cfg_t04_l008_v2 / pack 0x50
+native bounds: X=9..70, Y=8..55 inclusive
+
+frame 16065: current (28,55)
+Down
+frame 16070: current (28,56) = first out-of-bounds coordinate
+  -> C1:8943
+  -> 81:81DD
+  -> C1:8955 / 81:895A
+  -> C1:97BC / 81:8244
+  -> saved-state restore
+  -> pack 0x4C / cfg_t01_l001_v1
+  -> (54,237)
+~~~
+
+The atomic boundary capture is local-only:
+
+- capture id: `1790755314885-72f10d96`
+- SHA-256: `D8C58588012B1DDC1F8C87F6C32E688F7C8364C102602AC03099427657260097`
+
+The catalog emits only the proven one-cell hotspot `(28,55)`. Separate runtime
+tests also showed other south-boundary X positions can return, but the complete
+horizontal walkable exit span is not promoted until collision/passability is
+decoded or every cell is independently verified.
+
+This raises the source-hotspot catalog to **56 rows** and gives the viewer a
+confirmed clickable source point for both directions of the world/village pair.

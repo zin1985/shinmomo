@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_native_boundary_transition_evidence",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "source": {
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "native_bounds": {
+      "min_x": 9,
+      "max_x": 70,
+      "min_y": 8,
+      "max_y": 55
+    },
+    "confirmed_hotspot": {
+      "x": 28,
+      "y": 55,
+      "width": 1,
+      "height": 1
+    },
+    "first_out_of_bounds": {
+      "x": 28,
+      "y": 56
+    },
+    "direction": "Down"
+  },
+  "atomic_capture": {
+    "capture_id": "1790755314885-72f10d96",
+    "local_filename": "atomic_1790755314885-72f10d96.json",
+    "sha256": "D8C58588012B1DDC1F8C87F6C32E688F7C8364C102602AC03099427657260097",
+    "raw_capture_policy": "local-only",
+    "snapshots": [
+      {
+        "frame": 16065,
+        "label": "before",
+        "x": 28,
+        "y": 55,
+        "min_x": 9,
+        "max_x": 70,
+        "min_y": 8,
+        "max_y": 55,
+        "saved_prev_pack_15cf": 0
+      },
+      {
+        "frame": 16066,
+        "label": "input_1",
+        "x": 28,
+        "y": 55
+      },
+      {
+        "frame": 16067,
+        "label": "input_2",
+        "x": 28,
+        "y": 55
+      },
+      {
+        "frame": 16068,
+        "label": "input_3",
+        "x": 28,
+        "y": 55
+      },
+      {
+        "frame": 16069,
+        "label": "input_4",
+        "x": 28,
+        "y": 55
+      },
+      {
+        "frame": 16070,
+        "label": "input_5",
+        "x": 28,
+        "y": 56
+      },
+      {
+        "frame": 16071,
+        "label": "input_6",
+        "x": 28,
+        "y": 56
+      },
+      {
+        "frame": 16072,
+        "label": "input_7",
+        "x": 28,
+        "y": 56
+      }
+    ]
+  },
+  "native_static_chain": [
+    "C1:8943 copies $1573/$157D into $030B/$030D",
+    "C1:894F calls 81:81DD",
+    "81:81DD compares X to $15CA..$15CB and Y to $15CC..$15CD inclusive",
+    "C1:8955 calls 81:895A on out-of-bounds",
+    "81:895A stores current pack to $15CF, requests transition and clears $13B8",
+    "C1:97BC..C1:97C5 calls 81:8244 when $13B8==0",
+    "81:8244 restores indexed saved map state; C1:8255 restores saved pack to $0305"
+  ],
+  "transition_observation": {
+    "source_pack_before": "0x50",
+    "source_coordinate_before": [
+      28,
+      55
+    ],
+    "first_outside_coordinate": [
+      28,
+      56
+    ],
+    "switch_window": "within the next 8 neutral emulation frames after the boundary-crossing capture",
+    "destination_pack_after": "0x4C",
+    "destination_config_id": "cfg_t01_l001_v1",
+    "destination_coordinate": [
+      54,
+      237
+    ],
+    "saved_previous_pack_15cf_after_switch": "0x50",
+    "saved_state_index_dd_before_restore": 6,
+    "saved_state_index_dd_after_restore": 0
+  },
+  "prior_independent_fixture": "data/maps/transitions/tabidachi_village_to_world_pack4c_restore_20260929.json",
+  "confidence": "confirmed_runtime_and_static",
+  "interpretation": "At least the south-boundary cell (28,55) is a proven physical source hotspot for the saved-state return from 旅立ちの村 to the world map. This evidence does not claim the full horizontal exit width."
+}

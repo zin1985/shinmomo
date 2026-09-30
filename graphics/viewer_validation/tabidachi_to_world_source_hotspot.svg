@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="368 768 192 192">
+  <title>Tabidachi village to world source hotspot validation</title>
+  <desc>Confirmed native south-boundary saved-return hotspot at grid (28,55); first out-of-bounds coordinate is (28,56).</desc>
+  <image href="../../data/maps/rendered/tileset_04/map_008.png" x="0" y="0" width="1280" height="1280" image-rendering="pixelated"/>
+  <rect x="448" y="880" width="16" height="16" fill="#00bfff44" stroke="#00bfff" stroke-width="3"/>
+  <rect x="448" y="896" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2" stroke-dasharray="4 2"/>
+  <path d="M456 892 L456 900" stroke="#ffffff" stroke-width="2"/>
+  <text x="374" y="782" font-size="7" fill="#ffffff" stroke="#000000" stroke-width="2" paint-order="stroke">confirmed source (28,55) -> Down -> first outside (28,56)</text>
+  <text x="374" y="793" font-size="7" fill="#ffffff" stroke="#000000" stroke-width="2" paint-order="stroke">C1:8943 / 81:81DD -> C1:8955 -> saved restore -> world (54,237)</text>
+</svg>
