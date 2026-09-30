@@ -1,0 +1,53 @@
+{
+  "selector_table_start": 0,
+  "selector_table_end_exclusive": 171,
+  "total_records": 171,
+  "reserved_selector_00": true,
+  "static_rom_reconstructable": 160,
+  "unique_graphics_signatures": 148,
+  "rejected_count": 10,
+  "rejected": [
+    {
+      "selector": "0x20",
+      "reason": "graphics operand 0x25: unsupported reader dispatch 4"
+    },
+    {
+      "selector": "0x61",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x62",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x63",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x64",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x65",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x66",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x67",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0x68",
+      "reason": "index out of range"
+    },
+    {
+      "selector": "0xA9",
+      "reason": "graphics operand 0x25: unsupported reader dispatch 4"
+    }
+  ],
+  "atlas": "graphics\\static_character_reconstruction\\static_character_catalog_atlas_20260930.png",
+  "catalog_csv": "data\\npc_display\\static_character_selector_catalog_20260930.csv"
+}
