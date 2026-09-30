@@ -15,5 +15,7 @@ python -m http.server 8000
 Then open `http://localhost:8000/viewer/`.
 
 The canonical profile loads local rendered map PNGs from `data/maps/rendered/...` and overlays static character selector sprites.
-The actor placement layer is intentionally marked provisional: opcode `0x59` `field0659/field0699` seed pairs are plotted against each map's structural grid, not yet treated as universally proven coordinate fields.
-The builder records a corpus bounds audit in `world.json`; the 2026-09-30 corpus places every current static actor seed inside its mapped structural map bounds.
+For the opcode `0x59` actor-renderer path, `field0659/field0699` are now statically confirmed as map-grid coordinates: the renderer copies them to `$030B/$030D`, and `81:B10F` converts those values to 16px render coordinates relative to the camera/grid origin.
+This is handler-local evidence and does not assign universal coordinate semantics to the shared WRAM columns `$0659/$0699`.
+The builder records a corpus bounds audit in `world.json`; the 2026-09-30 corpus places all 817 current static actor seed pairs inside their mapped structural map bounds.
+Sprite artwork is drawn with a viewer bottom-center anchor approximation; the coordinate itself is stronger evidence than the exact artwork-origin offset.

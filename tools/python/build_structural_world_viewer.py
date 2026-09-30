@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
 TRANSITIONS = ROOT / "data/maps/transitions"
 OUT = ROOT / "viewer/data/world.json"
+SELECTOR_CATALOG = ROOT / "data/npc_display/static_character_selector_catalog_20260930.csv"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -198,6 +199,12 @@ def main():
     # Their universal semantics are not proven yet, so expose them as a candidate layer only.
     # Current corpus audit: every seed pair falls inside its mapped structural map grid.
     actor_seed_audit = {"rows": 0, "in_bounds": 0, "out_of_bounds": 0}
+    selector_asset_alias = {}
+    if SELECTOR_CATALOG.exists():
+        for catalog_row in csv.DictReader(SELECTOR_CATALOG.open(encoding="utf-8-sig")):
+            selector_hex = f"{int(catalog_row['selector']):02X}"
+            duplicate = (catalog_row.get("duplicate_of") or "").replace("0x", "").upper()
+            selector_asset_alias[selector_hex] = duplicate or selector_hex
     static_actor_path = ROOT / "data/npc_display/static_map_actor_selector_crosslink_20260930.csv"
     if static_actor_path.exists():
         seen = set()
@@ -216,6 +223,7 @@ def main():
             actor_seed_audit["rows"] += 1
             actor_seed_audit["in_bounds" if in_bounds else "out_of_bounds"] += 1
             selector_hex = row["selector_hex"].replace("0x", "").upper().zfill(2)
+            asset_selector_hex = selector_asset_alias.get(selector_hex, selector_hex)
             entity = {
                 "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
                 "map_config_id": config_id,
@@ -226,13 +234,20 @@ def main():
                 "animation_base_state": int(row["animation_base_state"]),
                 "grid_x_seed": gx,
                 "grid_y_seed": gy,
-                "x": gx * m["grid_cell_px_x"] + m["grid_cell_px_x"] / 2,
-                "y": (gy + 1) * m["grid_cell_px_y"],
-                "coordinate_space": "candidate_map_grid_from_opcode59_controller_seed",
-                "coordinate_status": "candidate_only_not_semantically_proven",
-                "sprite_asset": f"../graphics/static_character_reconstruction/catalog_selector_{selector_hex}.png",
+                "x": gx * m["grid_cell_px_x"],
+                "y": gy * m["grid_cell_px_y"],
+                "coordinate_space": "opcode59_actor_map_grid",
+                "coordinate_status": "confirmed_opcode59_actor_renderer_grid_coordinates",
+                "sprite_anchor_status": "viewer_bottom_center_approximation",
+                "sprite_asset_selector_hex": f"0x{asset_selector_hex}",
+                "sprite_asset": f"../graphics/static_character_reconstruction/catalog_selector_{asset_selector_hex}.png",
                 "binding_evidence": row["binding_evidence"],
-                "confidence": "candidate_position_strong_corpus_consistency",
+                "position_evidence": [
+                    "C1:B07E copies $0659/$0699 to $030B/$030D",
+                    "81:B10F converts $030B/$030D to 16px render coordinates relative to $1573/$157D",
+                    "817/817 static actor seed pairs fall inside their mapped structural grid",
+                ],
+                "confidence": "confirmed_static_opcode59_coordinate_path",
                 "provenance": str(static_actor_path.relative_to(ROOT)).replace("\\", "/"),
             }
             entities.append(entity)
