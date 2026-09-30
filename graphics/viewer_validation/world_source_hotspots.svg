@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="2048" viewBox="0 0 4096 4096">
+  <title>World source transition hotspots</title>
+  <image href="../../data/maps/rendered/world_mode7_tileset_01/map_001.png" x="0" y="0" width="4096" height="4096" image-rendering="pixelated"/>
+  <rect x="832" y="3728" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0AF9 cfg_t04_l006_v2 (17,37)</title></rect>
+  <rect x="864" y="3792" width="32" height="16" fill="#00bfff44" stroke="#00bfff" stroke-width="3"><title>CC:0B08 cfg_t04_l008_v2 (29,55)</title></rect>
+  <rect x="752" y="3184" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0B7F cfg_t08_l092_v2 (?,?)</title></rect>
+  <rect x="688" y="2592" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0B9D cfg_t04_l018_v2 (24,40)</title></rect>
+  <rect x="496" y="2352" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0BAC cfg_t39_l156_v1 (24,78)</title></rect>
+  <rect x="496" y="2272" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0BBB cfg_t39_l156_v1 (100,70)</title></rect>
+  <rect x="944" y="2480" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0BCA destination config unresolved (37,56)</title></rect>
+  <rect x="800" y="2064" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0BD7 cfg_t09_l098_v2 (?,?)</title></rect>
+  <rect x="816" y="1952" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0BE6 cfg_t09_l097_v2 (183,29)</title></rect>
+  <rect x="704" y="1840" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0C17 destination config unresolved (36,72)</title></rect>
+  <rect x="1504" y="2096" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0C35 cfg_t04_l018_v2 (24,40)</title></rect>
+  <rect x="1264" y="2992" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0C55 cfg_t06_l040_v2 (41,72)</title></rect>
+  <rect x="1968" y="1024" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0C75 cfg_t24_l125_v2 (?,?)</title></rect>
+  <rect x="1968" y="992" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0C84 cfg_t23_l123_v1 (?,?)</title></rect>
+  <rect x="1472" y="768" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0C91 cfg_t05_l041_v2 (15,39)</title></rect>
+  <rect x="624" y="544" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0CB2 cfg_t26_l131_v1 (184,23)</title></rect>
+  <rect x="2240" y="528" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0CCF cfg_t05_l042_v2 (24,72)</title></rect>
+  <rect x="2272" y="544" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0CF4 cfg_t59_l201_v2 (15,8)</title></rect>
+  <rect x="2304" y="528" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D03 cfg_t05_l043_v2 (58,55)</title></rect>
+  <rect x="3120" y="960" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D12 cfg_t04_l044_v2 (58,55)</title></rect>
+  <rect x="3440" y="1152" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D1F cfg_t49_l176_v2 (22,5)</title></rect>
+  <rect x="3344" y="784" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D44 cfg_t56_l194_v1 (30,56)</title></rect>
+  <rect x="3472" y="560" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D51 cfg_t44_l167_v1 (30,53)</title></rect>
+  <rect x="3184" y="608" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D76 cfg_t43_l165_v2 (23,9)</title></rect>
+  <rect x="3696" y="496" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0D9C cfg_t05_l020_v2 (24,40)</title></rect>
+  <rect x="3792" y="592" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0DAB cfg_t34_l148_v1 (7,30)</title></rect>
+  <rect x="3680" y="1120" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0DB8 cfg_t11_l101_v2 (?,?)</title></rect>
+  <rect x="3728" y="1168" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0DC5 cfg_t11_l101_v2 (61,38)</title></rect>
+  <rect x="3344" y="1904" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0DE3 cfg_t04_l018_v2 (24,40)</title></rect>
+  <rect x="2496" y="2304" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0DF8 cfg_t28_l136_v2 (9,43)</title></rect>
+  <rect x="3072" y="2816" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0E0D destination config unresolved (37,15)</title></rect>
+  <rect x="3296" y="2912" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0E57 cfg_t29_l138_v2 (224,40)</title></rect>
+  <rect x="3280" y="2944" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0E70 cfg_t30_l140_v2 (?,?)</title></rect>
+  <rect x="2800" y="3024" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0E88 cfg_t04_l059_v2 (40,59)</title></rect>
+  <rect x="3184" y="3600" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F1D cfg_t04_l062_v2 (31,48)</title></rect>
+  <rect x="2560" y="2976" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F3B cfg_t47_l172_v2 (?,?)</title></rect>
+  <rect x="2784" y="2752" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F48 cfg_t04_l018_v2 (24,40)</title></rect>
+  <rect x="2304" y="2944" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F55 cfg_t06_l021_v2 (24,40)</title></rect>
+  <rect x="2032" y="3120" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F64 cfg_t04_l070_v2 (33,55)</title></rect>
+  <rect x="1856" y="2848" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F71 cfg_t32_l144_v1 (?,?)</title></rect>
+  <rect x="3856" y="3904" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F7E cfg_t04_l081_v2 (23,39)</title></rect>
+  <rect x="2560" y="64" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0F9C cfg_t04_l060_v1 (31,69)</title></rect>
+  <rect x="1968" y="1904" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0FA9 cfg_t36_l150_v2 (?,?)</title></rect>
+  <rect x="1184" y="2256" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0FB6 cfg_t25_l129_v2 (?,?)</title></rect>
+  <rect x="400" y="1568" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:0FD3 cfg_t04_l028_v2 (16,24)</title></rect>
+  <rect x="3808" y="2768" width="16" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"><title>CC:1160 destination config unresolved (22,28)</title></rect>
+</svg>

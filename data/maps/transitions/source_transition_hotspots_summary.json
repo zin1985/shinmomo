@@ -1,17 +1,34 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "kind": "source_transition_hotspot_catalog_summary",
   "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
-  "generated_from_head": "dbcbcc2f68c2484f65953e88b54d64c4c0c90b8d",
-  "hotspot_count": 19,
-  "source_config_resolved_count": 19,
-  "source_xy_resolved_count": 19,
-  "destination_config_resolved_count": 16,
-  "destination_coordinate_resolved_count": 15,
+  "generated_from_head": "3fc7fa13b78fffcad3faeb77fc1786f01e24e4d1",
+  "hotspot_count": 55,
+  "source_config_resolved_count": 55,
+  "source_xy_resolved_count": 55,
+  "destination_config_resolved_count": 50,
+  "destination_coordinate_resolved_count": 45,
   "confidence_counts": {
-    "confirmed_runtime_and_static": 1,
-    "strong_candidate": 18
+    "strong_candidate": 54,
+    "confirmed_runtime_and_static": 1
+  },
+  "hotspot_type_counts": {
+    "vm_opcode_0x69_exact_point": 36,
+    "vm_opcode_0x5D_inclusive_rect": 19
+  },
+  "source_config_counts": {
+    "cfg_t01_l001_v1": 46,
+    "cfg_t04_l008_v2": 9
   },
   "world_to_tabidachi_closed": true,
-  "scope": "Exact opcode0x5D inclusive-rectangle guards in independently anchored world pack 0x4C only; no generic script_pack==source-map inference."
+  "tabidachi_to_world_source_hotspot_closed": false,
+  "tabidachi_to_pack2e_hotspot": {
+    "trigger_addr": "CC:1CDA",
+    "source_grid_x": 29,
+    "source_grid_y": 17,
+    "destination_config_id": "cfg_t07_l015_v2",
+    "status": "strong_static_crosslink"
+  },
+  "pack2e_to_tabidachi_source_hotspot_closed": false,
+  "scope": "Only exact opcode0x5D rectangle and opcode0x69 point predicates from source packs whose pack/config relation is independently runtime-anchored; no generic script_pack==source-map inference."
 }

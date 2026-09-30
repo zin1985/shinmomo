@@ -2,79 +2,126 @@
 
 ## Result
 
-This pass closes the first full source-side path:
+This pass now has **55 source hotspots** on two independently runtime-anchored
+source maps.
 
-    cfg_t01_l001_v1 / world grid (54..55,237)
-      -> CC:0B08
-      -> pack 0x50 entry 0x02
-      -> cfg_t04_l008_v2
-      -> arrival (29,55)
+- cfg_t01_l001_v1 / world: 46
+- cfg_t04_l008_v2 / 旅立ちの村: 9
+- opcode 0x5D inclusive rectangles: 19
+- opcode 0x69 exact points: 36
 
-The source hotspot is not inferred from script_pack. The pack/config relation is
-independently anchored by the existing runtime-confirmed world transition.
+No row is attached to a map merely because script_pack equals a map pack. For
+each scanned source pack, the pack/config relation must already exist in a
+runtime-confirmed transition row.
 
-## Static predicate proof
+## Predicate semantics
 
-Normal-VM dispatch table C4:87D4 maps opcode 0x5D to C4:908D.
+### Opcode 0x5D
 
-C4:908D compares current map coordinates $1573/$157D with the four command
-operands. It returns 1 through C4:8387 only when the current position is inside
-the inclusive rectangle, otherwise 0 through C4:838C.
+Normal-VM dispatch C4:87D4 maps 0x5D to C4:908D. The handler compares current
+map coordinates $1573/$157D against four operands and returns true only inside
+the inclusive rectangle.
 
-The exact record-2 body is:
+Exact accepted grammar:
 
 ~~~text
-CC:0B01  5D 36 ED 37 ED   ; X=54..55, Y=237
-CC:0B06  B3 05            ; zero => skip transition
-CC:0B08  53 50 02         ; destination pack 0x50, entry 0x02
-CC:0B0B  B0
+5D xmin ymin xmax ymax B3 05 (53|56) destination_pack entry B0
 ~~~
 
-Runtime evidence independently records Down from (54,236), the 0x4C -> 0x50
-switch, and destination (29,55). The world structural layer has metatile 96/96
-exactly at (54,237)/(55,237).
+### Opcode 0x69
 
-## Mechanical expansion
+Normal-VM dispatch C4:87D4 maps 0x69 to C4:9320. The handler compares operand 1
+with $1573 and operand 2 with $157D. It returns true only when both coordinates
+match exactly.
 
-The same fail-closed exact grammar:
+Exact accepted grammar:
 
-    5D xmin ymin xmax ymax B3 05 (53|56) dest_pack dest_entry B0
+~~~text
+69 x y B3 05 (53|56) destination_pack entry B0
+~~~
 
-produces 19 source hotspot rows in pack 0x4C.
+The one-cell form is particularly useful for doors and facility entrances.
 
-Only runtime anchor CC:0B08 is promoted to confirmed_runtime_and_static. The
-other exact static rows remain strong_candidate. This catalog does not globally
-equate script pack with source map.
+## Closed anchor: world -> 旅立ちの村
 
-Current counts:
+~~~text
+cfg_t01_l001_v1
+world hotspot X=54..55, Y=237
+  -> CC:0B08
+  -> pack 0x50 entry 0x02
+  -> cfg_t04_l008_v2
+  -> arrival (29,55)
+~~~
 
-- hotspots: 19
-- source config resolved: 19
-- source X/Y resolved: 19
-- destination config resolved: 16
-- destination coordinates resolved: 15
+CC:0B08 remains the only hotspot promoted to confirmed_runtime_and_static.
+Runtime and static evidence independently agree on this path.
+
+## New 旅立ちの村 entrance set
+
+Pack 0x50 contains nine exact opcode-0x69 point predicates leading directly to
+explicit 0x53 transitions. Their source coordinates are:
+
+~~~text
+(51,46) -> CC:1C7F -> cfg_t07_l009_v2
+(46,32) -> CC:1C8C -> cfg_t07_l010_v2
+(41,47) -> CC:1C99 -> cfg_t07_l014_v2
+(34,44) -> CC:1CA6 -> cfg_t07_l016_v2
+(41,39) -> CC:1CB3 -> cfg_t07_l012_v2
+(34,35) -> CC:1CC0 -> destination config unresolved
+(51,40) -> CC:1CCD -> cfg_t07_l013_v2
+(29,17) -> CC:1CDA -> cfg_t07_l015_v2
+(56,46) -> CC:1CE7 -> cfg_t07_l047_v2
+~~~
+
+Seven of the nine points land on metatile 112, a repeated door-position pattern
+in map_008. The (29,17) point lies on the large northern structure and leads to
+cfg_t07_l015_v2.
+
+## 旅立ちの村 -> cfg_t07_l015_v2
+
+This direction is now statically cross-linked:
+
+~~~text
+cfg_t04_l008_v2
+source point (29,17)
+  -> opcode 0x69 equality
+  -> CC:1CDA / opcode 0x53
+  -> pack 0x2E entry 0x02
+  -> cfg_t07_l015_v2
+  -> arrival (9,12)
+~~~
+
+It remains strong_candidate because execution of CC:1CDA has not been captured
+at runtime.
+
+The reverse edge cfg_t07_l015_v2 -> cfg_t04_l008_v2 is already runtime
+confirmed, but its source-side trigger is still native/boundary-side and is not
+fabricated here.
+
+## 旅立ちの村 -> world blocker
+
+The runtime edge cfg_t04_l008_v2 -> cfg_t01_l001_v1 remains confirmed.
+
+Static follow-up found:
+
+- no valid opcode 0x54 in pack 0x50 VM substreams;
+- the return therefore is not a simple pack-0x50 0x54 tail;
+- C1:97BC restores indexed saved map state through 81:8244 when $13B8 == 0;
+- the exact movement/boundary path that raises the restore condition is still
+  unresolved.
+
+The map_008 road continuing to the lower edge is not sufficient evidence to
+invent a bottom-edge hotspot, so no such row is emitted.
+
+## Current counts
+
+- hotspots: 55
+- source config resolved: 55
+- source X/Y resolved: 55
 - confirmed_runtime_and_static: 1
-- strong_candidate: 18
+- strong_candidate: 54
 
-## Priority-route status
-
-### World -> 旅立ちの村
-
-Closed through source physical position, predicate, transition, destination
-configuration and arrival coordinates.
-
-### 旅立ちの村 -> world
-
-Runtime transition is confirmed, but its exact source-side physical predicate is
-not yet statically connected. Evidence points to saved-map-state restore
-C1:8244/C1:8255, and the exact execution caller PC remains unobserved. No
-rectangle is fabricated for this edge.
-
-### cfg_t07_l015_v2 / pack 0x2E -> 旅立ちの村
-
-Runtime transition is confirmed, but pack 0x2E contains no exact supported
-0x5D + B3 + explicit 0x53/0x56 source-hotspot form. The source exit coordinate
-therefore remains unresolved instead of being guessed from the visible doorway.
+Destination-resolution counts are recorded in the generated summary JSON.
 
 ## Outputs
 
@@ -82,6 +129,5 @@ therefore remains unresolved instead of being guessed from the visible doorway.
 - data/maps/transitions/source_transition_hotspots_summary.json
 - tools/python/catalog_source_transition_hotspots.py
 - graphics/viewer_validation/world_to_tabidachi_source_hotspot.svg
-
-The SVG overlays the exact two-cell world hotspot and the runtime pre-entry cell
-without changing viewer implementation.
+- graphics/viewer_validation/world_source_hotspots.svg
+- graphics/viewer_validation/tabidachi_source_hotspots.svg
