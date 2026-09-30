@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "60f43983adbc3fbbcd327721d6af970c352c5a64",
+  "generated_against_git_head": "82ff272d59b628cdae097c8ed3a5841a443a9485",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
   "candidate_count": 1308,
   "confidence_counts": {
@@ -49,12 +49,25 @@
   "terminal_opcode57_route_candidate_count": 2,
   "entry_start_opcode57_route_candidate_count": 8,
   "cfg_reachable_opcode57_route_candidate_count": 7,
+  "opcode57_raw_shape_total_count": 56,
+  "opcode57_promoted_transition_count": 17,
+  "opcode57_cfg_unreachable_raw_shape_count": 39,
+  "opcode57_reachable_unpromoted_count": 0,
+  "opcode57_reachable_unpromoted_addrs": [],
+  "opcode57_unresolved_blocked_count": 0,
+  "opcode57_blocked_addrs": [],
+  "opcode57_nested_return_proof_count": 14,
   "cfg_boundary_grammar": {
-    "opcode_0x02_operand_0x41": {
+    "opcode_0x02_returning_operands": {
       "handler": "C4:89A5",
       "instruction_length": 2,
-      "target": "81:EC60",
-      "return": "RTL at 81:EC80"
+      "operands": [
+        "0x17",
+        "0x1D",
+        "0x2D",
+        "0x41"
+      ],
+      "policy": "caller advances before indirect call; inspected targets return through RTL"
     },
     "opcode_0x2F": {
       "handler": "C4:968E",
@@ -88,13 +101,16 @@
       "handler": "C4:83CD",
       "instruction_length": 2
     },
-    "compact_D0_D5": {
+    "compact_D0_DF": {
       "dispatcher": "C4:8108",
       "instruction_length": 3,
-      "policy": "only D0/D5 admitted by the fail-closed transition CFG"
+      "policy": "D-range dispatcher consumes two operand bytes for the audited CFG corpus"
     },
     "opcode_A0": {
-      "policy": "nested call; not flattened by the transition CFG"
+      "policy": "nested call; caller continuation allowed only when callee CFG is independently proven to return"
+    },
+    "opcode_B1": {
+      "policy": "tail jump; same-entry target becomes a CFG edge, external target must independently return to close nested proof"
     }
   },
   "handler_findings": {
@@ -130,7 +146,6 @@
     "static source map/config is not inferred from script-pack identity",
     "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
     "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
-    "remaining non-terminal raw 0x57 route-index shapes are not promoted unless entry-start or fail-closed CFG alignment is proven",
     "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
     "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
     "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",

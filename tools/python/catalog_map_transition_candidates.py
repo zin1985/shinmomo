@@ -11,7 +11,7 @@ import csv
 import hashlib
 import json
 import subprocess
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, deque
 from pathlib import Path
 
 import catalog_map_selectors as cms
@@ -236,51 +236,94 @@ def main() -> None:
             "saved_node_count": max(0, len(nodes) - 1),
         }
 
-    # Fail-closed control-flow decoder used only to prove additional 0x57
-    # instruction boundaries. Unknown/control-transfer opcodes stop that path.
-    #
-    # A0 is deliberately NOT flattened here: it is a nested VM call and needs
-    # a separate return proof before the caller continuation can be considered
-    # reachable.
+    # Fail-closed control-flow decoder used to prove non-terminal 0x57
+    # instruction boundaries and to classify every remaining raw 57 <00..0F>
+    # shape. Unknown forms stop that path. A0 nested calls continue only when
+    # their callee is independently proven to return; B1 is treated as a tail
+    # jump rather than a fallthrough.
     cfg_safe_lengths = {
-        0x04: 2, 0x08: 4, 0x09: 4, 0x10: 2, 0x11: 2, 0x13: 2,
-        0x15: 3, 0x2A: 1, 0x2D: 2, 0x2F: 7, 0x30: 6, 0x33: 4,
-        0x43: 2, 0x47: 5, 0x50: 4, 0x53: 3, 0x54: 1, 0x55: 3,
-        0x56: 3, 0x57: 2, 0x58: 5, 0x59: 6, 0x5D: 5, 0x67: 7,
-        0x69: 3, 0x71: 3, 0x74: 3, 0x96: 2, 0xA1: 2, 0xA3: 2,
-        0xA4: 2, 0xD0: 3, 0xD5: 3,
-        0xE0: 1, 0xE1: 1, 0xE7: 1, 0xE8: 1,
+        0x01: 2, 0x04: 2, 0x06: 1, 0x08: 4, 0x09: 4,
+        0x10: 2, 0x11: 2, 0x13: 2, 0x15: 3, 0x16: 3,
+        0x17: 3, 0x18: 4, 0x19: 4, 0x1B: 4, 0x1C: 3,
+        0x1E: 3, 0x1F: 3, 0x20: 3, 0x21: 3, 0x23: 1,
+        0x28: 2, 0x2A: 1, 0x2D: 2, 0x2F: 7, 0x30: 6,
+        0x31: 2, 0x33: 4, 0x41: 3, 0x43: 2, 0x47: 5,
+        0x49: 6, 0x50: 4, 0x51: 3, 0x53: 3, 0x54: 1,
+        0x55: 3, 0x56: 3, 0x57: 2, 0x58: 5, 0x59: 6,
+        0x5D: 5, 0x5E: 2, 0x61: 1, 0x63: 5, 0x64: 2,
+        0x67: 7, 0x69: 3, 0x70: 1, 0x71: 3, 0x74: 3,
+        0x96: 2, 0xA1: 2, 0xA2: 2, 0xA3: 2, 0xA4: 2,
+        0xE0: 1, 0xE1: 1, 0xE7: 1, 0xE8: 1, 0xEC: 1,
+        0xED: 1, 0xF1: 1,
     }
+    for _op in range(0xC0, 0xCE):
+        cfg_safe_lengths[_op] = 1
+    for _op in range(0xD0, 0xE0):
+        cfg_safe_lengths[_op] = 3
+
+    cfg_entries = []
+    for _sp, _pack in sorted(packs.items()):
+        for _record in _pack["records"]:
+            if (_sp, _record["record_index"]) in cms.EXCLUDED_NON_VM_RECORDS:
+                continue
+            _header = cms.parse_record_header(rom, _record)
+            if not _header:
+                continue
+            for _entry in _header["entries"]:
+                cfg_entries.append(
+                    (
+                        _entry["start"], _entry["end"], _sp,
+                        _record["record_index"], _entry["entry_id"],
+                    )
+                )
 
     def signed8(value: int) -> int:
         return value - 0x100 if value & 0x80 else value
 
+    def cfg_ptr_file(ptr: int) -> int:
+        bank = (ptr >> 16) & 0xFF
+        return ((bank - 0xC0) << 16) | (ptr & 0xFFFF)
+
+    def cfg_bound_for(off: int):
+        exact = [item for item in cfg_entries if item[0] == off]
+        if exact:
+            return exact[0]
+        inside = [item for item in cfg_entries if item[0] <= off < item[1]]
+        return inside[0] if len(inside) == 1 else None
+
     def cfg_opcode_length(body: bytes, pos: int) -> int | None:
         op = body[pos]
 
-        # 0x02 operand 0x41 is a specifically bounded continuation.
-        # C4:89A5 resolves it through the 84:9BEE routine table to 81:EC60.
-        # C4:895E advances the caller by two bytes before the indirect call;
-        # 81:EC60 returns through RTL at 81:EC80.
+        # Opcode 0x02 dispatches through 84:9BEE. These concrete operands have
+        # independently inspected RTL-returning targets, while C4:895E advances
+        # the caller by two bytes before the indirect call.
         if op == 0x02:
-            if pos + 2 <= len(body) and body[pos + 1] == 0x41:
+            if pos + 2 <= len(body) and body[pos + 1] in {0x17, 0x1D, 0x2D, 0x41}:
                 return 2
             return None
 
-        # 0x52 is variable but fully bounded by operand1.
-        # C4:8B16: values < FE copy four bytes to $15C9..15CC (5 total);
-        # FE/FF select the $13B0/$13B4 quartets and consume 6 total.
+        # Sign bit of the first 16-bit operand selects a 3- or 4-byte form.
+        if op == 0x22:
+            if pos + 3 > len(body):
+                return None
+            word = body[pos + 1] | (body[pos + 2] << 8)
+            return 4 if word & 0x8000 else 3
+
+        # Only the inspected 0x3D subtypes needed by the route CFG are admitted.
+        if op == 0x3D:
+            if pos + 2 > len(body):
+                return None
+            if body[pos + 1] == 0x04:
+                return 2
+            if body[pos + 1] == 0x29:
+                return 5
+            return None
+
         if op == 0x52:
             if pos + 2 > len(body):
                 return None
             return 6 if body[pos + 1] >= 0xFE else 5
 
-        # 0x5B reads arg0 then dispatches on subtype at operand2.
-        # C4:8FF2 handler paths consume:
-        #   subtype 1 -> 4 bytes total
-        #   subtype 2 -> 5 bytes total
-        #   subtype 3/4 -> 3 bytes total
-        #   other values -> 5 bytes total
         if op == 0x5B:
             if pos + 3 > len(body):
                 return None
@@ -293,20 +336,147 @@ def main() -> None:
                 return 3
             return 5
 
+        # Zero-terminated pair list; FF terminates after its 16-bit extension.
+        if op == 0x68:
+            q = pos + 1
+            while q < len(body):
+                value = body[q]
+                q += 1
+                if value == 0:
+                    return q - pos
+                if value == 0xFF:
+                    if q + 2 > len(body):
+                        return None
+                    q += 2
+                    return q - pos
+                if q >= len(body):
+                    return None
+                q += 1
+            return None
+
+        if op == 0x72:
+            if pos + 3 > len(body):
+                return None
+            return 11 if body[pos + 1] == 0xFF and body[pos + 2] == 0xFF else 3
+
+        # Concrete 0x7B subtype used by the residual route corpus.
+        if op == 0x7B:
+            if pos + 2 <= len(body) and body[pos + 1] == 0x01:
+                return 3
+            return None
+
+        if op == 0xCE:
+            return 2 if pos + 2 <= len(body) else None
+        if op == 0xCF:
+            return 3 if pos + 3 <= len(body) else None
+
         return cfg_safe_lengths.get(op)
 
-    def cfg_reachable_57_offsets(body: bytes) -> list[int]:
-        queue = [0]
+    cfg_return_memo: dict[int, tuple[bool, bool, set[str]]] = {}
+    cfg_return_visiting: set[int] = set()
+
+    def cfg_prove_return(ptr: int, depth: int = 0) -> tuple[bool, bool, set[str]]:
+        if ptr in cfg_return_memo:
+            return cfg_return_memo[ptr]
+        if ptr in cfg_return_visiting or depth > 16:
+            return False, False, {"cycle_or_depth"}
+
+        start = cfg_ptr_file(ptr)
+        bound = cfg_bound_for(start)
+        if not bound:
+            return False, False, {"no_entry_bound"}
+
+        entry_start, entry_end, _, _, _ = bound
+        body = rom[entry_start:entry_end]
+        start_pos = start - entry_start
+        cfg_return_visiting.add(ptr)
+        queue = deque([start_pos])
+        seen: set[int] = set()
+        found_return = False
+        blockers: set[str] = set()
+
+        while queue:
+            pos = queue.popleft()
+            if pos in seen:
+                continue
+            seen.add(pos)
+            if not (start_pos <= pos < len(body)):
+                blockers.add("escape")
+                continue
+
+            op = body[pos]
+            if op in {0xB0, 0xB5}:
+                found_return = True
+                continue
+
+            if op in {0xB2, 0xB3, 0xB4}:
+                if pos + 2 > len(body):
+                    blockers.add("truncated_branch")
+                    continue
+                target = pos + signed8(body[pos + 1])
+                if op in {0xB3, 0xB4}:
+                    queue.append(pos + 2)
+                queue.append(target)
+                continue
+
+            if op == 0xB1:
+                if pos + 4 > len(body):
+                    blockers.add("truncated_B1")
+                    continue
+                child = body[pos + 1] | (body[pos + 2] << 8) | (body[pos + 3] << 16)
+                child_off = cfg_ptr_file(child)
+                if entry_start <= child_off < entry_end:
+                    queue.append(child_off - entry_start)
+                else:
+                    ok, returned, child_blockers = cfg_prove_return(child, depth + 1)
+                    if ok and returned:
+                        found_return = True
+                    else:
+                        blockers.add(f"B1:{child >> 16:02X}:{child & 0xFFFF:04X}")
+                        blockers.update(child_blockers)
+                continue
+
+            if op == 0xA0:
+                if pos + 4 > len(body):
+                    blockers.add("truncated_A0")
+                    continue
+                child = body[pos + 1] | (body[pos + 2] << 8) | (body[pos + 3] << 16)
+                ok, returned, child_blockers = cfg_prove_return(child, depth + 1)
+                if ok and returned:
+                    queue.append(pos + 4)
+                else:
+                    blockers.add(f"A0:{child >> 16:02X}:{child & 0xFFFF:04X}")
+                    blockers.update(child_blockers)
+                continue
+
+            length = cfg_opcode_length(body, pos)
+            if length is None:
+                blockers.add(f"op:{op:02X}")
+                continue
+            if pos + length > len(body):
+                blockers.add("truncated")
+                continue
+            queue.append(pos + length)
+
+        cfg_return_visiting.remove(ptr)
+        result = (found_return and not blockers, found_return, blockers)
+        cfg_return_memo[ptr] = result
+        return result
+
+    def cfg_reachable_57_offsets(body: bytes, entry_start: int) -> list[int]:
+        queue = deque([0])
         seen: set[int] = set()
         found: set[int] = set()
         while queue:
-            pos = queue.pop(0)
+            pos = queue.popleft()
             if pos in seen or not (0 <= pos < len(body)):
                 continue
             seen.add(pos)
             op = body[pos]
-            if op == 0xB0:
+
+            if op in {0xB0, 0xB5}:
                 continue
+
             if op in {0xB2, 0xB3, 0xB4}:
                 if pos + 2 > len(body):
                     continue
@@ -315,6 +485,25 @@ def main() -> None:
                     queue.append(pos + 2)
                 queue.append(target)
                 continue
+
+            if op == 0xB1:
+                if pos + 4 > len(body):
+                    continue
+                child = body[pos + 1] | (body[pos + 2] << 8) | (body[pos + 3] << 16)
+                child_off = cfg_ptr_file(child)
+                if entry_start <= child_off < entry_start + len(body):
+                    queue.append(child_off - entry_start)
+                continue
+
+            if op == 0xA0:
+                if pos + 4 > len(body):
+                    continue
+                child = body[pos + 1] | (body[pos + 2] << 8) | (body[pos + 3] << 16)
+                ok, returned, _ = cfg_prove_return(child)
+                if ok and returned:
+                    queue.append(pos + 4)
+                continue
+
             length = cfg_opcode_length(body, pos)
             if length is None or pos + length > len(body):
                 continue
@@ -322,6 +511,69 @@ def main() -> None:
                 found.add(pos)
             queue.append(pos + length)
         return sorted(found)
+
+    def cfg_target_reachability(
+        body: bytes, entry_start: int, target_pos: int
+    ) -> tuple[bool, set[str]]:
+        queue = deque([0])
+        seen: set[int] = set()
+        blockers: set[str] = set()
+
+        while queue:
+            pos = queue.popleft()
+            if pos in seen or not (0 <= pos < len(body)):
+                continue
+            seen.add(pos)
+            if pos == target_pos:
+                return True, set()
+
+            op = body[pos]
+            if op in {0xB0, 0xB5}:
+                continue
+
+            if op in {0xB2, 0xB3, 0xB4}:
+                if pos + 2 > len(body):
+                    blockers.add("truncated_branch")
+                    continue
+                target = pos + signed8(body[pos + 1])
+                if op in {0xB3, 0xB4}:
+                    queue.append(pos + 2)
+                queue.append(target)
+                continue
+
+            if op == 0xB1:
+                if pos + 4 > len(body):
+                    blockers.add("truncated_B1")
+                    continue
+                child = body[pos + 1] | (body[pos + 2] << 8) | (body[pos + 3] << 16)
+                child_off = cfg_ptr_file(child)
+                if entry_start <= child_off < entry_start + len(body):
+                    queue.append(child_off - entry_start)
+                continue
+
+            if op == 0xA0:
+                if pos + 4 > len(body):
+                    blockers.add("truncated_A0")
+                    continue
+                child = body[pos + 1] | (body[pos + 2] << 8) | (body[pos + 3] << 16)
+                ok, returned, child_blockers = cfg_prove_return(child)
+                if ok and returned:
+                    queue.append(pos + 4)
+                else:
+                    blockers.add(f"A0:{child >> 16:02X}:{child & 0xFFFF:04X}")
+                    blockers.update(child_blockers)
+                continue
+
+            length = cfg_opcode_length(body, pos)
+            if length is None:
+                blockers.add(f"op:{op:02X}")
+                continue
+            if pos + length > len(body):
+                blockers.add("truncated")
+                continue
+            queue.append(pos + length)
+
+        return False, blockers
 
     rows: list[dict] = []
     seen_triggers: set[str] = set()
@@ -1008,7 +1260,7 @@ def main() -> None:
                 continue
             for entry in header["entries"]:
                 body = rom[entry["start"]:entry["end"]]
-                for pos in cfg_reachable_57_offsets(body):
+                for pos in cfg_reachable_57_offsets(body, entry["start"]):
                     if pos == 0:
                         continue
                     # Exact terminal form was already cataloged above.
@@ -1259,6 +1511,59 @@ def main() -> None:
         runtime_only_confirmation_count += 1
 
 
+    # Full raw-shape closure for opcode 0x57. Every 57 <00..0F> byte
+    # shape inside a parsed VM entry is classified against the same fail-closed
+    # CFG used for promotion. Non-promoted shapes with no remaining blocker and
+    # no path from entry start are recorded as CFG-unreachable rather than left
+    # as ambiguous candidates.
+    promoted_57_addrs = {
+        row["trigger_addr"] for row in rows
+        if row["trigger_type"].startswith("vm_opcode_0x57")
+    }
+    # Promotion walks may already have memoized unrelated A0 callees. Reset
+    # here so the proof count below reflects only targets needed to classify
+    # the raw 0x57 corpus.
+    cfg_return_memo.clear()
+    cfg_return_visiting.clear()
+
+    opcode57_raw_shape_total_count = 0
+    opcode57_promoted_transition_count = 0
+    opcode57_cfg_unreachable_raw_shape_count = 0
+    opcode57_reachable_unpromoted_count = 0
+    opcode57_unresolved_blocked_count = 0
+    opcode57_reachable_unpromoted_addrs: list[str] = []
+    opcode57_blocked_addrs: list[str] = []
+
+    for entry_start, entry_end, _, _, _ in cfg_entries:
+        body = rom[entry_start:entry_end]
+        for target_pos in range(len(body) - 1):
+            if body[target_pos] != 0x57 or body[target_pos + 1] >= 16:
+                continue
+            opcode57_raw_shape_total_count += 1
+            addr = cpu_addr(entry_start + target_pos)
+            if addr in promoted_57_addrs:
+                opcode57_promoted_transition_count += 1
+                continue
+
+            reached, blockers = cfg_target_reachability(
+                body, entry_start, target_pos
+            )
+            if reached:
+                opcode57_reachable_unpromoted_count += 1
+                opcode57_reachable_unpromoted_addrs.append(addr)
+            elif blockers:
+                opcode57_unresolved_blocked_count += 1
+                opcode57_blocked_addrs.append(
+                    addr + ":" + ",".join(sorted(blockers))
+                )
+            else:
+                opcode57_cfg_unreachable_raw_shape_count += 1
+
+    opcode57_nested_return_proof_count = sum(
+        1 for ok, returned, _ in cfg_return_memo.values()
+        if ok and returned
+    )
+
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=COLUMNS)
@@ -1323,12 +1628,20 @@ def main() -> None:
         "terminal_opcode57_route_candidate_count": terminal57_count,
         "entry_start_opcode57_route_candidate_count": entry_start57_count,
         "cfg_reachable_opcode57_route_candidate_count": cfg_reachable57_count,
+        "opcode57_raw_shape_total_count": opcode57_raw_shape_total_count,
+        "opcode57_promoted_transition_count": opcode57_promoted_transition_count,
+        "opcode57_cfg_unreachable_raw_shape_count": opcode57_cfg_unreachable_raw_shape_count,
+        "opcode57_reachable_unpromoted_count": opcode57_reachable_unpromoted_count,
+        "opcode57_reachable_unpromoted_addrs": opcode57_reachable_unpromoted_addrs,
+        "opcode57_unresolved_blocked_count": opcode57_unresolved_blocked_count,
+        "opcode57_blocked_addrs": opcode57_blocked_addrs,
+        "opcode57_nested_return_proof_count": opcode57_nested_return_proof_count,
         "cfg_boundary_grammar": {
-            "opcode_0x02_operand_0x41": {
+            "opcode_0x02_returning_operands": {
                 "handler": "C4:89A5",
                 "instruction_length": 2,
-                "target": "81:EC60",
-                "return": "RTL at 81:EC80",
+                "operands": ["0x17", "0x1D", "0x2D", "0x41"],
+                "policy": "caller advances before indirect call; inspected targets return through RTL",
             },
             "opcode_0x2F": {
                 "handler": "C4:968E",
@@ -1365,13 +1678,16 @@ def main() -> None:
                 "handler": "C4:83CD",
                 "instruction_length": 2,
             },
-            "compact_D0_D5": {
+            "compact_D0_DF": {
                 "dispatcher": "C4:8108",
                 "instruction_length": 3,
-                "policy": "only D0/D5 admitted by the fail-closed transition CFG",
+                "policy": "D-range dispatcher consumes two operand bytes for the audited CFG corpus",
             },
             "opcode_A0": {
-                "policy": "nested call; not flattened by the transition CFG",
+                "policy": "nested call; caller continuation allowed only when callee CFG is independently proven to return",
+            },
+            "opcode_B1": {
+                "policy": "tail jump; same-entry target becomes a CFG edge, external target must independently return to close nested proof",
             },
         },
         "handler_findings": {
@@ -1423,7 +1739,6 @@ def main() -> None:
             "static source map/config is not inferred from script-pack identity",
             "five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry",
             "non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven",
-            "remaining non-terminal raw 0x57 route-index shapes are not promoted unless entry-start or fail-closed CFG alignment is proven",
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
@@ -1480,8 +1795,9 @@ these fields as current-map coordinates.
 The fail-closed 0x57 reachability walk now carries additional handler-level
 length proofs without guessing unknown instructions:
 
-- opcode 0x02 with operand 0x41: C4:89A5 resolves 81:EC60, while C4:895E
-  advances the caller by 2 bytes before the call; 81:EC60 returns through RTL.
+- opcode 0x02 concrete operands 0x17, 0x1D, 0x2D and 0x41: C4:895E
+  advances the caller by 2 bytes before the indirect call, and each inspected
+  target returns through RTL.
 - opcode 0x2F / C4:968E: six operand bytes are consumed, so 7 bytes total.
 - opcode 0x30 / C4:96CC: two 16-bit operands plus one byte are consumed, so
   6 bytes total.
@@ -1494,10 +1810,15 @@ length proofs without guessing unknown instructions:
   caller consumes two more, so 7 bytes total.
 - opcode 0x74 / C4:9488: all paths converge at Y=3, so 3 bytes total.
 - compact A1 / C4:83CD consumes one operand and advances 2 bytes total.
-- compact D0 and D5 use the D-range dispatcher at C4:8108 and consume two
-  operand bytes, so 3 bytes total.
-- opcode A0 is a nested VM call and is deliberately not flattened. A path
-  reaching A0 stops unless a separate nested-call return proof is available.
+- compact D0..DF use the D-range dispatcher at C4:8108 and consume two
+  operand bytes, so 3 bytes total for the audited corpus.
+- B0/B5 terminate a substream. B2 is an unconditional rel8 branch; B3/B4 add
+  branch/fallthrough edges. B1 is a tail jump and never gains synthetic
+  fallthrough.
+- opcode A0 is a nested VM call. Caller continuation is allowed only when a
+  recursive fail-closed walk proves the callee returns on all explored paths.
+  Same-entry B1 tail targets are followed directly; external tail targets must
+  independently close as returning substreams.
 """.format(sha=sha, head=summary["generated_against_git_head"])
 
     doc += """
@@ -1548,6 +1869,12 @@ remain blank unless independently proven.
 - terminal 0x57 route-table forms: {terminal57}
 - entry-start non-terminal 0x57 route-table forms: {entry_start57}
 - branch-reachable non-terminal 0x57 route-table forms: {cfg_reachable57}
+- all raw 57 <00..0F> shapes in parsed VM entries: {raw57_total}
+- promoted 0x57 transitions among those raw shapes: {raw57_promoted}
+- CFG-unreachable raw 0x57 shapes: {raw57_unreachable}
+- reachable but unpromoted raw 0x57 shapes: {raw57_reachable_unpromoted}
+- unresolved / blocked raw 0x57 shapes: {raw57_blocked}
+- nested return targets proven by the closure walk: {raw57_nested_returns}
 
 Opcode 0x54 is destination-indirect: it requests a saved-map-state return
 rather than encoding a destination beside the opcode. Its exact terminal forms
@@ -1616,7 +1943,13 @@ independently bounded opcode lengths.
   caller by two bytes before the indirect call and 81:EC60 returns through RTL,
   proving continuation to the following 0x57 instructions.
 
-Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
+The remaining raw 0x57-shaped bytes are now fully closed by the same
+fail-closed CFG. Across all parsed VM entries there are {raw57_total} raw
+57 <00..0F> shapes: {raw57_promoted} are promoted transitions and the other
+{raw57_unreachable} are unreachable from their parsed entry starts under the
+proven grammar. There are {raw57_reachable_unpromoted} reachable-but-unpromoted
+and {raw57_blocked} unresolved/blocked shapes. The earlier raw 0x57 backlog is
+therefore closed rather than merely deferred.
 
 ## Deliberate non-promotions
 
@@ -1700,6 +2033,12 @@ PC was observed.
         terminal57=terminal57_count,
         entry_start57=entry_start57_count,
         cfg_reachable57=cfg_reachable57_count,
+        raw57_total=opcode57_raw_shape_total_count,
+        raw57_promoted=opcode57_promoted_transition_count,
+        raw57_unreachable=opcode57_cfg_unreachable_raw_shape_count,
+        raw57_reachable_unpromoted=opcode57_reachable_unpromoted_count,
+        raw57_blocked=opcode57_unresolved_blocked_count,
+        raw57_nested_returns=opcode57_nested_return_proof_count,
         terminal_matches=terminal_dest_entry + terminal53_dest_entry + terminal55_dest_entry,
         terminal_total=terminal_count + terminal53_count + terminal55_count,
     )

@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: 60f43983adbc3fbbcd327721d6af970c352c5a64
+Git HEAD used for generation: 82ff272d59b628cdae097c8ed3a5841a443a9485
 
 ## Handler-level promotion
 
@@ -41,8 +41,9 @@ these fields as current-map coordinates.
 The fail-closed 0x57 reachability walk now carries additional handler-level
 length proofs without guessing unknown instructions:
 
-- opcode 0x02 with operand 0x41: C4:89A5 resolves 81:EC60, while C4:895E
-  advances the caller by 2 bytes before the call; 81:EC60 returns through RTL.
+- opcode 0x02 concrete operands 0x17, 0x1D, 0x2D and 0x41: C4:895E
+  advances the caller by 2 bytes before the indirect call, and each inspected
+  target returns through RTL.
 - opcode 0x2F / C4:968E: six operand bytes are consumed, so 7 bytes total.
 - opcode 0x30 / C4:96CC: two 16-bit operands plus one byte are consumed, so
   6 bytes total.
@@ -55,10 +56,15 @@ length proofs without guessing unknown instructions:
   caller consumes two more, so 7 bytes total.
 - opcode 0x74 / C4:9488: all paths converge at Y=3, so 3 bytes total.
 - compact A1 / C4:83CD consumes one operand and advances 2 bytes total.
-- compact D0 and D5 use the D-range dispatcher at C4:8108 and consume two
-  operand bytes, so 3 bytes total.
-- opcode A0 is a nested VM call and is deliberately not flattened. A path
-  reaching A0 stops unless a separate nested-call return proof is available.
+- compact D0..DF use the D-range dispatcher at C4:8108 and consume two
+  operand bytes, so 3 bytes total for the audited corpus.
+- B0/B5 terminate a substream. B2 is an unconditional rel8 branch; B3/B4 add
+  branch/fallthrough edges. B1 is a tail jump and never gains synthetic
+  fallthrough.
+- opcode A0 is a nested VM call. Caller continuation is allowed only when a
+  recursive fail-closed walk proves the callee returns on all explored paths.
+  Same-entry B1 tail targets are followed directly; external tail targets must
+  independently close as returning substreams.
 
 ## Confidence policy
 
@@ -107,6 +113,12 @@ remain blank unless independently proven.
 - terminal 0x57 route-table forms: 2
 - entry-start non-terminal 0x57 route-table forms: 8
 - branch-reachable non-terminal 0x57 route-table forms: 7
+- all raw 57 <00..0F> shapes in parsed VM entries: 56
+- promoted 0x57 transitions among those raw shapes: 17
+- CFG-unreachable raw 0x57 shapes: 39
+- reachable but unpromoted raw 0x57 shapes: 0
+- unresolved / blocked raw 0x57 shapes: 0
+- nested return targets proven by the closure walk: 14
 
 Opcode 0x54 is destination-indirect: it requests a saved-map-state return
 rather than encoding a destination beside the opcode. Its exact terminal forms
@@ -175,7 +187,13 @@ independently bounded opcode lengths.
   caller by two bytes before the indirect call and 81:EC60 returns through RTL,
   proving continuation to the following 0x57 instructions.
 
-Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
+The remaining raw 0x57-shaped bytes are now fully closed by the same
+fail-closed CFG. Across all parsed VM entries there are 56 raw
+57 <00..0F> shapes: 17 are promoted transitions and the other
+39 are unreachable from their parsed entry starts under the
+proven grammar. There are 0 reachable-but-unpromoted
+and 0 unresolved/blocked shapes. The earlier raw 0x57 backlog is
+therefore closed rather than merely deferred.
 
 ## Deliberate non-promotions
 
@@ -233,7 +251,6 @@ PC was observed.
 - static source map/config is not inferred from script-pack identity
 - five terminal 0x56 shapes and twenty-one terminal 0x53 shapes do not resolve a destination record0 entry
 - non-terminal 0x53/0x55/0x56 shapes remain structural unless source instruction alignment is proven
-- remaining non-terminal raw 0x57 route-index shapes are not promoted unless entry-start or fail-closed CFG alignment is proven
 - destination config stays null when destination pack record0/entry1 has multiple confirmed selectors
 - 0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix
 - exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified
