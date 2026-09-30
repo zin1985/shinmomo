@@ -56,14 +56,22 @@ fully proven.
 
 The existing framed event catalog contains 816 structurally validated records.
 
-For records whose body begins with opcode 0x59, the selector and four controller seeds
-can be read directly from ROM. The extraction currently yields:
+The extractor now keeps two separate fail-closed evidence classes:
 
-- 318 distinct opcode-59 actor records
-- 41 unique display selectors
-- 53 event families
-- 40 map configurations after joining the existing map/pack crosslink
-- 327 map-context rows because some event families are shared by more than one config
+- body-head opcode 0x59: the original exact case;
+- body-tail opcode 0x59: the final six bytes of a framed VM body are exactly
+  `59 <selector> <five-byte-command remainder>`, with the selector present in the
+  proven static selector catalog.
+
+The current union yields:
+
+- 752 distinct opcode-59 actor records
+- 318 body-head records
+- 434 additional body-tail records
+- 68 unique display selectors
+- 105 event families
+- 75 map configurations after joining the existing map/pack crosslink
+- 817 map-context rows because some event families are shared by more than one config
 - zero selectors missing from the 170/170 static selector catalog
 
 Outputs:
@@ -131,30 +139,26 @@ the missing semantic meaning of operand 1 / $0859: **display selector id**.
 ## Current map coverage and caveat
 
 The current static crosslink covers every framed event record whose body starts with opcode
-0x59. This is a strong exact subset, not yet every possible actor creation path.
+0x59 plus the additional framed records whose body ends in one complete six-byte opcode-0x59
+actor command. The two evidence classes remain distinct in the CSV. This is still not every
+possible actor creation path: instruction-aligned 0x59 commands in the middle of longer bodies
+require CFG parsing before promotion.
 
 Map binding is recorded as `pack_family_context`. When one event family is shared by
 multiple map configurations, the actor row is associated with each compatible configuration
 rather than falsely choosing one.
 
-At present only pack 0x50 has a human map label promoted in this file. The other 39
+At present only pack 0x50 has a human map label promoted in this file. The other 74
 configuration ids are structurally known but still need the separate map-name/location
 catalog work.
 
-## Most reused map-bound selectors
+## Reuse and coverage
 
-The current subset already shows strong reuse:
-
-- selector 0x40: 14 map configs / 25 event records
-- selector 0x43: 13 map configs / 24 records
-- selector 0x59: 10 map configs / 13 records
-- selector 0x5A: 10 map configs / 13 records
-- selector 0x30: 9 map configs / 15 records
-- selector 0x2F: 8 map configs / 11 records
-
-This is useful for later semantic clustering: highly reused humanoid-looking selectors are
-likely generic NPC families, while low-frequency monster/animal/object shapes can be checked
-against event behavior and dialogue.
+The tail-aligned expansion changes the reuse rankings substantially, so selector reuse is now
+derived from the generated CSV/JSON rather than frozen as a hand-maintained list in this note.
+The important structural result is the coverage jump from 41 to 68 selectors and from 40 to
+75 map configurations. Reuse remains useful for later semantic clustering, but role assignment
+still requires behavior, dialogue, or other independent evidence.
 
 ## What is still separate
 
@@ -164,9 +168,9 @@ evidence. The map-bound selector atlas is therefore intentionally unclassified b
 
 The next static layers are:
 
-1. parse instruction-aligned opcode 0x59 occurrences that appear later inside longer event bodies,
-   not only bodies whose first instruction is 0x59;
-2. bind selector rows to dialogue/event semantics and controller behavior keys;
+1. prove instruction-aligned opcode 0x59 occurrences in the middle of longer event bodies
+   with the bank84 VM CFG, rather than raw byte search;
+2. bind selector rows to controller behavior keys and classify stationary/wandering/scripted roles;
 3. merge human-readable map/location labels;
 4. connect the separate logical-actor path ($1569 ids) and special/event object-preset path
    to the same selector-centric catalog.
