@@ -10,10 +10,10 @@ def read_csv(path):
         return list(csv.DictReader(f))
 
 actors = read_csv(NPC / "static_map_actor_selector_crosslink_20260930.csv")
-candidates = read_csv(NPC / "static_map_actor_semantic_candidates_20260930.csv")
+visual_rows = read_csv(NPC / "static_map_bound_selector_visual_form_20260930.csv")
 bindings = read_csv(NPC / "static_actor_event_dialogue_binding_20260930.csv")
 
-cand_by_key = {(r["config_id"], r["record_id"], r["selector_hex"]): r for r in candidates}
+visual_by_selector = {r["selector_hex"]: r for r in visual_rows}
 dialogue_by_key = collections.defaultdict(list)
 for r in bindings:
     dialogue_by_key[(r["config_id"], r["record_id"], r["selector_hex"])].append(r)
@@ -21,9 +21,9 @@ for r in bindings:
 out = []
 for actor in actors:
     key = (actor["config_id"], actor["record_id"], actor["selector_hex"])
-    c = cand_by_key.get(key, {})
+    visual = visual_by_selector.get(actor["selector_hex"], {})
     decoded = [x for x in dialogue_by_key.get(key, []) if x.get("decoded_text")]
-    form, detail = c.get("visual_form", ""), c.get("visual_detail", "")
+    form, detail = visual.get("visual_form", ""), visual.get("visual_detail", "")
 
     role, confidence, evidence = "unknown", "unknown", "no semantic evidence joined"
 
@@ -39,6 +39,14 @@ for actor in actors:
     elif form in ("monster_like", "small_creature_like"):
         confidence = "candidate"
         evidence = f"{form}; {detail}; enemy allegiance not proven"
+
+    if decoded:
+        role, confidence = "talking_npc", "strong_candidate"
+        evidence = (
+            f"actor-bound decoded dialogue source(s)={len(decoded)}; "
+            f"speaker record={actor['record_id']}; visual={detail or form or 'unclassified'}; "
+            "finer occupation/name intentionally not inferred from dialogue alone"
+        )
 
     if actor["config_id"] == "cfg_t04_l008_v2" and actor["record_id"].startswith("F50-L") and decoded:
         role, confidence = "villager", "high"
@@ -59,7 +67,7 @@ for actor in actors:
         "evidence": evidence,
         "provenance": (
             "static_map_actor_selector_crosslink_20260930.csv;"
-            "static_map_actor_semantic_candidates_20260930.csv;"
+            "static_map_bound_selector_visual_form_20260930.csv;"
             "static_actor_event_dialogue_binding_20260930.csv"
         ),
     })

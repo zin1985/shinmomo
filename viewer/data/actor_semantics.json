@@ -1,7 +1,85 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "purpose": "semantic overrides applied by viewer without regenerating world.json",
   "actor_overrides": [
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "record_id": "F38-L001",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "record_id": "F39-L001",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t33_l146_v1",
+      "record_id": "F48-L006",
+      "selector_hex": "0x17",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white cat-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white cat-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t33_l146_v1",
+      "record_id": "F48-L007",
+      "selector_hex": "0x17",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white cat-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white cat-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t33_l146_v1",
+      "record_id": "F48-L008",
+      "selector_hex": "0x17",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white cat-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white cat-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l033_v2",
+      "record_id": "F4F-L001",
+      "selector_hex": "0x3C",
+      "sprite_semantics": {
+        "semantic_role": "talking_npc",
+        "character_name": null,
+        "appearance_class": "yellow-clad human figure",
+        "confidence": "strong_candidate",
+        "evidence": "actor-bound decoded dialogue source(s)=1; speaker record=F4F-L001; visual=yellow-clad human figure; finer occupation/name intentionally not inferred from dialogue alone",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
     {
       "config_id": "cfg_t04_l008_v2",
       "record_id": "F50-L001",
@@ -12,7 +90,7 @@
         "appearance_class": "red-hat human figure",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=1; speaker record=F50-L001; visual=red-hat human figure; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -25,7 +103,7 @@
         "appearance_class": "red-hat elder-like figure",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L002; visual=red-hat elder-like figure; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -38,7 +116,7 @@
         "appearance_class": "purple-green human graphics alias",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L003; visual=purple-green human graphics alias; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -51,7 +129,7 @@
         "appearance_class": "purple-green human graphics alias",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L004; visual=purple-green human graphics alias; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -64,7 +142,7 @@
         "appearance_class": "human graphics alias",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=3; speaker record=F50-L005; visual=human graphics alias; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -77,7 +155,7 @@
         "appearance_class": "red-hat human figure",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L006; visual=red-hat human figure; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -90,7 +168,7 @@
         "appearance_class": "hooded or white-haired figure",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=3; speaker record=F50-L007; visual=hooded or white-haired figure; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -103,7 +181,7 @@
         "appearance_class": "dark-haired human figure",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=2; speaker record=F50-L008; visual=dark-haired human figure; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -116,7 +194,7 @@
         "appearance_class": "blue-haired or blue-hat human figure",
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=1; speaker record=F50-L009; visual=blue-haired or blue-hat human figure; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     },
     {
@@ -129,7 +207,930 @@
         "appearance_class": null,
         "confidence": "high",
         "evidence": "旅立ちの村 opcode59 actor; actor-bound decoded dialogue source(s)=1; speaker record=F50-L010; visual=unclassified; finer occupation/name intentionally not inferred from dialogue alone",
-        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_actor_semantic_candidates_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L001",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L002",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L003",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L004",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L005",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L006",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L013",
+      "selector_hex": "0x54",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "gray-black monster-like figure",
+        "confidence": "candidate",
+        "evidence": "monster_like; gray-black monster-like figure; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L014",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L016",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L017",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l094_v2",
+      "record_id": "F53-L018",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l034_v2",
+      "record_id": "F60-L012",
+      "selector_hex": "0x17",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white cat-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white cat-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l035_v2",
+      "record_id": "F60-L012",
+      "selector_hex": "0x17",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white cat-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white cat-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "record_id": "F75-L021",
+      "selector_hex": "0x11",
+      "sprite_semantics": {
+        "semantic_role": "effect",
+        "character_name": null,
+        "appearance_class": "purple flower-like form",
+        "confidence": "candidate",
+        "evidence": "plant/effect-like static actor; purple flower-like form; gameplay role not yet proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "record_id": "F75-L022",
+      "selector_hex": "0x0F",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "small black-white creature",
+        "confidence": "candidate",
+        "evidence": "small_creature_like; small black-white creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "record_id": "F75-L028",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "record_id": "F88-L001",
+      "selector_hex": "0x0F",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "small black-white creature",
+        "confidence": "candidate",
+        "evidence": "small_creature_like; small black-white creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "record_id": "F88-L002",
+      "selector_hex": "0x11",
+      "sprite_semantics": {
+        "semantic_role": "effect",
+        "character_name": null,
+        "appearance_class": "purple flower-like form",
+        "confidence": "candidate",
+        "evidence": "plant/effect-like static actor; purple flower-like form; gameplay role not yet proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "record_id": "F88-L003",
+      "selector_hex": "0x11",
+      "sprite_semantics": {
+        "semantic_role": "effect",
+        "character_name": null,
+        "appearance_class": "purple flower-like form",
+        "confidence": "candidate",
+        "evidence": "plant/effect-like static actor; purple flower-like form; gameplay role not yet proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "record_id": "F89-L001",
+      "selector_hex": "0x0F",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "small black-white creature",
+        "confidence": "candidate",
+        "evidence": "small_creature_like; small black-white creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "record_id": "F89-L002",
+      "selector_hex": "0x11",
+      "sprite_semantics": {
+        "semantic_role": "effect",
+        "character_name": null,
+        "appearance_class": "purple flower-like form",
+        "confidence": "candidate",
+        "evidence": "plant/effect-like static actor; purple flower-like form; gameplay role not yet proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L001",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L002",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L003",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L004",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L005",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L006",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t04_l062_v2",
+      "record_id": "F8C-L007",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l084_v2",
+      "record_id": "F8D-L001",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l084_v2",
+      "record_id": "F8D-L002",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l084_v2",
+      "record_id": "F8D-L003",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "record_id": "F92-L001",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "record_id": "F92-L002",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "record_id": "F93-L001",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "record_id": "F93-L002",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "record_id": "F93-L003",
+      "selector_hex": "0x3A",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "gray rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; gray rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t29_l138_v2",
+      "record_id": "FB5-L006",
+      "selector_hex": "0x53",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "red-orange monster-like figure",
+        "confidence": "candidate",
+        "evidence": "monster_like; red-orange monster-like figure; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t32_l144_v1",
+      "record_id": "FBA-L011",
+      "selector_hex": "0x54",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "gray-black monster-like figure",
+        "confidence": "candidate",
+        "evidence": "monster_like; gray-black monster-like figure; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t32_l144_v1",
+      "record_id": "FBB-L008",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t15_l107_v2",
+      "record_id": "FC1-L001",
+      "selector_hex": "0x56",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "green monster-like figure",
+        "confidence": "candidate",
+        "evidence": "monster_like; green monster-like figure; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t16_l109_v2",
+      "record_id": "FC2-L002",
+      "selector_hex": "0x6F",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "green-yellow monster-like figure",
+        "confidence": "candidate",
+        "evidence": "monster_like; green-yellow monster-like figure; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t17_l111_v2",
+      "record_id": "FC4-L004",
+      "selector_hex": "0x56",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "green monster-like figure",
+        "confidence": "candidate",
+        "evidence": "monster_like; green monster-like figure; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD0-L002",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD0-L004",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD0-L006",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "record_id": "FD1-L004",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "record_id": "FD3-L003",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "record_id": "FD3-L007",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD5-L003",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD5-L004",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD5-L006",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD5-L007",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD7-L001",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD7-L004",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD7-L005",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD7-L006",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD8-L002",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD8-L004",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "record_id": "FD8-L006",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t51_l180_v2",
+      "record_id": "FDB-L004",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t51_l180_v2",
+      "record_id": "FDB-L007",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t51_l180_v2",
+      "record_id": "FDB-L009",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t51_l180_v2",
+      "record_id": "FDB-L010",
+      "selector_hex": "0x39",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "white rabbit-like animal",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; white rabbit-like animal; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t55_l192_v2",
+      "record_id": "FE0-L001",
+      "selector_hex": "0x49",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "snail-like creature",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; snail-like creature; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t55_l192_v2",
+      "record_id": "FE0-L002",
+      "selector_hex": "0x49",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "snail-like creature",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; snail-like creature; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "record_id": "FF5-L014",
+      "selector_hex": "0x11",
+      "sprite_semantics": {
+        "semantic_role": "effect",
+        "character_name": null,
+        "appearance_class": "purple flower-like form",
+        "confidence": "candidate",
+        "evidence": "plant/effect-like static actor; purple flower-like form; gameplay role not yet proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "record_id": "FF5-L015",
+      "selector_hex": "0x0F",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "small black-white creature",
+        "confidence": "candidate",
+        "evidence": "small_creature_like; small black-white creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "record_id": "FF5-L021",
+      "selector_hex": "0x0E",
+      "sprite_semantics": {
+        "semantic_role": "unknown",
+        "character_name": null,
+        "appearance_class": "yellow humanoid creature",
+        "confidence": "candidate",
+        "evidence": "monster_like; yellow humanoid creature; enemy allegiance not proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l009_v2",
+      "record_id": "FF9-L001",
+      "selector_hex": "0x49",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "snail-like creature",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; snail-like creature; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l009_v2",
+      "record_id": "FF9-L006",
+      "selector_hex": "0x5C",
+      "sprite_semantics": {
+        "semantic_role": "effect",
+        "character_name": null,
+        "appearance_class": "cabinet or shrine-box-like object",
+        "confidence": "candidate",
+        "evidence": "object-like static actor; cabinet or shrine-box-like object; gameplay role not yet proven",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
+      }
+    },
+    {
+      "config_id": "cfg_t07_l009_v2",
+      "record_id": "FF9-L009",
+      "selector_hex": "0x49",
+      "sprite_semantics": {
+        "semantic_role": "animal",
+        "character_name": null,
+        "appearance_class": "snail-like creature",
+        "confidence": "high",
+        "evidence": "visual classification=animal_like; snail-like creature; static opcode59 map binding",
+        "provenance": "static_map_actor_selector_crosslink_20260930.csv;static_map_bound_selector_visual_form_20260930.csv;static_actor_event_dialogue_binding_20260930.csv"
       }
     }
   ]

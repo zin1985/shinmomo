@@ -190,10 +190,11 @@ Across the full 817-row static opcode-0x59 actor corpus, the generated semantic
 layer now has:
 
 - 10 high-confidence `villager` rows (旅立ちの村 F50-L001..L010)
-- 36 high-confidence `animal` rows
-- 4 `effect` candidates from object/plant-effect visual classes
-- 12 monster/small-creature rows retained as `unknown` candidates because enemy allegiance is not proven
-- 755 rows remaining fully unknown
+- 1 `talking_npc` strong candidate outside pack 0x50 (F4F-L001 / selector 0x3C)
+- 47 high-confidence `animal` rows
+- 6 `effect` candidates from object/plant-effect visual classes
+- 23 monster/small-creature rows retained as `unknown` candidates because enemy allegiance is not proven
+- 730 rows remaining fully unknown
 
 The generated per-actor output is
 `data/npc_display/static_actor_sprite_semantics_20260930.csv`.
@@ -203,3 +204,15 @@ override layer. This lets semantic-only improvements reach the viewer without
 rewriting the multi-megabyte `world.json` every time. The canonical build
 pipeline can still regenerate embedded `sprite_semantics` through
 `tools/python/build_structural_world_viewer.py`.
+
+### Full-corpus visual join correction
+
+The first promoted semantic pass joined through the older 327-row semantic-candidate
+table. That missed tail-opcode59 actors even when their selector already had a visual-form
+classification. The current generator instead joins all 817 actor rows to the
+selector-level visual-form table directly.
+
+This recovers, for example, F4F-L001 / selector 0x3C as a yellow-clad humanoid
+and preserves its actor-bound decoded dialogue as a generic `talking_npc` strong
+candidate. The dialogue proves a speaking actor association, but does not prove a
+specific profession or named identity.
