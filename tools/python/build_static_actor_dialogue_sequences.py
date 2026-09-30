@@ -8,6 +8,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[2]
 BINDING = ROOT / "data/npc_display/static_actor_event_dialogue_binding_20260930.csv"
+ACTORS = ROOT / "data/npc_display/static_map_actor_selector_crosslink_20260930.csv"
 HIST = ROOT / "data/dialogue/historical_decode_crosswalk.csv"
 DECODE = ROOT / "data/csv/shinmomo_v33_test_C8_A7DD.csv"
 DIRECT = ROOT / "data/dialogue/family50_canonical_direct_decode_20260930.csv"
@@ -17,7 +18,7 @@ OUT_JSON = ROOT / "data/npc_display/static_actor_dialogue_sequences_20260930.jso
 OUT_PAGES = ROOT / "data/npc_display/static_actor_dialogue_sequence_pages_20260930.csv"
 
 PAGE_COLS = [
-    "config_id","record_id","selector_hex","sequence_id","variant_order",
+    "scene_id","pack_id_hex","config_id","record_id","selector_hex","sequence_id","variant_order",
     "controller_pointer","event_record","dialogue_command_addr","text_record_id","text_pointer",
     "condition","speaker_actor_record","speaker_status","page_index","display_order","line_count",
     "line_1","line_2","line_3","page_text","page_boundary_status","advance_status",
@@ -45,6 +46,8 @@ def parse_events(s):
 
 def build(source_head=None):
     binding = rows(BINDING)
+    actor_rows = rows(ACTORS)
+    actor_by_key = {(r.get("config_id",""),r.get("record_id","")):r for r in actor_rows}
     hist = rows(HIST)
     decode = rows(DECODE)
     direct = rows(DIRECT)
@@ -75,7 +78,12 @@ def build(source_head=None):
     decoded_sequences = 0
     for b in selected:
         key = (b.get("config_id",""), b.get("record_id",""))
+        actor_src = actor_by_key.get(key, {})
+        pack_id = b.get("pack_id_hex") or actor_src.get("pack_id_hex","")
+        scene_id = b.get("scene_id") or (f'{b.get("config_id","")}@{pack_id}' if pack_id else "")
         actors.setdefault(key, {
+            "scene_id": scene_id,
+            "pack_id_hex": pack_id,
             "config_id": b.get("config_id",""),
             "record_id": b.get("record_id",""),
             "selector_hex": b.get("selector_hex",""),
@@ -183,6 +191,7 @@ def build(source_head=None):
 
         actors[key]["dialogue_sequences"].append({
             "sequence_id": seq_id, "variant_order": 0,
+            "scene_context": {"scene_id": actors[key].get("scene_id",""), "config_id": b.get("config_id",""), "pack_id_hex": actors[key].get("pack_id_hex",""), "state_evaluation": "required_for_current_dialogue_selection"},
             "sequence_kind": "conditional_variant" if source_count[b.get("record_id","")] > 1 else "single_source_path",
             "event": {
                 "record_id": b.get("event_record",""), "controller_pointer": b.get("controller_pointer",""),
@@ -216,7 +225,7 @@ def build(source_head=None):
             for page in seq["pages"]:
                 lines = [x["text"] for x in page["lines"]]
                 page_rows.append({
-                    "config_id": actor["config_id"], "record_id": actor["record_id"], "selector_hex": actor["selector_hex"],
+                    "scene_id": actor.get("scene_id",""), "pack_id_hex": actor.get("pack_id_hex",""), "config_id": actor["config_id"], "record_id": actor["record_id"], "selector_hex": actor["selector_hex"],
                     "sequence_id": seq["sequence_id"], "variant_order": variant_order,
                     "controller_pointer": actor["controller_pointer"], "event_record": seq["event"]["record_id"],
                     "dialogue_command_addr": seq["event"]["dialogue_command_addr"],
@@ -251,9 +260,10 @@ def build(source_head=None):
     }
 
     obj = {
-        "schema_version": "2026-09-30-dialogue-sequence-v3",
+        "schema_version": "2026-09-30-dialogue-sequence-v4",
         "source_main_head": source_head,
-        "purpose": "HTML actor click -> event -> conditional dialogue sequence -> display page playback",
+        "purpose": "HTML scene -> actor click -> event -> conditional dialogue sequence -> display page playback",
+        "scene_model": {"minimum_static_scene_key":"config_id + pack_id_hex","scene_id_format":"{config_id}@{pack_id_hex}","runtime_scene_instance":"config_id + active pack + story/event state","dialogue_selection_rule":"preserve all conditional variants unless current story/event state proves one branch active"},
         "rom_text_control_facts": {
             "0x00": {"role":"logical text record terminator","status":"confirmed_static"},
             "0x01": {"role":"explicit in-record line break","status":"confirmed_static"},

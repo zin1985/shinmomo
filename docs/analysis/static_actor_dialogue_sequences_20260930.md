@@ -103,3 +103,20 @@ These remain separate status fields so the HTML viewer can reproduce page order 
 Canonical-direct family-0x50 has 17 observable page-to-page transitions. All 17 satisfy `internal 0x01 line breaks + post-quote padding 0x01 line breaks = 3`, with zero mismatches. Quote glyphs remain literal characters; the stronger transition evidence is the three-line newline cadence.
 
 The display-state path also narrows input handling. The C4:A00D path distinguishes `$12B2 == 0x01`; the `$12AD & 7` state table includes input-sensitive handler C4:A264, which reads normalized held-input DP `$57` through mask `0xFC` gated by `$12C0` (initialized to `0xFF` at C4:9FEB), with a secondary `0xF4` path. The generic C0:AAC3 joypad pipeline maintains held state in `$57/$59` and new-press edges in `$5B/$5D`. Exact accepted button names and release/autorepeat semantics remain unresolved.
+
+
+## 2026-09-30 scene-context correction
+
+Actor/dialogue data must not treat `config_id` as a unique in-game place.
+
+Static actor inventory currently has 817 rows across 75 configs. 24 configs are shared by more than one actor-bearing pack. The minimum static scene key is therefore:
+
+`scene_id = config_id + "@" + pack_id_hex`
+
+Runtime selection is stricter:
+
+`scene instance = config_id + active pack + story/event state`
+
+Example: `cfg_t07_l009_v2` has 27 actor rows, but they split into pack 0x51 (11), 0x62 (7), and 0xF9 (9). A viewer that renders all 27 merely because the geometry config matches is incorrect.
+
+Dialogue variants remain branch-separated. A sequence is not labeled as the current line unless its condition is evaluated against the current scene state. If state is unknown, all reachable variants remain conditional candidates.

@@ -1,5 +1,5 @@
 {
-  "schema_version": "2026-09-30-dialogue-sequence-v3",
+  "schema_version": "2026-09-30-dialogue-sequence-v4",
   "source_main_head": "9a5fda03df722b8972eb4e623e90093080271e96",
   "purpose": "HTML actor click -> event -> conditional dialogue sequence -> display page playback",
   "rom_text_control_facts": {
@@ -484,9 +484,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -1026,7 +1034,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 01; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L002:0x50:0x02",
@@ -1600,9 +1614,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 branch selects A4 02; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -2127,7 +2149,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 03; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L003:0x50:0x04",
@@ -2450,9 +2478,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 branch selects A4 04; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -2797,7 +2833,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 05; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L004:0x50:0x06",
@@ -3385,9 +3427,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 branch selects A4 06; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -3747,7 +3797,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 07 then B2 0C exits selector chain; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L005:0x50:0x08",
@@ -4085,7 +4141,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 enters secondary guard; B4 06 falls through to A4 08; B2 04 skips A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L005:0x50:0x09",
@@ -4689,9 +4751,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 enters secondary guard; B4 06 branches to A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -5331,7 +5401,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 0A; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L006:0x50:0x0B",
@@ -6872,9 +6948,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 branch selects A4 0B; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -7509,7 +7593,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 0C then B2 0C exits selector chain; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L007:0x50:0x0D",
@@ -8072,7 +8162,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 enters secondary guard; B4 06 falls through to A4 0D; B2 04 skips A4 0E; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L007:0x50:0x0E",
@@ -8329,9 +8425,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 enters secondary guard; B4 06 branches to A4 0E; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -8570,7 +8674,13 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 fallthrough selects A4 0F; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         },
         {
           "sequence_id": "cfg_t04_l008_v2:F50-L008:0x50:0x10",
@@ -9154,9 +9264,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "B3 06 branch selects A4 10; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -10107,9 +10225,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t04_l008_v2",
@@ -11044,9 +11170,17 @@
           },
           "confidence": "confirmed_static",
           "evidence": "single source selection; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",
-          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv"
+          "provenance": "canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv",
+          "scene_context": {
+            "scene_id": "cfg_t04_l008_v2@0x50",
+            "config_id": "cfg_t04_l008_v2",
+            "pack_id_hex": "0x50",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x50",
+      "scene_id": "cfg_t04_l008_v2@0x50"
     },
     {
       "config_id": "cfg_t07_l033_v2",
@@ -11589,9 +11723,24 @@
           },
           "confidence": "strong_candidate",
           "evidence": "opcode59 controller CC:1BC5 belongs to F4F-L001; source selection 0x00 at CC:1BC2 -> C8:A7DD",
-          "provenance": "data/csv/shinmomo_v33_scan_C8_A7D0_A960.csv row 26; exact token hash 78e95672383e5b1600ea5e6213fb07351cffb28c859fa3f8cd7e052dc547ab6b"
+          "provenance": "data/csv/shinmomo_v33_scan_C8_A7D0_A960.csv row 26; exact token hash 78e95672383e5b1600ea5e6213fb07351cffb28c859fa3f8cd7e052dc547ab6b",
+          "scene_context": {
+            "scene_id": "cfg_t07_l033_v2@0x4F",
+            "config_id": "cfg_t07_l033_v2",
+            "pack_id_hex": "0x4F",
+            "state_evaluation": "required_for_current_dialogue_selection"
+          }
         }
-      ]
+      ],
+      "pack_id_hex": "0x4F",
+      "scene_id": "cfg_t07_l033_v2@0x4F"
     }
-  ]
+  ],
+  "scene_model": {
+    "minimum_static_scene_key": "config_id + pack_id_hex",
+    "scene_id_format": "{config_id}@{pack_id_hex}",
+    "runtime_scene_instance": "config_id + active pack + story/event state",
+    "shared_geometry_warning": "24 of 75 actor-bearing configs are associated with more than one pack; never merge actors by config_id alone",
+    "dialogue_selection_rule": "preserve all conditional variants unless current story/event state proves one branch active"
+  }
 }

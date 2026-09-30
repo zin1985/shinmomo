@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "actor_rows": 817,
+  "config_count": 75,
+  "scene_count": 114,
+  "shared_config_count": 24,
+  "shared_configs": [
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "pack_count": 6,
+      "total_actor_rows": 25,
+      "packs": [
+        {
+          "pack_id_hex": "0x38",
+          "actor_rows": 1
+        },
+        {
+          "pack_id_hex": "0x39",
+          "actor_rows": 1
+        },
+        {
+          "pack_id_hex": "0xD1",
+          "actor_rows": 8
+        },
+        {
+          "pack_id_hex": "0xD2",
+          "actor_rows": 5
+        },
+        {
+          "pack_id_hex": "0xD3",
+          "actor_rows": 8
+        },
+        {
+          "pack_id_hex": "0xD4",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t53_l184_v2",
+      "pack_count": 4,
+      "total_actor_rows": 26,
+      "packs": [
+        {
+          "pack_id_hex": "0xD0",
+          "actor_rows": 6
+        },
+        {
+          "pack_id_hex": "0xD5",
+          "actor_rows": 7
+        },
+        {
+          "pack_id_hex": "0xD7",
+          "actor_rows": 7
+        },
+        {
+          "pack_id_hex": "0xD8",
+          "actor_rows": 6
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t04_l018_v2",
+      "pack_count": 4,
+      "total_actor_rows": 22,
+      "packs": [
+        {
+          "pack_id_hex": "0x5A",
+          "actor_rows": 4
+        },
+        {
+          "pack_id_hex": "0x5B",
+          "actor_rows": 6
+        },
+        {
+          "pack_id_hex": "0x5D",
+          "actor_rows": 6
+        },
+        {
+          "pack_id_hex": "0x5E",
+          "actor_rows": 6
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "pack_count": 4,
+      "total_actor_rows": 11,
+      "packs": [
+        {
+          "pack_id_hex": "0x91",
+          "actor_rows": 2
+        },
+        {
+          "pack_id_hex": "0x92",
+          "actor_rows": 5
+        },
+        {
+          "pack_id_hex": "0x93",
+          "actor_rows": 3
+        },
+        {
+          "pack_id_hex": "0x95",
+          "actor_rows": 1
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t22_l121_v2",
+      "pack_count": 3,
+      "total_actor_rows": 49,
+      "packs": [
+        {
+          "pack_id_hex": "0x9A",
+          "actor_rows": 19
+        },
+        {
+          "pack_id_hex": "0x9B",
+          "actor_rows": 25
+        },
+        {
+          "pack_id_hex": "0x9C",
+          "actor_rows": 5
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t32_l144_v1",
+      "pack_count": 3,
+      "total_actor_rows": 38,
+      "packs": [
+        {
+          "pack_id_hex": "0xBA",
+          "actor_rows": 24
+        },
+        {
+          "pack_id_hex": "0xBB",
+          "actor_rows": 12
+        },
+        {
+          "pack_id_hex": "0xBC",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t07_l009_v2",
+      "pack_count": 3,
+      "total_actor_rows": 27,
+      "packs": [
+        {
+          "pack_id_hex": "0x51",
+          "actor_rows": 11
+        },
+        {
+          "pack_id_hex": "0x62",
+          "actor_rows": 7
+        },
+        {
+          "pack_id_hex": "0xF9",
+          "actor_rows": 9
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t07_l033_v2",
+      "pack_count": 3,
+      "total_actor_rows": 21,
+      "packs": [
+        {
+          "pack_id_hex": "0x2C",
+          "actor_rows": 18
+        },
+        {
+          "pack_id_hex": "0x3D",
+          "actor_rows": 2
+        },
+        {
+          "pack_id_hex": "0x4F",
+          "actor_rows": 1
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t55_l192_v2",
+      "pack_count": 3,
+      "total_actor_rows": 19,
+      "packs": [
+        {
+          "pack_id_hex": "0xE0",
+          "actor_rows": 11
+        },
+        {
+          "pack_id_hex": "0xE1",
+          "actor_rows": 6
+        },
+        {
+          "pack_id_hex": "0xE2",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "pack_count": 2,
+      "total_actor_rows": 57,
+      "packs": [
+        {
+          "pack_id_hex": "0x75",
+          "actor_rows": 32
+        },
+        {
+          "pack_id_hex": "0xF5",
+          "actor_rows": 25
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t04_l045_v2",
+      "pack_count": 2,
+      "total_actor_rows": 31,
+      "packs": [
+        {
+          "pack_id_hex": "0x6F",
+          "actor_rows": 9
+        },
+        {
+          "pack_id_hex": "0x70",
+          "actor_rows": 22
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t04_l070_v2",
+      "pack_count": 2,
+      "total_actor_rows": 20,
+      "packs": [
+        {
+          "pack_id_hex": "0x83",
+          "actor_rows": 11
+        },
+        {
+          "pack_id_hex": "0xF3",
+          "actor_rows": 9
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t07_l078_v2",
+      "pack_count": 2,
+      "total_actor_rows": 18,
+      "packs": [
+        {
+          "pack_id_hex": "0x72",
+          "actor_rows": 10
+        },
+        {
+          "pack_id_hex": "0x73",
+          "actor_rows": 8
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t07_l010_v2",
+      "pack_count": 2,
+      "total_actor_rows": 16,
+      "packs": [
+        {
+          "pack_id_hex": "0x52",
+          "actor_rows": 9
+        },
+        {
+          "pack_id_hex": "0x63",
+          "actor_rows": 7
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t06_l021_v2",
+      "pack_count": 2,
+      "total_actor_rows": 16,
+      "packs": [
+        {
+          "pack_id_hex": "0x5F",
+          "actor_rows": 8
+        },
+        {
+          "pack_id_hex": "0xF4",
+          "actor_rows": 8
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t51_l180_v2",
+      "pack_count": 2,
+      "total_actor_rows": 12,
+      "packs": [
+        {
+          "pack_id_hex": "0xDB",
+          "actor_rows": 10
+        },
+        {
+          "pack_id_hex": "0xDC",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t46_l170_v2",
+      "pack_count": 2,
+      "total_actor_rows": 10,
+      "packs": [
+        {
+          "pack_id_hex": "0x78",
+          "actor_rows": 6
+        },
+        {
+          "pack_id_hex": "0x79",
+          "actor_rows": 4
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t29_l138_v2",
+      "pack_count": 2,
+      "total_actor_rows": 9,
+      "packs": [
+        {
+          "pack_id_hex": "0xB1",
+          "actor_rows": 2
+        },
+        {
+          "pack_id_hex": "0xB5",
+          "actor_rows": 7
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t11_l101_v2",
+      "pack_count": 2,
+      "total_actor_rows": 8,
+      "packs": [
+        {
+          "pack_id_hex": "0xAE",
+          "actor_rows": 6
+        },
+        {
+          "pack_id_hex": "0xAF",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "pack_count": 2,
+      "total_actor_rows": 5,
+      "packs": [
+        {
+          "pack_id_hex": "0x88",
+          "actor_rows": 3
+        },
+        {
+          "pack_id_hex": "0x89",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t14_l105_v2",
+      "pack_count": 2,
+      "total_actor_rows": 5,
+      "packs": [
+        {
+          "pack_id_hex": "0xC0",
+          "actor_rows": 3
+        },
+        {
+          "pack_id_hex": "0xC3",
+          "actor_rows": 2
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t07_l051_v2",
+      "pack_count": 2,
+      "total_actor_rows": 3,
+      "packs": [
+        {
+          "pack_id_hex": "0x40",
+          "actor_rows": 2
+        },
+        {
+          "pack_id_hex": "0xEC",
+          "actor_rows": 1
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t04_l074_v2",
+      "pack_count": 2,
+      "total_actor_rows": 3,
+      "packs": [
+        {
+          "pack_id_hex": "0x85",
+          "actor_rows": 2
+        },
+        {
+          "pack_id_hex": "0xF6",
+          "actor_rows": 1
+        }
+      ]
+    },
+    {
+      "config_id": "cfg_t07_l072_v2",
+      "pack_count": 2,
+      "total_actor_rows": 2,
+      "packs": [
+        {
+          "pack_id_hex": "0x84",
+          "actor_rows": 1
+        },
+        {
+          "pack_id_hex": "0xF6",
+          "actor_rows": 1
+        }
+      ]
+    }
+  ],
+  "interpretation": "config_id is geometry/configuration identity; scene_id=config_id@pack_id_hex is the minimum static scene context. Story/event flags further specialize runtime scene state."
+}
