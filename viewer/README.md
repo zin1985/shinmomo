@@ -31,3 +31,11 @@ The viewer imports every row from `data/maps/transitions/map_transition_candidat
 - Tier 3: rows with unresolved `source_config_id` are never guessed from `script_pack`; when the destination config is known they appear under **Unbound transitions** on that destination map.
 
 Clicking an edge or unbound row shows trigger metadata, event record, destination pack/entry, arrival X/Y, confidence, evidence and provenance. Bound edges also provide an **open map** control. As transition analysis fills `source_config_id`, rebuilding `world.json` automatically promotes eligible rows from the unbound panel to map edges.
+
+## Dungeon previews and actor facing
+
+Dungeon `normal_primary` catalog rows may omit explicit pixel dimensions. The viewer builder recovers those dimensions from the structural metatile grid at 16 pixels per cell, so existing t05+ dungeon PNGs are no longer rendered into a zero-sized stage.
+
+When a BG1+BG2 composite exists for a configuration, the canonical viewer preview prefers that composite while retaining both structural layers.
+
+Static selector catalog thumbnails keep the original animation base metadata unchanged. For group 2/3 selectors that expose four consecutive directional states, the representative viewer artwork uses the first frame of `base_state + 1`, matching the established right / down(front) / left / up(back) ordering. This is a display choice, not a rewrite of the actor's animation state.

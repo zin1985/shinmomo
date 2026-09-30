@@ -29,6 +29,12 @@ def main():
         pixel_width = int(row["image_width_px"] or 0)
         pixel_height = int(row["image_height_px"] or 0)
         grid_width, grid_height = layer_grid_dimensions(tileset_id, layout_id, pixel_width, pixel_height)
+        # Dungeon catalog rows can omit image dimensions even though their
+        # structural layer and rendered PNG are already available.
+        if not pixel_width:
+            pixel_width = grid_width * 16
+        if not pixel_height:
+            pixel_height = grid_height * 16
         for config_id in split_ids(row["config_ids"]):
             maps[config_id] = {
                 "config_id": config_id,
@@ -124,8 +130,20 @@ def main():
                 if "=" in part:
                     k, v = part.split("=", 1)
                     assignment[k] = v
-            primary = maps[config_id]["layers"][0]
+            m = maps[config_id]
+            primary = m["layers"][0]
             primary["bg"] = assignment.get("primary")
+            # A BG1+BG2 composite is the most faithful canonical preview when
+            # available; keep structural layers separately for inspection.
+            if row.get("png"):
+                m["canonical_image"] = f"../{row['png']}"
+                m["render_kind"] = "bg12_composite"
+                composite_w = int(row.get("image_width_px") or m["pixel_width"])
+                composite_h = int(row.get("image_height_px") or m["pixel_height"])
+                m["pixel_width"] = composite_w
+                m["pixel_height"] = composite_h
+                m["grid_cell_px_x"] = composite_w / m["grid_width"]
+                m["grid_cell_px_y"] = composite_h / m["grid_height"]
             secondary = {
                 "kind": "structural_metatile",
                 "role": "secondary",
@@ -247,11 +265,16 @@ def main():
     # Current corpus audit: every seed pair falls inside its mapped structural map grid.
     actor_seed_audit = {"rows": 0, "in_bounds": 0, "out_of_bounds": 0}
     selector_asset_alias = {}
+    selector_display_meta = {}
     if SELECTOR_CATALOG.exists():
         for catalog_row in csv.DictReader(SELECTOR_CATALOG.open(encoding="utf-8-sig")):
             selector_hex = f"{int(catalog_row['selector']):02X}"
             duplicate = (catalog_row.get("duplicate_of") or "").replace("0x", "").upper()
             selector_asset_alias[selector_hex] = duplicate or selector_hex
+            selector_display_meta[selector_hex] = {
+                "display_frame": int(catalog_row["display_frame"]) if catalog_row.get("display_frame") else None,
+                "display_orientation": catalog_row.get("display_orientation") or None,
+            }
     static_actor_path = ROOT / "data/npc_display/static_map_actor_selector_crosslink_20260930.csv"
     if static_actor_path.exists():
         seen = set()
@@ -288,6 +311,8 @@ def main():
                 "sprite_anchor_status": "viewer_bottom_center_approximation",
                 "sprite_asset_selector_hex": f"0x{asset_selector_hex}",
                 "sprite_asset": f"../graphics/static_character_reconstruction/catalog_selector_{asset_selector_hex}.png",
+                "display_frame": selector_display_meta.get(selector_hex, {}).get("display_frame"),
+                "display_orientation": selector_display_meta.get(selector_hex, {}).get("display_orientation"),
                 "binding_evidence": row["binding_evidence"],
                 "position_evidence": [
                     "C1:B07E copies $0659/$0699 to $030B/$030D",

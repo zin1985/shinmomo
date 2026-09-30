@@ -31,7 +31,15 @@ for sel in range(1,TABLE_END):
         rejected.append((sel,'no_animation_frames'))
         continue
     try:
-        im,desc,info=m.render_frame(rec,frames[0])
+        # Viewer/catalog representative art should face the camera when the
+        # selector starts a four-direction humanoid family. The engine's
+        # established ordering is right, down(front), left, up(back).
+        display_frame=frames[0]
+        display_orientation='base_state_first_frame'
+        if g in {2,3} and all(m.states.get((g,base+i)) for i in range(4)):
+            display_frame=m.states[(g,base+1)][0]
+            display_orientation='front_preferred_state_plus_1'
+        im,desc,info=m.render_frame(rec,display_frame)
         sig=(rec['chr_resource'],rec['chr_window_index'],base,g,rec['palette_resource'])
         duplicate_of=seen.get(sig)
         if duplicate_of is None:
@@ -50,6 +58,8 @@ for sel in range(1,TABLE_END):
             'tile_count':info['tile_count'],
             'decoded_size':info['decoded_size'],
             'first_frame':frames[0],
+            'display_frame':display_frame,
+            'display_orientation':display_orientation,
             'frames_sample':','.join(map(str,frames)),
             'duplicate_of':'' if duplicate_of is None else f'0x{duplicate_of:02X}',
             'status':'static_rom_reconstructable'
@@ -61,7 +71,7 @@ csv_path=ROOT/'data/npc_display/static_character_selector_catalog_20260930.csv'
 fields=[
     'selector','chr_resource','chr_window_index','base_state','sprite_group_raw','sprite_group',
     'palette_resource','raw','graphics_context','source_tile_start','tile_count','decoded_size',
-    'first_frame','frames_sample','duplicate_of','status'
+    'first_frame','display_frame','display_orientation','frames_sample','duplicate_of','status'
 ]
 with csv_path.open('w',newline='',encoding='utf8') as f:
     w=csv.DictWriter(f,fieldnames=fields)
