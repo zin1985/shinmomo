@@ -287,6 +287,11 @@ def main() -> None:
         cfg_safe_lengths[_op] = 1
     for _op in range(0xD0, 0xE0):
         cfg_safe_lengths[_op] = 3
+    cfg_safe_lengths.update({
+        0x0A: 4, 0x14: 2, 0x1A: 4, 0x4A: 5, 0x4F: 5,
+        0x66: 4, 0x6C: 2, 0x6F: 2, 0x89: 1,
+        0xB6: 1, 0xEF: 1, 0xF0: 1,
+    })
 
     cfg_entries = []
     for _sp, _pack in sorted(packs.items()):
@@ -325,7 +330,7 @@ def main() -> None:
         # independently inspected RTL-returning targets, while C4:895E advances
         # the caller by two bytes before the indirect call.
         if op == 0x02:
-            if pos + 2 <= len(body) and body[pos + 1] in {0x17, 0x1D, 0x2D, 0x41}:
+            if pos + 2 <= len(body) and body[pos + 1] in {0x17, 0x1D, 0x25, 0x2D, 0x41, 0x5C, 0x5E}:
                 return 2
             return None
 
@@ -340,11 +345,19 @@ def main() -> None:
         if op == 0x3D:
             if pos + 2 > len(body):
                 return None
-            if body[pos + 1] == 0x04:
+            subtype = body[pos + 1]
+            if subtype == 0x02:
+                return 3
+            if subtype in {0x03, 0x04, 0x05, 0x06}:
                 return 2
-            if body[pos + 1] == 0x29:
+            if subtype == 0x29:
                 return 5
             return None
+
+        if op == 0x45:
+            if pos + 2 > len(body):
+                return None
+            return 2 if body[pos + 1] == 0 else 5
 
         if op == 0x52:
             if pos + 2 > len(body):
@@ -435,6 +448,10 @@ def main() -> None:
             if op in {0xB0, 0xB5}:
                 found_return = True
                 continue
+            if op == 0x8C:
+                # C4:8963 begins with BRK. This is a proven non-returning
+                # VM trap path, not an unknown instruction boundary.
+                continue
 
             if op in {0xB2, 0xB3, 0xB4}:
                 if pos + 2 > len(body):
@@ -503,6 +520,8 @@ def main() -> None:
 
             if op in {0xB0, 0xB5}:
                 continue
+            if op == 0x8C:
+                continue
 
             if op in {0xB2, 0xB3, 0xB4}:
                 if pos + 2 > len(body):
@@ -556,6 +575,8 @@ def main() -> None:
 
             op = body[pos]
             if op in {0xB0, 0xB5}:
+                continue
+            if op == 0x8C:
                 continue
 
             if op in {0xB2, 0xB3, 0xB4}:
@@ -1820,8 +1841,18 @@ def main() -> None:
             "opcode_0x02_returning_operands": {
                 "handler": "C4:89A5",
                 "instruction_length": 2,
-                "operands": ["0x17", "0x1D", "0x2D", "0x41"],
+                "operands": ["0x17", "0x1D", "0x25", "0x2D", "0x41", "0x5C", "0x5E"],
                 "policy": "caller advances before indirect call; inspected targets return through RTL",
+            },
+            "residual_nonterminal_closure": {
+                "fixed_lengths": {
+                    "0x0A": 4, "0x14": 2, "0x1A": 4, "0x4A": 5,
+                    "0x4F": 5, "0x66": 4, "0x6C": 2, "0x6F": 2,
+                    "0x89": 1, "0xB6": 1, "0xEF": 1, "0xF0": 1
+                },
+                "opcode_0x3D_subtypes": "02 -> 3; 03/04/05/06 -> 2; 29 -> 5 bytes",
+                "opcode_0x45": "operand1 == 0 -> 2 bytes; otherwise 5 bytes",
+                "opcode_0x8C": "C4:8963 begins BRK; proven non-returning trap path",
             },
             "opcode_0x2F": {
                 "handler": "C4:968E",
@@ -1864,7 +1895,7 @@ def main() -> None:
                 "policy": "D-range dispatcher consumes two operand bytes for the audited CFG corpus",
             },
             "opcode_A0": {
-                "policy": "nested call; caller continuation allowed only when callee CFG is independently proven to return",
+                "policy": "nested call; continuation requires a blocker-free callee path with at least one return; proven 0x8C BRK trap paths terminate without fallthrough",
             },
             "opcode_B1": {
                 "policy": "tail jump; same-entry target becomes a CFG edge, external target must independently return to close nested proof",
@@ -1920,9 +1951,11 @@ def main() -> None:
             f"{terminal_count - terminal_dest_entry} terminal 0x56 shapes and "
             f"{terminal53_count - terminal53_dest_entry} terminal 0x53 shapes do not "
             "resolve a unique destination entry anywhere in the destination pack",
-            f"{nonterminal56_cfg_blocked + nonterminal53_cfg_blocked + nonterminal55_cfg_blocked} "
-            "non-terminal 0x53/0x55/0x56 coordinate-anchored shapes remain structural "
-            "because fail-closed CFG paths still contain unresolved blockers",
+            *([
+                f"{nonterminal56_cfg_blocked + nonterminal53_cfg_blocked + nonterminal55_cfg_blocked} "
+                "non-terminal 0x53/0x55/0x56 coordinate-anchored shapes remain structural "
+                "because fail-closed CFG paths still contain unresolved blockers"
+            ] if (nonterminal56_cfg_blocked + nonterminal53_cfg_blocked + nonterminal55_cfg_blocked) else []),
             "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
             "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
             "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
@@ -1979,9 +2012,17 @@ these fields as current-map coordinates.
 The fail-closed 0x57 reachability walk now carries additional handler-level
 length proofs without guessing unknown instructions:
 
-- opcode 0x02 concrete operands 0x17, 0x1D, 0x2D and 0x41: C4:895E
-  advances the caller by 2 bytes before the indirect call, and each inspected
-  target returns through RTL.
+- opcode 0x02 concrete operands 0x17, 0x1D, 0x25, 0x2D, 0x41, 0x5C and
+  0x5E: C4:895E advances the caller by 2 bytes before the indirect call, and
+  each inspected target returns through RTL.
+- residual fixed lengths proven from handlers: 0x0A=4, 0x14=2, 0x1A=4,
+  0x4A=5, 0x4F=5, 0x66=4, 0x6C=2, 0x6F=2, 0x89=1, compact B6=1,
+  E-range 0xEF=1 and 0xF0=1.
+- opcode 0x3D / C4:935C: subtype 0x02 consumes 3 bytes; 0x03/0x04/0x05/0x06
+  consume 2 bytes; subtype 0x29 consumes 5 bytes.
+- opcode 0x45 / C4:98AC: operand1 0 consumes 2 bytes; nonzero consumes 5.
+- opcode 0x8C dispatches to C4:8963, whose first instruction is BRK. CFG
+  treats this as a proven non-returning trap path and never invents fallthrough.
 - opcode 0x2F / C4:968E: six operand bytes are consumed, so 7 bytes total.
 - opcode 0x30 / C4:96CC: two 16-bit operands plus one byte are consumed, so
   6 bytes total.
@@ -2000,7 +2041,8 @@ length proofs without guessing unknown instructions:
   branch/fallthrough edges. B1 is a tail jump and never gains synthetic
   fallthrough.
 - opcode A0 is a nested VM call. Caller continuation is allowed only when a
-  recursive fail-closed walk proves the callee returns on all explored paths.
+  recursive fail-closed walk has no unresolved blockers and finds at least one
+  returning route. Proven 0x8C BRK routes terminate without fallthrough.
   Same-entry B1 tail targets are followed directly; external tail targets must
   independently close as returning substreams.
 """.format(sha=sha, head=summary["generated_against_git_head"])

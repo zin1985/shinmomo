@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "2e6aebcf376de39e0149f8f488437314ba099aac",
+  "generated_against_git_head": "c227a125d3ecd4964cd0d4d982cbf94f25127837",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
-  "candidate_count": 1300,
+  "candidate_count": 1299,
   "confidence_counts": {
     "confirmed": 3,
-    "strong_candidate": 1273,
-    "structural_candidate": 24
+    "strong_candidate": 1289,
+    "structural_candidate": 7
   },
   "source_config_resolved_count": 3,
   "runtime_static_confirmation_count": 1,
@@ -15,9 +15,9 @@
     "CC:0B08"
   ],
   "runtime_only_confirmation_count": 1,
-  "destination_pack_identified_count": 1300,
+  "destination_pack_identified_count": 1299,
   "destination_config_resolved_count": 1066,
-  "destination_coordinate_resolved_count": 794,
+  "destination_coordinate_resolved_count": 793,
   "event_record_crosslink_count": 22,
   "event_source_crosslink_count": 12,
   "additional_native_0305_writer_sites": [
@@ -38,29 +38,29 @@
   "terminal_opcode56_destination_entry_match_count": 721,
   "terminal_opcode56_nonrecord0_unique_entry_match_count": 2,
   "terminal_opcode56_coordinate_match_count": 272,
-  "nonterminal_opcode56_coordinate_crosslink_count": 21,
-  "nonterminal_opcode56_cfg_promoted_count": 15,
-  "nonterminal_opcode56_cfg_unreachable_drop_count": 4,
-  "nonterminal_opcode56_cfg_blocked_count": 6,
+  "nonterminal_opcode56_coordinate_crosslink_count": 20,
+  "nonterminal_opcode56_cfg_promoted_count": 20,
+  "nonterminal_opcode56_cfg_unreachable_drop_count": 5,
+  "nonterminal_opcode56_cfg_blocked_count": 0,
   "terminal_opcode53_candidate_count": 394,
   "terminal_opcode53_destination_entry_match_count": 390,
   "terminal_opcode53_nonrecord0_unique_entry_match_count": 17,
   "terminal_opcode53_coordinate_match_count": 346,
   "nonterminal_opcode53_coordinate_crosslink_count": 93,
-  "nonterminal_opcode53_cfg_promoted_count": 83,
+  "nonterminal_opcode53_cfg_promoted_count": 93,
   "nonterminal_opcode53_cfg_unreachable_drop_count": 1,
-  "nonterminal_opcode53_cfg_blocked_count": 10,
+  "nonterminal_opcode53_cfg_blocked_count": 0,
   "terminal_opcode55_candidate_count": 40,
   "terminal_opcode55_destination_entry_match_count": 40,
   "terminal_opcode55_nonrecord0_unique_entry_match_count": 0,
   "terminal_opcode55_coordinate_match_count": 35,
   "nonterminal_opcode55_coordinate_crosslink_count": 9,
-  "nonterminal_opcode55_cfg_promoted_count": 8,
+  "nonterminal_opcode55_cfg_promoted_count": 9,
   "nonterminal_opcode55_cfg_unreachable_drop_count": 3,
-  "nonterminal_opcode55_cfg_blocked_count": 1,
-  "nonterminal_cfg_promoted_count": 106,
-  "nonterminal_cfg_unreachable_drop_count": 8,
-  "nonterminal_cfg_blocked_count": 17,
+  "nonterminal_opcode55_cfg_blocked_count": 0,
+  "nonterminal_cfg_promoted_count": 122,
+  "nonterminal_cfg_unreachable_drop_count": 9,
+  "nonterminal_cfg_blocked_count": 0,
   "terminal_packwide_nonrecord0_unique_match_count": 19,
   "terminal_unresolved_unique_entry_count": 7,
   "terminal_opcode57_route_candidate_count": 2,
@@ -81,10 +81,32 @@
       "operands": [
         "0x17",
         "0x1D",
+        "0x25",
         "0x2D",
-        "0x41"
+        "0x41",
+        "0x5C",
+        "0x5E"
       ],
       "policy": "caller advances before indirect call; inspected targets return through RTL"
+    },
+    "residual_nonterminal_closure": {
+      "fixed_lengths": {
+        "0x0A": 4,
+        "0x14": 2,
+        "0x1A": 4,
+        "0x4A": 5,
+        "0x4F": 5,
+        "0x66": 4,
+        "0x6C": 2,
+        "0x6F": 2,
+        "0x89": 1,
+        "0xB6": 1,
+        "0xEF": 1,
+        "0xF0": 1
+      },
+      "opcode_0x3D_subtypes": "02 -> 3; 03/04/05/06 -> 2; 29 -> 5 bytes",
+      "opcode_0x45": "operand1 == 0 -> 2 bytes; otherwise 5 bytes",
+      "opcode_0x8C": "C4:8963 begins BRK; proven non-returning trap path"
     },
     "opcode_0x2F": {
       "handler": "C4:968E",
@@ -124,7 +146,7 @@
       "policy": "D-range dispatcher consumes two operand bytes for the audited CFG corpus"
     },
     "opcode_A0": {
-      "policy": "nested call; caller continuation allowed only when callee CFG is independently proven to return"
+      "policy": "nested call; continuation requires a blocker-free callee path with at least one return; proven 0x8C BRK trap paths terminate without fallthrough"
     },
     "opcode_B1": {
       "policy": "tail jump; same-entry target becomes a CFG edge, external target must independently return to close nested proof"
@@ -162,7 +184,6 @@
   "unresolved_patterns": [
     "static source map/config is not inferred from script-pack identity",
     "3 terminal 0x56 shapes and 4 terminal 0x53 shapes do not resolve a unique destination entry anywhere in the destination pack",
-    "17 non-terminal 0x53/0x55/0x56 coordinate-anchored shapes remain structural because fail-closed CFG paths still contain unresolved blockers",
     "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
     "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
     "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
