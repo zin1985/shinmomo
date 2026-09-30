@@ -96,3 +96,10 @@ Still unresolved:
 - event continuation after the text record returns
 
 These remain separate status fields so the HTML viewer can reproduce page order without pretending the input semantics are already proven.
+
+
+## 2026-09-30 three-line page-transition closure
+
+Canonical-direct family-0x50 has 17 observable page-to-page transitions. All 17 satisfy `internal 0x01 line breaks + post-quote padding 0x01 line breaks = 3`, with zero mismatches. Quote glyphs remain literal characters; the stronger transition evidence is the three-line newline cadence.
+
+The display-state path also narrows input handling. The C4:A00D path distinguishes `$12B2 == 0x01`; the `$12AD & 7` state table includes input-sensitive handler C4:A264, which reads normalized held-input DP `$57` through mask `0xFC` gated by `$12C0` (initialized to `0xFF` at C4:9FEB), with a secondary `0xF4` path. The generic C0:AAC3 joypad pipeline maintains held state in `$57/$59` and new-press edges in `$5B/$5D`. Exact accepted button names and release/autorepeat semantics remain unresolved.

@@ -120,16 +120,34 @@ def build(source_head=None):
                 "line_count": len(lines),
                 "source_token_span": {"start_index": start, "end_index": end},
                 "source_events": page_events,
+                "page_capacity_lines": 3 if b.get("record_id","").startswith("F50-") else None,
+                "transition_padding_line_break_count": (
+                    sum(1 for e in events if end is not None and i + 1 < len(starts)
+                        and end < e["idx"] < starts[i+1] and e["token"] == "01")
+                    if i + 1 < len(blocks) else None
+                ),
+                "line_advance_count_before_next_page": (
+                    (len(lines)-1) + sum(1 for e in events if end is not None and i + 1 < len(starts)
+                        and end < e["idx"] < starts[i+1] and e["token"] == "01")
+                    if i + 1 < len(blocks) else None
+                ),
                 "page_boundary": {
-                    "basis": "quote_delimited_7D_7E_block",
-                    "status": "strong_candidate",
-                    "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                    "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                    "status": (
+                        "confirmed_static_family50" if b.get("record_id","").startswith("F50-") and i + 1 < len(blocks)
+                        and ((len(lines)-1) + sum(1 for e in events if end is not None and end < e["idx"] < starts[i+1] and e["token"] == "01") == 3)
+                        else "confirmed_static_family50_final_page_shape" if b.get("record_id","").startswith("F50-") and i + 1 == len(blocks)
+                        else "strong_candidate"
+                    ),
+                    "evidence": "F50 canonical corpus: 17/17 inter-page transitions consume exactly three 0x01 line advances" if b.get("record_id","").startswith("F50-") else "quote-delimited page candidate"
                 },
-                "advance": {
-                    "required_between_pages": "candidate" if i < len(blocks) - 1 else "no_next_page",
-                    "input": None,
-                    "status": "unresolved_static" if i < len(blocks) - 1 else "not_applicable"
-                }
+                "advance": (
+                    {"required_between_pages":"strong_candidate","boundary_trigger":"three_line_0x01_cadence_exhausted",
+                     "input":{"source":"normalized held-input DP $57","state_handler":"C4:A264","primary_mask":"0xFC","secondary_mask":"0xF4","gate":"$12C0","gate_init":"0xFF at C4:9FEB","exact_button_names":None,"edge_semantics":"handler reads held $57; generic new-press edges are $5B/$5D"},
+                     "status":"strong_candidate_static_display_state"}
+                    if b.get("record_id","").startswith("F50-") and i < len(blocks)-1
+                    else {"required_between_pages":"no_next_page","input":None,"status":"not_applicable"}
+                )
             })
 
         if d:
@@ -233,7 +251,7 @@ def build(source_head=None):
     }
 
     obj = {
-        "schema_version": "2026-09-30-dialogue-sequence-v2",
+        "schema_version": "2026-09-30-dialogue-sequence-v3",
         "source_main_head": source_head,
         "purpose": "HTML actor click -> event -> conditional dialogue sequence -> display page playback",
         "rom_text_control_facts": {
@@ -242,11 +260,17 @@ def build(source_head=None):
             "0x7D": {"role":"literal opening Japanese quote glyph 「","status":"confirmed_static"},
             "0x7E": {"role":"literal closing Japanese quote glyph 」","status":"confirmed_static"},
             "page_boundary": {
-                "role":"quote-delimited 0x7D..0x7E block used as display-page candidate",
-                "status":"strong_candidate",
-                "evidence":"all 36 canonical-direct F50 quote blocks have <=3 explicit lines; long records split into multiple quote-delimited blocks"
+                "role":"family-0x50 page transition aligns to a three-line 0x01 cadence; quote glyphs remain literal presentation characters",
+                "status":"confirmed_static_family50",
+                "evidence":"17/17 canonical-direct F50 inter-page transitions satisfy internal line breaks + post-quote padding line breaks = 3"
             },
-            "button_advance": {"role":"advance between display pages","status":"unresolved_static","input":None},
+            "button_advance": {
+                "role":"display-state input gate reached at page cadence boundary",
+                "status":"strong_candidate",
+                "input":{"source":"normalized held-input DP $57","display_state_handler":"C4:A264","primary_mask":"0xFC","secondary_mask":"0xF4","gate":"$12C0","gate_init":"0xFF at C4:9FEB","exact_button_names":None},
+                "evidence":"C4 display-state machine includes input-sensitive state A264; generic C0 joypad pipeline retains held state in $57/$59 and new-press edges in $5B/$5D",
+                "caveat":"exact accepted button names and release/autorepeat semantics remain unresolved"
+            },
             "choice_control": {"role":"choice/menu control within dialogue source","status":"not_identified_static"}
         },
         "condition_vm_facts": {

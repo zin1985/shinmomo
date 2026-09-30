@@ -1,6 +1,6 @@
 {
-  "schema_version": "2026-09-30-dialogue-sequence-v2",
-  "source_main_head": "3f9df95cb2f12852a0c586db1ddb328bdc6dca7b",
+  "schema_version": "2026-09-30-dialogue-sequence-v3",
+  "source_main_head": "b7f2f70ea3218e501614bc7ee2830f4f4c691d7a",
   "purpose": "HTML actor click -> event -> conditional dialogue sequence -> display page playback",
   "rom_text_control_facts": {
     "0x00": {
@@ -20,14 +20,24 @@
       "status": "confirmed_static"
     },
     "page_boundary": {
-      "role": "quote-delimited 0x7D..0x7E block used as display-page candidate",
-      "status": "strong_candidate",
-      "evidence": "all 36 canonical-direct F50 quote blocks have <=3 explicit lines; long records split into multiple quote-delimited blocks"
+      "role": "family-0x50 page transition aligns to a three-line 0x01 cadence; quote glyphs remain literal presentation characters",
+      "status": "confirmed_static_family50",
+      "evidence": "17/17 canonical-direct F50 inter-page transitions satisfy internal line breaks + post-quote padding line breaks = 3"
     },
     "button_advance": {
-      "role": "advance between display pages",
-      "status": "unresolved_static",
-      "input": null
+      "role": "display-state input gate reached at page cadence boundary",
+      "status": "strong_candidate",
+      "input": {
+        "source": "normalized held-input DP $57",
+        "display_state_handler": "C4:A264",
+        "primary_mask": "0xFC",
+        "secondary_mask": "0xF4",
+        "gate": "$12C0",
+        "gate_init": "0xFF at C4:9FEB",
+        "exact_button_names": null
+      },
+      "evidence": "C4 display-state machine includes input-sensitive state A264; generic C0 joypad pipeline retains held state in $57/$59 and new-press edges in $5B/$5D",
+      "caveat": "exact accepted button names and release/autorepeat semantics remain unresolved"
     },
     "choice_control": {
       "role": "choice/menu control within dialogue source",
@@ -75,7 +85,10 @@
     "f50_sequence_variants": 19,
     "f50_decoded_sequence_variants": 19,
     "f50_pages": 36,
-    "f50_exact_condition_actors": 7
+    "f50_exact_condition_actors": 7,
+    "f50_inter_page_transitions": 17,
+    "f50_three_line_transition_invariant_matches": 17,
+    "f50_three_line_transition_invariant_mismatches": 0
   },
   "actors": [
     {
@@ -393,15 +406,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -661,15 +677,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -868,15 +897,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -1203,15 +1235,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -1375,15 +1420,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -1644,15 +1692,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -1835,15 +1896,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -2155,15 +2219,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -2499,15 +2566,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -2768,15 +2838,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -3020,15 +3103,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -3379,15 +3465,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -3714,15 +3803,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -4034,15 +4126,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -4251,15 +4356,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -4519,15 +4627,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -4826,15 +4947,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -5060,15 +5184,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -5362,15 +5499,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 3,
@@ -5599,15 +5749,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 4,
@@ -5856,15 +6019,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 5,
@@ -6108,15 +6284,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -6386,15 +6565,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -6678,15 +6870,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -6897,15 +7092,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -7174,15 +7382,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -7428,15 +7639,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -7666,15 +7880,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -7966,15 +8183,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -8183,15 +8413,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -8481,15 +8714,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -8768,15 +9014,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 3,
@@ -9005,15 +9264,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
@@ -9353,15 +9615,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "2 internal 0x01 + 1 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 1,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 2,
@@ -9519,15 +9794,28 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50",
+                "evidence": "1 internal 0x01 + 2 padding 0x01 = 3; corpus invariant is 3 on all 17 transitions"
               },
               "advance": {
-                "required_between_pages": "candidate",
-                "input": null,
-                "status": "unresolved_static"
-              }
+                "required_between_pages": "strong_candidate",
+                "boundary_trigger": "three_line_0x01_cadence_exhausted",
+                "input": {
+                  "source": "normalized held-input DP $57",
+                  "state_handler": "C4:A264",
+                  "primary_mask": "0xFC",
+                  "secondary_mask": "0xF4",
+                  "gate": "$12C0",
+                  "gate_init": "0xFF at C4:9FEB",
+                  "exact_button_names": null,
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                },
+                "status": "strong_candidate_static_display_state"
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": 2,
+              "line_advance_count_before_next_page": 3
             },
             {
               "page_index": 3,
@@ -9811,15 +10099,18 @@
                 }
               ],
               "page_boundary": {
-                "basis": "quote_delimited_7D_7E_block",
-                "status": "strong_candidate",
-                "evidence": "canonical family-0x50 direct decode gives 36 quote blocks, all <=3 explicit lines; 0x7D/0x7E themselves are literal quote glyphs"
+                "basis": "quote_block_aligned_with_three_line_0x01_cadence",
+                "status": "confirmed_static_family50_final_page_shape",
+                "evidence": "final quote block <=3 lines; no next-page transition to test"
               },
               "advance": {
                 "required_between_pages": "no_next_page",
                 "input": null,
                 "status": "not_applicable"
-              }
+              },
+              "page_capacity_lines": 3,
+              "transition_padding_line_break_count": null,
+              "line_advance_count_before_next_page": null
             }
           ],
           "choices": [],
