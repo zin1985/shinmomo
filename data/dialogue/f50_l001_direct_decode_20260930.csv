@@ -1,0 +1,4 @@
+record_id,family_id,subindex,source_root,reader_mode,stream_start,start_bitcnt,end_state,token_count,unknown,token_sha256,text,evidence_class,rom_sha256
+F50-L001,0x50,0x00,C8:ABC4,2,C8:ABC5,0,C8:ABEF/bitcnt07/bitbufE8,53,0,a653f4d79c63e7b24e71721dbb797a4ae6f4959f090fe233b81ca6a625d4c459,"「改心した えんま様が
+ 鬼たちの あいだで ひょうばんが
+ よくないなんて! 信じられん!」<00>",canonical_rom_fresh_mode2_decode,F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98

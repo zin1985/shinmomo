@@ -1,0 +1,8 @@
+record_id,test_opcode,test_operand,flag_index,flag_wram,flag_bit,shared_prefix,extra_guard,source_variants,semantic_status,evidence
+F50-L002,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","",0x01|0x02,confirmed_flag_test_meaning_unresolved,"A3 handler 84:83E3 computes byte=index>>3 and mask=1<<(index&7); operand 0x65 => $1246+0x0C=$1252 bit5"
+F50-L003,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","",0x03|0x04,confirmed_flag_test_meaning_unresolved,"same shared predicate"
+F50-L004,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","",0x05|0x06,confirmed_flag_test_meaning_unresolved,"same shared predicate"
+F50-L005,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","A3 0B B4 06",0x07|0x08|0x09,confirmed_primary_flag_test_extra_guard_unresolved,"shared 0x65 predicate plus secondary flag test 0x0B"
+F50-L006,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","",0x0A|0x0B,confirmed_flag_test_meaning_unresolved,"same shared predicate"
+F50-L007,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","A3 0B B4 06",0x0C|0x0D|0x0E,confirmed_primary_flag_test_extra_guard_unresolved,"shared 0x65 predicate plus secondary flag test 0x0B"
+F50-L008,A3,0x65,0x65,$1252,5,"A3 65 21 90 80 E1 E7 B3 06","",0x0F|0x10,confirmed_flag_test_meaning_unresolved,"same shared predicate"
