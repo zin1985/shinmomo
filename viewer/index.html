@@ -37,6 +37,7 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 .edgeGo{display:inline-block;width:auto;margin-left:8px;padding:2px 6px}
 #unbound{max-height:240px;overflow:auto}.muted{opacity:.72}
 .notice{padding:7px;border:1px solid #b88;margin:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.statePanel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:7px;margin:6px 0;border:1px solid #668;border-radius:4px}.statePanel>strong{font-size:12px}.statePanel #stateStatus{font:11px monospace;opacity:.8}.statePanel #stateReset{display:inline-block;width:auto;padding:2px 7px}.statePanel #stateControls{display:flex;flex-wrap:wrap;gap:6px;width:100%}.stateField{display:flex;gap:4px;align-items:center;font:11px monospace;border:1px solid #777;padding:2px 4px;border-radius:3px}.stateField select{font:11px monospace}.actor.stateResolved img,.actor.stateResolved canvas{outline:2px solid #7fffb2}.actor.stateResolved .dot{background:#7fffb2}
 #assetStatus{font-size:12px;opacity:.85}h1,h2,h3{margin:.4em 0}
 </style><aside>
   <h1>World</h1>
@@ -53,6 +54,12 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
     <label><input id="labelsToggle" type="checkbox">labels</label>
     <label><input id="gridToggle" type="checkbox">map grid</label>
     <label>zoom <input id="zoom" type="range" min="0.25" max="2" step="0.05" value="0.75"><span id="zoomValue">75%</span></label>
+  </div>
+  <div id="statePanel" class="statePanel">
+    <strong>scene state (raw)</strong>
+    <span id="stateStatus">scene未選択</span>
+    <button id="stateReset" type="button" disabled>reset</button>
+    <div id="stateControls"></div>
   </div>
   <div id="assetStatus"></div>
   <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="hotspotLayer"></div><div id="arrivalLayer"></div><div id="focusLayer"></div><div id="actorLayer"></div><div id="dialogueLayer"></div></div></div></div>

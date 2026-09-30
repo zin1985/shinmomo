@@ -42,6 +42,8 @@ const transitionSummary=world.transition_catalog_summary||{};
 const dialogueSummary=world.dialogue_summary||{};
 const hotspotSummary=world.source_transition_hotspot_summary||{};
 const audit=world.actor_seed_position_audit||{};
+const sceneRequirementById=new Map(((world.scene_state_requirements||{}).scenes||[]).map(s=>[s.scene_id,s]));
+const sceneStateValues=new Map();
 q('#summary').textContent=
   String(world.maps.length)+' maps / '+String(transitionSummary.candidate_count||0)+' transition candidates ('+
   String(transitionSummary.confirmed_count||0)+' confirmed / '+String(transitionSummary.strong_candidate_count||0)+' strong) / '+
@@ -50,6 +52,7 @@ q('#summary').textContent=
 q('#positionNotice').textContent=
   `Actor coordinates are statically confirmed for the opcode 0x59 actor renderer: field0659/0699 -> $030B/$030D -> 81:B10F -> 16px render coordinates. `+
   `Corpus bounds check: ${audit.in_bounds??'?'} / ${audit.rows??'?'} in bounds. Sprite artwork uses a viewer bottom-center anchor approximation. `+
+  `Scene-state controls are raw machine-state inputs; unknown values keep conditional actors/dialogue as candidates, while fully known values can filter actors and select a unique branch. `+
   `Click an actor to open linked event/dialogue branches above the character. Dialogue page splits are decoder-derived candidates unless separately confirmed. `+
   `Transition hotspots use independently resolved source-map coordinates; unknown source maps are never guessed from script-pack identity.`;
 
@@ -80,12 +83,69 @@ function mapActorPacks(m){
   )].sort();
 }
 
-function sceneActors(m,pack=selectedPack){
+function sceneIdFor(m=selectedMap,pack=selectedPack){
+  return m&&pack?`${m.config_id}@${pack}`:null;
+}
+
+function stateInputKey(input){
+  if(!input)return '';
+  if(input.kind==='flag'||input.kind==='bitset_bit')return `bit:${input.wram}:${input.bit}`;
+  if(input.kind==='relation_resolver_condition')return `relation:${input.key}:${input.subkey||'0x00'}`;
+  return `${input.kind||'state'}:${input.wram||input.key||input.operand||''}:${input.bit??''}`;
+}
+
+function stateInputLabel(input){
+  if(input.kind==='flag')return `flag ${input.spec||''} ${input.wram}.bit${input.bit}`;
+  if(input.kind==='bitset_bit')return `bitset ${input.wram}.bit${input.bit}`;
+  if(input.kind==='relation_resolver_condition')return `relation ${input.key}/${input.subkey||'0x00'}`;
+  return input.kind||'state';
+}
+
+function stateStore(sceneId){
+  if(!sceneId)return null;
+  if(!sceneStateValues.has(sceneId))sceneStateValues.set(sceneId,new Map());
+  return sceneStateValues.get(sceneId);
+}
+
+function stateValue(input,sceneId=null){
+  sceneId=sceneId||sceneIdFor();
+  const store=sceneId?sceneStateValues.get(sceneId):null;
+  const key=stateInputKey(input);
+  return store&&store.has(key)?store.get(key):null;
+}
+
+function sceneActorCandidates(m,pack=selectedPack){
   const actors=mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate');
   const packs=mapActorPacks(m);
   if(pack)return actors.filter(e=>e.pack_id_hex===pack);
   if(packs.length===1)return actors.filter(e=>e.pack_id_hex===packs[0]);
   return [];
+}
+
+function evaluateActorSpawn(e){
+  const spawn=e.spawn_condition||null;
+  if(!spawn)return null;
+  if(spawn.condition_status==='confirmed_static_unconditional')return true;
+  if(spawn.condition_status==='confirmed_static_flag'&&spawn.flag_wram!=null){
+    const v=stateValue({kind:'flag',wram:spawn.flag_wram,bit:spawn.flag_bit},e.scene_id);
+    if(v==null)return null;
+    return spawn.branch_opcode==='B4'?v===0:v!==0;
+  }
+  if(spawn.condition_status==='confirmed_static_bitset_expression'){
+    const terms=spawn.terms||[];
+    if(!terms.length)return null;
+    for(const term of terms){
+      const v=stateValue({kind:'bitset_bit',wram:term.wram,bit:term.bit},e.scene_id);
+      if(v==null)return null;
+      if(v!==Number(term.expected_value))return false;
+    }
+    return true;
+  }
+  return null;
+}
+
+function sceneActors(m,pack=selectedPack){
+  return sceneActorCandidates(m,pack).filter(e=>evaluateActorSpawn(e)!==false);
 }
 
 function populateScenePack(m,requestedPack=null){
@@ -106,6 +166,53 @@ function populateScenePack(m,requestedPack=null){
     sel.append(o);
   }
   sel.value=requestedPack||'';
+}
+
+function populateStateControls(m,pack=selectedPack){
+  const controls=q('#stateControls'),status=q('#stateStatus'),reset=q('#stateReset');
+  controls.replaceChildren();
+  const sceneId=sceneIdFor(m,pack);
+  if(!sceneId){
+    status.textContent='scene pack未選択のためstate評価なし';
+    reset.disabled=true;
+    return;
+  }
+  const req=sceneRequirementById.get(sceneId);
+  if(!req){
+    status.textContent=sceneId+' | state requirement未登録';
+    reset.disabled=true;
+    return;
+  }
+  const unique=new Map();
+  for(const input of req.state_inputs||[]){
+    const key=stateInputKey(input);
+    if(key&&!unique.has(key))unique.set(key,input);
+  }
+  const store=stateStore(sceneId);
+  for(const [key,input] of unique){
+    const lab=document.createElement('label');lab.className='stateField';
+    const name=document.createElement('span');name.textContent=stateInputLabel(input);
+    const sel=document.createElement('select');
+    for(const [value,label] of [['?','?'],['0','0'],['1','1']]){
+      const opt=document.createElement('option');opt.value=value;opt.textContent=label;sel.append(opt);
+    }
+    sel.value=store.has(key)?String(store.get(key)):'?';
+    sel.title=JSON.stringify(input);
+    sel.onchange=()=>{
+      if(sel.value==='?')store.delete(key);else store.set(key,Number(sel.value));
+      clearDialogue();
+      renderActors(m);
+      populateStateControls(m,pack);
+    };
+    lab.append(name,sel);controls.append(lab);
+  }
+  const assigned=[...unique.keys()].filter(k=>store.has(k)).length;
+  const unresolved=(req.unresolved_predicates||[]).length;
+  status.textContent=`${sceneId} | raw state ${assigned}/${unique.size} set${unresolved?' | unresolved predicate '+unresolved:''}`;
+  reset.disabled=store.size===0;
+  reset.onclick=()=>{
+    store.clear();clearDialogue();renderActors(m);populateStateControls(m,pack);
+  };
 }
 
 function mapDisplayName(m,pack=null){
@@ -155,6 +262,35 @@ function actorSpeaker(e){
   return e.record_id||e.selector_hex||'actor';
 }
 
+function evaluateDialogueCondition(seq){
+  const c=seq.condition_detail||null;
+  if(!c){
+    if(!seq.condition||seq.condition==='single validated source selection')return true;
+    return null;
+  }
+  const id=c.condition_id||'';
+  if(id==='always'||c.status==='confirmed_static_single_path')return true;
+  if(!id.startsWith('common_'))return null;
+  const primary=(c.flag_tests||[]).find(x=>x.spec==='0x65')||(c.flag_tests||[])[0];
+  const rel=c.relation_test||null;
+  if(!primary||!rel)return null;
+  const flag=stateValue({kind:'flag',wram:primary.wram,bit:primary.bit},seq.scene_id);
+  const relation=stateValue({kind:'relation_resolver_condition',key:rel.key,subkey:rel.subkey},seq.scene_id);
+  if(flag==null||relation==null)return null;
+  const common=(flag!==0)&&(relation===0);
+  if(id==='common_true')return common;
+  if(id==='common_false')return !common;
+  if(id==='common_false_flag0B_clear'||id==='common_false_flag0B_set'){
+    if(common)return false;
+    const secondary=(c.flag_tests||[]).find(x=>x.spec==='0x0B');
+    if(!secondary)return null;
+    const v=stateValue({kind:'flag',wram:secondary.wram,bit:secondary.bit},seq.scene_id);
+    if(v==null)return null;
+    return id.endsWith('_clear')?v===0:v!==0;
+  }
+  return null;
+}
+
 function openDialogue(e){
   clearDialogue();
   const spawn=e.spawn_condition||null;
@@ -169,16 +305,20 @@ function openDialogue(e){
   header.append(speaker);
 
   const branch=document.createElement('select'); branch.className='dialogueBranch';
+  const sequenceState=sequences.map(evaluateDialogueCondition);
+  const allBranchStateKnown=sequenceState.length>0&&sequenceState.every(v=>v!==null);
+  const matchedBranches=sequenceState.map((v,i)=>v===true?i:-1).filter(i=>i>=0);
   if(sequences.length>1){
     const unresolved=document.createElement('option');
     unresolved.value='';
-    unresolved.textContent='条件未評価：会話候補を選択';
+    unresolved.textContent=allBranchStateKnown?(matchedBranches.length?'state評価済み':'state一致branchなし'):'条件未評価：会話候補を選択';
     branch.append(unresolved);
     sequences.forEach((seq,i)=>{
       const opt=document.createElement('option');
       const cond=seq.condition&&seq.condition!=='single validated source selection'?seq.condition:'';
+      const mark=sequenceState[i]===true?'✓ ':sequenceState[i]===false?'× ':'? ';
       opt.value=String(i);
-      opt.textContent=(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 条件付き':'');
+      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 条件付き':'');
       if(cond)opt.title=cond;
       branch.append(opt);
     });
@@ -237,7 +377,7 @@ function openDialogue(e){
   win.append(header,actorMeta,text,meta,controls);
   dialogueLayer.append(win);
 
-  let branchIndex=sequences.length===1?0:-1;
+  let branchIndex=sequences.length===1?(sequenceState[0]===false?-1:0):(allBranchStateKnown&&matchedBranches.length===1?matchedBranches[0]:-1);
   let pageIndex=0;
   if(branch.options.length)branch.value=branchIndex>=0?String(branchIndex):'';
 
@@ -248,15 +388,22 @@ function openDialogue(e){
   function renderPage(){
     const seq=currentSequence();
     if(!seq){
-      text.textContent='（このactorには会話データがまだ接続されていません）';
-      meta.textContent=`${e.record_id||''} | ${e.selector_hex||''}`;
+      if(sequences.length){
+        text.textContent=allBranchStateKnown?'（現在のraw stateに一致する会話branchがありません。候補は手動確認できます）':'（story state未評価です。条件付き会話候補を選択してください）';
+        meta.textContent=`${e.record_id||''} | ${e.selector_hex||''} | branch state ${allBranchStateKnown?'evaluated':'unresolved'}`;
+        detail.textContent=JSON.stringify({actor:e,dialogue_candidates:sequences,condition_results:sequenceState},null,2);
+      }else{
+        text.textContent='（このactorには会話データがまだ接続されていません）';
+        meta.textContent=`${e.record_id||''} | ${e.selector_hex||''}`;
+      }
       prev.disabled=true; next.disabled=true; page.textContent='0/0';
       return;
     }
     const pages=seq.pages||[];
     const p=pages[pageIndex];
     text.textContent=p?.text||'（イベントは接続済みですが、会話本文は未解読です）';
-    const bits=[seq.text_record_id,seq.event_source,seq.confidence,seq.condition].filter(Boolean);
+    const stateResult=sequenceState[branchIndex];
+    const bits=[seq.text_record_id,seq.event_source,seq.confidence,seq.condition,stateResult===true?'state:match':stateResult===false?'state:not-match':'state:unknown'].filter(Boolean);
     meta.textContent=bits.join(' | ');
     prev.disabled=pageIndex<=0;
     next.disabled=pages.length===0;
@@ -383,11 +530,14 @@ function renderActors(m){
   for(const e of sceneActors(m)){
     const b=document.createElement('button');
     const spawn=e.spawn_condition||null;
-    const spawnConditional=spawn?.visibility_when_state_unknown==='candidate';
-    b.className='actor candidate'+(spawnConditional?' stateConditional':'');
+    const spawnEval=evaluateActorSpawn(e);
+    const spawnNeedsState=spawn?.visibility_when_state_unknown==='candidate';
+    const spawnConditional=spawnNeedsState&&spawnEval===null;
+    const spawnResolved=spawnNeedsState&&spawnEval===true;
+    b.className='actor candidate'+(spawnConditional?' stateConditional':'')+(spawnResolved?' stateResolved':'');
     b.style.left=e.x+'px'; b.style.top=e.y+'px';
     const role=e.sprite_semantics?.semantic_role&&e.sprite_semantics.semantic_role!=='unknown'?' '+e.sprite_semantics.semantic_role:'';
-    b.title=`${e.record_id} ${e.selector_hex}${role} grid(${e.grid_x_seed},${e.grid_y_seed}) dialogue:${(e.dialogue_refs||[]).length} spawn:${spawn?.condition_status||'unknown'}`;
+    b.title=`${e.record_id} ${e.selector_hex}${role} grid(${e.grid_x_seed},${e.grid_y_seed}) dialogue:${(e.dialogue_refs||[]).length} spawn:${spawn?.condition_status||'unknown'} eval:${spawnEval==null?'?':spawnEval}`;
     if(canonical&&e.sprite_asset){
       addTransparentSprite(b,e);
     }else{
@@ -427,6 +577,7 @@ async function selectMap(m,focus=null,pack=undefined){
   selectedFocus=focus;
   selectedPack=(pack!==undefined&&pack!==null&&pack!=='') ? pack : (packs.length===1?packs[0]:null);
   populateScenePack(m,selectedPack);
+  populateStateControls(m,selectedPack);
   clearDialogue();
   document.querySelectorAll('.mapButton').forEach(b=>b.classList.toggle('active',b.dataset.id===m.config_id));
   q('#title').textContent=mapDisplayName(m,selectedPack)+(selectedPack?' ['+selectedPack+']':(packs.length>1?' [scene pack unresolved]':''));
@@ -438,8 +589,11 @@ async function selectMap(m,focus=null,pack=undefined){
     active_scene_pack:selectedPack,
     available_actor_packs:mapActorPacks(m),
     static_actor_count:sceneActors(m).length,
-    conditional_actor_candidate_count:sceneActors(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='candidate').length,
-    unconditional_actor_count:sceneActors(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='visible').length,
+    catalog_scene_actor_count:sceneActorCandidates(m).length,
+    conditional_actor_candidate_count:sceneActorCandidates(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='candidate'&&evaluateActorSpawn(e)==null).length,
+    state_resolved_conditional_actor_count:sceneActorCandidates(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='candidate'&&evaluateActorSpawn(e)===true).length,
+    state_hidden_actor_count:sceneActorCandidates(m).filter(e=>evaluateActorSpawn(e)===false).length,
+    unconditional_actor_count:sceneActorCandidates(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='visible').length,
     all_static_actor_count:mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate').length,
     dialogue_branch_count:sceneActors(m).reduce((n,e)=>n+(e.dialogue_refs||[]).length,0),
     source_transition_hotspot_count:mapHotspots(m).length,
