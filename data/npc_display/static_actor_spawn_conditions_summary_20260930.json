@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "actor_rows": 817,
+  "unconditional_spawn": 327,
+  "immediate_skip_guard": 447,
+  "simple_a3_flag": 182,
+  "simple_2d_condition": 89,
+  "simple_08_condition": 23,
+  "compound_predicate": 153,
+  "complex_pre_actor_control_flow": 43,
+  "b3_skip_guard": 354,
+  "b4_skip_guard": 93,
+  "conditional_or_unresolved_actor_rows": 490,
+  "directly_flag_evaluable_actor_rows": 182,
+  "interpretation": "pack/scene selection is necessary but insufficient for actor visibility; actor-local spawn conditions must be evaluated against runtime state when available. Unknown state retains conditional actors as candidates.",
+  "binding_key": "scene_id + record_id + selector_hex"
+}

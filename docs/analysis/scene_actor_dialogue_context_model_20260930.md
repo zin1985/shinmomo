@@ -54,3 +54,17 @@ The HTML viewer now applies the active pack as an actual rendering filter.
 - multi-pack configs opened without scene context show no static actors until a pack is selected;
 - a scene-pack selector exposes each mapped actor set;
 - a selected pack with no mapped actor rows stays empty rather than borrowing actors from another pack.
+
+
+## Actor spawn condition layer
+
+The static actor catalog now separates pack membership from spawn visibility.
+
+- 817 actor rows total.
+- 327 actors reach opcode 0x59 with no preceding actor-local guard bytes.
+- 447 actors have an immediate B3/B4 rel8=0x08 guard that skips the following 6-byte opcode59 actor command.
+- 43 actors have more complex pre-actor control flow and remain unresolved at record-CFG level.
+- 182 guarded actors use a single A3 flag test and can be evaluated directly from the corresponding $1246-family WRAM bit.
+- Other guarded actors retain their producer bytecode and branch semantics without inventing a gameplay label.
+
+When runtime story state is unknown, the viewer keeps conditional actors visible only as candidates instead of asserting that they are currently spawned.

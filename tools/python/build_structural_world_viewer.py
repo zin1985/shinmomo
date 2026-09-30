@@ -13,6 +13,7 @@ SPRITE_SEMANTICS = ROOT / "data/npc_display/static_actor_sprite_semantics_202609
 DIRECTIONAL_CATALOG = ROOT / "data/npc_display/static_character_directional_catalog_20260930.csv"
 SOURCE_HOTSPOTS = TRANSITIONS / "source_transition_hotspots.csv"
 LOCATION_CANDIDATES = ROOT / "data/maps/context/map_location_identity_candidates_20260930.csv"
+ACTOR_SPAWN_CONDITIONS = ROOT / "data/npc_display/static_actor_spawn_conditions_20260930.csv"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -522,6 +523,29 @@ def main():
                 "provenance": row.get("provenance") or str(LOCATION_CANDIDATES.relative_to(ROOT)).replace("\\", "/"),
             })
 
+    spawn_conditions_by_actor = {}
+    if ACTOR_SPAWN_CONDITIONS.exists():
+        for row in csv.DictReader(ACTOR_SPAWN_CONDITIONS.open(encoding="utf-8-sig", newline="")):
+            key = (row.get("scene_id") or "", row.get("record_id") or "", row.get("selector_hex") or "")
+            spawn_conditions_by_actor[key] = {
+                "guard_kind": row.get("guard_kind") or None,
+                "branch_opcode": row.get("branch_opcode") or None,
+                "branch_rel8": row.get("branch_rel8") or None,
+                "branch_semantics": row.get("branch_semantics") or None,
+                "predicate_bytecode": row.get("predicate_bytecode") or None,
+                "producer_kind": row.get("producer_kind") or None,
+                "producer_operand": row.get("producer_operand") or None,
+                "condition_status": row.get("condition_status") or None,
+                "condition_expr": row.get("condition_expr") or None,
+                "flag_spec_hex": row.get("flag_spec_hex") or None,
+                "flag_wram": row.get("flag_wram") or None,
+                "flag_bit": int(row["flag_bit"]) if row.get("flag_bit") else None,
+                "state_evaluation": row.get("state_evaluation") or None,
+                "visibility_when_state_unknown": row.get("visibility_when_state_unknown") or None,
+                "evidence": row.get("evidence") or None,
+                "provenance": str(ACTOR_SPAWN_CONDITIONS.relative_to(ROOT)).replace("\\", "/"),
+            }
+
     static_actor_path = ROOT / "data/npc_display/static_map_actor_selector_crosslink_20260930.csv"
     if static_actor_path.exists():
         seen = set()
@@ -549,6 +573,7 @@ def main():
             semantic = sprite_semantics.get(semantic_key)
             directional = directional_by_selector.get(selector_key)
             actor_dialogue_refs = dialogue_by_actor.get(actor_key, [])
+            spawn_condition = spawn_conditions_by_actor.get(actor_key)
             entity = {
                 "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
                 "map_config_id": config_id,
@@ -566,6 +591,8 @@ def main():
                 "sprite_semantics": semantic,
                 "directional_sprite": directional,
                 "dialogue_refs": actor_dialogue_refs,
+                "spawn_condition": spawn_condition,
+                "spawn_visibility_status": ("unconditional_visible" if spawn_condition and spawn_condition.get("visibility_when_state_unknown") == "visible" else "conditional_candidate_state_unknown" if spawn_condition else "spawn_condition_unavailable"),
                 "event_refs": sorted({
                     dialogue_sequence_by_id[ref]["event_record"]
                     for ref in actor_dialogue_refs
@@ -644,7 +671,7 @@ def main():
         m["transition_arrivals"].append(arrival["arrival_id"])
 
     world = {
-        "schema_version": 5,
+        "schema_version": 6,
         "kind": "shinmomo_structural_world",
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
@@ -684,6 +711,13 @@ def main():
             "plotted_candidate_rows": sum(x["candidate_row_count"] for x in transition_arrivals),
         },
         "actor_seed_position_audit": actor_seed_audit,
+        "actor_spawn_condition_summary": {
+            "catalog_row_count": len(spawn_conditions_by_actor),
+            "unconditional_actor_count": sum(1 for e in entities if e.get("entity_type") == "static_actor_candidate" and (e.get("spawn_condition") or {}).get("visibility_when_state_unknown") == "visible"),
+            "conditional_or_unresolved_actor_count": sum(1 for e in entities if e.get("entity_type") == "static_actor_candidate" and (e.get("spawn_condition") or {}).get("visibility_when_state_unknown") == "candidate"),
+            "state_unknown_policy": "render conditional actors as candidates; do not assert current visibility",
+            "binding_key": "scene_id + record_id + selector_hex",
+        },
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(world, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
