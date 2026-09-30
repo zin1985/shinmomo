@@ -10,20 +10,37 @@ OUT = ROOT / "viewer/data/world.json"
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
 
+def layer_grid_dimensions(tileset_id, layout_id, pixel_width, pixel_height):
+    path = ROOT / "viewer/data/layers" / f"t{tileset_id:02d}_l{layout_id:03d}.json"
+    if path.exists():
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        return int(doc["metatile_width"]), int(doc["metatile_height"])
+    return max(1, pixel_width // 16), max(1, pixel_height // 16)
+
 def main():
     rows = list(csv.DictReader(CATALOG.open(encoding="utf-8-sig")))
     maps = {}
     for row in rows:
         if row["artifact_role"] not in {"normal_primary", "mode7_primary"}:
             continue
+        tileset_id = int(row["tileset_id"])
+        layout_id = int(row["layout_id"])
+        pixel_width = int(row["image_width_px"] or 0)
+        pixel_height = int(row["image_height_px"] or 0)
+        grid_width, grid_height = layer_grid_dimensions(tileset_id, layout_id, pixel_width, pixel_height)
         for config_id in split_ids(row["config_ids"]):
             maps[config_id] = {
                 "config_id": config_id,
-                "tileset_id": int(row["tileset_id"]),
-                "layout_id": int(row["layout_id"]),
-                "display_name": None,
-                "pixel_width": int(row["image_width_px"] or 0),
-                "pixel_height": int(row["image_height_px"] or 0),
+                "tileset_id": tileset_id,
+                "layout_id": layout_id,
+                "display_name": row.get("display_names") or None,
+                "pixel_width": pixel_width,
+                "pixel_height": pixel_height,
+                "grid_width": grid_width,
+                "grid_height": grid_height,
+                "grid_cell_px_x": pixel_width / grid_width,
+                "grid_cell_px_y": pixel_height / grid_height,
+                "canonical_image": f"../{row['png']}" if row.get("png") else None,
                 "render_kind": row["artifact_role"],
                 "layers": [{
                     "kind": "structural_metatile",
@@ -177,8 +194,52 @@ def main():
                 if doc["config_id"] in maps:
                     maps[doc["config_id"]]["entities"].append(entity["entity_id"])
 
+    # Static opcode59 actor bindings carry two placement-like seed bytes.
+    # Their universal semantics are not proven yet, so expose them as a candidate layer only.
+    # Current corpus audit: every seed pair falls inside its mapped structural map grid.
+    actor_seed_audit = {"rows": 0, "in_bounds": 0, "out_of_bounds": 0}
+    static_actor_path = ROOT / "data/npc_display/static_map_actor_selector_crosslink_20260930.csv"
+    if static_actor_path.exists():
+        seen = set()
+        for row in csv.DictReader(static_actor_path.open(encoding="utf-8-sig")):
+            config_id = row["config_id"]
+            key = (config_id, row["record_id"], row["selector_hex"])
+            if config_id not in maps or key in seen:
+                continue
+            seen.add(key)
+            gx = int(row["field_0659_seed"])
+            gy = int(row["field_0699_seed"])
+            m = maps[config_id]
+            grid_w = m["grid_width"]
+            grid_h = m["grid_height"]
+            in_bounds = 0 <= gx < grid_w and 0 <= gy < grid_h
+            actor_seed_audit["rows"] += 1
+            actor_seed_audit["in_bounds" if in_bounds else "out_of_bounds"] += 1
+            selector_hex = row["selector_hex"].replace("0x", "").upper().zfill(2)
+            entity = {
+                "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
+                "map_config_id": config_id,
+                "entity_type": "static_actor_candidate",
+                "record_id": row["record_id"],
+                "selector_hex": f"0x{selector_hex}",
+                "sprite_group": int(row["sprite_group"]),
+                "animation_base_state": int(row["animation_base_state"]),
+                "grid_x_seed": gx,
+                "grid_y_seed": gy,
+                "x": gx * m["grid_cell_px_x"] + m["grid_cell_px_x"] / 2,
+                "y": (gy + 1) * m["grid_cell_px_y"],
+                "coordinate_space": "candidate_map_grid_from_opcode59_controller_seed",
+                "coordinate_status": "candidate_only_not_semantically_proven",
+                "sprite_asset": f"../graphics/static_character_reconstruction/catalog_selector_{selector_hex}.png",
+                "binding_evidence": row["binding_evidence"],
+                "confidence": "candidate_position_strong_corpus_consistency",
+                "provenance": str(static_actor_path.relative_to(ROOT)).replace("\\", "/"),
+            }
+            entities.append(entity)
+            m["entities"].append(entity["entity_id"])
+
     world = {
-        "schema_version": 1,
+        "schema_version": 2,
         "kind": "shinmomo_structural_world",
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
@@ -189,6 +250,7 @@ def main():
         "events": events,
         "sprite_groups": sprite_groups,
         "entities": entities,
+        "actor_seed_position_audit": actor_seed_audit,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(world, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
