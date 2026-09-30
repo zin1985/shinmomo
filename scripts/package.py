@@ -28,10 +28,21 @@ def write_source_zip(destination: Path) -> None:
                 archive.write(path, path.relative_to(ROOT))
 
 
+def write_viewer_zip(destination: Path) -> None:
+    viewer_root = ROOT / "viewer"
+    with zipfile.ZipFile(destination, "w", zipfile.ZIP_DEFLATED) as archive:
+        for path in sorted(viewer_root.rglob("*")):
+            if path.is_file():
+                archive.write(path, path.relative_to(ROOT))
+
+
 def main() -> None:
     DIST.mkdir(exist_ok=True)
     source_zip = DIST / "source.zip"
     write_source_zip(source_zip)
+
+    viewer_zip = DIST / "viewer_only.zip"
+    write_viewer_zip(viewer_zip)
 
     shutil.copy2(ROOT / "CHANGELOG.md", DIST / "CHANGELOG.md")
 

@@ -230,3 +230,10 @@ nor a promoted semantic role yet.
 
 Keeping this override separate from `world.json` lets semantic evidence evolve
 without forcing a multi-megabyte world rebuild for every classification change.
+
+### CI viewer package
+
+The standard GitHub Actions package step now emits `dist/viewer_only.zip` from the
+current `viewer/` tree. This matches the tracked viewer-only archive structure
+(viewer files only) while avoiding dependence on a remote desktop session for
+semantic-only viewer refreshes.
