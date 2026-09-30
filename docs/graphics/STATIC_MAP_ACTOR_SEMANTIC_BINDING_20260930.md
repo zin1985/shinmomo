@@ -216,3 +216,17 @@ This recovers, for example, F4F-L001 / selector 0x3C as a yellow-clad humanoid
 and preserves its actor-bound decoded dialogue as a generic `talking_npc` strong
 candidate. The dialogue proves a speaking actor association, but does not prove a
 specific profession or named identity.
+
+### Viewer semantic/appearance override coverage
+
+The semantic generator now emits `viewer/data/actor_semantics.json` directly.
+The override contains every actor row with either a non-default semantic result
+or a selector-level visual appearance classification.
+
+Current coverage is 741 / 817 actor rows. This includes humanoid appearance-only
+rows as well as animals, effects, monster-like candidates, and dialogue-bound
+NPC roles. The remaining 76 rows have neither a selector visual classification
+nor a promoted semantic role yet.
+
+Keeping this override separate from `world.json` lets semantic evidence evolve
+without forcing a multi-megabyte world rebuild for every classification change.

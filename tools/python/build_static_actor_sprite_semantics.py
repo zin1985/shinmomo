@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import csv, collections
+import csv, collections, json
 
 ROOT = Path(__file__).resolve().parents[2]
 NPC = ROOT / "data/npc_display"
@@ -78,7 +78,40 @@ with path.open("w", encoding="utf-8", newline="") as f:
     w.writeheader()
     w.writerows(out)
 
+viewer_rows = []
+for r in out:
+    if not r["appearance_class"] and r["semantic_role"] == "unknown" and r["confidence"] == "unknown":
+        continue
+    viewer_rows.append({
+        "config_id": r["config_id"],
+        "record_id": r["record_id"],
+        "selector_hex": r["selector_hex"],
+        "sprite_semantics": {
+            "semantic_role": r["semantic_role"] or None,
+            "character_name": r["character_name"] or None,
+            "appearance_class": r["appearance_class"] or None,
+            "confidence": r["confidence"] or None,
+            "evidence": r["evidence"] or None,
+            "provenance": r["provenance"] or None,
+        },
+    })
+
+viewer_path = ROOT / "viewer/data/actor_semantics.json"
+viewer_path.write_text(
+    json.dumps(
+        {
+            "schema_version": 3,
+            "purpose": "semantic and appearance overrides applied by viewer without regenerating world.json",
+            "actor_overrides": viewer_rows,
+        },
+        ensure_ascii=False,
+        indent=2,
+    ) + "\n",
+    encoding="utf-8",
+)
+
 print("rows", len(out))
+print("viewer_overrides", len(viewer_rows))
 print("role_counts", dict(collections.Counter(r["semantic_role"] for r in out)))
 print(
     "tabidachi",
