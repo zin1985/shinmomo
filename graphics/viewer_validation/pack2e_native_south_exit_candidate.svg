@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="448" height="320" viewBox="80 144 144 112">
+<title>pack 0x2E south native return candidate</title>
+<desc>Native bounds end at y=12. The rendered central floor opening spans x=8..10; forward arrival is centered at (9,12).</desc>
+<image href="../../data/maps/rendered/dungeon_tileset_07/map_015.png" x="0" y="0" width="512" height="256" image-rendering="pixelated"/>
+<rect x="128" y="192" width="48" height="16" fill="#ffd54f44" stroke="#ffd54f" stroke-width="2" stroke-dasharray="4 2"/>
+<rect x="144" y="192" width="16" height="16" fill="#30d97844" stroke="#30d978" stroke-width="2"/>
+<path d="M152 206 L152 222" stroke="#ffffff" stroke-width="2"/>
+<text x="84" y="156" font-size="7" fill="#fff" stroke="#000" stroke-width="2" paint-order="stroke">native bounds: X=0..19, Y=0..12</text>
+<text x="84" y="167" font-size="7" fill="#fff" stroke="#000" stroke-width="2" paint-order="stroke">candidate south corridor x=8..10, center arrival=(9,12)</text>
+<text x="84" y="178" font-size="7" fill="#fff" stroke="#000" stroke-width="2" paint-order="stroke">exact runtime pre-exit X not captured</text>
+</svg>

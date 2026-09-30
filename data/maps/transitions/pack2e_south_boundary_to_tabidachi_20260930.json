@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "kind": "static_native_boundary_return_candidate",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "source": {
+    "config_id": "cfg_t07_l015_v2",
+    "pack_id_hex": "0x2E",
+    "primary_selector_addr": "CB:DE70",
+    "bounds_opcode_addr": "CB:DE74",
+    "bounds_opcode": "0x52",
+    "native_bounds": {
+      "min_x": 0,
+      "max_x": 19,
+      "min_y": 0,
+      "max_y": 12
+    },
+    "candidate_exit_corridor": {
+      "x_min": 8,
+      "x_max": 10,
+      "y": 12,
+      "width": 3,
+      "height": 1,
+      "metatile_ids": [
+        68,
+        69,
+        69
+      ],
+      "adjacent_metatile_ids": {
+        "x7": 154,
+        "x11": 155
+      },
+      "next_row_metatile_ids": [
+        68,
+        68,
+        68
+      ],
+      "status": "structural_floor_opening_candidate_collision_not_proven"
+    },
+    "center_candidate": {
+      "x": 9,
+      "y": 12,
+      "basis": "forward village->interior transition CC:1CDA arrives exactly at (9,12), centered in the three-cell rendered opening"
+    }
+  },
+  "destination": {
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "saved_return_coordinate": [
+      29,
+      17
+    ],
+    "saved_return_origin_trigger": "CC:1CDA",
+    "saved_return_basis": "opcode 0x53 saves the active village state before entering pack 0x2E"
+  },
+  "runtime_reverse_evidence": {
+    "fixture": "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
+    "status": "confirmed_runtime_transition",
+    "observation": "Player walked south through the central exit; pack 0x2E changed to pack 0x50 before selector convergence.",
+    "source_coordinate_captured": false
+  },
+  "native_mechanism": {
+    "bounds_writer": "C4:8B16 / opcode 0x52",
+    "coordinate_checker": "C1:8943 -> 81:81DD",
+    "out_of_bounds_callsite": "C1:8955",
+    "request_helper": "81:895A",
+    "restore_gate": "C1:97BC..C1:97C5",
+    "saved_state_restore": "81:8244",
+    "pack_restore_write": "C1:8255",
+    "execution_pc_observed_for_this_edge": false
+  },
+  "confidence": "strong_static_runtime_candidate",
+  "exact_source_cell_closed": false,
+  "interpretation": "The reverse edge is explained by the native out-of-bounds saved-state return mechanism rather than an unresolved VM transition opcode. The source Y boundary is proven at y=12; the rendered central opening is x=8..10 with the forward arrival at center x=9. Exact runtime pre-exit X was not captured, so the corridor remains a candidate region rather than a confirmed hotspot."
+}

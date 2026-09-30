@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "map_native_bounds_occurrence_catalog_summary",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "primary_selector_rows_considered": 260,
+  "bounds_occurrence_count": 155,
+  "unique_config_count": 106,
+  "pack_count": 122,
+  "configs_with_multiple_distinct_bounds": 4,
+  "alignment_proof_counts": {
+    "after_0x15": 6,
+    "after_0x51_secondary_selector": 41,
+    "after_0x51_secondary_selector_then_0x15": 1,
+    "after_0x64": 5,
+    "after_0x96": 1,
+    "immediate_after_primary_selector": 101
+  },
+  "handler": {
+    "opcode": "0x52",
+    "address": "C4:8B16",
+    "normal_form": "operand1 < 0xFE",
+    "writes": "operands 1..4 -> $15CA,$15CB,$15CC,$15CD",
+    "meaning": "inclusive native movement bounds consumed by 81:81DD via C1:8943"
+  },
+  "priority_examples": {
+    "cfg_t04_l008_v2_pack_0x50": {
+      "primary_command_addr": "CC:1C3F",
+      "bounds_opcode_addr": "CC:1C46",
+      "bounds": {
+        "min_x": 9,
+        "max_x": 70,
+        "min_y": 8,
+        "max_y": 55
+      }
+    },
+    "cfg_t07_l015_v2_pack_0x2E": {
+      "primary_command_addr": "CB:DE70",
+      "bounds_opcode_addr": "CB:DE74",
+      "bounds": {
+        "min_x": 0,
+        "max_x": 19,
+        "min_y": 0,
+        "max_y": 12
+      }
+    }
+  },
+  "scope": "Only opcode-0x52 bounds reached from a confirmed primary selector through a fail-closed post-selector prefix grammar: immediate, normal 0x15, normal 0x51 secondary selector, concrete-safe 0x64, or 0x96. Branching/intervening primary-selector forms are excluded."
+}
