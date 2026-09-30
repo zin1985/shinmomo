@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: c227a125d3ecd4964cd0d4d982cbf94f25127837
+Git HEAD used for generation: c6d8a91faefcb648374731787e34ce66ebb434dd
 
 ## Handler-level promotion
 
@@ -45,13 +45,14 @@ length proofs without guessing unknown instructions:
   0x5E: C4:895E advances the caller by 2 bytes before the indirect call, and
   each inspected target returns through RTL.
 - residual fixed lengths proven from handlers: 0x0A=4, 0x14=2, 0x1A=4,
-  0x4A=5, 0x4F=5, 0x66=4, 0x6C=2, 0x6F=2, 0x89=1, compact B6=1,
-  E-range 0xEF=1 and 0xF0=1.
+  0x42=2, 0x4A=5, 0x4F=5, 0x66=4, 0x6C=2, 0x6F=2, 0x80=1, 0x89=1,
+  compact B6=1, E-range 0xEF=1 and 0xF0=1.
 - opcode 0x3D / C4:935C: subtype 0x02 consumes 3 bytes; 0x03/0x04/0x05/0x06
   consume 2 bytes; subtype 0x29 consumes 5 bytes.
 - opcode 0x45 / C4:98AC: operand1 0 consumes 2 bytes; nonzero consumes 5.
-- opcode 0x8C dispatches to C4:8963, whose first instruction is BRK. CFG
-  treats this as a proven non-returning trap path and never invents fallthrough.
+- opcodes 0x7D and 0x8C both dispatch to C4:8963, whose first instruction is
+  BRK. CFG treats either as a proven non-returning trap path and never invents
+  fallthrough.
 - opcode 0x2F / C4:968E: six operand bytes are consumed, so 7 bytes total.
 - opcode 0x30 / C4:96CC: two 16-bit operands plus one byte are consumed, so
   6 bytes total.
@@ -81,13 +82,12 @@ length proofs without guessing unknown instructions:
 - strong_candidate: an exact bounded VM-substream tail of
   53 <destination_pack> <destination_entry> B0,
   55 <destination_pack> <destination_entry> B0, or
-  56 <destination_pack> <destination_entry> B0, with the same destination
-  entry present in destination record 0. Exact terminal
-  57 <route_index> B0 is also strong_candidate when route_index resolves through
-  the proven C6:8060 route table.
-- structural_candidate: a terminal form whose destination entry is unresolved,
-  or a non-terminal raw 0x53/0x55/0x56 shape retained only because its
-  destination entry independently contains an aligned 0x58 coordinate setter.
+  56 <destination_pack> <destination_entry> B0, with a resolved destination
+  entry, or an unresolved destination entry whose source opcode boundary is
+  independently CFG-reachable. Exact terminal 57 <route_index> B0 is also
+  strong_candidate when route_index resolves through the proven C6:8060 route table.
+- structural_candidate: an unresolved terminal or non-terminal shape retained
+  only while fail-closed source CFG analysis still contains blockers.
 
 The script-pack containing 0x53/0x55/0x56 is not automatically treated as the source map
 pack. VM pack context and global map pack can differ, so static source map fields
@@ -95,19 +95,19 @@ remain blank unless independently proven.
 
 ## Counts
 
-- total candidate rows: 1299
+- total candidate rows: 1295
 - confirmed: 3
-- strong candidates: 1289
-- structural candidates: 7
+- strong candidates: 1292
+- structural candidates: 0
 - rows with source configuration: 3
 - runtime-confirmed static triggers: 1
 - runtime-confirmed edges without observed trigger PC: 1
-- rows with destination pack: 1299
-- rows with unique destination configuration: 1066
+- rows with destination pack: 1295
+- rows with unique destination configuration: 1063
 - rows with destination X/Y: 793
 - rows cross-linked to structural event records: 22
 - rows carrying existing event-source xrefs: 12
-- terminal 0x56 forms: 724
+- terminal 0x56 forms: 722
 - terminal 0x56 forms with matching destination entry: 721
 - terminal 0x56 matches resolved outside record 0: 2
 - terminal 0x56 forms with aligned destination 0x58 coordinates: 272
@@ -115,7 +115,7 @@ remain blank unless independently proven.
 - non-terminal 0x56 CFG-promoted strong rows: 20
 - non-terminal 0x56 CFG-unreachable raw shapes dropped: 5
 - non-terminal 0x56 CFG-blocked structural rows: 0
-- terminal 0x53 forms: 394
+- terminal 0x53 forms: 392
 - terminal 0x53 forms with matching destination entry: 390
 - terminal 0x53 matches resolved outside record 0: 17
 - terminal 0x53 forms with aligned destination 0x58 coordinates: 346
@@ -131,6 +131,9 @@ remain blank unless independently proven.
 - non-terminal 0x55 CFG-promoted strong rows: 9
 - non-terminal 0x55 CFG-unreachable raw shapes dropped: 3
 - non-terminal 0x55 CFG-blocked structural rows: 0
+- unmatched terminal tails CFG-promoted by source reachability: 3
+- unmatched terminal tails proven CFG-unreachable and dropped: 4
+- unmatched terminal tails still CFG-blocked: 0
 - terminal 0x57 route-table forms: 2
 - entry-start non-terminal 0x57 route-table forms: 8
 - branch-reachable non-terminal 0x57 route-table forms: 7
@@ -175,11 +178,11 @@ trigger address.
 
 The second transition operand used by 0x53, 0x55 and 0x56 behaves as a
 destination entry selector. A pack-wide uniqueness audit across the conservative
-terminal corpus finds 1151 of 1158 rows with exactly
+terminal corpus finds 1151 of 1154 rows with exactly
 one matching parsed entry anywhere in the destination pack. Of those,
 19 resolve outside record 0. No terminal row has a
 duplicated matching entry ID within its destination pack. The remaining
-7 rows have no matching parsed entry anywhere in that
+3 rows have no matching parsed entry anywhere in that
 pack.
 
 Where the unique entry begins with opcode 0x58, or with the independently proven
@@ -285,7 +288,7 @@ PC was observed.
 ## Remaining blockers
 
 - static source map/config is not inferred from script-pack identity
-- 3 terminal 0x56 shapes and 4 terminal 0x53 shapes do not resolve a unique destination entry anywhere in the destination pack
+- 1 reachable terminal 0x56 shapes and 2 reachable terminal 0x53 shapes do not resolve a unique destination entry; transition pack is proven but arrival-entry semantics remain unresolved
 - destination config stays null when destination pack record0/entry1 has multiple confirmed selectors
 - 0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix
 - exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified

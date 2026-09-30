@@ -1,13 +1,12 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "c227a125d3ecd4964cd0d4d982cbf94f25127837",
+  "generated_against_git_head": "c6d8a91faefcb648374731787e34ce66ebb434dd",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
-  "candidate_count": 1299,
+  "candidate_count": 1295,
   "confidence_counts": {
     "confirmed": 3,
-    "strong_candidate": 1289,
-    "structural_candidate": 7
+    "strong_candidate": 1292
   },
   "source_config_resolved_count": 3,
   "runtime_static_confirmation_count": 1,
@@ -15,8 +14,8 @@
     "CC:0B08"
   ],
   "runtime_only_confirmation_count": 1,
-  "destination_pack_identified_count": 1299,
-  "destination_config_resolved_count": 1066,
+  "destination_pack_identified_count": 1295,
+  "destination_config_resolved_count": 1063,
   "destination_coordinate_resolved_count": 793,
   "event_record_crosslink_count": 22,
   "event_source_crosslink_count": 12,
@@ -34,7 +33,7 @@
     "C6:82FD"
   ],
   "unique_destination_pack_count": 211,
-  "terminal_opcode56_candidate_count": 724,
+  "terminal_opcode56_candidate_count": 722,
   "terminal_opcode56_destination_entry_match_count": 721,
   "terminal_opcode56_nonrecord0_unique_entry_match_count": 2,
   "terminal_opcode56_coordinate_match_count": 272,
@@ -42,7 +41,7 @@
   "nonterminal_opcode56_cfg_promoted_count": 20,
   "nonterminal_opcode56_cfg_unreachable_drop_count": 5,
   "nonterminal_opcode56_cfg_blocked_count": 0,
-  "terminal_opcode53_candidate_count": 394,
+  "terminal_opcode53_candidate_count": 392,
   "terminal_opcode53_destination_entry_match_count": 390,
   "terminal_opcode53_nonrecord0_unique_entry_match_count": 17,
   "terminal_opcode53_coordinate_match_count": 346,
@@ -62,7 +61,31 @@
   "nonterminal_cfg_unreachable_drop_count": 9,
   "nonterminal_cfg_blocked_count": 0,
   "terminal_packwide_nonrecord0_unique_match_count": 19,
-  "terminal_unresolved_unique_entry_count": 7,
+  "terminal_unresolved_unique_entry_count": 3,
+  "terminal_unresolved_cfg_promoted_count": 3,
+  "terminal_unresolved_cfg_dropped_count": 4,
+  "terminal_unresolved_cfg_blocked_count": 0,
+  "terminal_unresolved_cfg_promoted_by_opcode": {
+    "0x56": 1,
+    "0x53": 2
+  },
+  "terminal_unresolved_cfg_dropped_by_opcode": {
+    "0x56": 2,
+    "0x53": 2
+  },
+  "terminal_unresolved_cfg_blocked_by_opcode": {},
+  "terminal_unresolved_cfg_promoted_addrs": [
+    "CB:7763",
+    "CB:F36B",
+    "CB:FD0A"
+  ],
+  "terminal_unresolved_cfg_dropped_addrs": [
+    "CD:8410",
+    "CD:8584",
+    "CB:A15C",
+    "CC:54B8"
+  ],
+  "terminal_unresolved_cfg_blocked_addrs": [],
   "terminal_opcode57_route_candidate_count": 2,
   "entry_start_opcode57_route_candidate_count": 8,
   "cfg_reachable_opcode57_route_candidate_count": 7,
@@ -94,11 +117,13 @@
         "0x0A": 4,
         "0x14": 2,
         "0x1A": 4,
+        "0x42": 2,
         "0x4A": 5,
         "0x4F": 5,
         "0x66": 4,
         "0x6C": 2,
         "0x6F": 2,
+        "0x80": 1,
         "0x89": 1,
         "0xB6": 1,
         "0xEF": 1,
@@ -106,7 +131,7 @@
       },
       "opcode_0x3D_subtypes": "02 -> 3; 03/04/05/06 -> 2; 29 -> 5 bytes",
       "opcode_0x45": "operand1 == 0 -> 2 bytes; otherwise 5 bytes",
-      "opcode_0x8C": "C4:8963 begins BRK; proven non-returning trap path"
+      "nonreturning_vm_traps": "0x7D and 0x8C both dispatch to C4:8963 BRK"
     },
     "opcode_0x2F": {
       "handler": "C4:968E",
@@ -183,7 +208,7 @@
   },
   "unresolved_patterns": [
     "static source map/config is not inferred from script-pack identity",
-    "3 terminal 0x56 shapes and 4 terminal 0x53 shapes do not resolve a unique destination entry anywhere in the destination pack",
+    "1 reachable terminal 0x56 shapes and 2 reachable terminal 0x53 shapes do not resolve a unique destination entry; transition pack is proven but arrival-entry semantics remain unresolved",
     "destination config stays null when destination pack record0/entry1 has multiple confirmed selectors",
     "0x58 coordinate setter is promoted only at entry start or after proven two-byte opcode 0x96 prefix",
     "exact trigger/event opcode for the runtime-confirmed 0x2E -> 0x50 edge remains unidentified",
