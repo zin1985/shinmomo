@@ -68,8 +68,13 @@ for er in event_rows:
     configs=maps_by_family.get(fam,[]) or [None]
     for mr in configs:
         label=''
+        # Family 0x50 was previously hard-coded to 旅立ちの村 here, but the
+        # underlying cfg_t04_l008_v2 layout is reused by packs 0x50/0xF0/0xF1
+        # and the runtime identity sample has no confirmed in-game place name.
+        # Keep the canonical location label unresolved; semantic dialogue
+        # context is not a location identity.
         if fam=='0X50':
-            label='旅立ちの村'
+            label=''
         elif mr and mr.get('known_semantic_contexts'):
             label=mr['known_semantic_contexts']
         row={

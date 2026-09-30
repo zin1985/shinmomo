@@ -57,7 +57,7 @@ mode7_primary,2,3,cfg_t02_l003_v1,1,,,,,,,,,4,2048,2048,data/maps/rendered/mode7
 mode7_primary,2,4,cfg_t02_l004_v1,1,,,,,,,,,4,2048,2048,data/maps/rendered/mode7_tileset_02/map_004.png,data/maps/rendered/mode7_tileset_02/map_004.json,canonical_referenced,snes_mode7_extbg_rom_setup
 mode7_primary,3,5,cfg_t03_l005_v1,1,,,,,,,,,5,4096,4096,data/maps/rendered/mode7_tileset_03/map_005.png,data/maps/rendered/mode7_tileset_03/map_005.json,canonical_referenced,snes_mode7_extbg_rom_setup
 normal_primary,4,6,cfg_t04_l006_v2,2,,,,,,,,,,768,768,data/maps/rendered/tileset_04/map_006.png,data/maps/rendered/tileset_04/map_006.json,canonical_referenced,
-normal_primary,4,8,cfg_t04_l008_v2,2,旅立ちの村,confirmed_runtime_reference_identification,,,,,,,,1280,1280,data/maps/rendered/tileset_04/map_008.png,data/maps/rendered/tileset_04/map_008.json,canonical_referenced,
+normal_primary,4,8,cfg_t04_l008_v2,2,,,,,,,,,,1280,1280,data/maps/rendered/tileset_04/map_008.png,data/maps/rendered/tileset_04/map_008.json,canonical_referenced,
 normal_primary,4,18,cfg_t04_l018_v2,2,,,,,,,,,,768,768,data/maps/rendered/tileset_04/map_018.png,data/maps/rendered/tileset_04/map_018.json,canonical_referenced,
 normal_primary,4,19,cfg_t04_l019_v1,1,,,,,,,,,,768,768,data/maps/rendered/tileset_04/map_019.png,data/maps/rendered/tileset_04/map_019.json,canonical_referenced,
 normal_primary,4,28,cfg_t04_l028_v2,2,,,,,,,,,,512,512,data/maps/rendered/tileset_04/map_028.png,data/maps/rendered/tileset_04/map_028.json,canonical_referenced,

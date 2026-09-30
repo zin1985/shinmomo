@@ -1,7 +1,7 @@
 {
   "cfg_t04_l008_v2": {
     "pack_id_hex": "0x50",
-    "map_label": "旅立ちの村",
+    "map_label": "",
     "selectors": [
       "0x13",
       "0x24",

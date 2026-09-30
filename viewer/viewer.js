@@ -49,6 +49,20 @@ function mapEntities(m){
   return (m.entities||[]).map(id=>entityById.get(id)).filter(Boolean);
 }
 
+function mapDisplayName(m){
+  const actors=mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate');
+  const labels=[...new Set(actors.map(e=>e.location_label).filter(Boolean))];
+  if(labels.length===1)return labels[0];
+  if(labels.length>1)return m.config_id+' ('+labels.join(' / ')+')';
+  // Guard against the stale render-catalog label that was formerly injected
+  // into the shared t04/l008 configuration. Location identity is pack/instance
+  // context, not layout identity.
+  if(m.config_id==='cfg_t04_l008_v2'&&m.display_name==='旅立ちの村'){
+    return m.config_id+' (場所名未確定 / shared village layout)';
+  }
+  return m.display_name||m.config_id;
+}
+
 function mapArrivals(m){
   return (m.transition_arrivals||[]).map(id=>arrivalById.get(id)).filter(Boolean);
 }
@@ -212,7 +226,7 @@ function renderHotspots(m){
     b.style.top=(h.source_grid_y*m.grid_cell_px_y)+'px';
     b.style.width=((h.source_width||1)*m.grid_cell_px_x)+'px';
     b.style.height=((h.source_height||1)*m.grid_cell_px_y)+'px';
-    const dest=h.destination_config_id?((byId.get(h.destination_config_id)?.display_name)||h.destination_config_id):'destination unresolved';
+    const dest=h.destination_config_id?(byId.has(h.destination_config_id)?mapDisplayName(byId.get(h.destination_config_id)):h.destination_config_id):'destination unresolved';
     b.title=`${dest} | ${h.trigger_type||h.hotspot_type||'transition'} | ${h.confidence}`;
     b.onclick=ev=>{
       ev.stopPropagation(); clearDialogue(); detail.textContent=JSON.stringify(h,null,2);
@@ -305,7 +319,7 @@ function renderMap(m){
 async function selectMap(m,focus=null){
   selectedMap=m; selectedFocus=focus; clearDialogue();
   document.querySelectorAll('.mapButton').forEach(b=>b.classList.toggle('active',b.dataset.id===m.config_id));
-  q('#title').textContent=m.display_name||m.config_id;
+  q('#title').textContent=mapDisplayName(m);
   renderMap(m);
   detail.textContent='loading structural layers...';
   detail.textContent=JSON.stringify({
@@ -327,7 +341,7 @@ async function selectMap(m,focus=null){
     div.className='edge '+(e.confidence==='confirmed'?'confirmed':'strong');
     const forward=e.source_config_id===m.config_id;
     const other=forward?e.destination_config_id:e.source_config_id;
-    const otherName=(byId.get(other)?.display_name)||other;
+    const otherName=byId.has(other)?mapDisplayName(byId.get(other)):other;
     const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
     div.append(document.createTextNode((forward?'→ ':'← ')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
     const go=document.createElement('button'); go.className='edgeGo'; go.textContent='open map';
@@ -362,7 +376,7 @@ for(const m of world.maps){
   const dialogueCount=actors.reduce((n,e)=>n+(e.dialogue_refs||[]).length,0);
   const arrivals=(m.transition_arrivals||[]).length;
   const hotspots=(m.source_transition_hotspots||[]).length;
-  b.textContent=(m.display_name||m.config_id)+(count?` [A:${count}]`:'')+(dialogueCount?` [D:${dialogueCount}]`:'')+(hotspots?` [H:${hotspots}]`:'')+(arrivals?` [T:${arrivals}]`:'');
+  b.textContent=mapDisplayName(m)+(count?` [A:${count}]`:'')+(dialogueCount?` [D:${dialogueCount}]`:'')+(hotspots?` [H:${hotspots}]`:'')+(arrivals?` [T:${arrivals}]`:'');
   b.onclick=()=>selectMap(m); list.append(b);
 }
 for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){

@@ -12,6 +12,7 @@ DIALOGUE_SEQUENCE_CATALOG = ROOT / "data/npc_display/static_actor_dialogue_seque
 SPRITE_SEMANTICS = ROOT / "data/npc_display/static_actor_sprite_semantics_20260930.csv"
 DIRECTIONAL_CATALOG = ROOT / "data/npc_display/static_character_directional_catalog_20260930.csv"
 SOURCE_HOTSPOTS = TRANSITIONS / "source_transition_hotspots.csv"
+LOCATION_CANDIDATES = ROOT / "data/maps/context/map_location_identity_candidates_20260930.csv"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -484,6 +485,19 @@ def main():
                 "display_frame": int(catalog_row["display_frame"]) if catalog_row.get("display_frame") else None,
                 "display_orientation": catalog_row.get("display_orientation") or None,
             }
+    location_candidates_by_context = {}
+    if LOCATION_CANDIDATES.exists():
+        for row in csv.DictReader(LOCATION_CANDIDATES.open(encoding="utf-8-sig", newline="")):
+            key = (row.get("config_id") or "", row.get("pack_id_hex") or "")
+            location_candidates_by_context.setdefault(key, []).append({
+                "candidate_label": row.get("candidate_label") or None,
+                "status": row.get("candidate_status") or "candidate",
+                "runtime_identity_status": row.get("runtime_identity_status") or None,
+                "limitation": row.get("limitation") or None,
+                "promotion_rule": row.get("promotion_rule") or None,
+                "provenance": row.get("provenance") or str(LOCATION_CANDIDATES.relative_to(ROOT)).replace("\\", "/"),
+            })
+
     static_actor_path = ROOT / "data/npc_display/static_map_actor_selector_crosslink_20260930.csv"
     if static_actor_path.exists():
         seen = set()
@@ -511,6 +525,12 @@ def main():
             entity = {
                 "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
                 "map_config_id": config_id,
+                "pack_id_hex": row.get("pack_id_hex") or None,
+                "location_label": row.get("map_label") or None,
+                "location_label_status": "source_label" if row.get("map_label") else "unresolved",
+                "location_candidates": location_candidates_by_context.get(
+                    (config_id, row.get("pack_id_hex") or ""), []
+                ),
                 "entity_type": "static_actor_candidate",
                 "record_id": row["record_id"],
                 "selector_hex": selector_key,
