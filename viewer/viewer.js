@@ -146,6 +146,7 @@ function actorSpeaker(e){
 
 function openDialogue(e){
   clearDialogue();
+  const spawn=e.spawn_condition||null;
   const sequences=(e.dialogue_refs||[]).map(id=>dialogueById.get(id)).filter(Boolean);
   const win=document.createElement('div');
   win.className='dialogueWindow'+(e.y<140?' below':'');
@@ -158,11 +159,16 @@ function openDialogue(e){
 
   const branch=document.createElement('select'); branch.className='dialogueBranch';
   if(sequences.length>1){
+    const unresolved=document.createElement('option');
+    unresolved.value='';
+    unresolved.textContent='条件未評価：会話候補を選択';
+    branch.append(unresolved);
     sequences.forEach((seq,i)=>{
       const opt=document.createElement('option');
       const cond=seq.condition&&seq.condition!=='single validated source selection'?seq.condition:'';
       opt.value=String(i);
-      opt.textContent=(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | condition':'');
+      opt.textContent=(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 条件付き':'');
+      if(cond)opt.title=cond;
       branch.append(opt);
     });
     header.append(branch);
@@ -207,13 +213,12 @@ function openDialogue(e){
   win.append(header,actorMeta,text,meta,controls);
   dialogueLayer.append(win);
 
-  let branchIndex=sequences.findIndex(seq=>(seq.pages||[]).length);
-  if(branchIndex<0)branchIndex=0;
+  let branchIndex=sequences.length===1?0:-1;
   let pageIndex=0;
-  if(branch.options.length)branch.value=String(branchIndex);
+  if(branch.options.length)branch.value=branchIndex>=0?String(branchIndex):'';
 
   function currentSequence(){
-    return sequences[branchIndex]||null;
+    return branchIndex>=0?(sequences[branchIndex]||null):null;
   }
 
   function renderPage(){
@@ -236,7 +241,7 @@ function openDialogue(e){
     detail.textContent=JSON.stringify({actor:e,dialogue_sequence:seq},null,2);
   }
 
-  branch.onchange=()=>{branchIndex=Number(branch.value);pageIndex=0;renderPage();};
+  branch.onchange=()=>{branchIndex=branch.value===''?-1:Number(branch.value);pageIndex=0;renderPage();};
   prev.onclick=ev=>{ev.stopPropagation();if(pageIndex>0){pageIndex--;renderPage();}};
   next.onclick=ev=>{
     ev.stopPropagation();
