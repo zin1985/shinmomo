@@ -31,3 +31,23 @@ The strongest current interpretation is that exhaustion of the three-line cadenc
 - `tools/python/catalog_family50_page_transitions.py`
 - `data/npc_display/static_actor_dialogue_sequences_20260930.json`
 - `data/npc_display/static_actor_dialogue_sequence_pages_20260930.csv`
+
+## Normalized button mapping
+
+The SNES standard-pad auto-read layout is `JOY1L=$4218: AXLR0000` and `JOY1H=$4219: BY Select Start Up Down Left Right`.
+The game's C0 input normalization keeps `$4218 & 0xF0` and ORs `($4219 >> 4)` into DP `$57`, so `$57` is:
+
+- bit7 A
+- bit6 X
+- bit5 L
+- bit4 R
+- bit3 B
+- bit2 Y
+- bit1 Select
+- bit0 Start
+
+DP `$59` separately holds the D-pad nibble.
+
+Therefore C4:A264 primary mask `0xFC` corresponds to A/X/L/R/B/Y, while secondary mask `0xF4` corresponds to A/X/L/R/Y. This closes the mask-to-button mapping. It does not yet prove that every one of those buttons advances in every substate, nor does it close release/autorepeat semantics.
+
+Hardware reference: https://snes.nesdev.org/wiki/Standard_controller

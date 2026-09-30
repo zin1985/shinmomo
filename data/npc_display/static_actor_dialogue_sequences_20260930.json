@@ -34,10 +34,37 @@
         "secondary_mask": "0xF4",
         "gate": "$12C0",
         "gate_init": "0xFF at C4:9FEB",
-        "exact_button_names": null
+        "exact_button_names": null,
+        "normalized_button_layout": {
+          "bit7": "A",
+          "bit6": "X",
+          "bit5": "L",
+          "bit4": "R",
+          "bit3": "B",
+          "bit2": "Y",
+          "bit1": "Select",
+          "bit0": "Start"
+        },
+        "primary_buttons": [
+          "A",
+          "X",
+          "L",
+          "R",
+          "B",
+          "Y"
+        ],
+        "secondary_buttons": [
+          "A",
+          "X",
+          "L",
+          "R",
+          "Y"
+        ],
+        "dpad_source": "DP $59",
+        "exact_button_names_status": "confirmed_mask_mapping"
       },
       "evidence": "C4 display-state machine includes input-sensitive state A264; generic C0 joypad pipeline retains held state in $57/$59 and new-press edges in $5B/$5D",
-      "caveat": "exact accepted button names and release/autorepeat semantics remain unresolved"
+      "caveat": "mask-to-button mapping is confirmed; exact state-dependent acceptance and release/autorepeat behavior remain unresolved"
     },
     "choice_control": {
       "role": "choice/menu control within dialogue source",
@@ -692,7 +719,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -1250,7 +1304,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -1707,7 +1788,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -2853,7 +2961,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -4141,7 +4276,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -4642,7 +4804,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -5199,7 +5388,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -5514,7 +5730,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -5764,7 +6007,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -6034,7 +6304,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -6580,7 +6877,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -7107,7 +7431,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -8198,7 +8549,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -8729,7 +9107,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -9029,7 +9434,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -9630,7 +10062,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -9809,7 +10268,34 @@
                   "gate": "$12C0",
                   "gate_init": "0xFF at C4:9FEB",
                   "exact_button_names": null,
-                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D"
+                  "edge_semantics": "handler reads held $57; generic new-press edges are $5B/$5D",
+                  "normalized_button_layout": {
+                    "bit7": "A",
+                    "bit6": "X",
+                    "bit5": "L",
+                    "bit4": "R",
+                    "bit3": "B",
+                    "bit2": "Y",
+                    "bit1": "Select",
+                    "bit0": "Start"
+                  },
+                  "primary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "B",
+                    "Y"
+                  ],
+                  "secondary_buttons": [
+                    "A",
+                    "X",
+                    "L",
+                    "R",
+                    "Y"
+                  ],
+                  "dpad_source": "DP $59",
+                  "exact_button_names_status": "confirmed_mask_mapping"
                 },
                 "status": "strong_candidate_static_display_state"
               },

@@ -143,7 +143,7 @@ def build(source_head=None):
                 },
                 "advance": (
                     {"required_between_pages":"strong_candidate","boundary_trigger":"three_line_0x01_cadence_exhausted",
-                     "input":{"source":"normalized held-input DP $57","state_handler":"C4:A264","primary_mask":"0xFC","secondary_mask":"0xF4","gate":"$12C0","gate_init":"0xFF at C4:9FEB","exact_button_names":None,"edge_semantics":"handler reads held $57; generic new-press edges are $5B/$5D"},
+                     "input":{"source":"normalized held-input DP $57","state_handler":"C4:A264","primary_mask":"0xFC","secondary_mask":"0xF4","gate":"$12C0","gate_init":"0xFF at C4:9FEB","normalized_button_layout":{"bit7":"A","bit6":"X","bit5":"L","bit4":"R","bit3":"B","bit2":"Y","bit1":"Select","bit0":"Start"},"primary_buttons":["A","X","L","R","B","Y"],"secondary_buttons":["A","X","L","R","Y"],"dpad_source":"DP $59","exact_button_names_status":"confirmed_mask_mapping","edge_semantics":"handler reads held $57; generic new-press edges are $5B/$5D"},
                      "status":"strong_candidate_static_display_state"}
                     if b.get("record_id","").startswith("F50-") and i < len(blocks)-1
                     else {"required_between_pages":"no_next_page","input":None,"status":"not_applicable"}
@@ -267,7 +267,7 @@ def build(source_head=None):
             "button_advance": {
                 "role":"display-state input gate reached at page cadence boundary",
                 "status":"strong_candidate",
-                "input":{"source":"normalized held-input DP $57","display_state_handler":"C4:A264","primary_mask":"0xFC","secondary_mask":"0xF4","gate":"$12C0","gate_init":"0xFF at C4:9FEB","exact_button_names":None},
+                "input":{"source":"normalized held-input DP $57","display_state_handler":"C4:A264","primary_mask":"0xFC","secondary_mask":"0xF4","gate":"$12C0","gate_init":"0xFF at C4:9FEB","normalized_button_layout":{"bit7":"A","bit6":"X","bit5":"L","bit4":"R","bit3":"B","bit2":"Y","bit1":"Select","bit0":"Start"},"primary_buttons":["A","X","L","R","B","Y"],"secondary_buttons":["A","X","L","R","Y"],"dpad_source":"DP $59","exact_button_names_status":"confirmed_mask_mapping"},
                 "evidence":"C4 display-state machine includes input-sensitive state A264; generic C0 joypad pipeline retains held state in $57/$59 and new-press edges in $5B/$5D",
                 "caveat":"exact accepted button names and release/autorepeat semantics remain unresolved"
             },

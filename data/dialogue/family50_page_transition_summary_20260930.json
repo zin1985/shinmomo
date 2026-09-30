@@ -6,5 +6,34 @@
   "invariant_mismatch_count": 0,
   "invariant": "internal 0x01 line breaks inside page + padding 0x01 line breaks before next page = 3",
   "page_capacity_lines": 3,
-  "button_wait_link_status": "strong_candidate_static_display_state"
+  "button_wait_link_status": "strong_candidate_static_display_state",
+  "normalized_button_layout": {
+    "bit7": "A",
+    "bit6": "X",
+    "bit5": "L",
+    "bit4": "R",
+    "bit3": "B",
+    "bit2": "Y",
+    "bit1": "Select",
+    "bit0": "Start"
+  },
+  "primary_mask": "0xFC",
+  "primary_buttons": [
+    "A",
+    "X",
+    "L",
+    "R",
+    "B",
+    "Y"
+  ],
+  "secondary_mask": "0xF4",
+  "secondary_buttons": [
+    "A",
+    "X",
+    "L",
+    "R",
+    "Y"
+  ],
+  "dpad_source": "DP $59",
+  "button_name_mapping_status": "confirmed_static_hardware_plus_game_normalization"
 }
