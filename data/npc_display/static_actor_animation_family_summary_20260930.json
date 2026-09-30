@@ -1,0 +1,20 @@
+{
+  "unique_graphics_signatures": 148,
+  "directional_4x2": 121,
+  "non_directional": 27,
+  "directional_family_offsets": {
+    "0": 93,
+    "4": 5,
+    "2": 2,
+    "3": 2,
+    "5": 3,
+    "1": 16
+  },
+  "non_directional_kinds": {
+    "special_sequence": 10,
+    "fixed": 17
+  },
+  "directional_atlas": "graphics\\static_character_reconstruction\\static_directional_animation_atlas_20260930.png",
+  "special_atlas": "graphics\\static_character_reconstruction\\static_special_animation_atlas_20260930.png",
+  "catalog": "data\\npc_display\\static_actor_animation_family_catalog_20260930.csv"
+}
