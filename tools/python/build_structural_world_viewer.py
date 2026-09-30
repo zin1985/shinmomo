@@ -325,8 +325,12 @@ def main():
     if DIALOGUE_SEQUENCE_CATALOG.exists():
         doc = json.loads(DIALOGUE_SEQUENCE_CATALOG.read_text(encoding="utf-8"))
         for actor in doc.get("actors", []):
+            actor_pack = actor.get("pack_id_hex") or ""
+            actor_scene = actor.get("scene_id") or (
+                f'{actor.get("config_id","")}@{actor_pack}' if actor_pack else ""
+            )
             key = (
-                actor.get("config_id") or "",
+                actor_scene,
                 actor.get("record_id") or "",
                 actor.get("selector_hex") or "",
             )
@@ -337,6 +341,14 @@ def main():
                 sequence_id = seq.get("sequence_id")
                 item = {
                     "dialogue_sequence_id": sequence_id,
+                    "scene_id": actor_scene or None,
+                    "pack_id_hex": actor_pack or None,
+                    "scene_context": seq.get("scene_context") or {
+                        "scene_id": actor_scene or None,
+                        "config_id": actor.get("config_id") or None,
+                        "pack_id_hex": actor_pack or None,
+                        "state_evaluation": "required_for_current_dialogue_selection",
+                    },
                     "config_id": actor.get("config_id") or None,
                     "record_id": actor.get("record_id") or None,
                     "selector_hex": actor.get("selector_hex") or None,
@@ -387,7 +399,11 @@ def main():
     # page-level text reconstruction exists yet.
     if DIALOGUE_BINDING.exists():
         for n, row in enumerate(csv.DictReader(DIALOGUE_BINDING.open(encoding="utf-8-sig", newline=""))):
-            key = (row.get("config_id") or "", row.get("record_id") or "", row.get("selector_hex") or "")
+            row_pack = row.get("pack_id_hex") or ""
+            row_scene = row.get("scene_id") or (
+                f'{row.get("config_id","")}@{row_pack}' if row_pack else ""
+            )
+            key = (row_scene, row.get("record_id") or "", row.get("selector_hex") or "")
             sequence_id = (
                 f'{row.get("config_id")}:{row.get("record_id")}:{row.get("text_record_id")}'
                 if row.get("text_record_id")
@@ -399,6 +415,14 @@ def main():
             page_texts = dialogue_page_candidates(decoded_text)
             item = {
                 "dialogue_sequence_id": sequence_id,
+                "scene_id": row_scene or None,
+                "pack_id_hex": row_pack or None,
+                "scene_context": {
+                    "scene_id": row_scene or None,
+                    "config_id": row.get("config_id") or None,
+                    "pack_id_hex": row_pack or None,
+                    "state_evaluation": "required_for_current_dialogue_selection",
+                },
                 "config_id": row.get("config_id") or None,
                 "record_id": row.get("record_id") or None,
                 "selector_hex": row.get("selector_hex") or None,
@@ -503,7 +527,9 @@ def main():
         seen = set()
         for row in csv.DictReader(static_actor_path.open(encoding="utf-8-sig")):
             config_id = row["config_id"]
-            key = (config_id, row["record_id"], row["selector_hex"])
+            pack_id = row.get("pack_id_hex") or ""
+            scene_id = f"{config_id}@{pack_id}" if pack_id else ""
+            key = (scene_id, row["record_id"], row["selector_hex"])
             if config_id not in maps or key in seen:
                 continue
             seen.add(key)
@@ -518,14 +544,16 @@ def main():
             selector_hex = row["selector_hex"].replace("0x", "").upper().zfill(2)
             selector_key = f"0x{selector_hex}"
             asset_selector_hex = selector_asset_alias.get(selector_hex, selector_hex)
-            actor_key = (config_id, row["record_id"], selector_key)
-            semantic = sprite_semantics.get(actor_key)
+            semantic_key = (config_id, row["record_id"], selector_key)
+            actor_key = (scene_id, row["record_id"], selector_key)
+            semantic = sprite_semantics.get(semantic_key)
             directional = directional_by_selector.get(selector_key)
             actor_dialogue_refs = dialogue_by_actor.get(actor_key, [])
             entity = {
                 "entity_id": f"static_actor_{config_id}_{row['record_id']}_{selector_hex}",
                 "map_config_id": config_id,
-                "pack_id_hex": row.get("pack_id_hex") or None,
+                "scene_id": scene_id or None,
+                "pack_id_hex": pack_id or None,
                 "location_label": row.get("map_label") or None,
                 "location_label_status": "source_label" if row.get("map_label") else "unresolved",
                 "location_candidates": location_candidates_by_context.get(
@@ -639,6 +667,8 @@ def main():
             "sequence_count": len(dialogue_sequences),
             "decoded_sequence_count": sum(bool(x["pages"]) for x in dialogue_sequences),
             "actor_binding_count": len(dialogue_by_actor),
+            "binding_key": "scene_id + record_id + selector_hex",
+            "scene_context_preserved": True,
         },
         "sprite_groups": sprite_groups,
         "entities": entities,

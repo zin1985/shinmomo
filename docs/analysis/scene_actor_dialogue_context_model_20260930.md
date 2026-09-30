@@ -35,3 +35,13 @@ Filter actors by scene_id before evaluating spawn conditions.
 After actor selection, evaluate dialogue conditions against the same runtime
 state. If state is unknown, present branch-separated candidates and never
 concatenate them into one representative speech.
+
+## Viewer implementation status
+
+The world-viewer build now preserves scene context through dialogue association.
+
+- dialogue actor lookup uses scene_id + record_id + selector_hex;
+- dialogue sequence objects retain scene_id, pack_id_hex, and scene_context;
+- static actor entities retain scene_id;
+- config_id remains geometry identity rather than runtime scene identity;
+- story/event flags remain a later selection layer and unresolved branches stay separate.
