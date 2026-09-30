@@ -48,6 +48,7 @@ def main():
                     "data": f"layers/t{int(row['tileset_id']):02d}_l{int(row['layout_id']):03d}.json",
                 }],
                 "entities": [],
+                "transition_arrivals": [],
                 "confidence": row["confidence"],
                 "provenance": "map_render_catalog",
             }
@@ -253,8 +254,56 @@ def main():
             entities.append(entity)
             m["entities"].append(entity["entity_id"])
 
+    # Destination coordinates are independently useful even when the static
+    # source map remains unresolved. Group identical arrival points to avoid
+    # rendering hundreds of duplicate markers in the HTML viewer.
+    transition_arrivals = []
+    candidate_path = TRANSITIONS / "map_transition_candidates.csv"
+    grouped_arrivals = {}
+    if candidate_path.exists():
+        for row in csv.DictReader(candidate_path.open(encoding="utf-8-sig")):
+            config_id = row.get("destination_config_id") or ""
+            sx, sy = row.get("destination_x") or "", row.get("destination_y") or ""
+            if config_id not in maps or not sx or not sy:
+                continue
+            gx, gy = int(sx), int(sy)
+            key = (config_id, gx, gy)
+            item = grouped_arrivals.setdefault(key, {
+                "rows": 0, "destination_packs": set(), "destination_entries": set(),
+                "confidences": set(), "source_configs": set(),
+                "trigger_addrs": set(), "trigger_types": set(),
+            })
+            if row.get("destination_pack"): item["destination_packs"].add(row["destination_pack"])
+            if row.get("destination_entry_id"): item["destination_entries"].add(row["destination_entry_id"])
+            item["rows"] += 1
+            if row.get("confidence"): item["confidences"].add(row["confidence"])
+            if row.get("source_config_id"): item["source_configs"].add(row["source_config_id"])
+            if row.get("trigger_addr"): item["trigger_addrs"].add(row["trigger_addr"])
+            if row.get("trigger_type"): item["trigger_types"].add(row["trigger_type"])
+    for n, (key, info) in enumerate(sorted(grouped_arrivals.items())):
+        config_id, gx, gy = key
+        m = maps[config_id]
+        arrival = {
+            "arrival_id": f"arrival_{n:04d}",
+            "map_config_id": config_id,
+            "destination_packs": sorted(info["destination_packs"]),
+            "destination_entry_ids": sorted(info["destination_entries"]),
+            "grid_x": gx, "grid_y": gy,
+            "x": gx * m["grid_cell_px_x"],
+            "y": gy * m["grid_cell_px_y"],
+            "candidate_row_count": info["rows"],
+            "confidence_classes": sorted(info["confidences"]),
+            "source_config_ids": sorted(info["source_configs"]),
+            "trigger_addrs": sorted(info["trigger_addrs"]),
+            "trigger_types": sorted(info["trigger_types"]),
+            "coordinate_status": "resolved_destination_entry_grid_coordinate",
+            "provenance": "data/maps/transitions/map_transition_candidates.csv",
+        }
+        transition_arrivals.append(arrival)
+        m["transition_arrivals"].append(arrival["arrival_id"])
+
     world = {
-        "schema_version": 2,
+        "schema_version": 3,
         "kind": "shinmomo_structural_world",
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
@@ -265,6 +314,11 @@ def main():
         "events": events,
         "sprite_groups": sprite_groups,
         "entities": entities,
+        "transition_arrivals": transition_arrivals,
+        "transition_arrival_summary": {
+            "group_count": len(transition_arrivals),
+            "plotted_candidate_rows": sum(x["candidate_row_count"] for x in transition_arrivals),
+        },
         "actor_seed_position_audit": actor_seed_audit,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)

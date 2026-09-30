@@ -57,9 +57,13 @@ The exact-grid composite places all ten anchors on plausible village actor locat
 fields, paths, building fronts, and the north facility area. None lands in the remote
 forest-only background or outside the village map.
 
-Validation image:
+Validation images:
 
-`graphics/viewer_validation/tabidachi_static_actor_overlay_grid_exact.png`
+- `graphics/viewer_validation/tabidachi_static_actor_overlay_grid_exact.png`
+- `graphics/viewer_validation/tabidachi_actor_arrival_overlay.png`
+
+The combined image also plots the three grouped resolved arrival coordinates currently
+known for this map: (29,55), (34,49), and (39,37).
 
 Selector graphic aliases are resolved through
 `static_character_selector_catalog_20260930.csv:duplicate_of`; for example selector

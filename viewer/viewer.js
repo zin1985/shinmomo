@@ -1,20 +1,22 @@
 const world=await fetch('./data/world.json').then(r=>r.json());
 const byId=new Map(world.maps.map(m=>[m.config_id,m]));
 const entityById=new Map(world.entities.map(e=>[e.entity_id,e]));
+const arrivalById=new Map((world.transition_arrivals||[]).map(a=>[a.arrival_id,a]));
 const q=s=>document.querySelector(s);
 const list=q('#maps'), edges=q('#edges'), detail=q('#detail');
 const stage=q('#mapStage'), sizer=q('#mapSizer'), mapImage=q('#mapImage');
-const actorLayer=q('#actorLayer'), gridLayer=q('#gridLayer');
+const actorLayer=q('#actorLayer'), arrivalLayer=q('#arrivalLayer'), gridLayer=q('#gridLayer');
 let selectedMap=null;
 
 const staticActors=world.entities.filter(e=>e.entity_type==='static_actor_candidate');
 const audit=world.actor_seed_position_audit||{};
 q('#summary').textContent=
   `${world.maps.length} maps / ${world.transitions.length} confirmed transitions / `+
-  `${staticActors.length} static actors`;
+  `${staticActors.length} static actors / ${(world.transition_arrivals||[]).length} grouped arrival points`;
 q('#positionNotice').textContent=
   `Actor coordinates are statically confirmed for the opcode 0x59 actor renderer: field0659/0699 -> $030B/$030D -> 81:B10F -> 16px render coordinates. `+
-  `Corpus bounds check: ${audit.in_bounds??'?'} / ${audit.rows??'?'} in bounds. Sprite artwork uses a viewer bottom-center anchor approximation.`;
+  `Corpus bounds check: ${audit.in_bounds??'?'} / ${audit.rows??'?'} in bounds. Sprite artwork uses a viewer bottom-center anchor approximation. `+
+  `Arrival markers show resolved destination coordinates only; an unknown source map is never guessed from script-pack identity.`;
 
 async function layerSummary(m){
   const out=[];
@@ -34,6 +36,10 @@ function mapEntities(m){
   return (m.entities||[]).map(id=>entityById.get(id)).filter(Boolean);
 }
 
+function mapArrivals(m){
+  return (m.transition_arrivals||[]).map(id=>arrivalById.get(id)).filter(Boolean);
+}
+
 function applyZoom(){
   if(!selectedMap)return;
   const z=Number(q('#zoom').value);
@@ -43,6 +49,25 @@ function applyZoom(){
   stage.style.transform=`scale(${z})`;
   sizer.style.width=(selectedMap.pixel_width*z)+'px';
   sizer.style.height=(selectedMap.pixel_height*z)+'px';
+}
+
+function renderArrivals(m){
+  arrivalLayer.replaceChildren();
+  if(!q('#arrivalsToggle').checked)return;
+  const labels=q('#labelsToggle').checked;
+  for(const a of mapArrivals(m)){
+    const b=document.createElement('button');
+    b.className='arrival'+(a.confidence_classes.includes('confirmed')?' confirmed':'');
+    b.style.left=a.x+'px'; b.style.top=a.y+'px';
+    const entries=a.destination_entry_ids||[];
+    b.title=`${(a.destination_packs||[]).join(',')} entries ${entries.join(',')} grid(${a.grid_x},${a.grid_y}) x${a.candidate_row_count}`;
+    if(labels){
+      const lab=document.createElement('span'); lab.className='arrivalLabel';
+      lab.textContent=entries.length<=2?`→${entries.join('/')}`:`→${entries.length} entries`; b.append(lab);
+    }
+    b.onclick=ev=>{ev.stopPropagation(); detail.textContent=JSON.stringify(a,null,2);};
+    arrivalLayer.append(b);
+  }
 }
 
 function addDot(button){
@@ -112,7 +137,8 @@ function renderMap(m){
   }else{
     mapImage.hidden=true; mapImage.removeAttribute('src');
     q('#assetStatus').textContent='canonical assets disabled for this profile';
-  }  renderActors(m); applyZoom();
+  }
+  renderArrivals(m); renderActors(m); applyZoom();
 }
 
 async function selectMap(m){
@@ -125,6 +151,7 @@ async function selectMap(m){
     ...m,
     entity_count:mapEntities(m).length,
     static_actor_count:mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate').length,
+    transition_arrival_count:mapArrivals(m).length,
     layer_summary:await layerSummary(m)
   },null,2);
   edges.replaceChildren();
@@ -141,9 +168,11 @@ async function selectMap(m){
 for(const m of world.maps){
   const b=document.createElement('button'); b.className='mapButton'; b.dataset.id=m.config_id;
   const count=(m.entities||[]).map(id=>entityById.get(id)).filter(e=>e?.entity_type==='static_actor_candidate').length;
-  b.textContent=(m.display_name||m.config_id)+(count?` [${count}]`:'');
+  const arrivals=(m.transition_arrivals||[]).length;
+  b.textContent=(m.display_name||m.config_id)+(count?` [A:${count}]`:'')+(arrivals?` [T:${arrivals}]`:'');
   b.onclick=()=>selectMap(m); list.append(b);
-}for(const id of ['actorsToggle','labelsToggle','gridToggle','profile']){
+}
+for(const id of ['actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){
   q('#'+id).addEventListener('change',()=>selectedMap&&renderMap(selectedMap));
 }
 q('#zoom').addEventListener('input',applyZoom);

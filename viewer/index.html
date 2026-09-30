@@ -11,12 +11,14 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 #mapViewport{overflow:auto;max-height:68vh;border:1px solid #777;background:#222;min-height:240px}
 #mapSizer{position:relative}.mapStage{position:absolute;left:0;top:0;transform-origin:0 0;background:#333}
 #mapImage{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;image-rendering:pixelated}
-#gridLayer,#actorLayer{position:absolute;inset:0;pointer-events:none}
+#gridLayer,#arrivalLayer,#actorLayer{position:absolute;inset:0;pointer-events:none}
 #gridLayer.on{background-image:linear-gradient(to right,#ffffff33 1px,transparent 1px),linear-gradient(to bottom,#ffffff33 1px,transparent 1px)}
 .actor{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;cursor:pointer;border:0;background:transparent;padding:0;width:auto}
 .actor img,.actor canvas{display:block;width:32px;height:auto;image-rendering:pixelated;filter:drop-shadow(0 1px 1px #000)}
 .actor.candidate img,.actor.candidate canvas{outline:1px dashed #ffd54f}.actor .dot{display:block;width:8px;height:8px;border-radius:50%;background:#ffd54f;border:1px solid #111}
-.actorLabel{position:absolute;left:50%;top:100%;transform:translateX(-50%);white-space:nowrap;font:11px monospace;background:#000c;color:#fff;padding:1px 3px;border-radius:2px}
+.actorLabel,.arrivalLabel{position:absolute;left:50%;top:100%;transform:translateX(-50%);white-space:nowrap;font:11px monospace;background:#000c;color:#fff;padding:1px 3px;border-radius:2px}
+.arrival{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer;width:13px;height:13px;border-radius:50%;border:2px solid #73e6ff;background:#001b24aa;padding:0}
+.arrival.confirmed{width:17px;height:17px;border-width:3px;background:#73e6ff88}
 .edge{padding:7px;border:1px solid #888;margin:6px 0;cursor:pointer}
 .notice{padding:7px;border:1px solid #b88;margin:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}
 #assetStatus{font-size:12px;opacity:.85}h1,h2,h3{margin:.4em 0}
@@ -29,12 +31,13 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
   <h2 id="title">Select map</h2>
   <div class="toolbar">
     <label><input id="actorsToggle" type="checkbox" checked>actor sprites</label>
+    <label><input id="arrivalsToggle" type="checkbox">arrival points</label>
     <label><input id="labelsToggle" type="checkbox">labels</label>
     <label><input id="gridToggle" type="checkbox">map grid</label>
     <label>zoom <input id="zoom" type="range" min="0.25" max="2" step="0.05" value="0.75"><span id="zoomValue">75%</span></label>
   </div>
   <div id="assetStatus"></div>
-  <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="actorLayer"></div></div></div></div>
+  <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="arrivalLayer"></div><div id="actorLayer"></div></div></div></div>
   <div id="positionNotice" class="notice"></div>
   <h3>Transitions</h3><div id="edges"></div>
   <h3>Selection / structure</h3><pre id="detail"></pre>
