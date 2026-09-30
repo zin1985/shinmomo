@@ -1,0 +1,10 @@
+{
+  "event_records_scanned": 816,
+  "opcode59_actor_records": 318,
+  "crosslink_rows_with_map_context": 327,
+  "unique_selectors": 41,
+  "unique_families": 53,
+  "unique_map_configs": 40,
+  "selectors_missing_static_catalog": [],
+  "unmapped": []
+}

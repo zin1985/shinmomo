@@ -1,0 +1,100 @@
+{
+  "pack": "0x50",
+  "config_id": "cfg_t04_l008_v2",
+  "map_label": "旅立ちの村",
+  "frame": 15913,
+  "rows": [
+    {
+      "controller_slot": 9,
+      "record_id": "F50-L001",
+      "static_selector": "0x40",
+      "runtime_selector": "0x40",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1D0F",
+      "runtime_controller_pointer": "CC:1D0F",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 10,
+      "record_id": "F50-L002",
+      "static_selector": "0x24",
+      "runtime_selector": "0x24",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1D2D",
+      "runtime_controller_pointer": "CC:1D2D",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 11,
+      "record_id": "F50-L003",
+      "static_selector": "0x59",
+      "runtime_selector": "0x59",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1D4B",
+      "runtime_controller_pointer": "CC:1D4B",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 12,
+      "record_id": "F50-L004",
+      "static_selector": "0x59",
+      "runtime_selector": "0x59",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1D69",
+      "runtime_controller_pointer": "CC:1D69",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 13,
+      "record_id": "F50-L005",
+      "static_selector": "0x5A",
+      "runtime_selector": "0x5A",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1D8F",
+      "runtime_controller_pointer": "CC:1D8F",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 14,
+      "record_id": "F50-L006",
+      "static_selector": "0x40",
+      "runtime_selector": "0x40",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1DAD",
+      "runtime_controller_pointer": "CC:1DAD",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 15,
+      "record_id": "F50-L007",
+      "static_selector": "0x27",
+      "runtime_selector": "0x27",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1DD3",
+      "runtime_controller_pointer": "CC:1DD3",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 16,
+      "record_id": "F50-L008",
+      "static_selector": "0x25",
+      "runtime_selector": "0x25",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1DF1",
+      "runtime_controller_pointer": "CC:1DF1",
+      "pointer_match": true
+    },
+    {
+      "controller_slot": 17,
+      "record_id": "F50-L009",
+      "static_selector": "0x5B",
+      "runtime_selector": "0x5B",
+      "selector_match": true,
+      "static_controller_pointer": "CC:1E02",
+      "runtime_controller_pointer": "CC:1E02",
+      "pointer_match": true
+    }
+  ],
+  "all_9_selector_and_pointer_pairs_match": true,
+  "raw_runtime_capture_committed": false
+}

@@ -1,0 +1,3413 @@
+{
+  "cfg_t04_l008_v2": {
+    "pack_id_hex": "0x50",
+    "map_label": "旅立ちの村",
+    "selectors": [
+      "0x24",
+      "0x25",
+      "0x27",
+      "0x40",
+      "0x59",
+      "0x5A",
+      "0x5B"
+    ],
+    "records": [
+      {
+        "record_id": "F50-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 23,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1D0F"
+      },
+      {
+        "record_id": "F50-L002",
+        "selector_hex": "0x24",
+        "field_0659_seed": 24,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1D2D"
+      },
+      {
+        "record_id": "F50-L003",
+        "selector_hex": "0x59",
+        "field_0659_seed": 18,
+        "field_0699_seed": 42,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1D4B"
+      },
+      {
+        "record_id": "F50-L004",
+        "selector_hex": "0x59",
+        "field_0659_seed": 25,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1D69"
+      },
+      {
+        "record_id": "F50-L005",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 45,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1D8F"
+      },
+      {
+        "record_id": "F50-L006",
+        "selector_hex": "0x40",
+        "field_0659_seed": 36,
+        "field_0699_seed": 48,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1DAD"
+      },
+      {
+        "record_id": "F50-L007",
+        "selector_hex": "0x27",
+        "field_0659_seed": 47,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:1DD3"
+      },
+      {
+        "record_id": "F50-L008",
+        "selector_hex": "0x25",
+        "field_0659_seed": 11,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 80,
+        "controller_pointer": "CC:1DF1"
+      },
+      {
+        "record_id": "F50-L009",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 57,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:1E02"
+      }
+    ]
+  },
+  "cfg_t04_l018_v2": {
+    "pack_id_hex": "0x5E",
+    "map_label": "",
+    "selectors": [
+      "0x27",
+      "0x2E",
+      "0x43"
+    ],
+    "records": [
+      {
+        "record_id": "F5A-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 17,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3356"
+      },
+      {
+        "record_id": "F5A-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 25,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3367"
+      },
+      {
+        "record_id": "F5A-L003",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 24,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3380"
+      },
+      {
+        "record_id": "F5A-L004",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 32,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3391"
+      },
+      {
+        "record_id": "F5B-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 25,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3489"
+      },
+      {
+        "record_id": "F5B-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 24,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:34AA"
+      },
+      {
+        "record_id": "F5B-L003",
+        "selector_hex": "0x43",
+        "field_0659_seed": 30,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:34CB"
+      },
+      {
+        "record_id": "F5B-L004",
+        "selector_hex": "0x27",
+        "field_0659_seed": 33,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:34DC"
+      },
+      {
+        "record_id": "F5B-L005",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:350B"
+      },
+      {
+        "record_id": "F5B-L006",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:353E"
+      },
+      {
+        "record_id": "F5D-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 19,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3776"
+      },
+      {
+        "record_id": "F5D-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3787"
+      },
+      {
+        "record_id": "F5D-L003",
+        "selector_hex": "0x43",
+        "field_0659_seed": 23,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3798"
+      },
+      {
+        "record_id": "F5D-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 25,
+        "field_0699_seed": 32,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:37A9"
+      },
+      {
+        "record_id": "F5D-L005",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 31,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:37C8"
+      },
+      {
+        "record_id": "F5D-L006",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 33,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:37D9"
+      },
+      {
+        "record_id": "F5E-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 29,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:38B2"
+      },
+      {
+        "record_id": "F5E-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 31,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:38C3"
+      },
+      {
+        "record_id": "F5E-L003",
+        "selector_hex": "0x43",
+        "field_0659_seed": 23,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:38D4"
+      },
+      {
+        "record_id": "F5E-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 25,
+        "field_0699_seed": 29,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:38E5"
+      },
+      {
+        "record_id": "F5E-L005",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 19,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3904"
+      },
+      {
+        "record_id": "F5E-L006",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 21,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3915"
+      }
+    ]
+  },
+  "cfg_t04_l019_v1": {
+    "pack_id_hex": "0x5C",
+    "map_label": "",
+    "selectors": [
+      "0x2E",
+      "0x43"
+    ],
+    "records": [
+      {
+        "record_id": "F5C-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 25,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:363A"
+      },
+      {
+        "record_id": "F5C-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 23,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:364B"
+      },
+      {
+        "record_id": "F5C-L003",
+        "selector_hex": "0x43",
+        "field_0659_seed": 30,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:365C"
+      },
+      {
+        "record_id": "F5C-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 33,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:366D"
+      },
+      {
+        "record_id": "F5C-L005",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:368C"
+      },
+      {
+        "record_id": "F5C-L006",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:369D"
+      }
+    ]
+  },
+  "cfg_t04_l034_v2": {
+    "pack_id_hex": "0x60",
+    "map_label": "",
+    "selectors": [
+      "0x23",
+      "0x40",
+      "0x43",
+      "0x5A",
+      "0x5B"
+    ],
+    "records": [
+      {
+        "record_id": "F60-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 36,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3C82"
+      },
+      {
+        "record_id": "F60-L002",
+        "selector_hex": "0x40",
+        "field_0659_seed": 46,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3C9B"
+      },
+      {
+        "record_id": "F60-L004",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 26,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3CD1"
+      },
+      {
+        "record_id": "F60-L006",
+        "selector_hex": "0x43",
+        "field_0659_seed": 25,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D15"
+      },
+      {
+        "record_id": "F60-L007",
+        "selector_hex": "0x23",
+        "field_0659_seed": 23,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D2E"
+      },
+      {
+        "record_id": "F60-L008",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 34,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D47"
+      },
+      {
+        "record_id": "F60-L009",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 43,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D60"
+      }
+    ]
+  },
+  "cfg_t04_l035_v2": {
+    "pack_id_hex": "0x60",
+    "map_label": "",
+    "selectors": [
+      "0x23",
+      "0x40",
+      "0x43",
+      "0x5A",
+      "0x5B"
+    ],
+    "records": [
+      {
+        "record_id": "F60-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 36,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3C82"
+      },
+      {
+        "record_id": "F60-L002",
+        "selector_hex": "0x40",
+        "field_0659_seed": 46,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3C9B"
+      },
+      {
+        "record_id": "F60-L004",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 26,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3CD1"
+      },
+      {
+        "record_id": "F60-L006",
+        "selector_hex": "0x43",
+        "field_0659_seed": 25,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D15"
+      },
+      {
+        "record_id": "F60-L007",
+        "selector_hex": "0x23",
+        "field_0659_seed": 23,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D2E"
+      },
+      {
+        "record_id": "F60-L008",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 34,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D47"
+      },
+      {
+        "record_id": "F60-L009",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 43,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3D60"
+      }
+    ]
+  },
+  "cfg_t04_l039_v2": {
+    "pack_id_hex": "0x67",
+    "map_label": "",
+    "selectors": [
+      "0x23",
+      "0x24",
+      "0x3F",
+      "0x40",
+      "0x5A"
+    ],
+    "records": [
+      {
+        "record_id": "F67-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 21,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:4D7D"
+      },
+      {
+        "record_id": "F67-L002",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 19,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:4D8E"
+      },
+      {
+        "record_id": "F67-L003",
+        "selector_hex": "0x24",
+        "field_0659_seed": 27,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 1,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:4D9F"
+      },
+      {
+        "record_id": "F67-L004",
+        "selector_hex": "0x23",
+        "field_0659_seed": 18,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:4DB0"
+      },
+      {
+        "record_id": "F67-L005",
+        "selector_hex": "0x40",
+        "field_0659_seed": 24,
+        "field_0699_seed": 40,
+        "field_06D9_seed": 1,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:4DC1"
+      },
+      {
+        "record_id": "F67-L006",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 26,
+        "field_0699_seed": 46,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:4DD2"
+      }
+    ]
+  },
+  "cfg_t04_l044_v2": {
+    "pack_id_hex": "0x65",
+    "map_label": "",
+    "selectors": [
+      "0x40",
+      "0x59",
+      "0x5A"
+    ],
+    "records": [
+      {
+        "record_id": "F65-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 18,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:4680"
+      },
+      {
+        "record_id": "F65-L002",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 25,
+        "field_0699_seed": 35,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:46BD"
+      },
+      {
+        "record_id": "F65-L003",
+        "selector_hex": "0x59",
+        "field_0659_seed": 47,
+        "field_0699_seed": 40,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:46D6"
+      },
+      {
+        "record_id": "F65-L005",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 29,
+        "field_0699_seed": 40,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:470C"
+      }
+    ]
+  },
+  "cfg_t04_l045_v2": {
+    "pack_id_hex": "0x70",
+    "map_label": "",
+    "selectors": [
+      "0x23",
+      "0x24",
+      "0x2F",
+      "0x30",
+      "0x38",
+      "0x3E",
+      "0x3F",
+      "0x40",
+      "0x42",
+      "0x43",
+      "0x44",
+      "0x59",
+      "0x5A",
+      "0x5B"
+    ],
+    "records": [
+      {
+        "record_id": "F70-L003",
+        "selector_hex": "0x59",
+        "field_0659_seed": 36,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:70E5"
+      },
+      {
+        "record_id": "F70-L004",
+        "selector_hex": "0x42",
+        "field_0659_seed": 45,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:70F6"
+      },
+      {
+        "record_id": "F70-L005",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 56,
+        "field_0699_seed": 31,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7115"
+      },
+      {
+        "record_id": "F70-L006",
+        "selector_hex": "0x42",
+        "field_0659_seed": 56,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7126"
+      },
+      {
+        "record_id": "F70-L007",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 84,
+        "field_0699_seed": 66,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7137"
+      },
+      {
+        "record_id": "F70-L008",
+        "selector_hex": "0x59",
+        "field_0659_seed": 57,
+        "field_0699_seed": 62,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7148"
+      },
+      {
+        "record_id": "F70-L009",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 44,
+        "field_0699_seed": 63,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7159"
+      },
+      {
+        "record_id": "F70-L010",
+        "selector_hex": "0x23",
+        "field_0659_seed": 85,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:716A"
+      },
+      {
+        "record_id": "F70-L011",
+        "selector_hex": "0x43",
+        "field_0659_seed": 70,
+        "field_0699_seed": 51,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7189"
+      },
+      {
+        "record_id": "F70-L012",
+        "selector_hex": "0x43",
+        "field_0659_seed": 59,
+        "field_0699_seed": 82,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:719A"
+      },
+      {
+        "record_id": "F70-L013",
+        "selector_hex": "0x24",
+        "field_0659_seed": 32,
+        "field_0699_seed": 65,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:71AB"
+      },
+      {
+        "record_id": "F70-L014",
+        "selector_hex": "0x44",
+        "field_0659_seed": 30,
+        "field_0699_seed": 83,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:71C6"
+      },
+      {
+        "record_id": "F70-L015",
+        "selector_hex": "0x30",
+        "field_0659_seed": 52,
+        "field_0699_seed": 83,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:71D7"
+      },
+      {
+        "record_id": "F70-L016",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 70,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:71E8"
+      },
+      {
+        "record_id": "F70-L017",
+        "selector_hex": "0x38",
+        "field_0659_seed": 64,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7207"
+      },
+      {
+        "record_id": "F70-L018",
+        "selector_hex": "0x30",
+        "field_0659_seed": 25,
+        "field_0699_seed": 48,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:7218"
+      },
+      {
+        "record_id": "F70-L019",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 71,
+        "field_0699_seed": 71,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:7229"
+      },
+      {
+        "record_id": "F70-L020",
+        "selector_hex": "0x23",
+        "field_0659_seed": 72,
+        "field_0699_seed": 75,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:723A"
+      },
+      {
+        "record_id": "F70-L021",
+        "selector_hex": "0x3E",
+        "field_0659_seed": 73,
+        "field_0699_seed": 66,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:724B"
+      },
+      {
+        "record_id": "F70-L022",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 86,
+        "field_0699_seed": 63,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:725C"
+      },
+      {
+        "record_id": "F70-L023",
+        "selector_hex": "0x40",
+        "field_0659_seed": 83,
+        "field_0699_seed": 66,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:726D"
+      },
+      {
+        "record_id": "F70-L024",
+        "selector_hex": "0x42",
+        "field_0659_seed": 34,
+        "field_0699_seed": 47,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:727E"
+      }
+    ]
+  },
+  "cfg_t04_l060_v1": {
+    "pack_id_hex": "0x8E",
+    "map_label": "",
+    "selectors": [
+      "0x3C"
+    ],
+    "records": [
+      {
+        "record_id": "F8E-L002",
+        "selector_hex": "0x3C",
+        "field_0659_seed": 23,
+        "field_0699_seed": 59,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CD55"
+      },
+      {
+        "record_id": "F8E-L003",
+        "selector_hex": "0x3C",
+        "field_0659_seed": 32,
+        "field_0699_seed": 33,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CD76"
+      },
+      {
+        "record_id": "F8E-L004",
+        "selector_hex": "0x3C",
+        "field_0659_seed": 27,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CD95"
+      },
+      {
+        "record_id": "F8E-L005",
+        "selector_hex": "0x3C",
+        "field_0659_seed": 36,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CDA6"
+      }
+    ]
+  },
+  "cfg_t04_l062_v2": {
+    "pack_id_hex": "0x8C",
+    "map_label": "",
+    "selectors": [
+      "0x0E"
+    ],
+    "records": [
+      {
+        "record_id": "F8C-L001",
+        "selector_hex": "0x0E",
+        "field_0659_seed": 24,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C94E"
+      },
+      {
+        "record_id": "F8C-L002",
+        "selector_hex": "0x0E",
+        "field_0659_seed": 39,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C967"
+      },
+      {
+        "record_id": "F8C-L003",
+        "selector_hex": "0x0E",
+        "field_0659_seed": 41,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C980"
+      },
+      {
+        "record_id": "F8C-L004",
+        "selector_hex": "0x0E",
+        "field_0659_seed": 36,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C999"
+      },
+      {
+        "record_id": "F8C-L005",
+        "selector_hex": "0x0E",
+        "field_0659_seed": 24,
+        "field_0699_seed": 31,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C9CB"
+      },
+      {
+        "record_id": "F8C-L006",
+        "selector_hex": "0x0E",
+        "field_0659_seed": 22,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C9EA"
+      }
+    ]
+  },
+  "cfg_t04_l070_v2": {
+    "pack_id_hex": "0xF3",
+    "map_label": "",
+    "selectors": [
+      "0x29",
+      "0x2F",
+      "0x30",
+      "0x40",
+      "0x42",
+      "0x43",
+      "0x59",
+      "0x5A",
+      "0x5B"
+    ],
+    "records": [
+      {
+        "record_id": "FF3-L003",
+        "selector_hex": "0x40",
+        "field_0659_seed": 34,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:0355"
+      },
+      {
+        "record_id": "FF3-L004",
+        "selector_hex": "0x59",
+        "field_0659_seed": 45,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:0366"
+      },
+      {
+        "record_id": "FF3-L005",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 40,
+        "field_0699_seed": 29,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:0377"
+      },
+      {
+        "record_id": "FF3-L006",
+        "selector_hex": "0x43",
+        "field_0659_seed": 40,
+        "field_0699_seed": 38,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:0388"
+      },
+      {
+        "record_id": "FF3-L007",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 33,
+        "field_0699_seed": 46,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:0399"
+      },
+      {
+        "record_id": "FF3-L008",
+        "selector_hex": "0x42",
+        "field_0659_seed": 21,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:03AA"
+      },
+      {
+        "record_id": "FF3-L009",
+        "selector_hex": "0x29",
+        "field_0659_seed": 35,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:03BB"
+      },
+      {
+        "record_id": "FF3-L010",
+        "selector_hex": "0x30",
+        "field_0659_seed": 46,
+        "field_0699_seed": 15,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:03CC"
+      },
+      {
+        "record_id": "FF3-L011",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 34,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:03DD"
+      }
+    ]
+  },
+  "cfg_t05_l020_v2": {
+    "pack_id_hex": "0x80",
+    "map_label": "",
+    "selectors": [
+      "0x2E",
+      "0x43"
+    ],
+    "records": [
+      {
+        "record_id": "F80-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 23,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:A7E8"
+      },
+      {
+        "record_id": "F80-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 31,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:A801"
+      },
+      {
+        "record_id": "F80-L003",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 19,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:A81A"
+      },
+      {
+        "record_id": "F80-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 13,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:A833"
+      }
+    ]
+  },
+  "cfg_t05_l043_v2": {
+    "pack_id_hex": "0x6E",
+    "map_label": "",
+    "selectors": [
+      "0x24",
+      "0x28",
+      "0x29",
+      "0x30",
+      "0x38",
+      "0x3F",
+      "0x40",
+      "0x43",
+      "0x59",
+      "0x5A",
+      "0x5B"
+    ],
+    "records": [
+      {
+        "record_id": "F6E-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 34,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:6487"
+      },
+      {
+        "record_id": "F6E-L002",
+        "selector_hex": "0x59",
+        "field_0659_seed": 59,
+        "field_0699_seed": 32,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:6498"
+      },
+      {
+        "record_id": "F6E-L003",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 47,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:64A9"
+      },
+      {
+        "record_id": "F6E-L004",
+        "selector_hex": "0x28",
+        "field_0659_seed": 28,
+        "field_0699_seed": 33,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:64C8"
+      },
+      {
+        "record_id": "F6E-L005",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 37,
+        "field_0699_seed": 33,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:64EF"
+      },
+      {
+        "record_id": "F6E-L006",
+        "selector_hex": "0x43",
+        "field_0659_seed": 48,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:6500"
+      },
+      {
+        "record_id": "F6E-L007",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 52,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:6511"
+      },
+      {
+        "record_id": "F6E-L008",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 58,
+        "field_0699_seed": 35,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:6522"
+      },
+      {
+        "record_id": "F6E-L009",
+        "selector_hex": "0x24",
+        "field_0659_seed": 27,
+        "field_0699_seed": 37,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:6549"
+      },
+      {
+        "record_id": "F6E-L010",
+        "selector_hex": "0x59",
+        "field_0659_seed": 22,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:655A"
+      },
+      {
+        "record_id": "F6E-L011",
+        "selector_hex": "0x5B",
+        "field_0659_seed": 28,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:656B"
+      },
+      {
+        "record_id": "F6E-L012",
+        "selector_hex": "0x43",
+        "field_0659_seed": 36,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:657C"
+      },
+      {
+        "record_id": "F6E-L013",
+        "selector_hex": "0x38",
+        "field_0659_seed": 44,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:658D"
+      },
+      {
+        "record_id": "F6E-L014",
+        "selector_hex": "0x30",
+        "field_0659_seed": 55,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:659E"
+      },
+      {
+        "record_id": "F6E-L016",
+        "selector_hex": "0x29",
+        "field_0659_seed": 47,
+        "field_0699_seed": 38,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:65E1"
+      },
+      {
+        "record_id": "F6E-L017",
+        "selector_hex": "0x29",
+        "field_0659_seed": 31,
+        "field_0699_seed": 44,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:660F"
+      }
+    ]
+  },
+  "cfg_t06_l021_v2": {
+    "pack_id_hex": "0xF4",
+    "map_label": "",
+    "selectors": [
+      "0x2E",
+      "0x43"
+    ],
+    "records": [
+      {
+        "record_id": "F5F-L001",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3A0A"
+      },
+      {
+        "record_id": "F5F-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 23,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3A2B"
+      },
+      {
+        "record_id": "F5F-L003",
+        "selector_hex": "0x43",
+        "field_0659_seed": 26,
+        "field_0699_seed": 32,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3A4C"
+      },
+      {
+        "record_id": "F5F-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 31,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3A6D"
+      },
+      {
+        "record_id": "F5F-L005",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 30,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3A8E"
+      },
+      {
+        "record_id": "F5F-L006",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 22,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:3AAF"
+      },
+      {
+        "record_id": "FF4-L002",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 20,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:04B6"
+      },
+      {
+        "record_id": "FF4-L003",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 23,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:04C7"
+      },
+      {
+        "record_id": "FF4-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 26,
+        "field_0699_seed": 32,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:04D8"
+      },
+      {
+        "record_id": "FF4-L005",
+        "selector_hex": "0x43",
+        "field_0659_seed": 31,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:04E9"
+      },
+      {
+        "record_id": "FF4-L006",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 30,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:04FA"
+      },
+      {
+        "record_id": "FF4-L007",
+        "selector_hex": "0x2E",
+        "field_0659_seed": 22,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:050B"
+      }
+    ]
+  },
+  "cfg_t06_l037_v2": {
+    "pack_id_hex": "0x68",
+    "map_label": "",
+    "selectors": [
+      "0x3D",
+      "0x44"
+    ],
+    "records": [
+      {
+        "record_id": "F68-L007",
+        "selector_hex": "0x3D",
+        "field_0659_seed": 39,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:506C"
+      },
+      {
+        "record_id": "F68-L009",
+        "selector_hex": "0x44",
+        "field_0659_seed": 34,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:50B3"
+      }
+    ]
+  },
+  "cfg_t06_l038_v2": {
+    "pack_id_hex": "0x68",
+    "map_label": "",
+    "selectors": [
+      "0x3D",
+      "0x44"
+    ],
+    "records": [
+      {
+        "record_id": "F68-L007",
+        "selector_hex": "0x3D",
+        "field_0659_seed": 39,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:506C"
+      },
+      {
+        "record_id": "F68-L009",
+        "selector_hex": "0x44",
+        "field_0659_seed": 34,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:50B3"
+      }
+    ]
+  },
+  "cfg_t06_l040_v2": {
+    "pack_id_hex": "0x6A",
+    "map_label": "",
+    "selectors": [
+      "0x27",
+      "0x29",
+      "0x3F",
+      "0x40",
+      "0x59"
+    ],
+    "records": [
+      {
+        "record_id": "F6A-L002",
+        "selector_hex": "0x40",
+        "field_0659_seed": 41,
+        "field_0699_seed": 59,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:559F"
+      },
+      {
+        "record_id": "F6A-L003",
+        "selector_hex": "0x59",
+        "field_0659_seed": 41,
+        "field_0699_seed": 37,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:55D6"
+      },
+      {
+        "record_id": "F6A-L004",
+        "selector_hex": "0x40",
+        "field_0659_seed": 35,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:5605"
+      },
+      {
+        "record_id": "F6A-L005",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 43,
+        "field_0699_seed": 44,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:5634"
+      },
+      {
+        "record_id": "F6A-L006",
+        "selector_hex": "0x29",
+        "field_0659_seed": 36,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:564D"
+      },
+      {
+        "record_id": "F6A-L007",
+        "selector_hex": "0x40",
+        "field_0659_seed": 22,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:5677"
+      },
+      {
+        "record_id": "F6A-L008",
+        "selector_hex": "0x27",
+        "field_0659_seed": 31,
+        "field_0699_seed": 56,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:5698"
+      },
+      {
+        "record_id": "F6A-L009",
+        "selector_hex": "0x40",
+        "field_0659_seed": 34,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 128,
+        "controller_pointer": "CC:56C1"
+      }
+    ]
+  },
+  "cfg_t07_l009_v2": {
+    "pack_id_hex": "0xF9",
+    "map_label": "",
+    "selectors": [
+      "0x03",
+      "0x27",
+      "0x3E",
+      "0x49",
+      "0x59",
+      "0x5C",
+      "0x9C"
+    ],
+    "records": [
+      {
+        "record_id": "FF9-L001",
+        "selector_hex": "0x49",
+        "field_0659_seed": 4,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:1231"
+      },
+      {
+        "record_id": "FF9-L002",
+        "selector_hex": "0x3E",
+        "field_0659_seed": 5,
+        "field_0699_seed": 5,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:1244"
+      },
+      {
+        "record_id": "FF9-L003",
+        "selector_hex": "0x27",
+        "field_0659_seed": 6,
+        "field_0699_seed": 5,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CE:1256"
+      },
+      {
+        "record_id": "FF9-L004",
+        "selector_hex": "0x59",
+        "field_0659_seed": 5,
+        "field_0699_seed": 2,
+        "field_06D9_seed": 1,
+        "field_0719_seed": 65,
+        "controller_pointer": "CE:126E"
+      },
+      {
+        "record_id": "FF9-L005",
+        "selector_hex": "0x03",
+        "field_0659_seed": 2,
+        "field_0699_seed": 3,
+        "field_06D9_seed": 1,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:12A1"
+      },
+      {
+        "record_id": "FF9-L006",
+        "selector_hex": "0x5C",
+        "field_0659_seed": 4,
+        "field_0699_seed": 2,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:12B8"
+      },
+      {
+        "record_id": "FF9-L007",
+        "selector_hex": "0x9C",
+        "field_0659_seed": 8,
+        "field_0699_seed": 5,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 65,
+        "controller_pointer": "CE:12D2"
+      },
+      {
+        "record_id": "FF9-L008",
+        "selector_hex": "0x27",
+        "field_0659_seed": 9,
+        "field_0699_seed": 4,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:12ED"
+      },
+      {
+        "record_id": "FF9-L009",
+        "selector_hex": "0x49",
+        "field_0659_seed": 11,
+        "field_0699_seed": 2,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:131E"
+      }
+    ]
+  },
+  "cfg_t07_l051_v2": {
+    "pack_id_hex": "0x40",
+    "map_label": "",
+    "selectors": [
+      "0x42",
+      "0x59"
+    ],
+    "records": [
+      {
+        "record_id": "F40-L001",
+        "selector_hex": "0x59",
+        "field_0659_seed": 10,
+        "field_0699_seed": 4,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:EFC6"
+      },
+      {
+        "record_id": "F40-L002",
+        "selector_hex": "0x42",
+        "field_0659_seed": 5,
+        "field_0699_seed": 4,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:EFE3"
+      }
+    ]
+  },
+  "cfg_t07_l053_v2": {
+    "pack_id_hex": "0x43",
+    "map_label": "",
+    "selectors": [
+      "0x41",
+      "0x42"
+    ],
+    "records": [
+      {
+        "record_id": "F43-L001",
+        "selector_hex": "0x42",
+        "field_0659_seed": 5,
+        "field_0699_seed": 2,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:F565"
+      },
+      {
+        "record_id": "F43-L002",
+        "selector_hex": "0x41",
+        "field_0659_seed": 7,
+        "field_0699_seed": 3,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:F576"
+      }
+    ]
+  },
+  "cfg_t07_l054_v2": {
+    "pack_id_hex": "0x44",
+    "map_label": "",
+    "selectors": [
+      "0x24",
+      "0x3E",
+      "0x3F",
+      "0x40",
+      "0x41",
+      "0x42",
+      "0x43",
+      "0x59",
+      "0x5A"
+    ],
+    "records": [
+      {
+        "record_id": "F44-L001",
+        "selector_hex": "0x42",
+        "field_0659_seed": 8,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:F9B9"
+      },
+      {
+        "record_id": "F44-L002",
+        "selector_hex": "0x42",
+        "field_0659_seed": 12,
+        "field_0699_seed": 7,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA2F"
+      },
+      {
+        "record_id": "F44-L003",
+        "selector_hex": "0x41",
+        "field_0659_seed": 9,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA40"
+      },
+      {
+        "record_id": "F44-L004",
+        "selector_hex": "0x41",
+        "field_0659_seed": 33,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA51"
+      },
+      {
+        "record_id": "F44-L005",
+        "selector_hex": "0x43",
+        "field_0659_seed": 17,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA62"
+      },
+      {
+        "record_id": "F44-L006",
+        "selector_hex": "0x40",
+        "field_0659_seed": 19,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA73"
+      },
+      {
+        "record_id": "F44-L007",
+        "selector_hex": "0x24",
+        "field_0659_seed": 18,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA84"
+      },
+      {
+        "record_id": "F44-L008",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 25,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FA95"
+      },
+      {
+        "record_id": "F44-L009",
+        "selector_hex": "0x40",
+        "field_0659_seed": 25,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FAA6"
+      },
+      {
+        "record_id": "F44-L011",
+        "selector_hex": "0x59",
+        "field_0659_seed": 32,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FACF"
+      },
+      {
+        "record_id": "F44-L012",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 31,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FAE0"
+      },
+      {
+        "record_id": "F44-L013",
+        "selector_hex": "0x3E",
+        "field_0659_seed": 31,
+        "field_0699_seed": 8,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FAF1"
+      }
+    ]
+  },
+  "cfg_t07_l063_v2": {
+    "pack_id_hex": "0x47",
+    "map_label": "",
+    "selectors": [
+      "0x29"
+    ],
+    "records": [
+      {
+        "record_id": "F47-L001",
+        "selector_hex": "0x29",
+        "field_0659_seed": 11,
+        "field_0699_seed": 3,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FE8E"
+      },
+      {
+        "record_id": "F47-L002",
+        "selector_hex": "0x29",
+        "field_0659_seed": 12,
+        "field_0699_seed": 4,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CB:FE9F"
+      }
+    ]
+  },
+  "cfg_t08_l092_v2": {
+    "pack_id_hex": "0x93",
+    "map_label": "",
+    "selectors": [
+      "0x3A",
+      "0x40",
+      "0x43",
+      "0x44"
+    ],
+    "records": [
+      {
+        "record_id": "F91-L002",
+        "selector_hex": "0x43",
+        "field_0659_seed": 53,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 1,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:D3CB"
+      },
+      {
+        "record_id": "F92-L001",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 127,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 144,
+        "controller_pointer": "CC:D57F"
+      },
+      {
+        "record_id": "F92-L002",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 121,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 144,
+        "controller_pointer": "CC:D59A"
+      },
+      {
+        "record_id": "F92-L003",
+        "selector_hex": "0x40",
+        "field_0659_seed": 128,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 144,
+        "controller_pointer": "CC:D5B5"
+      },
+      {
+        "record_id": "F92-L004",
+        "selector_hex": "0x43",
+        "field_0659_seed": 134,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 144,
+        "controller_pointer": "CC:D5D0"
+      },
+      {
+        "record_id": "F92-L005",
+        "selector_hex": "0x44",
+        "field_0659_seed": 130,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 144,
+        "controller_pointer": "CC:D5EB"
+      },
+      {
+        "record_id": "F93-L001",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 103,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:D742"
+      },
+      {
+        "record_id": "F93-L002",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 103,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:D75D"
+      },
+      {
+        "record_id": "F93-L003",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 104,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:D778"
+      }
+    ]
+  },
+  "cfg_t08_l094_v2": {
+    "pack_id_hex": "0x53",
+    "map_label": "",
+    "selectors": [
+      "0x2F",
+      "0x30",
+      "0x3A",
+      "0x40",
+      "0x43",
+      "0x44",
+      "0x54"
+    ],
+    "records": [
+      {
+        "record_id": "F53-L001",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 20,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:2606"
+      },
+      {
+        "record_id": "F53-L002",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 18,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:2617"
+      },
+      {
+        "record_id": "F53-L003",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 21,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:2628"
+      },
+      {
+        "record_id": "F53-L004",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 8,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:2639"
+      },
+      {
+        "record_id": "F53-L005",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 9,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:264A"
+      },
+      {
+        "record_id": "F53-L006",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 11,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:265B"
+      },
+      {
+        "record_id": "F53-L007",
+        "selector_hex": "0x40",
+        "field_0659_seed": 14,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:266C"
+      },
+      {
+        "record_id": "F53-L008",
+        "selector_hex": "0x43",
+        "field_0659_seed": 12,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:267D"
+      },
+      {
+        "record_id": "F53-L009",
+        "selector_hex": "0x44",
+        "field_0659_seed": 14,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:268E"
+      },
+      {
+        "record_id": "F53-L010",
+        "selector_hex": "0x30",
+        "field_0659_seed": 72,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:269F"
+      },
+      {
+        "record_id": "F53-L011",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 35,
+        "field_0699_seed": 4,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:26B0"
+      },
+      {
+        "record_id": "F53-L012",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 51,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:26C1"
+      },
+      {
+        "record_id": "F53-L013",
+        "selector_hex": "0x54",
+        "field_0659_seed": 60,
+        "field_0699_seed": 4,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:26E0"
+      },
+      {
+        "record_id": "F53-L014",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 40,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:26FE"
+      },
+      {
+        "record_id": "F53-L015",
+        "selector_hex": "0x43",
+        "field_0659_seed": 56,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:2729"
+      },
+      {
+        "record_id": "F53-L016",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 55,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:273A"
+      },
+      {
+        "record_id": "F53-L017",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 37,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:275A"
+      },
+      {
+        "record_id": "F53-L018",
+        "selector_hex": "0x3A",
+        "field_0659_seed": 52,
+        "field_0699_seed": 5,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:2771"
+      }
+    ]
+  },
+  "cfg_t14_l105_v2": {
+    "pack_id_hex": "0xC3",
+    "map_label": "",
+    "selectors": [
+      "0x22",
+      "0x2F",
+      "0x30"
+    ],
+    "records": [
+      {
+        "record_id": "FC0-L001",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 42,
+        "field_0699_seed": 14,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:79CE"
+      },
+      {
+        "record_id": "FC0-L002",
+        "selector_hex": "0x30",
+        "field_0659_seed": 34,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:79DF"
+      },
+      {
+        "record_id": "FC0-L003",
+        "selector_hex": "0x30",
+        "field_0659_seed": 39,
+        "field_0699_seed": 35,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:79F0"
+      },
+      {
+        "record_id": "FC3-L001",
+        "selector_hex": "0x30",
+        "field_0659_seed": 191,
+        "field_0699_seed": 30,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7F07"
+      },
+      {
+        "record_id": "FC3-L002",
+        "selector_hex": "0x22",
+        "field_0659_seed": 207,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7F18"
+      }
+    ]
+  },
+  "cfg_t15_l107_v2": {
+    "pack_id_hex": "0xC1",
+    "map_label": "",
+    "selectors": [
+      "0x30",
+      "0x56"
+    ],
+    "records": [
+      {
+        "record_id": "FC1-L001",
+        "selector_hex": "0x56",
+        "field_0659_seed": 18,
+        "field_0699_seed": 53,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7C97"
+      },
+      {
+        "record_id": "FC1-L002",
+        "selector_hex": "0x30",
+        "field_0659_seed": 43,
+        "field_0699_seed": 50,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7CA8"
+      }
+    ]
+  },
+  "cfg_t16_l109_v2": {
+    "pack_id_hex": "0xC2",
+    "map_label": "",
+    "selectors": [
+      "0x2F",
+      "0x30",
+      "0x6F"
+    ],
+    "records": [
+      {
+        "record_id": "FC2-L001",
+        "selector_hex": "0x30",
+        "field_0659_seed": 52,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7DA0"
+      },
+      {
+        "record_id": "FC2-L002",
+        "selector_hex": "0x6F",
+        "field_0659_seed": 35,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7DB1"
+      },
+      {
+        "record_id": "FC2-L003",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 19,
+        "field_0699_seed": 9,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:7DC2"
+      }
+    ]
+  },
+  "cfg_t17_l111_v2": {
+    "pack_id_hex": "0xC4",
+    "map_label": "",
+    "selectors": [
+      "0x2F",
+      "0x30",
+      "0x56"
+    ],
+    "records": [
+      {
+        "record_id": "FC4-L001",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 15,
+        "field_0699_seed": 9,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:82A4"
+      },
+      {
+        "record_id": "FC4-L002",
+        "selector_hex": "0x30",
+        "field_0659_seed": 42,
+        "field_0699_seed": 33,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:82B5"
+      },
+      {
+        "record_id": "FC4-L003",
+        "selector_hex": "0x30",
+        "field_0659_seed": 85,
+        "field_0699_seed": 7,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:82C6"
+      },
+      {
+        "record_id": "FC4-L004",
+        "selector_hex": "0x56",
+        "field_0659_seed": 24,
+        "field_0699_seed": 32,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:82E5"
+      }
+    ]
+  },
+  "cfg_t18_l112_v2": {
+    "pack_id_hex": "0xC5",
+    "map_label": "",
+    "selectors": [
+      "0x2F"
+    ],
+    "records": [
+      {
+        "record_id": "FC5-L001",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 35,
+        "field_0699_seed": 38,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:8397"
+      }
+    ]
+  },
+  "cfg_t22_l121_v2": {
+    "pack_id_hex": "0x9B",
+    "map_label": "",
+    "selectors": [
+      "0x3B",
+      "0x40"
+    ],
+    "records": [
+      {
+        "record_id": "F9A-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 50,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EA1A"
+      },
+      {
+        "record_id": "F9A-L002",
+        "selector_hex": "0x40",
+        "field_0659_seed": 36,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EA31"
+      },
+      {
+        "record_id": "F9A-L003",
+        "selector_hex": "0x40",
+        "field_0659_seed": 49,
+        "field_0699_seed": 7,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EA48"
+      },
+      {
+        "record_id": "F9A-L004",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 88,
+        "field_0699_seed": 9,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EA8A"
+      },
+      {
+        "record_id": "F9A-L005",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 96,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EA9B"
+      },
+      {
+        "record_id": "F9A-L006",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 100,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EAAC"
+      },
+      {
+        "record_id": "F9A-L007",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 85,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EABD"
+      },
+      {
+        "record_id": "F9A-L008",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 92,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EACE"
+      },
+      {
+        "record_id": "F9A-L009",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 96,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EADF"
+      },
+      {
+        "record_id": "F9A-L010",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 101,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EAF0"
+      },
+      {
+        "record_id": "F9A-L011",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 86,
+        "field_0699_seed": 10,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EB01"
+      },
+      {
+        "record_id": "F9A-L015",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 130,
+        "field_0699_seed": 13,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EB8C"
+      },
+      {
+        "record_id": "F9A-L016",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 130,
+        "field_0699_seed": 14,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EB9D"
+      },
+      {
+        "record_id": "F9A-L017",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 131,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EBAE"
+      },
+      {
+        "record_id": "F9A-L018",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 131,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:EBBF"
+      },
+      {
+        "record_id": "F9B-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 228,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F13B"
+      },
+      {
+        "record_id": "F9B-L002",
+        "selector_hex": "0x40",
+        "field_0659_seed": 206,
+        "field_0699_seed": 9,
+        "field_06D9_seed": 1,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F152"
+      },
+      {
+        "record_id": "F9B-L003",
+        "selector_hex": "0x40",
+        "field_0659_seed": 233,
+        "field_0699_seed": 9,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F169"
+      },
+      {
+        "record_id": "F9B-L004",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 183,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F1B5"
+      },
+      {
+        "record_id": "F9B-L005",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 184,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F1C6"
+      },
+      {
+        "record_id": "F9B-L006",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 187,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F1D7"
+      },
+      {
+        "record_id": "F9B-L007",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 191,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F1E8"
+      },
+      {
+        "record_id": "F9B-L008",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 198,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F1F9"
+      },
+      {
+        "record_id": "F9B-L009",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 199,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F20A"
+      },
+      {
+        "record_id": "F9B-L010",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 196,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F21B"
+      },
+      {
+        "record_id": "F9B-L011",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 193,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F22C"
+      },
+      {
+        "record_id": "F9B-L012",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 191,
+        "field_0699_seed": 45,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F23D"
+      },
+      {
+        "record_id": "F9B-L013",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 187,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F24E"
+      },
+      {
+        "record_id": "F9B-L014",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 169,
+        "field_0699_seed": 65,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F25F"
+      },
+      {
+        "record_id": "F9B-L015",
+        "selector_hex": "0x3B",
+        "field_0659_seed": 169,
+        "field_0699_seed": 67,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:F270"
+      }
+    ]
+  },
+  "cfg_t29_l138_v2": {
+    "pack_id_hex": "0xB5",
+    "map_label": "",
+    "selectors": [
+      "0x2F",
+      "0x30",
+      "0x53"
+    ],
+    "records": [
+      {
+        "record_id": "FB5-L001",
+        "selector_hex": "0x30",
+        "field_0659_seed": 167,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:507B"
+      },
+      {
+        "record_id": "FB5-L002",
+        "selector_hex": "0x30",
+        "field_0659_seed": 168,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:508C"
+      },
+      {
+        "record_id": "FB5-L003",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 182,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:509D"
+      },
+      {
+        "record_id": "FB5-L004",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 183,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:50AE"
+      },
+      {
+        "record_id": "FB5-L005",
+        "selector_hex": "0x2F",
+        "field_0659_seed": 184,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:50BF"
+      },
+      {
+        "record_id": "FB5-L006",
+        "selector_hex": "0x53",
+        "field_0659_seed": 167,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:50D0"
+      },
+      {
+        "record_id": "FB5-L007",
+        "selector_hex": "0x30",
+        "field_0659_seed": 166,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:50EF"
+      }
+    ]
+  },
+  "cfg_t33_l146_v1": {
+    "pack_id_hex": "0x48",
+    "map_label": "",
+    "selectors": [
+      "0x17",
+      "0x24",
+      "0x3F",
+      "0x40",
+      "0x5A"
+    ],
+    "records": [
+      {
+        "record_id": "F48-L001",
+        "selector_hex": "0x40",
+        "field_0659_seed": 141,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:005F"
+      },
+      {
+        "record_id": "F48-L002",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 145,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:0070"
+      },
+      {
+        "record_id": "F48-L003",
+        "selector_hex": "0x5A",
+        "field_0659_seed": 145,
+        "field_0699_seed": 15,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:0081"
+      },
+      {
+        "record_id": "F48-L004",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 141,
+        "field_0699_seed": 14,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 65,
+        "controller_pointer": "CC:0092"
+      },
+      {
+        "record_id": "F48-L005",
+        "selector_hex": "0x24",
+        "field_0659_seed": 145,
+        "field_0699_seed": 13,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:00A3"
+      },
+      {
+        "record_id": "F48-L006",
+        "selector_hex": "0x17",
+        "field_0659_seed": 142,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:0192"
+      },
+      {
+        "record_id": "F48-L007",
+        "selector_hex": "0x17",
+        "field_0659_seed": 143,
+        "field_0699_seed": 5,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:01A3"
+      },
+      {
+        "record_id": "F48-L008",
+        "selector_hex": "0x17",
+        "field_0659_seed": 144,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:01B4"
+      }
+    ]
+  },
+  "cfg_t40_l159_v2": {
+    "pack_id_hex": "0x7D",
+    "map_label": "",
+    "selectors": [
+      "0x43"
+    ],
+    "records": [
+      {
+        "record_id": "F7D-L001",
+        "selector_hex": "0x43",
+        "field_0659_seed": 86,
+        "field_0699_seed": 24,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:A0CF"
+      }
+    ]
+  },
+  "cfg_t44_l167_v1": {
+    "pack_id_hex": "0x87",
+    "map_label": "",
+    "selectors": [
+      "0x10"
+    ],
+    "records": [
+      {
+        "record_id": "F87-L001",
+        "selector_hex": "0x10",
+        "field_0659_seed": 18,
+        "field_0699_seed": 48,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:C087"
+      }
+    ]
+  },
+  "cfg_t45_l168_v2": {
+    "pack_id_hex": "0x89",
+    "map_label": "",
+    "selectors": [
+      "0x0F",
+      "0x11"
+    ],
+    "records": [
+      {
+        "record_id": "F88-L001",
+        "selector_hex": "0x0F",
+        "field_0659_seed": 41,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:C302"
+      },
+      {
+        "record_id": "F88-L002",
+        "selector_hex": "0x11",
+        "field_0659_seed": 41,
+        "field_0699_seed": 35,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:C313"
+      },
+      {
+        "record_id": "F88-L003",
+        "selector_hex": "0x11",
+        "field_0659_seed": 46,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:C324"
+      },
+      {
+        "record_id": "F89-L002",
+        "selector_hex": "0x11",
+        "field_0659_seed": 46,
+        "field_0699_seed": 19,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:C61B"
+      }
+    ]
+  },
+  "cfg_t46_l170_v2": {
+    "pack_id_hex": "0x78",
+    "map_label": "",
+    "selectors": [
+      "0x29",
+      "0x3F",
+      "0x59"
+    ],
+    "records": [
+      {
+        "record_id": "F78-L001",
+        "selector_hex": "0x29",
+        "field_0659_seed": 26,
+        "field_0699_seed": 9,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 65,
+        "controller_pointer": "CC:9313"
+      },
+      {
+        "record_id": "F78-L002",
+        "selector_hex": "0x29",
+        "field_0659_seed": 21,
+        "field_0699_seed": 6,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:9324"
+      },
+      {
+        "record_id": "F78-L003",
+        "selector_hex": "0x29",
+        "field_0659_seed": 14,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:9335"
+      },
+      {
+        "record_id": "F78-L004",
+        "selector_hex": "0x3F",
+        "field_0659_seed": 17,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:9346"
+      },
+      {
+        "record_id": "F78-L005",
+        "selector_hex": "0x29",
+        "field_0659_seed": 12,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:9357"
+      },
+      {
+        "record_id": "F78-L006",
+        "selector_hex": "0x59",
+        "field_0659_seed": 6,
+        "field_0699_seed": 7,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 65,
+        "controller_pointer": "CC:9368"
+      }
+    ]
+  },
+  "cfg_t50_l178_v1": {
+    "pack_id_hex": "0xF5",
+    "map_label": "",
+    "selectors": [
+      "0x24",
+      "0x29",
+      "0x42"
+    ],
+    "records": [
+      {
+        "record_id": "F75-L003",
+        "selector_hex": "0x29",
+        "field_0659_seed": 16,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:8197"
+      },
+      {
+        "record_id": "F75-L004",
+        "selector_hex": "0x29",
+        "field_0659_seed": 22,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:81DD"
+      },
+      {
+        "record_id": "F75-L013",
+        "selector_hex": "0x29",
+        "field_0659_seed": 27,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CC:8492"
+      },
+      {
+        "record_id": "FF5-L001",
+        "selector_hex": "0x29",
+        "field_0659_seed": 19,
+        "field_0699_seed": 18,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:08DD"
+      },
+      {
+        "record_id": "FF5-L002",
+        "selector_hex": "0x29",
+        "field_0659_seed": 16,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:08EE"
+      },
+      {
+        "record_id": "FF5-L003",
+        "selector_hex": "0x29",
+        "field_0659_seed": 22,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:08FF"
+      },
+      {
+        "record_id": "FF5-L004",
+        "selector_hex": "0x42",
+        "field_0659_seed": 65,
+        "field_0699_seed": 20,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:0910"
+      },
+      {
+        "record_id": "FF5-L005",
+        "selector_hex": "0x24",
+        "field_0659_seed": 66,
+        "field_0699_seed": 56,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:0969"
+      },
+      {
+        "record_id": "FF5-L006",
+        "selector_hex": "0x29",
+        "field_0659_seed": 27,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 3,
+        "field_0719_seed": 16,
+        "controller_pointer": "CE:097A"
+      }
+    ]
+  },
+  "cfg_t53_l184_v2": {
+    "pack_id_hex": "0xD8",
+    "map_label": "",
+    "selectors": [
+      "0x33",
+      "0x39"
+    ],
+    "records": [
+      {
+        "record_id": "FD0-L001",
+        "selector_hex": "0x33",
+        "field_0659_seed": 215,
+        "field_0699_seed": 25,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:96CD"
+      },
+      {
+        "record_id": "FD0-L002",
+        "selector_hex": "0x39",
+        "field_0659_seed": 227,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:96DE"
+      },
+      {
+        "record_id": "FD0-L003",
+        "selector_hex": "0x33",
+        "field_0659_seed": 240,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:96EF"
+      },
+      {
+        "record_id": "FD0-L004",
+        "selector_hex": "0x39",
+        "field_0659_seed": 240,
+        "field_0699_seed": 35,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9700"
+      },
+      {
+        "record_id": "FD0-L005",
+        "selector_hex": "0x33",
+        "field_0659_seed": 213,
+        "field_0699_seed": 44,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:971F"
+      },
+      {
+        "record_id": "FD0-L006",
+        "selector_hex": "0x39",
+        "field_0659_seed": 204,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9730"
+      },
+      {
+        "record_id": "FD5-L001",
+        "selector_hex": "0x33",
+        "field_0659_seed": 22,
+        "field_0699_seed": 37,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F22"
+      },
+      {
+        "record_id": "FD5-L002",
+        "selector_hex": "0x33",
+        "field_0659_seed": 11,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F33"
+      },
+      {
+        "record_id": "FD5-L003",
+        "selector_hex": "0x39",
+        "field_0659_seed": 25,
+        "field_0699_seed": 50,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F44"
+      },
+      {
+        "record_id": "FD5-L004",
+        "selector_hex": "0x39",
+        "field_0659_seed": 24,
+        "field_0699_seed": 60,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F55"
+      },
+      {
+        "record_id": "FD5-L005",
+        "selector_hex": "0x33",
+        "field_0659_seed": 37,
+        "field_0699_seed": 49,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F66"
+      },
+      {
+        "record_id": "FD5-L006",
+        "selector_hex": "0x39",
+        "field_0659_seed": 32,
+        "field_0699_seed": 39,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F77"
+      },
+      {
+        "record_id": "FD5-L007",
+        "selector_hex": "0x39",
+        "field_0659_seed": 44,
+        "field_0699_seed": 61,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:9F88"
+      },
+      {
+        "record_id": "FD7-L001",
+        "selector_hex": "0x39",
+        "field_0659_seed": 153,
+        "field_0699_seed": 16,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A1B0"
+      },
+      {
+        "record_id": "FD7-L002",
+        "selector_hex": "0x33",
+        "field_0659_seed": 164,
+        "field_0699_seed": 21,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A1D2"
+      },
+      {
+        "record_id": "FD7-L003",
+        "selector_hex": "0x33",
+        "field_0659_seed": 154,
+        "field_0699_seed": 33,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A1F4"
+      },
+      {
+        "record_id": "FD7-L004",
+        "selector_hex": "0x39",
+        "field_0659_seed": 148,
+        "field_0699_seed": 46,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A216"
+      },
+      {
+        "record_id": "FD7-L005",
+        "selector_hex": "0x39",
+        "field_0659_seed": 172,
+        "field_0699_seed": 54,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:A238"
+      },
+      {
+        "record_id": "FD7-L006",
+        "selector_hex": "0x39",
+        "field_0659_seed": 174,
+        "field_0699_seed": 54,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:A25A"
+      },
+      {
+        "record_id": "FD7-L007",
+        "selector_hex": "0x33",
+        "field_0659_seed": 173,
+        "field_0699_seed": 53,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:A27C"
+      },
+      {
+        "record_id": "FD8-L001",
+        "selector_hex": "0x33",
+        "field_0659_seed": 87,
+        "field_0699_seed": 27,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A440"
+      },
+      {
+        "record_id": "FD8-L002",
+        "selector_hex": "0x39",
+        "field_0659_seed": 82,
+        "field_0699_seed": 34,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A459"
+      },
+      {
+        "record_id": "FD8-L003",
+        "selector_hex": "0x33",
+        "field_0659_seed": 95,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A472"
+      },
+      {
+        "record_id": "FD8-L004",
+        "selector_hex": "0x39",
+        "field_0659_seed": 109,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A48B"
+      },
+      {
+        "record_id": "FD8-L005",
+        "selector_hex": "0x33",
+        "field_0659_seed": 105,
+        "field_0699_seed": 43,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A4A4"
+      },
+      {
+        "record_id": "FD8-L006",
+        "selector_hex": "0x39",
+        "field_0659_seed": 102,
+        "field_0699_seed": 23,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:A4BD"
+      }
+    ]
+  },
+  "cfg_t53_l186_v2": {
+    "pack_id_hex": "0x8F",
+    "map_label": "",
+    "selectors": [
+      "0x33"
+    ],
+    "records": [
+      {
+        "record_id": "F8F-L001",
+        "selector_hex": "0x33",
+        "field_0659_seed": 32,
+        "field_0699_seed": 13,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CEFA"
+      },
+      {
+        "record_id": "F8F-L002",
+        "selector_hex": "0x33",
+        "field_0659_seed": 26,
+        "field_0699_seed": 28,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CF0B"
+      },
+      {
+        "record_id": "F8F-L003",
+        "selector_hex": "0x33",
+        "field_0659_seed": 25,
+        "field_0699_seed": 36,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CF1C"
+      },
+      {
+        "record_id": "F8F-L004",
+        "selector_hex": "0x33",
+        "field_0659_seed": 43,
+        "field_0699_seed": 35,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CF2D"
+      },
+      {
+        "record_id": "F8F-L005",
+        "selector_hex": "0x33",
+        "field_0659_seed": 40,
+        "field_0699_seed": 56,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CF4C"
+      },
+      {
+        "record_id": "F8F-L006",
+        "selector_hex": "0x33",
+        "field_0659_seed": 34,
+        "field_0699_seed": 41,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CF5D"
+      },
+      {
+        "record_id": "F8F-L007",
+        "selector_hex": "0x33",
+        "field_0659_seed": 31,
+        "field_0699_seed": 67,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CC:CF6E"
+      }
+    ]
+  },
+  "cfg_t55_l192_v2": {
+    "pack_id_hex": "0xE2",
+    "map_label": "",
+    "selectors": [
+      "0x35",
+      "0x49"
+    ],
+    "records": [
+      {
+        "record_id": "FE0-L001",
+        "selector_hex": "0x49",
+        "field_0659_seed": 23,
+        "field_0699_seed": 65,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 144,
+        "controller_pointer": "CD:BC8C"
+      },
+      {
+        "record_id": "FE0-L002",
+        "selector_hex": "0x49",
+        "field_0659_seed": 24,
+        "field_0699_seed": 65,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 144,
+        "controller_pointer": "CD:BCA5"
+      },
+      {
+        "record_id": "FE0-L003",
+        "selector_hex": "0x35",
+        "field_0659_seed": 28,
+        "field_0699_seed": 17,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:BCBE"
+      },
+      {
+        "record_id": "FE0-L004",
+        "selector_hex": "0x35",
+        "field_0659_seed": 17,
+        "field_0699_seed": 29,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:BCED"
+      },
+      {
+        "record_id": "FE0-L005",
+        "selector_hex": "0x35",
+        "field_0659_seed": 30,
+        "field_0699_seed": 26,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:BD1C"
+      },
+      {
+        "record_id": "FE0-L006",
+        "selector_hex": "0x35",
+        "field_0659_seed": 27,
+        "field_0699_seed": 37,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:BD4B"
+      },
+      {
+        "record_id": "FE0-L007",
+        "selector_hex": "0x35",
+        "field_0659_seed": 18,
+        "field_0699_seed": 37,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:BD7A"
+      },
+      {
+        "record_id": "FE0-L008",
+        "selector_hex": "0x35",
+        "field_0659_seed": 23,
+        "field_0699_seed": 38,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:BDA9"
+      },
+      {
+        "record_id": "FE1-L001",
+        "selector_hex": "0x35",
+        "field_0659_seed": 52,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:C1C5"
+      },
+      {
+        "record_id": "FE1-L002",
+        "selector_hex": "0x35",
+        "field_0659_seed": 54,
+        "field_0699_seed": 11,
+        "field_06D9_seed": 4,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:C1E6"
+      },
+      {
+        "record_id": "FE1-L003",
+        "selector_hex": "0x35",
+        "field_0659_seed": 56,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:C207"
+      },
+      {
+        "record_id": "FE1-L004",
+        "selector_hex": "0x35",
+        "field_0659_seed": 69,
+        "field_0699_seed": 22,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 0,
+        "controller_pointer": "CD:C228"
+      },
+      {
+        "record_id": "FE2-L001",
+        "selector_hex": "0x35",
+        "field_0659_seed": 66,
+        "field_0699_seed": 67,
+        "field_06D9_seed": 2,
+        "field_0719_seed": 16,
+        "controller_pointer": "CD:C706"
+      }
+    ]
+  }
+}
