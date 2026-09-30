@@ -1,0 +1,468 @@
+{
+  "0x03": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 0,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "no_source_link",
+    "dialogue_examples": []
+  },
+  "0x0E": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 6,
+    "crosslink_rows": 6,
+    "source_linked_rows": 6,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x0F": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x10": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x11": {
+    "map_config_count": 1,
+    "family_count": 2,
+    "event_record_count": 3,
+    "crosslink_rows": 3,
+    "source_linked_rows": 3,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x17": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 3,
+    "crosslink_rows": 3,
+    "source_linked_rows": 3,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x22": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x23": {
+    "map_config_count": 4,
+    "family_count": 3,
+    "event_record_count": 4,
+    "crosslink_rows": 5,
+    "source_linked_rows": 5,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x24": {
+    "map_config_count": 7,
+    "family_count": 7,
+    "event_record_count": 7,
+    "crosslink_rows": 7,
+    "source_linked_rows": 7,
+    "decoded_dialogue_rows": 1,
+    "dialogue_ratio": 0.143,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「銀次さんは 一度に 4本の 包丁を あつかえるんですね!」 「どの包丁を えらぶか! 料理人の 腕の 見せどころですね!」 || 「浦島さんは 天の仙人さまに 呼ばれて 出かけたけど 呼びにきた人は あやしかったわ!」 「浦島さんは 人が いいから 大丈夫かしらね{5B}」"
+    ]
+  },
+  "0x25": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 1,
+    "dialogue_ratio": 1.0,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「寝太郎の 東の村には 鬼も いないそうです!」 || 「ここから ずっと ずっと 南に 下って行くと 希望の都が あるんじゃ!」 「都は 大きい! ぜんぶ見て 歩くだけで 2日は かかりますぞ!」"
+    ]
+  },
+  "0x27": {
+    "map_config_count": 4,
+    "family_count": 4,
+    "event_record_count": 5,
+    "crosslink_rows": 5,
+    "source_linked_rows": 4,
+    "decoded_dialogue_rows": 1,
+    "dialogue_ratio": 0.2,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「氷の塔は 村の ずっと 西に あります!」 「寒さで 体力が うばわれますから きびだんごや おにぎりを たくさん 持って でかけて{02C5}ね!」 || 「どうぞ! 桃太郎さん! まだまだ 先は ながいですからね!」"
+    ]
+  },
+  "0x28": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x29": {
+    "map_config_count": 6,
+    "family_count": 7,
+    "event_record_count": 17,
+    "crosslink_rows": 17,
+    "source_linked_rows": 17,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x2E": {
+    "map_config_count": 4,
+    "family_count": 8,
+    "event_record_count": 31,
+    "crosslink_rows": 31,
+    "source_linked_rows": 31,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x2F": {
+    "map_config_count": 8,
+    "family_count": 8,
+    "event_record_count": 11,
+    "crosslink_rows": 11,
+    "source_linked_rows": 10,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x30": {
+    "map_config_count": 9,
+    "family_count": 10,
+    "event_record_count": 15,
+    "crosslink_rows": 15,
+    "source_linked_rows": 15,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x33": {
+    "map_config_count": 2,
+    "family_count": 5,
+    "event_record_count": 19,
+    "crosslink_rows": 19,
+    "source_linked_rows": 19,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x35": {
+    "map_config_count": 1,
+    "family_count": 3,
+    "event_record_count": 11,
+    "crosslink_rows": 11,
+    "source_linked_rows": 10,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x38": {
+    "map_config_count": 2,
+    "family_count": 2,
+    "event_record_count": 2,
+    "crosslink_rows": 2,
+    "source_linked_rows": 2,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x39": {
+    "map_config_count": 1,
+    "family_count": 4,
+    "event_record_count": 14,
+    "crosslink_rows": 14,
+    "source_linked_rows": 14,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x3A": {
+    "map_config_count": 2,
+    "family_count": 3,
+    "event_record_count": 15,
+    "crosslink_rows": 15,
+    "source_linked_rows": 10,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x3B": {
+    "map_config_count": 1,
+    "family_count": 2,
+    "event_record_count": 24,
+    "crosslink_rows": 24,
+    "source_linked_rows": 22,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x3C": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 4,
+    "crosslink_rows": 4,
+    "source_linked_rows": 3,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x3D": {
+    "map_config_count": 2,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 2,
+    "source_linked_rows": 2,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x3E": {
+    "map_config_count": 3,
+    "family_count": 3,
+    "event_record_count": 3,
+    "crosslink_rows": 3,
+    "source_linked_rows": 2,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x3F": {
+    "map_config_count": 7,
+    "family_count": 7,
+    "event_record_count": 9,
+    "crosslink_rows": 9,
+    "source_linked_rows": 9,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x40": {
+    "map_config_count": 14,
+    "family_count": 14,
+    "event_record_count": 25,
+    "crosslink_rows": 27,
+    "source_linked_rows": 20,
+    "decoded_dialogue_rows": 1,
+    "dialogue_ratio": 0.037,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「梅というのは ぜんぶで 300しゅるいも あるそうじゃな」 「人間と 鬼で 2しゅるい! ならば 人間も 鬼も いきもの という ひとつの名で よいではないか…」 || 「寝太郎のことか{5B} また 3年も ねむりよってな!」 「氷の塔の しこめ様が 持ってる 氷室のけずりひで おきるんじゃが 鬼がいて 誰も 取りに行けん!」 「何{5B} あんたが 取りに行く{5B} そりゃ あぶない! ……でも 何だって{5B}」 「以前は 氷室のけずりひは 氷の塔から もちだした とたん とけてしまったとな!」 「安心せい! いま…"
+    ]
+  },
+  "0x41": {
+    "map_config_count": 2,
+    "family_count": 2,
+    "event_record_count": 3,
+    "crosslink_rows": 3,
+    "source_linked_rows": 3,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x42": {
+    "map_config_count": 6,
+    "family_count": 6,
+    "event_record_count": 9,
+    "crosslink_rows": 9,
+    "source_linked_rows": 9,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x43": {
+    "map_config_count": 13,
+    "family_count": 16,
+    "event_record_count": 24,
+    "crosslink_rows": 25,
+    "source_linked_rows": 23,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x44": {
+    "map_config_count": 5,
+    "family_count": 4,
+    "event_record_count": 4,
+    "crosslink_rows": 5,
+    "source_linked_rows": 4,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x49": {
+    "map_config_count": 2,
+    "family_count": 2,
+    "event_record_count": 4,
+    "crosslink_rows": 4,
+    "source_linked_rows": 3,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x53": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x54": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x56": {
+    "map_config_count": 2,
+    "family_count": 2,
+    "event_record_count": 2,
+    "crosslink_rows": 2,
+    "source_linked_rows": 2,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x59": {
+    "map_config_count": 10,
+    "family_count": 10,
+    "event_record_count": 13,
+    "crosslink_rows": 13,
+    "source_linked_rows": 12,
+    "decoded_dialogue_rows": 2,
+    "dialogue_ratio": 0.154,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「まあ 浦島さん! 桃太郎さんと あえて よかったですね!」 「これは つまらないものだけど 鬼たいじに 役立てて{02C5}ね!」 || 「乙姫さまは 海の ように 心の ひろい おかたです! どうか 鬼から お守り{02C5}」",
+      "「村のみんなは 浦島さんが 好き! 自分よりも ほかの人を しんぱいする 人だから!」 || 「この村は 養老の滝の おかげで みんな いつも 元気なんだよ!」 「でも このまま 滝が 枯れたままだと みんな 漁に 出れなくなっちゃうよー!」"
+    ]
+  },
+  "0x5A": {
+    "map_config_count": 10,
+    "family_count": 9,
+    "event_record_count": 13,
+    "crosslink_rows": 15,
+    "source_linked_rows": 15,
+    "decoded_dialogue_rows": 1,
+    "dialogue_ratio": 0.067,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「浦島さん! 鬼たいじ 終ったら 魚の じょうずな 取り方 おしえて ちょうだいね!」 || 「あれー! 浦島さん いないの{5B} はやく 魚の 取り方 おしえて ほしいなあ!」 「鬼たいじ 終ったら おしえてくれるって やくそく したんだよ!」"
+    ]
+  },
+  "0x5B": {
+    "map_config_count": 6,
+    "family_count": 5,
+    "event_record_count": 6,
+    "crosslink_rows": 7,
+    "source_linked_rows": 7,
+    "decoded_dialogue_rows": 1,
+    "dialogue_ratio": 0.143,
+    "role_evidence": "dialogue_actor_candidate",
+    "dialogue_examples": [
+      "「希望の都には めずらしい お店が いっぱい あるって うわさですよ!」 「{04}だいこん{03}を つけものしてくれたり くじを ひいて お金が もらえるところが あったり!」 「ほかに どんな お店が あるんでしょうね! {02C9}も 一度行ってみたいな!」"
+    ]
+  },
+  "0x5C": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 0,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "no_source_link",
+    "dialogue_examples": []
+  },
+  "0x6F": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 1,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "source_linked_no_decoded_text",
+    "dialogue_examples": []
+  },
+  "0x9C": {
+    "map_config_count": 1,
+    "family_count": 1,
+    "event_record_count": 1,
+    "crosslink_rows": 1,
+    "source_linked_rows": 0,
+    "decoded_dialogue_rows": 0,
+    "dialogue_ratio": 0.0,
+    "role_evidence": "no_source_link",
+    "dialogue_examples": []
+  }
+}

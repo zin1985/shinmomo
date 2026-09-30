@@ -1,0 +1,42 @@
+selector_hex,visual_form,visual_detail,visual_confidence,evidence
+0x03,humanoid_like,human figure,high,static_sprite_visual
+0x0E,monster_like,yellow humanoid creature,medium,static_sprite_visual
+0x0F,small_creature_like,small black-white creature,medium,static_sprite_visual
+0x10,humanoid_like,stocky human figure,high,static_sprite_visual
+0x11,plant_or_effect_like,purple flower-like form,high,static_sprite_visual
+0x17,animal_like,white cat-like animal,high,static_sprite_visual
+0x22,humanoid_like,blue-clad figure,high,static_sprite_visual
+0x23,humanoid_like,white-haired or hooded figure,high,static_sprite_visual
+0x24,humanoid_like,red-hat elder-like figure,high,static_sprite_visual
+0x25,humanoid_like,dark-haired human figure,high,static_sprite_visual
+0x27,humanoid_like,hooded or white-haired figure,high,static_sprite_visual
+0x28,humanoid_like,dark-haired human figure,high,static_sprite_visual
+0x29,humanoid_like,human figure,high,static_sprite_visual
+0x2E,humanoid_like,hat or helmeted human figure,high,static_sprite_visual
+0x2F,humanoid_like,blue-clad human figure,high,static_sprite_visual
+0x30,humanoid_like,red-clad human figure,high,static_sprite_visual
+0x33,humanoid_like,human figure,high,static_sprite_visual
+0x35,humanoid_like,human figure,high,static_sprite_visual
+0x38,humanoid_like,blue-clad human figure,high,static_sprite_visual
+0x39,animal_like,white rabbit-like animal,high,static_sprite_visual
+0x3A,animal_like,gray rabbit-like animal,high,static_sprite_visual
+0x3B,humanoid_like,human figure,high,static_sprite_visual
+0x3C,humanoid_like,yellow-clad human figure,high,static_sprite_visual
+0x3D,humanoid_like,white-haired or hooded figure,high,static_sprite_visual
+0x3E,humanoid_like,red-hat elder-like graphics alias,high,static_sprite_visual
+0x3F,humanoid_like,purple-green human figure,high,static_sprite_visual
+0x40,humanoid_like,red-hat human figure,high,static_sprite_visual
+0x41,humanoid_like,yellow-clad human figure,high,static_sprite_visual
+0x42,humanoid_like,blue-red human figure,high,static_sprite_visual
+0x43,humanoid_like,straw-hat human figure,high,static_sprite_visual
+0x44,humanoid_like,broad-hat human figure,high,static_sprite_visual
+0x49,animal_like,snail-like creature,high,static_sprite_visual
+0x53,monster_like,red-orange monster-like figure,high,static_sprite_visual
+0x54,monster_like,gray-black monster-like figure,high,static_sprite_visual
+0x56,monster_like,green monster-like figure,high,static_sprite_visual
+0x59,humanoid_like,purple-green human graphics alias,high,static_sprite_visual
+0x5A,humanoid_like,human graphics alias,high,static_sprite_visual
+0x5B,humanoid_like,blue-haired or blue-hat human figure,high,static_sprite_visual
+0x5C,object_like,cabinet or shrine-box-like object,high,static_sprite_visual
+0x6F,monster_like,green-yellow monster-like figure,high,static_sprite_visual
+0x9C,humanoid_like,small human figure,high,static_sprite_visual
