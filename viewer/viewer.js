@@ -180,6 +180,7 @@ function openDialogue(e){
     sem.semantic_role&&sem.semantic_role!=='unknown'?'role '+sem.semantic_role:null,
     sem.confidence?'semantic '+sem.confidence:null,
     dir.direction_binding_status||null,
+    spawn?.condition_status?'spawn '+spawn.condition_status:null,
   ].filter(Boolean);
   actorMeta.textContent=actorBits.join(' | ');
   actorMeta.title=[
@@ -191,6 +192,9 @@ function openDialogue(e){
     dir.back_frames?'BACK '+dir.back_frames:null,
     dir.walk_animation?'walk '+dir.walk_animation:null,
     sem.evidence?'semantic evidence: '+sem.evidence:null,
+    spawn?.condition_expr?'spawn condition: '+spawn.condition_expr:null,
+    spawn?.predicate_bytecode?'spawn bytecode: '+spawn.predicate_bytecode:null,
+    spawn?.evidence?'spawn evidence: '+spawn.evidence:null,
   ].filter(Boolean).join('\n');
   const text=document.createElement('div'); text.className='dialogueText';
   const meta=document.createElement('div'); meta.className='dialogueMeta';
@@ -349,10 +353,12 @@ function renderActors(m){
   const canonical=q('#profile').value==='canonical';
   for(const e of sceneActors(m)){
     const b=document.createElement('button');
-    b.className='actor candidate';
+    const spawn=e.spawn_condition||null;
+    const spawnConditional=spawn?.visibility_when_state_unknown==='candidate';
+    b.className='actor candidate'+(spawnConditional?' stateConditional':'');
     b.style.left=e.x+'px'; b.style.top=e.y+'px';
     const role=e.sprite_semantics?.semantic_role&&e.sprite_semantics.semantic_role!=='unknown'?' '+e.sprite_semantics.semantic_role:'';
-    b.title=`${e.record_id} ${e.selector_hex}${role} grid(${e.grid_x_seed},${e.grid_y_seed}) dialogue:${(e.dialogue_refs||[]).length}`;
+    b.title=`${e.record_id} ${e.selector_hex}${role} grid(${e.grid_x_seed},${e.grid_y_seed}) dialogue:${(e.dialogue_refs||[]).length} spawn:${spawn?.condition_status||'unknown'}`;
     if(canonical&&e.sprite_asset){
       addTransparentSprite(b,e);
     }else{
@@ -360,7 +366,7 @@ function renderActors(m){
     }
     if(labels){
       const lab=document.createElement('span'); lab.className='actorLabel';
-      lab.textContent=`${e.selector_hex} ${e.record_id}`; b.append(lab);
+      lab.textContent=`${spawnConditional?'? ':''}${e.selector_hex} ${e.record_id}`; b.append(lab);
     }
     b.onclick=ev=>{ev.stopPropagation(); openDialogue(e);};
     actorLayer.append(b);
@@ -403,6 +409,8 @@ async function selectMap(m,focus=null,pack=undefined){
     active_scene_pack:selectedPack,
     available_actor_packs:mapActorPacks(m),
     static_actor_count:sceneActors(m).length,
+    conditional_actor_candidate_count:sceneActors(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='candidate').length,
+    unconditional_actor_count:sceneActors(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='visible').length,
     all_static_actor_count:mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate').length,
     dialogue_branch_count:sceneActors(m).reduce((n,e)=>n+(e.dialogue_refs||[]).length,0),
     source_transition_hotspot_count:mapHotspots(m).length,
