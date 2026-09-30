@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "source_transition_hotspot_catalog_summary",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "generated_from_head": "dbcbcc2f68c2484f65953e88b54d64c4c0c90b8d",
+  "hotspot_count": 19,
+  "source_config_resolved_count": 19,
+  "source_xy_resolved_count": 19,
+  "destination_config_resolved_count": 16,
+  "destination_coordinate_resolved_count": 15,
+  "confidence_counts": {
+    "confirmed_runtime_and_static": 1,
+    "strong_candidate": 18
+  },
+  "world_to_tabidachi_closed": true,
+  "scope": "Exact opcode0x5D inclusive-rectangle guards in independently anchored world pack 0x4C only; no generic script_pack==source-map inference."
+}

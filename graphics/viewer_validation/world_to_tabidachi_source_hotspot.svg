@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="768" viewBox="800 3696 192 192">
+  <title>World to Tabidachi source hotspot validation</title>
+  <desc>World map crop. Blue cell is runtime pre-entry (54,236). Red rectangle is opcode 0x5D hotspot X 54..55, Y 237.</desc>
+  <image href="../../data/maps/rendered/world_mode7_tileset_01/map_001.png" x="0" y="0" width="4096" height="4096" image-rendering="pixelated"/>
+  <rect x="864" y="3776" width="16" height="16" fill="none" stroke="#00bfff" stroke-width="2"/>
+  <rect x="864" y="3792" width="32" height="16" fill="#ff174433" stroke="#ff1744" stroke-width="2"/>
+  <circle cx="872" cy="3784" r="3" fill="#00bfff"/>
+  <path d="M872 3788 L872 3797" stroke="#00bfff" stroke-width="2"/>
+  <text x="804" y="3712" font-size="8" fill="#ffffff" stroke="#000000" stroke-width="2" paint-order="stroke">runtime pre-entry (54,236) -> hotspot (54..55,237)</text>
+  <text x="804" y="3724" font-size="7" fill="#ffffff" stroke="#000000" stroke-width="2" paint-order="stroke">CC:0B01 opcode 5D -> CC:0B08 opcode 53 -> pack 0x50 entry 0x02 -> (29,55)</text>
+</svg>
