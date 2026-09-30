@@ -35,5 +35,22 @@
     "Y"
   ],
   "dpad_source": "DP $59",
-  "button_name_mapping_status": "confirmed_static_hardware_plus_game_normalization"
+  "button_name_mapping_status": "confirmed_static_hardware_plus_game_normalization",
+  "advance_handler": "C4:A264",
+  "advance_handler_logic_status": "confirmed_static",
+  "acceptance_when_1398_eq_1": [
+    "A",
+    "X",
+    "L",
+    "R",
+    "B",
+    "Y"
+  ],
+  "acceptance_when_1398_ne_1": [
+    "B"
+  ],
+  "timer_enable": "$12BE != 0",
+  "timer_counter": "$12BF",
+  "timer_trigger": "decrement reaches 0 -> same trigger path",
+  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
 }

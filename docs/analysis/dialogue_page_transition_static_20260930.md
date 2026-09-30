@@ -51,3 +51,23 @@ DP `$59` separately holds the D-pad nibble.
 Therefore C4:A264 primary mask `0xFC` corresponds to A/X/L/R/B/Y, while secondary mask `0xF4` corresponds to A/X/L/R/Y. This closes the mask-to-button mapping. It does not yet prove that every one of those buttons advances in every substate, nor does it close release/autorepeat semantics.
 
 Hardware reference: https://snes.nesdev.org/wiki/Standard_controller
+
+## A264 branch-level acceptance
+
+The C4:A264 handler can now be read at branch level:
+
+1. It first tests `($57 & 0xFC & $12C0) != 0`.
+2. If no accepted input is present, `$12BE` is checked. When nonzero, `$12BF` is decremented; reaching zero enters the same trigger path, establishing an optional timer/auto-advance route.
+3. On the trigger path, `$1398` is compared with 1.
+4. If `$1398 == 1`, the handler proceeds to the advance/state-transition path.
+5. If `$1398 != 1`, the handler re-tests `$57 & 0xF4 & $12C0`. A nonzero result leaves the advance path; zero proceeds.
+
+With the confirmed `$57` bit mapping this means, subject to the `$12C0` gate:
+
+- `$1398 == 1`: A/X/L/R/B/Y satisfy the input branch.
+- `$1398 != 1`: B is the only primary-mask button that survives the secondary `0xF4` exclusion.
+- Select and Start are absent from the primary `0xFC` test.
+- D-pad state is stored separately in `$59` and is not part of this `$57` branch.
+- When enabled, `$12BE/$12BF` provides a timer trigger into the same path.
+
+This is a stronger result than a generic 'button wait', but the gameplay meaning of `$1398` and exact release/autorepeat behavior remain unresolved.

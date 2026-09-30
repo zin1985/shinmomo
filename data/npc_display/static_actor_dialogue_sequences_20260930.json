@@ -1,6 +1,6 @@
 {
   "schema_version": "2026-09-30-dialogue-sequence-v3",
-  "source_main_head": "b7f2f70ea3218e501614bc7ee2830f4f4c691d7a",
+  "source_main_head": "9a5fda03df722b8972eb4e623e90093080271e96",
   "purpose": "HTML actor click -> event -> conditional dialogue sequence -> display page playback",
   "rom_text_control_facts": {
     "0x00": {
@@ -61,10 +61,34 @@
           "Y"
         ],
         "dpad_source": "DP $59",
-        "exact_button_names_status": "confirmed_mask_mapping"
+        "exact_button_names_status": "confirmed_mask_mapping",
+        "handler_logic_status": "confirmed_static",
+        "acceptance": {
+          "when_1398_eq_1": [
+            "A",
+            "X",
+            "L",
+            "R",
+            "B",
+            "Y"
+          ],
+          "when_1398_ne_1": [
+            "B"
+          ],
+          "gate": "$12C0 must allow the corresponding bit",
+          "select_start": "not in primary 0xFC test",
+          "dpad": "stored in $59; not in this $57 test"
+        },
+        "timer": {
+          "enable": "$12BE != 0",
+          "counter": "$12BF",
+          "trigger": "decrement reaches 0",
+          "effect": "enters same trigger path as accepted input"
+        },
+        "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
       },
       "evidence": "C4 display-state machine includes input-sensitive state A264; generic C0 joypad pipeline retains held state in $57/$59 and new-press edges in $5B/$5D",
-      "caveat": "mask-to-button mapping is confirmed; exact state-dependent acceptance and release/autorepeat behavior remain unresolved"
+      "caveat": "mask-to-button and C4:A264 branch acceptance are confirmed; exact $1398 semantic label and release/autorepeat behavior remain unresolved"
     },
     "choice_control": {
       "role": "choice/menu control within dialogue source",
@@ -746,7 +770,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -1331,7 +1379,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -1815,7 +1887,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -2988,7 +3084,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -4303,7 +4423,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -4831,7 +4975,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -5415,7 +5583,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -5757,7 +5949,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -6034,7 +6250,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -6331,7 +6571,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -6904,7 +7168,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -7458,7 +7746,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -8576,7 +8888,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -9134,7 +9470,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -9461,7 +9821,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -10089,7 +10473,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
@@ -10295,7 +10703,31 @@
                     "Y"
                   ],
                   "dpad_source": "DP $59",
-                  "exact_button_names_status": "confirmed_mask_mapping"
+                  "exact_button_names_status": "confirmed_mask_mapping",
+                  "handler_logic_status": "confirmed_static",
+                  "acceptance": {
+                    "when_1398_eq_1": [
+                      "A",
+                      "X",
+                      "L",
+                      "R",
+                      "B",
+                      "Y"
+                    ],
+                    "when_1398_ne_1": [
+                      "B"
+                    ],
+                    "gate": "$12C0 must allow the corresponding bit",
+                    "select_start": "not in primary 0xFC test",
+                    "dpad": "stored in $59; not in this $57 test"
+                  },
+                  "timer": {
+                    "enable": "$12BE != 0",
+                    "counter": "$12BF",
+                    "trigger": "decrement reaches 0",
+                    "effect": "enters same trigger path as accepted input"
+                  },
+                  "state_dependency_status": "$1398 gameplay/mode meaning unresolved"
                 },
                 "status": "strong_candidate_static_display_state"
               },
