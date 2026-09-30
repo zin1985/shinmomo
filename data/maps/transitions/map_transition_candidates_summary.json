@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "kind": "map_transition_candidate_catalog",
-  "generated_against_git_head": "4afae768494f438c8736843e6c5f7c685c78921e",
+  "generated_against_git_head": "ec1eb6f912da694fed331a4f0ffe0316d961509f",
   "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
-  "candidate_count": 1304,
+  "candidate_count": 1305,
   "confidence_counts": {
     "confirmed": 3,
-    "strong_candidate": 1144,
+    "strong_candidate": 1145,
     "structural_candidate": 157
   },
   "source_config_resolved_count": 3,
@@ -15,9 +15,9 @@
     "CC:0B08"
   ],
   "runtime_only_confirmation_count": 1,
-  "destination_pack_identified_count": 1304,
-  "destination_config_resolved_count": 1069,
-  "destination_coordinate_resolved_count": 781,
+  "destination_pack_identified_count": 1305,
+  "destination_config_resolved_count": 1070,
+  "destination_coordinate_resolved_count": 782,
   "event_record_crosslink_count": 27,
   "event_source_crosslink_count": 17,
   "additional_native_0305_writer_sites": [
@@ -48,7 +48,33 @@
   "nonterminal_opcode55_coordinate_crosslink_count": 12,
   "terminal_opcode57_route_candidate_count": 2,
   "entry_start_opcode57_route_candidate_count": 8,
-  "cfg_reachable_opcode57_route_candidate_count": 3,
+  "cfg_reachable_opcode57_route_candidate_count": 4,
+  "cfg_boundary_grammar": {
+    "opcode_0x47": {
+      "handler": "C4:992F",
+      "instruction_length": 5
+    },
+    "opcode_0x52": {
+      "handler": "C4:8B16",
+      "length_rule": "operand1 < 0xFE -> 5 bytes; operand1 0xFE/0xFF -> 6 bytes"
+    },
+    "opcode_0x5B": {
+      "handler": "C4:8FF2",
+      "length_rule": "subtype operand2 1 -> 4 bytes; 2 -> 5 bytes; 3/4 -> 3 bytes; other -> 5 bytes"
+    },
+    "opcode_0x74": {
+      "handler": "C4:9488",
+      "instruction_length": 3
+    },
+    "compact_D0_D5": {
+      "dispatcher": "C4:8108",
+      "instruction_length": 3,
+      "policy": "only D0/D5 admitted by the fail-closed transition CFG"
+    },
+    "opcode_A0": {
+      "policy": "nested call; not flattened by the transition CFG"
+    }
+  },
   "handler_findings": {
     "opcode_0x53": {
       "handler": "C4:8B3F",

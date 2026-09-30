@@ -237,17 +237,53 @@ def main() -> None:
         }
 
     # Fail-closed control-flow decoder used only to prove additional 0x57
-    # instruction boundaries. Unknown/variable opcodes stop that path.
+    # instruction boundaries. Unknown/control-transfer opcodes stop that path.
+    #
+    # A0 is deliberately NOT flattened here: it is a nested VM call and needs
+    # a separate return proof before the caller continuation can be considered
+    # reachable.
     cfg_safe_lengths = {
         0x04: 2, 0x08: 4, 0x09: 4, 0x10: 2, 0x11: 2, 0x13: 2,
-        0x15: 3, 0x2A: 1, 0x2D: 2, 0x33: 4, 0x43: 2, 0x50: 4,
+        0x15: 3, 0x2A: 1, 0x2D: 2, 0x33: 4, 0x43: 2, 0x47: 5, 0x50: 4,
         0x53: 3, 0x54: 1, 0x55: 3, 0x56: 3, 0x57: 2, 0x58: 5,
-        0x59: 6, 0x5D: 5, 0x69: 3, 0x71: 3, 0x96: 2, 0xA0: 4,
-        0xA3: 2, 0xA4: 2, 0xE0: 1, 0xE1: 1, 0xE7: 1, 0xE8: 1,
+        0x59: 6, 0x5D: 5, 0x69: 3, 0x71: 3, 0x74: 3, 0x96: 2,
+        0xA3: 2, 0xA4: 2, 0xD0: 3, 0xD5: 3,
+        0xE0: 1, 0xE1: 1, 0xE7: 1, 0xE8: 1,
     }
 
     def signed8(value: int) -> int:
         return value - 0x100 if value & 0x80 else value
+
+    def cfg_opcode_length(body: bytes, pos: int) -> int | None:
+        op = body[pos]
+
+        # 0x52 is variable but fully bounded by operand1.
+        # C4:8B16: values < FE copy four bytes to $15C9..15CC (5 total);
+        # FE/FF select the $13B0/$13B4 quartets and consume 6 total.
+        if op == 0x52:
+            if pos + 2 > len(body):
+                return None
+            return 6 if body[pos + 1] >= 0xFE else 5
+
+        # 0x5B reads arg0 then dispatches on subtype at operand2.
+        # C4:8FF2 handler paths consume:
+        #   subtype 1 -> 4 bytes total
+        #   subtype 2 -> 5 bytes total
+        #   subtype 3/4 -> 3 bytes total
+        #   other values -> 5 bytes total
+        if op == 0x5B:
+            if pos + 3 > len(body):
+                return None
+            subtype = body[pos + 2]
+            if subtype == 1:
+                return 4
+            if subtype == 2:
+                return 5
+            if subtype in {3, 4}:
+                return 3
+            return 5
+
+        return cfg_safe_lengths.get(op)
 
     def cfg_reachable_57_offsets(body: bytes) -> list[int]:
         queue = [0]
@@ -269,7 +305,7 @@ def main() -> None:
                     queue.append(pos + 2)
                 queue.append(target)
                 continue
-            length = cfg_safe_lengths.get(op)
+            length = cfg_opcode_length(body, pos)
             if length is None or pos + length > len(body):
                 continue
             if op == 0x57 and pos + 1 < len(body) and body[pos + 1] < 16:
@@ -979,11 +1015,23 @@ def main() -> None:
                     seen_triggers.add(addr)
                     cfg_reachable57_count += 1
                     record_id, event_sources = event_context(script_pack, addr)
+
+                    effective_x = route["x"]
+                    effective_y = route["y"]
+                    secondary_x = ""
+                    secondary_y = ""
+                    coordinate_addr = ""
                     next_opcode = (
                         f"0x{body[pos + 2]:02X}"
                         if pos + 2 < len(body)
                         else ""
                     )
+                    if pos + 7 <= len(body) and body[pos + 2] == 0x58:
+                        effective_x = body[pos + 3]
+                        effective_y = body[pos + 4]
+                        secondary_x = body[pos + 5]
+                        secondary_y = body[pos + 6]
+                        coordinate_addr = cpu_addr(entry["start"] + pos + 2)
 
                     row = blank_row()
                     row.update({
@@ -999,8 +1047,11 @@ def main() -> None:
                         ),
                         "event_sources": event_sources,
                         "destination_pack": hx(route["pack_id"]),
-                        "destination_x": route["x"],
-                        "destination_y": route["y"],
+                        "destination_x": effective_x,
+                        "destination_y": effective_y,
+                        "destination_secondary_x": secondary_x,
+                        "destination_secondary_y": secondary_y,
+                        "destination_coordinate_addr": coordinate_addr,
                         "confidence": "strong_candidate",
                         "condition": (
                             "instruction boundary is reachable from parsed entry start "
@@ -1008,7 +1059,13 @@ def main() -> None:
                             f"route_index={hx(route_index)}; route_ptr={route['route_ptr']}; "
                             f"context_0306={hx(route['context_0306'])}; "
                             f"destination_entrance={hx(route['entrance'])}; "
-                            f"next_opcode={next_opcode}"
+                            f"next_opcode={next_opcode}; "
+                            + (
+                                f"aligned immediate 0x58 at {coordinate_addr} "
+                                "overrides primary/secondary coordinates"
+                                if coordinate_addr else
+                                "route-table final coordinates retained"
+                            )
                         ),
                         "evidence": (
                             "C4:8BD4 opcode 0x57 route-index semantics are proven. "
@@ -1016,13 +1073,20 @@ def main() -> None:
                             "fail-closed control-flow walk from the parsed entry start "
                             "using only independently bounded instruction lengths and "
                             "the proven B2/B3/B4 relative-branch grammar. Unknown or "
-                            "variable-length opcodes terminate that CFG path."
+                            "variable-length opcodes terminate that CFG path. "
+                            + (
+                                "The next aligned opcode is 0x58, whose four operands "
+                                "write $1573/$157D/$15C3/$15C4."
+                                if coordinate_addr else
+                                ""
+                            )
                         ),
                         "provenance": (
                             f"canonical_rom_sha256={sha};"
                             "tools/python/catalog_map_transition_candidates.py;"
                             "cfg_reachable_57_offsets;"
                             "C4:8BD4;C6:8000;C6:8060;81:8204;81:8207"
+                            + (";C4:8BE2" if coordinate_addr else "")
                         ),
                     })
                     cfg = destination_config(route["pack_id"])
@@ -1249,6 +1313,35 @@ def main() -> None:
         "terminal_opcode57_route_candidate_count": terminal57_count,
         "entry_start_opcode57_route_candidate_count": entry_start57_count,
         "cfg_reachable_opcode57_route_candidate_count": cfg_reachable57_count,
+        "cfg_boundary_grammar": {
+            "opcode_0x47": {
+                "handler": "C4:992F",
+                "instruction_length": 5,
+            },
+            "opcode_0x52": {
+                "handler": "C4:8B16",
+                "length_rule": "operand1 < 0xFE -> 5 bytes; operand1 0xFE/0xFF -> 6 bytes",
+            },
+            "opcode_0x5B": {
+                "handler": "C4:8FF2",
+                "length_rule": (
+                    "subtype operand2 1 -> 4 bytes; 2 -> 5 bytes; "
+                    "3/4 -> 3 bytes; other -> 5 bytes"
+                ),
+            },
+            "opcode_0x74": {
+                "handler": "C4:9488",
+                "instruction_length": 3,
+            },
+            "compact_D0_D5": {
+                "dispatcher": "C4:8108",
+                "instruction_length": 3,
+                "policy": "only D0/D5 admitted by the fail-closed transition CFG",
+            },
+            "opcode_A0": {
+                "policy": "nested call; not flattened by the transition CFG",
+            },
+        },
         "handler_findings": {
             "opcode_0x53": {
                 "handler": "C4:8B3F",
@@ -1349,6 +1442,22 @@ Normal VM opcode 0x58 dispatches to C4:8BE2. When $13B8 != 0, its four
 operands are written to primary map coordinates $1573/$157D and secondary
 map coordinates $15C3/$15C4. Existing map analysis independently identifies
 these fields as current-map coordinates.
+
+## CFG boundary grammar
+
+The fail-closed 0x57 reachability walk now carries additional handler-level
+length proofs without guessing unknown instructions:
+
+- opcode 0x47 / C4:992F: four operand bytes are consumed, so 5 bytes total.
+- opcode 0x52 / C4:8B16: operand1 below 0xFE consumes 5 bytes total; 0xFE/0xFF
+  consumes 6 bytes total.
+- opcode 0x5B / C4:8FF2: subtype at operand2 selects total length
+  1 -> 4 bytes, 2 -> 5 bytes, 3/4 -> 3 bytes, all other values -> 5 bytes.
+- opcode 0x74 / C4:9488: all paths converge at Y=3, so 3 bytes total.
+- compact D0 and D5 use the D-range dispatcher at C4:8108 and consume two
+  operand bytes, so 3 bytes total.
+- opcode A0 is a nested VM call and is deliberately not flattened. A path
+  reaching A0 stops unless a separate nested-call return proof is available.
 """.format(sha=sha, head=summary["generated_against_git_head"])
 
     doc += """
@@ -1452,11 +1561,17 @@ Eight additional non-terminal forms are promoted because 0x57 is byte 0 of the
 parsed entry, independently proving the instruction boundary. All eight are
 immediately followed by aligned opcode 0x58, so the route table supplies the
 destination pack while 0x58 supplies the effective X/Y and secondary X/Y.
-A further three non-terminal 0x57 instructions in pack 0xDD / record 1 /
-entry 0x79 are reachable from the parsed entry start through a fail-closed CFG
-using proven B2/B3/B4 branch semantics and independently bounded opcode lengths.
-Their route indices are 0x06, 0x07 and 0x08. Raw non-terminal 0x57-shaped bytes
-elsewhere remain excluded.
+Four further non-terminal 0x57 instructions are reachable from parsed entry
+starts through the fail-closed CFG using proven B2/B3/B4 branch semantics and
+independently bounded opcode lengths.
+
+- pack 0x4E / record 0 / entry 0x03: CC:1916, route index 0x01. The path is
+  D0 B9 13, D5 B8 13, E0, 96 00, then 57 01. The immediately following
+  58 07 03 07 03 establishes effective coordinates (7,3).
+- pack 0xDD / record 1 / entry 0x79: CD:B652, CD:B664 and CD:B676 with route
+  indices 0x06, 0x07 and 0x08.
+
+Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
 
 ## Deliberate non-promotions
 

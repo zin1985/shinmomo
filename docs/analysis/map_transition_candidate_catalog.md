@@ -8,7 +8,7 @@ This pass catalogs map-transition candidates only. It does not implement the
 HTML viewer and does not integrate NPC or sprite data.
 
 Canonical ROM SHA-256: F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98
-Git HEAD used for generation: 4afae768494f438c8736843e6c5f7c685c78921e
+Git HEAD used for generation: ec1eb6f912da694fed331a4f0ffe0316d961509f
 
 ## Handler-level promotion
 
@@ -36,6 +36,22 @@ operands are written to primary map coordinates $1573/$157D and secondary
 map coordinates $15C3/$15C4. Existing map analysis independently identifies
 these fields as current-map coordinates.
 
+## CFG boundary grammar
+
+The fail-closed 0x57 reachability walk now carries additional handler-level
+length proofs without guessing unknown instructions:
+
+- opcode 0x47 / C4:992F: four operand bytes are consumed, so 5 bytes total.
+- opcode 0x52 / C4:8B16: operand1 below 0xFE consumes 5 bytes total; 0xFE/0xFF
+  consumes 6 bytes total.
+- opcode 0x5B / C4:8FF2: subtype at operand2 selects total length
+  1 -> 4 bytes, 2 -> 5 bytes, 3/4 -> 3 bytes, all other values -> 5 bytes.
+- opcode 0x74 / C4:9488: all paths converge at Y=3, so 3 bytes total.
+- compact D0 and D5 use the D-range dispatcher at C4:8108 and consume two
+  operand bytes, so 3 bytes total.
+- opcode A0 is a nested VM call and is deliberately not flattened. A path
+  reaching A0 stops unless a separate nested-call return proof is available.
+
 ## Confidence policy
 
 - confirmed: preserved runtime-observed transition evidence.
@@ -56,16 +72,16 @@ remain blank unless independently proven.
 
 ## Counts
 
-- total candidate rows: 1304
+- total candidate rows: 1305
 - confirmed: 3
-- strong candidates: 1144
+- strong candidates: 1145
 - structural candidates: 157
 - rows with source configuration: 3
 - runtime-confirmed static triggers: 1
 - runtime-confirmed edges without observed trigger PC: 1
-- rows with destination pack: 1304
-- rows with unique destination configuration: 1069
-- rows with destination X/Y: 781
+- rows with destination pack: 1305
+- rows with unique destination configuration: 1070
+- rows with destination X/Y: 782
 - rows cross-linked to structural event records: 27
 - rows carrying existing event-source xrefs: 17
 - terminal 0x56 forms: 724
@@ -82,7 +98,7 @@ remain blank unless independently proven.
 - non-terminal 0x55 coordinate-crosslinked structural rows: 12
 - terminal 0x57 route-table forms: 2
 - entry-start non-terminal 0x57 route-table forms: 8
-- branch-reachable non-terminal 0x57 route-table forms: 3
+- branch-reachable non-terminal 0x57 route-table forms: 4
 
 Opcode 0x54 is destination-indirect: it requests a saved-map-state return
 rather than encoding a destination beside the opcode. Its exact terminal forms
@@ -136,11 +152,17 @@ Eight additional non-terminal forms are promoted because 0x57 is byte 0 of the
 parsed entry, independently proving the instruction boundary. All eight are
 immediately followed by aligned opcode 0x58, so the route table supplies the
 destination pack while 0x58 supplies the effective X/Y and secondary X/Y.
-A further three non-terminal 0x57 instructions in pack 0xDD / record 1 /
-entry 0x79 are reachable from the parsed entry start through a fail-closed CFG
-using proven B2/B3/B4 branch semantics and independently bounded opcode lengths.
-Their route indices are 0x06, 0x07 and 0x08. Raw non-terminal 0x57-shaped bytes
-elsewhere remain excluded.
+Four further non-terminal 0x57 instructions are reachable from parsed entry
+starts through the fail-closed CFG using proven B2/B3/B4 branch semantics and
+independently bounded opcode lengths.
+
+- pack 0x4E / record 0 / entry 0x03: CC:1916, route index 0x01. The path is
+  D0 B9 13, D5 B8 13, E0, 96 00, then 57 01. The immediately following
+  58 07 03 07 03 establishes effective coordinates (7,3).
+- pack 0xDD / record 1 / entry 0x79: CD:B652, CD:B664 and CD:B676 with route
+  indices 0x06, 0x07 and 0x08.
+
+Raw non-terminal 0x57-shaped bytes elsewhere remain excluded.
 
 ## Deliberate non-promotions
 
