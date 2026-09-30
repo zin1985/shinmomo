@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "generated_from_head": "f2c6f66ab81158c797deb1b1126099de1379c165",
+  "schema_version": 2,
+  "generated_from_head": "0e290b0ae31be859f8550a8501c16e981875598f",
   "scene_count": 114,
   "scenes": [
     {
@@ -35,21 +35,51 @@
           "wram": "$1247",
           "bit": 3,
           "status": "confirmed_static"
-        }
-      ],
-      "unresolved_predicates": [
+        },
         {
-          "kind": "predicate",
+          "kind": "bitset_bit",
           "source": "actor_spawn",
-          "producer_kind": "compound_vm_expression",
-          "operand": null,
-          "bytecode": "3d 13 13 3d 15 13 e1 e7 17 07 13 e1 e7",
-          "status": "confirmed_static_branch_unresolved_predicate"
+          "record_id": "F50-L010",
+          "operand_id_hex": "0x13",
+          "mask_bit_index": 18,
+          "bitset_base_wram": "$3FA1",
+          "wram": "$3FA3",
+          "bit": 2,
+          "expected_value": 1,
+          "status": "confirmed_static",
+          "semantic_identity": "unresolved_bitset"
+        },
+        {
+          "kind": "bitset_bit",
+          "source": "actor_spawn",
+          "record_id": "F50-L010",
+          "operand_id_hex": "0x13",
+          "mask_bit_index": 18,
+          "bitset_base_wram": "$3FA4",
+          "wram": "$3FA6",
+          "bit": 2,
+          "expected_value": 0,
+          "status": "confirmed_static",
+          "semantic_identity": "unresolved_bitset"
+        },
+        {
+          "kind": "bitset_bit",
+          "source": "actor_spawn",
+          "record_id": "F50-L010",
+          "operand_id_hex": "0x13",
+          "mask_bit_index": 18,
+          "bitset_base_wram": "$161D",
+          "wram": "$161F",
+          "bit": 2,
+          "expected_value": 1,
+          "status": "confirmed_static",
+          "semantic_identity": "unresolved_bitset"
         }
       ],
+      "unresolved_predicates": [],
       "state_evaluation_status": "required_or_partial",
-      "known_state_input_count": 3,
-      "unresolved_predicate_count": 1
+      "known_state_input_count": 6,
+      "unresolved_predicate_count": 0
     },
     {
       "scene_id": "cfg_t04_l018_v2@0x5A",
@@ -4017,20 +4047,50 @@
         "wram": "$1247",
         "bit": 3,
         "status": "confirmed_static"
-      }
-    ],
-    "unresolved_predicates": [
+      },
       {
-        "kind": "predicate",
+        "kind": "bitset_bit",
         "source": "actor_spawn",
-        "producer_kind": "compound_vm_expression",
-        "operand": null,
-        "bytecode": "3d 13 13 3d 15 13 e1 e7 17 07 13 e1 e7",
-        "status": "confirmed_static_branch_unresolved_predicate"
+        "record_id": "F50-L010",
+        "operand_id_hex": "0x13",
+        "mask_bit_index": 18,
+        "bitset_base_wram": "$3FA1",
+        "wram": "$3FA3",
+        "bit": 2,
+        "expected_value": 1,
+        "status": "confirmed_static",
+        "semantic_identity": "unresolved_bitset"
+      },
+      {
+        "kind": "bitset_bit",
+        "source": "actor_spawn",
+        "record_id": "F50-L010",
+        "operand_id_hex": "0x13",
+        "mask_bit_index": 18,
+        "bitset_base_wram": "$3FA4",
+        "wram": "$3FA6",
+        "bit": 2,
+        "expected_value": 0,
+        "status": "confirmed_static",
+        "semantic_identity": "unresolved_bitset"
+      },
+      {
+        "kind": "bitset_bit",
+        "source": "actor_spawn",
+        "record_id": "F50-L010",
+        "operand_id_hex": "0x13",
+        "mask_bit_index": 18,
+        "bitset_base_wram": "$161D",
+        "wram": "$161F",
+        "bit": 2,
+        "expected_value": 1,
+        "status": "confirmed_static",
+        "semantic_identity": "unresolved_bitset"
       }
     ],
+    "unresolved_predicates": [],
     "state_evaluation_status": "required_or_partial",
-    "known_state_input_count": 3,
-    "unresolved_predicate_count": 1
+    "known_state_input_count": 6,
+    "unresolved_predicate_count": 0
   }
 }

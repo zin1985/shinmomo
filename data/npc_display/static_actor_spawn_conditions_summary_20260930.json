@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "actor_rows": 817,
   "unconditional_spawn": 327,
   "immediate_skip_guard": 447,
@@ -13,5 +13,8 @@
   "conditional_or_unresolved_actor_rows": 490,
   "directly_flag_evaluable_actor_rows": 182,
   "interpretation": "pack/scene selection is necessary but insufficient for actor visibility; actor-local spawn conditions must be evaluated against runtime state when available. Unknown state retains conditional actors as candidates.",
-  "binding_key": "scene_id + record_id + selector_hex"
+  "binding_key": "scene_id + record_id + selector_hex",
+  "decoded_compound_bitset_expression": 1,
+  "directly_state_evaluable_actor_rows": 183,
+  "status_note": "F50-L010 compound predicate is fully reduced to three neutral bitset-bit terms; semantic names of the bitsets remain unresolved."
 }

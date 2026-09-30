@@ -4,6 +4,7 @@ import csv,json
 ROOT=Path(__file__).resolve().parents[2]
 SPAWN=ROOT/"data/npc_display/static_actor_spawn_conditions_20260930.csv"
 DIALOGUE=ROOT/"data/npc_display/static_actor_dialogue_conditions_20260930.csv"
+TERMS=ROOT/"data/npc_display/static_actor_spawn_predicate_terms_20260930.csv"
 OUT=ROOT/"data/npc_display/static_scene_state_requirements_20260930.json"
 def rows(p):
     with p.open(encoding="utf-8-sig",newline="") as f:return list(csv.DictReader(f))
@@ -18,9 +19,14 @@ for r in rows(SPAWN):
     if r.get("flag_wram"):
         o={"kind":"flag","source":"actor_spawn","spec":r.get("flag_spec_hex"),"wram":r["flag_wram"],"bit":int(r["flag_bit"]),"status":"confirmed_static"}
         add_unique(s["state_inputs"],o,lambda x:(x["kind"],x.get("wram"),x.get("bit"),x["source"]))
-    elif r.get("visibility_when_state_unknown")=="candidate":
+    elif r.get("visibility_when_state_unknown")=="candidate" and r.get("condition_status")!="confirmed_static_bitset_expression":
         o={"kind":"predicate","source":"actor_spawn","producer_kind":r.get("producer_kind") or None,"operand":r.get("producer_operand") or None,"bytecode":r.get("predicate_bytecode") or None,"status":r.get("condition_status") or "unresolved"}
         add_unique(s["unresolved_predicates"],o,lambda x:(x["kind"],x.get("producer_kind"),x.get("operand"),x.get("bytecode")))
+if TERMS.exists():
+    for r in rows(TERMS):
+        s=get_scene(r["scene_id"],r["config_id"],r["pack_id_hex"])
+        o={"kind":"bitset_bit","source":"actor_spawn","record_id":r["record_id"],"operand_id_hex":r["operand_id_hex"],"mask_bit_index":int(r["mask_bit_index"]),"bitset_base_wram":r["bitset_base_wram"],"wram":r["resolved_wram"],"bit":int(r["resolved_bit"]),"expected_value":int(r["expected_value"]),"status":r["condition_status"],"semantic_identity":"unresolved_bitset"}
+        add_unique(s["state_inputs"],o,lambda x:(x["kind"],x.get("wram"),x.get("bit"),x.get("expected_value"),x["source"]))
 for r in rows(DIALOGUE):
     pack="0x"+r["record_id"][1:3].upper();sid=r["config_id"]+"@"+pack;s=get_scene(sid,r["config_id"],pack);s["dialogue_variant_count"]+=1
     if r.get("flag_0x65_wram"):

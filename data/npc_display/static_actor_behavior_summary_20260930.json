@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "actor_rows": 817,
   "unique_actor_records": 752,
   "controller_pointer_matches_event_trailer": 817,
@@ -17,9 +17,10 @@
   },
   "spawn_condition_status_counts": {
     "confirmed_static_control_partial_predicate": 112,
-    "confirmed_static_branch_unresolved_predicate": 153,
+    "confirmed_static_branch_unresolved_predicate": 152,
     "confirmed_static_flag": 182,
     "confirmed_static_unconditional": 327,
+    "confirmed_static_bitset_expression": 1,
     "unresolved_complex_control_flow": 43
   },
   "unique_record_behavior_class_counts": {
@@ -46,5 +47,6 @@
   "decoded_dialogue_actor_rows": 11,
   "initial_facing_scope": "candidate only: field06D9 uses exactly the confirmed motion-pattern value domain 1..4, but the controller-field reader has not yet been statically linked",
   "field0719_scope": "raw controller seed/flags only; semantics unresolved",
-  "record_body_scope": "structural only: prefix/suffix placement relative to opcode59; prefix opcode semantics remain separately classified"
+  "record_body_scope": "structural only: prefix/suffix placement relative to opcode59; prefix opcode semantics remain separately classified",
+  "spawn_condition_note": "F50-L010 is statically reduced to three bitset terms; bitset semantic names remain unresolved."
 }
