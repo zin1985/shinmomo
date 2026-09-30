@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "actor_rows": 817,
+  "unique_actor_records": 752,
+  "controller_pointer_matches_event_trailer": 817,
+  "controller_pointer_mismatches": 0,
+  "actor_behavior_class_counts": {
+    "placed_actor_no_validated_source": 104,
+    "event_source_bound_actor": 702,
+    "dialogue_actor_strong_candidate": 1,
+    "dialogue_actor_confirmed_cfg": 10
+  },
+  "unique_record_behavior_class_counts": {
+    "placed_actor_no_validated_source": 88,
+    "event_source_bound_actor": 653,
+    "dialogue_actor_strong_candidate": 1,
+    "dialogue_actor_confirmed_cfg": 10
+  },
+  "initial_facing_candidate_counts": {
+    "down/front": 717,
+    "up/back": 42,
+    "left": 31,
+    "right": 27
+  },
+  "field_0719_seed_counts": {
+    "0x10": 549,
+    "0x00": 207,
+    "0x41": 5,
+    "0x50": 13,
+    "0x80": 16,
+    "0x90": 27
+  },
+  "source_bound_actor_rows": 713,
+  "decoded_dialogue_actor_rows": 11,
+  "initial_facing_scope": "candidate only: field06D9 uses exactly the confirmed motion-pattern value domain 1..4, but the controller-field reader has not yet been statically linked",
+  "field0719_scope": "raw controller seed/flags only; semantics unresolved"
+}

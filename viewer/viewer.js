@@ -10,6 +10,17 @@ if(semanticOverrideDoc?.actor_overrides){
     if(sem)e.sprite_semantics=sem;
   }
 }
+const actorBehaviorDoc=await fetch('./data/actor_behavior.json').then(r=>r.ok?r.json():null).catch(()=>null);
+if(actorBehaviorDoc?.actor_behavior){
+  const actorBehaviorByKey=new Map(actorBehaviorDoc.actor_behavior.map(x=>[
+    [x.config_id,x.record_id,x.selector_hex].join('|'),x.behavior
+  ]));
+  for(const e of world.entities||[]){
+    if(e.entity_type!=='static_actor_candidate')continue;
+    const behavior=actorBehaviorByKey.get([e.map_config_id,e.record_id,e.selector_hex].join('|'));
+    if(behavior)e.actor_behavior=behavior;
+  }
+}
 const byId=new Map(world.maps.map(m=>[m.config_id,m]));
 const entityById=new Map(world.entities.map(e=>[e.entity_id,e]));
 const arrivalById=new Map((world.transition_arrivals||[]).map(a=>[a.arrival_id,a]));
@@ -179,12 +190,14 @@ function openDialogue(e){
   }
 
   const actorMeta=document.createElement('div'); actorMeta.className='dialogueMeta actorSpriteMeta';
-  const sem=e.sprite_semantics||{}, dir=e.directional_sprite||{};
+  const sem=e.sprite_semantics||{}, dir=e.directional_sprite||{}, beh=e.actor_behavior||{};
   const actorBits=[
     e.record_id,e.selector_hex,
     e.sprite_group!=null?'group '+e.sprite_group:null,
     sem.semantic_role&&sem.semantic_role!=='unknown'?'role '+sem.semantic_role:null,
     sem.confidence?'semantic '+sem.confidence:null,
+    beh.behavior_class?'behavior '+beh.behavior_class:null,
+    beh.initial_facing_candidate?'facing? '+beh.initial_facing_candidate:null,
     dir.direction_binding_status||null,
     spawn?.condition_status?'spawn '+spawn.condition_status:null,
   ].filter(Boolean);
@@ -197,6 +210,12 @@ function openDialogue(e){
     dir.left_frames?'LEFT '+dir.left_frames:null,
     dir.back_frames?'BACK '+dir.back_frames:null,
     dir.walk_animation?'walk '+dir.walk_animation:null,
+    beh.controller_pointer?'controller: '+beh.controller_pointer:null,
+    beh.controller_dispatch_grammar?'dispatch: '+beh.controller_dispatch_grammar:null,
+    beh.field_0719_seed_hex?'field0719: '+beh.field_0719_seed_hex:null,
+    beh.validated_event_source_count!=null?'validated sources: '+beh.validated_event_source_count:null,
+    beh.decoded_dialogue_source_count!=null?'decoded dialogue sources: '+beh.decoded_dialogue_source_count:null,
+    beh.evidence?'behavior evidence: '+beh.evidence:null,
     sem.evidence?'semantic evidence: '+sem.evidence:null,
     spawn?.condition_expr?'spawn condition: '+spawn.condition_expr:null,
     spawn?.predicate_bytecode?'spawn bytecode: '+spawn.predicate_bytecode:null,
