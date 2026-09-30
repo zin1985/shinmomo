@@ -29,6 +29,7 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0x1D,3,81,directional_4x2_confirmed_order,81,0,"72,73","74,75","76,77","78,79","16,16","right,down,left,up"
 0x1E,3,240,directional_4x2_confirmed_order,240,0,"190,191","192,193","194,195","196,197","32,32","right,down,left,up"
 0x1F,3,190,directional_4x2_confirmed_order,190,0,"169,170","171,172","173,174","175,176","53,53","right,down,left,up"
+0x20,3,202,directional_4x2_confirmed_order,204,2,"59,182","59,182","59,182","59,182","32,32","right,down,left,up"
 0x21,3,138,directional_4x2_confirmed_order,138,0,"49,50","55,56","53,54","127,128","10,10","right,down,left,up"
 0x23,3,25,directional_4x2_confirmed_order,25,0,"49,50","51,52","53,54","55,56","64,64","right,down,left,up"
 0x24,2,216,directional_4x2_confirmed_order,216,0,"237,238","239,240","241,242","243,244","64,64","right,down,left,up"
@@ -146,4 +147,5 @@ selector,sprite_group,base_state,kind,family_state_start,family_offset,slot0_fra
 0xA6,7,96,fixed,,,237,,,,255,
 0xA7,7,100,fixed,,,240,,,,255,
 0xA8,7,104,fixed,,,241,,,,255,
+0xA9,3,203,directional_4x2_confirmed_order,204,1,"59,182","59,182","59,182","59,182","32,32","right,down,left,up"
 0xAA,2,35,directional_4x2_confirmed_order,37,2,"31,32","22,33","6,5","34,35","32,32","right,down,left,up"

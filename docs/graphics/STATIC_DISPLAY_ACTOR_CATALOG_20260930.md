@@ -9,9 +9,9 @@ At selector 0xAB the byte pattern changes into a different table structure, so b
 - table records: 171 including selector 0x00
 - selector 0x00: reserved/empty
 - nonzero selectors: 170
-- directly reconstructable with the proven context-5 pipeline: 160
-- unique graphics signatures among those 160: 148
-- unresolved: 10
+- directly reconstructable with the proven context-5 pipeline: 162
+- unique graphics signatures among those 162: 150
+- unresolved: 8
 
 The 160 reconstructed entries include player/party-looking actors, village NPCs, animals,
 monsters, large field actors, effects, and object-like graphics. Therefore this is a
@@ -19,11 +19,12 @@ monsters, large field actors, effects, and object-like graphics. Therefore this 
 
 ## Unresolved selectors
 
-- 0x20 and 0xA9 share CHR resource 0x25, whose graphics reader uses dispatch 4.
-  The current decoder intentionally does not implement that reader yet.
-- 0x61..0x68 do not resolve through the same B2EE CHR-window indexing used by the proven
-  actor families. Treat them as a separate display/resource subtype until their caller
-  path is understood.
+- 0x20 and 0xA9 were recovered after decoding graphics-reader dispatch 4. Both reconstruct
+  as large gray armored/warrior-like field actors.
+- 0x61..0x68 remain unresolved. They are group 0 with CHR-window selector 0; B25E therefore
+  resolves the window through transient low-WRAM $01FE/$01FF rather than a ROM B2EE table.
+  Treat them as a separate runtime-window display/resource subtype until their caller path
+  and scratch-window initialization are understood.
 
 ## Validation basis
 
@@ -45,8 +46,6 @@ names to unknown entries.
 
 ## Next static targets
 
-1. Decode graphics reader dispatch 4 to recover selectors 0x20 and 0xA9.
-2. Trace the special window/resource path used by 0x61..0x68.
-3. Expand each selector from the representative first frame into complete animation-state
-   families, while preserving duplicate selectors as aliases rather than duplicate art.
-4. Bind selector ids to event/map actors separately using runtime/event evidence.
+1. Trace the special low-WRAM window/resource path used by 0x61..0x68.
+2. Continue expanding selector animation families while preserving duplicate selectors as aliases.
+3. Bind selector ids to event/map actors separately using runtime/event evidence.

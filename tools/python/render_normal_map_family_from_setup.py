@@ -174,6 +174,27 @@ def decode_graphics_resource(rom: bytes, desc: dict, operand: int) -> bytes:
             desc["source_addr"],
             desc["output_size"],
         )
+    if dispatch == 4:
+        # Engine reader 80:B92C checks the per-byte output index in $1124.
+        # When bit 4 and bit 0 are both set it returns zero without advancing
+        # the underlying 80:BD28 stream; otherwise it reads the next byte
+        # through the same source reader as dispatch 0.
+        output_size = desc["output_size"]
+        source_size = sum(
+            1 for i in range(output_size)
+            if not ((i & 0x10) and (i & 0x01))
+        )
+        source = decode_ring_lzss(
+            rom,
+            desc["source_bank"],
+            desc["source_addr"],
+            source_size,
+        )
+        it = iter(source)
+        return bytes(
+            0 if ((i & 0x10) and (i & 0x01)) else next(it)
+            for i in range(output_size)
+        )
     raise ValueError(
         f"graphics operand {operand:#x}: unsupported reader dispatch {dispatch}"
     )

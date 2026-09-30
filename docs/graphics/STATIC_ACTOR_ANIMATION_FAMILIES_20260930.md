@@ -5,10 +5,10 @@ frame per selector to animation-family extraction.
 
 ## Coverage
 
-Among the 148 unique reconstructable graphics signatures:
+Among the 150 unique reconstructable graphics signatures:
 
-- 121 have a nearby contiguous four-state / two-frame family.
-- 103 of those are in sprite groups 2 or 3, where runtime village/player tracing has
+- 123 have a nearby contiguous four-state / two-frame family.
+- 105 of those are in sprite groups 2 or 3, where runtime village/player tracing has
   directly confirmed the state order as right, down, left, up.
 - 18 are in groups 4, 5, or 7. Their four-state / two-frame structure is static fact,
   but the semantic direction order remains unverified.
@@ -21,8 +21,8 @@ because many actors have an idle or transition state before their normal directi
 Observed offsets from selector base state to the detected 4x2 family:
 
 - +0: 93
-- +1: 16
-- +2: 2
+- +1: 17
+- +2: 3
 - +3: 2
 - +4: 5
 - +5: 3
@@ -63,7 +63,7 @@ semantic character names should not be inferred from the graphics alone.
 - `graphics/static_character_reconstruction/static_special_animation_atlas_20260930.png`
 - `tools/python/build_static_actor_animation_catalog.py`
 
-The directional atlas renders all eight frames for each detected four-state/two-frame family.
+The directional atlas renders all eight frames for each detected four-state/two-frame family. Selectors 0x20 and 0xA9 are now included after graphics-reader dispatch 4 was decoded.
 The special atlas renders the complete base-state sequence for each non-directional signature.
 
 ## Interpretation
