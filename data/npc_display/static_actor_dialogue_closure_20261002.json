@@ -1,0 +1,266 @@
+{
+  "schema_version": "2026-10-02-dialogue-closure-v2",
+  "scope": "scene_actor_spawn_event_condition_dialogue_sequence_page",
+  "reference_actor": {
+    "scene_id": "cfg_t04_l008_v2@0x50",
+    "pack_id_hex": "0x50",
+    "config_id": "cfg_t04_l008_v2",
+    "record_id": "F50-L004",
+    "selector_hex": "0x59",
+    "controller_pointer": "CC:1D69",
+    "spawn": {
+      "condition_status": "confirmed_static_unconditional",
+      "condition_expr": "always",
+      "state_evaluation": "not_required",
+      "visibility_when_state_unknown": "visible"
+    },
+    "variant_count": 2,
+    "page_count": 3,
+    "branches": [
+      {
+        "variant_order": 1,
+        "sequence_id": "cfg_t04_l008_v2:F50-L004:0x50:0x05",
+        "event_record": "F50-L004",
+        "controller_pointer": "CC:1D69",
+        "dialogue_command_addr": "CC:1D62",
+        "condition_id": "common_true",
+        "condition_status": "confirmed_static_cfg",
+        "condition_expr": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",
+        "branch_path": "B3 06 fallthrough selects A4 05",
+        "text_record_id": "0x50:0x05",
+        "text_pointer": "C8:ACCE",
+        "decode_status": "confirmed_static_direct_decode",
+        "decoder_unknown_tokens": 0,
+        "page_count": 1,
+        "page_boundaries": [
+          "confirmed_static_family50_final_page_shape"
+        ],
+        "termination": {
+          "text_record_end": "0x00",
+          "text_record_end_status": "confirmed_static",
+          "event_end_status": "unresolved_static"
+        }
+      },
+      {
+        "variant_order": 2,
+        "sequence_id": "cfg_t04_l008_v2:F50-L004:0x50:0x06",
+        "event_record": "F50-L004",
+        "controller_pointer": "CC:1D69",
+        "dialogue_command_addr": "CC:1D66",
+        "condition_id": "common_false",
+        "condition_status": "confirmed_static_cfg",
+        "condition_expr": "and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",
+        "branch_path": "B3 06 branch selects A4 06",
+        "text_record_id": "0x50:0x06",
+        "text_pointer": "C8:ACF8",
+        "decode_status": "confirmed_static_direct_decode",
+        "decoder_unknown_tokens": 0,
+        "page_count": 2,
+        "page_boundaries": [
+          "confirmed_static_family50",
+          "confirmed_static_family50_final_page_shape"
+        ],
+        "termination": {
+          "text_record_end": "0x00",
+          "text_record_end_status": "confirmed_static",
+          "event_end_status": "unresolved_static"
+        }
+      }
+    ]
+  },
+  "closure": {
+    "status": "closed_static_to_page",
+    "checks": {
+      "scene_key_present": true,
+      "actor_identity_present": true,
+      "spawn_resolved": true,
+      "spawn_expression_resolved": true,
+      "has_dialogue_variants": true,
+      "all_sources_direct_decoded": true,
+      "all_sources_zero_unknown_tokens": true,
+      "all_conditions_cfg_resolved": true,
+      "all_variants_accounted_for": true,
+      "all_pages_present": true,
+      "all_page_boundaries_family50_confirmed": true,
+      "all_text_records_terminate_00": true
+    },
+    "unresolved_out_of_scope": [
+      "exact_in_game_place_name",
+      "speaker_semantic_identity",
+      "relation_key_0x90_gameplay_label",
+      "event_continuation_after_text_record"
+    ]
+  },
+  "mechanical_expansion": {
+    "pack_id_hex": "0x50",
+    "actor_count": 10,
+    "closed_actor_count": 3,
+    "closed_actor_ids": [
+      "F50-L001",
+      "F50-L004",
+      "F50-L008"
+    ],
+    "actors": [
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L001",
+        "selector_hex": "0x40",
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
+        "variant_count": 1,
+        "page_count": 1,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L002",
+        "selector_hex": "0x24",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 2,
+        "page_count": 4,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L003",
+        "selector_hex": "0x59",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 2,
+        "page_count": 3,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L004",
+        "selector_hex": "0x59",
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
+        "variant_count": 2,
+        "page_count": 3,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L005",
+        "selector_hex": "0x5A",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 3,
+        "page_count": 4,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L006",
+        "selector_hex": "0x40",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 2,
+        "page_count": 7,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L007",
+        "selector_hex": "0x27",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 3,
+        "page_count": 5,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L008",
+        "selector_hex": "0x25",
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
+        "variant_count": 2,
+        "page_count": 3,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L009",
+        "selector_hex": "0x5B",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 1,
+        "page_count": 3,
+        "spawn_condition_status": "confirmed_static_unconditional",
+        "spawn_condition_expr": "always"
+      },
+      {
+        "scene_id": "cfg_t04_l008_v2@0x50",
+        "pack_id_hex": "0x50",
+        "config_id": "cfg_t04_l008_v2",
+        "record_id": "F50-L010",
+        "selector_hex": "0x13",
+        "closure_status": "incomplete",
+        "failed_checks": [
+          "all_sources_direct_decoded",
+          "all_sources_zero_unknown_tokens"
+        ],
+        "variant_count": 1,
+        "page_count": 3,
+        "spawn_condition_status": "confirmed_static_bitset_expression",
+        "spawn_condition_expr": "bitset_test(base=$3FA1,id=0x13,wram=$3FA3,bit=2) != 0 && bitset_test(base=$3FA4,id=0x13,wram=$3FA6,bit=2) == 0 && bitset_test(base=$161D,id=0x13,wram=$161F,bit=2) != 0"
+      }
+    ]
+  },
+  "evidence_sources": [
+    "data/npc_display/static_actor_dialogue_sequences_20260930.json",
+    "data/npc_display/static_actor_spawn_conditions_20260930.csv",
+    "data/npc_display/static_actor_dialogue_conditions_20260930.csv",
+    "data/npc_display/static_actor_event_dialogue_binding_20260930.csv",
+    "data/dialogue/family50_canonical_direct_decode_20260930.csv",
+    "docs/analysis/family50_dialogue_condition_cfg_20260930.md",
+    "docs/analysis/family50_location_label_correction_20260930.md"
+  ]
+}

@@ -1,0 +1,11 @@
+﻿scene_id,pack_id_hex,config_id,record_id,selector_hex,closure_status,failed_checks,variant_count,page_count,spawn_condition_status,spawn_condition_expr,is_reference_actor
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L001,0x40,closed_static_to_page,,1,1,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L002,0x24,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,2,4,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L003,0x59,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,2,3,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L004,0x59,closed_static_to_page,,2,3,confirmed_static_unconditional,always,1
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L005,0x5A,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,3,4,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L006,0x40,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,2,7,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L007,0x27,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,3,5,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L008,0x25,closed_static_to_page,,2,3,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L009,0x5B,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,1,3,confirmed_static_unconditional,always,0
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L010,0x13,incomplete,all_sources_direct_decoded;all_sources_zero_unknown_tokens,1,3,confirmed_static_bitset_expression,"bitset_test(base=$3FA1,id=0x13,wram=$3FA3,bit=2) != 0 && bitset_test(base=$3FA4,id=0x13,wram=$3FA6,bit=2) == 0 && bitset_test(base=$161D,id=0x13,wram=$161F,bit=2) != 0",0
