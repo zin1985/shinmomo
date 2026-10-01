@@ -1,4 +1,4 @@
-const world=await fetch('./data/world.json').then(r=>r.json());
+﻿const world=await fetch('./data/world.json').then(r=>r.json());
 const semanticOverrideDoc=await fetch('./data/actor_semantics.json').then(r=>r.ok?r.json():null).catch(()=>null);
 if(semanticOverrideDoc?.actor_overrides){
   const semanticOverrideByKey=new Map(semanticOverrideDoc.actor_overrides.map(x=>[
@@ -173,13 +173,13 @@ function populateStateControls(m,pack=selectedPack){
   controls.replaceChildren();
   const sceneId=sceneIdFor(m,pack);
   if(!sceneId){
-    status.textContent='scene pack未選択のためstate評価なし';
+    status.textContent='scene pack譛ｪ驕ｸ謚槭・縺溘ａstate隧穂ｾ｡縺ｪ縺・;
     reset.disabled=true;
     return;
   }
   const req=sceneRequirementById.get(sceneId);
   if(!req){
-    status.textContent=sceneId+' | state requirement未登録';
+    status.textContent=sceneId+' | state requirement譛ｪ逋ｻ骭ｲ';
     reset.disabled=true;
     return;
   }
@@ -225,8 +225,8 @@ function mapDisplayName(m,pack=null){
   // Guard against the stale render-catalog label that was formerly injected
   // into the shared t04/l008 configuration. Location identity is pack/instance
   // context, not layout identity.
-  if(m.config_id==='cfg_t04_l008_v2'&&m.display_name==='旅立ちの村'){
-    return m.config_id+' (場所名未確定 / shared village layout)';
+  if(m.config_id==='cfg_t04_l008_v2'&&m.display_name==='譌・ｫ九■縺ｮ譚・){
+    return m.config_id+' (蝣ｴ謇蜷肴悴遒ｺ螳・/ shared village layout)';
   }
   return m.display_name||m.config_id;
 }
@@ -311,14 +311,14 @@ function openDialogue(e){
   if(sequences.length>1){
     const unresolved=document.createElement('option');
     unresolved.value='';
-    unresolved.textContent=allBranchStateKnown?(matchedBranches.length?'state評価済み':'state一致branchなし'):'条件未評価：会話候補を選択';
+    unresolved.textContent=allBranchStateKnown?(matchedBranches.length?'state隧穂ｾ｡貂医∩':'state荳閾ｴbranch縺ｪ縺・):'譚｡莉ｶ譛ｪ隧穂ｾ｡・壻ｼ夊ｩｱ蛟呵｣懊ｒ驕ｸ謚・;
     branch.append(unresolved);
     sequences.forEach((seq,i)=>{
       const opt=document.createElement('option');
       const cond=seq.condition&&seq.condition!=='single validated source selection'?seq.condition:'';
-      const mark=sequenceState[i]===true?'✓ ':sequenceState[i]===false?'× ':'? ';
+      const mark=sequenceState[i]===true?'笨・':sequenceState[i]===false?'ﾃ・':'? ';
       opt.value=String(i);
-      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 条件付き':'');
+      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 譚｡莉ｶ莉倥″':'');
       if(cond)opt.title=cond;
       branch.append(opt);
     });
@@ -369,9 +369,9 @@ function openDialogue(e){
   const text=document.createElement('div'); text.className='dialogueText';
   const meta=document.createElement('div'); meta.className='dialogueMeta';
   const controls=document.createElement('div'); controls.className='dialogueControls';
-  const prev=document.createElement('button'); prev.textContent='◀';
-  const next=document.createElement('button'); next.textContent='次へ';
-  const close=document.createElement('button'); close.textContent='閉じる';
+  const prev=document.createElement('button'); prev.textContent='笳';
+  const next=document.createElement('button'); next.textContent='谺｡縺ｸ';
+  const close=document.createElement('button'); close.textContent='髢峨§繧・;
   const page=document.createElement('span'); page.className='dialoguePage';
   controls.append(prev,next,close,page);
   win.append(header,actorMeta,text,meta,controls);
@@ -389,11 +389,11 @@ function openDialogue(e){
     const seq=currentSequence();
     if(!seq){
       if(sequences.length){
-        text.textContent=allBranchStateKnown?'（現在のraw stateに一致する会話branchがありません。候補は手動確認できます）':'（story state未評価です。条件付き会話候補を選択してください）';
+        text.textContent=allBranchStateKnown?'・育樟蝨ｨ縺ｮraw state縺ｫ荳閾ｴ縺吶ｋ莨夊ｩｱbranch縺後≠繧翫∪縺帙ｓ縲ょ呵｣懊・謇句虚遒ｺ隱阪〒縺阪∪縺呻ｼ・:'・・tory state譛ｪ隧穂ｾ｡縺ｧ縺吶よ擅莉ｶ莉倥″莨夊ｩｱ蛟呵｣懊ｒ驕ｸ謚槭＠縺ｦ縺上□縺輔＞・・;
         meta.textContent=`${e.record_id||''} | ${e.selector_hex||''} | branch state ${allBranchStateKnown?'evaluated':'unresolved'}`;
         detail.textContent=JSON.stringify({actor:e,dialogue_candidates:sequences,condition_results:sequenceState},null,2);
       }else{
-        text.textContent='（このactorには会話データがまだ接続されていません）';
+        text.textContent='・医％縺ｮactor縺ｫ縺ｯ莨夊ｩｱ繝・・繧ｿ縺後∪縺謗･邯壹＆繧後※縺・∪縺帙ｓ・・;
         meta.textContent=`${e.record_id||''} | ${e.selector_hex||''}`;
       }
       prev.disabled=true; next.disabled=true; page.textContent='0/0';
@@ -401,13 +401,13 @@ function openDialogue(e){
     }
     const pages=seq.pages||[];
     const p=pages[pageIndex];
-    text.textContent=p?.text||'（イベントは接続済みですが、会話本文は未解読です）';
+    text.textContent=p?.text||'・医う繝吶Φ繝医・謗･邯壽ｸ医∩縺ｧ縺吶′縲∽ｼ夊ｩｱ譛ｬ譁・・譛ｪ隗｣隱ｭ縺ｧ縺呻ｼ・;
     const stateResult=sequenceState[branchIndex];
     const bits=[seq.text_record_id,seq.event_source,seq.confidence,seq.condition,stateResult===true?'state:match':stateResult===false?'state:not-match':'state:unknown'].filter(Boolean);
     meta.textContent=bits.join(' | ');
     prev.disabled=pageIndex<=0;
     next.disabled=pages.length===0;
-    next.textContent=pageIndex+1<pages.length?'次へ':'閉じる';
+    next.textContent=pageIndex+1<pages.length?'谺｡縺ｸ':'髢峨§繧・;
     page.textContent=pages.length?`${pageIndex+1}/${pages.length}`:'0/0';
     detail.textContent=JSON.stringify({actor:e,dialogue_sequence:seq},null,2);
   }
@@ -458,7 +458,7 @@ function renderArrivals(m){
     b.title=`${(a.destination_packs||[]).join(',')} entries ${entries.join(',')} grid(${a.grid_x},${a.grid_y}) x${a.candidate_row_count}`;
     if(labels){
       const lab=document.createElement('span'); lab.className='arrivalLabel';
-      lab.textContent=entries.length<=2?`→${entries.join('/')}`:`→${entries.length} entries`; b.append(lab);
+      lab.textContent=entries.length<=2?`竊・{entries.join('/')}`:`竊・{entries.length} entries`; b.append(lab);
     }
     b.onclick=ev=>{ev.stopPropagation(); detail.textContent=JSON.stringify(a,null,2);};
     arrivalLayer.append(b);
@@ -571,6 +571,8 @@ function renderMap(m){
   renderHotspots(m); renderArrivals(m); renderActors(m); renderFocus(m); applyZoom();
 }
 
+function renderAnalysisEvidence(m){ const actors=sceneActorCandidates(m), visible=sceneActors(m), dialogues=visible.flatMap(e=>(e.dialogue_refs||[]).map(id=>dialogueById.get(id)).filter(Boolean)), unresolved=dialogues.filter(d=>d.condition_status==="predicate_unresolved_static"||d.branch_selection_policy==="preserve_all_candidates_until_state_resolved"), conditional=actors.filter(e=>(e.spawn_condition||{}).visibility_when_state_unknown==="candidate"), hotspots=mapHotspots(m), arrivals=mapArrivals(m), related=catalogEdges.filter(e=>e.source_config_id===m.config_id||e.destination_config_id===m.config_id); const cards=[["Scene / pack",selectedPack||"unresolved",mapActorPacks(m).length+" actor pack(s)",selectedPack?"confidenceConfirmed":"confidenceUnresolved"],["NPC actors",String(visible.length),conditional.length+" conditional/unresolved",conditional.length?"confidenceCandidate":"confidenceConfirmed"],["Dialogue",String(dialogues.length),unresolved.length+" unresolved branch(es)",unresolved.length?"confidenceUnresolved":"confidenceConfirmed"],["Transitions",String(related.length),hotspots.length+" hotspots / "+arrivals.length+" arrivals",related.length?"confidenceConfirmed":"confidenceCandidate"]]; const host=q("#analysisSummary"); host.replaceChildren(); for(const [title,value,note,cls] of cards){const d=document.createElement("div"),st=document.createElement("strong"),sm=document.createElement("small");d.className="analysisCard "+cls;st.textContent=title+": "+value;sm.textContent=note;d.append(st,sm);host.append(d);} q("#analysisDetail").textContent=JSON.stringify({map_config_id:m.config_id,active_scene_pack:selectedPack,available_actor_packs:mapActorPacks(m),evidence:{opcode59_coordinate_binding:"statically confirmed for opcode 0x59 actor renderer",actor_seed_position_audit:audit,active_actor_count:visible.length,conditional_actor_candidates:conditional.map(e=>({record_id:e.record_id,selector_hex:e.selector_hex,spawn_condition:e.spawn_condition})),dialogue_branch_count:dialogues.length,unresolved_dialogue_branches:unresolved.map(d=>({id:d.dialogue_sequence_id,condition_status:d.condition_status,policy:d.branch_selection_policy,event_source:d.event_source})),source_transition_hotspots:hotspots,transition_arrivals:arrivals,bound_transition_edges:related},interpretation_rule:"confirmed evidence and unresolved candidates are displayed separately; unresolved state is never promoted to current game state"},null,2); }
+
 async function selectMap(m,focus=null,pack=undefined){
   const packs=mapActorPacks(m);
   selectedMap=m;
@@ -582,6 +584,7 @@ async function selectMap(m,focus=null,pack=undefined){
   document.querySelectorAll('.mapButton').forEach(b=>b.classList.toggle('active',b.dataset.id===m.config_id));
   q('#title').textContent=mapDisplayName(m,selectedPack)+(selectedPack?' ['+selectedPack+']':(packs.length>1?' [scene pack unresolved]':''));
   renderMap(m);
+  renderAnalysisEvidence(m);
   detail.textContent='loading structural layers...';
   detail.textContent=JSON.stringify({
     ...m,
@@ -612,7 +615,7 @@ async function selectMap(m,focus=null,pack=undefined){
     const other=forward?e.destination_config_id:e.source_config_id;
     const otherName=byId.has(other)?mapDisplayName(byId.get(other)):other;
     const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
-    div.append(document.createTextNode((forward?'→ ':'← ')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
+    div.append(document.createTextNode((forward?'竊・':'竊・')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
     const go=document.createElement('button'); go.className='edgeGo'; go.textContent='open map';
     go.onclick=ev=>{
       ev.stopPropagation();
@@ -658,3 +661,5 @@ q('#scenePack').addEventListener('change',()=>{
 q('#zoom').addEventListener('input',()=>{applyZoom();if(selectedMap)renderFocus(selectedMap);});
 stage.addEventListener('click',()=>clearDialogue());
 if(world.maps[0])selectMap(world.maps[0]);
+
+
