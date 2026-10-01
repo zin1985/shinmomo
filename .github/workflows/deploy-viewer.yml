@@ -1,0 +1,42 @@
+﻿name: Deploy map viewer to Mole Mall
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'viewer/**'
+      - 'tools/python/build_structural_world_viewer.py'
+      - 'data/maps/**'
+      - 'data/npc_display/**'
+      - '.github/workflows/deploy-viewer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shinmomo-viewer-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-viewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Rebuild structural viewer data
+        run: python tools/python/build_structural_world_viewer.py
+      - name: Validate viewer
+        run: |
+          node --check viewer/viewer.js
+          test -s viewer/index.html
+          test -s viewer/data/world.json
+      - name: Add deployment metadata
+        run: |
+          printf '{"source_commit":"%s","built_at":"%s"}\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > viewer/deploy-info.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shinmomo-map-viewer
+          path: viewer
