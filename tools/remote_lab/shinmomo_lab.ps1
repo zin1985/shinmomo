@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory","save-state")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory","save-state","load-state")]
   [string]$Command,
 
   [int]$X = 0,
@@ -203,8 +203,15 @@ public static class ShinMomoMouse {
 
   "save-state" {
     if ([string]::IsNullOrWhiteSpace($StateName)) { throw "-StateName must not be empty." }
-    if ($StateName -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "-StateName may contain only A-Z, a-z, 0-9, _ and -." }
+    if ($StateName.Length -gt 64 -or $StateName -match '[^A-Za-z0-9_-]') { throw "-StateName may contain only A-Z, a-z, 0-9, _ and -." }
     $payload = Invoke-Bridge @("SAVE_STATE", $StateName)
     Emit-Result @{ ok=$true; command="save-state"; name=$StateName; path=$payload }
+  }
+
+  "load-state" {
+    if ([string]::IsNullOrWhiteSpace($StateName)) { throw "-StateName must not be empty." }
+    if ($StateName.Length -gt 64 -or $StateName -match '[^A-Za-z0-9_-]') { throw "-StateName may contain only A-Z, a-z, 0-9, _ and -." }
+    $payload = Invoke-Bridge @("LOAD_STATE", $StateName)
+    Emit-Result @{ ok=$true; command="load-state"; name=$StateName; path=$payload }
   }
 }

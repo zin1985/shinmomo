@@ -695,6 +695,29 @@ local function do_save_state(id, name)
   respond(id, "OK", path)
 end
 
+local function do_load_state(id, name)
+  local base = clean_id(name or "mole_remote")
+  if base == "" then base = "mole_remote" end
+  ensure_dir(STATES)
+  local path = STATES .. SEP .. base .. ".State"
+  local f = io.open(path, "rb")
+  if not f then
+    respond(id, "ERR", "savestate not found: " .. path)
+    return
+  end
+  f:close()
+  if not savestate or not savestate.load then
+    respond(id, "ERR", "savestate.load unavailable")
+    return
+  end
+  local ok, result = pcall(savestate.load, path)
+  if not ok or result == false then
+    respond(id, "ERR", ok and "savestate.load returned false" or tostring(result))
+    return
+  end
+  respond(id, "OK", path)
+end
+
 local function process_command()
   local line = read_all(COMMAND)
   if not line or line == "" then return end
@@ -780,6 +803,11 @@ local function process_command()
 
   if cmd == "SAVE_STATE" then
     do_save_state(id, p[3] or "mole_remote")
+    return
+  end
+
+  if cmd == "LOAD_STATE" then
+    do_load_state(id, p[3] or "mole_remote")
     return
   end
 
