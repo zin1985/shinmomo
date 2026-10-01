@@ -58,10 +58,12 @@ The same strict checks were applied to all ten family-0x50 actors already repres
 Closed to the same static-to-page standard:
 
 - `F50-L001`
+- `F50-L002`
 - `F50-L004`
+- `F50-L006`
 - `F50-L008`
 
-The remaining seven actors fail the strict closure gate because at least one dialogue variant is not a zero-unknown canonical direct decode. They remain usable evidence, but are not promoted to `closed_static_to_page`.
+After promoting the independently verified printable token `0x5B` to `?`, five actors close. The remaining five actors fail the strict closure gate because at least one dialogue variant still contains unresolved tokens. They remain usable evidence, but are not promoted to `closed_static_to_page`.
 
 ## Deliberately unresolved
 

@@ -202,7 +202,7 @@ cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L002,0x24,CC:1D2D,F50-L002,C8:AC2F
  呼びにきた人は あやしかったわ!」
 「浦島さんは
  人が いいから
- 大丈夫かしらね{5B}」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 02; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
+ 大丈夫かしらね?」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 02; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5; verified printable token 0x5B='?' from checked text-trace charset tables (data/text_trace/shinmomo_trace_text_jp_decode_snes9x_20260426.lua; tools/lua/shinmomo_trace_dialogue_v28_mode02_bd98_decoder_smallkana_checked_snes9x_20260427.lua)",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L003,0x59,CC:1D4B,F50-L003,C8:AC73,C8:AC73,CC:1D44,0x50:0x03,C8:AC73,"「まあ 浦島さん!
  桃太郎さんと あえて
  よかったですね!」
@@ -227,33 +227,33 @@ cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD3D
 cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD66,C8:AD66,CC:1D88,0x50:0x08,C8:AD66,"「浦島さん! 鬼たいじ 終ったら
  魚の じょうずな 取り方
  おしえて ちょうだいね!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 falls through to A4 08; B2 04 skips A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
-cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD8F,C8:AD8F,CC:1D8C,0x50:0x09,C8:AD8F,"「あれー! 浦島さん いないの{5B}
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L005,0x5A,CC:1D8F,F50-L005,C8:AD8F,C8:AD8F,CC:1D8C,0x50:0x09,C8:AD8F,"「あれー! 浦島さん いないの?
  はやく 魚の 取り方
  おしえて ほしいなあ!」
 「鬼たいじ 終ったら
  おしえてくれるって
- やくそく したんだよ!」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 branches to A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
+ やくそく したんだよ!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0 && flag_test(spec=0x0B,wram=$1247,bit=3) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 enters secondary guard; B4 06 branches to A4 09; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5; verified printable token 0x5B='?' from checked text-trace charset tables (data/text_trace/shinmomo_trace_text_jp_decode_snes9x_20260426.lua; tools/lua/shinmomo_trace_dialogue_v28_mode02_bd98_decoder_smallkana_checked_snes9x_20260427.lua)",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L006,0x40,CC:1DAD,F50-L006,C8:ADCF,C8:ADCF,CC:1DA6,0x50:0x0A,C8:ADCF,"「梅というのは ぜんぶで
  300しゅるいも あるそうじゃな」
 
 「人間と 鬼で 2しゅるい! ならば
  人間も 鬼も いきもの という
  ひとつの名で よいではないか…」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) != 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 fallthrough selects A4 0A; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
-cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L006,0x40,CC:1DAD,F50-L006,C8:AE18,C8:AE18,CC:1DAA,0x50:0x0B,C8:AE18,"「寝太郎のことか{5B} また
+cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L006,0x40,CC:1DAD,F50-L006,C8:AE18,C8:AE18,CC:1DAA,0x50:0x0B,C8:AE18,"「寝太郎のことか? また
  3年も ねむりよってな!」
 
 「氷の塔の しこめ様が 持ってる
  氷室のけずりひで おきるんじゃが
  鬼がいて 誰も 取りに行けん!」
-「何{5B} あんたが 取りに行く{5B}
+「何? あんたが 取りに行く?
  そりゃ あぶない!
- ……でも 何だって{5B}」
+ ……でも 何だって?」
 「以前は 氷室のけずりひは
  氷の塔から もちだした とたん
  とけてしまったとな!」
 「安心せい! いまは しこめ様が
  氷室のきんちゃくに
- 入れてくださるはずじゃ!」<00>",direct_decode_with_unknown_tokens,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 0B; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
+ 入れてくださるはずじゃ!」<00>",confirmed_static_direct_decode,"and(flag_test(spec=0x65,wram=$1252,bit=5),zero_test(relation_resolver_condition(key=0x90,subkey=0x00))) == 0",actor_to_event_dialogue_static_cfg,confirmed_static,"B3 06 branch selects A4 0B; canonical ROM direct decode; family 0x50 root C8:ABC4 mode byte, stream starts C8:ABC5; verified printable token 0x5B='?' from checked text-trace charset tables (data/text_trace/shinmomo_trace_text_jp_decode_snes9x_20260426.lua; tools/lua/shinmomo_trace_dialogue_v28_mode02_bd98_decoder_smallkana_checked_snes9x_20260427.lua)",canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98;docs/analysis/map_selector_upper_vm_cfg_promotion_20260928.md;data/dialogue/family50_canonical_direct_decode_20260930.csv
 cfg_t04_l008_v2@0x50,0x50,cfg_t04_l008_v2,F50-L007,0x27,CC:1DD3,F50-L007,C8:AED1,C8:AED1,CC:1DC4,0x50:0x0C,C8:AED1,"「ありがとう ごぜえますだ!
  これから 雪えくぼの きせつじゃ」
 
