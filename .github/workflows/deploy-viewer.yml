@@ -34,7 +34,8 @@ jobs:
         run: python scripts/prepare_public_viewer.py
       - name: Validate viewer
         run: |
-          cp dist/viewer-site/viewer.js /tmp/viewer.mjs
+          VIEWER_JS=$(python -c "import json; print(json.load(open('dist/viewer-site/bundle-manifest.json'))['viewer_script'])")
+          cp "dist/viewer-site/$VIEWER_JS" /tmp/viewer.mjs
           node --check /tmp/viewer.mjs
           test -s dist/viewer-site/index.html
           test -s dist/viewer-site/data/world.json
