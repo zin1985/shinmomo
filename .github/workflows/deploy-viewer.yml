@@ -1,4 +1,4 @@
-﻿name: Deploy map viewer to Mole Mall
+name: Deploy map viewer to Mole Mall
 
 on:
   push:
@@ -6,8 +6,10 @@ on:
     paths:
       - 'viewer/**'
       - 'tools/python/build_structural_world_viewer.py'
+      - 'scripts/prepare_public_viewer.py'
       - 'data/maps/**'
       - 'data/npc_display/**'
+      - 'graphics/static_character_reconstruction/**'
       - '.github/workflows/deploy-viewer.yml'
   workflow_dispatch:
 
@@ -28,17 +30,19 @@ jobs:
           python-version: '3.11'
       - name: Rebuild structural viewer data
         run: python tools/python/build_structural_world_viewer.py
+      - name: Build public viewer bundle
+        run: python scripts/prepare_public_viewer.py
       - name: Validate viewer
         run: |
-          test -s viewer/index.html
-          test -s viewer/data/world.json
+          cp dist/viewer-site/viewer.js /tmp/viewer.mjs
+          node --check /tmp/viewer.mjs
+          test -s dist/viewer-site/index.html
+          test -s dist/viewer-site/data/world.json
+          test -s dist/viewer-site/bundle-manifest.json
       - name: Add deployment metadata
         run: |
-          printf '{"source_commit":"%s","built_at":"%s"}\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > viewer/deploy-info.json
+          printf '{"source_commit":"%s","built_at":"%s"}\n' "$GITHUB_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > dist/viewer-site/deploy-info.json
       - uses: actions/upload-artifact@v4
         with:
           name: shinmomo-map-viewer
-          path: viewer
-
-
-
+          path: dist/viewer-site

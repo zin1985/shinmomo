@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <meta charset="utf-8">
 <title>Shinmomo Structural World</title>
 <style>
@@ -39,9 +39,11 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 .notice{padding:7px;border:1px solid #b88;margin:8px 0}.analysisPanel{padding:8px;border:1px solid #667;margin:8px 0}.analysisGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:6px}.analysisCard{border:1px solid #666;padding:6px;border-radius:4px}.analysisCard strong{display:block}.analysisCard small{opacity:.72}.confidenceConfirmed{border-color:#7fb}.confidenceCandidate{border-color:#fc7}.confidenceUnresolved{border-color:#d88}pre{white-space:pre-wrap;overflow-wrap:anywhere}
 .statePanel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:7px;margin:6px 0;border:1px solid #668;border-radius:4px}.statePanel>strong{font-size:12px}.statePanel #stateStatus{font:11px monospace;opacity:.8}.statePanel #stateReset{display:inline-block;width:auto;padding:2px 7px}.statePanel #stateControls{display:flex;flex-wrap:wrap;gap:6px;width:100%}.stateField{display:flex;gap:4px;align-items:center;font:11px monospace;border:1px solid #777;padding:2px 4px;border-radius:3px}.stateField select{font:11px monospace}.actor.stateResolved img,.actor.stateResolved canvas{outline:2px solid #7fffb2}.actor.stateResolved .dot{background:#7fffb2}
 #assetStatus{font-size:12px;opacity:.85}h1,h2,h3{margin:.4em 0}
+
+@media (max-width:800px){body{display:block;height:auto;min-height:100vh}aside{border-right:0;border-bottom:1px solid #888;max-height:34vh;padding:10px}main{padding:10px;overflow:visible}.toolbar{gap:7px;font-size:12px}#mapViewport{max-height:55vh;min-height:300px}.dialogueWindow{width:300px;max-width:88vw}#maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.mapButton{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 </style><aside>
   <h1>World</h1>
-  <label>Assets <select id="profile"><option value="canonical">canonical / local</option><option value="public_redrawn">public redrawn</option></select></label>
+  <label>Assets <select id="profile"><option value="canonical">map images</option><option value="public_redrawn">public redrawn</option></select></label>
   <p id="summary"></p><div id="maps"></div>
 </aside>
 <main>

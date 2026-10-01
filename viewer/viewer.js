@@ -1,4 +1,4 @@
-﻿const world=await fetch('./data/world.json').then(r=>r.json());
+const world=await fetch('./data/world.json').then(r=>r.json());
 const semanticOverrideDoc=await fetch('./data/actor_semantics.json').then(r=>r.ok?r.json():null).catch(()=>null);
 if(semanticOverrideDoc?.actor_overrides){
   const semanticOverrideByKey=new Map(semanticOverrideDoc.actor_overrides.map(x=>[
@@ -173,7 +173,7 @@ function populateStateControls(m,pack=selectedPack){
   controls.replaceChildren();
   const sceneId=sceneIdFor(m,pack);
   if(!sceneId){
-    status.textContent='scene pack譛ｪ驕ｸ謚槭・縺溘ａstate隧穂ｾ｡縺ｪ縺・;
+    status.textContent='scene pack is unresolved; state evaluation is unavailable';
     reset.disabled=true;
     return;
   }
@@ -225,8 +225,8 @@ function mapDisplayName(m,pack=null){
   // Guard against the stale render-catalog label that was formerly injected
   // into the shared t04/l008 configuration. Location identity is pack/instance
   // context, not layout identity.
-  if(m.config_id==='cfg_t04_l008_v2'&&m.display_name==='譌・ｫ九■縺ｮ譚・){
-    return m.config_id+' (蝣ｴ謇蜷肴悴遒ｺ螳・/ shared village layout)';
+  if(m.config_id==='cfg_t04_l008_v2'){
+    return m.config_id+' (location unresolved / shared village layout)';
   }
   return m.display_name||m.config_id;
 }
@@ -311,12 +311,12 @@ function openDialogue(e){
   if(sequences.length>1){
     const unresolved=document.createElement('option');
     unresolved.value='';
-    unresolved.textContent=allBranchStateKnown?(matchedBranches.length?'state隧穂ｾ｡貂医∩':'state荳閾ｴbranch縺ｪ縺・):'譚｡莉ｶ譛ｪ隧穂ｾ｡・壻ｼ夊ｩｱ蛟呵｣懊ｒ驕ｸ謚・;
+    unresolved.textContent=allBranchStateKnown?(matchedBranches.length?'state evaluated':'no matching state branch'):'state unresolved; choose a dialogue candidate';
     branch.append(unresolved);
     sequences.forEach((seq,i)=>{
       const opt=document.createElement('option');
       const cond=seq.condition&&seq.condition!=='single validated source selection'?seq.condition:'';
-      const mark=sequenceState[i]===true?'笨・':sequenceState[i]===false?'ﾃ・':'? ';
+      const mark=sequenceState[i]===true?'OK ':sequenceState[i]===false?'NO ':'? ';
       opt.value=String(i);
       opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 譚｡莉ｶ莉倥″':'');
       if(cond)opt.title=cond;
@@ -389,7 +389,7 @@ function openDialogue(e){
     const seq=currentSequence();
     if(!seq){
       if(sequences.length){
-        text.textContent=allBranchStateKnown?'・育樟蝨ｨ縺ｮraw state縺ｫ荳閾ｴ縺吶ｋ莨夊ｩｱbranch縺後≠繧翫∪縺帙ｓ縲ょ呵｣懊・謇句虚遒ｺ隱阪〒縺阪∪縺呻ｼ・:'・・tory state譛ｪ隧穂ｾ｡縺ｧ縺吶よ擅莉ｶ莉倥″莨夊ｩｱ蛟呵｣懊ｒ驕ｸ謚槭＠縺ｦ縺上□縺輔＞・・;
+        text.textContent=allBranchStateKnown?'No dialogue branch matches the current raw state. You can inspect candidates manually.':'Story state is unresolved. Choose a conditional dialogue candidate.';
         meta.textContent=`${e.record_id||''} | ${e.selector_hex||''} | branch state ${allBranchStateKnown?'evaluated':'unresolved'}`;
         detail.textContent=JSON.stringify({actor:e,dialogue_candidates:sequences,condition_results:sequenceState},null,2);
       }else{
@@ -401,13 +401,13 @@ function openDialogue(e){
     }
     const pages=seq.pages||[];
     const p=pages[pageIndex];
-    text.textContent=p?.text||'・医う繝吶Φ繝医・謗･邯壽ｸ医∩縺ｧ縺吶′縲∽ｼ夊ｩｱ譛ｬ譁・・譛ｪ隗｣隱ｭ縺ｧ縺呻ｼ・;
+    text.textContent=p?.text||'Event is linked, but dialogue text is not decoded yet.';
     const stateResult=sequenceState[branchIndex];
     const bits=[seq.text_record_id,seq.event_source,seq.confidence,seq.condition,stateResult===true?'state:match':stateResult===false?'state:not-match':'state:unknown'].filter(Boolean);
     meta.textContent=bits.join(' | ');
     prev.disabled=pageIndex<=0;
     next.disabled=pages.length===0;
-    next.textContent=pageIndex+1<pages.length?'谺｡縺ｸ':'髢峨§繧・;
+    next.textContent=pageIndex+1<pages.length?'Next':'Close';
     page.textContent=pages.length?`${pageIndex+1}/${pages.length}`:'0/0';
     detail.textContent=JSON.stringify({actor:e,dialogue_sequence:seq},null,2);
   }
