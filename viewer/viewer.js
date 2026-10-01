@@ -1,4 +1,4 @@
-﻿const world=await fetch('./data/world.json').then(r=>r.json());
+const world=await fetch('./data/world.json').then(r=>r.json());
 const semanticOverrideDoc=await fetch('./data/actor_semantics.json').then(r=>r.ok?r.json():null).catch(()=>null);
 if(semanticOverrideDoc?.actor_overrides){
   const semanticOverrideByKey=new Map(semanticOverrideDoc.actor_overrides.map(x=>[
@@ -179,7 +179,7 @@ function populateStateControls(m,pack=selectedPack){
   }
   const req=sceneRequirementById.get(sceneId);
   if(!req){
-    status.textContent=sceneId+' | state requirement隴幢ｽｪ騾具ｽｻ鬪ｭ・ｲ';
+    status.textContent=sceneId+' | state requirement not registered';
     reset.disabled=true;
     return;
   }
@@ -276,12 +276,15 @@ function evaluateDialogueCondition(seq){
   if(!primary||!rel)return null;
   const flag=stateValue({kind:'flag',wram:primary.wram,bit:primary.bit},seq.scene_id);
   const relation=stateValue({kind:'relation_resolver_condition',key:rel.key,subkey:rel.subkey},seq.scene_id);
-  if(flag==null||relation==null)return null;
-  const common=(flag!==0)&&(relation===0);
+  // Three-valued evaluation with short-circuiting.
+  let common=null;
+  if(flag===0)common=false;
+  else if(flag!=null&&relation!=null)common=(flag!==0)&&(relation===0);
   if(id==='common_true')return common;
-  if(id==='common_false')return !common;
+  if(id==='common_false')return common==null?null:!common;
   if(id==='common_false_flag0B_clear'||id==='common_false_flag0B_set'){
-    if(common)return false;
+    if(common===true)return false;
+    if(common==null)return null;
     const secondary=(c.flag_tests||[]).find(x=>x.spec==='0x0B');
     if(!secondary)return null;
     const v=stateValue({kind:'flag',wram:secondary.wram,bit:secondary.bit},seq.scene_id);
@@ -308,20 +311,23 @@ function openDialogue(e){
   const sequenceState=sequences.map(evaluateDialogueCondition);
   const allBranchStateKnown=sequenceState.length>0&&sequenceState.every(v=>v!==null);
   const matchedBranches=sequenceState.map((v,i)=>v===true?i:-1).filter(i=>i>=0);
+  const showUnresolvedCandidates=!!q('#dialogueCandidatesToggle')?.checked;
+  const visibleBranchIndexes=sequenceState.map((v,i)=>(v===true||(showUnresolvedCandidates&&v===null))?i:-1).filter(i=>i>=0);
   if(sequences.length>1){
     const unresolved=document.createElement('option');
     unresolved.value='';
-    unresolved.textContent=allBranchStateKnown?(matchedBranches.length?'state evaluated':'no matching state branch'):'state unresolved; choose a dialogue candidate';
+    unresolved.textContent=matchedBranches.length?'resolved branch':(showUnresolvedCandidates?'analysis candidates':'state unresolved; dialogue hidden');
     branch.append(unresolved);
-    sequences.forEach((seq,i)=>{
+    for(const i of visibleBranchIndexes){
+      const seq=sequences[i];
       const opt=document.createElement('option');
       const cond=seq.condition&&seq.condition!=='single validated source selection'?seq.condition:'';
-      const mark=sequenceState[i]===true?'OK ':sequenceState[i]===false?'NO ':'? ';
+      const mark=sequenceState[i]===true?'OK ':'? ';
       opt.value=String(i);
-      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 隴夲ｽ｡闔会ｽｶ闔牙･窶ｳ':'');
+      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | conditional':'');
       if(cond)opt.title=cond;
       branch.append(opt);
-    });
+    }
     header.append(branch);
   }else if(sequences.length===1){
     const tag=document.createElement('span');
@@ -377,7 +383,9 @@ function openDialogue(e){
   win.append(header,actorMeta,text,meta,controls);
   dialogueLayer.append(win);
 
-  let branchIndex=sequences.length===1?(sequenceState[0]===false?-1:0):(allBranchStateKnown&&matchedBranches.length===1?matchedBranches[0]:-1);
+  let branchIndex=sequences.length===1
+    ? (sequenceState[0]===true?0:(showUnresolvedCandidates&&sequenceState[0]===null?0:-1))
+    : (matchedBranches.length===1?matchedBranches[0]:-1);
   let pageIndex=0;
   if(branch.options.length)branch.value=branchIndex>=0?String(branchIndex):'';
 
@@ -389,7 +397,11 @@ function openDialogue(e){
     const seq=currentSequence();
     if(!seq){
       if(sequences.length){
-        text.textContent=allBranchStateKnown?'No dialogue branch matches the current raw state. You can inspect candidates manually.':'Story state is unresolved. Choose a conditional dialogue candidate.';
+        text.textContent=allBranchStateKnown
+          ? 'No dialogue branch matches the current raw state.'
+          : (showUnresolvedCandidates
+              ? 'Story state is unresolved. Analysis candidates are enabled.'
+              : 'Story state is unresolved. Dialogue is hidden until the state is resolved. Enable analysis candidates only when inspecting alternate branches.');
         meta.textContent=`${e.record_id||''} | ${e.selector_hex||''} | branch state ${allBranchStateKnown?'evaluated':'unresolved'}`;
         detail.textContent=JSON.stringify({actor:e,dialogue_candidates:sequences,condition_results:sequenceState},null,2);
       }else{
