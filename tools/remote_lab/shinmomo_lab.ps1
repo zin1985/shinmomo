@@ -203,7 +203,7 @@ public static class ShinMomoMouse {
 
   "save-state" {
     if ([string]::IsNullOrWhiteSpace($StateName)) { throw "-StateName must not be empty." }
-    if ($StateName -notmatch '^[A-Za-z0-9_-]{1,64}) { throw "-StateName may contain only A-Z, a-z, 0-9, _ and -." }
+    if ($StateName -notmatch '^[A-Za-z0-9_-]{1,64}$') { throw "-StateName may contain only A-Z, a-z, 0-9, _ and -." }
     $payload = Invoke-Bridge @("SAVE_STATE", $StateName)
     Emit-Result @{ ok=$true; command="save-state"; name=$StateName; path=$payload }
   }
