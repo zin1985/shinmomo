@@ -417,6 +417,19 @@ def main():
                 continue
             decoded_text = row.get("decoded_text") or ""
             page_texts = dialogue_page_candidates(decoded_text)
+            condition_text = row.get("condition") or ""
+            if condition_text.startswith("multiple source selections"):
+                fallback_condition_status = "predicate_unresolved_static"
+                branch_selection_policy = "preserve_all_candidates_until_state_resolved"
+            elif condition_text == "single validated source selection":
+                fallback_condition_status = "single_validated_source_selection"
+                branch_selection_policy = "single_source_no_branch_selection"
+            elif condition_text:
+                fallback_condition_status = "unresolved_static"
+                branch_selection_policy = "preserve_all_candidates_until_state_resolved"
+            else:
+                fallback_condition_status = None
+                branch_selection_policy = "unknown"
             item = {
                 "dialogue_sequence_id": sequence_id,
                 "scene_id": row_scene or None,
@@ -439,7 +452,9 @@ def main():
                 "text_pointer": row.get("text_pointer") or None,
                 "decoded_text": decoded_text or None,
                 "decode_status": row.get("decode_status") or None,
-                "condition": row.get("condition") or None,
+                "condition": condition_text or None,
+                "condition_status": fallback_condition_status,
+                "branch_selection_policy": branch_selection_policy,
                 "binding_status": row.get("binding_status") or None,
                 "confidence": row.get("confidence") or None,
                 "evidence": row.get("evidence") or None,
