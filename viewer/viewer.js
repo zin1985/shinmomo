@@ -1,4 +1,4 @@
-const world=await fetch('./data/world.json').then(r=>r.json());
+﻿const world=await fetch('./data/world.json').then(r=>r.json());
 const semanticOverrideDoc=await fetch('./data/actor_semantics.json').then(r=>r.ok?r.json():null).catch(()=>null);
 if(semanticOverrideDoc?.actor_overrides){
   const semanticOverrideByKey=new Map(semanticOverrideDoc.actor_overrides.map(x=>[
@@ -179,7 +179,7 @@ function populateStateControls(m,pack=selectedPack){
   }
   const req=sceneRequirementById.get(sceneId);
   if(!req){
-    status.textContent=sceneId+' | state requirement譛ｪ逋ｻ骭ｲ';
+    status.textContent=sceneId+' | state requirement隴幢ｽｪ騾具ｽｻ鬪ｭ・ｲ';
     reset.disabled=true;
     return;
   }
@@ -318,7 +318,7 @@ function openDialogue(e){
       const cond=seq.condition&&seq.condition!=='single validated source selection'?seq.condition:'';
       const mark=sequenceState[i]===true?'OK ':sequenceState[i]===false?'NO ':'? ';
       opt.value=String(i);
-      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 譚｡莉ｶ莉倥″':'');
+      opt.textContent=mark+(seq.text_record_id||seq.event_source||('branch '+(i+1)))+(cond?' | 隴夲ｽ｡闔会ｽｶ闔牙･窶ｳ':'');
       if(cond)opt.title=cond;
       branch.append(opt);
     });
@@ -369,9 +369,9 @@ function openDialogue(e){
   const text=document.createElement('div'); text.className='dialogueText';
   const meta=document.createElement('div'); meta.className='dialogueMeta';
   const controls=document.createElement('div'); controls.className='dialogueControls';
-  const prev=document.createElement('button'); prev.textContent='笳';
-  const next=document.createElement('button'); next.textContent='谺｡縺ｸ';
-  const close=document.createElement('button'); close.textContent='髢峨§繧・;
+  const prev=document.createElement('button'); prev.textContent='隨ｳﾂ';
+  const next=document.createElement('button'); next.textContent='隹ｺ・｡邵ｺ・ｸ';
+  const close=document.createElement('button'); close.textContent='Close';
   const page=document.createElement('span'); page.className='dialoguePage';
   controls.append(prev,next,close,page);
   win.append(header,actorMeta,text,meta,controls);
@@ -393,7 +393,7 @@ function openDialogue(e){
         meta.textContent=`${e.record_id||''} | ${e.selector_hex||''} | branch state ${allBranchStateKnown?'evaluated':'unresolved'}`;
         detail.textContent=JSON.stringify({actor:e,dialogue_candidates:sequences,condition_results:sequenceState},null,2);
       }else{
-        text.textContent='・医％縺ｮactor縺ｫ縺ｯ莨夊ｩｱ繝・・繧ｿ縺後∪縺謗･邯壹＆繧後※縺・∪縺帙ｓ・・;
+        text.textContent='No dialogue data is linked to this actor yet.';
         meta.textContent=`${e.record_id||''} | ${e.selector_hex||''}`;
       }
       prev.disabled=true; next.disabled=true; page.textContent='0/0';
@@ -458,7 +458,7 @@ function renderArrivals(m){
     b.title=`${(a.destination_packs||[]).join(',')} entries ${entries.join(',')} grid(${a.grid_x},${a.grid_y}) x${a.candidate_row_count}`;
     if(labels){
       const lab=document.createElement('span'); lab.className='arrivalLabel';
-      lab.textContent=entries.length<=2?`竊・{entries.join('/')}`:`竊・{entries.length} entries`; b.append(lab);
+      lab.textContent=entries.length<=2?`遶翫・{entries.join('/')}`:`遶翫・{entries.length} entries`; b.append(lab);
     }
     b.onclick=ev=>{ev.stopPropagation(); detail.textContent=JSON.stringify(a,null,2);};
     arrivalLayer.append(b);
@@ -615,7 +615,7 @@ async function selectMap(m,focus=null,pack=undefined){
     const other=forward?e.destination_config_id:e.source_config_id;
     const otherName=byId.has(other)?mapDisplayName(byId.get(other)):other;
     const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
-    div.append(document.createTextNode((forward?'竊・':'竊・')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
+    div.append(document.createTextNode((forward?'遶翫・':'遶翫・')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
     const go=document.createElement('button'); go.className='edgeGo'; go.textContent='open map';
     go.onclick=ev=>{
       ev.stopPropagation();
