@@ -30,7 +30,7 @@ jobs:
         run: python tools/python/build_structural_world_viewer.py
       - name: Validate viewer
         run: |
-          node --check viewer/viewer.js
+          cp viewer/viewer.js /tmp/viewer.mjs`n          node --check /tmp/viewer.mjs
           test -s viewer/index.html
           test -s viewer/data/world.json
       - name: Add deployment metadata
@@ -40,3 +40,4 @@ jobs:
         with:
           name: shinmomo-map-viewer
           path: viewer
+
