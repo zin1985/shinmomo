@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "transition_id": "transition_CC_1160",
+  "trigger_addr": "CC:1160",
+  "source_config_id": "cfg_t01_l001_v1",
+  "source_xy": [238, 173],
+  "destination_pack": "0xCE",
+  "destination_entry_id": "0x02",
+  "arrival_xy": [22, 28],
+  "resolution_class": "phase_dependent_destination_set",
+  "candidate_config_ids": [
+    "cfg_t04_l085_v2",
+    "cfg_t04_l086_v2",
+    "cfg_t05_l087_v2",
+    "cfg_t04_l088_v2",
+    "cfg_t04_l089_v2"
+  ],
+  "shared_native_bounds": {"min_x":16,"max_x":31,"min_y":16,"max_y":28},
+  "confirmed": [
+    "canonical ROM at CC:1160 contains opcode 0x53 destination pack 0xCE entry 0x02",
+    "arrival (22,28) lies inside the committed opcode-0x52 bounds shared by all five candidate configs"
+  ],
+  "strong_hypothesis": "destination-side phase/state control selects among the five configs",
+  "next_evidence_needed": "recover pack 0xCE entry 0x02 phase/state discriminator and determine reachable subset from CC:1160",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "provenance": [
+    "data/events/event_trigger_regions.csv",
+    "data/maps/configurations/map_configuration_index.csv",
+    "data/maps/transitions/map_native_bounds_catalog.csv",
+    "canonical ROM CC:1160 and CD:9140..91DC static inspection"
+  ]
+}

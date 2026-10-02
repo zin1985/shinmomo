@@ -4,8 +4,8 @@
   "gap_count": 11,
   "gap_class_counts": {
     "arrival_xy_only": 10,
-    "destination_config_only": 1
+    "destination_config_phase_dependent": 1
   },
   "fully_crosslinked_region_count": 46,
-  "note": "Gap manifest is provenance bookkeeping only; unresolved rows are not promoted by inference."
+  "note": "Gap manifest is provenance bookkeeping only; CC:1160 has a confirmed phase-dependent five-config candidate set but is not promoted to one canonical destination until its destination-side state discriminator is recovered."
 }
