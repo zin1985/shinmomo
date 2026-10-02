@@ -282,3 +282,10 @@
 - Treat this as a bank89 spatial-boundary candidate, not yet as a terrain/passability table. `$09D9` is type-dependent outside this handler family.
 - Next static target is the concrete reader/caller provenance and its upstream map/config/object/event/transition reads. Runtime promotion remains blocked until the designated Drive ROM can be size/hash verified.
 - Detail: `docs/analysis/collision_passability_cycle_20261002_1917.md`.
+
+
+## 2026-10-02 21:11 native map-boundary layer separation
+
+- Confirmed pack2E evidence closes a native map-edge discriminator: `C1:8943` stages `$030B/$030D`, `81:81DD` tests inclusive `$15CA..$15CD` bounds, and the out-of-bounds branch reaches `81:895A` before saved-state restore.
+- This means the unresolved bank89 `$0959` / `$0959+$09D9+1` consumer must not be used as the canonical map-boundary/passability routine without additional evidence.
+- Terrain/metatile passability, object occupancy collision, event-trigger regions, and native map bounds remain distinct semantic layers until crosslinked.
