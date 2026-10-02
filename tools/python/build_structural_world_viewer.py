@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import csv, json
+import csv, json, subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -16,6 +16,11 @@ LOCATION_CANDIDATES = ROOT / "data/maps/context/map_location_identity_candidates
 ACTOR_SPAWN_CONDITIONS = ROOT / "data/npc_display/static_actor_spawn_conditions_20260930.csv"
 ACTOR_SPAWN_PREDICATE_TERMS = ROOT / "data/npc_display/static_actor_spawn_predicate_terms_20260930.csv"
 SCENE_STATE_REQUIREMENTS = ROOT / "data/npc_display/static_scene_state_requirements_20260930.json"
+PROJECT_PROGRESS = ROOT / "progress/project_progress.json"
+DIALOGUE_CLOSURE = ROOT / "data/npc_display/static_actor_dialogue_closure_20261002.json"
+OPCODE59_BIT0 = ROOT / "docs/analysis/opcode59_0719_bit0_rom_closure_20261002.md"
+OPCODE59_OVERWRITE = ROOT / "docs/analysis/opcode59_0759_low_state_overwrite_20261002.md"
+COLLISION_FRONTIER = ROOT / "docs/analysis/collision_passability_frontier_20261002.md"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -48,6 +53,49 @@ def dialogue_page_candidates(text):
     if pages:
         return pages
     return [x.strip() for x in text.split("\n\n") if x.strip()]
+
+def build_project_progress_snapshot():
+    baseline = {}
+    if PROJECT_PROGRESS.exists():
+        baseline = json.loads(PROJECT_PROGRESS.read_text(encoding="utf-8-sig"))
+    goal_names = {
+        "G1": "Program / ROM rebuild",
+        "G2": "Dialogue salvage",
+        "G3": "Sprite salvage",
+        "G4": "Event analysis",
+        "G5": "Portable rebuild specification",
+    }
+    top_goals = []
+    for goal in baseline.get("top_goals", []):
+        gid = goal.get("id")
+        if gid in goal_names:
+            top_goals.append({"id": gid, "name": goal_names[gid], "percent": goal.get("percent"), "status": goal.get("status")})
+    milestones = []
+    closure_summary = None
+    if DIALOGUE_CLOSURE.exists():
+        closure = json.loads(DIALOGUE_CLOSURE.read_text(encoding="utf-8"))
+        exp = closure.get("mechanical_expansion", {})
+        closure_summary = {"closed_actor_count": exp.get("closed_actor_count", 0), "actor_count": exp.get("actor_count", 0), "closed_actor_ids": exp.get("closed_actor_ids", [])}
+        milestones.append({"area": "Dialogue", "status": "verified", "text": f"family 0x50 strict actor-to-page closure {exp.get('closed_actor_count',0)}/{exp.get('actor_count',0)}"})
+    if OPCODE59_BIT0.exists():
+        milestones.append({"area": "NPC", "status": "verified", "text": "opcode59 field0719 bit0 ROM bridge confirmed"})
+    if OPCODE59_OVERWRITE.exists():
+        milestones.append({"area": "NPC", "status": "verified", "text": "$0759 low-state overwrite boundary documented"})
+    if COLLISION_FRONTIER.exists():
+        milestones.append({"area": "Map", "status": "frontier", "text": "collision/passability moved to L0 movement-decision frontier; ROM-backed tracing still requires canonical ROM visibility"})
+    try:
+        head = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip()
+    except Exception:
+        head = None
+    return {
+        "official_baseline_updated_at": baseline.get("updated_at"),
+        "overall_percent": baseline.get("overall_percent"),
+        "top_goals": top_goals,
+        "percent_status": "official baseline; recent verified evidence is shown separately and is not auto-folded into percentages",
+        "source_head": head,
+        "dialogue_closure": closure_summary,
+        "recent_verified": milestones,
+    }
 
 def main():
     rows = list(csv.DictReader(CATALOG.open(encoding="utf-8-sig")))
@@ -718,6 +766,7 @@ def main():
     world = {
         "schema_version": 7,
         "kind": "shinmomo_structural_world",
+        "project_progress": build_project_progress_snapshot(),
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},
             "public_redrawn": {"visibility": "public", "fallback": False},
@@ -764,6 +813,15 @@ def main():
             "state_unknown_policy": "render conditional actors as candidates; do not assert current visibility",
             "binding_key": "scene_id + record_id + selector_hex",
         },
+    }
+    world["project_progress"]["viewer_metrics"] = {
+        "map_count": len(world["maps"]),
+        "static_actor_count": sum(1 for e in entities if e.get("entity_type") == "static_actor_candidate"),
+        "dialogue_sequence_count": len(dialogue_sequences),
+        "transition_candidate_count": len(transition_candidates),
+        "confirmed_transition_count": sum(x["confidence"] == "confirmed" for x in transition_candidates),
+        "source_hotspot_count": len(source_transition_hotspots),
+        "arrival_group_count": len(transition_arrivals),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(world, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")

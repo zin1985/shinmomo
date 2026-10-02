@@ -38,9 +38,9 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 #unbound{max-height:240px;overflow:auto}.muted{opacity:.72}
 .notice{padding:7px;border:1px solid #b88;margin:8px 0}.analysisPanel{padding:8px;border:1px solid #667;margin:8px 0}.analysisGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:6px}.analysisCard{border:1px solid #666;padding:6px;border-radius:4px}.analysisCard strong{display:block}.analysisCard small{opacity:.72}.confidenceConfirmed{border-color:#7fb}.confidenceCandidate{border-color:#fc7}.confidenceUnresolved{border-color:#d88}pre{white-space:pre-wrap;overflow-wrap:anywhere}
 .statePanel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:7px;margin:6px 0;border:1px solid #668;border-radius:4px}.statePanel>strong{font-size:12px}.statePanel #stateStatus{font:11px monospace;opacity:.8}.statePanel #stateReset{display:inline-block;width:auto;padding:2px 7px}.statePanel #stateControls{display:flex;flex-wrap:wrap;gap:6px;width:100%}.stateField{display:flex;gap:4px;align-items:center;font:11px monospace;border:1px solid #777;padding:2px 4px;border-radius:3px}.stateField select{font:11px monospace}.actor.stateResolved img,.actor.stateResolved canvas{outline:2px solid #7fffb2}.actor.stateResolved .dot{background:#7fffb2}
-#assetStatus{font-size:12px;opacity:.85}h1,h2,h3{margin:.4em 0}
+#assetStatus{font-size:12px;opacity:.85}h1,h2,h3{margin:.4em 0}.projectProgress{padding:9px;border:1px solid #667;border-radius:5px;margin:8px 0}.projectProgressHead{display:flex;gap:8px;align-items:baseline;justify-content:space-between}.goalProgress{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:5px;margin-top:6px}.goalCard{border:1px solid #666;border-radius:4px;padding:5px;font-size:11px}.goalCard progress{width:100%;height:8px}.projectMeta{font:11px monospace;opacity:.78;margin:6px 0}.projectMilestones{margin:.4em 0;padding-left:1.2em}.projectMilestones li{margin:.25em 0}.metricStrip{font-size:11px;opacity:.82;margin-top:5px}
 
-@media (max-width:800px){body{display:block;height:auto;min-height:100vh}aside{border-right:0;border-bottom:1px solid #888;max-height:34vh;padding:10px}main{padding:10px;overflow:visible}.toolbar{gap:7px;font-size:12px}#mapViewport{max-height:55vh;min-height:300px}.dialogueWindow{width:300px;max-width:88vw}#maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.mapButton{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+@media (max-width:800px){.goalProgress{grid-template-columns:repeat(2,minmax(0,1fr))}body{display:block;height:auto;min-height:100vh}aside{border-right:0;border-bottom:1px solid #888;max-height:34vh;padding:10px}main{padding:10px;overflow:visible}.toolbar{gap:7px;font-size:12px}#mapViewport{max-height:55vh;min-height:300px}.dialogueWindow{width:300px;max-width:88vw}#maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.mapButton{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 </style><aside>
   <h1>World</h1>
   <label>Assets <select id="profile"><option value="canonical">map images</option><option value="public_redrawn">public redrawn</option></select></label>
@@ -48,6 +48,12 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 </aside>
 <main>
   <h2 id="title">Select map</h2>
+  <section id="projectProgress" class="projectProgress">
+    <div class="projectProgressHead"><strong>Project progress</strong><span id="overallProgress">loading...</span></div>
+    <div id="goalProgress" class="goalProgress"></div>
+    <div id="projectMetrics" class="metricStrip"></div>
+    <details><summary>Latest verified progress</summary><div id="progressMeta" class="projectMeta"></div><ul id="progressMilestones" class="projectMilestones"></ul></details>
+  </section>
   <div class="toolbar">
     <label><input id="transitionsToggle" type="checkbox" checked>transitions</label>
     <label><input id="actorsToggle" type="checkbox" checked>actor sprites</label>

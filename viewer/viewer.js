@@ -44,6 +44,28 @@ const hotspotSummary=world.source_transition_hotspot_summary||{};
 const audit=world.actor_seed_position_audit||{};
 const sceneRequirementById=new Map(((world.scene_state_requirements||{}).scenes||[]).map(s=>[s.scene_id,s]));
 const sceneStateValues=new Map();
+function renderProjectProgress(){
+  const p=world.project_progress||null;
+  const panel=q('#projectProgress');
+  if(!p){if(panel)panel.hidden=true;return;}
+  q('#overallProgress').textContent=p.overall_percent!=null?`${p.overall_percent}% official baseline`:'baseline unavailable';
+  const goals=q('#goalProgress'); goals.replaceChildren();
+  for(const g of p.top_goals||[]){
+    const card=document.createElement('div');card.className='goalCard';
+    const title=document.createElement('strong');title.textContent=`${g.id} ${g.name}: ${g.percent??'?'}%`;
+    const bar=document.createElement('progress');bar.max=100;bar.value=Number(g.percent||0);
+    card.append(title,bar);goals.append(card);
+  }
+  const m=p.viewer_metrics||{};
+  q('#projectMetrics').textContent=`integrated: ${m.map_count??'?'} maps / ${m.static_actor_count??'?'} actors / ${m.dialogue_sequence_count??'?'} dialogue branches / ${m.confirmed_transition_count??'?'} confirmed transitions`;
+  const head=p.source_head?String(p.source_head).slice(0,7):'?';
+  q('#progressMeta').textContent=`baseline ${p.official_baseline_updated_at||'?'} | main ${head} | ${p.percent_status||''}`;
+  const ul=q('#progressMilestones');ul.replaceChildren();
+  for(const x of p.recent_verified||[]){const li=document.createElement('li');li.textContent=`${x.area}: ${x.text}`;ul.append(li);}
+}
+
+renderProjectProgress();
+
 q('#summary').textContent=
   String(world.maps.length)+' maps / '+String(transitionSummary.candidate_count||0)+' transition candidates ('+
   String(transitionSummary.confirmed_count||0)+' confirmed / '+String(transitionSummary.strong_candidate_count||0)+' strong) / '+
