@@ -2,7 +2,7 @@
 
 A thin control layer for running repeatable Shin Momotarou Densetsu experiments from Chat through Remote Desktop Commander or Mole Remote.
 
-It exposes eight operator commands:
+It exposes nine operator commands:
 
 1. **screen** - capture the current Windows virtual desktop to PNG.
 2. **click** - click a Windows desktop coordinate.
@@ -10,8 +10,9 @@ It exposes eight operator commands:
 4. **gamepad** - inject SNES controller input through BizHawk for an exact number of frames.
 5. **capture-memory** - capture a bounded BizHawk memory-domain range to local JSON.
 6. **map-capture** - capture map-render artifacts plus a small derived map-state manifest.
-7. **save-state** - save a BizHawk savestate into the local-only lab state directory.
-8. **load-state** - restore a named BizHawk savestate from the local-only lab state directory.
+7. **write-memory** - write a bounded WRAM/memory-domain byte range with before/after verification.
+8. **save-state** - save a BizHawk savestate into the local-only lab state directory.
+9. **load-state** - restore a named BizHawk savestate from the local-only lab state directory.
 
 The ROM, savestates, screenshots, and raw memory captures are runtime-only. Do not commit them.
 
@@ -53,10 +54,13 @@ Default runtime directory: %LOCALAPPDATA%\shinmomo-lab
     # selectors/pack state alongside local-only VRAM/CGRAM/OAM/screenshot files.
     .\tools\remote_lab\shinmomo_lab.ps1 map-capture -SceneTag "visited_location"
 
-    # 7. Save a local-only BizHawk state without depending on GUI hotkeys.
+    # 7. Write a bounded memory range. Values are comma-separated bytes.
+    .\tools\remote_lab\shinmomo_lab.ps1 write-memory -Domain "WRAM" -Start "0x1623" -Data "0x3C"
+
+    # 8. Save a local-only BizHawk state without depending on GUI hotkeys.
     .\tools\remote_lab\shinmomo_lab.ps1 save-state -StateName "mole_remote"
 
-    # 8. Restore the same local-only BizHawk state.
+    # 9. Restore the same local-only BizHawk state.
     .\tools\remote_lab\shinmomo_lab.ps1 load-state -StateName "mole_remote"
 
 The map manifest includes current pack $0305, VM/resolved pack context $126E/$12B4,
@@ -87,3 +91,12 @@ When exact input-to-memory timing matters, use `gamepad -AtomicCapture`. The Lua
 - Memory addresses passed to capture-memory are relative to the selected BizHawk memory domain. For SNES work use WRAM when possible; use the existing System Bus probes when banked CPU addresses are required.
 - One command at a time is intentional. This keeps experiments deterministic and prevents mailbox races.
 - Capture length is capped at 4096 bytes per call. Large raw dumps are deliberately not the default workflow.
+## Analysis cheat savestate
+
+For reverse-engineering sessions that do not need to preserve normal progression, create a local-only analysis savestate from an existing base state:
+
+    .\tools\remote_lab\create_analysis_save.ps1 -BaseState mole_remote -OutputState analysis_lv60_hien -Level 60
+
+The first profile intentionally prioritizes fast navigation: Momotaro level is set through WRAM $1623, all Hien destinations are enabled through $1931..$1934, and Hien (spell id $33) is inserted into the first empty Momotaro spell slot at $44DA..$44E5. The script verifies every write before saving. Raw savestates remain under the local lab directory and are never committed.
+
+This is an analysis profile, not a claim about canonical story progression. Additional party/items/castle unlocks should be added only after their WRAM/SRAM fields are independently verified.

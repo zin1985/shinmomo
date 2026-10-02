@@ -156,6 +156,22 @@ local function read8(addr, domain)
   return nil
 end
 
+local function write8(addr, value, domain)
+  value = tonumber(value)
+  if value == nil or value < 0 or value > 255 then return false, "byte out of range" end
+  if memory and memory.write_u8 then
+    local ok, err = pcall(memory.write_u8, addr, value, domain)
+    if ok then return true end
+    return false, tostring(err)
+  end
+  if memory and memory.writebyte then
+    local ok, err = pcall(memory.writebyte, addr, value, domain)
+    if ok then return true end
+    return false, tostring(err)
+  end
+  return false, "memory write API unavailable"
+end
+
 local function framecount()
   return (emu and emu.framecount and emu.framecount()) or -1
 end
@@ -678,6 +694,41 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
   respond(id, "OK", path)
 end
 
+local function do_write_memory(id, domain, start_s, bytes_s)
+  local start = parse_num(start_s)
+  if not start or start < 0 then
+    respond(id, "ERR", "invalid start address")
+    return
+  end
+  local bytes = {}
+  for token in tostring(bytes_s or ""):gmatch("[^, ]+") do
+    local v = parse_num(token)
+    if v == nil and token:match("^[0-9a-fA-F]+$") then v = tonumber(token, 16) end
+    if v == nil or v < 0 or v > 255 then
+      respond(id, "ERR", "invalid byte: " .. tostring(token))
+      return
+    end
+    bytes[#bytes + 1] = v
+  end
+  if #bytes < 1 or #bytes > 256 then
+    respond(id, "ERR", "write length must be 1..256 bytes")
+    return
+  end
+  local before = read_range(start, #bytes, domain)
+  for i,v in ipairs(bytes) do
+    local ok, err = write8(start + i - 1, v, domain)
+    if not ok then
+      respond(id, "ERR", "write failed at +" .. tostring(i-1) .. ": " .. tostring(err))
+      return
+    end
+  end
+  local after = read_range(start, #bytes, domain)
+  respond(id, "OK", table.concat({
+    "domain=", tostring(domain), " start=", string.format("0x%X", start),
+    " count=", tostring(#bytes), " before=", bytes_json(before), " after=", bytes_json(after)
+  }))
+end
+
 local function do_save_state(id, name)
   local base = clean_id(name or "mole_remote")
   if base == "" then base = "mole_remote" end
@@ -798,6 +849,11 @@ local function process_command()
 
   if cmd == "CAPTURE_MEMORY" then
     do_capture(id, p[3] or "WRAM", p[4] or "0", p[5] or "256")
+    return
+  end
+
+  if cmd == "WRITE_MEMORY" then
+    do_write_memory(id, p[3] or "WRAM", p[4] or "0", p[5] or "")
     return
   end
 

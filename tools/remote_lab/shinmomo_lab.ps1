@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory","save-state","load-state")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory","write-memory","save-state","load-state")]
   [string]$Command,
 
   [int]$X = 0,
@@ -20,6 +20,7 @@ param(
   [string]$Domain = "WRAM",
   [string]$Start = "0x0000",
   [int]$Length = 256,
+  [string]$Data = "",
 
   [string]$SceneTag = "scene",
   [string]$StateName = "mole_remote",
@@ -199,6 +200,14 @@ public static class ShinMomoMouse {
     if ($Length -lt 1 -or $Length -gt 4096) { throw "-Length must be 1..4096." }
     $payload = Invoke-Bridge @("CAPTURE_MEMORY", $Domain, $Start, "$Length")
     Emit-Result @{ ok=$true; command="capture-memory"; domain=$Domain; start=$Start; length=$Length; path=$payload }
+  }
+
+  "write-memory" {
+    if ([string]::IsNullOrWhiteSpace($Data)) { throw "-Data is required for write-memory. Use comma-separated bytes such as 0x3C,0xFF." }
+    $tokens = @($Data -split '[, ]+' | Where-Object { $_ -ne '' })
+    if ($tokens.Count -lt 1 -or $tokens.Count -gt 256) { throw "write-memory supports 1..256 bytes." }
+    $payload = Invoke-Bridge @("WRITE_MEMORY", $Domain, $Start, ($tokens -join ','))
+    Emit-Result @{ ok=$true; command="write-memory"; domain=$Domain; start=$Start; count=$tokens.Count; bridge=$payload }
   }
 
   "save-state" {
