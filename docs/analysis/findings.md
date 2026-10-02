@@ -317,3 +317,9 @@
 - Confirmed latest committed transition catalog: 1,295 candidates, 1,063 destination-config resolutions, 793 arrival-coordinate resolutions, 211 destination packs. This supersedes the older 1,238/1,048/720/211 baseline and must not be rolled back.
 - Current event-trigger crosslink backlog is 11 rows: 10 arrival-XY-only and one CC:1160 phase-dependent destination selection.
 - Drive指定ROMへアクセスできなかったため、このサイクルでは別ROMを代用せず、commit済み証拠だけでreconciliationした。
+
+## 2026-10-03 06:10 JST CC:0F71 arrival closure
+- Confirmed `CC:0F71` targets pack 0xBC entry 0x02 / `cfg_t32_l144_v1`.
+- Independent CFG-reachable opcode-0x57 route `CD:B6A1` uses `context_0306=0xBC`, `destination_entrance=0x02` and retains route-table final coordinates `(215,40)`.
+- This closes one arrival-XY-only trigger gap without guessing from neighboring maps; backlog is 10 rows (9 arrival-only + CC:1160 phase-dependent).
+- Drive指定ROMへアクセスできなかった; no alternate ROM was used.

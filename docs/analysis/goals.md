@@ -117,3 +117,8 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 5. Recover bank89 object-geometry reader provenance without conflating it with terrain collision.
 6. Classify native $0305 writers.
 7. Feed proven structures into rebuild specification.
+
+## 2026-10-03 06:10 JST rolling priority update
+1. `CC:0F71` arrival provenance closed at `(215,40)` via independent opcode-0x57 route evidence for pack 0xBC entry 0x02.
+2. G4 advances 48%→49%; overall 51.0%→51.2%. Trigger crosslink backlog is 10 rows.
+3. Next static target: `CC:0BD7`; ROM-enabled target remains CC:1160 phase/state discriminator.
