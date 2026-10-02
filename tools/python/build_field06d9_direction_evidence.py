@@ -49,24 +49,50 @@ for selector, group, frame, record_ids in runtime_cases:
         "record_ids": record_ids,
     })
 
+direct_mapping = {
+    "1": {"delta": [1, 0], "direction": "right"},
+    "2": {"delta": [0, 1], "direction": "down/front"},
+    "3": {"delta": [-1, 0], "direction": "left"},
+    "4": {"delta": [0, -1], "direction": "up/back"},
+}
+
 summary = {
-    "schema_version": 1,
+    "schema_version": 2,
     "field": "$06D9,X",
     "opcode59_actor_rows": len(actors),
     "value_counts": dict(sorted(counts.items())),
     "candidate_direction_mapping": motion,
     "runtime_front_corroboration": runtime_rows,
+    "direct_controller_reader": {
+        "scope": "opcode59-created C1 actor/controller overlay",
+        "addresses": [
+            "C1:B01A",
+            "C1:B021",
+            "C1:B028",
+            "C1:B25A",
+            "C1:B26C",
+        ],
+        "direction_delta_table": direct_mapping,
+        "coordinate_helpers": ["80:BBEC", "80:BC21"],
+        "interpretation": (
+            "field06D9 is doubled and used to select cardinal delta pairs; the deltas feed "
+            "coordinate update helpers and an independent forward-position projection path"
+        ),
+        "status": "confirmed_handler_local_direction_selector",
+    },
     "shared_soa_counterexample": {
-        "scope": "non-opcode59 C0 handler",
+        "scope": "non_opcode59_C0_handler",
         "addresses": ["C0:BAEA", "C0:BB33", "C0:BB4D"],
         "interpretation": "script/table cursor or index",
         "significance": "$06D9 column semantics are handler-local, not globally direction",
     },
-    "conclusion_status": "strong_candidate_not_confirmed",
+    "conclusion_status": "confirmed_handler_local_direction_seed",
     "conclusion": (
-        "For the opcode59 actor path, field06D9 strongly matches an initial-facing/direction "
-        "seed and value 2 is runtime-corroborated as front in three selector families. "
-        "Direct opcode59-handler reader linkage remains missing."
+        "For the opcode59 actor/controller path, field06D9 is a confirmed handler-local "
+        "cardinal direction seed/selector: 1=right, 2=down/front, 3=left, 4=up/back. "
+        "Direct C1 readers use it for movement-coordinate updates and forward-position "
+        "projection. The shared WRAM column must not be globally renamed, and the field "
+        "should not be narrowed to sprite-facing-only."
     ),
 }
 (NPC / "field06d9_direction_evidence_summary_20260930.json").write_text(
