@@ -84,8 +84,8 @@ for actor in actors:
         evidence.append(f"{len(decoded)} decoded dialogue source(s)")
     if facing:
         evidence.append(
-            f"field06D9={facing_seed} matches confirmed motion-pattern value {facing}; "
-            "reader linkage not yet proven"
+            f"field06D9={facing_seed} is confirmed handler-local cardinal direction {facing}; "
+            "direct C1:B01A/B25A/B26C reader linkage proven"
         )
 
     body_bytes = [x for x in (actor.get("body_hex") or "").split() if x]
@@ -103,6 +103,16 @@ for actor in actors:
         record_body_shape = "other_or_unresolved"
 
     flag_seed = actor.get("field_0719_seed") or ""
+    flag_value = int(flag_seed) if flag_seed != "" else 0
+    flag_semantics = []
+    if flag_value & 0x80:
+        flag_semantics.append("bit7=obj_palette_cache_half_selector")
+    if flag_value & 0x40:
+        flag_semantics.append("bit6=double_animation_script_update_branch")
+    if flag_value & 0x10:
+        flag_semantics.append("bit4=suppress_autonomous_random_direction_selection")
+    if flag_value & 0x03:
+        flag_semantics.append(f"low2=controller_low_state_seed({flag_value & 0x03})")
     out.append({
         "config_id": actor["config_id"],
         "pack_id_hex": actor["pack_id_hex"],
@@ -119,6 +129,12 @@ for actor in actors:
             "0x7A->body16;0x7C->next_record_plus_1_16;0x00->terminator"
             if frame.get("trailer_grammar") else ""
         ),
+        "controller_dispatch_semantics": (
+            "0x7A=map_entry_record_body_dispatch;"
+            "0x7C=front_interaction_dispatch;"
+            "0x00=keyed_dispatch_terminator"
+            if frame.get("trailer_grammar") else ""
+        ),
         "actor_command_position": actor.get("binding_evidence", ""),
         "record_body_shape": record_body_shape,
         "record_body_size": len(body_bytes),
@@ -132,12 +148,13 @@ for actor in actors:
         "field_06D9_seed": facing_seed,
         "initial_facing_candidate": facing,
         "initial_facing_status": (
-            "candidate_value_domain_matches_confirmed_motion_pattern" if facing else "unresolved"
+            "confirmed_handler_local_direction_seed" if facing else "unresolved"
         ),
         "field_0719_seed_dec": flag_seed,
         "field_0719_seed_hex": (
             f"0x{int(flag_seed):02X}" if flag_seed != "" else ""
         ),
+        "field_0719_seed_semantics": ";".join(flag_semantics),
         "validated_event_source_count": len(valid),
         "decoded_dialogue_source_count": len(decoded),
         "behavior_class": behavior_class,
@@ -180,7 +197,7 @@ for r in out:
         record_class[key] = r["behavior_class"]
 
 summary = {
-    "schema_version": 1,
+    "schema_version": 2,
     "actor_rows": len(out),
     "unique_actor_records": len(record_class),
     "controller_pointer_matches_event_trailer": pointer_matches,
@@ -210,15 +227,25 @@ summary = {
         "direction": "down/front",
         "selector_families": ["0x24", "0x59", "0x40"],
         "runtime_frames": [240, 35, 11],
-        "status": "confirmed_runtime_visual_support_but_direct_reader_unresolved",
+        "status": "confirmed_runtime_visual_support_and_direct_controller_reader",
     },
     "initial_facing_scope": (
-        "strong candidate only: field06D9 exactly uses motion-pattern values 1..4; "
-        "pack 0x50 independently corroborates value 2 as front in three selector families; "
-        "a non-opcode59 C0 handler uses the same shared SoA column as a script cursor, "
-        "so direct opcode59-handler reader linkage is still required"
+        "confirmed handler-local cardinal direction seed for the opcode59 actor/controller "
+        "overlay: 1=right, 2=down/front, 3=left, 4=up/back. Direct C1:B01A/B25A/B26C "
+        "readers use the field for coordinate deltas/projection. The shared WRAM column "
+        "must not be globally renamed."
     ),
-    "field0719_scope": "raw controller seed/flags only; semantics unresolved",
+    "field0719_scope": (
+        "confirmed handler-local structural seed bits: bit7=obj_palette_cache_half_selector; "
+        "bit6=double_animation_script_update_branch; "
+        "bit4=suppress_autonomous_random_direction_selection; "
+        "low2=controller_low_state_seed. Higher-level gameplay labels remain conservative."
+    ),
+    "controller_dispatch_semantics": {
+        "0x7A": "map_entry_record_body_dispatch",
+        "0x7C": "front_interaction_dispatch",
+        "0x00": "keyed_dispatch_terminator"
+    },
 }
 (NPC / "static_actor_behavior_summary_20260930.json").write_text(
     json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
@@ -236,6 +263,7 @@ for r in out:
             "controller_pointer": r["controller_pointer"],
             "controller_pointer_status": r["controller_pointer_status"],
             "controller_dispatch_grammar": r["controller_dispatch_grammar"],
+            "controller_dispatch_semantics": r["controller_dispatch_semantics"],
             "record_body_shape": r["record_body_shape"],
             "record_body_size": int(r["record_body_size"]),
             "body_prefix_size": int(r["body_prefix_size"]),
@@ -247,6 +275,7 @@ for r in out:
             "initial_facing_candidate": r["initial_facing_candidate"] or None,
             "initial_facing_status": r["initial_facing_status"],
             "field_0719_seed_hex": r["field_0719_seed_hex"] or None,
+            "field_0719_seed_semantics": r["field_0719_seed_semantics"] or None,
             "validated_event_source_count": int(r["validated_event_source_count"]),
             "decoded_dialogue_source_count": int(r["decoded_dialogue_source_count"]),
             "evidence": r["evidence"],
@@ -257,7 +286,7 @@ for r in out:
 (VIEWER / "actor_behavior.json").write_text(
     json.dumps(
         {
-            "schema_version": 1,
+            "schema_version": 2,
             "purpose": "controller/event behavior evidence overlay for static actors",
             "actor_behavior": viewer_rows,
         },

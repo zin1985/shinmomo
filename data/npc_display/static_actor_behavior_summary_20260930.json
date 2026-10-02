@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 2,
   "actor_rows": 817,
   "unique_actor_records": 752,
   "controller_pointer_matches_event_trailer": 817,
@@ -45,10 +45,6 @@
   },
   "source_bound_actor_rows": 713,
   "decoded_dialogue_actor_rows": 11,
-  "initial_facing_scope": "strong candidate only: field06D9 exactly uses motion-pattern values 1..4; pack 0x50 independently corroborates value 2 as front in three selector families; a non-opcode59 C0 handler uses the same shared SoA column as a script cursor, so direct opcode59-handler reader linkage is still required before promotion to confirmed initial facing.",
-  "field0719_scope": "raw controller seed/flags only; semantics unresolved",
-  "record_body_scope": "structural only: prefix/suffix placement relative to opcode59; prefix opcode semantics remain separately classified",
-  "spawn_condition_note": "F50-L010 is statically reduced to three bitset terms; bitset semantic names remain unresolved.",
   "field06d9_evidence_catalog": "data/npc_display/field06d9_direction_evidence_20260930.csv",
   "field06d9_evidence_summary": "data/npc_display/field06d9_direction_evidence_summary_20260930.json",
   "initial_facing_runtime_corroboration": {
@@ -64,6 +60,13 @@
       35,
       11
     ],
-    "status": "confirmed_runtime_visual_support_but_direct_reader_unresolved"
+    "status": "confirmed_runtime_visual_support_and_direct_controller_reader"
+  },
+  "initial_facing_scope": "confirmed handler-local cardinal direction seed for the opcode59 actor/controller overlay: 1=right, 2=down/front, 3=left, 4=up/back. Direct C1:B01A/B25A/B26C readers use the field for coordinate deltas/projection. The shared WRAM column must not be globally renamed.",
+  "field0719_scope": "confirmed handler-local structural seed bits: bit7=obj_palette_cache_half_selector; bit6=double_animation_script_update_branch; bit4=suppress_autonomous_random_direction_selection; low2=controller_low_state_seed. Higher-level gameplay labels remain conservative.",
+  "controller_dispatch_semantics": {
+    "0x7A": "map_entry_record_body_dispatch",
+    "0x7C": "front_interaction_dispatch",
+    "0x00": "keyed_dispatch_terminator"
   }
 }
