@@ -21,6 +21,7 @@ DIALOGUE_CLOSURE = ROOT / "data/npc_display/static_actor_dialogue_closure_202610
 OPCODE59_BIT0 = ROOT / "docs/analysis/opcode59_0719_bit0_rom_closure_20261002.md"
 OPCODE59_OVERWRITE = ROOT / "docs/analysis/opcode59_0759_low_state_overwrite_20261002.md"
 COLLISION_FRONTIER = ROOT / "docs/analysis/collision_passability_frontier_20261002.md"
+ACTOR_SEMANTICS_JSON = ROOT / "viewer/data/actor_semantics.json"
 
 def split_ids(value):
     return [x for x in (value or "").split(";") if x]
@@ -77,6 +78,13 @@ def build_project_progress_snapshot():
         exp = closure.get("mechanical_expansion", {})
         closure_summary = {"closed_actor_count": exp.get("closed_actor_count", 0), "actor_count": exp.get("actor_count", 0), "closed_actor_ids": exp.get("closed_actor_ids", [])}
         milestones.append({"area": "Dialogue", "status": "verified", "text": f"family 0x50 strict actor-to-page closure {exp.get('closed_actor_count',0)}/{exp.get('actor_count',0)}"})
+    if ACTOR_SEMANTICS_JSON.exists():
+        sem_doc = json.loads(ACTOR_SEMANTICS_JSON.read_text(encoding="utf-8"))
+        overrides = sem_doc.get("actor_overrides", [])
+        selector_all = {x.get("selector_hex") for x in overrides if x.get("selector_hex")}
+        selector_visual = {x.get("selector_hex") for x in overrides if x.get("selector_hex") and (x.get("sprite_semantics") or {}).get("appearance_class")}
+        appearance_rows = sum(bool((x.get("sprite_semantics") or {}).get("appearance_class")) for x in overrides)
+        milestones.append({"area": "Sprite", "status": "verified", "text": f"actor-used selector visual-form coverage {len(selector_visual)}/{len(selector_all)}; actor appearance overrides {appearance_rows}/{len(overrides)}"})
     if OPCODE59_BIT0.exists():
         milestones.append({"area": "NPC", "status": "verified", "text": "opcode59 field0719 bit0 ROM bridge confirmed"})
     if OPCODE59_OVERWRITE.exists():
