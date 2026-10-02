@@ -301,3 +301,8 @@
 - Predicate layers remain explicit: 55 VM coordinate predicates and 2 native-boundary predicates.
 - Destination canonical config is resolved for 52/57; arrival XY for 47/57.
 - This closes the region-shape representation task. Next frontier is the remaining destination/event provenance gaps, not another hotspot re-extraction.
+
+## 2026-10-03 event-trigger crosslink gap audit
+- 57 normalized trigger regions split into 42 complete rows and 15 provenance gaps.
+- The gaps are disjoint: 5 destination-config-only and 10 arrival-XY-only; none miss both.
+- Missing values remain unresolved rather than inferred. See `event_trigger_crosslink_gaps_20261003.md`.

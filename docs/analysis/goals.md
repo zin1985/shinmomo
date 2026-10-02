@@ -100,3 +100,7 @@ Pack2E now has a closed bidirectional provenance witness between VM exact-point 
 
 ## 2026-10-02 23:14 G4 trigger-region promotion
 The hotspot corpus is now externalized as 57 machine-readable trigger regions (37 points, 19 rectangles, 1 corridor), with VM/native-boundary layers kept distinct. G4 advances to 47%; next work resolves the remaining destination/event provenance gaps and expands transition -> event/trigger joins.
+
+## 2026-10-03 rolling focus
+- Transition→event/trigger crosslink expansion now has a finite 15-row gap manifest.
+- Resolve 5 destination-config-only rows first, then 10 arrival-XY-only rows.
