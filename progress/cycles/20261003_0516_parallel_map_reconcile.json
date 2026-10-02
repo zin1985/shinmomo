@@ -1,0 +1,47 @@
+{
+  "cycle": "2026-10-03T05:16:00+09:00",
+  "theme": "parallel map baseline reconciliation",
+  "base_head": "b07485f642369631c6c39c9ad55da42409ba92b8",
+  "confirmed": {
+    "transition_candidates": 1295,
+    "destination_config_resolved": 1063,
+    "arrival_coordinate_resolved": 793,
+    "unique_destination_packs": 211,
+    "crosslink_backlog": {
+      "arrival_xy_only": 10,
+      "phase_dependent_destination": 1
+    }
+  },
+  "supersedes_baseline": {
+    "transition_candidates": 1238,
+    "destination_config_resolved": 1048,
+    "arrival_coordinate_resolved": 720,
+    "unique_destination_packs": 211
+  },
+  "affected_tracks": {
+    "rom-map": {
+      "before": 74,
+      "after": 75
+    },
+    "script-vm": {
+      "before": 76,
+      "after": 76
+    }
+  },
+  "top_goal": {
+    "G4": {
+      "before": 47,
+      "after": 48
+    }
+  },
+  "overall_percent_before": 50.8,
+  "overall_percent_after": 51.0,
+  "canonical_rom": {
+    "used": false,
+    "expected_size": 2097152,
+    "expected_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+    "access_note": "Drive指定ROMへアクセスできなかった; exact filename search returned no accessible result"
+  },
+  "raw_rom_committed": false,
+  "next": "Resolve arrival XY for transition_CC_0B7F from committed provenance; if canonical ROM becomes accessible, resume CC:1160 phase predicate recovery."
+}

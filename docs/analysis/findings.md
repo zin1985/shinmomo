@@ -312,3 +312,8 @@
 - Four trigger gaps close without heuristic neighbor inference: CC:0BCA?cfg_t04_l035_v2, CC:0C17?cfg_t06_l038_v2, CC:0E0D?cfg_t04_l058_v2, CC:1CC0?cfg_t07_l011_v2.
 - CC:1CC0 is decisive because arrival Y=10 excludes the other pack-0x2C config (`cfg_t07_l033_v2`, max Y=8).
 - Region completeness is now 46/57; remaining gaps are CC:1160 destination config plus ten arrival-XY-only rows.
+
+## 2026-10-03 05:16 JST rolling map reconciliation
+- Confirmed latest committed transition catalog: 1,295 candidates, 1,063 destination-config resolutions, 793 arrival-coordinate resolutions, 211 destination packs. This supersedes the older 1,238/1,048/720/211 baseline and must not be rolled back.
+- Current event-trigger crosslink backlog is 11 rows: 10 arrival-XY-only and one CC:1160 phase-dependent destination selection.
+- Drive指定ROMへアクセスできなかったため、このサイクルでは別ROMを代用せず、commit済み証拠だけでreconciliationした。
