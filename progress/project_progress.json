@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-27T12:17:00+09:00",
+  "updated_at": "2026-10-02T19:17:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -36,11 +36,11 @@
     {
       "id": "wram",
       "name": "WRAM構造体",
-      "percent": 67,
+      "percent": 68,
       "weight": 1.2,
       "status": "active",
-      "scope": "WRAM object pool $0619..$0A18 の64-slot×16-column SoA構造、既存7E:201E..2030/3004..303C群の意味付け",
-      "evidence": "2026-09-25: $0619..$09D9 が0x40 strideの16列で$0A18までちょうど0x400 bytesを構成する64-slot SoA object poolと整理。bank89で$0859/$0899/$08D9が24-bit script pointer、$07D9/$0819がmovement work、$0919/$0959がposition-like pair、$0999/$09D9がtype-dependent auxiliary workである証拠を追加。"
+      "scope": "WRAM object pool .. の64-slot×16-column SoA構造、bank89 movement/position overlay、collision/edge candidate provenance",
+      "evidence": "2026-09-25: $0619..$09D9 が0x40 strideの16列で$0A18までちょうど0x400 bytesを構成する64-slot SoA object poolと整理。bank89で$0859/$0899/$08D9が24-bit script pointer、$07D9/$0819がmovement work、$0919/$0959がposition-like pair、$0999/$09D9がtype-dependent auxiliary workである証拠を追加。 2026-10-02 static reconciliation: existing canonical wram_object_pool evidence already states bank89 commits / into / and later collision/edge logic reads  directly plus probes ++1; this narrows the collision frontier to a bank89 position/extent edge candidate without yet claiming terrain/passability semantics."
     },
     {
       "id": "81-8d87",
@@ -137,13 +137,13 @@
     {
       "priority": 1,
       "goal_ids": [
-        "G2",
+        "G1",
         "G4",
         "G5"
       ],
-      "track_id": "dialogue",
-      "title": "1,078 unmapped validated script callsitesのprovenance分類",
-      "target": "Partition the 1,078 source-reader-validated A4 callsites outside the current B0/trailer framing. Join complementary record grammars and controller/keyed-dispatch provenance, then feed evidence-backed context into the 2,230 effective unresolved source pairs.",
+      "track_id": "wram",
+      "title": "bank89 collision/edge reader provenance確定",
+      "target": "Trace the already-documented  and ++1 collision/edge reads back to concrete bank89 routine/callers, then separate terrain/passability from object/event/transition gates. Runtime promotion requires the canonical Drive ROM.",
       "status": "next"
     },
     {
@@ -153,20 +153,20 @@
         "G4",
         "G5"
       ],
-      "track_id": "condition-dispatch",
-      "title": "41A10 segmented selector matcher特定",
-      "target": "records0..97 + control/header + blockBというsegmented modelを前提に、section base/descriptorを受けるgeneric matcherを静的・runtime read breakpointで特定する。",
-      "status": "queued"
+      "track_id": "wram",
+      "title": "movement accept/reject control-pair runtime検証",
+      "target": "With canonical ROM hash verified, compare same-savestate walkable/blocked one-input trials around /// and the bank89 collision/edge candidate.",
+      "status": "blocked-rom"
     },
     {
       "priority": 3,
       "goal_ids": [
-        "G3",
+        "G4",
         "G5"
       ],
-      "track_id": "character-display",
-      "title": "sprite canonical inventory/exporter",
-      "target": "B294 group + B2C1 group/state + frame duration + OAM piece + CHR/paletteを1つのschemaへjoinし、entity/group/state単位のcanonical asset inventoryを生成する。",
+      "track_id": "script-vm",
+      "title": "event-trigger region構造確定",
+      "target": "Crosslink collision/position candidate coordinates with event/trigger records and transition triggers.",
       "status": "queued"
     },
     {
@@ -176,53 +176,56 @@
         "G5"
       ],
       "track_id": "script-vm",
-      "title": "全event catalog骨格生成",
-      "target": "816件のB0-start structural frameと713件のsource-linked frameをbaselineに、既知VM/condition/selector/candidate成果をjoinし、条件・target・dialogue・actor action・state mutation列を持つsemantic event catalogへ昇格する。",
-      "status": "active"
+      "title": "transition→event/trigger crosslink拡張",
+      "target": "Extend current transition baseline to source map/config, trigger/event provenance and arrival semantics without redoing completed extraction.",
+      "status": "queued"
     },
     {
       "priority": 5,
       "goal_ids": [
-        "G1",
+        "G3",
+        "G4",
         "G5"
       ],
-      "track_id": "externalization",
-      "title": "ROM rebuild gap manifest",
-      "target": "ROM全域を code/data/asset/unknown に分け、rebuildに必要な未外部化rangeと未実装routineをmachine-readable manifest化。C scaffoldをSNES ROM buildへ近づける優先順を確定する。",
+      "track_id": "npc-oam",
+      "title": "visible-object座標→map-world座標変換",
+      "target": "Resolve runtime visible-object coordinates against canonical map/world coordinates and feed NPC/sprite/event/dialogue integration.",
       "status": "queued"
     },
     {
       "priority": 6,
       "goal_ids": [
-        "G1",
+        "G2",
+        "G3",
+        "G4",
         "G5"
       ],
-      "track_id": "whole-game",
-      "title": "Save/SRAM仕様の初期確定",
-      "target": "object内save/restoreとゲームsave/SRAMを混同せず、SRAM layout・checksum・party/world/event persistenceのentrypointとformatを特定する。",
+      "track_id": "dialogue",
+      "title": "NPC/sprite/event/dialogue統合",
+      "target": "Join actor selector, event provenance, phase-aware dialogue and map-world position into one evidence-backed actor/event model.",
       "status": "queued"
     },
     {
       "priority": 7,
       "goal_ids": [
         "G1",
+        "G4",
         "G5"
       ],
-      "track_id": "whole-game",
-      "title": "Audio/APU/SPC subsystem初期map",
-      "target": "現repoに専用成果がないため、CPU↔APU ports、SPC upload/driver/data regions、music/SFX command pathのbaseline mapを作成する。",
+      "track_id": "wram",
+      "title": "native  writer分類",
+      "target": "Classify native writers and separate controller/event/map semantics.",
       "status": "queued"
     },
     {
       "priority": 8,
       "goal_ids": [
         "G1",
-        "G4",
         "G5"
       ],
-      "track_id": "weapon-special",
-      "title": "Battle coreへ横展開",
-      "target": "武器特殊mini-VMを足場にdamage/status/target/enemy AI/turn resolutionの上位battle flowへ接続し、武器特殊だけで止まらないbattle specificationへ展開する。",
+      "track_id": "externalization",
+      "title": "rebuild仕様への統合",
+      "target": "Promote confirmed map/collision/event/object semantics into portable schemas and rebuild-gap manifest.",
       "status": "queued"
     }
   ],

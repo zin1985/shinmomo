@@ -276,3 +276,9 @@
 - `rank ↔ true slot index` calibration
 - invisible contributor validation
 
+
+## 2026-10-02 19:17 collision/passability reconciliation
+- Confirmed repository evidence already narrows bank89 collision/edge handling: `$0919/$0959` receive `$030B/$030D`, while later logic reads `$0959` and probes `$0959+$09D9+1`.
+- Treat this as a bank89 spatial-boundary candidate, not yet as a terrain/passability table. `$09D9` is type-dependent outside this handler family.
+- Next static target is the concrete reader/caller provenance and its upstream map/config/object/event/transition reads. Runtime promotion remains blocked until the designated Drive ROM can be size/hash verified.
+- Detail: `docs/analysis/collision_passability_cycle_20261002_1917.md`.
