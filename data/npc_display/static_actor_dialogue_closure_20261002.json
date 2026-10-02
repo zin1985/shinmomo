@@ -94,13 +94,18 @@
   "mechanical_expansion": {
     "pack_id_hex": "0x50",
     "actor_count": 10,
-    "closed_actor_count": 5,
+    "closed_actor_count": 10,
     "closed_actor_ids": [
       "F50-L001",
       "F50-L002",
+      "F50-L003",
       "F50-L004",
+      "F50-L005",
       "F50-L006",
-      "F50-L008"
+      "F50-L007",
+      "F50-L008",
+      "F50-L009",
+      "F50-L010"
     ],
     "actors": [
       {
@@ -135,11 +140,8 @@
         "config_id": "cfg_t04_l008_v2",
         "record_id": "F50-L003",
         "selector_hex": "0x59",
-        "closure_status": "incomplete",
-        "failed_checks": [
-          "all_sources_direct_decoded",
-          "all_sources_zero_unknown_tokens"
-        ],
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
         "variant_count": 2,
         "page_count": 3,
         "spawn_condition_status": "confirmed_static_unconditional",
@@ -164,11 +166,8 @@
         "config_id": "cfg_t04_l008_v2",
         "record_id": "F50-L005",
         "selector_hex": "0x5A",
-        "closure_status": "incomplete",
-        "failed_checks": [
-          "all_sources_direct_decoded",
-          "all_sources_zero_unknown_tokens"
-        ],
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
         "variant_count": 3,
         "page_count": 4,
         "spawn_condition_status": "confirmed_static_unconditional",
@@ -193,11 +192,8 @@
         "config_id": "cfg_t04_l008_v2",
         "record_id": "F50-L007",
         "selector_hex": "0x27",
-        "closure_status": "incomplete",
-        "failed_checks": [
-          "all_sources_direct_decoded",
-          "all_sources_zero_unknown_tokens"
-        ],
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
         "variant_count": 3,
         "page_count": 5,
         "spawn_condition_status": "confirmed_static_unconditional",
@@ -222,11 +218,8 @@
         "config_id": "cfg_t04_l008_v2",
         "record_id": "F50-L009",
         "selector_hex": "0x5B",
-        "closure_status": "incomplete",
-        "failed_checks": [
-          "all_sources_direct_decoded",
-          "all_sources_zero_unknown_tokens"
-        ],
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
         "variant_count": 1,
         "page_count": 3,
         "spawn_condition_status": "confirmed_static_unconditional",
@@ -238,11 +231,8 @@
         "config_id": "cfg_t04_l008_v2",
         "record_id": "F50-L010",
         "selector_hex": "0x13",
-        "closure_status": "incomplete",
-        "failed_checks": [
-          "all_sources_direct_decoded",
-          "all_sources_zero_unknown_tokens"
-        ],
+        "closure_status": "closed_static_to_page",
+        "failed_checks": [],
         "variant_count": 1,
         "page_count": 3,
         "spawn_condition_status": "confirmed_static_bitset_expression",

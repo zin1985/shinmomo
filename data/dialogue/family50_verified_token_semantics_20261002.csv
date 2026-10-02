@@ -1,0 +1,6 @@
+﻿token,kind,selector_value,fallback_root,record_pointer,record_bytes,decoded,status,evidence
+0x5B,printable_single_byte,,,,5B,?,confirmed_static_checked_decoder,data/text_trace/shinmomo_trace_text_jp_decode_snes9x_20260426.lua;tools/lua/shinmomo_trace_dialogue_v28_mode02_bd98_decoder_smallkana_checked_snes9x_20260427.lua
+0x02C5,recursive_source_token,0x25,C7:02EE,C7:0477,97 DA 9A 91 00,ください,confirmed_static_recursive_lookup,token02 C5 trace: C5-A0=25; family type01 fallback C7:0000[0]=C7:02EE; C4:9DBB logical-record skip lands C7:0477
+0x02C9,recursive_source_token,0x29,C7:02EE,C7:0489,BB 9F 9B 00,わたし,confirmed_static_recursive_lookup,same proven token02 family-type01 fallback and C4:9DBB logical-record skip as 02C5; value C9-A0=29 lands C7:0489
+0x04,text_table_switch,,,,04,<TABLE4>,confirmed_checked_text_decoder,data/text_trace/shinmomo_trace_text_jp_decode_snes9x_20260426.lua sets tableId=4
+0x03,text_table_switch,,,,03,<TABLE3>,confirmed_checked_text_decoder,data/text_trace/shinmomo_trace_text_jp_decode_snes9x_20260426.lua sets tableId=3
