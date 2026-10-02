@@ -1,16 +1,12 @@
 region_id,transition_id,source_config_id,gap_class,destination_config_id,destination_x,destination_y,predicate_layer,region_shape,confidence,next_evidence_needed
 region_hotspot_CC_0B7F,transition_CC_0B7F,cfg_t01_l001_v1,arrival_xy_only,cfg_t08_l092_v2,,,vm,rectangle,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
-region_hotspot_CC_0BCA,transition_CC_0BCA,cfg_t01_l001_v1,destination_config_only,,37,56,vm,rectangle,strong_candidate,resolve destination pack/entry to canonical config; arrival XY already known
 region_hotspot_CC_0BD7,transition_CC_0BD7,cfg_t01_l001_v1,arrival_xy_only,cfg_t09_l098_v2,,,vm,point,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
-region_hotspot_CC_0C17,transition_CC_0C17,cfg_t01_l001_v1,destination_config_only,,36,72,vm,rectangle,strong_candidate,resolve destination pack/entry to canonical config; arrival XY already known
 region_hotspot_CC_0C75,transition_CC_0C75,cfg_t01_l001_v1,arrival_xy_only,cfg_t24_l125_v2,,,vm,rectangle,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_0C84,transition_CC_0C84,cfg_t01_l001_v1,arrival_xy_only,cfg_t23_l123_v1,,,vm,rectangle,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_0DB8,transition_CC_0DB8,cfg_t01_l001_v1,arrival_xy_only,cfg_t11_l101_v2,,,vm,point,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
-region_hotspot_CC_0E0D,transition_CC_0E0D,cfg_t01_l001_v1,destination_config_only,,37,15,vm,rectangle,strong_candidate,resolve destination pack/entry to canonical config; arrival XY already known
 region_hotspot_CC_0E70,transition_CC_0E70,cfg_t01_l001_v1,arrival_xy_only,cfg_t30_l140_v2,,,vm,rectangle,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_0F3B,transition_CC_0F3B,cfg_t01_l001_v1,arrival_xy_only,cfg_t47_l172_v2,,,vm,point,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_0F71,transition_CC_0F71,cfg_t01_l001_v1,arrival_xy_only,cfg_t32_l144_v1,,,vm,point,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_0FA9,transition_CC_0FA9,cfg_t01_l001_v1,arrival_xy_only,cfg_t36_l150_v2,,,vm,point,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_0FB6,transition_CC_0FB6,cfg_t01_l001_v1,arrival_xy_only,cfg_t25_l129_v2,,,vm,point,strong_candidate,resolve destination entry coordinate setter or saved-state arrival; canonical config already known
 region_hotspot_CC_1160,transition_CC_1160,cfg_t01_l001_v1,destination_config_only,,22,28,vm,point,strong_candidate,resolve destination pack/entry to canonical config; arrival XY already known
-region_hotspot_CC_1CC0,transition_CC_1CC0,cfg_t04_l008_v2,destination_config_only,,6,10,vm,point,strong_candidate,resolve destination pack/entry to canonical config; arrival XY already known

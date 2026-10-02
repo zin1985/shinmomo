@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "source": "data/events/event_trigger_regions.csv",
-  "gap_count": 15,
+  "gap_count": 11,
   "gap_class_counts": {
     "arrival_xy_only": 10,
-    "destination_config_only": 5
+    "destination_config_only": 1
   },
-  "fully_crosslinked_region_count": 42,
+  "fully_crosslinked_region_count": 46,
   "note": "Gap manifest is provenance bookkeeping only; unresolved rows are not promoted by inference."
 }

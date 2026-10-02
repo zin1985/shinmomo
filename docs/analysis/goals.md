@@ -104,3 +104,7 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 ## 2026-10-03 rolling focus
 - Transition→event/trigger crosslink expansion now has a finite 15-row gap manifest.
 - Resolve 5 destination-config-only rows first, then 10 arrival-XY-only rows.
+
+## 2026-10-03 02:14 G4/G5 trigger-crosslink update
+- Destination-config coverage for normalized trigger regions improved 52/57?56/57 using a reproducible bounds-disambiguation overlay.
+- Machine-readable gap backlog reduced 15?11. Next close CC:1160, then the ten arrival-XY-only gaps.

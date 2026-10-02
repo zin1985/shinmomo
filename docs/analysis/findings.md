@@ -306,3 +306,9 @@
 - 57 normalized trigger regions split into 42 complete rows and 15 provenance gaps.
 - The gaps are disjoint: 5 destination-config-only and 10 arrival-XY-only; none miss both.
 - Missing values remain unresolved rather than inferred. See `event_trigger_crosslink_gaps_20261003.md`.
+
+## 2026-10-03 02:14 event-trigger destination bounds disambiguation
+- A reproducible destination resolver now intersects destination pack + committed arrival XY with committed native opcode-0x52 bounds.
+- Four trigger gaps close without heuristic neighbor inference: CC:0BCA?cfg_t04_l035_v2, CC:0C17?cfg_t06_l038_v2, CC:0E0D?cfg_t04_l058_v2, CC:1CC0?cfg_t07_l011_v2.
+- CC:1CC0 is decisive because arrival Y=10 excludes the other pack-0x2C config (`cfg_t07_l033_v2`, max Y=8).
+- Region completeness is now 46/57; remaining gaps are CC:1160 destination config plus ten arrival-XY-only rows.

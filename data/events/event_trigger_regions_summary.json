@@ -11,7 +11,7 @@
     "native_boundary": 2,
     "vm": 55
   },
-  "destination_config_resolved": 52,
+  "destination_config_resolved": 56,
   "arrival_xy_resolved": 47,
   "semantics": {
     "point": "VM exact coordinate or confirmed native exit point",

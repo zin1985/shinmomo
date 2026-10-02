@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "unresolved_transition_input_count": 232,
+  "unique_bounds_resolution_count": 110,
+  "method": "destination pack + committed arrival XY filtered against committed native opcode-0x52 bounds; emit only exactly-one-config matches"
+}

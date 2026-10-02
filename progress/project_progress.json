@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-03T00:18:00+09:00",
+  "updated_at": "2026-10-03T02:14:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -18,11 +18,12 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 75,
+      "percent": 76,
       "weight": 1.4,
       "status": "active",
-      "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B. 2026-10-02 boundary-trigger reconciliation: pack2E native south-boundary restore is already represented in source_transition_hotspots as hotspot_native_pack2e_south_exit_candidate, while its forward counterpart CC:1CDA is an exact-point opcode 0x69 predicate at source (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12). This closes the requested native boundary -> trigger/transition provenance crosslink for the pack2E witness without re-extracting transitions. 2026-10-02 event-trigger region normalization: 57 existing source hotspots are externalized into one region schema: 37 points, 19 inclusive rectangles, 1 native-boundary corridor; 55 VM predicates and 2 native-boundary predicates. 52/57 destinations have canonical config IDs and 47/57 have arrival XY."
+      "scope": "0x30000?script?0x41A10 family?reader/dispatcher?transition/event-trigger provenance?destination config disambiguation",
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B. 2026-10-02 boundary-trigger reconciliation: pack2E native south-boundary restore is already represented in source_transition_hotspots as hotspot_native_pack2e_south_exit_candidate, while its forward counterpart CC:1CDA is an exact-point opcode 0x69 predicate at source (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12). This closes the requested native boundary -> trigger/transition provenance crosslink for the pack2E witness without re-extracting transitions. 2026-10-02 event-trigger region normalization: 57 existing source hotspots are externalized into one region schema: 37 points, 19 inclusive rectangles, 1 native-boundary corridor; 55 VM predicates and 2 native-boundary predicates. 52/57 destinations have canonical config IDs and 47/57 have arrival XY. 2026-10-03 bounds-disambiguation: committed arrival XY plus native opcode-0x52 bounds uniquely resolve four formerly ambiguous hotspot destinations: CC:0BCA->cfg_t04_l035_v2, CC:0C17->cfg_t06_l038_v2, CC:0E0D->cfg_t04_l058_v2, CC:1CC0->cfg_t07_l011_v2. Trigger-region destination config coverage is now 56/57.",
+      "updated_at": "2026-10-03T02:14:00+09:00"
     },
     {
       "id": "fd67-selector",
@@ -108,11 +109,12 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 75,
+      "percent": 76,
       "weight": 1.3,
       "status": "active",
-      "scope": "ROM依存知識をschema/data/toolへ外部化し再生成可能にする",
-      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level."
+      "scope": "ROM?????schema/data/tool??????????????transition destination?pack+arrival XY+native bounds????????????????",
+      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46).",
+      "updated_at": "2026-10-03T02:14:00+09:00"
     },
     {
       "id": "whole-game",
@@ -274,7 +276,12 @@
     "data/events/event_trigger_crosslink_gaps.csv",
     "data/events/event_trigger_crosslink_gaps_summary.json",
     "docs/analysis/event_trigger_crosslink_gaps_20261003.md",
-    "docs/handoff/HM_261003_event_trigger_crosslink_gaps.md"
+    "docs/handoff/HM_261003_event_trigger_crosslink_gaps.md",
+    "tools/python/resolve_transition_destination_configs_by_bounds.py",
+    "data/maps/transitions/destination_config_bounds_resolution.csv",
+    "data/maps/transitions/destination_config_bounds_resolution_summary.json",
+    "docs/analysis/event_trigger_bounds_disambiguation_20261003.md",
+    "docs/handoff/HM_261003_event_trigger_bounds_disambiguation.md"
   ],
   "rom_source": {
     "policy": "各解析サイクル開始時にこのGoogle Driveフォルダを参照し、正本ROMを確認する。実行環境で添付ROMが直接利用できない場合は、このDrive上の同一ROMを取得して使用する。別ROMで代用しない。",
@@ -284,7 +291,7 @@
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
   "overall_percent": 50.8,
-  "legacy_workstream_overall_percent": 77.4,
+  "legacy_workstream_overall_percent": 77.5,
   "top_goals": [
     {
       "id": "G1",
@@ -429,7 +436,7 @@
           "weight": 0.15
         }
       ],
-      "evidence": "ROM-wide structural framing now anchors 816 B0-start records across 107 families. Crosslinking only source-reader-validated A4 selections maps 1,124 callsites into 713 records across 98 families. This materially advances event inventory and script-to-resource linkage, while conditions/actions/runtime completeness remain incomplete. Controller-pointer dispatch is now linked end-to-end for family 0x4E: opcode 09 -> opcode 59 -> controller SoA pointer -> 84:867D/8699 keyed matcher -> CC:1B42 A4 17. This strengthens effect linkage but does not yet increase complete-event inventory. Event-trigger regions are now machine-readable across the hotspot corpus (57 regions), separating VM point/rectangle predicates from native-boundary regions while retaining transition/destination provenance."
+      "evidence": "ROM-wide structural framing now anchors 816 B0-start records across 107 families. Crosslinking only source-reader-validated A4 selections maps 1,124 callsites into 713 records across 98 families. This materially advances event inventory and script-to-resource linkage, while conditions/actions/runtime completeness remain incomplete. Controller-pointer dispatch is now linked end-to-end for family 0x4E: opcode 09 -> opcode 59 -> controller SoA pointer -> 84:867D/8699 keyed matcher -> CC:1B42 A4 17. This strengthens effect linkage but does not yet increase complete-event inventory. Event-trigger regions are now machine-readable across the hotspot corpus (57 regions), separating VM point/rectangle predicates from native-boundary regions while retaining transition/destination provenance. 2026-10-03 bounds-disambiguation raises trigger-region destination-config coverage from 52/57 to 56/57 without coordinate-neighbor inference."
     },
     {
       "id": "G5",
@@ -464,7 +471,7 @@
           "weight": 0.2
         }
       ],
-      "evidence": "FastROM HiROM addressing, overlapping source-family model, script-pack/source-family crosswalk and deterministic usage catalog are portable and reproducible. Full subsystem coverage and independent verification remain incomplete. Event-record framing and event-to-source linkage are now reproducibly externalized as tools plus metadata summaries. Event-trigger provenance gaps are now machine-readable rather than a generic unresolved bucket."
+      "evidence": "FastROM HiROM addressing, overlapping source-family model, script-pack/source-family crosswalk and deterministic usage catalog are portable and reproducible. Full subsystem coverage and independent verification remain incomplete. Event-record framing and event-to-source linkage are now reproducibly externalized as tools plus metadata summaries. Event-trigger provenance gaps are now machine-readable rather than a generic unresolved bucket. A reproducible bounds-based destination-config overlay now converts committed transition XY plus native bounds into unique config provenance where exactly one candidate survives."
     }
   ],
   "audit": {

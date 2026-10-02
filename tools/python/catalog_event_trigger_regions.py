@@ -6,7 +6,13 @@ ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / 'data/maps/transitions/source_transition_hotspots.csv'
 OUT = ROOT / 'data/events/event_trigger_regions.csv'
 SUMMARY = ROOT / 'data/events/event_trigger_regions_summary.json'
+RESOLUTION = ROOT / 'data/maps/transitions/destination_config_bounds_resolution.csv'
 FIELDS = ['region_id','source_config_id','x_min','x_max','y_min','y_max','region_shape','predicate_layer','predicate_semantics','predicate_addr','transition_id','destination_config_id','destination_x','destination_y','confidence','source_hotspot_id','evidence','provenance']
+
+resolution_by_transition = {}
+if RESOLUTION.exists():
+    with RESOLUTION.open(encoding='utf-8-sig', newline='') as f:
+        resolution_by_transition = {r['transition_id']: r for r in csv.DictReader(f)}
 
 def normalize(row):
     x = int(row['source_grid_x']); y = int(row['source_grid_y'])
@@ -21,7 +27,11 @@ def normalize(row):
         shape, layer, sem, addr = 'point', 'native_boundary', 'out_of_bounds_saved_state_restore', row['trigger_addr']
     else:
         shape, layer, sem, addr = 'unknown', 'unknown', row['trigger_type'], row['trigger_addr']
-    return {'region_id':'region_'+row['hotspot_id'],'source_config_id':row['source_config_id'],'x_min':x,'x_max':x+w-1,'y_min':y,'y_max':y+h-1,'region_shape':shape,'predicate_layer':layer,'predicate_semantics':sem,'predicate_addr':addr,'transition_id':row['transition_id'],'destination_config_id':row['destination_config_id'],'destination_x':row['destination_x'],'destination_y':row['destination_y'],'confidence':row['confidence'],'source_hotspot_id':row['hotspot_id'],'evidence':row['evidence'],'provenance':row['provenance']}
+    resolved = resolution_by_transition.get(row['transition_id']) if not row['destination_config_id'] else None
+    destination_config_id = resolved['resolved_config_id'] if resolved else row['destination_config_id']
+    evidence = row['evidence'] + (('; bounds-disambiguated destination config=' + destination_config_id) if resolved else '')
+    provenance = row['provenance'] + (';data/maps/transitions/destination_config_bounds_resolution.csv' if resolved else '')
+    return {'region_id':'region_'+row['hotspot_id'],'source_config_id':row['source_config_id'],'x_min':x,'x_max':x+w-1,'y_min':y,'y_max':y+h-1,'region_shape':shape,'predicate_layer':layer,'predicate_semantics':sem,'predicate_addr':addr,'transition_id':row['transition_id'],'destination_config_id':destination_config_id,'destination_x':row['destination_x'],'destination_y':row['destination_y'],'confidence':row['confidence'],'source_hotspot_id':row['hotspot_id'],'evidence':evidence,'provenance':provenance}
 with SRC.open(encoding='utf-8-sig', newline='') as f:
     rows = [normalize(r) for r in csv.DictReader(f)]
 OUT.parent.mkdir(parents=True, exist_ok=True)
