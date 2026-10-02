@@ -97,3 +97,6 @@ For G1/G4/G5, treat the native map-boundary chain (`C1:8943 -> 81:81DD -> 81:895
 
 ## 2026-10-02 22:19 G4 boundary-trigger promotion
 Pack2E now has a closed bidirectional provenance witness between VM exact-point trigger CC:1CDA and native south-boundary saved-state restore C1:8955. G4 advances by one point; next work generalizes event-trigger region structure across the hotspot corpus.
+
+## 2026-10-02 23:14 G4 trigger-region promotion
+The hotspot corpus is now externalized as 57 machine-readable trigger regions (37 points, 19 rectangles, 1 corridor), with VM/native-boundary layers kept distinct. G4 advances to 47%; next work resolves the remaining destination/event provenance gaps and expands transition -> event/trigger joins.

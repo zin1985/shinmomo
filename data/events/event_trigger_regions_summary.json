@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "source": "data/maps/transitions/source_transition_hotspots.csv",
+  "region_count": 57,
+  "shape_counts": {
+    "corridor": 1,
+    "point": 37,
+    "rectangle": 19
+  },
+  "predicate_layer_counts": {
+    "native_boundary": 2,
+    "vm": 55
+  },
+  "destination_config_resolved": 52,
+  "arrival_xy_resolved": 47,
+  "semantics": {
+    "point": "VM exact coordinate or confirmed native exit point",
+    "rectangle": "VM opcode 0x5D inclusive coordinate rectangle",
+    "corridor": "native boundary candidate corridor; not terrain passability"
+  }
+}

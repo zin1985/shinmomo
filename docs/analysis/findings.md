@@ -294,3 +294,10 @@
 - Pack 0x2E south native boundary restore is already represented as hotspot_native_pack2e_south_exit_candidate: X=8..10,Y=12, C1:8955, saved-state restore to cfg_t04_l008_v2 at (29,17).
 - Its forward pair hotspot_CC_1CDA is an opcode 0x69 exact-point predicate at cfg_t04_l008_v2 (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12).
 - This closes the priority native-boundary -> trigger/transition provenance witness without claiming terrain passability or object collision.
+
+## 2026-10-02 23:14 event-trigger region normalization
+- Existing source hotspot evidence is now normalized into `data/events/event_trigger_regions.csv` by a reproducible tool.
+- 57 regions: 37 points, 19 inclusive rectangles, 1 native-boundary candidate corridor.
+- Predicate layers remain explicit: 55 VM coordinate predicates and 2 native-boundary predicates.
+- Destination canonical config is resolved for 52/57; arrival XY for 47/57.
+- This closes the region-shape representation task. Next frontier is the remaining destination/event provenance gaps, not another hotspot re-extraction.

@@ -409,3 +409,6 @@ On a short request such as **「続きを進めて」**:
 4. continue from the first unfinished `next_actions` entry;
 5. do not redo `done` / `do_not_redo` items;
 6. checkpoint again after the next meaningful durable result.
+
+## Rolling override — 2026-10-02 23:14 JST
+Canonical machine state remains `progress/project_progress.json`. Latest completed frontier: event-trigger region structure normalized across 57 committed hotspot rows. Next priority is transition -> event/trigger crosslink expansion, starting with 5 missing destination configs and 10 missing arrival-coordinate pairs. See `HM_261002_event_trigger_regions.md`.
