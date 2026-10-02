@@ -1,0 +1,23 @@
+{
+  "cycle": "2026-10-03T04:14:00+09:00",
+  "theme": "CC:1160 phase discriminator static narrowing",
+  "base_head": "71d684c9f4da98826bba87a2c3693def659d0748",
+  "affected_tracks": {
+    "script-vm": {"before": 76, "after": 76, "status": "active", "scope": "phase-dependent destination config discriminator provenance"},
+    "externalization": {"before": 76, "after": 76, "status": "active", "scope": "machine-readable phase-dependent destination candidate set and evidence frontier"}
+  },
+  "overall_percent_before": 50.8,
+  "overall_percent_after": 50.8,
+  "finding": "Committed configuration index proves the five pack-0xCE candidates are five distinct configuration commands at CD:9156/916D/9186/919F/91CC. Four are tileset-4 flag-0x80 configs while cfg_t05_l087_v2 is the sole tileset-5 flag-0x00 candidate, creating a high-information discriminator axis without claiming an unobserved story flag.",
+  "schedule": [
+    {"priority":1,"target":"ROM-enabled inspection of pack 0xCE entry 0x02 control flow around CD:9156..91CC; recover predicate/state -> config command mapping","status":"blocked-rom"},
+    {"priority":2,"target":"Resolve arrival XY for transition_CC_0B7F from committed provenance","status":"queued"},
+    {"priority":3,"target":"Resolve arrival XY for transition_CC_0BD7 from committed provenance","status":"queued"},
+    {"priority":4,"target":"Continue remaining arrival-XY-only trigger gaps","status":"queued"},
+    {"priority":5,"target":"visible-object coordinate -> map-world coordinate transform","status":"queued"},
+    {"priority":6,"target":"NPC/sprite/event/dialogue integration","status":"queued"}
+  ],
+  "canonical_rom": {"used": false, "expected_size": 2097152, "expected_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98", "access_note": "Drive指定ROMへアクセスできなかった; exact filename search returned no accessible result"},
+  "raw_rom_committed": false,
+  "note": "Percentages remain unchanged because this cycle narrows the discriminator frontier but does not yet map a concrete state predicate to a unique destination config."
+}
