@@ -1,0 +1,24 @@
+{
+  "cycle": "2026-10-03T03:13:00+09:00",
+  "theme": "CC:1160 destination configuration phase split",
+  "base_head": "a0a8e1ce24f85210d4051f6059f7a30f8b218d70",
+  "analysis_commit": "98f376b8b3eba230f1b6cba600183785744c9a81",
+  "affected_tracks": {
+    "script-vm": {"before": 76, "after": 76, "status": "active", "scope": "transition/event-trigger provenance and phase-dependent destination config disambiguation"},
+    "externalization": {"before": 76, "after": 76, "status": "active", "scope": "machine-readable phase-dependent destination candidate sets"}
+  },
+  "overall_percent_before": 50.8,
+  "overall_percent_after": 50.8,
+  "finding": "CC:1160 is opcode 0x53 -> pack 0xCE entry 0x02. Arrival (22,28) is inside identical X=16..31/Y=16..28 native bounds for five canonical pack-0xCE configs, so the remaining config ambiguity is phase/state dependent rather than a missing bounds join.",
+  "next": [
+    "recover pack 0xCE entry 0x02 phase/state discriminator around CD:9140..91DC",
+    "determine which of the five candidate configs are reachable specifically from CC:1160",
+    "resolve arrival XY for transition_CC_0B7F",
+    "resolve arrival XY for transition_CC_0BD7",
+    "continue remaining arrival-XY-only trigger gaps",
+    "visible-object coordinate to map-world coordinate transform"
+  ],
+  "canonical_rom": {"used": true, "size": 2097152, "sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98", "verified": true},
+  "raw_rom_committed": false,
+  "note": "Canonical project_progress.json percentages remain unchanged because this cycle reclassified the final destination-config gap but did not close it to a single canonical config."
+}
