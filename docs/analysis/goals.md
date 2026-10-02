@@ -122,3 +122,8 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 1. `CC:0F71` arrival provenance closed at `(215,40)` via independent opcode-0x57 route evidence for pack 0xBC entry 0x02.
 2. G4 advances 48%→49%; overall 51.0%→51.2%. Trigger crosslink backlog is 10 rows.
 3. Next static target: `CC:0BD7`; ROM-enabled target remains CC:1160 phase/state discriminator.
+
+
+## 2026-10-03 rolling update
+- Confirmed: all 9 remaining arrival-XY-only event-trigger gaps have unique destination pack+entry pairs with no committed same-pair transition carrying arrival XY. CC:0BD7 is pack 0x96 / entry 0x02 / cfg_t09_l098_v2 and has no aligned coordinate setter in the current catalog.
+- Next: recover coordinate provenance below the transition catalog layer, starting with pack 0x96 entry 0x02. Do not infer coordinates from neighboring transitions.

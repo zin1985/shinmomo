@@ -1,0 +1,10 @@
+transition_id,trigger_addr,destination_pack,destination_entry_id,destination_config_id,same_pair_known_arrival_count,classification,next_evidence
+transition_CC_0B7F,CC:0B7F,0x91,0x07,cfg_t08_l092_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0BD7,CC:0BD7,0x96,0x02,cfg_t09_l098_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0C75,CC:0C75,0x9E,0x02,cfg_t24_l125_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0C84,CC:0C84,0xA8,0x0C,cfg_t23_l123_v1,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0DB8,CC:0DB8,0xAE,0x02,cfg_t11_l101_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0E70,CC:0E70,0xB6,0x07,cfg_t30_l140_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0F3B,CC:0F3B,0xB7,0x02,cfg_t47_l172_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0FA9,CC:0FA9,0xBD,0x02,cfg_t36_l150_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence
+transition_CC_0FB6,CC:0FB6,0xB9,0x02,cfg_t25_l129_v2,0,needs_new_coordinate_evidence,recover aligned opcode 0x58 / saved-state arrival / independent route-table coordinate evidence

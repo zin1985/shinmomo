@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-03T06:10:00+09:00",
+  "updated_at": "2026-10-03T07:12:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -110,12 +110,12 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 76,
+      "percent": 77,
       "weight": 1.3,
       "status": "active",
       "scope": "ROM?????schema/data/tool??????????????transition destination?pack+arrival XY+native bounds????????????????",
-      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46).",
-      "updated_at": "2026-10-03T02:14:00+09:00"
+      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46). 2026-10-03 arrival-gap provenance classifier: all 9 remaining arrival-XY-only trigger gaps were joined to their committed destination pack+entry pairs; none has an independent same-pair row with known arrival coordinates in the current transition catalog. The backlog is now machine-classified as requiring new coordinate evidence below the existing catalog layer rather than another catalog join.",
+      "updated_at": "2026-10-03T07:12:00+09:00"
     },
     {
       "id": "whole-game",
@@ -145,7 +145,7 @@
       ],
       "track_id": "script-vm",
       "title": "transition→event/trigger crosslink拡張",
-      "target": "Resolve the current 10-row crosslink backlog: 9 arrival-XY-only rows plus CC:1160 phase-dependent destination selection. Next static arrival target is CC:0BD7. CC:1160 ROM predicate recovery remains blocked when canonical Drive ROM is unavailable.",
+      "target": "Resolve the current 10-row crosslink backlog: 9 arrival-XY-only rows plus CC:1160 phase-dependent destination selection. Static classification proves all 9 arrival rows lack same-pack+entry coordinate witnesses in the committed transition catalog; next recover destination-entry coordinate provenance for CC:0BD7 / pack 0x96 entry 0x02 (opcode 0x58, saved-state arrival, or independent route table). CC:1160 ROM predicate recovery remains blocked when canonical Drive ROM is unavailable.",
       "status": "active"
     },
     {

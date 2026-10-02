@@ -1,0 +1,6 @@
+{
+  "arrival_xy_only_count": 9,
+  "same_pair_crosslink_available": 0,
+  "needs_new_coordinate_evidence": 9,
+  "source": "committed map_transition_candidates.csv + event_trigger_crosslink_gaps.csv"
+}
