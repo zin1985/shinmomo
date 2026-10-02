@@ -2,7 +2,7 @@
 
 ## Scope
 
-This note classifies the directly visible C1 consumers of the fifth operand of the normal six-byte opcode-0x59 actor command.
+This note classifies the directly visible consumers of the fifth operand of the normal six-byte opcode-0x59 actor command.
 
 The field is stored by the established normal opcode-0x59 path as:
 
@@ -58,7 +58,7 @@ C1:AFE6  STA $06D9,X
          RTL
 ```
 
-The random candidate is reduced to values 1..4, which are now independently confirmed as the opcode-0x59 controller's cardinal direction values.
+The random candidate is reduced to values 1..4, which are independently confirmed as the opcode-0x59 controller's cardinal direction values.
 
 Therefore field0719 bit4 has a direct structural meaning:
 
@@ -81,7 +81,7 @@ normal_branch:
          JSR $B101
 ```
 
-`80:AF0C` is the existing animation-script update routine. It operates on the current animation-script cursor/duration fields, advances the cursor by a two-byte frame/duration pair when the duration expires, reloads the next pair, loops at a zero terminator, or decrements the active duration counter.
+`80:AF0C` is the established animation-script update routine. It operates on the current animation-script cursor/duration fields, advances the cursor by a two-byte frame/duration pair when the duration expires, reloads the next pair, loops at a zero terminator, or decrements the active duration counter.
 
 The safe structural classification for field0719 bit6 is therefore:
 
@@ -110,29 +110,74 @@ Use the existing conservative label:
 
 A later path can overwrite these low bits, so this is an initial controller-state contribution, not a permanent mode identity.
 
-## bit7: direct consumer still unresolved
+## bit7: OBJ palette-cache half selector
 
-The C1 scan of direct `LDA $0719,X` readers finds tests of bit4, bit6, bit5, bit3, and the low two bits. Bits5 and3 are runtime-state consumers but are not seeded by the current opcode-0x59 actor corpus.
+The previous direct-reader-only scan missed an earlier use in the opcode-0x59 allocation path itself.
 
-No direct C1 `$0719,X & #$80` / `BIT #$80` consumer was found in this pass.
+Before `$185A` is stored into `$0719,X`, `81:ADBD` derives an eight-slot resource-selection mask from the sign bit of the fifth operand:
 
-This does not prove bit7 is unused. It may be copied into another work byte, consumed through a different addressing form, or used by another controller stage. Keep bit7 unresolved rather than assigning a behavioral label.
+```text
+81:AE30  LDA #$0F
+         STA $1111
+         LDA $185A
+         BPL bit7_clear
+         LDA #$F0
+         STA $1111
+bit7_clear:
+         LDA $185A
+         STA $0719,X
+```
+
+Therefore:
+
+- bit7 clear -> `$1111 = 0x0F` -> resource slots 0..3 eligible
+- bit7 set   -> `$1111 = 0xF0` -> resource slots 4..7 eligible
+
+The allocation helper `80:B42D` treats `$1111` as a bitmask while scanning eight cache entries. The slot metadata live in the `$7E:23C2/$7E:23CA/$7E:23D2` families. On a new allocation, the selected slot index is converted to a color destination:
+
+```text
+TXA
+ASL
+ASL
+ASL
+ASL
+ADC #$80
+STA $0F
+JSL $80:B35C
+```
+
+So the destination is:
+
+`0x80 + slot * 16`
+
+`80:B35C -> 80:B3A6` copies the resource data into the palette shadow at `$7E:21C2`; the downstream DMA path writes that shadow to SNES CGRAM via `$2122`. The `0x80..0xFF` color-index range is the OBJ half of CGRAM, split naturally into eight 16-color OBJ palettes.
+
+The returned cache slot is also stored into the display object's `$0D27,Y` resource/asset-handle field by the `80:BCA3` path.
+
+This closes the safe handler-local structural meaning of field0719 bit7 as:
+
+`obj_palette_cache_half_selector`
+
+More specifically, it constrains palette allocation/search to OBJ palette slots 0..3 or 4..7. This is not a movement, dialogue, spawn-condition, or actor-identity bit.
+
+Do not overstate this as a specific visible recoloring rule: actors may reference identical palette resources in either half, and the reason for keeping the two cache halves separate is not yet proven.
 
 ## Evidence boundary
 
 Confirmed handler-local structural labels for opcode-0x59 field0719 are now:
 
-- bit4: `suppress_autonomous_random_direction_selection`
+- bit7: `obj_palette_cache_half_selector`
 - bit6: `double_animation_script_update_branch`
+- bit4: `suppress_autonomous_random_direction_selection`
 - bit0 / low2: `controller_low_state_seed`
 
 Still unresolved:
 
-- bit7 game-facing/controller meaning
+- the higher-level gameplay reason for selecting lower vs upper OBJ palette-cache half
 - a user-facing semantic name for the mutable low-state alternatives
 - whether the bit6 branch yields an exact visible 2x animation rate
 
-Do not generalize these bit meanings to every use of the shared WRAM column outside the proven opcode-0x59 C1 controller ancestry.
+Do not generalize these bit meanings to every use of the shared WRAM column outside the proven opcode-0x59 actor/controller ancestry.
 
 ## Provenance
 
