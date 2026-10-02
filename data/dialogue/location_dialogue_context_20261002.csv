@@ -1,0 +1,100 @@
+﻿location_context_id,location_label,map_config_id,runtime_map_pack_hex,dialogue_family_hex,subindex_hex,text_pointer,script_callsite,source_selection_status,phase_hint,phase_status,flag_binding_status,viewer_default,decoded_text,decoder_unknown_tokens,decode_status,location_binding_status,confidence,raw_token_sha256,evidence
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x00,C8:A718,CC:194B,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,後期・カルラ／ダイダ王子言及,semantic_phase_candidate,exact_story_flag_unresolved,0,"「カルラの 話か…」
+
+
+「ダイダ王子を そだてる役目を
+ 伐折羅王から もらったときは
+ それは よろこんだそうぢゃ!」
+「誰にも 手を ふれさせず
+ すべてを そそぎこんだ!」
+
+「その けっか ダイダ王子は
+ 武勇の神には なれたが
+ 世の中を 知らぬ男に なった!」
+「もったいない ことぢゃ!
+ ダイダ王子は
+ 悪い やつぢゃない…」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,583e787d2fb8a84af63f36bdd301935e18eac0a454a992029ec1f155a5bca255,canonical family 0x4E direct reader root C8:A717 subindex 0x00; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 00 opcode bytes present at CC:194B; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x01,C8:A7B5,CC:1951,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,海底・勇気の鎧イベント期,semantic_phase_candidate,exact_story_flag_unresolved,0,"「ウヒャヒャ…! 桃太郎!
+ 海の低へ 行ったか? わしは
+ 勇気の鎧が 沈むのを 見たぞ!」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,183c94b059dbb40e61b1229ecf12e097868024a82c08cb7cfb6363ca333fc4c5,canonical family 0x4E direct reader root C8:A717 subindex 0x01; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 01 opcode bytes present at CC:1951; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x02,C8:A7DC,CC:197A,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,銀次加入後・装備案内,strong_semantic_phase_candidate,exact_story_flag_unresolved,0,"「桃太郎! 銀次の そうびを
+ ととのえたか?
+ 銀次は 刀も そうびできる!」
+「銀次の そうびは 着流しだ!
+ はちまきと わらじは
+ 桃太郎と いっしょだがな!」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,5652f63c5d6d96c967679bbb37e524374bf07bb4c8c93027fc86128a8baaf1a7,canonical family 0x4E direct reader root C8:A717 subindex 0x02; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 02 opcode bytes present at CC:197A; full compact-VM boundary promotion pending; display text independently clean-decoded through family 0x4F:0x00 alias
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x03,C8:A821,CC:1988,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,狛犬損傷イベント期（ひえん飛来との関係は未確定）,event_phase_candidate,exact_story_flag_unresolved,1,"「こまいぬ様に ヒビが はいっとる!
+ まったく どこの
+ イタズラ坊主の しわざだ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,0a30579b8bf7d567a930242e7e8b19e95c122c1eef620d5817693738b464d037,canonical family 0x4E direct reader root C8:A717 subindex 0x03; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 03 opcode bytes present at CC:1988; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x04,C8:A848,CC:198E,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,初期・おむすびころりん案内,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「北西の おむすびころりんの穴は
+ おむすびを なげこまないと
+ 入れませんよ! 桃太郎さん!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,d31be53e66d9f729939d9ce77c9d9d5f239c142b20b67b9f239a29217d4df3f0,canonical family 0x4E direct reader root C8:A717 subindex 0x04; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 04 opcode bytes present at CC:198E; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x05,C8:A872,CC:1994,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,ひえん巻物飛来直後候補,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「桃太郎! さっき 宿屋のほうに
+ 何か 落っこちてきたぞ!」
+
+「ありゃ? 兵具屋だったか…
+ うんにゃ わしの家だったか?
+ よう おぼえとらんわ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,399e0c92bf38218b83be64934d1fed3b12c1da59b571e432c2d7c4da3fc59d26,canonical family 0x4E direct reader root C8:A717 subindex 0x05; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 05 opcode bytes present at CC:1994; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x06,C8:A8B5,CC:19B2,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,初期・鬼退治出発前後,generic_or_early_phase_candidate,exact_story_flag_unresolved,0,"「その体で 鬼たいじに 行くのか?
+ 無理を するな と言っても
+ 桃太郎のことじゃ むだじゃろな…」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,b7f58827e756249a46b944933c72e30c053273a2c85f57d8022804ebbc7b6236,canonical family 0x4E direct reader root C8:A717 subindex 0x06; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 06 opcode bytes present at CC:19B2; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x07,C8:A8E2,CC:19C0,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,ひえん巻物飛来直後候補,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「さっき 神社の森から
+ いっせいに 鳥が 飛びたったけど
+ どうしたのかしら?」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,0ba7a416087db450a935ecc3911c2adf30fd07dbb6723208c20911897fe78843,canonical family 0x4E direct reader root C8:A717 subindex 0x07; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 07 opcode bytes present at CC:19C0; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x08,C8:A907,CC:19CC,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,初期〜常設・井戸回復案内,generic_or_early_phase_candidate,exact_story_flag_unresolved,0,"「桃太郎さん! 戦いに つかれたら
+ 井戸の水を のむと いいわよ!
+ 何回でも のめるしね!」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,6ced2465073406fd43a7b3b335a8e6eb9c18cc3772005da2bb101db735bcdb25,canonical family 0x4E direct reader root C8:A717 subindex 0x08; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 08 opcode bytes present at CC:19CC; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x09,C8:A92F,CC:19E0,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,ひえん修行中・巻物探索期,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「ひえんの巻き物 ですか…?
+ ごめんなさい
+ ちょっと ぞんじあげませんわ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,dae0d1414f2ba5149457e347e58808fd20e9322df0c0fe74f638e90f8cf9d411,canonical family 0x4E direct reader root C8:A717 subindex 0x09; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 09 opcode bytes present at CC:19E0; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x0A,C8:A953,CC:19E9,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,おむすびころりん封鎖期,semantic_phase_candidate,exact_story_flag_unresolved,1,"「たいへんです! 桃太郎さん!
+ おむすびころりんの穴が ふさがって
+ 行き来が できなくなったんです!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,d639bf7dfe867e40437a16138277e9c57ab90fd075206f406bbd61a1803816b7,canonical family 0x4E direct reader root C8:A717 subindex 0x0A; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 0A opcode bytes present at CC:19E9; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x0B,C8:A97F,CC:19EF,strong_a4_opcode_boundary_candidate_not_yet_promoted_by_source_pair_catalog,おむすび村成立後,semantic_phase_candidate,exact_story_flag_unresolved,1,"「桃太郎さんの おかげで
+ おむすび村が できたそうですね!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,f79c1caaa6d51193e160cde5bac725b3a64109c992473ab8923bcaace6b89441,canonical family 0x4E direct reader root C8:A717 subindex 0x0B; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; A4 0B opcode bytes present at CC:19EF; full compact-VM boundary promotion pending
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x0C,C8:A999,CC:19FD,catalogued_a4_source_selection,ひえん修行中・巻物探索期,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「ひえんの術っていうと あの
+ 空を ピューッと
+ かっとんでいく やつだね!」
+「えっ? 今度のは 月にも
+ 行けるって! そりゃ
+ ぜひとも さがさにゃあ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,d0d92f52936cb76b815227ba71195cdd159f9ed8aff8d4a058b6bce04e5db1d4,canonical family 0x4E direct reader root C8:A717 subindex 0x0C; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; opcode 22 and compact E0 establish A4 command boundary at CC:19FD
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x0D,C8:A9E0,CC:1A03,catalogued_a4_source_selection,月から帰還後候補,semantic_phase_candidate,exact_story_flag_unresolved,0,"「桃太郎さんを 月から 飛ばすほど
+ 強い鬼が いるだか!
+ 今度こそ わしらは ダメか?」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,3f14b7daf05d592b26867cea6018e83343892254bb63c7d307817ec0990b28be,canonical family 0x4E direct reader root C8:A717 subindex 0x0D; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; compact A0 24-bit pointer instruction establishes A4 command boundary at CC:1A03
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x0E,C8:AA08,CC:1A26,catalogued_a4_source_selection,ひえん修行中・巻物探索期,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「桃太郎さん! ひえんの巻き物を
+ さがしているんだって?」
+
+「足もと よーく
+ 調べれば そのへんに
+ ころがってるかも しんねえだな!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,fc42378460e2d2d87d89eb6237eb004f7d74391893952e7fc4c9b7b37f7cec1a,canonical family 0x4E direct reader root C8:A717 subindex 0x0E; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; opcode 09 establishes A4 command boundary at CC:1A26
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x0F,C8:AA44,CC:1A32,catalogued_a4_source_selection,おむすびころりん襲撃報告期,semantic_phase_candidate,exact_story_flag_unresolved,1,"「桃太郎さん! えらいこっちゃ!
+ おむすびころりんの穴が 鬼に
+ おそわれたと 旅の人が 言ってただ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,69836c37b76709b1cce8c2ab0dd8ed25d13e401c0f6e94e54ff8fedeafc5eb54,canonical family 0x4E direct reader root C8:A717 subindex 0x0F; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; opcode 09 establishes A4 command boundary at CC:1A32
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x10,C8:AA71,CC:1A4F,catalogued_a4_source_selection,お供加入後の一般会話候補,semantic_phase_candidate,exact_story_flag_unresolved,0,"「桃太郎さん!
+ ダイコンは おとものみなさんも
+ 食べるんでねっか!」",,confirmed_static_direct_decode,same_family_location_unresolved,candidate,9fe64de36fbeee9a22aee7deed9d303606a25656e11277b275392c24fbc28cc9,canonical family 0x4E direct reader root C8:A717 subindex 0x10; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; opcode 09 establishes A4 command boundary at CC:1A4F
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x11,C8:AA8E,CC:1A89,catalogued_a4_source_selection,ひえん修行中・巻物探索期,strong_semantic_phase_candidate,exact_story_flag_unresolved,1,"「屋根に 穴があいたって話は
+ 聞かないから 巻き物が
+ あるとしたら 家の外だよ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,daaf43b134498169d7dc722208b7383803bbdd90050e5f49108cab26350978e1,canonical family 0x4E direct reader root C8:A717 subindex 0x11; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; opcode 72 establishes A4 command boundary at CC:1A89
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x12,C8:AAB8,CC:1AD4,catalogued_a4_source_selection,初期〜常設案内候補,generic_or_early_phase_candidate,exact_story_flag_unresolved,1,"「きんたん仙人さまは 北の山すそに
+ 庵(いおり)を むすんで
+ すんで いらっしゃいますよ!」
+「ちょっと わかりにくいけど
+ ちかよれば 見つかるわね!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,332b0d8fbd9d006049fd0a6687265c9a8659d1fea95ae7c8ee9851c81926a1ff,canonical family 0x4E direct reader root C8:A717 subindex 0x12; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x13,C8:AAFC,CC:1AFD,catalogued_a4_source_selection,初期〜常設案内候補,generic_or_early_phase_candidate,exact_story_flag_unresolved,1,"「こらっ!
+ オラの 畑を
+ あらすでねえだ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,21ef10287fc919c30d09d6727fb30aee293cd68a8c1c29be194692a2f70bc507,canonical family 0x4E direct reader root C8:A717 subindex 0x13; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x14,C8:AB10,CC:1B01,catalogued_a4_source_selection,初期〜常設案内候補,generic_or_early_phase_candidate,exact_story_flag_unresolved,1,"「桃太郎さん!
+ 旅に 出るなら 神社で
+ おまいりしたほうが いいよ!」
+「桃太郎さんが 鬼に 負けちゃうと
+ 旅の話を しるした ところから
+ やりなおしに なっちゃうんだ!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,5057131b2be490fa37c70ed35cd0b68f50cf1bb7312146817f95cb364f55ccf7,canonical family 0x4E direct reader root C8:A717 subindex 0x14; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x15,C8:AB58,CC:1B18,catalogued_a4_source_selection,雪だるま発見・再会イベント,event_phase_strong,exact_story_flag_unresolved,1,"「もー! ひっどーーーーい!
+ 桃ちゃん おそいじゃない!
+ プン! プン!」
+「こんなとこに あたし ひとりで
+ ほっといて どーゆーつもりっ!
+ はやく つれてかえって!」",,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,2fb61b722a52ca89645348f389048cf06c1481fad81adad76256e88dbaf2bc0e,canonical family 0x4E direct reader root C8:A717 subindex 0x15; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; opcode 09 at CC:1B14 is 4 bytes; A4 handler consumes opcode+operand
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x16,C8:ABA0,CC:1B1E,catalogued_a4_source_selection,落下物取得イベント（対象パラメータ未解決）,event_phase_candidate,exact_story_flag_unresolved,0,{09}が おちていた!,09,confirmed_static_direct_decode_with_parameter_control,same_family_location_unresolved,candidate,a56cb590637f9c4c3a2f32fee767a348c5865d2be476debdd92ff7a8bddb307e,canonical family 0x4E direct reader root C8:A717 subindex 0x16; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv; handler-proven A4 selection plus exact retained-v33 token match; parameterized event/system text
+tabidachi_village,旅立ちの村,cfg_t04_l008_v2,0x50,0x4E,0x17,C8:ABA8,CC:1B42,catalogued_a4_source_selection,飛来物イベント,event_phase_candidate,exact_story_flag_unresolved,1,「おや! 何か 飛んできたような……」,,confirmed_static_direct_decode,strong_tabidachi_context_actor_binding_unresolved,strong,0752650b71f47781f5e8be047450a7ef84c03c21ace62f4a75e5721bfb17f8e7,canonical family 0x4E direct reader root C8:A717 subindex 0x17; canonical_rom_sha256=F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98; data/dialogue/source_pair_usage_catalog.csv

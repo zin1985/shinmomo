@@ -13,6 +13,7 @@ SPRITE_SEMANTICS = ROOT / "data/npc_display/static_actor_sprite_semantics_202609
 DIRECTIONAL_CATALOG = ROOT / "data/npc_display/static_character_directional_catalog_20260930.csv"
 SOURCE_HOTSPOTS = TRANSITIONS / "source_transition_hotspots.csv"
 LOCATION_CANDIDATES = ROOT / "data/maps/context/map_location_identity_candidates_20260930.csv"
+LOCATION_DIALOGUE_CONTEXT = ROOT / "data/dialogue/location_dialogue_context_20261002.csv"
 ACTOR_SPAWN_CONDITIONS = ROOT / "data/npc_display/static_actor_spawn_conditions_20260930.csv"
 ACTOR_SPAWN_PREDICATE_TERMS = ROOT / "data/npc_display/static_actor_spawn_predicate_terms_20260930.csv"
 SCENE_STATE_REQUIREMENTS = ROOT / "data/npc_display/static_scene_state_requirements_20260930.json"
@@ -141,11 +142,52 @@ def main():
                     "data": f"layers/t{int(row['tileset_id']):02d}_l{int(row['layout_id']):03d}.json",
                 }],
                 "entities": [],
+                "location_dialogues": [],
                 "transition_arrivals": [],
                 "source_transition_hotspots": [],
                 "confidence": row["confidence"],
                 "provenance": "map_render_catalog",
             }
+    location_dialogues = []
+    if LOCATION_DIALOGUE_CONTEXT.exists():
+        for n, row in enumerate(csv.DictReader(LOCATION_DIALOGUE_CONTEXT.open(encoding="utf-8-sig", newline=""))):
+            config_id = row.get("map_config_id") or ""
+            dialogue_id = (
+                f"location_dialogue_{row.get('location_context_id') or 'unknown'}_"
+                f"{(row.get('dialogue_family_hex') or 'family').replace('0x','')}_"
+                f"{(row.get('subindex_hex') or str(n)).replace('0x','')}"
+            )
+            pages = dialogue_page_candidates(row.get("decoded_text") or "")
+            item = {
+                "location_dialogue_id": dialogue_id,
+                "location_context_id": row.get("location_context_id") or None,
+                "location_label": row.get("location_label") or None,
+                "map_config_id": config_id or None,
+                "runtime_map_pack_hex": row.get("runtime_map_pack_hex") or None,
+                "dialogue_family_hex": row.get("dialogue_family_hex") or None,
+                "subindex_hex": row.get("subindex_hex") or None,
+                "text_pointer": row.get("text_pointer") or None,
+                "script_callsite": row.get("script_callsite") or None,
+                "source_selection_status": row.get("source_selection_status") or None,
+                "phase_hint": row.get("phase_hint") or None,
+                "phase_status": row.get("phase_status") or None,
+                "flag_binding_status": row.get("flag_binding_status") or None,
+                "viewer_default": (row.get("viewer_default") or "0") == "1",
+                "decoded_text": row.get("decoded_text") or "",
+                "decoder_unknown_tokens": [x for x in (row.get("decoder_unknown_tokens") or "").split(";") if x],
+                "pages": [{"page_index": i + 1, "text": page} for i, page in enumerate(pages)],
+                "decode_status": row.get("decode_status") or None,
+                "location_binding_status": row.get("location_binding_status") or None,
+                "confidence": row.get("confidence") or None,
+                "evidence": row.get("evidence") or None,
+                "raw_token_sha256": row.get("raw_token_sha256") or None,
+                "current_state_policy": "archive_only_until_exact_story_flag_and_actor_binding_are_resolved",
+                "provenance": str(LOCATION_DIALOGUE_CONTEXT.relative_to(ROOT)).replace("\\", "/"),
+            }
+            location_dialogues.append(item)
+            if config_id in maps:
+                maps[config_id]["location_dialogues"].append(dialogue_id)
+
     transitions = []
     for path in sorted(TRANSITIONS.glob("*.json")):
         doc = json.loads(path.read_text(encoding="utf-8"))
@@ -772,7 +814,7 @@ def main():
         m["transition_arrivals"].append(arrival["arrival_id"])
 
     world = {
-        "schema_version": 7,
+        "schema_version": 8,
         "kind": "shinmomo_structural_world",
         "project_progress": build_project_progress_snapshot(),
         "asset_profiles": {
@@ -792,6 +834,12 @@ def main():
         },
         "events": events,
         "dialogue_sequences": dialogue_sequences,
+        "location_dialogues": location_dialogues,
+        "location_dialogue_summary": {
+            "row_count": len(location_dialogues),
+            "map_count": len({x["map_config_id"] for x in location_dialogues if x.get("map_config_id")}),
+            "archive_policy": "phase-aware location archive; never auto-promote to current actor dialogue",
+        },
         "dialogue_summary": {
             "sequence_count": len(dialogue_sequences),
             "decoded_sequence_count": sum(bool(x["pages"]) for x in dialogue_sequences),

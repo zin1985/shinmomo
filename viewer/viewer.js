@@ -25,6 +25,7 @@ const byId=new Map(world.maps.map(m=>[m.config_id,m]));
 const entityById=new Map(world.entities.map(e=>[e.entity_id,e]));
 const arrivalById=new Map((world.transition_arrivals||[]).map(a=>[a.arrival_id,a]));
 const dialogueById=new Map((world.dialogue_sequences||[]).map(d=>[d.dialogue_sequence_id,d]));
+const locationDialogueById=new Map((world.location_dialogues||[]).map(d=>[d.location_dialogue_id,d]));
 const hotspotById=new Map((world.source_transition_hotspots||[]).map(h=>[h.hotspot_id,h]));
 const q=s=>document.querySelector(s);
 const list=q('#maps'), edges=q('#edges'), unbound=q('#unbound'), detail=q('#detail');
@@ -95,6 +96,65 @@ async function layerSummary(m){
 
 function mapEntities(m){
   return (m.entities||[]).map(id=>entityById.get(id)).filter(Boolean);
+}
+
+function mapLocationDialogues(m,pack=selectedPack){
+  const rows=(m.location_dialogues||[]).map(id=>locationDialogueById.get(id)).filter(Boolean);
+  if(!pack)return rows;
+  return rows.filter(d=>!d.runtime_map_pack_hex||d.runtime_map_pack_hex===pack);
+}
+
+function renderLocationDialogues(m){
+  const panel=q('#locationDialoguePanel');
+  const host=q('#locationDialogue');
+  if(!panel||!host)return;
+  const allRows=mapLocationDialogues(m);
+  const showCandidates=!!q('#dialogueCandidatesToggle')?.checked;
+  const rows=showCandidates?allRows:allRows.filter(d=>d.viewer_default);
+  panel.hidden=!allRows.length;
+  host.replaceChildren();
+  if(!allRows.length)return;
+
+  const notice=document.createElement('div');
+  notice.className='locationDialogueNotice';
+  const hidden=allRows.length-rows.length;
+  notice.textContent='場所に属する会話アーカイブです。時期候補は解析用で、正確なフラグと発話NPCが未確定の行は「現在のセリフ」として扱いません。'+(hidden?' 同familyの場所未確定候補 '+hidden+'件は analysis dialogue candidates をONにすると表示します。':'');
+  host.append(notice);
+
+  for(const d of rows){
+    const item=document.createElement('details');
+    item.className='locationDialogueRow';
+    const summary=document.createElement('summary');
+    const source=[d.dialogue_family_hex,d.subindex_hex].filter(Boolean).join(':');
+    summary.textContent=(d.phase_hint||'時期未分類')+' | '+source;
+    item.append(summary);
+
+    const body=document.createElement('div');
+    body.className='locationDialogueText';
+    body.textContent=d.decoded_text||'';
+    item.append(body);
+
+    const meta=document.createElement('div');
+    meta.className='locationDialogueMeta';
+    meta.textContent=[
+      d.location_label||null,
+      d.runtime_map_pack_hex?'runtime map '+d.runtime_map_pack_hex:null,
+      d.text_pointer||null,
+      d.script_callsite||null,
+      d.source_selection_status||null,
+      d.phase_status||null,
+      d.flag_binding_status||null,
+      d.location_binding_status||null,
+      d.confidence||null
+    ].filter(Boolean).join(' | ');
+    item.append(meta);
+
+    item.onclick=ev=>{
+      ev.stopPropagation();
+      detail.textContent=JSON.stringify(d,null,2);
+    };
+    host.append(item);
+  }
 }
 
 function mapActorPacks(m){
@@ -244,6 +304,10 @@ function mapDisplayName(m,pack=null){
   const labels=[...new Set(actors.map(e=>e.location_label).filter(Boolean))];
   if(labels.length===1)return labels[0];
   if(labels.length>1)return m.config_id+' ('+labels.join(' / ')+')';
+  if(pack){
+    const archiveLabels=[...new Set(mapLocationDialogues(m,pack).map(d=>d.location_label).filter(Boolean))];
+    if(archiveLabels.length===1)return archiveLabels[0]+' ('+m.config_id+')';
+  }
   // Guard against the stale render-catalog label that was formerly injected
   // into the shared t04/l008 configuration. Location identity is pack/instance
   // context, not layout identity.
@@ -619,6 +683,7 @@ async function selectMap(m,focus=null,pack=undefined){
   q('#title').textContent=mapDisplayName(m,selectedPack)+(selectedPack?' ['+selectedPack+']':(packs.length>1?' [scene pack unresolved]':''));
   renderMap(m);
   renderAnalysisEvidence(m);
+  renderLocationDialogues(m);
   detail.textContent='loading structural layers...';
   detail.textContent=JSON.stringify({
     ...m,
@@ -633,6 +698,7 @@ async function selectMap(m,focus=null,pack=undefined){
     unconditional_actor_count:sceneActorCandidates(m).filter(e=>e.spawn_condition?.visibility_when_state_unknown==='visible').length,
     all_static_actor_count:mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate').length,
     dialogue_branch_count:sceneActors(m).reduce((n,e)=>n+(e.dialogue_refs||[]).length,0),
+    location_dialogue_archive_count:mapLocationDialogues(m).length,
     source_transition_hotspot_count:mapHotspots(m).length,
     transition_arrival_count:mapArrivals(m).length,
     layer_summary:await layerSummary(m)
@@ -683,7 +749,8 @@ for(const m of world.maps){
   const dialogueCount=actors.reduce((n,e)=>n+(e.dialogue_refs||[]).length,0);
   const arrivals=(m.transition_arrivals||[]).length;
   const hotspots=(m.source_transition_hotspots||[]).length;
-  b.textContent=mapDisplayName(m)+(count?` [A:${count}]`:'')+(dialogueCount?` [D:${dialogueCount}]`:'')+(hotspots?` [H:${hotspots}]`:'')+(arrivals?` [T:${arrivals}]`:'');
+  const locationDialogueCount=(m.location_dialogues||[]).length;
+  b.textContent=mapDisplayName(m)+(count?` [A:${count}]`:'')+(dialogueCount?` [D:${dialogueCount}]`:'')+(locationDialogueCount?` [L:${locationDialogueCount}]`:'')+(hotspots?` [H:${hotspots}]`:'')+(arrivals?` [T:${arrivals}]`:'');
   b.onclick=()=>selectMap(m); list.append(b);
 }
 for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){
@@ -692,8 +759,9 @@ for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsTogg
 q('#scenePack').addEventListener('change',()=>{
   if(selectedMap)selectMap(selectedMap,selectedFocus,q('#scenePack').value||null);
 });
+q('#dialogueCandidatesToggle').addEventListener('change',()=>{
+  if(selectedMap)selectMap(selectedMap,selectedFocus,selectedPack);
+});
 q('#zoom').addEventListener('input',()=>{applyZoom();if(selectedMap)renderFocus(selectedMap);});
 stage.addEventListener('click',()=>clearDialogue());
 if(world.maps[0])selectMap(world.maps[0]);
-
-
