@@ -94,3 +94,6 @@ This strengthens G2 without restoring the obsolete 7,877-record family-boundary 
 ## 2026-10-02 collision/map-boundary reconciliation
 
 For G1/G4/G5, treat the native map-boundary chain (`C1:8943 -> 81:81DD -> 81:895A`) as confirmed infrastructure. Next static work should extend it toward event/trigger provenance. Keep bank89 `$0959/$09D9` as a separate unresolved object-geometry candidate rather than redoing the known map-bounds layer.
+
+## 2026-10-02 22:19 G4 boundary-trigger promotion
+Pack2E now has a closed bidirectional provenance witness between VM exact-point trigger CC:1CDA and native south-boundary saved-state restore C1:8955. G4 advances by one point; next work generalizes event-trigger region structure across the hotspot corpus.

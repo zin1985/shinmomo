@@ -289,3 +289,8 @@
 - Confirmed pack2E evidence closes a native map-edge discriminator: `C1:8943` stages `$030B/$030D`, `81:81DD` tests inclusive `$15CA..$15CD` bounds, and the out-of-bounds branch reaches `81:895A` before saved-state restore.
 - This means the unresolved bank89 `$0959` / `$0959+$09D9+1` consumer must not be used as the canonical map-boundary/passability routine without additional evidence.
 - Terrain/metatile passability, object occupancy collision, event-trigger regions, and native map bounds remain distinct semantic layers until crosslinked.
+
+## 2026-10-02 22:19 boundary-trigger crosslink closure
+- Pack 0x2E south native boundary restore is already represented as hotspot_native_pack2e_south_exit_candidate: X=8..10,Y=12, C1:8955, saved-state restore to cfg_t04_l008_v2 at (29,17).
+- Its forward pair hotspot_CC_1CDA is an opcode 0x69 exact-point predicate at cfg_t04_l008_v2 (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12).
+- This closes the priority native-boundary -> trigger/transition provenance witness without claiming terrain passability or object collision.

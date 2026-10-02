@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-02T21:11:00+09:00",
+  "updated_at": "2026-10-02T22:19:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -18,11 +18,11 @@
     {
       "id": "script-vm",
       "name": "Script VM / Event",
-      "percent": 73,
+      "percent": 74,
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000台script、0x41A10 family、reader/dispatcher",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B."
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B. 2026-10-02 boundary-trigger reconciliation: pack2E native south-boundary restore is already represented in source_transition_hotspots as hotspot_native_pack2e_south_exit_candidate, while its forward counterpart CC:1CDA is an exact-point opcode 0x69 predicate at source (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12). This closes the requested native boundary -> trigger/transition provenance crosslink for the pack2E witness without re-extracting transitions."
     },
     {
       "id": "fd67-selector",
@@ -137,51 +137,27 @@
     {
       "priority": 1,
       "goal_ids": [
-        "G1",
-        "G4",
-        "G5"
-      ],
-      "track_id": "script-vm",
-      "title": "native map-boundary?event/trigger crosslink??",
-      "target": "Use the confirmed C1:8943 -> 81:81DD -> 81:895A native out-of-bounds chain and pack2E centerline witness to crosslink boundary exits to event/transition provenance; do not conflate this with bank89 object geometry.",
-      "status": "next"
-    },
-    {
-      "priority": 2,
-      "goal_ids": [
-        "G1",
-        "G4",
-        "G5"
-      ],
-      "track_id": "wram",
-      "title": "bank89 object-geometry reader provenance??",
-      "target": "Recover concrete provenance for the documented $0959 and $0959+$09D9+1 reads. Committed evidence lacks bank89 disassembly provenance, so static promotion is blocked unless another committed source appears; runtime promotion requires canonical Drive ROM.",
-      "status": "blocked-provenance-rom"
-    },
-    {
-      "priority": 3,
-      "goal_ids": [
         "G4",
         "G5"
       ],
       "track_id": "script-vm",
       "title": "event-trigger region構造確定",
-      "target": "Crosslink collision/position candidate coordinates with event/trigger records and transition triggers.",
-      "status": "queued"
+      "target": "Generalize the proven opcode 0x69/0x5D coordinate predicates and native-boundary hotspot relation into event/trigger region structures; keep native boundary, terrain passability and object occupancy separate.",
+      "status": "next"
     },
     {
-      "priority": 4,
+      "priority": 2,
       "goal_ids": [
         "G4",
         "G5"
       ],
       "track_id": "script-vm",
       "title": "transition→event/trigger crosslink拡張",
-      "target": "Extend current transition baseline to source map/config, trigger/event provenance and arrival semantics without redoing completed extraction.",
+      "target": "Extend the existing hotspot/transition join beyond the pack2E witness to source map/config, predicate region, event provenance and arrival semantics.",
       "status": "queued"
     },
     {
-      "priority": 5,
+      "priority": 3,
       "goal_ids": [
         "G3",
         "G4",
@@ -193,7 +169,7 @@
       "status": "queued"
     },
     {
-      "priority": 6,
+      "priority": 4,
       "goal_ids": [
         "G2",
         "G3",
@@ -206,26 +182,38 @@
       "status": "queued"
     },
     {
-      "priority": 7,
+      "priority": 5,
       "goal_ids": [
         "G1",
         "G4",
         "G5"
       ],
       "track_id": "wram",
-      "title": "native  writer分類",
+      "title": "bank89 object-geometry reader provenance確定",
+      "target": "Recover concrete provenance for the documented $0959 and $0959+$09D9+1 reads; runtime promotion requires canonical Drive ROM.",
+      "status": "blocked-provenance-rom"
+    },
+    {
+      "priority": 6,
+      "goal_ids": [
+        "G1",
+        "G4",
+        "G5"
+      ],
+      "track_id": "wram",
+      "title": "native $0305 writer分類",
       "target": "Classify native writers and separate controller/event/map semantics.",
       "status": "queued"
     },
     {
-      "priority": 8,
+      "priority": 7,
       "goal_ids": [
         "G1",
         "G5"
       ],
       "track_id": "externalization",
       "title": "rebuild仕様への統合",
-      "target": "Promote confirmed map/collision/event/object semantics into portable schemas and rebuild-gap manifest.",
+      "target": "Promote confirmed map/boundary/trigger/object semantics into portable schemas and rebuild-gap manifest.",
       "status": "queued"
     }
   ],
@@ -290,8 +278,8 @@
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
-  "overall_percent": 50.4,
-  "legacy_workstream_overall_percent": 77.1,
+  "overall_percent": 50.6,
+  "legacy_workstream_overall_percent": 77.2,
   "top_goals": [
     {
       "id": "G1",
@@ -406,7 +394,7 @@
     {
       "id": "G4",
       "name": "全イベント完全解析",
-      "percent": 45,
+      "percent": 46,
       "status": "active",
       "definition_of_done": "全eventを列挙し、発生条件・flag・分岐・会話・actor/object action・報酬・戦闘・加入離脱・終了後stateをmachine-readable graph化。",
       "components": [
