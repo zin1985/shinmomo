@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "kind": "native_boundary_saved_return_static_witness",
+  "scope": "pack 0x2E centerline witness; does not assert the exact X used by the historical reverse runtime transition",
+  "source": {
+    "config_id": "cfg_t07_l015_v2",
+    "pack_id_hex": "0x2E",
+    "tileset_id": 7,
+    "layout_id": 15,
+    "variant": 2,
+    "bounds": {
+      "opcode_addr": "CB:DE74",
+      "min_x": 0,
+      "max_x": 19,
+      "min_y": 0,
+      "max_y": 12,
+      "confidence": "confirmed_static_opcode52_bounds"
+    },
+    "south_opening": {
+      "x_min": 8,
+      "x_max": 10,
+      "y": 12,
+      "cells": [
+        {
+          "x": 8,
+          "y": 12,
+          "metatile_id": 68
+        },
+        {
+          "x": 9,
+          "y": 12,
+          "metatile_id": 69
+        },
+        {
+          "x": 10,
+          "y": 12,
+          "metatile_id": 69
+        }
+      ],
+      "center_cell": {
+        "x": 9,
+        "y": 12,
+        "metatile_id": 69
+      }
+    }
+  },
+  "centerline_entry_witness": {
+    "forward_trigger_addr": "CC:1CDA",
+    "forward_transition_type": "vm_opcode_0x53_transition_wrapper_terminal",
+    "destination_entry_id": "0x02",
+    "coordinate_setter_addr": "CB:DE7C",
+    "arrival": {
+      "x": 9,
+      "y": 12
+    },
+    "status": "confirmed_static_destination_coordinate",
+    "note": "This proves a static centerline entry witness, not that the historical reverse runtime sample exited from x=9."
+  },
+  "south_step_boundary_test": {
+    "direction": "down",
+    "current": {
+      "x": 9,
+      "y": 12
+    },
+    "attempted": {
+      "x": 9,
+      "y": 13
+    },
+    "x_in_bounds": true,
+    "y_in_bounds": false,
+    "outside_reason": "attempted_y_above_max_y",
+    "native_chain": [
+      "C1:8943 copies current map X/Y to $030B/$030D",
+      "81:81DD compares against inclusive $15CA..$15CD bounds",
+      "C1:8955 calls 81:895A on out-of-bounds",
+      "81:895A requests native transition and clears $13B8",
+      "C1:97BC..C1:97C5 selects saved-state restore when $13B8==0",
+      "81:8244 restores indexed saved map state",
+      "C1:8255 restores the saved pack to $0305"
+    ],
+    "status": "confirmed_static_native_boundary_path"
+  },
+  "saved_return": {
+    "origin_trigger_addr": "CC:1CDA",
+    "destination_config_id": "cfg_t04_l008_v2",
+    "destination_pack_hex": "0x50",
+    "x": 29,
+    "y": 17,
+    "position_mode": "exact_saved_coordinate",
+    "status": "confirmed_static_exact_saved_coordinate"
+  },
+  "runtime_relation": {
+    "status": "confirmed_runtime_transition",
+    "from_config_id": "cfg_t07_l015_v2",
+    "from_pack_id_hex": "0x2E",
+    "to_config_id": "cfg_t04_l008_v2",
+    "to_pack_id_hex": "0x50",
+    "trigger_observation": "Player walked south through the central exit of the save/shrine-like interior.",
+    "exact_pre_exit_x_captured": false,
+    "runtime_return_xy_captured": false
+  },
+  "closure": {
+    "static_centerline_witness_closed": true,
+    "reverse_relation_runtime_confirmed": true,
+    "exact_historical_runtime_source_cell_closed": false,
+    "exact_historical_runtime_return_xy_closed": false,
+    "status": "closed_static_centerline_witness_with_confirmed_runtime_relation",
+    "confidence": "confirmed_static_path_plus_confirmed_runtime_edge_relation"
+  },
+  "provenance": [
+    "data/maps/transitions/map_native_bounds_catalog.csv",
+    "data/maps/transitions/map_transition_candidates.csv",
+    "data/maps/transitions/source_saved_return_origins.csv",
+    "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
+    "viewer/data/layers/t07_l015.json",
+    "C4:8B16",
+    "C1:8943",
+    "81:81DD",
+    "C1:8955",
+    "81:895A",
+    "C1:97BC",
+    "81:8244",
+    "C1:8255"
+  ]
+}
