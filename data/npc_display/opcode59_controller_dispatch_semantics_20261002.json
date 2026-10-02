@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scope": "normal opcode59 actor/controller event-record trailer",
+  "keys": {
+    "0x7A": {
+      "target_geometry": "current_record_body",
+      "structural_role": "map_entry_record_body_dispatch",
+      "caller": "C1:AEDC -> 84:858D/859A",
+      "confidence": "high",
+      "warning": "Do not generalize to actor spawn only; the record body may perform broader initialization/event work."
+    },
+    "0x7C": {
+      "target_geometry": "next_record_plus_1",
+      "structural_role": "front_interaction_dispatch",
+      "caller": "C1:A1ED/A1F2 -> 84:867D/8699 after front-tile target probe",
+      "confidence": "high",
+      "warning": "Do not rename globally to talk/dialogue; interaction targets can implement other behavior."
+    },
+    "0x00": {
+      "target_geometry": null,
+      "structural_role": "keyed_dispatch_terminator",
+      "caller": "84:8699 keyed-table scanner",
+      "confidence": "confirmed"
+    }
+  },
+  "evidence": [
+    "docs/analysis/event_controller_pointer_bridge.md",
+    "docs/analysis/map_pack_entry_paths_20260928.md",
+    "tools/python/catalog_event_record_frames.py",
+    "docs/analysis/opcode59_controller_trailer_key_semantics_20261002.md"
+  ]
+}
