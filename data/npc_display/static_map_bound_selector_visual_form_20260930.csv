@@ -1,9 +1,22 @@
 selector_hex,visual_form,visual_detail,visual_confidence,evidence
+0x02,humanoid_like,dark-haired small human figure,high,static_sprite_visual_atlas_20261002
 0x03,humanoid_like,human figure,high,static_sprite_visual
+0x04,humanoid_like,blue-haired human figure,high,static_sprite_visual_atlas_20261002
+0x05,small_creature_like,blue spiky small creature-like figure,medium,static_sprite_visual_atlas_20261002
+0x06,humanoid_like,blue-yellow armored or hooded human-like figure,medium,static_sprite_visual_atlas_20261002
+0x07,humanoid_like,red-yellow armored or hooded human-like figure,medium,static_sprite_visual_atlas_20261002
+0x08,small_creature_like,dark-spiky white-blue small creature,medium,static_sprite_visual_atlas_20261002
+0x09,monster_like,colorful horned or crested creature,high,static_sprite_visual_atlas_20261002
+0x0A,small_creature_like,small green-white creature,medium,static_sprite_visual_atlas_20261002
+0x0B,small_creature_like,small pale rounded creature,medium,static_sprite_visual_atlas_20261002
+0x0D,humanoid_like,black-haired blue-clad human figure,high,static_sprite_visual_atlas_20261002
 0x0E,monster_like,yellow humanoid creature,medium,static_sprite_visual
 0x0F,small_creature_like,small black-white creature,medium,static_sprite_visual
 0x10,humanoid_like,stocky human figure,high,static_sprite_visual
 0x11,plant_or_effect_like,purple flower-like form,high,static_sprite_visual
+0x12,animal_like,black-white bird-like figure,high,static_sprite_visual_atlas_20261002
+0x13,humanoid_like,white-haired or hooded human figure,high,static_sprite_visual_atlas_20261002
+0x14,humanoid_like,brown-haired human figure,high,static_sprite_visual_atlas_20261002
 0x17,animal_like,white cat-like animal,high,static_sprite_visual
 0x22,humanoid_like,blue-clad figure,high,static_sprite_visual
 0x23,humanoid_like,white-haired or hooded figure,high,static_sprite_visual
@@ -15,6 +28,7 @@ selector_hex,visual_form,visual_detail,visual_confidence,evidence
 0x2E,humanoid_like,hat or helmeted human figure,high,static_sprite_visual
 0x2F,humanoid_like,blue-clad human figure,high,static_sprite_visual
 0x30,humanoid_like,red-clad human figure,high,static_sprite_visual
+0x32,monster_like,blue flame or blob-like creature,high,static_sprite_visual_atlas_20261002
 0x33,humanoid_like,human figure,high,static_sprite_visual
 0x35,humanoid_like,human figure,high,static_sprite_visual
 0x38,humanoid_like,blue-clad human figure,high,static_sprite_visual
@@ -30,13 +44,26 @@ selector_hex,visual_form,visual_detail,visual_confidence,evidence
 0x42,humanoid_like,blue-red human figure,high,static_sprite_visual
 0x43,humanoid_like,straw-hat human figure,high,static_sprite_visual
 0x44,humanoid_like,broad-hat human figure,high,static_sprite_visual
+0x45,humanoid_like,small robed human figure,high,static_sprite_visual_atlas_20261002
+0x46,humanoid_like,pale or bald robed human figure,high,static_sprite_visual_atlas_20261002
+0x48,humanoid_like,black-haired pink-white human figure,high,static_sprite_visual_atlas_20261002
 0x49,animal_like,snail-like creature,high,static_sprite_visual
+0x51,small_creature_like,tiny purple-headed creature-like figure,medium,static_sprite_visual_atlas_20261002
+0x52,small_creature_like,tiny blue creature-like figure,medium,static_sprite_visual_atlas_20261002
 0x53,monster_like,red-orange monster-like figure,high,static_sprite_visual
 0x54,monster_like,gray-black monster-like figure,high,static_sprite_visual
+0x55,object_like,oval blue-yellow object or shell-like form,medium,static_sprite_visual_atlas_20261002
 0x56,monster_like,green monster-like figure,high,static_sprite_visual
 0x59,humanoid_like,purple-green human graphics alias,high,static_sprite_visual
 0x5A,humanoid_like,human graphics alias,high,static_sprite_visual
 0x5B,humanoid_like,blue-haired or blue-hat human figure,high,static_sprite_visual
 0x5C,object_like,cabinet or shrine-box-like object,high,static_sprite_visual
+0x6A,monster_like,skeletal humanoid figure,high,static_sprite_visual_atlas_20261002
+0x6C,object_like,yellow altar chest or shrine-like object,high,static_sprite_visual_atlas_20261002
+0x6D,object_like,purple altar chest or shrine-like object,high,static_sprite_visual_atlas_20261002
 0x6F,monster_like,green-yellow monster-like figure,high,static_sprite_visual
+0x71,monster_like,gray face or ghost-like form,high,static_sprite_visual_atlas_20261002
+0x77,humanoid_like,seated or side-facing human figure,high,static_sprite_visual_atlas_20261002
+0x7C,humanoid_like,crouched or reclining human figure,high,static_sprite_visual_atlas_20261002
 0x9C,humanoid_like,small human figure,high,static_sprite_visual
+0xA4,humanoid_like,green-clad human figure,high,static_sprite_visual_atlas_20261002
