@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-10-03T08:15:00+09:00",
+  "destination_pack": "0x96",
+  "canonical_config": "cfg_t09_l098_v2",
+  "entry_ids": [
+    "0x02",
+    "0x03",
+    "0x04",
+    "0x05"
+  ],
+  "transition_rows": 4,
+  "rows_with_arrival_xy": 0,
+  "finding": "All committed pack 0x96 destination entries 0x02..0x05 target cfg_t09_l098_v2 and all lack arrival XY; CC:0BD7 is therefore one member of a pack-level entry-coordinate provenance gap, not an isolated missing join.",
+  "confidence": "confirmed_from_committed_metadata"
+}

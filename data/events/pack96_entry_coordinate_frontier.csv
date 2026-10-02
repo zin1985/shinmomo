@@ -1,0 +1,5 @@
+trigger_addr,destination_pack,destination_entry_id,destination_config_id,destination_x,destination_y,script_pack,script_record,script_entry,coordinate_status
+CC:0BD7,0x96,0x02,cfg_t09_l098_v2,,,0x4C,11,0x77,unresolved_in_committed_transition_catalog
+CC:DC7A,0x96,0x03,cfg_t09_l098_v2,,,0x96,1,0x89,unresolved_in_committed_transition_catalog
+CC:DCA2,0x96,0x04,cfg_t09_l098_v2,,,0x96,3,0x79,unresolved_in_committed_transition_catalog
+CC:DDBD,0x96,0x05,cfg_t09_l098_v2,,,0x97,1,0x77,unresolved_in_committed_transition_catalog

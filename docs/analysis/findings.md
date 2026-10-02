@@ -328,3 +328,8 @@
 ## 2026-10-03 arrival-gap provenance classification
 - Confirmed: all 9 remaining arrival-XY-only event-trigger gaps have unique destination pack+entry pairs with no committed same-pair transition carrying arrival XY. CC:0BD7 is pack 0x96 / entry 0x02 / cfg_t09_l098_v2 and has no aligned coordinate setter in the current catalog.
 - Next: recover coordinate provenance below the transition catalog layer, starting with pack 0x96 entry 0x02. Do not infer coordinates from neighboring transitions.
+
+## 2026-10-03 pack 0x96 entry-coordinate frontier
+- Confirmed from committed transition metadata: destination entries 0x02..0x05 all target cfg_t09_l098_v2 and all lack arrival XY. CC:0BD7 is therefore part of a pack-level entry-coordinate provenance gap, not an isolated missing join.
+- Strong hypothesis: one shared destination-entry initializer/table selects entry-specific arrival state. No coordinates are inferred from entry ordering.
+

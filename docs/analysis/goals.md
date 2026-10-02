@@ -127,3 +127,7 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 ## 2026-10-03 rolling update
 - Confirmed: all 9 remaining arrival-XY-only event-trigger gaps have unique destination pack+entry pairs with no committed same-pair transition carrying arrival XY. CC:0BD7 is pack 0x96 / entry 0x02 / cfg_t09_l098_v2 and has no aligned coordinate setter in the current catalog.
 - Next: recover coordinate provenance below the transition catalog layer, starting with pack 0x96 entry 0x02. Do not infer coordinates from neighboring transitions.
+
+## 2026-10-03 rolling frontier update
+- G4/G5 next boundary: recover pack 0x96 record-0 destination-entry coordinate provenance for entries 0x02..0x05; keep CC:1160 phase discriminator as ROM-priority when the canonical Drive ROM is available.
+
