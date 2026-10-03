@@ -1,0 +1,2 @@
+﻿gap_transition_id,gap_pack,gap_entry,destination_config_id,record0_start,record0_end_exclusive,entry01_start,entry01_end_exclusive,inferred_entry02_start,evidence
+transition_CC_0FB6,0xB9,0x02,cfg_t25_l129_v2,CD:5C60,CD:5DFE,CD:5C8B,CD:5CAA,CD:5CAA,"Committed selector metadata fixes pack 0xB9 record0 and entry01 bounds; arrival provenance independently fixes destination entry 0x02. Therefore CD:5CAA is the exact structural start for entry02; opcode/operands/XY remain unconfirmed without canonical Drive ROM bytes."
