@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-10-03T12:16:00+09:00",
+  "base_commit": "41555fe262254e78f4edd1994ab87dfa87994a62",
+  "theme": "exclude saved-state-return corpus from fixed arrival-gap provenance",
+  "drive_rom_used": false,
+  "drive_rom_blocker": "Drive指定ROMへアクセスできなかった",
+  "affected_tracks": [
+    {
+      "id": "script-vm",
+      "percent_before": 77,
+      "percent_after": 77,
+      "status": "active",
+      "scope": "arrival provenance frontier narrowed by excluding runtime-dependent opcode-0x54 saved-state returns from fixed destination-entry coordinate evidence"
+    },
+    {
+      "id": "externalization",
+      "percent_before": 78,
+      "percent_after": 78,
+      "status": "active",
+      "scope": "existing nine-gap corpus retained; provenance search space narrowed without inventing coordinates"
+    }
+  ],
+  "overall_percent_before": 51.2,
+  "overall_percent_after": 51.2,
+  "confirmed": [
+    "opcode 0x54 saved-state-return candidates deliberately have runtime-dependent destinations and blank fixed destination coordinates",
+    "the nine direct destination-entry arrival gaps have no committed same-pair known-arrival witness",
+    "saved-state-return catalog is not valid fixed-coordinate evidence for these gaps without a new provenance bridge"
+  ],
+  "strong_hypothesis": [
+    "recurrent entry 0x02 should next be tested against fixed entry initializer/table, aligned opcode 0x58, or independent route-table evidence"
+  ],
+  "unconfirmed": [
+    "coordinate values",
+    "direction/facing semantics for entry IDs",
+    "whether any direct gap later joins a saved-state path"
+  ],
+  "schedule": [
+    {"priority":1,"target":"Cross-pack entry 0x02 fixed initializer/table provenance across packs 0x96/0x9E/0xAE/0xB7/0xBD/0xB9"},
+    {"priority":2,"target":"Aligned opcode 0x58 or independent route-table witnesses for the nine arrival gaps"},
+    {"priority":3,"target":"CC:1160 pack 0xCE phase/state discriminator when canonical Drive ROM is available"},
+    {"priority":4,"target":"Cross-pack entry 0x07 provenance across packs 0x91/0xB6"},
+    {"priority":5,"target":"Entry 0x0C provenance for pack 0xA8 / CC:0C84"},
+    {"priority":6,"target":"Integrate resolved arrival grammar into rebuild specification and event-trigger schema"}
+  ]
+}
