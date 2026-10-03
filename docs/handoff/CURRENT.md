@@ -412,3 +412,6 @@ On a short request such as **「続きを進めて」**:
 
 ## Rolling override — 2026-10-02 23:14 JST
 Canonical machine state remains `progress/project_progress.json`. Latest completed frontier: event-trigger region structure normalized across 57 committed hotspot rows. Next priority is transition -> event/trigger crosslink expansion, starting with 5 missing destination configs and 10 missing arrival-coordinate pairs. See `HM_261002_event_trigger_regions.md`.
+
+- 2026-10-04 rolling cycle: pack 0x96 record0 entry 0x02 structural decode start is confirmed at CC:DBF2 from record0 CC:DBCB..CC:DC5C and entry01 CC:DBDB..CC:DBF2. Arrival XY/opcode remain unconfirmed; designated Drive ROM was inaccessible and no substitute ROM was used. See docs/analysis/entry02_pack_96_structural_boundary_20261004.md.
+

@@ -1,0 +1,2 @@
+﻿pack_id,record_id,entry_id,record0_start,record0_end,entry01_start,entry01_end,entry02_decode_start,source,status
+0x96,0,0x02,CC:DBCB,CC:DC5C,CC:DBDB,CC:DBF2,CC:DBF2,data/maps/selectors/primary_map_selector_catalog.csv,confirmed_structural_boundary

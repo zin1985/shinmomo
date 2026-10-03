@@ -159,3 +159,6 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 
 ### 2026-10-03 23:18 JST - next arrival frontier
 - Exact entry02 boundaries are now pinned for B7=`CD:5409`, 9E=`CC:FFF7`, AE=`CD:3639`, BD=`CD:6CBD`, B9=`CD:5CAA`. ROM-backed priority is direct decode after size/hash verification; ROM-free fallback is pack 0x96 entries 0x02..0x05.
+
+- [next] Decode pack 0x96 entry02 at CC:DBF2 with the designated canonical ROM; if ROM remains unavailable, bound entries 0x03..0x05 from committed selector/transition evidence without inventing coordinates.
+

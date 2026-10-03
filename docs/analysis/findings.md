@@ -362,3 +362,6 @@
 
 ### 2026-10-03 23:18 JST - pack 0xB9 entry02 boundary
 - Confirmed exact structural decode start `CD:5CAA` for pack `0xB9` record0 entry `0x02`; `transition_CC_0FB6` independently fixes destination `cfg_t25_l129_v2`. Opcode/XY remain canonical-ROM blocked.
+
+- 2026-10-04 CONFIRMED: pack 0x96 record0 entry 0x02 begins structurally at CC:DBF2. STRONG HYPOTHESIS: this is the pack-local arrival initializer/route boundary. UNCONFIRMED: opcode/operands and arrival XY.
+
