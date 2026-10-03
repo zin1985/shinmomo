@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-10-03T13:19:00+09:00",
+  "base_commit": "5816a0290623416b968c9840540a00d988c0114a",
+  "theme": "cross-pack entry 0x02 coordinate semantics",
+  "drive_rom_used": false,
+  "drive_rom_blocker": "Drive指定ROMへアクセスできなかった",
+  "affected_tracks": [
+    {
+      "id": "externalization",
+      "percent_before": 78,
+      "percent_after": 79,
+      "status": "active"
+    }
+  ],
+  "overall_percent_before": 51.2,
+  "overall_percent_after": 51.4,
+  "confirmed": [
+    "313 known entry-0x02 coordinate rows span 152 destination packs and 108 distinct coordinate pairs",
+    "entry 0x02 is not a fixed cross-pack coordinate constant"
+  ],
+  "strong_hypothesis": [
+    "shared grammar maps pack-local entry tables to coordinates; use known witnesses as structural templates"
+  ],
+  "unconfirmed": [
+    "coordinates for six unresolved entry-0x02 gaps",
+    "direction/facing semantics"
+  ],
+  "schedule": [
+    {
+      "priority": 1,
+      "target": "Recover pack-local coordinate initializer/table provenance for unresolved entry 0x02 packs 0x96/0x9E/0xAE/0xB7/0xBD/0xB9 using known entry-0x02 witnesses as structural templates. Entry 0x02 is confirmed not to encode a fixed cross-pack XY pair; do not copy coordinates across packs. CC:1160 remains ROM-priority when canonical Drive ROM is available."
+    },
+    {
+      "priority": 2,
+      "target": "Resolve runtime visible-object coordinates against canonical map/world coordinates and feed NPC/sprite/event/dialogue integration."
+    },
+    {
+      "priority": 3,
+      "target": "Join actor selector, event provenance, phase-aware dialogue and map-world position into one evidence-backed actor/event model."
+    },
+    {
+      "priority": 4,
+      "target": "Recover concrete provenance for the documented $0959 and $0959+$09D9+1 reads; runtime promotion requires canonical Drive ROM."
+    },
+    {
+      "priority": 5,
+      "target": "Classify native writers and separate controller/event/map semantics."
+    },
+    {
+      "priority": 6,
+      "target": "Generalize the proven opcode 0x69/0x5D coordinate predicates and native-boundary hotspot relation into event/trigger region structures; keep native boundary, terrain passability and object occupancy separate. Completed 2026-10-02: normalized 57 hotspot rows into event_trigger_regions.csv."
+    }
+  ]
+}

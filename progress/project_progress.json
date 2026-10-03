@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-03T11:14:00+09:00",
+  "updated_at": "2026-10-03T13:19:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -110,12 +110,12 @@
     {
       "id": "externalization",
       "name": "外部化 / 再構築",
-      "percent": 78,
+      "percent": 79,
       "weight": 1.3,
       "status": "active",
-      "scope": "ROM?????schema/data/tool??????????????transition destination?pack+arrival XY+native bounds????????????????",
-      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46). 2026-10-03 arrival-gap provenance classifier: all 9 remaining arrival-XY-only trigger gaps were joined to their committed destination pack+entry pairs; none has an independent same-pair row with known arrival coordinates in the current transition catalog. The backlog is now machine-classified as requiring new coordinate evidence below the existing catalog layer rather than another catalog join. 2026-10-03 pack96 frontier: committed transition metadata proves destination entries 0x02..0x05 all target cfg_t09_l098_v2 and all lack arrival XY, externalizing CC:0BD7 as a pack-level entry-coordinate provenance gap rather than an isolated missing join. 2026-10-03 cross-pack arrival-gap grouping: 6/9 unresolved arrival gaps use destination entry 0x02 across six distinct packs (0x96,0x9E,0xAE,0xB7,0xBD,0xB9); entry 0x07 occurs across two packs (0x91,0xB6), and entry 0x0C once. This reframes the highest-information static frontier from pack96-only to testing reusable entry-ID grammar, without assigning coordinates.",
-      "updated_at": "2026-10-03T11:14:00+09:00"
+      "scope": "ROM非依存schema/data/tool外部化、transition destination・arrival provenance・entry-ID grammarの再構築可能化",
+      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46). 2026-10-03 arrival-gap provenance classifier: all 9 remaining arrival-XY-only trigger gaps were joined to their committed destination pack+entry pairs; none has an independent same-pair row with known arrival coordinates in the current transition catalog. The backlog is now machine-classified as requiring new coordinate evidence below the existing catalog layer rather than another catalog join. 2026-10-03 pack96 frontier: committed transition metadata proves destination entries 0x02..0x05 all target cfg_t09_l098_v2 and all lack arrival XY, externalizing CC:0BD7 as a pack-level entry-coordinate provenance gap rather than an isolated missing join. 2026-10-03 cross-pack arrival-gap grouping: 6/9 unresolved arrival gaps use destination entry 0x02 across six distinct packs (0x96,0x9E,0xAE,0xB7,0xBD,0xB9); entry 0x07 occurs across two packs (0x91,0xB6), and entry 0x0C once. This reframes the highest-information static frontier from pack96-only to testing reusable entry-ID grammar, without assigning coordinates. 2026-10-03 entry02 semantics audit: 313 committed transition rows with known arrival XY span 152 destination packs and 108 distinct coordinate pairs for entry 0x02. This disproves any fixed cross-pack XY meaning for entry 0x02 while preserving a narrower reusable (pack,entry)->initializer grammar hypothesis; representative witnesses are externalized.",
+      "updated_at": "2026-10-03T13:19:00+09:00"
     },
     {
       "id": "whole-game",
@@ -145,7 +145,7 @@
       ],
       "track_id": "script-vm",
       "title": "transition→event/trigger crosslink拡張",
-      "target": "Test destination-entry coordinate provenance as a cross-pack grammar before treating pack 0x96 as isolated: 6/9 unresolved arrival gaps share entry 0x02 across packs 0x96/0x9E/0xAE/0xB7/0xBD/0xB9, while entry 0x07 recurs across 0x91/0xB6. Recover a reusable entry initializer/table or independent route evidence; do not infer coordinates or direction from entry IDs. CC:1160 remains ROM-priority when canonical Drive ROM is available.",
+      "target": "Recover pack-local coordinate initializer/table provenance for unresolved entry 0x02 packs 0x96/0x9E/0xAE/0xB7/0xBD/0xB9 using known entry-0x02 witnesses as structural templates. Entry 0x02 is confirmed not to encode a fixed cross-pack XY pair; do not copy coordinates across packs. CC:1160 remains ROM-priority when canonical Drive ROM is available.",
       "status": "active"
     },
     {
@@ -291,8 +291,8 @@
     "expected_size_bytes": 2097152,
     "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。"
   },
-  "overall_percent": 51.2,
-  "legacy_workstream_overall_percent": 77.9,
+  "overall_percent": 51.4,
+  "legacy_workstream_overall_percent": 78.0,
   "top_goals": [
     {
       "id": "G1",
@@ -443,7 +443,7 @@
     {
       "id": "G5",
       "name": "別環境で再構築可能な完全仕様書",
-      "percent": 48,
+      "percent": 49,
       "status": "active",
       "definition_of_done": "原ROMの65816 codeを読まずに別実装者がPC/GBA/Web等へ再実装できるarchitecture/data/logic/asset/build/verification仕様を完備。",
       "components": [

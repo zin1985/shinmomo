@@ -134,3 +134,8 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 
 ## 2026-10-03 rolling frontier refinement
 - G4/G5 highest-information static target is now cross-pack entry `0x02` provenance (6/9 arrival gaps), with pack96 as one witness rather than the whole problem.
+
+
+## 2026-10-03 13:19 JST rolling frontier
+- G5 advances 48%→49% by externalizing known entry-0x02 coordinate witnesses and rejecting fixed cross-pack XY semantics.
+- Next: recover pack-local initializer/table provenance for unresolved 0x02 packs using known witnesses as structural templates.

@@ -337,3 +337,8 @@
 ## 2026-10-03 cross-pack arrival entry grouping
 - Confirmed: 6/9 unresolved arrival gaps share destination entry `0x02` across six distinct packs; entry `0x07` recurs across two packs; `0x0C` occurs once.
 - Strong hypothesis: test a reusable entry-ID-level arrival grammar before assuming pack96-only initialization. No coordinates/directions are inferred.
+
+
+## 2026-10-03 13:19 JST entry 0x02 semantics
+- Confirmed: 313 known-arrival transition rows using destination entry `0x02` span 152 packs and 108 distinct XY pairs. Entry `0x02` is therefore not a fixed cross-pack coordinate constant.
+- Strong hypothesis: reuse the structural `(pack,entry)->initializer/table` grammar, but treat coordinate payloads as pack-local.

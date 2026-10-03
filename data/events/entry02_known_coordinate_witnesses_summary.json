@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-10-03T13:19:00+09:00",
+  "source": "data/maps/transitions/map_transition_candidates.csv",
+  "destination_entry_id": "0x02",
+  "known_coordinate_rows": 313,
+  "distinct_destination_packs": 152,
+  "distinct_coordinate_pairs": 108,
+  "conclusion": "entry 0x02 is a recurrent structural entry ID but does not encode a fixed coordinate pair across packs",
+  "drive_rom_used": false,
+  "drive_rom_blocker": "Drive指定ROMへアクセスできなかった"
+}
