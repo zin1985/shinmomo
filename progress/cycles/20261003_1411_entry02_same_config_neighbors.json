@@ -1,0 +1,27 @@
+{
+  "cycle_at": "2026-10-03T14:11:55+09:00",
+  "theme": "entry02 same-config neighbor structural provenance",
+  "confirmed": [
+    "0x9E shares cfg_t24_l125_v2 with known entry02 witnesses 0x9F/0xA0/0xA1/0xA2/0xA5",
+    "0xAE shares cfg_t11_l101_v2 with known entry02 witness 0xB0",
+    "0xB7 shares cfg_t47_l172_v2 with known entry02 witness 0xB8",
+    "same canonical config + entry02 does not determine XY"
+  ],
+  "strong_hypothesis": [
+    "adjacent pack pairs 0xB7/0xB8 and 0x9E/0x9F are high-value structural/address-locality templates"
+  ],
+  "unconfirmed": [
+    "unresolved XY values",
+    "pack ID adjacency implying spatial adjacency"
+  ],
+  "rom_used": false,
+  "rom_blocker": "Drive指定ROMへアクセスできなかった",
+  "percent_before": {
+    "overall": 51.4,
+    "externalization": 79
+  },
+  "percent_after": {
+    "overall": 51.4,
+    "externalization": 79
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-10-03T14:11:55+09:00",
+  "unresolved_entry02_gap_count": 6,
+  "gaps_with_same_config_known_entry02_witnesses": 3,
+  "witness_rows": 7,
+  "nearest_adjacent_pack_witnesses": [
+    {
+      "gap_transition_id": "transition_CC_0C75",
+      "gap_pack": "0x9E",
+      "config_id": "cfg_t24_l125_v2",
+      "witness_pack": "0x9F",
+      "pack_distance": 1,
+      "witness_x": "56",
+      "witness_y": "13",
+      "coordinate_addr": "CD:022A",
+      "trigger_addr": "CD:00D1",
+      "trigger_type": "vm_opcode_0x56_terminal"
+    },
+    {
+      "gap_transition_id": "transition_CC_0F3B",
+      "gap_pack": "0xB7",
+      "config_id": "cfg_t47_l172_v2",
+      "witness_pack": "0xB8",
+      "pack_distance": 1,
+      "witness_x": "52",
+      "witness_y": "16",
+      "coordinate_addr": "CD:56F1",
+      "trigger_addr": "CD:55B3",
+      "trigger_type": "vm_opcode_0x56_terminal"
+    }
+  ],
+  "interpretation": "Same canonical config plus entry 0x02 does not determine XY. Three unresolved packs have same-config known witnesses; 0x9E and 0xB7 have immediately adjacent-pack witnesses. Use these as structural/address-locality templates only, never copy XY."
+}

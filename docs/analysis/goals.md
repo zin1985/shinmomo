@@ -139,3 +139,5 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 ## 2026-10-03 13:19 JST rolling frontier
 - G5 advances 48%→49% by externalizing known entry-0x02 coordinate witnesses and rejecting fixed cross-pack XY semantics.
 - Next: recover pack-local initializer/table provenance for unresolved 0x02 packs using known witnesses as structural templates.
+
+- 2026-10-03 next transition frontier: inspect structural/address locality for same-config adjacent entry-0x02 pairs 0xB7/0xB8 then 0x9E/0x9F; never copy witness XY into unresolved packs.
