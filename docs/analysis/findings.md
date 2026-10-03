@@ -333,3 +333,7 @@
 - Confirmed from committed transition metadata: destination entries 0x02..0x05 all target cfg_t09_l098_v2 and all lack arrival XY. CC:0BD7 is therefore part of a pack-level entry-coordinate provenance gap, not an isolated missing join.
 - Strong hypothesis: one shared destination-entry initializer/table selects entry-specific arrival state. No coordinates are inferred from entry ordering.
 
+
+## 2026-10-03 cross-pack arrival entry grouping
+- Confirmed: 6/9 unresolved arrival gaps share destination entry `0x02` across six distinct packs; entry `0x07` recurs across two packs; `0x0C` occurs once.
+- Strong hypothesis: test a reusable entry-ID-level arrival grammar before assuming pack96-only initialization. No coordinates/directions are inferred.

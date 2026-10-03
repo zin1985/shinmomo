@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-10-03T11:14:00+09:00",
+  "arrival_gap_count": 9,
+  "entry_id_group_count": 3,
+  "largest_group": {
+    "destination_entry_id": "0x02",
+    "gap_count": 6,
+    "distinct_pack_count": 6,
+    "destination_packs": "0x96;0x9E;0xAE;0xB7;0xBD;0xB9",
+    "trigger_addrs": "CC:0BD7;CC:0C75;CC:0DB8;CC:0F3B;CC:0FA9;CC:0FB6",
+    "classification": "cross_pack_recurrent_entry"
+  },
+  "confirmed": "Six of nine unresolved arrival gaps share destination entry 0x02 across six distinct destination packs; entry 0x07 occurs across two distinct packs; entry 0x0C occurs once.",
+  "strong_hypothesis": "Arrival-coordinate provenance may have an entry-ID-level reusable grammar above individual destination packs; test entry 0x02 across packs before assuming pack96-only initialization.",
+  "unconfirmed": "No coordinate value or direction semantics are inferred from entry IDs."
+}

@@ -131,3 +131,6 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 ## 2026-10-03 rolling frontier update
 - G4/G5 next boundary: recover pack 0x96 record-0 destination-entry coordinate provenance for entries 0x02..0x05; keep CC:1160 phase discriminator as ROM-priority when the canonical Drive ROM is available.
 
+
+## 2026-10-03 rolling frontier refinement
+- G4/G5 highest-information static target is now cross-pack entry `0x02` provenance (6/9 arrival gaps), with pack96 as one witness rather than the whole problem.

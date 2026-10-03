@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-10-03T11:14:00+09:00",
+  "base_commit": "832197ef68603acca71d72a5a172b3f465b25e07",
+  "theme": "cross-pack destination-entry arrival grammar",
+  "drive_rom_used": false,
+  "drive_rom_blocker": "Drive指定ROMへアクセスできなかった",
+  "affected_tracks": [
+    {
+      "id": "externalization",
+      "percent_before": 78,
+      "percent_after": 78,
+      "status": "active",
+      "scope": "unchanged; evidence frontier refined from pack96-only to cross-pack entry-ID grouping"
+    }
+  ],
+  "overall_percent_before": 51.2,
+  "overall_percent_after": 51.2,
+  "confirmed": [
+    "6/9 arrival gaps share entry 0x02 across six distinct destination packs",
+    "2/9 share entry 0x07 across two packs",
+    "1/9 uses entry 0x0C"
+  ],
+  "strong_hypothesis": [
+    "entry-ID-level reusable arrival grammar may exist above pack-local handling"
+  ],
+  "unconfirmed": [
+    "coordinate values",
+    "direction semantics for entry IDs"
+  ],
+  "next": "Recover entry 0x02 initializer/table provenance across packs; if canonical ROM becomes available, verify hash then analyze CC:1160 and entry grammar."
+}

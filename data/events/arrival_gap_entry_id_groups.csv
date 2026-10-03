@@ -1,0 +1,4 @@
+destination_entry_id,gap_count,distinct_pack_count,destination_packs,trigger_addrs,classification
+0x02,6,6,0x96;0x9E;0xAE;0xB7;0xBD;0xB9,CC:0BD7;CC:0C75;CC:0DB8;CC:0F3B;CC:0FA9;CC:0FB6,cross_pack_recurrent_entry
+0x07,2,2,0x91;0xB6,CC:0B7F;CC:0E70,cross_pack_recurrent_entry
+0x0C,1,1,0xA8,CC:0C84,single_pack_entry
