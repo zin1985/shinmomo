@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-03T17:14:28+09:00",
+  "theme": "pack 0xB7 entry 0x02 structural boundary",
+  "confirmed": [
+    "transition_CC_0F3B targets pack 0xB7 entry 0x02 / cfg_t47_l172_v2",
+    "B7 record0 CD:53AF..CD:5537; entry01 CD:53D4..CD:5409, so entry02 structural boundary is CD:5409",
+    "B8 same-config witness entry02 begins at CD:56F1 with aligned opcode 0x58 and known XY (52,16)"
+  ],
+  "strong_hypothesis": [
+    "CD:5409 contains the pack-local entry02 initializer or route needed to recover B7 arrival behavior"
+  ],
+  "unconfirmed": [
+    "opcode/operands at CD:5409",
+    "B7 entry02 arrival XY"
+  ],
+  "rom_used": false,
+  "rom_blocker": "Drive指定ROMへアクセスできなかった",
+  "needed_input": "Shin Momotarou Densetsu (J)_original.smc from designated Drive folder; expected 2,097,152 bytes and SHA-256 F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "percent_changes": {
+    "script-vm": "77->77",
+    "externalization": "79->79",
+    "overall": "51.4->51.4"
+  }
+}

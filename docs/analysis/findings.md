@@ -344,3 +344,8 @@
 - Strong hypothesis: reuse the structural `(pack,entry)->initializer/table` grammar, but treat coordinate payloads as pack-local.
 
 - 2026-10-03 entry02 same-config audit: unresolved packs 0x9E, 0xAE, 0xB7 have known entry-0x02 witnesses on the same canonical config; 0x9E/0x9F and 0xB7/0xB8 are adjacent pack IDs. Same config + entry still does not determine XY, so use neighbors only as structural provenance templates.
+
+
+### 2026-10-03 17:14 JST — pack 0xB7 entry02 boundary
+- Confirmed exact structural decode start `CD:5409` for pack `0xB7` record0 entry `0x02`; opcode/XY remain unconfirmed until canonical Drive ROM is available.
+- Same-config `0xB8` witness starts entry02 at analogous entry01 end `CD:56F1` with opcode `0x58`; use as structure only, never copy `(52,16)`.
