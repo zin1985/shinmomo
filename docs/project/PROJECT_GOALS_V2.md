@@ -93,3 +93,6 @@ Every progress change must distinguish:
 3. **reclassification** where old claims are narrowed or downgraded.
 
 The canonical machine-readable source is `progress/project_progress.json`.
+
+### 2026-10-04 02:10 JST - rolling update
+- G4/G5: pack96 bounded decode frontier `CC:DBF2..CC:DC5C` remains next highest-information target; no percent change until opcode/arrival evidence closes.

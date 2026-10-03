@@ -25,7 +25,7 @@ def validate_progress(errors: list[str]) -> None:
     if not path.exists():
         return
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = json.loads(path.read_text(encoding="utf-8-sig"))
     except (OSError, json.JSONDecodeError) as exc:
         errors.append(f"invalid progress JSON: {exc}")
         return

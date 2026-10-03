@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-10-04T02:10:00+09:00",
+  "theme": "CI recovery and pack96 bounded decode frontier",
+  "confirmed": [
+    "Latest parallel map baseline remains above old 1238/1048/720 baseline.",
+    "pack 0x96 entry02 structural start remains CC:DBF2.",
+    "Previous CI failures are caused by invalid project_progress.json parsing; Test step failed before packaging."
+  ],
+  "strong_hypotheses": [
+    "CC:DBF2..CC:DC5C is the highest-information bounded interval for resolving pack 0x96 entries 0x02..0x05 once canonical ROM is available."
+  ],
+  "unconfirmed": [
+    "pack 0x96 entry02..05 opcodes, operands and arrival XY."
+  ],
+  "rom_used": false,
+  "rom_note": "Drive specified ROM inaccessible; no substitute ROM used.",
+  "percent_before": 51.4,
+  "percent_after": 51.4,
+  "next": "Canonical ROM: verify size/hash and decode CC:DBF2..CC:DC5C. No ROM: continue static entry03..05 boundary/xref work."
+}

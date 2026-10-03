@@ -365,3 +365,7 @@
 
 - 2026-10-04 CONFIRMED: pack 0x96 record0 entry 0x02 begins structurally at CC:DBF2. STRONG HYPOTHESIS: this is the pack-local arrival initializer/route boundary. UNCONFIRMED: opcode/operands and arrival XY.
 
+
+### 2026-10-04 02:10 JST - CI recovery / pack96 frontier
+- CONFIRMED: CI failure was progress JSON parsing, not analysis/build failure. Progress JSON restored to a parseable canonical form and rolled forward without percent inflation.
+- CONFIRMED: pack 0x96 entry02 start remains `CC:DBF2`; ROM unavailable, so opcode/XY remain unconfirmed.

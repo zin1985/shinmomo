@@ -1,18 +1,18 @@
-﻿{
+{
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-03T23:18:00+09:00",
+  "updated_at": "2026-10-04T02:10:00+09:00",
   "overall_method": "equal_mean_of_top_goals",
-  "overall_note": "譛荳贋ｽ阪・螳梧・蠎ｦ縺ｯG1縲廨5縺ｮ蜊倡ｴ泌ｹｳ蝮・よ里蟄・racks縺ｯ隗｣譫先・辭溷ｺｦ繧堤､ｺ縺吩ｸ倶ｽ購orkstream縺ｧ縺ゅｊ縲∵立weighted mean縺ｯ蜿り・､縺ｨ縺励※legacy_workstream_overall_percent縺ｸ谿九☆縲ゆｻ雁屓縺ｮ豁｣蠑丞渕貅悶・縲主挨迺ｰ蠅・ROM蜀肴ｧ狗ｯ峨∪縺ｧ蛻ｰ驕斐〒縺阪ｋ縺九上〒菫晏ｮ育噪縺ｫ隧穂ｾ｡縺吶ｋ縲・,
+  "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
     {
       "id": "rom-map",
-      "name": "ROM繝槭ャ繝・/ 繝舌Φ繧ｯ蛻・｡・,
+      "name": "ROMマップ / バンク分類",
       "percent": 75,
       "weight": 1.1,
       "status": "active",
-      "scope": "蜈ｨROM縺ｮcode/data/table驟咲ｽｮ縺ｨ荳ｻ隕√ヶ繝ｭ繝・け諢丞袖莉倥￠縲…anonical map/transition provenance縺ｮ邯咏ｶ夂ｵｱ蜷・,
+      "scope": "全ROMのcode/data/table配置と主要ブロック意味付け、canonical map/transition provenanceの継続統合",
       "evidence": "2026-09-25 mapper correction: canonical header map mode 0x31 confirms FastROM HiROM. Historical LoROM-corrected labels are superseded; file offsets are retained and representative CPU labels are normalized to the C0..DF high mirror. 2026-10-03 parallel-map reconciliation: latest committed transition catalog supersedes the 2026-09-29 baseline with 1,295 candidates, 1,063 destination configurations resolved, 793 arrival coordinates resolved, and 211 unique destination packs. These committed counts are monotonic over the prior 1,238/1,048/720/211 baseline and are now the floor for future map work.",
       "updated_at": "2026-10-03T05:16:00+09:00"
     },
@@ -23,8 +23,8 @@
       "weight": 1.4,
       "status": "active",
       "scope": "0x30000?script?0x41A10 family?reader/dispatcher?transition/event-trigger provenance?destination config disambiguation",
-      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B. 2026-10-02 boundary-trigger reconciliation: pack2E native south-boundary restore is already represented in source_transition_hotspots as hotspot_native_pack2e_south_exit_candidate, while its forward counterpart CC:1CDA is an exact-point opcode 0x69 predicate at source (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12). This closes the requested native boundary -> trigger/transition provenance crosslink for the pack2E witness without re-extracting transitions. 2026-10-02 event-trigger region normalization: 57 existing source hotspots are externalized into one region schema: 37 points, 19 inclusive rectangles, 1 native-boundary corridor; 55 VM predicates and 2 native-boundary predicates. 52/57 destinations have canonical config IDs and 47/57 have arrival XY. 2026-10-03 bounds-disambiguation: committed arrival XY plus native opcode-0x52 bounds uniquely resolve four formerly ambiguous hotspot destinations: CC:0BCA->cfg_t04_l035_v2, CC:0C17->cfg_t06_l038_v2, CC:0E0D->cfg_t04_l058_v2, CC:1CC0->cfg_t07_l011_v2. Trigger-region destination config coverage is now 56/57. 2026-10-03 rolling reconciliation: event-trigger crosslink backlog is 11 rows, not 15: 10 arrival-XY-only plus CC:1160 phase-dependent destination selection. Do not reopen the four bounds-resolved destination-config gaps. 2026-10-03 arrival provenance closure: transition CC:0F71 targets pack 0xBC entry 0x02 / cfg_t32_l144_v1. Independent cfg-reachable opcode-0x57 route CD:B6A1 resolves context_0306=0xBC, destination_entrance=0x02 and route-table final coordinates (215,40), closing that trigger-region arrival gap without ROM re-read. 2026-10-03 static frontier refinement: pack 0xB7 entry 0x02 now has exact structural decode boundary CD:5409 from selector metadata; opcode/operands and arrival XY remain ROM-blocked. 2026-10-03 static frontier refinement: pack 0x9E entry 0x02 exact structural decode boundary is CC:FFF7 from selector metadata; adjacent same-config 0x9F independently aligns its entry02 coordinate setter at its entry01 end CD:022A. 0x9E opcode/XY remain ROM-blocked. 2026-10-03 static frontier refinement: pack 0xAE entry02 boundary CD:3639, pack 0xBD entry02 boundary CD:6CBD, and pack 0xB9 entry02 boundary CD:5CAA are now fixed from committed selector metadata; opcode/XY remain canonical-ROM blocked.",
-      "updated_at": "2026-10-03T23:18:00+09:00"
+      "evidence": "2026-09-26: CA:C000 real script-pack indices 0x14..0xF9 are crosswalked to the same-index C7:0000 source families. A4 operand is confirmed as source subindex; 2,202 decoder-reachable high-confidence A4 source pairs were enumerated. Family 0x50 selections 0x11 and 0x12 are now bounded as distinct enclosing records at CC:1DFE..1E0F and CC:1E0F..1E2F. 2026-09-26 ROM-wide frame scan: 947 valid 7A/body/7C-next trailers yielded 816 B0-anchored structural records across 107 families; 713 records crosslink to validated source selections. 2026-09-26 controller-pointer bridge: opcode 09 loads a 24-bit behavior pointer, opcode 59 persists it into controller slots, and 84:867D/8699 resolves [key,target16] records. Family 0x4E concretely resolves key 0x7C from table CC:1B24 to A4 17 at CC:1B42. 2026-09-27: 1,078 validated A4 callsites outside the B0/trailer frame grammar are now explicitly tracked as complementary-grammar/provenance backlog; keyed-dispatch baseline is 178 tables/65 families/549 key-target records, including 69 tables with both 0x6C and 0x7B. 2026-10-02 boundary-trigger reconciliation: pack2E native south-boundary restore is already represented in source_transition_hotspots as hotspot_native_pack2e_south_exit_candidate, while its forward counterpart CC:1CDA is an exact-point opcode 0x69 predicate at source (29,17) terminating in opcode 0x53 and arriving at cfg_t07_l015_v2 (9,12). This closes the requested native boundary -> trigger/transition provenance crosslink for the pack2E witness without re-extracting transitions. 2026-10-02 event-trigger region normalization: 57 existing source hotspots are externalized into one region schema: 37 points, 19 inclusive rectangles, 1 native-boundary corridor; 55 VM predicates and 2 native-boundary predicates. 52/57 destinations have canonical config IDs and 47/57 have arrival XY. 2026-10-03 bounds-disambiguation: committed arrival XY plus native opcode-0x52 bounds uniquely resolve four formerly ambiguous hotspot destinations: CC:0BCA->cfg_t04_l035_v2, CC:0C17->cfg_t06_l038_v2, CC:0E0D->cfg_t04_l058_v2, CC:1CC0->cfg_t07_l011_v2. Trigger-region destination config coverage is now 56/57. 2026-10-03 rolling reconciliation: event-trigger crosslink backlog is 11 rows, not 15: 10 arrival-XY-only plus CC:1160 phase-dependent destination selection. Do not reopen the four bounds-resolved destination-config gaps. 2026-10-03 arrival provenance closure: transition CC:0F71 targets pack 0xBC entry 0x02 / cfg_t32_l144_v1. Independent cfg-reachable opcode-0x57 route CD:B6A1 resolves context_0306=0xBC, destination_entrance=0x02 and route-table final coordinates (215,40), closing that trigger-region arrival gap without ROM re-read. 2026-10-03 static frontier refinement: pack 0xB7 entry 0x02 now has exact structural decode boundary CD:5409 from selector metadata; opcode/operands and arrival XY remain ROM-blocked. 2026-10-03 static frontier refinement: pack 0x9E entry 0x02 exact structural decode boundary is CC:FFF7 from selector metadata; adjacent same-config 0x9F independently aligns its entry02 coordinate setter at its entry01 end CD:022A. 0x9E opcode/XY remain ROM-blocked. 2026-10-03 static frontier refinement: pack 0xAE entry02 boundary CD:3639 and pack 0xBD entry02 boundary CD:6CBD are now fixed from committed selector metadata; opcode/XY remain canonical-ROM blocked.",
+      "updated_at": "2026-10-04T02:10:00+09:00"
     },
     {
       "id": "fd67-selector",
@@ -32,35 +32,35 @@
       "percent": 80,
       "weight": 0.9,
       "status": "stable",
-      "scope": "selector蛻・ｧ｣繝ｻrecord讒矩繝ｻ蜿ら・髢｢菫・,
+      "scope": "selector分解・record構造・参照関係",
       "evidence": "March handoff baseline"
     },
     {
       "id": "wram",
-      "name": "WRAM讒矩菴・,
+      "name": "WRAM構造体",
       "percent": 69,
       "weight": 1.2,
       "status": "active",
       "scope": "WRAM object pool $0619..$0A18 ?64-slot?16-column SoA???bank89 movement/position overlay?native map-boundary accept/reject?????",
-      "evidence": "2026-09-25: $0619..$09D9 縺・x40 stride縺ｮ16蛻励〒$0A18縺ｾ縺ｧ縺｡繧・≧縺ｩ0x400 bytes繧呈ｧ区・縺吶ｋ64-slot SoA object pool縺ｨ謨ｴ逅・Ｃank89縺ｧ$0859/$0899/$08D9縺・4-bit script pointer縲・07D9/$0819縺稽ovement work縲・0919/$0959縺継osition-like pair縲・0999/$09D9縺荊ype-dependent auxiliary work縺ｧ縺ゅｋ險ｼ諡繧定ｿｽ蜉縲・2026-10-02 static reconciliation: existing canonical wram_object_pool evidence already states bank89 commits / into / and later collision/edge logic reads  directly plus probes ++1; this narrows the collision frontier to a bank89 position/extent edge candidate without yet claiming terrain/passability semantics. 2026-10-02 boundary-layer reconciliation: committed pack2E closure proves the native map-boundary path is C1:8943 current $030B/$030D -> 81:81DD inclusive $15CA..$15CD bounds -> C1:8955/81:895A out-of-bounds transition request -> saved-state restore. Therefore this confirmed map-edge accept/reject path is distinct from the still-unproven bank89 $0959/$09D9 object-geometry candidate; do not promote the latter to terrain/passability without new provenance."
+      "evidence": "2026-09-25: $0619..$09D9 が0x40 strideの16列で$0A18までちょうど0x400 bytesを構成する64-slot SoA object poolと整理。bank89で$0859/$0899/$08D9が24-bit script pointer、$07D9/$0819がmovement work、$0919/$0959がposition-like pair、$0999/$09D9がtype-dependent auxiliary workである証拠を追加。 2026-10-02 static reconciliation: existing canonical wram_object_pool evidence already states bank89 commits / into / and later collision/edge logic reads  directly plus probes ++1; this narrows the collision frontier to a bank89 position/extent edge candidate without yet claiming terrain/passability semantics. 2026-10-02 boundary-layer reconciliation: committed pack2E closure proves the native map-boundary path is C1:8943 current $030B/$030D -> 81:81DD inclusive $15CA..$15CD bounds -> C1:8955/81:895A out-of-bounds transition request -> saved-state restore. Therefore this confirmed map-edge accept/reject path is distinct from the still-unproven bank89 $0959/$09D9 object-geometry candidate; do not promote the latter to terrain/passability without new provenance."
     },
     {
       "id": "81-8d87",
-      "name": "81:8D87 4蛟､ / 螻謇迥ｶ諷・,
+      "name": "81:8D87 4値 / 局所状態",
       "percent": 85,
       "weight": 0.6,
       "status": "active",
-      "scope": "4蛟､縺ｮ蠖ｹ蜑ｲ縺ｨ迥ｶ諷矩・遘ｻ縺ｮ遒ｺ螳・,
-      "evidence": "2026-04-26縺ｮ譌｢蟄倡｢ｺ螳壼ｯ・ｊ隗｣譫舌ｒ迴ｾ陦継rogress縺ｸ蠕ｩ蜈・・1:8D87縺ｯ$1569[0..9] count aggregator縺ｧ縲・09=available normal縲・0A=normal縲・0C=total logical縲・0D=special($0C-$0A)縲・4 wrappers縺ｨ荳ｻ隕…aller繧よ紛逅・ｸ医∩縲よｮ九ｊ縺ｯsubcommand逡ｪ蜿ｷ縲〉untime螳滉ｾ九・180A bit7縺ｮ譛邨ゅΛ繝吶Ν縲・
+      "scope": "4値の役割と状態遷移の確定",
+      "evidence": "2026-04-26の既存確定寄り解析を現行progressへ復元。81:8D87は$1569[0..9] count aggregatorで、$09=available normal、$0A=normal、$0C=total logical、$0D=special($0C-$0A)。C4 wrappersと主要callerも整理済み。残りはsubcommand番号、runtime実例、$180A bit7の最終ラベル。"
     },
     {
       "id": "shop-ledger",
-      "name": "蠎・/ Ledger / UI",
+      "name": "店 / Ledger / UI",
       "percent": 78,
       "weight": 0.8,
       "status": "stable",
-      "scope": "transaction core縲〕edger/bucket/choice縲∝ｺ誘I",
-      "evidence": "March handoff baseline縲ょ叙蠑輔さ繧｢縺ｯ鬮倡｢ｺ蠎ｦ"
+      "scope": "transaction core、ledger/bucket/choice、店UI",
+      "evidence": "March handoff baseline。取引コアは高確度"
     },
     {
       "id": "item-equipment",
@@ -68,16 +68,16 @@
       "percent": 76,
       "weight": 1,
       "status": "active",
-      "scope": "item/equipment tables縲∬｣・ｙpack縲∝柑譫懷盾辣ｧ",
-      "evidence": "March 76% baseline縲・ay縺ｮ陬・ｙscript-pack蜷悟ｮ壹ｒ蜷ｫ繧"
+      "scope": "item/equipment tables、装備pack、効果参照",
+      "evidence": "March 76% baseline。Mayの装備script-pack同定を含む"
     },
     {
       "id": "weapon-special",
-      "name": "豁ｦ蝎ｨ迚ｹ谿願・蜉・,
+      "name": "武器特殊能力",
       "percent": 62,
       "weight": 1,
       "status": "active",
-      "scope": "迚ｹ谿頑ｭｦ蝎ｨhook縲，1/C2/C8邉ｻ縲∝柑譫懊Ν繝ｼ繝√Φ蛻・｡・,
+      "scope": "特殊武器hook、C1/C2/C8系、効果ルーチン分類",
       "evidence": "May static Goal7 estimate 60-62%"
     },
     {
@@ -86,16 +86,16 @@
       "percent": 81,
       "weight": 0.9,
       "status": "active",
-      "scope": "譚｡莉ｶ蛻､螳壹・dispatch table繝ｻ蜻ｼ蜃ｺ譚｡莉ｶ",
-      "evidence": "2026-04-25/26縺ｮ譌｢蟄倩ｧ｣譫舌ｒ迴ｾ陦継rogress縺ｸ蠕ｩ蜈・・5:86AC縺ｯcondition dispatcher縲…ondition 0x3A縺ｯ$180A[entity-1] bit7 clear test縲・4:C8AA candidate feeder竊・0:DA57 resolver竊・192A竊団ondition 0x3A竊・1958縺ｾ縺ｧ謗･邯壽ｸ医∩縲・
+      "scope": "条件判定・dispatch table・呼出条件",
+      "evidence": "2026-04-25/26の既存解析を現行progressへ復元。85:86ACはcondition dispatcher、condition 0x3Aは$180A[entity-1] bit7 clear test。C4:C8AA candidate feeder→80:DA57 resolver→$192A→condition 0x3A→$1958まで接続済み。"
     },
     {
       "id": "dialogue",
-      "name": "莨夊ｩｱ / Script螟ｧ驥乗歓蜃ｺ",
+      "name": "会話 / Script大量抽出",
       "percent": 77,
       "weight": 1.2,
       "status": "active",
-      "scope": "script竊稚ext pointer竊呈枚蟄怜・縺ｮ螟ｧ驥乗歓蜃ｺ縺ｨ繧､繝吶Φ繝亥ｯｾ蠢・,
+      "scope": "script→text pointer→文字列の大量抽出とイベント対応",
       "evidence": "2026-09-27 reconciliation: canonical usage summary contains 2,265 evidence-backed pairs and 2,229 high-confidence script pairs. Historical exact-token crosslink matches 23 unique usage pairs and adds strong dialogue evidence to 20 base-unknown pairs, reducing 2,250 base unknown visibility pairs to 2,230 effective unresolved. Event crosslink maps 1,124 of 2,202 validated script callsites into 713 B0/trailer structural records; 1,078 validated callsites remain outside that framing and retain their source-selection validity."
     },
     {
@@ -104,26 +104,26 @@
       "percent": 95,
       "weight": 0.6,
       "status": "stable",
-      "scope": "繧ｭ繝｣繝ｩ陦ｨ遉ｺ繝ｻsprite/OAM蜻ｨ霎ｺ縺ｮ譌｢遏･邨瑚ｷｯ",
-      "evidence": "March baseline 95%縲・oal13縺ｮ豺ｱ謗倥ｊ縺ｧ陦ｨ遉ｺ邨瑚ｷｯ縺ｮ險ｼ諡縺悟｢怜刈"
+      "scope": "キャラ表示・sprite/OAM周辺の既知経路",
+      "evidence": "March baseline 95%。Goal13の深掘りで表示経路の証拠が増加"
     },
     {
       "id": "externalization",
-      "name": "螟夜Κ蛹・/ 蜀肴ｧ狗ｯ・,
+      "name": "外部化 / 再構築",
       "percent": 79,
       "weight": 1.3,
       "status": "active",
-      "scope": "ROM髱樔ｾ晏ｭ・chema/data/tool螟夜Κ蛹悶》ransition destination繝ｻarrival provenance繝ｻentry-ID grammar縺ｮ蜀肴ｧ狗ｯ牙庄閭ｽ蛹・,
-      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46). 2026-10-03 arrival-gap provenance classifier: all 9 remaining arrival-XY-only trigger gaps were joined to their committed destination pack+entry pairs; none has an independent same-pair row with known arrival coordinates in the current transition catalog. The backlog is now machine-classified as requiring new coordinate evidence below the existing catalog layer rather than another catalog join. 2026-10-03 pack96 frontier: committed transition metadata proves destination entries 0x02..0x05 all target cfg_t09_l098_v2 and all lack arrival XY, externalizing CC:0BD7 as a pack-level entry-coordinate provenance gap rather than an isolated missing join. 2026-10-03 cross-pack arrival-gap grouping: 6/9 unresolved arrival gaps use destination entry 0x02 across six distinct packs (0x96,0x9E,0xAE,0xB7,0xBD,0xB9); entry 0x07 occurs across two packs (0x91,0xB6), and entry 0x0C once. This reframes the highest-information static frontier from pack96-only to testing reusable entry-ID grammar, without assigning coordinates. 2026-10-03 entry02 semantics audit: 313 committed transition rows with known arrival XY span 152 destination packs and 108 distinct coordinate pairs for entry 0x02. This disproves any fixed cross-pack XY meaning for entry 0x02 while preserving a narrower reusable (pack,entry)->initializer grammar hypothesis; representative witnesses are externalized. 2026-10-03 same-config neighbor audit: three of six unresolved entry-0x02 packs have known same-config entry-0x02 witnesses; 0x9E/0x9F and 0xB7/0xB8 are adjacent pack IDs. Different witness XY confirms canonical config + entry ID is still insufficient; adjacent pairs are structural provenance templates only. 2026-10-03 B7 entry02 boundary audit: selector metadata fixes pack 0xB7 record0 at CD:53AF..CD:5537 and entry01 at CD:53D4..CD:5409; because destination record0 entry 0x02 is independently confirmed, CD:5409 is the exact structural start to decode. Same-config B8 independently places entry02/aligned opcode 0x58 at its analogous entry01 end CD:56F1. XY remains unassigned. 2026-10-03 0x9E boundary audit: selector metadata fixes entry02 start CC:FFF7; adjacent 0x9F witness aligns its coordinate setter with entry02 start CD:022A. Structural grammar is strengthened without assigning 0x9E coordinates. 2026-10-03 boundary externalization: exact structural starts now pinned for unresolved entry02 packs B7=CD:5409, 9E=CC:FFF7, AE=CD:3639, BD=CD:6CBD, B9=CD:5CAA; no coordinates inferred.",
-      "updated_at": "2026-10-03T23:18:00+09:00"
+      "scope": "ROM非依存schema/data/tool外部化、transition destination・arrival provenance・entry-ID grammarの再構築可能化",
+      "evidence": "2026-09-26: reproducible historical-dialogue crosslink tool and metadata-only evidence catalog added. Existing decoder work is reattached to the corrected overlapping-entry source model through (family,subindex,token_sha256), avoiding a parallel obsolete corpus. 2026-09-26: reproducible event-record frame cataloger and event-to-source crosslink tool added; summaries externalize 816 structural records and 1,124 mapped source callsites without raw ROM/dialogue bodies. 2026-10-03: event-trigger crosslink backlog externalized as a reproducible 15-row gap manifest: 5 destination-config-only and 10 arrival-XY-only gaps; 42/57 normalized regions are complete at the current schema level. 2026-10-03: added reproducible bounds-based destination-config resolver; 110 unresolved transition rows have exactly one committed native-bounds config compatible with destination pack and arrival XY. Event-trigger gap manifest shrank 15->11 (destination-config-only 5->1; complete 42->46). 2026-10-03 arrival-gap provenance classifier: all 9 remaining arrival-XY-only trigger gaps were joined to their committed destination pack+entry pairs; none has an independent same-pair row with known arrival coordinates in the current transition catalog. The backlog is now machine-classified as requiring new coordinate evidence below the existing catalog layer rather than another catalog join. 2026-10-03 pack96 frontier: committed transition metadata proves destination entries 0x02..0x05 all target cfg_t09_l098_v2 and all lack arrival XY, externalizing CC:0BD7 as a pack-level entry-coordinate provenance gap rather than an isolated missing join. 2026-10-03 cross-pack arrival-gap grouping: 6/9 unresolved arrival gaps use destination entry 0x02 across six distinct packs (0x96,0x9E,0xAE,0xB7,0xBD,0xB9); entry 0x07 occurs across two packs (0x91,0xB6), and entry 0x0C once. This reframes the highest-information static frontier from pack96-only to testing reusable entry-ID grammar, without assigning coordinates. 2026-10-03 entry02 semantics audit: 313 committed transition rows with known arrival XY span 152 destination packs and 108 distinct coordinate pairs for entry 0x02. This disproves any fixed cross-pack XY meaning for entry 0x02 while preserving a narrower reusable (pack,entry)->initializer grammar hypothesis; representative witnesses are externalized. 2026-10-03 same-config neighbor audit: three of six unresolved entry-0x02 packs have known same-config entry-0x02 witnesses; 0x9E/0x9F and 0xB7/0xB8 are adjacent pack IDs. Different witness XY confirms canonical config + entry ID is still insufficient; adjacent pairs are structural provenance templates only. 2026-10-03 B7 entry02 boundary audit: selector metadata fixes pack 0xB7 record0 at CD:53AF..CD:5537 and entry01 at CD:53D4..CD:5409; because destination record0 entry 0x02 is independently confirmed, CD:5409 is the exact structural start to decode. Same-config B8 independently places entry02/aligned opcode 0x58 at its analogous entry01 end CD:56F1. XY remains unassigned. 2026-10-03 0x9E boundary audit: selector metadata fixes entry02 start CC:FFF7; adjacent 0x9F witness aligns its coordinate setter with entry02 start CD:022A. Structural grammar is strengthened without assigning 0x9E coordinates. 2026-10-03 boundary externalization: exact structural starts now pinned for unresolved entry02 packs B7=CD:5409, 9E=CC:FFF7, AE=CD:3639, BD=CD:6CBD; no coordinates inferred.",
+      "updated_at": "2026-10-03T22:12:52+09:00"
     },
     {
       "id": "whole-game",
-      "name": "繧ｲ繝ｼ繝蜈ｨ菴灘・讒狗ｯ・,
+      "name": "ゲーム全体再構築",
       "percent": 78,
       "weight": 1.5,
       "status": "active",
-      "scope": "莉墓ｧ倥・繝・・繧ｿ繝ｻ繧ｳ繝ｼ繝峨・蜀肴ｧ区・蜿ｯ閭ｽ諤ｧ",
+      "scope": "仕様・データ・コードの再構成可能性",
       "evidence": "2026-09-26: script-pack index, A4 source-selection operand, C7 source family and display-token pipeline are now linked in one evidence-backed model, enabling script-to-selected-source tracing."
     },
     {
@@ -132,8 +132,8 @@
       "percent": 96,
       "weight": 0.8,
       "status": "active",
-      "scope": "NPC/object state縺ｨ陦ｨ遉ｺ/OAM邨瑚ｷｯ縺ｮ諢丞袖莉倥￠繧貞・讀懆ｨｼ",
-      "evidence": "2026-09-25: 豁｣譛ｬROM繧達izHawk縺ｧ繝輔ぅ繝ｼ繝ｫ繝峨∪縺ｧ螳溯｡後＠CPU callback縺ｨWRAM螟牙喧繧堤｢ｺ隱阪る撕逧・ｿｽ霍｡縺ｧ$0799,X蜃ｦ逅・′script-driven object蜃ｦ逅・・縺ｫ縺ゅｋ縺薙→縺悟愛譏弱＠縺溘◆繧√」isibility遒ｺ螳壽桶縺・ｒ隗｣髯､縺励※蜀肴､懆ｨｼ縺ｸ縲・
+      "scope": "NPC/object stateと表示/OAM経路の意味付けを再検証",
+      "evidence": "2026-09-25: 正本ROMをBizHawkでフィールドまで実行しCPU callbackとWRAM変化を確認。静的追跡で$0799,X処理がscript-driven object処理内にあることが判明したため、visibility確定扱いを解除して再検証へ。"
     }
   ],
   "schedule": [
@@ -144,24 +144,35 @@
         "G5"
       ],
       "track_id": "script-vm",
-      "title": "transition竊弾vent/trigger crosslink諡｡蠑ｵ",
-      "target": "With canonical Drive ROM, verify size/hash then decode B7 CD:5409, 9E CC:FFF7, AE CD:3639, BD CD:6CBD, and B9 CD:5CAA. Without ROM, derive pack 0x96 entries 0x02..0x05 structural boundaries. Never copy witness coordinates.",
+      "title": "Decode pack 0x96 bounded entry interval",
+      "target": "With canonical Drive ROM, verify size/SHA-256 then decode CC:DBF2..CC:DC5C to resolve entries 0x02..0x05. Without ROM, continue static boundary/xref work. Never copy witness coordinates.",
       "status": "active"
     },
     {
       "priority": 2,
+      "goal_ids": [
+        "G4",
+        "G5"
+      ],
+      "track_id": "script-vm",
+      "title": "Decode pinned entry02 boundaries",
+      "target": "After pack96, decode B7 CD:5409, 9E CC:FFF7, AE CD:3639, BD CD:6CBD, B9 CD:5CAA using canonical ROM only.",
+      "status": "queued"
+    },
+    {
+      "priority": 3,
       "goal_ids": [
         "G3",
         "G4",
         "G5"
       ],
       "track_id": "npc-oam",
-      "title": "visible-object蠎ｧ讓吮・map-world蠎ｧ讓吝､画鋤",
+      "title": "visible-object coordinates to map-world coordinates",
       "target": "Resolve runtime visible-object coordinates against canonical map/world coordinates and feed NPC/sprite/event/dialogue integration.",
       "status": "queued"
     },
     {
-      "priority": 3,
+      "priority": 4,
       "goal_ids": [
         "G2",
         "G3",
@@ -169,21 +180,9 @@
         "G5"
       ],
       "track_id": "dialogue",
-      "title": "NPC/sprite/event/dialogue邨ｱ蜷・,
+      "title": "NPC/sprite/event/dialogue integration",
       "target": "Join actor selector, event provenance, phase-aware dialogue and map-world position into one evidence-backed actor/event model.",
       "status": "queued"
-    },
-    {
-      "priority": 4,
-      "goal_ids": [
-        "G1",
-        "G4",
-        "G5"
-      ],
-      "track_id": "wram",
-      "title": "bank89 object-geometry reader provenance遒ｺ螳・,
-      "target": "Recover concrete provenance for the documented $0959 and $0959+$09D9+1 reads; runtime promotion requires canonical Drive ROM.",
-      "status": "blocked-provenance-rom"
     },
     {
       "priority": 5,
@@ -193,29 +192,18 @@
         "G5"
       ],
       "track_id": "wram",
-      "title": "native $0305 writer蛻・｡・,
+      "title": "native $0305 writer classification",
       "target": "Classify native writers and separate controller/event/map semantics.",
       "status": "queued"
     },
     {
       "priority": 6,
       "goal_ids": [
-        "G4",
-        "G5"
-      ],
-      "track_id": "script-vm",
-      "title": "event-trigger region讒矩遒ｺ螳・,
-      "target": "Generalize the proven opcode 0x69/0x5D coordinate predicates and native-boundary hotspot relation into event/trigger region structures; keep native boundary, terrain passability and object occupancy separate. Completed 2026-10-02: normalized 57 hotspot rows into event_trigger_regions.csv.",
-      "status": "completed"
-    },
-    {
-      "priority": 7,
-      "goal_ids": [
         "G1",
         "G5"
       ],
       "track_id": "externalization",
-      "title": "rebuild莉墓ｧ倥∈縺ｮ邨ｱ蜷・,
+      "title": "rebuild specification integration",
       "target": "Promote confirmed map/boundary/trigger/object semantics into portable schemas and rebuild-gap manifest.",
       "status": "queued"
     }
@@ -285,23 +273,23 @@
     "docs/handoff/HM_261003_event_trigger_bounds_disambiguation.md"
   ],
   "rom_source": {
-    "policy": "蜷・ｧ｣譫舌し繧､繧ｯ繝ｫ髢句ｧ区凾縺ｫ縺薙・Google Drive繝輔か繝ｫ繝繧貞盾辣ｧ縺励∵ｭ｣譛ｬROM繧堤｢ｺ隱阪☆繧九ょｮ溯｡檎腸蠅・〒豺ｻ莉漏OM縺檎峩謗･蛻ｩ逕ｨ縺ｧ縺阪↑縺・ｴ蜷医・縲√％縺ｮDrive荳翫・蜷御ｸROM繧貞叙蠕励＠縺ｦ菴ｿ逕ｨ縺吶ｋ縲ょ挨ROM縺ｧ莉｣逕ｨ縺励↑縺・・,
+    "policy": "各解析サイクル開始時にこのGoogle Driveフォルダを参照し、正本ROMを確認する。実行環境で添付ROMが直接利用できない場合は、このDrive上の同一ROMを取得して使用する。別ROMで代用しない。",
     "drive_folder_url": "https://drive.google.com/drive/folders/1Vlypsxg8aHiGdABsWJZdPtFEiEuv0J1F",
     "file_name": "Shin Momotarou Densetsu (J)_original.smc",
     "expected_size_bytes": 2097152,
-    "commit_policy": "ROM譛ｬ菴薙・savestate繝ｻSRAM繝ｻraw VRAM/OAM/CGRAM繝ｻ闡嶺ｽ懈ｨｩ迚ｩ縺ｮ逕溘ョ繝ｼ繧ｿ縺ｯGitHub縺ｸ繧ｳ繝溘ャ繝医＠縺ｪ縺・・,
-    "last_cycle_access": "unavailable_2026-10-03T23:18:00+09:00",
-    "last_cycle_note": "Drive??ROM??????????????Drive? Shin Momotarou Densetsu (J)_original.smc ????????ROM?????????"
+    "commit_policy": "ROM本体・savestate・SRAM・raw VRAM/OAM/CGRAM・著作権物の生データはGitHubへコミットしない。",
+    "last_cycle_access": "unavailable_2026-10-04T02:10:00+09:00",
+    "last_cycle_note": "Drive specified ROM was not accessible in this run. No substitute ROM used. Required input remains canonical Drive ROM with expected size/hash."
   },
   "overall_percent": 51.4,
   "legacy_workstream_overall_percent": 78.0,
   "top_goals": [
     {
       "id": "G1",
-      "name": "Program繝ｻ繝ｭ繧ｸ繝・け螳悟・隗｣譏趣ｼ騎OM蜀甲uild",
+      "name": "Program・ロジック完全解明＋ROM再build",
       "percent": 47,
       "status": "active",
-      "definition_of_done": "65816 code/data/table/pointer驟咲ｽｮ縲∝・荳ｻ隕《ubsystem縲《ave/audio繧貞性繧莉墓ｧ倥ｒ隗｣譏弱＠縲∬ｧ｣譫先ｸ医∩source/data/assets縺九ｉ蜷檎ｭ嘘OM繧貞・build縺励※讀懆ｨｼ蜿ｯ閭ｽ縲・,
+      "definition_of_done": "65816 code/data/table/pointer配置、全主要subsystem、save/audioを含む仕様を解明し、解析済みsource/data/assetsから同等ROMを再buildして検証可能。",
       "components": [
         {
           "id": "rom_map",
@@ -334,14 +322,14 @@
           "weight": 0.1
         }
       ],
-      "evidence": "ROM map縲・壼ｸｸVM縲｛bject/OAM縲’acility/item/weapon遲峨・騾ｲ螻輔・99 decomp scaffold縺ｯbuild貂医∩縺縺郡NES ROM蜀甲uild縺ｧ縺ｯ縺ｪ縺・ょｰら畑audio/APU/SPC隗｣譫舌・螳溯ｳｪ譛ｪ逹謇九《ave/SRAM莉墓ｧ倥ｂ譛ｪ謨ｴ蛯吶・
+      "evidence": "ROM map、通常VM、object/OAM、facility/item/weapon等は進展。C99 decomp scaffoldはbuild済みだがSNES ROM再buildではない。専用audio/APU/SPC解析は実質未着手、save/SRAM仕様も未整備。"
     },
     {
       "id": "G2",
-      "name": "蜈ｨ繧ｻ繝ｪ繝募ｮ悟・繧ｵ繝ｫ繝吶・繧ｸ",
+      "name": "全セリフ完全サルベージ",
       "percent": 63,
       "status": "active",
-      "definition_of_done": "蜈ｨplayer-visible text繧痴ource address/control token/譁・ц莉倥″縺ｧ蝗槫庶縺励∝芦驕泌庄閭ｽ縺ｪ譛ｬ譁・ｳ・攝縺ｮ蜿悶ｊ縺薙⊂縺励′縺ｪ縺・％縺ｨ繧呈､懆ｨｼ縲・,
+      "definition_of_done": "全player-visible textをsource address/control token/文脈付きで回収し、到達可能な本文資材の取りこぼしがないことを検証。",
       "components": [
         {
           "id": "encoding_display",
@@ -373,10 +361,10 @@
     },
     {
       "id": "G3",
-      "name": "蜈ｨ繧ｹ繝励Λ繧､繝亥ｮ悟・繧ｵ繝ｫ繝吶・繧ｸ",
+      "name": "全スプライト完全サルベージ",
       "percent": 49,
       "status": "active",
-      "definition_of_done": "蜈ｨcharacter/NPC/enemy/boss/effect/UI sprite繧断rame/palette/animation/OAM/CHR蟇ｾ蠢應ｻ倥″縺ｧcanonical asset縺ｨ縺励※蜀榊・蜉帙＠蜈ｨscene讀懆ｨｼ縲・,
+      "definition_of_done": "全character/NPC/enemy/boss/effect/UI spriteをframe/palette/animation/OAM/CHR対応付きでcanonical assetとして再出力し全scene検証。",
       "components": [
         {
           "id": "oam_renderer_path",
@@ -404,14 +392,14 @@
           "weight": 0.25
         }
       ],
-      "evidence": "B294 frame groups縲。2C1 animation scripts縲・E27 state縲＾AM/CHR reconstruction pipeline縺ｯ蠑ｷ縺・ゆｸ譁ｹ縲∝・entity縺ｮcanonical atlas縲∝・palette縲∝・scene validation縺ｯ譛ｪ螳梧・縲・
+      "evidence": "B294 frame groups、B2C1 animation scripts、0E27 state、OAM/CHR reconstruction pipelineは強い。一方、全entityのcanonical atlas、全palette、全scene validationは未完成。"
     },
     {
       "id": "G4",
-      "name": "蜈ｨ繧､繝吶Φ繝亥ｮ悟・隗｣譫・,
+      "name": "全イベント完全解析",
       "percent": 49,
       "status": "active",
-      "definition_of_done": "蜈ｨevent繧貞・謖吶＠縲∫匱逕滓擅莉ｶ繝ｻflag繝ｻ蛻・ｲ舌・莨夊ｩｱ繝ｻactor/object action繝ｻ蝣ｱ驟ｬ繝ｻ謌ｦ髣倥・蜉蜈･髮｢閼ｱ繝ｻ邨ゆｺ・ｾ茎tate繧知achine-readable graph蛹悶・,
+      "definition_of_done": "全eventを列挙し、発生条件・flag・分岐・会話・actor/object action・報酬・戦闘・加入離脱・終了後stateをmachine-readable graph化。",
       "components": [
         {
           "id": "vm_condition_semantics",
@@ -444,10 +432,10 @@
     },
     {
       "id": "G5",
-      "name": "蛻･迺ｰ蠅・〒蜀肴ｧ狗ｯ牙庄閭ｽ縺ｪ螳悟・莉墓ｧ俶嶌",
+      "name": "別環境で再構築可能な完全仕様書",
       "percent": 49,
       "status": "active",
-      "definition_of_done": "蜴欒OM縺ｮ65816 code繧定ｪｭ縺ｾ縺壹↓蛻･螳溯｣・・′PC/GBA/Web遲峨∈蜀榊ｮ溯｣・〒縺阪ｋarchitecture/data/logic/asset/build/verification莉墓ｧ倥ｒ螳悟ｙ縲・,
+      "definition_of_done": "原ROMの65816 codeを読まずに別実装者がPC/GBA/Web等へ再実装できるarchitecture/data/logic/asset/build/verification仕様を完備。",
       "components": [
         {
           "id": "architecture_memory_maps",
@@ -491,7 +479,6 @@
     "raw_vram_files_removed": 2,
     "source_conflict_files": 26,
     "nested_zip_paths_remaining": 18,
-    "notes": "蜈ｨtracked file繧剃ｸ譎Ｓead-only clone縺ｧ讖滓｢ｰ襍ｰ譟ｻ縺励・㍾隍⑳HA繧定ｭ伜挨縲ょ・unique Markdown 274譛ｬ縺ｯ蜀・ｮｹ襍ｰ譟ｻ縲・SV/script縺ｯ蜈ｨ莉ｶ蜀・ｮｹ繧ｹ繧ｭ繝｣繝ｳ縺励《chema/row謨ｰ/domain/stale-pattern繧帝寔險医・
+    "notes": "全tracked fileを一時read-only cloneで機械走査し、重複SHAを識別。全unique Markdown 274本は内容走査。CSV/scriptは全件内容スキャンし、schema/row数/domain/stale-patternを集計。"
   }
 }
-
