@@ -1,0 +1,2 @@
+gap_transition_id,gap_pack,gap_entry,destination_config_id,record0_start,record0_end_exclusive,entry01_start,entry01_end_exclusive,inferred_entry02_start,evidence
+transition_CC_0FA9,0xBD,0x02,cfg_t36_l150_v2,CD:6C83,CD:6D78,CD:6C9C,CD:6CBD,CD:6CBD,"Committed selector catalog blob c27078a99823838bb3fdc61c8cac77958f0a0cbe fixes pack 0xBD record0 and entry01 bounds; arrival provenance independently fixes destination entry 0x02. Therefore CD:6CBD is the exact structural start for entry02; opcode/operands/XY remain unconfirmed without canonical Drive ROM bytes."

@@ -150,3 +150,8 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 
 ### 2026-10-03 19:12 JST ? next arrival frontier
 - 0xB7 and 0x9E now both have exact entry02 decode boundaries (`CD:5409`, `CC:FFF7`). Next static fallback: derive 0xAE/0xB0 boundary; ROM-backed priority remains decoding 0xB7 then 0x9E from the designated canonical ROM.
+
+
+### 2026-10-03 22:12 JST ? pack 0xBD entry02 boundary
+- Confirmed exact structural decode start `CD:6CBD` for pack `0xBD` record0 entry `0x02` from the committed selector catalog; `transition_CC_0FA9` independently fixes destination pack/entry/config. Opcode/XY remain ROM-blocked.
+- The selector blob used was verified byte-identical to main (`c27078a99823838bb3fdc61c8cac77958f0a0cbe`), so this is not evidence from the stale local checkout.

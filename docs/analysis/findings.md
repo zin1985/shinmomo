@@ -353,3 +353,8 @@
 
 ### 2026-10-03 19:12 JST ? pack 0x9E entry02 boundary
 - Confirmed exact structural decode start `CC:FFF7` for pack `0x9E` record0 entry `0x02`. Adjacent same-config `0x9F` independently aligns entry02/coordinate setter at its entry01 end `CD:022A`. 0x9E opcode/XY remain ROM-blocked; do not copy `(56,13)`.
+
+
+### 2026-10-03 22:12 JST ? pack 0xBD entry02 boundary
+- Confirmed exact structural decode start `CD:6CBD` for pack `0xBD` record0 entry `0x02` from the committed selector catalog; `transition_CC_0FA9` independently fixes destination pack/entry/config. Opcode/XY remain ROM-blocked.
+- The selector blob used was verified byte-identical to main (`c27078a99823838bb3fdc61c8cac77958f0a0cbe`), so this is not evidence from the stale local checkout.
