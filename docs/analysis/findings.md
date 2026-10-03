@@ -349,3 +349,7 @@
 ### 2026-10-03 17:14 JST — pack 0xB7 entry02 boundary
 - Confirmed exact structural decode start `CD:5409` for pack `0xB7` record0 entry `0x02`; opcode/XY remain unconfirmed until canonical Drive ROM is available.
 - Same-config `0xB8` witness starts entry02 at analogous entry01 end `CD:56F1` with opcode `0x58`; use as structure only, never copy `(52,16)`.
+
+
+### 2026-10-03 19:12 JST ? pack 0x9E entry02 boundary
+- Confirmed exact structural decode start `CC:FFF7` for pack `0x9E` record0 entry `0x02`. Adjacent same-config `0x9F` independently aligns entry02/coordinate setter at its entry01 end `CD:022A`. 0x9E opcode/XY remain ROM-blocked; do not copy `(56,13)`.

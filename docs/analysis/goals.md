@@ -146,3 +146,7 @@ The hotspot corpus is now externalized as 57 machine-readable trigger regions (3
 ### 2026-10-03 17:14 JST — pack 0xB7 entry02 boundary
 - Confirmed exact structural decode start `CD:5409` for pack `0xB7` record0 entry `0x02`; opcode/XY remain unconfirmed until canonical Drive ROM is available.
 - Same-config `0xB8` witness starts entry02 at analogous entry01 end `CD:56F1` with opcode `0x58`; use as structure only, never copy `(52,16)`.
+
+
+### 2026-10-03 19:12 JST ? next arrival frontier
+- 0xB7 and 0x9E now both have exact entry02 decode boundaries (`CD:5409`, `CC:FFF7`). Next static fallback: derive 0xAE/0xB0 boundary; ROM-backed priority remains decoding 0xB7 then 0x9E from the designated canonical ROM.

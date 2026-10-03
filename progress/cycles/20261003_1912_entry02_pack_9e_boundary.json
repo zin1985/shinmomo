@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-03T19:12:33+09:00",
+  "theme": "pack 0x9E entry 0x02 structural boundary",
+  "confirmed": [
+    "transition_CC_0C75 targets pack 0x9E entry 0x02 / cfg_t24_l125_v2",
+    "0x9E record0 CC:FFC5..CD:00A1; entry01 CC:FFDE..CC:FFF7, so entry02 structural boundary is CC:FFF7",
+    "0x9F same-config witness entry02 coordinate setter aligns at its entry01 end CD:022A with known XY (56,13)"
+  ],
+  "strong_hypothesis": [
+    "CC:FFF7 contains the pack-local entry02 initializer or route needed to recover 0x9E arrival behavior"
+  ],
+  "unconfirmed": [
+    "opcode/operands at CC:FFF7",
+    "0x9E entry02 arrival XY"
+  ],
+  "rom_used": false,
+  "rom_blocker": "Drive??ROM???????????",
+  "needed_input": "Shin Momotarou Densetsu (J)_original.smc from designated Drive folder; expected 2,097,152 bytes and SHA-256 F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "percent_changes": {
+    "script-vm": "77->77",
+    "externalization": "79->79",
+    "overall": "51.4->51.4"
+  }
+}
