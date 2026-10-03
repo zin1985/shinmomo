@@ -59,7 +59,13 @@ def dialogue_page_candidates(text):
 def build_project_progress_snapshot():
     baseline = {}
     if PROJECT_PROGRESS.exists():
-        baseline = json.loads(PROJECT_PROGRESS.read_text(encoding="utf-8-sig"))
+        try:
+            baseline = json.loads(PROJECT_PROGRESS.read_text(encoding="utf-8-sig"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            # Keep viewer generation/deployment resilient if the human-maintained
+            # progress snapshot is temporarily malformed. Progress metadata is
+            # optional for the structural map bundle and must not block deploys.
+            baseline = {}
     goal_names = {
         "G1": "Program / ROM rebuild",
         "G2": "Dialogue salvage",
