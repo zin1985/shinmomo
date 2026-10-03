@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-10-03T20:12:52+09:00",
+  "theme": "pack 0xAE entry 0x02 structural boundary",
+  "confirmed": [
+    "transition_CC_0DB8 targets pack 0xAE entry 0x02 / cfg_t11_l101_v2",
+    "0xAE record0 CD:35D0..CD:389E; entry01 CD:361C..CD:3639, so entry02 structural boundary is CD:3639",
+    "0xB0 same-config witness entry02 coordinate setter aligns at its entry01 end CD:4073 with known XY (41,12)"
+  ],
+  "strong_hypothesis": [
+    "CD:3639 contains the pack-local entry02 initializer or route needed to recover 0xAE arrival behavior"
+  ],
+  "unconfirmed": [
+    "opcode/operands at CD:3639",
+    "0xAE entry02 arrival XY"
+  ],
+  "rom_used": false,
+  "rom_blocker": "Drive designated ROM could not be accessed",
+  "needed_input": "Shin Momotarou Densetsu (J)_original.smc from designated Drive folder; expected 2,097,152 bytes and SHA-256 F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "percent_changes": {
+    "script-vm": "77->77",
+    "externalization": "79->79",
+    "overall": "51.4->51.4"
+  },
+  "schedule": [
+    {"priority":1,"task":"With canonical Drive ROM, decode CD:5409 (pack 0xB7 entry02)"},
+    {"priority":2,"task":"With canonical Drive ROM, decode CC:FFF7 (pack 0x9E entry02)"},
+    {"priority":3,"task":"With canonical Drive ROM, decode CD:3639 (pack 0xAE entry02)"},
+    {"priority":4,"task":"If ROM unavailable, derive pack 0xBD entry02 structural boundary"},
+    {"priority":5,"task":"If ROM unavailable, derive pack 0xB9 entry02 structural boundary"},
+    {"priority":6,"task":"Then derive pack 0x96 entry02/0x03/0x04/0x05 boundaries and provenance"}
+  ]
+}
