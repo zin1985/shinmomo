@@ -71,9 +71,24 @@ function Invoke-Bridge([string[]]$Fields) {
 
   $line = (@($id) + $Fields) -join [char]9
   [IO.File]::WriteAllText($tmpPath, $line, [Text.UTF8Encoding]::new($false))
-  Move-Item -LiteralPath $tmpPath -Destination $CommandPath -Force
-
   $sw = [Diagnostics.Stopwatch]::StartNew()
+  while ($true) {
+    if ($sw.ElapsedMilliseconds -ge $TimeoutMs) {
+      Remove-Item -LiteralPath $tmpPath -Force -ErrorAction SilentlyContinue
+      throw "Timed out waiting for BizHawk bridge command slot. LabDir=$LabDir"
+    }
+    if (Test-Path -LiteralPath $CommandPath) {
+      Start-Sleep -Milliseconds 4
+      continue
+    }
+    try {
+      Move-Item -LiteralPath $tmpPath -Destination $CommandPath -Force -ErrorAction Stop
+      break
+    }
+    catch {
+      Start-Sleep -Milliseconds 4
+    }
+  }
   while ($sw.ElapsedMilliseconds -lt $TimeoutMs) {
     if (Test-Path -LiteralPath $responsePath) {
       $text = [IO.File]::ReadAllText($responsePath, [Text.Encoding]::UTF8).Trim()
