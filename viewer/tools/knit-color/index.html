@@ -504,6 +504,135 @@ async function loadImage(src){
   });
 }
 
+
+function repairMaskImageData(baseData, maskData){
+  const w=baseData.width, h=baseData.height, n=w*h;
+  const orig=new Uint8Array(n);
+  const gray=new Uint8Array(n);
+  let minX=w, minY=h, maxX=0, maxY=0;
+  for(let i=0;i<n;i++){
+    const p=i*4;
+    const cls=maskData.data[p];
+    orig[i]=cls;
+    const r=baseData.data[p], g=baseData.data[p+1], b=baseData.data[p+2];
+    gray[i]=Math.round(0.299*r + 0.587*g + 0.114*b);
+    if(cls>0){
+      const x=i%w, y=(i/w)|0;
+      if(x<minX) minX=x; if(x>maxX) maxX=x;
+      if(y<minY) minY=y; if(y>maxY) maxY=y;
+    }
+  }
+
+  function forNeighbors(i, fn){
+    const x=i%w, y=(i/w)|0;
+    for(let dy=-1;dy<=1;dy++){
+      for(let dx=-1;dx<=1;dx++){
+        if(dx===0 && dy===0) continue;
+        const nx=x+dx, ny=y+dy;
+        if(nx>=0 && nx<w && ny>=0 && ny<h) fn(ny*w+nx);
+      }
+    }
+  }
+
+  function nearestClass(seed){
+    const cls=new Uint8Array(seed);
+    const seen=new Uint8Array(n);
+    const q=new Int32Array(n);
+    let head=0, tail=0;
+    for(let i=0;i<n;i++){
+      if(cls[i]>0){ seen[i]=1; q[tail++]=i; }
+    }
+    while(head<tail){
+      const i=q[head++];
+      forNeighbors(i,j=>{
+        if(!seen[j]){
+          seen[j]=1;
+          cls[j]=cls[i];
+          q[tail++]=j;
+        }
+      });
+    }
+    return cls;
+  }
+
+  // Repair two mask defects without touching the original symbol positions:
+  // 1) tiny A/B cells lost fill around their glyphs
+  // 2) the lower-right E cell had been joined to F
+  const nearOrig=nearestClass(orig);
+  const seedMap=new Uint8Array(orig);
+  const visited=new Uint8Array(n);
+  const q=new Int32Array(n);
+  const eSeedX=Math.round(w*565/750), eSeedY=Math.round(h*470/553);
+  const eSeed=eSeedY*w+eSeedX;
+
+  for(let start=0;start<n;start++){
+    if(visited[start] || gray[start]<245) continue;
+    let head=0, tail=0, touchesBorder=false, containsE=false;
+    const own=new Uint32Array(9), near=new Uint32Array(9);
+    q[tail++]=start; visited[start]=1;
+    while(head<tail){
+      const i=q[head++];
+      const x=i%w, y=(i/w)|0;
+      if(x===0 || x===w-1 || y===0 || y===h-1) touchesBorder=true;
+      if(i===eSeed) containsE=true;
+      const a=orig[i]; if(a>=1 && a<=8) own[a]++;
+      const b=nearOrig[i]; if(b>=1 && b<=8) near[b]++;
+      forNeighbors(i,j=>{
+        if(!visited[j] && gray[j]>=245){
+          visited[j]=1;
+          q[tail++]=j;
+        }
+      });
+    }
+    if(touchesBorder) continue;
+    let cls=0, best=-1, ownTotal=0;
+    for(let c=1;c<=8;c++) ownTotal+=own[c];
+    const src=ownTotal>0 ? own : near;
+    for(let c=1;c<=8;c++){
+      if(src[c]>best){ best=src[c]; cls=c; }
+    }
+    if(containsE) cls=5;
+    if(cls>0){
+      for(let k=0;k<tail;k++) seedMap[q[k]]=cls;
+    }
+  }
+
+  // Flood only the true exterior from the untouched line art. This lets color
+  // reach behind letters and antialiasing while keeping the outside pure white.
+  const exterior=new Uint8Array(n);
+  let head=0, tail=0;
+  const pushExterior=(i)=>{
+    if(!exterior[i] && gray[i]>=200){ exterior[i]=1; q[tail++]=i; }
+  };
+  for(let x=0;x<w;x++){ pushExterior(x); pushExterior((h-1)*w+x); }
+  for(let y=0;y<h;y++){ pushExterior(y*w); pushExterior(y*w+w-1); }
+  while(head<tail){
+    const i=q[head++];
+    forNeighbors(i,j=>{
+      if(!exterior[j] && gray[j]>=200){
+        exterior[j]=1;
+        q[tail++]=j;
+      }
+    });
+  }
+
+  const nearest=nearestClass(seedMap);
+  const fixed=new Uint8ClampedArray(maskData.data.length);
+  const pad=3;
+  minX=Math.max(0,minX-pad); maxX=Math.min(w-1,maxX+pad);
+  minY=Math.max(0,minY-pad); maxY=Math.min(h-1,maxY+pad);
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const i=y*w+x, p=i*4;
+      if(x>=minX && x<=maxX && y>=minY && y<=maxY && !exterior[i]){
+        fixed[p]=nearest[i];
+      }
+      fixed[p+3]=255;
+    }
+  }
+  return new ImageData(fixed,w,h);
+}
+
 async function init(){
   buildPaletteUI();
   buildPresetSwatches();
@@ -518,6 +647,7 @@ async function init(){
   maskCtx.imageSmoothingEnabled=false;
   maskCtx.drawImage(maskImg,0,0,maskCanvas.width,maskCanvas.height);
   maskImageData = maskCtx.getImageData(0,0,maskCanvas.width,maskCanvas.height);
+  maskImageData = repairMaskImageData(baseImageData, maskImageData);
 
   renderChart();
   drawPhotoPlaceholder();
