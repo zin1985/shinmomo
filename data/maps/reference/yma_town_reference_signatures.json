@@ -1,0 +1,694 @@
+{
+  "schema_version": 1,
+  "reference_pages": [
+    "http://www.yma.kirara.st/data/town1.html",
+    "http://www.yma.kirara.st/data/town2.html"
+  ],
+  "policy": "Only derived topology/signature metadata and source hashes are stored; reference map images are not committed.",
+  "town_count": 13,
+  "towns": [
+    {
+      "name": "?????",
+      "image_filename": "tabidachi.png",
+      "source_url": "http://www.yma.kirara.st/img/map/tabidachi.png",
+      "sha256": "C9AE48C2F7243BDE4BE6AD5CB1F6393B96AAC75F587491648897D4FE8B1C5698",
+      "width": 415,
+      "height": 343,
+      "building_count": 9,
+      "water_component_count": 1,
+      "field_component_count": 3,
+      "building_centers_normalized": [
+        {
+          "x": 0.7998,
+          "y": 0.3506,
+          "pixels": 1046
+        },
+        {
+          "x": 0.5364,
+          "y": 1.0,
+          "pixels": 934
+        },
+        {
+          "x": 0.9954,
+          "y": 0.5699,
+          "pixels": 1900
+        },
+        {
+          "x": 1.0,
+          "y": 0.6507,
+          "pixels": 1034
+        },
+        {
+          "x": 0.5359,
+          "y": 0.6505,
+          "pixels": 987
+        },
+        {
+          "x": 0.2036,
+          "y": 0.9496,
+          "pixels": 962
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "pixels": 928
+        },
+        {
+          "x": 0.1353,
+          "y": 0.5009,
+          "pixels": 968
+        },
+        {
+          "x": 0.9998,
+          "y": 0.9502,
+          "pixels": 1047
+        }
+      ]
+    },
+    {
+      "name": "?????",
+      "image_filename": "omusubi.png",
+      "source_url": "http://www.yma.kirara.st/img/map/omusubi.png",
+      "sha256": "F429788CC61AC0EDDC113CF26E5DD6D82E78FD19E6D2F900ACA6B667A9C5C92C",
+      "width": 223,
+      "height": 342,
+      "building_count": 0,
+      "water_component_count": 0,
+      "field_component_count": 0,
+      "building_centers_normalized": []
+    },
+    {
+      "name": "?????",
+      "image_filename": "hanasaka.png",
+      "source_url": "http://www.yma.kirara.st/img/map/hanasaka.png",
+      "sha256": "B111D3DA6784DF5228B739E0A81D489623EF9CEEED49F3786F4135566365F8F4",
+      "width": 323,
+      "height": 469,
+      "building_count": 13,
+      "water_component_count": 6,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 1.0,
+          "y": 0.4142,
+          "pixels": 1030
+        },
+        {
+          "x": 0.0,
+          "y": 0.0146,
+          "pixels": 1816
+        },
+        {
+          "x": 0.5239,
+          "y": 0.8627,
+          "pixels": 1034
+        },
+        {
+          "x": 0.9996,
+          "y": 0.9999,
+          "pixels": 956
+        },
+        {
+          "x": 0.0006,
+          "y": 0.1091,
+          "pixels": 506
+        },
+        {
+          "x": 1.0,
+          "y": 0.5532,
+          "pixels": 1012
+        },
+        {
+          "x": 0.9994,
+          "y": 0.8625,
+          "pixels": 1000
+        },
+        {
+          "x": 0.5242,
+          "y": 1.0,
+          "pixels": 983
+        },
+        {
+          "x": 0.9999,
+          "y": 0.7249,
+          "pixels": 934
+        },
+        {
+          "x": 0.7653,
+          "y": 0.0,
+          "pixels": 928
+        },
+        {
+          "x": 0.5242,
+          "y": 0.7252,
+          "pixels": 990
+        },
+        {
+          "x": 0.5241,
+          "y": 0.5527,
+          "pixels": 999
+        },
+        {
+          "x": 0.5241,
+          "y": 0.4138,
+          "pixels": 1022
+        }
+      ]
+    },
+    {
+      "name": "?????",
+      "image_filename": "kintaro.png",
+      "source_url": "http://www.yma.kirara.st/img/map/kintaro.png",
+      "sha256": "DBD5EEF9A015E38A2D787CECC79B0CBB4121AC9BDD755F57D65F6ED2E56275DC",
+      "width": 386,
+      "height": 386,
+      "building_count": 11,
+      "water_component_count": 0,
+      "field_component_count": 4,
+      "building_centers_normalized": [
+        {
+          "x": 0.9996,
+          "y": 0.1922,
+          "pixels": 987
+        },
+        {
+          "x": 1.0,
+          "y": 0.6192,
+          "pixels": 968
+        },
+        {
+          "x": 0.6874,
+          "y": 0.1902,
+          "pixels": 1069
+        },
+        {
+          "x": 0.0,
+          "y": 0.5711,
+          "pixels": 1018
+        },
+        {
+          "x": 0.0007,
+          "y": 0.3345,
+          "pixels": 1058
+        },
+        {
+          "x": 0.9997,
+          "y": 1.0,
+          "pixels": 1018
+        },
+        {
+          "x": 0.4997,
+          "y": 0.0,
+          "pixels": 962
+        },
+        {
+          "x": 0.0001,
+          "y": 0.9519,
+          "pixels": 1039
+        },
+        {
+          "x": 0.9996,
+          "y": 0.8092,
+          "pixels": 1003
+        },
+        {
+          "x": 0.9997,
+          "y": 0.4299,
+          "pixels": 984
+        },
+        {
+          "x": 0.0002,
+          "y": 0.7624,
+          "pixels": 1034
+        }
+      ]
+    },
+    {
+      "name": "????",
+      "image_filename": "urashima.png",
+      "source_url": "http://www.yma.kirara.st/img/map/urashima.png",
+      "sha256": "3BD7C682EC203249452C7E4836A9E0DA202BF487B523C4B1CD1B2DFF81321C78",
+      "width": 349,
+      "height": 384,
+      "building_count": 10,
+      "water_component_count": 2,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.5552,
+          "y": 0.4399,
+          "pixels": 980
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "pixels": 1034
+        },
+        {
+          "x": 0.9994,
+          "y": 0.44,
+          "pixels": 1069
+        },
+        {
+          "x": 0.5551,
+          "y": 0.8005,
+          "pixels": 968
+        },
+        {
+          "x": 0.0,
+          "y": 0.1995,
+          "pixels": 1018
+        },
+        {
+          "x": 0.3878,
+          "y": 0.0801,
+          "pixels": 1047
+        },
+        {
+          "x": 0.1103,
+          "y": 0.4398,
+          "pixels": 1022
+        },
+        {
+          "x": 0.3907,
+          "y": 0.2793,
+          "pixels": 978
+        },
+        {
+          "x": 0.5549,
+          "y": 1.0,
+          "pixels": 961
+        },
+        {
+          "x": 1.0,
+          "y": 0.7191,
+          "pixels": 975
+        }
+      ]
+    },
+    {
+      "name": "????",
+      "image_filename": "sizuka.png",
+      "source_url": "http://www.yma.kirara.st/img/map/sizuka.png",
+      "sha256": "377B15879073119986803D808EB980F778AA9BADFD310B47E8BF16A2E3F75F72",
+      "width": 234,
+      "height": 310,
+      "building_count": 9,
+      "water_component_count": 1,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.9957,
+          "y": 0.6466,
+          "pixels": 1034
+        },
+        {
+          "x": 0.5002,
+          "y": 0.9999,
+          "pixels": 1018
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "pixels": 1069
+        },
+        {
+          "x": 0.9957,
+          "y": 0.2933,
+          "pixels": 1034
+        },
+        {
+          "x": 0.7509,
+          "y": 0.9998,
+          "pixels": 990
+        },
+        {
+          "x": 0.5006,
+          "y": 0.6463,
+          "pixels": 1003
+        },
+        {
+          "x": 0.4999,
+          "y": 0.2936,
+          "pixels": 1069
+        },
+        {
+          "x": 1.0,
+          "y": 1.0,
+          "pixels": 1034
+        },
+        {
+          "x": 0.0008,
+          "y": 0.7634,
+          "pixels": 962
+        }
+      ]
+    },
+    {
+      "name": "?????(?)",
+      "image_filename": "netaro1.png",
+      "source_url": "http://www.yma.kirara.st/img/map/netaro1.png",
+      "sha256": "209320E33B38E4BCDCE0DE8393FD44B3A178C360C9EB4192596C45E6BCEE37F4",
+      "width": 276,
+      "height": 414,
+      "building_count": 9,
+      "water_component_count": 2,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.641,
+          "y": 1.0,
+          "pixels": 1012
+        },
+        {
+          "x": 1.0,
+          "y": 0.834,
+          "pixels": 928
+        },
+        {
+          "x": 0.4274,
+          "y": 0.2787,
+          "pixels": 965
+        },
+        {
+          "x": 0.0,
+          "y": 0.2781,
+          "pixels": 970
+        },
+        {
+          "x": 0.9268,
+          "y": 0.0,
+          "pixels": 1000
+        },
+        {
+          "x": 0.0731,
+          "y": 0.6672,
+          "pixels": 980
+        },
+        {
+          "x": 0.9269,
+          "y": 0.3321,
+          "pixels": 1018
+        },
+        {
+          "x": 0.1457,
+          "y": 0.9447,
+          "pixels": 983
+        },
+        {
+          "x": 0.6411,
+          "y": 0.7219,
+          "pixels": 1003
+        }
+      ]
+    },
+    {
+      "name": "?????(?)",
+      "image_filename": "netaro2.png",
+      "source_url": "http://www.yma.kirara.st/img/map/netaro2.png",
+      "sha256": "540E9C1F4E99960815C34E204CBDB09712C10EB89A69EB341D93A4A9575E6896",
+      "width": 300,
+      "height": 236,
+      "building_count": 7,
+      "water_component_count": 2,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.4664,
+          "y": 0.8376,
+          "pixels": 987
+        },
+        {
+          "x": 1.0,
+          "y": 0.0007,
+          "pixels": 956
+        },
+        {
+          "x": 0.2652,
+          "y": 1.0,
+          "pixels": 1034
+        },
+        {
+          "x": 0.6669,
+          "y": 0.0,
+          "pixels": 934
+        },
+        {
+          "x": 0.8,
+          "y": 0.8371,
+          "pixels": 983
+        },
+        {
+          "x": 0.2653,
+          "y": 0.0006,
+          "pixels": 965
+        },
+        {
+          "x": 0.0,
+          "y": 0.0035,
+          "pixels": 1012
+        }
+      ]
+    },
+    {
+      "name": "??????",
+      "image_filename": "hohoemi.png",
+      "source_url": "http://www.yma.kirara.st/img/map/hohoemi.png",
+      "sha256": "A2898485F494F400D4C6C81D718CBE179CF977137DF34DFE0D240076CBECC2C8",
+      "width": 396,
+      "height": 348,
+      "building_count": 11,
+      "water_component_count": 1,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.6742,
+          "y": 0.7191,
+          "pixels": 952
+        },
+        {
+          "x": 0.8335,
+          "y": 0.7184,
+          "pixels": 974
+        },
+        {
+          "x": 0.4358,
+          "y": 0.7184,
+          "pixels": 949
+        },
+        {
+          "x": 0.3923,
+          "y": 0.0,
+          "pixels": 1046
+        },
+        {
+          "x": 0.3203,
+          "y": 0.9998,
+          "pixels": 1020
+        },
+        {
+          "x": 0.5181,
+          "y": 1.0,
+          "pixels": 1069
+        },
+        {
+          "x": 0.0,
+          "y": 0.4321,
+          "pixels": 2429
+        },
+        {
+          "x": 0.6422,
+          "y": 0.3803,
+          "pixels": 1069
+        },
+        {
+          "x": 0.7954,
+          "y": 0.9992,
+          "pixels": 968
+        },
+        {
+          "x": 1.0,
+          "y": 0.1432,
+          "pixels": 941
+        },
+        {
+          "x": 0.8016,
+          "y": 0.3831,
+          "pixels": 1024
+        }
+      ]
+    },
+    {
+      "name": "????",
+      "image_filename": "atarashii.png",
+      "source_url": "http://www.yma.kirara.st/img/map/atarashii.png",
+      "sha256": "89818CFE4890D946F56208EFFEF73369E4954512A26587001CE123DD5D9696D5",
+      "width": 370,
+      "height": 240,
+      "building_count": 5,
+      "water_component_count": 0,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.0,
+          "y": 0.7689,
+          "pixels": 1034
+        },
+        {
+          "x": 0.0007,
+          "y": 0.0,
+          "pixels": 997
+        },
+        {
+          "x": 0.6993,
+          "y": 0.3845,
+          "pixels": 1018
+        },
+        {
+          "x": 0.6942,
+          "y": 1.0,
+          "pixels": 956
+        },
+        {
+          "x": 1.0,
+          "y": 0.9997,
+          "pixels": 934
+        }
+      ]
+    },
+    {
+      "name": "???",
+      "image_filename": "yume.png",
+      "source_url": "http://www.yma.kirara.st/img/map/yume.png",
+      "sha256": "2782E26D3DC37D8D1DEFD05D86DC58EFE2EDD8A52A6380BED838BDD5B8FD8CFD",
+      "width": 206,
+      "height": 225,
+      "building_count": 7,
+      "water_component_count": 0,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.8006,
+          "y": 0.0,
+          "pixels": 986
+        },
+        {
+          "x": 0.0,
+          "y": 0.5036,
+          "pixels": 1012
+        },
+        {
+          "x": 1.0,
+          "y": 0.5036,
+          "pixels": 1012
+        },
+        {
+          "x": 0.8071,
+          "y": 0.9987,
+          "pixels": 934
+        },
+        {
+          "x": 0.1992,
+          "y": 1.0,
+          "pixels": 1034
+        },
+        {
+          "x": 0.5007,
+          "y": 0.3006,
+          "pixels": 940
+        },
+        {
+          "x": 0.1996,
+          "y": 0.0004,
+          "pixels": 1018
+        }
+      ]
+    },
+    {
+      "name": "??????",
+      "image_filename": "sarukani.png",
+      "source_url": "http://www.yma.kirara.st/img/map/sarukani.png",
+      "sha256": "CA0282957935109B73F7D636A6D9A9B531ADB1EAA9060480C1F855E86B11C3F8",
+      "width": 376,
+      "height": 336,
+      "building_count": 8,
+      "water_component_count": 1,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.0002,
+          "y": 0.9402,
+          "pixels": 965
+        },
+        {
+          "x": 0.0,
+          "y": 0.4105,
+          "pixels": 1034
+        },
+        {
+          "x": 0.8568,
+          "y": 0.0595,
+          "pixels": 962
+        },
+        {
+          "x": 0.7133,
+          "y": 0.7043,
+          "pixels": 995
+        },
+        {
+          "x": 0.5243,
+          "y": 1.0,
+          "pixels": 956
+        },
+        {
+          "x": 0.2862,
+          "y": 0.0,
+          "pixels": 1000
+        },
+        {
+          "x": 0.2865,
+          "y": 0.6467,
+          "pixels": 953
+        },
+        {
+          "x": 1.0,
+          "y": 0.7042,
+          "pixels": 980
+        }
+      ]
+    },
+    {
+      "name": "????",
+      "image_filename": "yutaka.png",
+      "source_url": "http://www.yma.kirara.st/img/map/yutaka.png",
+      "sha256": "704DE5E58F9327B16D3C6C8D19A617C68A1B28C7B40338130BEBC59D1C491E29",
+      "width": 300,
+      "height": 334,
+      "building_count": 4,
+      "water_component_count": 0,
+      "field_component_count": 0,
+      "building_centers_normalized": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "pixels": 928
+        },
+        {
+          "x": 0.8171,
+          "y": 1.0,
+          "pixels": 1012
+        },
+        {
+          "x": 1.0,
+          "y": 0.009,
+          "pixels": 869
+        },
+        {
+          "x": 0.0869,
+          "y": 0.9993,
+          "pixels": 1034
+        }
+      ]
+    }
+  ]
+}

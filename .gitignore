@@ -24,3 +24,13 @@ tools/dynamic/tmp/
 # OS/editor
 .DS_Store
 Thumbs.db
+
+# Local reverse-engineering scratch outputs
+__pycache__/
+*.pyc
+.mole-remote-backup_*/
+tools/python/*_tmp.py
+tools/remote_lab/*.pre_*
+graphics/runtime_sprite_dynamic/*.png
+graphics/sprite_reconstruction_probe/*.png
+graphics/viewer_validation/*.png
