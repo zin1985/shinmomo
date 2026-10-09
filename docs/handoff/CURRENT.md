@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-10 VM56 exact ROM verification:** 722/722 terminal opcode 0x56 pack/entry/B0 sequences verified against canonical ROM. Of 721 source-unbound VM56 rows, 10 have framed event records and 7 have validated source-selection callsite evidence. No new source-map links promoted. See docs/analysis/vm56_source_owner_audit_20261010.md, data/maps/transitions/vm56_source_ownership_audit.json and progress/current_task.json.
+
 > **2026-10-10 spatial and phase gate:** 54 independent VM source regions now have conservative research-coordinate predicates, CC:1160 retains a five-config destination ambiguity, and 1,238 source-unbound transitions are triaged (721 opcode0x56 terminal). See docs/analysis/transition_spatial_phase_source_triage_20261010.md and progress/current_task.json; confirmed edges remain 3 of 56.
 
 > **2026-10-10 native return and graph gate:** Two native return contexts attached to existing bound edges; all 1,295 transitions preserve unresolved current-state activation. 56 edges and 3 confirmed unchanged. World graph audit: only 3/149 maps have bound outgoing edges. Read docs/analysis/native_saved_return_graph_gate_20261010.md and progress/current_task.json.

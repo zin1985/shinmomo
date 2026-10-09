@@ -5,8 +5,8 @@
   "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Resolve source event owner/caller contexts and story-dependent map navigation",
-  "base_main_head_verified": "5be8bac9e8e20e7e2cc75ff6eea11d058631abb9",
+  "title": "VM 0x56 source ownership: recover caller/map runtime context from seven linked events",
+  "base_main_head_verified": "a5e8a13cfa968f59d8b6612ec4a9d8a667d03c19",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,27 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Trace event-record ownership, VM caller and active map context for 721 unbound VM opcode 0x56 terminal rows. Do NOT assign source from script_pack equality alone."
+      "action": "Trace CC:AD64 / F81-L007 through seven validated source-selection callsites to active $0305 and VM mode $035F/$1398; do not infer current map from source pack."
     },
     {
       "order": 2,
-      "action": "Decode destination-side phase/state discriminator for CC:1160 pack0xCE entry02, five candidate configurations; no single-config assumption."
+      "action": "Repeat event dispatcher and active-map ownership inspection for CC:3DF1, CC:3FAF, CC:B67B, CC:F4F9, CC:4A21 and CC:848E."
     },
     {
       "order": 3,
-      "action": "Hidden BizHawk: prepare and verify world->village->interior->village->world frame/WRAM/screenshot proof without touching the interactive desktop."
+      "action": "Expand event-record framing/selection ownership beyond current 10/722 VM 0x56 terminals using bounded ROM grammar and caller xrefs."
     },
     {
       "order": 4,
-      "action": "Promote specific VM control-flow and flag predicates to executable tri-state evaluation only when exact ROM operands and live state are proven."
+      "action": "Use hidden BizHawk to verify world->village->interior->village->world with frame/WRAM before-after captures; preserve local-only capture files."
     },
     {
       "order": 5,
-      "action": "Expand event-aware topology to dungeons/floors and instrument missing-source, phase, collision and return-path audits."
+      "action": "Decode CC:1160 destination pack 0xCE phase discriminator; retain five-way destination ambiguity until proven."
+    },
+    {
+      "order": 6,
+      "action": "Continue source-map evidence expansion and collision/reachability for full village and dungeon topology."
     }
   ],
   "do_not_redo": [
@@ -844,22 +848,18 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "Tri-state spatial gate, five-way phase destination family, source-unbound ownership triage",
-    "viewer_maps": 149,
-    "transition_candidates": 1295,
-    "bound_edges": 56,
-    "confirmed_runtime_edges": 3,
-    "spatial_conditions": 54,
-    "phase_destination_ambiguous_families": 1,
-    "source_unbound_candidates": 1238,
-    "unique_pack_context_investigative_leads_not_confirmed": 1028,
-    "priority_vm_0x56_terminal_unbound": 721,
+    "description": "Exact canonical-ROM verification and event-source ancestry audit for 0x56 terminal transitions",
+    "vm56_verified_terminal_count": 722,
+    "vm56_verification_mismatch_count": 0,
+    "vm56_source_unbound_count": 721,
+    "vm56_frame_linked": 10,
+    "vm56_frame_and_source_selection_linked": 7,
+    "runtime_source_config_promotions": 0,
     "evidence": [
-      "docs/analysis/transition_spatial_phase_source_triage_20261010.md",
-      "data/maps/transitions/source_unbound_investigation_queue.json",
-      "tools/python/transition_gate_predicates.py",
-      "tools/python/triage_unbound_transition_sources.py",
-      "scripts/test_transition_spatial_phase_gates.py"
+      "data/maps/transitions/vm56_source_ownership_audit.json",
+      "tools/python/audit_vm56_source_ownership.py",
+      "docs/analysis/vm56_source_owner_audit_20261010.md",
+      "scripts/test_vm56_source_ownership.py"
     ],
     "official_overall_percent_unchanged": 51.4
   },
@@ -918,6 +918,27 @@
         "scripts/test_world_graph_coverage.py"
       ],
       "official_progress_percent_unchanged": 51.4
+    },
+    {
+      "date": "2026-10-10",
+      "description": "Tri-state spatial gate, five-way phase destination family, source-unbound ownership triage",
+      "viewer_maps": 149,
+      "transition_candidates": 1295,
+      "bound_edges": 56,
+      "confirmed_runtime_edges": 3,
+      "spatial_conditions": 54,
+      "phase_destination_ambiguous_families": 1,
+      "source_unbound_candidates": 1238,
+      "unique_pack_context_investigative_leads_not_confirmed": 1028,
+      "priority_vm_0x56_terminal_unbound": 721,
+      "evidence": [
+        "docs/analysis/transition_spatial_phase_source_triage_20261010.md",
+        "data/maps/transitions/source_unbound_investigation_queue.json",
+        "tools/python/transition_gate_predicates.py",
+        "tools/python/triage_unbound_transition_sources.py",
+        "scripts/test_transition_spatial_phase_gates.py"
+      ],
+      "official_overall_percent_unchanged": 51.4
     }
   ]
 }

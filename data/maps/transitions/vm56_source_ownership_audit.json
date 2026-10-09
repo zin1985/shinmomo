@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "kind": "vm_opcode_0x56_terminal_source_ownership_audit",
+  "terminal_0x56_total": 722,
+  "counts": {
+    "frame_plus_source_selection": 7,
+    "frame_without_source_selection": 3,
+    "no_event_frame": 712,
+    "source_bound_in_viewer": 1,
+    "source_unbound_in_viewer": 721,
+    "terminal_0x56_total": 722,
+    "within_structural_event_frame": 10
+  },
+  "canonical_rom_verified": true,
+  "byte_exact_terminal_56_operands_b0_verified": 722,
+  "rom_validation_issues": [],
+  "owner_trace_queue": [
+    {
+      "priority": 0,
+      "trigger_addr": "CC:AD64",
+      "script_pack": "0x81",
+      "script_record": "14",
+      "script_entry": "0x72",
+      "event_record": "F81-L007",
+      "validated_source_selection_count": 7,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:AAF1",
+          "selected_source_cpu": "C9:66BE",
+          "source_selection_subindex": "0x16",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:AAF5",
+          "selected_source_cpu": "C9:670D",
+          "source_selection_subindex": "0x17",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:AAF9",
+          "selected_source_cpu": "C9:6749",
+          "source_selection_subindex": "0x18",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:AAFD",
+          "selected_source_cpu": "C9:6785",
+          "source_selection_subindex": "0x19",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:ABCC",
+          "selected_source_cpu": "C9:6AB3",
+          "source_selection_subindex": "0x25",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:ABD0",
+          "selected_source_cpu": "C9:6AE8",
+          "source_selection_subindex": "0x26",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:AE30",
+          "selected_source_cpu": "C9:7430",
+          "source_selection_subindex": "0x3B",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0xB1",
+      "destination_entry_id": "0x12",
+      "destination_config_id": "cfg_t29_l138_v2",
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 0,
+      "trigger_addr": "CC:3DF1",
+      "script_pack": "0x60",
+      "script_record": "24",
+      "script_entry": "0x25",
+      "event_record": "F60-L010",
+      "validated_source_selection_count": 3,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:3D88",
+          "selected_source_cpu": "C8:F414",
+          "source_selection_subindex": "0x15",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:3E6C",
+          "selected_source_cpu": "C8:F417",
+          "source_selection_subindex": "0x17",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:3E9D",
+          "selected_source_cpu": "C8:F43C",
+          "source_selection_subindex": "0x18",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0x60",
+      "destination_entry_id": "0x02",
+      "destination_config_id": null,
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 0,
+      "trigger_addr": "CC:3FAF",
+      "script_pack": "0x60",
+      "script_record": "30",
+      "script_entry": "0x26",
+      "event_record": "F60-L012",
+      "validated_source_selection_count": 2,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:3ECF",
+          "selected_source_cpu": "C8:F44E",
+          "source_selection_subindex": "0x1A",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:4026",
+          "selected_source_cpu": "C8:F47E",
+          "source_selection_subindex": "0x1F",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0x60",
+      "destination_entry_id": "0x04",
+      "destination_config_id": null,
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 0,
+      "trigger_addr": "CC:B67B",
+      "script_pack": "0x82",
+      "script_record": "20",
+      "script_entry": "0x7B",
+      "event_record": "F82-L009",
+      "validated_source_selection_count": 2,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:B4C7",
+          "selected_source_cpu": "C9:71FE",
+          "source_selection_subindex": "0x19",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:B4CB",
+          "selected_source_cpu": "C9:7226",
+          "source_selection_subindex": "0x1A",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0x4C",
+      "destination_entry_id": "0x1A",
+      "destination_config_id": null,
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 0,
+      "trigger_addr": "CC:F4F9",
+      "script_pack": "0x9B",
+      "script_record": "32",
+      "script_entry": "0x7B",
+      "event_record": "F9B-L021",
+      "validated_source_selection_count": 2,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:F3DD",
+          "selected_source_cpu": "C9:AF65",
+          "source_selection_subindex": "0x19",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        },
+        {
+          "script_callsite": "CC:F5AA",
+          "selected_source_cpu": "C9:B237",
+          "source_selection_subindex": "0x28",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0x69",
+      "destination_entry_id": "0x02",
+      "destination_config_id": "cfg_t07_l015_v2",
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 0,
+      "trigger_addr": "CC:4A21",
+      "script_pack": "0x66",
+      "script_record": "12",
+      "script_entry": "0x7B",
+      "event_record": "F66-L010",
+      "validated_source_selection_count": 1,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:49CB",
+          "selected_source_cpu": "C9:03A4",
+          "source_selection_subindex": "0x0F",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0x66",
+      "destination_entry_id": "0x04",
+      "destination_config_id": "cfg_t07_l064_v2",
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 0,
+      "trigger_addr": "CC:848E",
+      "script_pack": "0x75",
+      "script_record": "31",
+      "script_entry": "0x6C",
+      "event_record": "F75-L013",
+      "validated_source_selection_count": 1,
+      "validated_script_callsites": [
+        {
+          "script_callsite": "CC:830E",
+          "selected_source_cpu": "C9:4CFB",
+          "source_selection_subindex": "0x1C",
+          "evidence_class": "validated_source_selection_in_structural_record"
+        }
+      ],
+      "destination_pack": "0x75",
+      "destination_entry_id": "0x0B",
+      "destination_config_id": "cfg_t50_l178_v1",
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 1,
+      "trigger_addr": "CD:C288",
+      "script_pack": "0xE1",
+      "script_record": "13",
+      "script_entry": "0x7C",
+      "event_record": "FE1-L006",
+      "validated_source_selection_count": 0,
+      "validated_script_callsites": [],
+      "destination_pack": "0xE0",
+      "destination_entry_id": "0x09",
+      "destination_config_id": "cfg_t55_l192_v2",
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 1,
+      "trigger_addr": "CE:126A",
+      "script_pack": "0xF9",
+      "script_record": "4",
+      "script_entry": "0x7C",
+      "event_record": "FF9-L004",
+      "validated_source_selection_count": 0,
+      "validated_script_callsites": [],
+      "destination_pack": "0xEE",
+      "destination_entry_id": "0x02",
+      "destination_config_id": null,
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    },
+    {
+      "priority": 1,
+      "trigger_addr": "CE:1303",
+      "script_pack": "0xF9",
+      "script_record": "9",
+      "script_entry": "0x7C",
+      "event_record": "FF9-L009",
+      "validated_source_selection_count": 0,
+      "validated_script_callsites": [],
+      "destination_pack": "0xF9",
+      "destination_entry_id": "0x03",
+      "destination_config_id": "cfg_t07_l009_v2",
+      "viewer_source_config_id": null,
+      "remaining_proof": "Trace callsite selection to active map pack/config and confirm VM normal mode and triggering predicate; do not infer source from script pack."
+    }
+  ],
+  "normal_mode_requirement": "VM opcode 0x56 handler meaning is mode-dependent; the normal-mode C4:8B6A transition handler must be proven active for execution.",
+  "source_assignment_policy": "The script pack, event record, source-selection pointer or even identical destination pack is not independent proof of active player map; no source ID promotion without runtime/ROM caller-state proof."
+}
