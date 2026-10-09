@@ -4,6 +4,7 @@ from pathlib import Path
 
 from crosslink_transition_sources_from_hotspots import crosslink as crosslink_sources
 from crosslink_destination_bounds_for_viewer import join_destination_bounds
+from build_native_saved_return_context import (match_native_boundaries, edge_activation_gate, rows as read_native_rows)
 
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
@@ -868,8 +869,42 @@ def main():
         transition_arrivals.append(arrival)
         m["transition_arrivals"].append(arrival["arrival_id"])
 
+    # Native boundary handlers (notably C1:8955) are shared; join only
+    # against unique source/destination runtime edges AND saved-return origins.
+    # These rows already exist as confirmed runtime edges, so enrich rather
+    # than append and inadvertently double-count them.
+    native_origins_file = TRANSITIONS / "source_saved_return_origins.csv"
+    native_context_summary = {"native_hotspot_count": 0, "attached_count": 0, "attached": [], "rejected": []}
+    if SOURCE_HOTSPOTS.exists() and native_origins_file.exists():
+        transition_edges, native_context_summary = match_native_boundaries(
+            transition_edges, read_native_rows(SOURCE_HOTSPOTS),
+            read_native_rows(native_origins_file)
+        )
+        if native_context_summary["rejected"]:
+            raise ValueError(f"Unresolved native saved-return join contradictions: {native_context_summary['rejected']}")
+        matched_native = {
+            e["transition_id"]: e for e in transition_edges if e.get("native_boundary_context")
+        }
+        for e in transition_edges:
+            ctx = e.get("native_boundary_context")
+            if ctx:
+                # Only a matched saved-return-origin proof can supply the
+                # destination coordinate to an observed reverse edge.
+                if e.get("destination_x") is None:
+                    e["destination_x"] = ctx["saved_return_target"]["x"]
+                if e.get("destination_y") is None:
+                    e["destination_y"] = ctx["saved_return_target"]["y"]
+                e["native_arrival_coordinate_provenance"] = "source_saved_return_origins"
+        transition_candidates = [
+            matched_native.get(e["transition_id"], e) for e in transition_candidates
+        ]
+    for e in transition_candidates:
+        e["activation_gate"] = edge_activation_gate(e)
+    # Keep edge objects identical to their source candidates after annotation.
+    transition_edges = [e for e in transition_candidates if e.get("source_config_id") and e.get("destination_config_id")]
+
     world = {
-        "schema_version": 8,
+        "schema_version": 9,
         "kind": "shinmomo_structural_world",
         "project_progress": build_project_progress_snapshot(),
         "asset_profiles": {
@@ -880,11 +915,16 @@ def main():
         "transitions": transitions,
         "transition_candidates": transition_candidates,
         "transition_edges": transition_edges,
+        "native_boundary_context_summary": native_context_summary,
         "transition_catalog_summary": {
             "candidate_count": len(transition_candidates),
             "confirmed_count": sum(x["confidence"] == "confirmed" for x in transition_candidates),
             "strong_candidate_count": sum(x["confidence"] == "strong_candidate" for x in transition_candidates),
             "bound_edge_count": len(transition_edges),
+            "native_saved_return_context_count": native_context_summary["attached_count"],
+            "activation_current_state_unknown_count": sum(
+                e["activation_gate"]["evaluation"] == "unknown" for e in transition_candidates
+            ),
             "hotspot_source_candidate_count": len(source_bindings),
             "bounds_destination_candidate_count": len(destination_bounds_bindings),
             "destination_config_resolved_count": sum(

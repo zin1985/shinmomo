@@ -51,3 +51,16 @@ The same actor payload now also carries sprite semantic and four-direction metad
 ## Source transition hotspots
 
 The viewer imports `data/maps/transitions/source_transition_hotspots.csv`. Resolved source rectangles are clickable on the map when transitions are enabled. A hotspot with a resolved destination config opens that map directly and highlights/centers the resolved destination arrival coordinate when available. Source coordinates are never inferred from script-pack identity.
+
+
+## Event-aware transition gating (2026-10-10)
+
+Bound transitions expose a derived activation_gate. evaluation=unknown is
+intentional: static or runtime-observed transitions are not necessarily
+executable in the current story phase. Source hotspots and native saved-return
+contexts carry source-region and return-stack provenance without inventing a
+true/false flag predicate. The "inspect map" button is a research preview,
+not a simulation of permitted movement. Native C1:8955 exits are keyed by
+unique source/destination edges plus proven saved return origin, never by
+shared handler address alone. See
+docs/analysis/native_saved_return_graph_gate_20261010.md.

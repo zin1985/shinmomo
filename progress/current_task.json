@@ -5,10 +5,10 @@
   "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Complete event-aware world graph: native boundaries and phase predicates",
-  "base_main_head_verified": "16bec27b9f1be56cf1e2978a61fd2f38a51ad17e",
+  "title": "Map graph event predicates and precise native boundary probing",
+  "base_main_head_verified": "0f31c545fe21d55be6684ff80a010142b56dabb0",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
-  "goal": "Connect independently proven source and arrival maps with story-gated triggers and NPC events without guessed topology.",
+  "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
     "All world/town/dungeon/special map variants are enumerated.",
     "Every transition has source, destination, grid arrival, and event condition or explicit unknown evidence.",
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Disambiguate native C1:8955 boundary transitions by concrete source map, state and return context, not opcode address alone."
+      "action": "Acquire deterministic hidden-BizHawk interior exit pre-X, confirm actual collision/passability for X=8,9,10,Y=12; 3-cell corridor is not runtime-closed."
     },
     {
       "order": 2,
-      "action": "Annotate each graph edge with VM/event trigger condition and story flag/state requirements. Unknown predicates must remain explicit."
+      "action": "Recover VM branch story flags and compare player state; implement true tri-state edge predicate evaluation with proven opcode operands."
     },
     {
       "order": 3,
-      "action": "Use hidden BizHawk for verified world->village->interior->world round trip and compare actual arrival coords, map IDs, actors and dialogue."
+      "action": "Identify source map for 1238 source-unbound transitions via event owners, pack context and native-stack context, not shared opcode address."
     },
     {
       "order": 4,
-      "action": "Resume pack96 entry02..05 and pinned entry02 boundaries with canonical ROM to recover remaining XY provenance."
+      "action": "Verify world-village-interior-world round-trip with return positions, flags, NPC and dialogue changes."
     },
     {
       "order": 5,
-      "action": "Expand to all world/village/dungeon map variants, collision layers, phase-sensitive graph reachability and missing return-edge reports."
+      "action": "Resume pack96 entry02..05 to recover event arrival XY and expand dungeon floor reachability."
     }
   ],
   "do_not_redo": [
@@ -844,18 +844,22 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "Native-bounds destination config overlay",
-    "source_bindings": 54,
-    "native_bounds_destination_bindings": 110,
-    "viewer_destination_config_resolutions": 1173,
-    "viewer_bound_edges": 56,
-    "viewer_confirmed_edges": 3,
-    "new_navigable_strong_candidates": 53,
-    "evidence": [
-      "docs/analysis/destination_bounds_viewer_overlay_20261010.md",
-      "data/maps/transitions/destination_bounds_viewer_overlay_summary.json",
-      "tools/python/crosslink_destination_bounds_for_viewer.py",
-      "scripts/test_destination_bounds_overlay.py"
+    "description": "Shared native handler context binding, unknown-state gates and graph coverage audit",
+    "native_context_edges": 2,
+    "bound_edges": 56,
+    "runtime_confirmed_edges": 3,
+    "gate_metadata_candidates": 1295,
+    "current_state_executable_edges_confirmed": 0,
+    "maps_with_known_outgoing": 3,
+    "maps_without_bound_outgoing": 146,
+    "weak_components": 100,
+    "new_evidence": [
+      "docs/analysis/native_saved_return_graph_gate_20261010.md",
+      "tools/python/build_native_saved_return_context.py",
+      "tools/python/audit_world_graph_coverage.py",
+      "data/maps/transitions/world_graph_coverage_summary.json",
+      "scripts/test_native_saved_return_context.py",
+      "scripts/test_world_graph_coverage.py"
     ],
     "official_progress_percent_unchanged": 51.4
   },
@@ -876,6 +880,23 @@
         "scripts/test_transition_source_bindings.py"
       ],
       "official_percent_unchanged": 51.4
+    },
+    {
+      "date": "2026-10-10",
+      "description": "Native-bounds destination config overlay",
+      "source_bindings": 54,
+      "native_bounds_destination_bindings": 110,
+      "viewer_destination_config_resolutions": 1173,
+      "viewer_bound_edges": 56,
+      "viewer_confirmed_edges": 3,
+      "new_navigable_strong_candidates": 53,
+      "evidence": [
+        "docs/analysis/destination_bounds_viewer_overlay_20261010.md",
+        "data/maps/transitions/destination_bounds_viewer_overlay_summary.json",
+        "tools/python/crosslink_destination_bounds_for_viewer.py",
+        "scripts/test_destination_bounds_overlay.py"
+      ],
+      "official_progress_percent_unchanged": 51.4
     }
   ]
 }

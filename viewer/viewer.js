@@ -716,7 +716,7 @@ async function selectMap(m,focus=null,pack=undefined){
     const otherName=byId.has(other)?mapDisplayName(byId.get(other)):other;
     const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
     div.append(document.createTextNode((forward?'遶翫・':'遶翫・')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
-    const go=document.createElement('button'); go.className='edgeGo'; go.textContent='open map';
+    const go=document.createElement('button'); go.className='edgeGo'; go.textContent='inspect map'; go.title='Analysis preview only: story conditions and player state are not verified.';
     go.onclick=ev=>{
       ev.stopPropagation();
       if(byId.has(other)){
@@ -725,6 +725,11 @@ async function selectMap(m,focus=null,pack=undefined){
         selectMap(byId.get(other),focus,targetPack);
       }
     };
+    const evidenceHint = document.createElement('small');
+    const nb = e.native_boundary_context;
+    const boundaryLabel = nb ? (nb.source_region.evidence_status === 'confirmed_exact_cell' ? ' | 出口座標確認済み' : ' | 出口範囲は候補') : '';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel;
+    div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};
     edges.append(div);

@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "kind": "event_aware_map_graph_coverage_audit",
+  "map_count": 149,
+  "catalog_candidate_count": 1295,
+  "bound_edge_count": 56,
+  "confirmed_runtime_edge_count": 3,
+  "candidate_bound_edge_count": 53,
+  "native_boundary_context_count": 2,
+  "edges_with_unknown_current_activation": 56,
+  "maps_with_at_least_one_outgoing": 3,
+  "maps_with_at_least_one_incoming": 50,
+  "maps_with_no_bound_outgoing": [
+    "cfg_t01_l002_v1",
+    "cfg_t02_l003_v1",
+    "cfg_t02_l004_v1",
+    "cfg_t03_l005_v1",
+    "cfg_t04_l006_v2",
+    "cfg_t04_l018_v2",
+    "cfg_t04_l019_v1",
+    "cfg_t04_l028_v2",
+    "cfg_t04_l029_v2",
+    "cfg_t04_l030_v2",
+    "cfg_t04_l031_v2",
+    "cfg_t04_l034_v2",
+    "cfg_t04_l035_v2",
+    "cfg_t04_l039_v2",
+    "cfg_t04_l044_v2",
+    "cfg_t04_l045_v2",
+    "cfg_t04_l057_v2",
+    "cfg_t04_l058_v2",
+    "cfg_t04_l059_v2",
+    "cfg_t04_l060_v1",
+    "cfg_t04_l061_v2",
+    "cfg_t04_l062_v2",
+    "cfg_t04_l070_v2",
+    "cfg_t04_l073_v2",
+    "cfg_t04_l074_v2",
+    "cfg_t04_l081_v2",
+    "cfg_t04_l082_v2",
+    "cfg_t04_l085_v2",
+    "cfg_t04_l086_v2",
+    "cfg_t04_l088_v2",
+    "cfg_t04_l089_v2",
+    "cfg_t04_l091_v1",
+    "cfg_t05_l020_v2",
+    "cfg_t05_l032_v2",
+    "cfg_t05_l041_v2",
+    "cfg_t05_l042_v2",
+    "cfg_t05_l043_v2",
+    "cfg_t05_l077_v2",
+    "cfg_t05_l083_v2",
+    "cfg_t05_l087_v2",
+    "cfg_t06_l021_v2",
+    "cfg_t06_l037_v2",
+    "cfg_t06_l038_v2",
+    "cfg_t06_l040_v2",
+    "cfg_t07_l007_v2",
+    "cfg_t07_l009_v2",
+    "cfg_t07_l010_v2",
+    "cfg_t07_l011_v2",
+    "cfg_t07_l012_v2",
+    "cfg_t07_l013_v2",
+    "cfg_t07_l014_v2",
+    "cfg_t07_l016_v2",
+    "cfg_t07_l022_v2",
+    "cfg_t07_l023_v2",
+    "cfg_t07_l024_v2",
+    "cfg_t07_l025_v2",
+    "cfg_t07_l026_v2",
+    "cfg_t07_l027_v2",
+    "cfg_t07_l033_v2",
+    "cfg_t07_l036_v2",
+    "cfg_t07_l046_v2",
+    "cfg_t07_l047_v2",
+    "cfg_t07_l048_v2",
+    "cfg_t07_l049_v2",
+    "cfg_t07_l050_v2",
+    "cfg_t07_l051_v2",
+    "cfg_t07_l052_v2",
+    "cfg_t07_l053_v2",
+    "cfg_t07_l054_v2",
+    "cfg_t07_l055_v2",
+    "cfg_t07_l056_v2",
+    "cfg_t07_l063_v2",
+    "cfg_t07_l064_v2",
+    "cfg_t07_l065_v2",
+    "cfg_t07_l067_v2",
+    "cfg_t07_l068_v2",
+    "cfg_t07_l069_v2",
+    "cfg_t07_l071_v2",
+    "cfg_t07_l072_v2",
+    "cfg_t07_l075_v2",
+    "cfg_t07_l076_v2",
+    "cfg_t07_l078_v2",
+    "cfg_t07_l080_v2",
+    "cfg_t07_l084_v2",
+    "cfg_t07_l090_v2",
+    "cfg_t08_l092_v2",
+    "cfg_t08_l094_v2",
+    "cfg_t08_l096_v2",
+    "cfg_t09_l097_v2",
+    "cfg_t09_l098_v2",
+    "cfg_t11_l101_v2",
+    "cfg_t13_l103_v2",
+    "cfg_t14_l105_v2",
+    "cfg_t15_l107_v2",
+    "cfg_t16_l109_v2",
+    "cfg_t17_l111_v2",
+    "cfg_t18_l112_v2",
+    "cfg_t19_l113_v2",
+    "cfg_t19_l115_v2",
+    "cfg_t20_l117_v1",
+    "cfg_t21_l119_v2",
+    "cfg_t22_l121_v2",
+    "cfg_t23_l123_v1",
+    "cfg_t23_l123_v2",
+    "cfg_t24_l125_v2",
+    "cfg_t24_l127_v2",
+    "cfg_t25_l129_v2",
+    "cfg_t26_l131_v1",
+    "cfg_t27_l132_v2",
+    "cfg_t27_l134_v2",
+    "cfg_t28_l136_v2",
+    "cfg_t29_l138_v2",
+    "cfg_t30_l140_v2",
+    "cfg_t31_l142_v2",
+    "cfg_t32_l144_v1",
+    "cfg_t33_l146_v1",
+    "cfg_t34_l148_v1",
+    "cfg_t35_l149_v2",
+    "cfg_t36_l150_v2",
+    "cfg_t37_l152_v2",
+    "cfg_t38_l154_v2",
+    "cfg_t39_l156_v1",
+    "cfg_t40_l157_v2",
+    "cfg_t40_l159_v2",
+    "cfg_t42_l163_v1",
+    "cfg_t43_l165_v2",
+    "cfg_t44_l167_v1",
+    "cfg_t45_l168_v2",
+    "cfg_t46_l170_v2",
+    "cfg_t47_l172_v2",
+    "cfg_t48_l174_v2",
+    "cfg_t49_l176_v2",
+    "cfg_t50_l178_v1",
+    "cfg_t51_l180_v2",
+    "cfg_t52_l182_v2",
+    "cfg_t53_l184_v2",
+    "cfg_t53_l186_v2",
+    "cfg_t53_l188_v2",
+    "cfg_t54_l190_v2",
+    "cfg_t55_l192_v2",
+    "cfg_t56_l194_v1",
+    "cfg_t58_l196_v1",
+    "cfg_t58_l197_v1",
+    "cfg_t58_l198_v1",
+    "cfg_t59_l201_v2",
+    "cfg_t60_l203_v1"
+  ],
+  "maps_with_no_bound_incoming": [
+    "cfg_t01_l002_v1",
+    "cfg_t02_l003_v1",
+    "cfg_t02_l004_v1",
+    "cfg_t03_l005_v1",
+    "cfg_t04_l019_v1",
+    "cfg_t04_l029_v2",
+    "cfg_t04_l030_v2",
+    "cfg_t04_l031_v2",
+    "cfg_t04_l034_v2",
+    "cfg_t04_l039_v2",
+    "cfg_t04_l045_v2",
+    "cfg_t04_l057_v2",
+    "cfg_t04_l061_v2",
+    "cfg_t04_l073_v2",
+    "cfg_t04_l074_v2",
+    "cfg_t04_l082_v2",
+    "cfg_t04_l085_v2",
+    "cfg_t04_l086_v2",
+    "cfg_t04_l088_v2",
+    "cfg_t04_l089_v2",
+    "cfg_t04_l091_v1",
+    "cfg_t05_l032_v2",
+    "cfg_t05_l077_v2",
+    "cfg_t05_l083_v2",
+    "cfg_t05_l087_v2",
+    "cfg_t06_l037_v2",
+    "cfg_t07_l007_v2",
+    "cfg_t07_l022_v2",
+    "cfg_t07_l023_v2",
+    "cfg_t07_l024_v2",
+    "cfg_t07_l025_v2",
+    "cfg_t07_l026_v2",
+    "cfg_t07_l027_v2",
+    "cfg_t07_l033_v2",
+    "cfg_t07_l036_v2",
+    "cfg_t07_l046_v2",
+    "cfg_t07_l048_v2",
+    "cfg_t07_l049_v2",
+    "cfg_t07_l050_v2",
+    "cfg_t07_l051_v2",
+    "cfg_t07_l052_v2",
+    "cfg_t07_l053_v2",
+    "cfg_t07_l054_v2",
+    "cfg_t07_l055_v2",
+    "cfg_t07_l056_v2",
+    "cfg_t07_l063_v2",
+    "cfg_t07_l064_v2",
+    "cfg_t07_l065_v2",
+    "cfg_t07_l067_v2",
+    "cfg_t07_l068_v2",
+    "cfg_t07_l069_v2",
+    "cfg_t07_l071_v2",
+    "cfg_t07_l072_v2",
+    "cfg_t07_l075_v2",
+    "cfg_t07_l076_v2",
+    "cfg_t07_l078_v2",
+    "cfg_t07_l080_v2",
+    "cfg_t07_l084_v2",
+    "cfg_t07_l090_v2",
+    "cfg_t08_l094_v2",
+    "cfg_t08_l096_v2",
+    "cfg_t13_l103_v2",
+    "cfg_t14_l105_v2",
+    "cfg_t15_l107_v2",
+    "cfg_t16_l109_v2",
+    "cfg_t17_l111_v2",
+    "cfg_t18_l112_v2",
+    "cfg_t19_l113_v2",
+    "cfg_t19_l115_v2",
+    "cfg_t20_l117_v1",
+    "cfg_t21_l119_v2",
+    "cfg_t22_l121_v2",
+    "cfg_t23_l123_v2",
+    "cfg_t24_l127_v2",
+    "cfg_t27_l132_v2",
+    "cfg_t27_l134_v2",
+    "cfg_t31_l142_v2",
+    "cfg_t33_l146_v1",
+    "cfg_t35_l149_v2",
+    "cfg_t37_l152_v2",
+    "cfg_t38_l154_v2",
+    "cfg_t40_l157_v2",
+    "cfg_t40_l159_v2",
+    "cfg_t42_l163_v1",
+    "cfg_t45_l168_v2",
+    "cfg_t46_l170_v2",
+    "cfg_t48_l174_v2",
+    "cfg_t50_l178_v1",
+    "cfg_t51_l180_v2",
+    "cfg_t52_l182_v2",
+    "cfg_t53_l184_v2",
+    "cfg_t53_l186_v2",
+    "cfg_t53_l188_v2",
+    "cfg_t54_l190_v2",
+    "cfg_t55_l192_v2",
+    "cfg_t58_l196_v1",
+    "cfg_t58_l197_v1",
+    "cfg_t58_l198_v1",
+    "cfg_t60_l203_v1"
+  ],
+  "weak_component_count": 100,
+  "largest_weak_component_map_count": 50,
+  "weak_component_sizes": [
+    50,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "one_way_map_pair_candidates": [
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l006_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l018_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l028_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l035_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l044_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l058_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l059_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l060_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l062_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l070_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t04_l081_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t05_l020_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t05_l041_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t05_l042_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t05_l043_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t06_l021_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t06_l038_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t06_l040_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t08_l092_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t09_l097_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t09_l098_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t11_l101_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t23_l123_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t24_l125_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t25_l129_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t26_l131_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t28_l136_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t29_l138_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t30_l140_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t32_l144_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t34_l148_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t36_l150_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t39_l156_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t43_l165_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t44_l167_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t47_l172_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t49_l176_v2"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t56_l194_v1"
+    },
+    {
+      "source": "cfg_t01_l001_v1",
+      "destination": "cfg_t59_l201_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l009_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l010_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l011_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l012_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l013_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l014_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l016_v2"
+    },
+    {
+      "source": "cfg_t04_l008_v2",
+      "destination": "cfg_t07_l047_v2"
+    }
+  ],
+  "one_way_pair_count": 47,
+  "top_unbound_destination_configs": [
+    {
+      "config_id": "cfg_t29_l138_v2",
+      "unbound_candidate_count": 67
+    },
+    {
+      "config_id": "cfg_t58_l196_v1",
+      "unbound_candidate_count": 36
+    },
+    {
+      "config_id": "cfg_t23_l123_v1",
+      "unbound_candidate_count": 33
+    },
+    {
+      "config_id": "cfg_t26_l131_v1",
+      "unbound_candidate_count": 33
+    },
+    {
+      "config_id": "cfg_t54_l190_v2",
+      "unbound_candidate_count": 33
+    },
+    {
+      "config_id": "cfg_t11_l101_v2",
+      "unbound_candidate_count": 31
+    },
+    {
+      "config_id": "cfg_t50_l178_v1",
+      "unbound_candidate_count": 30
+    },
+    {
+      "config_id": "cfg_t01_l002_v1",
+      "unbound_candidate_count": 28
+    },
+    {
+      "config_id": "cfg_t51_l180_v2",
+      "unbound_candidate_count": 28
+    },
+    {
+      "config_id": "cfg_t08_l092_v2",
+      "unbound_candidate_count": 27
+    },
+    {
+      "config_id": "cfg_t55_l192_v2",
+      "unbound_candidate_count": 26
+    },
+    {
+      "config_id": "cfg_t22_l121_v2",
+      "unbound_candidate_count": 24
+    },
+    {
+      "config_id": "cfg_t40_l157_v2",
+      "unbound_candidate_count": 22
+    },
+    {
+      "config_id": "cfg_t40_l159_v2",
+      "unbound_candidate_count": 21
+    },
+    {
+      "config_id": "cfg_t32_l144_v1",
+      "unbound_candidate_count": 20
+    },
+    {
+      "config_id": "cfg_t45_l168_v2",
+      "unbound_candidate_count": 20
+    },
+    {
+      "config_id": "cfg_t17_l111_v2",
+      "unbound_candidate_count": 18
+    },
+    {
+      "config_id": "cfg_t02_l004_v1",
+      "unbound_candidate_count": 17
+    },
+    {
+      "config_id": "cfg_t24_l125_v2",
+      "unbound_candidate_count": 17
+    },
+    {
+      "config_id": "cfg_t07_l011_v2",
+      "unbound_candidate_count": 15
+    }
+  ],
+  "unknown_source_candidates": 1238,
+  "unknown_destination_candidates": 122,
+  "interpretation": "Incomplete connectivity is a research backlog; one-way links are not proven bugs. Current story-state gate unknown means preview-only, not executable navigation."
+}
