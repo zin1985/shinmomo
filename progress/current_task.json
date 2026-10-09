@@ -5,8 +5,8 @@
   "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "VM 0x56 source ownership: recover caller/map runtime context from seven linked events",
-  "base_main_head_verified": "a5e8a13cfa968f59d8b6612ec4a9d8a667d03c19",
+  "title": "Decode CC:AD64 blockers and recover VM caller, mode and active map context",
+  "base_main_head_verified": "825c014087fbf9bd60b877f5f731cad0c2d6a65c",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,27 +455,27 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Independently trace actual VM execution path into CC:AD64, then prove active $0305 and VM mode $035F/$1398; seven A4 source-selection sites are NOT callers or current map identity."
+      "action": "CC:AD64: verify VM opcode 0x6E handler via C4 dispatcher and independently prove A0 callee return behavior for CA:DA86, CA:DA93, CC:AE86."
     },
     {
       "order": 2,
-      "action": "Repeat event dispatcher and active-map ownership inspection for CC:3DF1, CC:3FAF, CC:B67B, CC:F4F9, CC:4A21 and CC:848E."
+      "action": "For six entry-to-terminal static CFG paths (CC:3DF1,CC:3FAF,CC:B67B,CC:4A21,CD:C288,CE:126A), trace actual VM caller, normal VM mode and active map $0305 before binding any map source."
     },
     {
       "order": 3,
-      "action": "Expand event-record framing/selection ownership beyond current 10/722 VM 0x56 terminals using bounded ROM grammar and caller xrefs."
+      "action": "Investigate four CFG blocked entries and retain blockers unless decoded independently (op:25,op:39,op:40,op:02)."
     },
     {
       "order": 4,
-      "action": "Use hidden BizHawk to verify world->village->interior->village->world with frame/WRAM before-after captures; preserve local-only capture files."
+      "action": "Validate world -> village -> interior -> village -> world with hidden BizHawk, exact WRAM and screenshot comparisons."
     },
     {
       "order": 5,
-      "action": "Decode CC:1160 destination pack 0xCE phase discriminator; retain five-way destination ambiguity until proven."
+      "action": "Expand bounded event ownership beyond 10 of 722 VM 0x56 terminals, without equating script pack with player map."
     },
     {
       "order": 6,
-      "action": "Continue source-map evidence expansion and collision/reachability for full village and dungeon topology."
+      "action": "Resume CC:1160 five-way phase destination control-flow and pack0x96 coordinate frontier."
     }
   ],
   "do_not_redo": [
@@ -848,21 +848,20 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "Exact canonical-ROM verification and event-source ancestry audit for 0x56 terminal transitions",
-    "vm56_verified_terminal_count": 722,
-    "vm56_verification_mismatch_count": 0,
-    "vm56_source_unbound_count": 721,
-    "vm56_frame_linked": 10,
-    "vm56_frame_and_source_selection_linked": 7,
-    "runtime_source_config_promotions": 0,
+    "description": "VM56 source-owner CFG entry validation for ten event-framed terminal instructions",
+    "framed_vm56_terminal_count": 10,
+    "parsed_entries_exactly_bounded": 10,
+    "cfg_possible_path_under_proven_grammar": 6,
+    "cfg_blocked_by_unresolved_opcode_or_callee": 4,
+    "selected_source_sites_inside_target_substreams": 0,
+    "new_proven_source_map_connections": 0,
     "evidence": [
-      "data/maps/transitions/vm56_source_ownership_audit.json",
-      "tools/python/audit_vm56_source_ownership.py",
-      "docs/analysis/vm56_source_owner_audit_20261010.md",
-      "scripts/test_vm56_source_ownership.py"
+      "data/maps/transitions/vm56_entry_cfg_frontier.json",
+      "tools/python/audit_vm56_entry_cfg.py",
+      "scripts/test_vm56_entry_cfg.py",
+      "docs/analysis/vm56_entry_cfg_frontier_20261010.md"
     ],
-    "official_overall_percent_unchanged": 51.4,
-    "source_selection_not_vm_caller_caveat": "A4 source-selection references are not VM control-flow caller proof, and may be located after the transition site in ROM address order."
+    "official_progress_percent_unchanged": 51.4
   },
   "completed_work_units": [
     {
@@ -940,6 +939,24 @@
         "scripts/test_transition_spatial_phase_gates.py"
       ],
       "official_overall_percent_unchanged": 51.4
+    },
+    {
+      "date": "2026-10-10",
+      "description": "Exact canonical-ROM verification and event-source ancestry audit for 0x56 terminal transitions",
+      "vm56_verified_terminal_count": 722,
+      "vm56_verification_mismatch_count": 0,
+      "vm56_source_unbound_count": 721,
+      "vm56_frame_linked": 10,
+      "vm56_frame_and_source_selection_linked": 7,
+      "runtime_source_config_promotions": 0,
+      "evidence": [
+        "data/maps/transitions/vm56_source_ownership_audit.json",
+        "tools/python/audit_vm56_source_ownership.py",
+        "docs/analysis/vm56_source_owner_audit_20261010.md",
+        "scripts/test_vm56_source_ownership.py"
+      ],
+      "official_overall_percent_unchanged": 51.4,
+      "source_selection_not_vm_caller_caveat": "A4 source-selection references are not VM control-flow caller proof, and may be located after the transition site in ROM address order."
     }
   ]
 }

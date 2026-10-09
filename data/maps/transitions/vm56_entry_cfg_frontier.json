@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "kind": "vm56_entry_cfg_frontier",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "cfg_grammar_reused_from": "tools/python/catalog_map_transition_candidates.py",
+  "targets_audited": 10,
+  "targets": [
+    {
+      "trigger_addr": "CC:AD64",
+      "source_vm_pack": "0x81",
+      "record_index": 14,
+      "entry_id": "0x72",
+      "entry_start": "CC:AC74",
+      "entry_end_exclusive": "CC:AD68",
+      "bounded_entry_bytes": 244,
+      "target_offset_from_entry": 240,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": false,
+      "cfg_blockers": [
+        "A0:CA:DA86",
+        "A0:CA:DA93",
+        "A0:CC:AE86",
+        "op:6E"
+      ],
+      "unresolved_nested_callees": [
+        {
+          "opcode": "A0",
+          "callee_addr": "CA:DA86",
+          "bounded_entry_count": 1,
+          "bounded_entry_candidates": [
+            {
+              "entry_start": "CA:DA86",
+              "entry_end_exclusive": "CA:DA93",
+              "script_pack": "0x14",
+              "record_index": 16,
+              "entry_id": "0x6C"
+            }
+          ],
+          "callee_return_proven": false
+        },
+        {
+          "opcode": "A0",
+          "callee_addr": "CA:DA93",
+          "bounded_entry_count": 1,
+          "bounded_entry_candidates": [
+            {
+              "entry_start": "CA:DA93",
+              "entry_end_exclusive": "CA:DAAC",
+              "script_pack": "0x14",
+              "record_index": 16,
+              "entry_id": "0x6D"
+            }
+          ],
+          "callee_return_proven": false
+        },
+        {
+          "opcode": "A0",
+          "callee_addr": "CC:AE86",
+          "bounded_entry_count": 1,
+          "bounded_entry_candidates": [
+            {
+              "entry_start": "CC:AE86",
+              "entry_end_exclusive": "CC:AE9C",
+              "script_pack": "0x81",
+              "record_index": 19,
+              "entry_id": "0x6C"
+            }
+          ],
+          "callee_return_proven": false
+        }
+      ],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:AAF1",
+          "selected_source_cpu": "C9:66BE",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:AAF5",
+          "selected_source_cpu": "C9:670D",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:AAF9",
+          "selected_source_cpu": "C9:6749",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:AAFD",
+          "selected_source_cpu": "C9:6785",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:ABCC",
+          "selected_source_cpu": "C9:6AB3",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:ABD0",
+          "selected_source_cpu": "C9:6AE8",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:AE30",
+          "selected_source_cpu": "C9:7430",
+          "position_in_target_entry": "after",
+          "rom_address_order_to_terminal": "after",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CC:3DF1",
+      "source_vm_pack": "0x60",
+      "record_index": 24,
+      "entry_id": "0x25",
+      "entry_start": "CC:3DAE",
+      "entry_end_exclusive": "CC:3DF5",
+      "bounded_entry_bytes": 71,
+      "target_offset_from_entry": 67,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:3D88",
+          "selected_source_cpu": "C8:F414",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:3E6C",
+          "selected_source_cpu": "C8:F417",
+          "position_in_target_entry": "after",
+          "rom_address_order_to_terminal": "after",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:3E9D",
+          "selected_source_cpu": "C8:F43C",
+          "position_in_target_entry": "after",
+          "rom_address_order_to_terminal": "after",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CC:3FAF",
+      "source_vm_pack": "0x60",
+      "record_index": 30,
+      "entry_id": "0x26",
+      "entry_start": "CC:3F18",
+      "entry_end_exclusive": "CC:3FB3",
+      "bounded_entry_bytes": 155,
+      "target_offset_from_entry": 151,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:3ECF",
+          "selected_source_cpu": "C8:F44E",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:4026",
+          "selected_source_cpu": "C8:F47E",
+          "position_in_target_entry": "after",
+          "rom_address_order_to_terminal": "after",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CC:B67B",
+      "source_vm_pack": "0x82",
+      "record_index": 20,
+      "entry_id": "0x7B",
+      "entry_start": "CC:B5FC",
+      "entry_end_exclusive": "CC:B67F",
+      "bounded_entry_bytes": 131,
+      "target_offset_from_entry": 127,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:B4C7",
+          "selected_source_cpu": "C9:71FE",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:B4CB",
+          "selected_source_cpu": "C9:7226",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CC:F4F9",
+      "source_vm_pack": "0x9B",
+      "record_index": 32,
+      "entry_id": "0x7B",
+      "entry_start": "CC:F413",
+      "entry_end_exclusive": "CC:F4FD",
+      "bounded_entry_bytes": 234,
+      "target_offset_from_entry": 230,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": false,
+      "cfg_blockers": [
+        "op:25"
+      ],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:F3DD",
+          "selected_source_cpu": "C9:AF65",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        },
+        {
+          "script_callsite": "CC:F5AA",
+          "selected_source_cpu": "C9:B237",
+          "position_in_target_entry": "after",
+          "rom_address_order_to_terminal": "after",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CC:4A21",
+      "source_vm_pack": "0x66",
+      "record_index": 12,
+      "entry_id": "0x7B",
+      "entry_start": "CC:4A02",
+      "entry_end_exclusive": "CC:4A25",
+      "bounded_entry_bytes": 35,
+      "target_offset_from_entry": 31,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:49CB",
+          "selected_source_cpu": "C9:03A4",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CC:848E",
+      "source_vm_pack": "0x75",
+      "record_index": 31,
+      "entry_id": "0x6C",
+      "entry_start": "CC:8421",
+      "entry_end_exclusive": "CC:8492",
+      "bounded_entry_bytes": 113,
+      "target_offset_from_entry": 109,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": false,
+      "cfg_blockers": [
+        "op:39",
+        "op:40"
+      ],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [
+        {
+          "script_callsite": "CC:830E",
+          "selected_source_cpu": "C9:4CFB",
+          "position_in_target_entry": "before",
+          "rom_address_order_to_terminal": "before",
+          "is_proven_vm_caller": false
+        }
+      ],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CD:C288",
+      "source_vm_pack": "0xE1",
+      "record_index": 13,
+      "entry_id": "0x7C",
+      "entry_start": "CD:C25B",
+      "entry_end_exclusive": "CD:C28C",
+      "bounded_entry_bytes": 49,
+      "target_offset_from_entry": 45,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CE:126A",
+      "source_vm_pack": "0xF9",
+      "record_index": 4,
+      "entry_id": "0x7C",
+      "entry_start": "CE:1264",
+      "entry_end_exclusive": "CE:126E",
+      "bounded_entry_bytes": 10,
+      "target_offset_from_entry": 6,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    },
+    {
+      "trigger_addr": "CE:1303",
+      "source_vm_pack": "0xF9",
+      "record_index": 9,
+      "entry_id": "0x7C",
+      "entry_start": "CE:12FB",
+      "entry_end_exclusive": "CE:1307",
+      "bounded_entry_bytes": 12,
+      "target_offset_from_entry": 8,
+      "terminal_pattern_valid": true,
+      "entry_to_terminal_cfg_reachable": false,
+      "cfg_blockers": [
+        "op:02"
+      ],
+      "unresolved_nested_callees": [],
+      "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
+      "source_selection_sites": [],
+      "source_selections_within_entry": 0,
+      "source_map_identified": false
+    }
+  ],
+  "promotion_policy": "No player source map inferred from source selections, script pack, or a possible VM CFG path."
+}
