@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-10 opcode6E closure:** normal-VM opcode 0x6E handler C4:93A9 verified, length 2. Seven of ten framed VM56 targets are now statically CFG reachable. CC:AD64 three A0 callee bounded return paths passed. Real source map and story phase remain unproven. See docs/analysis/vm56_entry_cfg_frontier_20261010.md and progress/current_task.json.
+
 > **2026-10-10 VM56 entry CFG frontier:** Canonical ROM proves exact entry bounds for ten framed VM56 terminals; six have possible CFG paths under proven grammar, four have unresolved opcode/A0 blockers. No A4 selected-source site occurs within any matching substream; these are NOT actual caller proofs. Source-map bindings/Viewer edges unchanged. See docs/analysis/vm56_entry_cfg_frontier_20261010.md and progress/current_task.json.
 
 > **2026-10-10 VM56 exact ROM verification:** 722/722 terminal opcode 0x56 pack/entry/B0 sequences verified against canonical ROM. Of 721 source-unbound VM56 rows, 10 have framed event records and 7 have validated source-selection callsite evidence. No new source-map links promoted. See docs/analysis/vm56_source_owner_audit_20261010.md, data/maps/transitions/vm56_source_ownership_audit.json and progress/current_task.json.

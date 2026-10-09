@@ -15,58 +15,32 @@
       "bounded_entry_bytes": 244,
       "target_offset_from_entry": 240,
       "terminal_pattern_valid": true,
-      "entry_to_terminal_cfg_reachable": false,
-      "cfg_blockers": [
-        "A0:CA:DA86",
-        "A0:CA:DA93",
-        "A0:CC:AE86",
-        "op:6E"
-      ],
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
       "unresolved_nested_callees": [
         {
           "opcode": "A0",
           "callee_addr": "CA:DA86",
           "bounded_entry_count": 1,
-          "bounded_entry_candidates": [
-            {
-              "entry_start": "CA:DA86",
-              "entry_end_exclusive": "CA:DA93",
-              "script_pack": "0x14",
-              "record_index": 16,
-              "entry_id": "0x6C"
-            }
-          ],
-          "callee_return_proven": false
+          "return_checker_static_status": "bounded_return_proven",
+          "return_checker_blockers": [],
+          "callee_return_proven": true
         },
         {
           "opcode": "A0",
           "callee_addr": "CA:DA93",
           "bounded_entry_count": 1,
-          "bounded_entry_candidates": [
-            {
-              "entry_start": "CA:DA93",
-              "entry_end_exclusive": "CA:DAAC",
-              "script_pack": "0x14",
-              "record_index": 16,
-              "entry_id": "0x6D"
-            }
-          ],
-          "callee_return_proven": false
+          "return_checker_static_status": "bounded_return_proven",
+          "return_checker_blockers": [],
+          "callee_return_proven": true
         },
         {
           "opcode": "A0",
           "callee_addr": "CC:AE86",
           "bounded_entry_count": 1,
-          "bounded_entry_candidates": [
-            {
-              "entry_start": "CC:AE86",
-              "entry_end_exclusive": "CC:AE9C",
-              "script_pack": "0x81",
-              "record_index": 19,
-              "entry_id": "0x6C"
-            }
-          ],
-          "callee_return_proven": false
+          "return_checker_static_status": "bounded_return_proven",
+          "return_checker_blockers": [],
+          "callee_return_proven": true
         }
       ],
       "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",

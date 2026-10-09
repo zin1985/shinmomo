@@ -289,7 +289,10 @@ def main() -> None:
         cfg_safe_lengths[_op] = 3
     cfg_safe_lengths.update({
         0x0A: 4, 0x14: 2, 0x1A: 4, 0x42: 2, 0x4A: 5, 0x4F: 5,
-        0x66: 4, 0x6C: 2, 0x6F: 2, 0x80: 1, 0x89: 1,
+        # 0x6E: normal VM dispatch table C4:87D4[0x6E] -> C4:93A9;
+        # both handler branch arms jump to C4:895E (advance 2 bytes).
+        # Independent canonical ROM verifier: verify_vm_opcode6e_handler.py.
+        0x66: 4, 0x6C: 2, 0x6E: 2, 0x6F: 2, 0x80: 1, 0x89: 1,
         0xB6: 1, 0xEF: 1, 0xF0: 1,
     })
 

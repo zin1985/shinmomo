@@ -5,8 +5,8 @@
   "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Decode CC:AD64 blockers and recover VM caller, mode and active map context",
-  "base_main_head_verified": "825c014087fbf9bd60b877f5f731cad0c2d6a65c",
+  "title": "Verify actual VM caller and active map context for seven static VM56 paths",
+  "base_main_head_verified": "57acc1d524cd33f29afa27dc3251d24843388384",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,27 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "CC:AD64: verify VM opcode 0x6E handler via C4 dispatcher and independently prove A0 callee return behavior for CA:DA86, CA:DA93, CC:AE86."
+      "action": "Trace actual caller and map state $0305, normal VM mode $035F/$1398, saved-map state and event predicates at CC:AD64; do not infer source by script pack."
     },
     {
       "order": 2,
-      "action": "For six entry-to-terminal static CFG paths (CC:3DF1,CC:3FAF,CC:B67B,CC:4A21,CD:C288,CE:126A), trace actual VM caller, normal VM mode and active map $0305 before binding any map source."
+      "action": "For seven statically reachable VM56 targets, confirm runtime event entry and owning map configuration before binding graph edges."
     },
     {
       "order": 3,
-      "action": "Investigate four CFG blocked entries and retain blockers unless decoded independently (op:25,op:39,op:40,op:02)."
+      "action": "Decode normal VM opcode 0x25, 0x39, 0x40 and concrete CE:1303 0x02 to resolve three remaining bounded CFG blockers."
     },
     {
       "order": 4,
-      "action": "Validate world -> village -> interior -> village -> world with hidden BizHawk, exact WRAM and screenshot comparisons."
+      "action": "Hidden BizHawk runtime: verify world->village->interior->village->world with before/after WRAM and screenshot evidence."
     },
     {
       "order": 5,
-      "action": "Expand bounded event ownership beyond 10 of 722 VM 0x56 terminals, without equating script pack with player map."
-    },
-    {
-      "order": 6,
-      "action": "Resume CC:1160 five-way phase destination control-flow and pack0x96 coordinate frontier."
+      "action": "Continue missing event ownership and pack 0xCE five-way phase discriminator and pack 0x96 arrival coordinates."
     }
   ],
   "do_not_redo": [
@@ -848,20 +844,24 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "VM56 source-owner CFG entry validation for ten event-framed terminal instructions",
-    "framed_vm56_terminal_count": 10,
-    "parsed_entries_exactly_bounded": 10,
-    "cfg_possible_path_under_proven_grammar": 6,
-    "cfg_blocked_by_unresolved_opcode_or_callee": 4,
-    "selected_source_sites_inside_target_substreams": 0,
-    "new_proven_source_map_connections": 0,
+    "description": "Normal-VM opcode 0x6E handler and CC:AD64 bounded call-return proofs",
+    "normal_vm_handler": "C4:93A9",
+    "handler_pointer_table": "C4:87D4",
+    "instruction_length": 2,
+    "static_paths_found": 7,
+    "static_paths_unresolved": 3,
+    "now_proven_bounded_return_a0_callees": 3,
+    "new_source_map_bindings": 0,
+    "rebuilt_transition_catalog_count": 1295,
+    "rebuilt_catalog_byte_identical": true,
+    "official_progress_percent_unchanged": 51.4,
     "evidence": [
+      "data/maps/transitions/vm_opcode6e_handler_proof.json",
       "data/maps/transitions/vm56_entry_cfg_frontier.json",
-      "tools/python/audit_vm56_entry_cfg.py",
-      "scripts/test_vm56_entry_cfg.py",
-      "docs/analysis/vm56_entry_cfg_frontier_20261010.md"
-    ],
-    "official_progress_percent_unchanged": 51.4
+      "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
+      "tools/python/verify_vm_opcode6e_handler.py",
+      "scripts/test_vm_opcode6e_handler.py"
+    ]
   },
   "completed_work_units": [
     {
@@ -957,6 +957,23 @@
       ],
       "official_overall_percent_unchanged": 51.4,
       "source_selection_not_vm_caller_caveat": "A4 source-selection references are not VM control-flow caller proof, and may be located after the transition site in ROM address order."
+    },
+    {
+      "date": "2026-10-10",
+      "description": "VM56 source-owner CFG entry validation for ten event-framed terminal instructions",
+      "framed_vm56_terminal_count": 10,
+      "parsed_entries_exactly_bounded": 10,
+      "cfg_possible_path_under_proven_grammar": 6,
+      "cfg_blocked_by_unresolved_opcode_or_callee": 4,
+      "selected_source_sites_inside_target_substreams": 0,
+      "new_proven_source_map_connections": 0,
+      "evidence": [
+        "data/maps/transitions/vm56_entry_cfg_frontier.json",
+        "tools/python/audit_vm56_entry_cfg.py",
+        "scripts/test_vm56_entry_cfg.py",
+        "docs/analysis/vm56_entry_cfg_frontier_20261010.md"
+      ],
+      "official_progress_percent_unchanged": 51.4
     }
   ]
 }

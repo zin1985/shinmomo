@@ -36,7 +36,7 @@ def cpu_addr(offset):
     return f"{0xC0+(offset>>16):02X}:{offset&0xFFFF:04X}"
 
 
-def make_reachability(rom, entries):
+def make_reachability(rom, entries, *, include_return_checker=False):
     """Reuse original proven CFG opcode grammar; no text-scraping of instruction lengths."""
     tree=ast.parse(SOURCE.read_text(encoding="utf-8"),filename=str(SOURCE))
     main=next(node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name=="main")
@@ -65,6 +65,8 @@ def make_reachability(rom, entries):
     module=ast.fix_missing_locations(ast.Module(body=parts,type_ignores=[]))
     code=compile(module,str(SOURCE),"exec")
     exec(code,ns,ns)
+    if include_return_checker:
+        return ns["cfg_target_reachability"],ns["cfg_opcode_length"],ns["cfg_prove_return"]
     return ns["cfg_target_reachability"],ns["cfg_opcode_length"]
 
 
@@ -81,7 +83,7 @@ def investigate(rom, audit, xrefs, max_targets=None):
             if not header:continue
             for e in header["entries"]:
                 entries.append((e["start"],e["end"],pack_id,rec["record_index"],e["entry_id"]))
-    reach,op_len=make_reachability(rom,entries)
+    reach,op_len,return_checker=make_reachability(rom,entries,include_return_checker=True)
     xrefs_by_record={}
     for x in xrefs:xrefs_by_record.setdefault(x["record_id"],[]).append(x)
     out=[]
@@ -106,9 +108,12 @@ def investigate(rom, audit, xrefs, max_targets=None):
             op,bank,low=reason.split(":")
             ptr=file_offset(bank+":"+low)
             hosts=[e for e in entries if e[0]<=ptr<e[1]]
+            return_ok, return_seen, return_blockers=return_checker((int(bank,16)<<16)|int(low,16))
             unresolved_callees.append({
                 "opcode":op,
                 "callee_addr":bank+":"+low,
+                "return_checker_static_status": "bounded_return_proven" if return_ok else "not_proven",
+                "return_checker_blockers":sorted(return_blockers),
                 "bounded_entry_count":len(hosts),
                 "bounded_entry_candidates":[{
                     "entry_start":cpu_addr(e[0]),
@@ -117,8 +122,26 @@ def investigate(rom, audit, xrefs, max_targets=None):
                     "record_index":e[3],
                     "entry_id":f"0x{e[4]:02X}"
                 } for e in hosts[:5]],
-                "callee_return_proven":False,
+                "callee_return_proven":bool(return_ok),
             })
+        if addr=="CC:AD64":
+            # Former blockers from the baseline 57acc1d audit; the handler
+            # length fix must independently resolve every nested return.
+            for extra in ("CA:DA86","CA:DA93","CC:AE86"):
+                if any(x["callee_addr"]==extra for x in unresolved_callees):
+                    continue
+                bank,low=extra.split(":")
+                ptr=(int(bank,16)<<16)|int(low,16)
+                return_ok, return_seen, return_blockers=return_checker(ptr)
+                hosts=[e for e in entries if e[0]<=file_offset(extra)<e[1]]
+                unresolved_callees.append({
+                    "opcode":"A0",
+                    "callee_addr":extra,
+                    "bounded_entry_count":len(hosts),
+                    "return_checker_static_status":"bounded_return_proven" if return_ok else "not_proven",
+                    "return_checker_blockers":sorted(return_blockers),
+                    "callee_return_proven":bool(return_ok),
+                })
         xref=xrefs_by_record.get(item["event_record"],[])
         site_meta=[]
         for x in xref:

@@ -38,7 +38,7 @@ equivalent to a proven transition in normal VM mode or proven map source.
 
 | Trigger | Parsed substream [start,end) | CFG possible path | Blockers |
 | --- | --- | --- | --- |
-| CC:AD64 | CC:AC74..CC:AD68 | no proof | A0:CA:DA86, A0:CA:DA93, A0:CC:AE86, op:6E |
+| CC:AD64 | CC:AC74..CC:AD68 | yes | none (normal VM 0x6E verified) |
 | CC:3DF1 | CC:3DAE..CC:3DF5 | yes | none |
 | CC:3FAF | CC:3F18..CC:3FB3 | yes | none |
 | CC:B67B | CC:B5FC..CC:B67F | yes | none |
@@ -50,7 +50,7 @@ equivalent to a proven transition in normal VM mode or proven map source.
 | CE:1303 | CE:12FB..CE:1307 | no proof | op:02 |
 
 Results: 10/10 exact substream bounds and terminal signatures,
-**6 statically reachable under current proven grammar** and **4 blocked**.
+**7 statically reachable under current proven grammar** and **3 blocked**.
 These are not runtime-confirmed edge counts.
 
 **Crucial disambiguation:** for all ten records, **zero** validated
@@ -72,10 +72,12 @@ entry identities** in the canonical ROM:
 | CA:DA93 | CA:DA93..CA:DAAC | pack 0x14, record 16, entry 0x6D |
 | CC:AE86 | CC:AE86..CC:AE9C | pack 0x81, record 19, entry 0x6C |
 
-This narrows the next decoder task considerably, but their **return
-behavior is still unproven**, so these links remain blockers in the
-reachability audit. The analyzer explicitly records
-\`callee_return_proven=false\`.
+The canonical VM 0x6E handler proof now gives a two-byte instruction
+in normal mode. Re-running the existing bounded CFG decoder resolves the
+CC:AD64 target and independently verifies a returning static path for all
+three A0 callees. The analysis records callee_return_proven=true and no
+remaining blockers. This does not prove an actual runtime visit to the
+caller, the VM mode or an active player map.
 
 No candidate source map was promoted and no Viewer graph edge was
 added. The project overall score remains 51.4%.
@@ -91,19 +93,30 @@ py -3 scripts/test_vm56_entry_cfg.py
 Generated metadata:
 `data/maps/transitions/vm56_entry_cfg_frontier.json`.
 
-## Next precise task
+## Normal VM 0x6E proof and next task
 
-1. Decode opcode `0x6E` with original C4 normal-VM dispatcher and verify
-   *actual* handler length and return behavior, not by a guessed byte shape.
-2. Inspect nested callees `CA:DA86`, `CA:DA93` and `CC:AE86` for
-   bounded entry identity and return proof. They currently block the
-   CC:AD64 entry proof.
-3. For all six static-path targets, independently trace the **actual
-   VM caller/entry event** and active `$0305` map pack, `$035F/$1398`
-   VM mode and saved-map context. Bind a source map only when active
-   map configuration is independently proven.
-4. Complete local hidden BizHawk world/village/interior return-path
-   capture; current static audit is not a runtime round-trip test.
+The canonical ROM table C4:87D4 indexes opcode 0x6E to C4:93A9
+(independently agreeing with known opcode 0x53 and 0x56 anchors). Both
+handler branch paths join at C4:93D5 and jump to C4:895E, which loads
+the VM pointer advance of 2 and jumps to C4:8410. The signature proof
+validates the table, branch forms and common pointer advance. It
+remains normal-VM-mode-specific.
+
+Independent verifier: tools/python/verify_vm_opcode6e_handler.py
+Generated proof: data/maps/transitions/vm_opcode6e_handler_proof.json
+Mutation regression: scripts/test_vm_opcode6e_handler.py
+
+The complete canonical transition catalog was rebuilt in a temporary
+location after adding opcode 0x6E:2 to the shared CFG grammar. The
+1,295-row regenerated catalog is byte-for-byte identical to the current
+committed CSV.
+
+Next investigate actual VM owner/caller, runtime $0305 map pack,
+$035F/$1398 mode, story flags and saved-map state for the seven
+statically reachable VM56 targets (including CC:AD64).
+The remaining blocked targets are CC:F4F9 (opcode 0x25),
+CC:848E (0x39/0x40) and CE:1303 (0x02).
+Then perform an isolated hidden BizHawk runtime traversal test.
 
 Safety: Never commit raw ROM bytes, captures, or savestates; never infer
 current map from script pack, source-selection pointers, or mere static

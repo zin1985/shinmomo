@@ -1,0 +1,17 @@
+{
+  "status": "validated_static_normal_vm_handler_signature",
+  "opcode": "0x6E",
+  "normal_vm_dispatch_table": "C4:87D4",
+  "control_opcodes": {
+    "0x53": "C4:8B3F",
+    "0x56": "C4:8B6A",
+    "0x6E": "C4:93A9"
+  },
+  "handler": "C4:93A9",
+  "branch_join": "C4:93D5",
+  "common_pointer_advance": "C4:895E",
+  "vm_advance_bytes": 2,
+  "control_branch_condition": "BEQ +0x14; BNE +0x02; BRA +0x0A",
+  "unproven": "Actual $1398 VM mode, active $0305 map, runtime callee return, instruction reachability",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98"
+}
