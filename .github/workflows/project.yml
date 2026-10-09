@@ -15,6 +15,6 @@ jobs:
     with:
       python-version: '3.11'
       build-command: python -m compileall -q tools scripts
-      test-command: python scripts/ci_validate.py && python scripts/test_transition_source_bindings.py
+      test-command: python scripts/ci_validate.py && python scripts/test_transition_source_bindings.py && python scripts/test_destination_bounds_overlay.py
       package-command: python scripts/build_info.py && python scripts/package.py
       artifact-directory: dist

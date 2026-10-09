@@ -2,7 +2,7 @@
   "schema_version": 2,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-04T02:10:00+09:00",
+  "updated_at": "2026-10-10",
   "overall_method": "equal_mean_of_top_goals",
   "overall_note": "最上位の完成度はG1〜G5の単純平均。既存tracksは解析成熟度を示す下位workstreamであり、旧weighted meanは参考値としてlegacy_workstream_overall_percentへ残す。今回の正式基準は『別環境/ROM再構築まで到達できるか』で保守的に評価する。",
   "tracks": [
@@ -144,8 +144,8 @@
         "G5"
       ],
       "track_id": "script-vm",
-      "title": "Decode pack 0x96 bounded entry interval",
-      "target": "With canonical Drive ROM, verify size/SHA-256 then decode CC:DBF2..CC:DC5C to resolve entries 0x02..0x05. Without ROM, continue static boundary/xref work. Never copy witness coordinates.",
+      "title": "Separate context-specific native boundary transitions",
+      "target": "Use source map, phase, bounds and runtime evidence to distinguish both C1:8955 native exits; no address-only binding.",
       "status": "active"
     },
     {
@@ -155,8 +155,8 @@
         "G5"
       ],
       "track_id": "script-vm",
-      "title": "Decode pinned entry02 boundaries",
-      "target": "After pack96, decode B7 CD:5409, 9E CC:FFF7, AE CD:3639, BD CD:6CBD, B9 CD:5CAA using canonical ROM only.",
+      "title": "Add event-condition predicates to graph edges",
+      "target": "Connect VM flag tests and map/event state to transition triggers; preserve unresolved phase predicates.",
       "status": "queued"
     },
     {
@@ -166,34 +166,32 @@
         "G4",
         "G5"
       ],
-      "track_id": "npc-oam",
-      "title": "visible-object coordinates to map-world coordinates",
-      "target": "Resolve runtime visible-object coordinates against canonical map/world coordinates and feed NPC/sprite/event/dialogue integration.",
+      "track_id": "rom-map",
+      "title": "Verify first full map round trip",
+      "target": "Hidden BizHawk world-village-interior-world traversal, evidence-backed arrival position and NPC/dialogue state.",
       "status": "queued"
     },
     {
       "priority": 4,
       "goal_ids": [
-        "G2",
-        "G3",
         "G4",
         "G5"
       ],
-      "track_id": "dialogue",
-      "title": "NPC/sprite/event/dialogue integration",
-      "target": "Join actor selector, event provenance, phase-aware dialogue and map-world position into one evidence-backed actor/event model.",
+      "track_id": "script-vm",
+      "title": "Decode pack96 and pinned entry initializers",
+      "target": "Verify canonical ROM SHA, decode pack 0x96 CC:DBF2..CC:DC5C then B7,9E,AE,BD,B9 entry02 starts; preserve unresolved XY.",
       "status": "queued"
     },
     {
       "priority": 5,
       "goal_ids": [
-        "G1",
+        "G3",
         "G4",
         "G5"
       ],
-      "track_id": "wram",
-      "title": "native $0305 writer classification",
-      "target": "Classify native writers and separate controller/event/map semantics.",
+      "track_id": "npc-oam",
+      "title": "Join actors and dialogue with map-world coordinates",
+      "target": "Attach actor selectors, spawn conditions, event provenance and phase-aware dialogue to map identities.",
       "status": "queued"
     },
     {
@@ -203,8 +201,8 @@
         "G5"
       ],
       "track_id": "externalization",
-      "title": "rebuild specification integration",
-      "target": "Promote confirmed map/boundary/trigger/object semantics into portable schemas and rebuild-gap manifest.",
+      "title": "Full map graph and collision coverage",
+      "target": "All world/village/dungeon variants, native passability, return-path and reachability validation, portable rebuild schema.",
       "status": "queued"
     }
   ],
@@ -270,7 +268,8 @@
     "data/maps/transitions/destination_config_bounds_resolution.csv",
     "data/maps/transitions/destination_config_bounds_resolution_summary.json",
     "docs/analysis/event_trigger_bounds_disambiguation_20261003.md",
-    "docs/handoff/HM_261003_event_trigger_bounds_disambiguation.md"
+    "docs/handoff/HM_261003_event_trigger_bounds_disambiguation.md",
+    "docs/analysis/destination_bounds_viewer_overlay_20261010.md"
   ],
   "rom_source": {
     "policy": "各解析サイクル開始時にこのGoogle Driveフォルダを参照し、正本ROMを確認する。実行環境で添付ROMが直接利用できない場合は、このDrive上の同一ROMを取得して使用する。別ROMで代用しない。",

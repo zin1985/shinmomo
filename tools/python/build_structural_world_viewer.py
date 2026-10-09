@@ -3,6 +3,7 @@ import csv, json, subprocess
 from pathlib import Path
 
 from crosslink_transition_sources_from_hotspots import crosslink as crosslink_sources
+from crosslink_destination_bounds_for_viewer import join_destination_bounds
 
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
@@ -215,6 +216,7 @@ def main():
     transition_candidates = []
     transition_edges = []
     source_bindings = {}
+    destination_bounds_bindings = {}
     candidate_path = TRANSITIONS / "map_transition_candidates.csv"
     if candidate_path.exists():
         with candidate_path.open(encoding="utf-8-sig", newline="") as candidate_stream:
@@ -228,12 +230,21 @@ def main():
             for binding in crosslink_sources(candidate_rows, hotspot_rows)
             if binding["binding_status"] == "new_source_binding"
         }
+        bounds_path = TRANSITIONS / "destination_config_bounds_resolution.csv"
+        if bounds_path.exists():
+            with bounds_path.open(encoding="utf-8-sig", newline="") as bounds_stream:
+                bounds_rows = list(csv.DictReader(bounds_stream))
+            destination_bounds_bindings, ignored_bounds_evidence = join_destination_bounds(candidate_rows, bounds_rows)
+            # Inconsistent bounds evidence is never used as a new destination.
         for n, row in enumerate(candidate_rows):
             overlay = source_bindings.get(n)
+            bounds_overlay = destination_bounds_bindings.get(n)
             if overlay and overlay["trigger_addr"] != (row.get("trigger_addr") or "").strip().upper():
                 raise ValueError(f"Stale hotspot source match at catalog row {n}")
             source_config_id = row.get("source_config_id") or (overlay["source_config_id"] if overlay else None)
-            destination_config_id = row.get("destination_config_id") or None
+            destination_config_id = row.get("destination_config_id") or (
+                bounds_overlay["resolved_config_id"] if bounds_overlay else None
+            )
             confidence = row.get("confidence") or "unknown"
             tier = "tier1_confirmed" if confidence == "confirmed" else (
                 "tier2_strong_bound" if source_config_id and destination_config_id else "tier3_unbound"
@@ -268,6 +279,15 @@ def main():
                 "destination_pack": row.get("destination_pack") or None,
                 "destination_entry_id": row.get("destination_entry_id") or None,
                 "destination_config_id": destination_config_id,
+                "destination_bounds_binding": ({
+                    "status": "unique_native_bounds_config_candidate",
+                    "trigger_addr": bounds_overlay["trigger_addr"],
+                    "config_id": bounds_overlay["resolved_config_id"],
+                    "arrival_x": int(bounds_overlay["destination_x"]),
+                    "arrival_y": int(bounds_overlay["destination_y"]),
+                    "evidence": bounds_overlay["evidence"],
+                    "provenance": bounds_overlay["provenance"],
+                } if bounds_overlay else None),
                 "destination_layout": int(row["destination_layout"]) if row.get("destination_layout") else None,
                 "destination_tileset": int(row["destination_tileset"]) if row.get("destination_tileset") else None,
                 "destination_variant": int(row["destination_variant"]) if row.get("destination_variant") else None,
@@ -866,6 +886,10 @@ def main():
             "strong_candidate_count": sum(x["confidence"] == "strong_candidate" for x in transition_candidates),
             "bound_edge_count": len(transition_edges),
             "hotspot_source_candidate_count": len(source_bindings),
+            "bounds_destination_candidate_count": len(destination_bounds_bindings),
+            "destination_config_resolved_count": sum(
+                bool(x["destination_config_id"]) for x in transition_candidates
+            ),
             "hotspot_bound_edge_candidate_count": sum(
                 bool(transition_candidates[i]["destination_config_id"]) for i in source_bindings
             ),

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "source": "data/maps/transitions/destination_config_bounds_resolution.csv",
+  "transition_candidates": 1295,
+  "resolution_evidence_count": 110,
+  "accepted_new_destination_config_bindings": 110,
+  "status_counts": {
+    "new_destination_binding": 110
+  },
+  "unresolved_or_conflicting": [],
+  "policy": "Unique trigger_addr and candidate_count=1; destination pack and X/Y must agree exactly. No unverified expansion or single-config promotion of phase-dependent candidates."
+}

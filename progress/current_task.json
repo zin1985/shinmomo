@@ -2,11 +2,11 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-10T01:55:00+09:00",
+  "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Complete event-aware world graph using exact source and destination evidence overlays",
-  "base_main_head_verified": "29d255dd6cbd0ce95019f4cc16d0425454746153",
+  "title": "Complete event-aware world graph: native boundaries and phase predicates",
+  "base_main_head_verified": "16bec27b9f1be56cf1e2978a61fd2f38a51ad17e",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Connect independently proven source and arrival maps with story-gated triggers and NPC events without guessed topology.",
   "definition_of_done": [
@@ -455,27 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Integrate 110 native-bounds derived destination configuration resolutions into viewer conservatively. Four newly source-bound candidates can gain destinations; keep CC:1160 phase-dependent."
+      "action": "Disambiguate native C1:8955 boundary transitions by concrete source map, state and return context, not opcode address alone."
     },
     {
       "order": 2,
-      "action": "Distinguish two native boundary hotspots sharing C1:8955 via map and phase context, never address-only."
+      "action": "Annotate each graph edge with VM/event trigger condition and story flag/state requirements. Unknown predicates must remain explicit."
     },
     {
       "order": 3,
-      "action": "Add VM/event flag gating to navigable candidate edges; do not treat candidate transitions as unconditional."
+      "action": "Use hidden BizHawk for verified world->village->interior->world round trip and compare actual arrival coords, map IDs, actors and dialogue."
     },
     {
       "order": 4,
-      "action": "Check world -> village -> interior -> world round-trip with hidden BizHawk and capture comparisons."
+      "action": "Resume pack96 entry02..05 and pinned entry02 boundaries with canonical ROM to recover remaining XY provenance."
     },
     {
       "order": 5,
-      "action": "Expand source/destination graph to every map/dungeon floor with reachability and return-path audits."
-    },
-    {
-      "order": 6,
-      "action": "Continue pack96 CC:DBF2..CC:DC5C entry02..05 coordinate initializer analysis."
+      "action": "Expand to all world/village/dungeon map variants, collision layers, phase-sensitive graph reachability and missing return-edge reports."
     }
   ],
   "do_not_redo": [
@@ -848,19 +844,38 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "Exact instruction-address hotspot source-map join",
-    "hotspots": 57,
-    "matched": 55,
-    "new_source_bindings": 54,
-    "new_navigable_candidate_edges": 49,
-    "viewer_bound_edges_total": 52,
-    "runtime_confirmed_edges_total": 3,
+    "description": "Native-bounds destination config overlay",
+    "source_bindings": 54,
+    "native_bounds_destination_bindings": 110,
+    "viewer_destination_config_resolutions": 1173,
+    "viewer_bound_edges": 56,
+    "viewer_confirmed_edges": 3,
+    "new_navigable_strong_candidates": 53,
     "evidence": [
-      "docs/analysis/transition_source_hotspot_crosslink_20261010.md",
-      "data/maps/transitions/source_hotspot_transition_bindings.csv",
-      "tools/python/crosslink_transition_sources_from_hotspots.py",
-      "scripts/test_transition_source_bindings.py"
+      "docs/analysis/destination_bounds_viewer_overlay_20261010.md",
+      "data/maps/transitions/destination_bounds_viewer_overlay_summary.json",
+      "tools/python/crosslink_destination_bounds_for_viewer.py",
+      "scripts/test_destination_bounds_overlay.py"
     ],
-    "official_percent_unchanged": 51.4
-  }
+    "official_progress_percent_unchanged": 51.4
+  },
+  "completed_work_units": [
+    {
+      "date": "2026-10-10",
+      "description": "Exact instruction-address hotspot source-map join",
+      "hotspots": 57,
+      "matched": 55,
+      "new_source_bindings": 54,
+      "new_navigable_candidate_edges": 49,
+      "viewer_bound_edges_total": 52,
+      "runtime_confirmed_edges_total": 3,
+      "evidence": [
+        "docs/analysis/transition_source_hotspot_crosslink_20261010.md",
+        "data/maps/transitions/source_hotspot_transition_bindings.csv",
+        "tools/python/crosslink_transition_sources_from_hotspots.py",
+        "scripts/test_transition_source_bindings.py"
+      ],
+      "official_percent_unchanged": 51.4
+    }
+  ]
 }

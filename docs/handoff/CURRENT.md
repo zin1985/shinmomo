@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-10 bounds graph update:** Viewer now has 56 edges (3 confirmed + 53 candidate), 110 new uniquely bounded destination configs, 1,173 resolved destination configs total. Resume from native-boundary context and phase-aware VM predicates; see docs/analysis/destination_bounds_viewer_overlay_20261010.md.
+
 > **2026-10-10 graph continuation:** Exact address joining yielded 54 source bindings and 49 new strong-candidate edges, bringing Viewer edges to 52; confirmed stays 3. See docs/analysis/transition_source_hotspot_crosslink_20261010.md and progress/current_task.json.
 
 > **2026-10-09 restart:** Current continuation is the canonical-ROM pack96 arrival frontier. Read progress/current_task.json and docs/handoff/HM_261009_analysis_resume.md first. The historical 2026-09-28 map-world task below is kept as evidence, not the next action.
