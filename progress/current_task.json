@@ -5,8 +5,8 @@
   "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Verify actual VM caller and active map context for seven static VM56 paths",
-  "base_main_head_verified": "57acc1d524cd33f29afa27dc3251d24843388384",
+  "title": "Eight static VM56 paths: resolve 0x25/0x39/0x40 and active-map runtime provenance",
+  "base_main_head_verified": "3af877dfc550cb03f05138f7ef0838211cb39f44",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Trace actual caller and map state $0305, normal VM mode $035F/$1398, saved-map state and event predicates at CC:AD64; do not infer source by script pack."
+      "action": "Verify true normal-VM control flow and operand advance for opcode 0x25 at C4:9517 without flattening asynchronous scheduler semantics; resolve CC:F4F9 only if proven."
     },
     {
       "order": 2,
-      "action": "For seven statically reachable VM56 targets, confirm runtime event entry and owning map configuration before binding graph edges."
+      "action": "Inspect normal-VM opcode 0x39 C4:9803 and opcode 0x40 C4:8FB3 for exact bounded operand forms, including loops/indirect reads; target CC:848E."
     },
     {
       "order": 3,
-      "action": "Decode normal VM opcode 0x25, 0x39, 0x40 and concrete CE:1303 0x02 to resolve three remaining bounded CFG blockers."
+      "action": "Recover actual VM caller, normal-mode $035F/$1398 and active $0305 source-map identity for eight statically reachable VM56 entries before source binding."
     },
     {
       "order": 4,
-      "action": "Hidden BizHawk runtime: verify world->village->interior->village->world with before/after WRAM and screenshot evidence."
+      "action": "Perform hidden BizHawk world/village/interior/village/world path capture with WRAM and screenshot evidence; keep local-only."
     },
     {
       "order": 5,
-      "action": "Continue missing event ownership and pack 0xCE five-way phase discriminator and pack 0x96 arrival coordinates."
+      "action": "Expand remaining VM56 event owner coverage, then pack 0xCE phase predicate and pack 0x96 arrival coordinates."
     }
   ],
   "do_not_redo": [
@@ -844,23 +844,21 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "Normal-VM opcode 0x6E handler and CC:AD64 bounded call-return proofs",
-    "normal_vm_handler": "C4:93A9",
-    "handler_pointer_table": "C4:87D4",
-    "instruction_length": 2,
-    "static_paths_found": 7,
-    "static_paths_unresolved": 3,
-    "now_proven_bounded_return_a0_callees": 3,
-    "new_source_map_bindings": 0,
-    "rebuilt_transition_catalog_count": 1295,
-    "rebuilt_catalog_byte_identical": true,
+    "description": "Independently verified normal VM opcode 0x02 operand 0x13 target RTL; CE:1303 static path unblocked",
+    "verified_handler": "C4:89A5",
+    "concrete_selector": "0x13",
+    "selector_target": "83:BBAB",
+    "statically_reachable_vm56_entries": 8,
+    "remaining_blocked_vm56_entries": 2,
+    "rebuilt_candidate_count": 1295,
+    "transition_catalog_byte_identical": true,
+    "new_source_config_promotions": 0,
     "official_progress_percent_unchanged": 51.4,
     "evidence": [
-      "data/maps/transitions/vm_opcode6e_handler_proof.json",
+      "data/maps/transitions/vm_opcode02_13_proof.json",
       "data/maps/transitions/vm56_entry_cfg_frontier.json",
       "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
-      "tools/python/verify_vm_opcode6e_handler.py",
-      "scripts/test_vm_opcode6e_handler.py"
+      "scripts/test_vm_opcode02_13_handler.py"
     ]
   },
   "completed_work_units": [
@@ -974,6 +972,27 @@
         "docs/analysis/vm56_entry_cfg_frontier_20261010.md"
       ],
       "official_progress_percent_unchanged": 51.4
+    },
+    {
+      "date": "2026-10-10",
+      "description": "Normal-VM opcode 0x6E handler and CC:AD64 bounded call-return proofs",
+      "normal_vm_handler": "C4:93A9",
+      "handler_pointer_table": "C4:87D4",
+      "instruction_length": 2,
+      "static_paths_found": 7,
+      "static_paths_unresolved": 3,
+      "now_proven_bounded_return_a0_callees": 3,
+      "new_source_map_bindings": 0,
+      "rebuilt_transition_catalog_count": 1295,
+      "rebuilt_catalog_byte_identical": true,
+      "official_progress_percent_unchanged": 51.4,
+      "evidence": [
+        "data/maps/transitions/vm_opcode6e_handler_proof.json",
+        "data/maps/transitions/vm56_entry_cfg_frontier.json",
+        "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
+        "tools/python/verify_vm_opcode6e_handler.py",
+        "scripts/test_vm_opcode6e_handler.py"
+      ]
     }
   ]
 }

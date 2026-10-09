@@ -36,14 +36,24 @@ class Vm56CfgFrontierTests(unittest.TestCase):
         self.assertEqual(length(code,0),2)
         self.assertEqual(reach(code,0,2),(True,set()))
 
+    def test_verified_opcode02_13_two_byte_dispatch(self):
+        code=bytes([0x02,0x13,0x56,0xF9,0x03,0xB0])
+        reach,length=make_reachability(code,[(0,len(code),0,0,0)])
+        self.assertEqual(length(code,0),2)
+        self.assertEqual(reach(code,0,2),(True,set()))
+
     def test_repo_frontier_recorded_without_false_source_promotion(self):
         doc=json.loads((ROOT/"data/maps/transitions/vm56_entry_cfg_frontier.json").read_text(encoding="utf-8"))
         self.assertEqual(doc["targets_audited"],10)
-        self.assertEqual(sum(r["entry_to_terminal_cfg_reachable"] for r in doc["targets"]),7)
+        self.assertEqual(sum(r["entry_to_terminal_cfg_reachable"] for r in doc["targets"]),8)
         self.assertTrue(all(not r["source_map_identified"] for r in doc["targets"]))
         self.assertTrue(all(r["source_selections_within_entry"]==0 for r in doc["targets"]))
         self.assertEqual(doc["targets"][0]["trigger_addr"],"CC:AD64")
         self.assertEqual(doc["targets"][0]["entry_start"],"CC:AC74")
+        operand13=[r for r in doc["targets"] if r["trigger_addr"]=="CE:1303"]
+        self.assertEqual(len(operand13),1)
+        self.assertTrue(operand13[0]["entry_to_terminal_cfg_reachable"])
+        self.assertEqual(operand13[0]["cfg_blockers"],[])
         self.assertEqual(doc["targets"][0]["cfg_blockers"],[])
         callees=doc["targets"][0]["unresolved_nested_callees"]
         self.assertEqual([c["callee_addr"] for c in callees],["CA:DA86","CA:DA93","CC:AE86"])

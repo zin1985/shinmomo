@@ -340,10 +340,8 @@
       "bounded_entry_bytes": 12,
       "target_offset_from_entry": 8,
       "terminal_pattern_valid": true,
-      "entry_to_terminal_cfg_reachable": false,
-      "cfg_blockers": [
-        "op:02"
-      ],
+      "entry_to_terminal_cfg_reachable": true,
+      "cfg_blockers": [],
       "unresolved_nested_callees": [],
       "cfg_interpretation": "Potential CFG path only, not proof runtime state, VM mode, or source map",
       "source_selection_sites": [],

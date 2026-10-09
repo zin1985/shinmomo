@@ -1,0 +1,14 @@
+{
+  "status": "validated_normal_vm_02_operand_13_static_return_shape",
+  "opcode": "0x02",
+  "operand": "0x13",
+  "normal_handler": "C4:89A5",
+  "table": "C4:9BEE",
+  "table_entry": "C4:9C24",
+  "target": "83:BBAB",
+  "target_mirrored_rom": "C3:BBAB",
+  "target_direct_return_opcode": "RTL",
+  "operand_bytes_including_opcode": 2,
+  "unproven": "Actual VM normal mode, execution of JSL 80:AC14, player current map, story predicates and real runtime transition",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98"
+}

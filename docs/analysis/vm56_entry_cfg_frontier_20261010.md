@@ -47,10 +47,10 @@ equivalent to a proven transition in normal VM mode or proven map source.
 | CC:848E | CC:8421..CC:8492 | no proof | op:39, op:40 |
 | CD:C288 | CD:C25B..CD:C28C | yes | none |
 | CE:126A | CE:1264..CE:126E | yes | none |
-| CE:1303 | CE:12FB..CE:1307 | no proof | op:02 |
+| CE:1303 | CE:12FB..CE:1307 | yes | none (normal VM opcode 0x02 operand 0x13 verified) |
 
 Results: 10/10 exact substream bounds and terminal signatures,
-**7 statically reachable under current proven grammar** and **3 blocked**.
+**8 statically reachable under current proven grammar** and **2 blocked**.
 These are not runtime-confirmed edge counts.
 
 **Crucial disambiguation:** for all ten records, **zero** validated
@@ -114,8 +114,29 @@ committed CSV.
 Next investigate actual VM owner/caller, runtime $0305 map pack,
 $035F/$1398 mode, story flags and saved-map state for the seven
 statically reachable VM56 targets (including CC:AD64).
-The remaining blocked targets are CC:F4F9 (opcode 0x25),
-CC:848E (0x39/0x40) and CE:1303 (0x02).
+A second concrete normal-VM dispatch was independently verified:
+opcode 0x02 with operand 0x13 uses C4:89A5 and
+C4:9BEE[3*(0x13-1)] -> 83:BBAB. The mirrored ROM target
+has a concrete RTL after JSL 80:AC14. The normal 0x02 handler
+advances two bytes at C4:895E before the indirect call.
+This enables the CE:1303 static CFG path, while still not proving
+runtime mode, return of the nested external JSL, story conditions
+or the current map.
+
+Verifier: tools/python/verify_vm_opcode02_13_handler.py
+Evidence: data/maps/transitions/vm_opcode02_13_proof.json
+Regression: scripts/test_vm_opcode02_13_handler.py
+
+The transition catalog was regenerated in an isolated temporary
+directory and the canonical 1,295-row CSV remains byte-for-byte
+identical after adding only this proven operand to the CFG grammar.
+
+The two remaining CFG blockers are CC:F4F9 (normal opcode 0x25
+handler C4:9517) and CC:848E (0x39 handler C4:9803 and
+0x40 handler C4:8FB3). Neither is promoted to an invented
+constant length: inspect scheduler, pointer update, conditional
+paths and mode behavior before further CFG expansion.
+
 Then perform an isolated hidden BizHawk runtime traversal test.
 
 Safety: Never commit raw ROM bytes, captures, or savestates; never infer

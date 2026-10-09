@@ -332,8 +332,10 @@ def main() -> None:
         # Opcode 0x02 dispatches through 84:9BEE. These concrete operands have
         # independently inspected RTL-returning targets, while C4:895E advances
         # the caller by two bytes before the indirect call.
+        # Operand 0x13 -> table C4:9C24 -> 83:BBAB, with a concrete RTL
+        # after JSL 80:AC14 (see verify_vm_opcode02_13_handler.py).
         if op == 0x02:
-            if pos + 2 <= len(body) and body[pos + 1] in {0x17, 0x1D, 0x25, 0x2D, 0x41, 0x5C, 0x5E}:
+            if pos + 2 <= len(body) and body[pos + 1] in {0x13, 0x17, 0x1D, 0x25, 0x2D, 0x41, 0x5C, 0x5E}:
                 return 2
             return None
 
