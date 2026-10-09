@@ -455,7 +455,7 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Trace CC:AD64 / F81-L007 through seven validated source-selection callsites to active $0305 and VM mode $035F/$1398; do not infer current map from source pack."
+      "action": "Independently trace actual VM execution path into CC:AD64, then prove active $0305 and VM mode $035F/$1398; seven A4 source-selection sites are NOT callers or current map identity."
     },
     {
       "order": 2,
@@ -861,7 +861,8 @@
       "docs/analysis/vm56_source_owner_audit_20261010.md",
       "scripts/test_vm56_source_ownership.py"
     ],
-    "official_overall_percent_unchanged": 51.4
+    "official_overall_percent_unchanged": 51.4,
+    "source_selection_not_vm_caller_caveat": "A4 source-selection references are not VM control-flow caller proof, and may be located after the transition site in ROM address order."
   },
   "completed_work_units": [
     {

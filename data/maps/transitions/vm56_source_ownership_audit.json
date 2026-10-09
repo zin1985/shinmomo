@@ -26,42 +26,63 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:AAF1",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B2_dd_A4_yy:first",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:66BE",
           "source_selection_subindex": "0x16",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:AAF5",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B2_dd_A4_yy:first;A4_xx_B2_dd_A4_yy:second",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:670D",
           "source_selection_subindex": "0x17",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:AAF9",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B2_dd_A4_yy:first;A4_xx_B2_dd_A4_yy:second",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:6749",
           "source_selection_subindex": "0x18",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:AAFD",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0;A4_xx_B2_dd_A4_yy:second",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:6785",
           "source_selection_subindex": "0x19",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:ABCC",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B2_dd_A4_yy:first",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:6AB3",
           "source_selection_subindex": "0x25",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:ABD0",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B2_dd_A4_yy:second",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:6AE8",
           "source_selection_subindex": "0x26",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:AE30",
+          "source_selection_relative_to_transition": "after_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:7430",
           "source_selection_subindex": "0x3B",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -84,18 +105,27 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:3D88",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C8:F414",
           "source_selection_subindex": "0x15",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:3E6C",
+          "source_selection_relative_to_transition": "after_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0;A4_xx_keyed_dispatch_target:key_7C",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C8:F417",
           "source_selection_subindex": "0x17",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:3E9D",
+          "source_selection_relative_to_transition": "after_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0;A4_xx_keyed_dispatch_target:key_7C",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C8:F43C",
           "source_selection_subindex": "0x18",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -118,12 +148,18 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:3ECF",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C8:F44E",
           "source_selection_subindex": "0x1A",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:4026",
+          "source_selection_relative_to_transition": "after_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C8:F47E",
           "source_selection_subindex": "0x1F",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -146,12 +182,18 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:B4C7",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B2_dd_A4_yy:first",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:71FE",
           "source_selection_subindex": "0x19",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:B4CB",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0;A4_xx_B2_dd_A4_yy:second",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:7226",
           "source_selection_subindex": "0x1A",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -174,12 +216,18 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:F3DD",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:AF65",
           "source_selection_subindex": "0x19",
           "evidence_class": "validated_source_selection_in_structural_record"
         },
         {
           "script_callsite": "CC:F5AA",
+          "source_selection_relative_to_transition": "after_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:B237",
           "source_selection_subindex": "0x28",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -202,6 +250,9 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:49CB",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_B0",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:03A4",
           "source_selection_subindex": "0x0F",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -224,6 +275,9 @@
       "validated_script_callsites": [
         {
           "script_callsite": "CC:830E",
+          "source_selection_relative_to_transition": "before_in_rom_address_order",
+          "source_selection_pattern": "A4_xx_keyed_dispatch_target:key_7C",
+          "is_proven_vm_caller": false,
           "selected_source_cpu": "C9:4CFB",
           "source_selection_subindex": "0x1C",
           "evidence_class": "validated_source_selection_in_structural_record"
@@ -282,5 +336,6 @@
     }
   ],
   "normal_mode_requirement": "VM opcode 0x56 handler meaning is mode-dependent; the normal-mode C4:8B6A transition handler must be proven active for execution.",
-  "source_assignment_policy": "The script pack, event record, source-selection pointer or even identical destination pack is not independent proof of active player map; no source ID promotion without runtime/ROM caller-state proof."
+  "source_assignment_policy": "The script pack, event record, source-selection pointer or even identical destination pack is not independent proof of active player map; no source ID promotion without runtime/ROM caller-state proof.",
+  "source_selection_caveat": "The seven source-linked records carry A4-style data/source selection sites within event frames. These are NOT a reconstructed VM callgraph or proof of control-flow reaching the 0x56 opcode. Address order is diagnostic only, not runtime execution order."
 }

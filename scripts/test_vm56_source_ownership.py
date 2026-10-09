@@ -56,6 +56,9 @@ class Vm56AuditTests(unittest.TestCase):
         self.assertEqual(result["counts"]["frame_plus_source_selection"],1)
         self.assertEqual(result["counts"]["source_unbound_in_viewer"],1)
         self.assertEqual(result["owner_trace_queue"][0]["viewer_source_config_id"],None)
+        site=result["owner_trace_queue"][0]["validated_script_callsites"][0]
+        self.assertEqual(site["source_selection_relative_to_transition"],"after_in_rom_address_order")
+        self.assertFalse(site["is_proven_vm_caller"])
         self.assertEqual(e["source_config_id"],"")
 
     def test_invalid_event_record_containment_flagged(self):

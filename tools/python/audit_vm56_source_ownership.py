@@ -90,6 +90,13 @@ def audit(candidates, frame_rows, xrefs, rom: bytes | None = None, derived=None)
                 "validated_source_selection_count":len(linked),
                 "validated_script_callsites":[{
                     "script_callsite":x["script_callsite"],
+                    "source_selection_relative_to_transition": (
+                        "before_in_rom_address_order" if file_offset(x["script_callsite"]) < file_offset(addr)
+                        else "after_in_rom_address_order" if file_offset(x["script_callsite"]) > file_offset(addr)
+                        else "same_address_unexpected"
+                    ),
+                    "source_selection_pattern":x.get("patterns") or "",
+                    "is_proven_vm_caller":False,
                     "selected_source_cpu":x["selected_source_cpu"],
                     "source_selection_subindex":x["subindex_hex"],
                     "evidence_class":x["evidence_class"]
@@ -114,6 +121,7 @@ def audit(candidates, frame_rows, xrefs, rom: bytes | None = None, derived=None)
         "owner_trace_queue":ready,
         "normal_mode_requirement":"VM opcode 0x56 handler meaning is mode-dependent; the normal-mode C4:8B6A transition handler must be proven active for execution.",
         "source_assignment_policy":"The script pack, event record, source-selection pointer or even identical destination pack is not independent proof of active player map; no source ID promotion without runtime/ROM caller-state proof.",
+        "source_selection_caveat":"The seven source-linked records carry A4-style data/source selection sites within event frames. These are NOT a reconstructed VM callgraph or proof of control-flow reaching the 0x56 opcode. Address order is diagnostic only, not runtime execution order.",
     }
     return report
 

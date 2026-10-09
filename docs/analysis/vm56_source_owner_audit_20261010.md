@@ -76,3 +76,19 @@ raw captures local-only.
 
 Important: completion remains 51.4%. ROM-opcode validity is not runtime
 reachability, and a source selection pointer is not a proven map identity.
+
+
+## Source selection versus actual VM caller (important refinement)
+
+The seven frame-linked records contain A4-style source-selection instructions
+with validated source pointers. This is **not** evidence that those instructions
+call opcode 0x56, nor that their pointer target names a player map. Within
+F81-L007, CC:AD64 has six selection sites at lower ROM addresses and one
+at a higher address. Some other records also contain sites on both sides.
+ROM address order does not imply runtime execution order, especially across
+branches. The audit now labels each site with before/after address order,
+retains its pattern and explicitly sets is_proven_vm_caller=false.
+
+The next actual proof must reconstruct the VM call path plus active global
+map pack and mode at the transition handler, rather than assuming a source
+selection is a caller.
