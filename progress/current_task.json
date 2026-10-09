@@ -2,19 +2,17 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-09-29",
+  "updated_at": "2026-10-09T22:50:00+09:00",
   "status": "active",
-  "workstream": "map-dungeon-reconstruction",
-  "title": "Reconstruct remaining dungeon/special map families from ROM setup resources",
-  "base_main_head_verified": "956011a03092eefea665852402dbd7d2960efd94",
+  "workstream": "event-map-arrival-restart",
+  "title": "Reopen canonical-ROM pack 0x96 arrival initializer frontier",
+  "base_main_head_verified": "05c618592f85d66e9518b4e83856a28e893f47ba",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
-  "goal": "Recover dungeon/interior/special maps directly from ROM-selected graphics and palette resources, fail closed on incomplete CHR/palette coverage, and preserve runtime-validated decoder semantics.",
+  "goal": "Decode pack96 entry02..05 within CC:DBF2..CC:DC5C using verified canonical ROM; preserve prior workstreams.",
   "definition_of_done": [
-    "The bank-C4 interpreter path supplying the $98 script pointer is identified well enough to distinguish valid opcode streams from blind byte-pattern matches.",
-    "A reproducible tool enumerates valid 0x50 primary and 0x51 secondary map-selection commands with ROM addresses and argument IDs.",
-    "The command catalog is joined to exact CE tileset and CF layout pointers, dimensions, flags and decoder metadata.",
-    "The stable interior's three known 50 07 0F 02 occurrences are represented in the catalog without duplicate false interpretation.",
-    "Derived corpus metadata is committed and the next classification step for towns/world/dungeons is recorded."
+    "Verify canonical ROM SHA256 and size.",
+    "Produce independently reproducible derived evidence for pack96 entries 0x02..0x05 without inventing XY.",
+    "Commit evidence and checkpoint; verify CI."
   ],
   "done": [
     {
@@ -456,19 +454,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Trace inherited/setup graphics needed by tilesets 5,32 and 58 and rerun strict coverage."
+      "action": "Run py -3 scripts/preflight_shinmomo_resume.py --remote --ci, then decode CC:DBF2..CC:DC5C in canonical ROM for pack96 entry 02..05."
     },
     {
       "order": 2,
-      "action": "Resolve tileset 42's inherited palette/setup context before rendering."
+      "action": "Reconcile trigger gap count: current manifest 11 vs later narrative 10 after CC:0F71."
     },
     {
       "order": 3,
-      "action": "Adapt the Mode-7/world renderer for tilesets 2 and 3 mode-0x01 layouts."
+      "action": "Decode entry02 starts B7 CD:5409, 9E CC:FFF7, AE CD:3639, BD CD:6CBD, B9 CD:5CAA."
     },
     {
       "order": 4,
-      "action": "Return to world-map forest/tree palette and transparent-index handling only after dungeon/special families are closed."
+      "action": "Preserve and reconcile uncommitted dialogue, NPC, sprite, transition worktrees before merge."
+    },
+    {
+      "order": 5,
+      "action": "Integrate actor/event/dialogue/map; revisit deferred map-dungeon tasks."
     }
   ],
   "do_not_redo": [
@@ -530,7 +532,11 @@
     "Do not classify DA:3800 as map-chip CHR; decoded samples are glyph/font-like.",
     "Do not classify CF:0000 as a CHR bitmap pointer table; its dominant structure is one parallel attribute byte per CE metatile.",
     "Do not use nibble+1 as the dispatch-0 back-reference copy length. C0:BD28 effectively copies nibble+2 bytes, and that rule reproduces pack-0x50 graphics operands 04/05/06 byte-for-byte.",
-    "Do not treat opcode 0x33 as a normal descriptor-destination load. Its first two operands override the VRAM word destination while the final operand selects the graphics descriptor/source/size."
+    "Do not treat opcode 0x33 as a normal descriptor-destination load. Its first two operands override the VRAM word destination while the final operand selects the graphics descriptor/source/size.",
+    "Do not use noncanonical ROMs or commit ROM bytes.",
+    "Do not infer entry02 arrival XY from same-config or neighboring-pack XY.",
+    "Do not silently resolve event-gap 11-vs-10 discrepancy.",
+    "Do not clean, reset or overwrite parallel dirty worktrees."
   ],
   "runtime_only_artifacts": [
     {
@@ -678,5 +684,129 @@
     "narration": "minimal",
     "checkpoint_frequency": "after each meaningful durable result",
     "resume_behavior": "Read this file, verify latest main, then continue from next_actions[0] without redoing done/do_not_redo items."
+  },
+  "deferred_pre_20261009_task": {
+    "workstream": "map-dungeon-reconstruction",
+    "title": "Reconstruct remaining dungeon/special map families from ROM setup resources",
+    "goal": "Recover dungeon/interior/special maps directly from ROM-selected graphics and palette resources, fail closed on incomplete CHR/palette coverage, and preserve runtime-validated decoder semantics.",
+    "definition_of_done": [
+      "The bank-C4 interpreter path supplying the $98 script pointer is identified well enough to distinguish valid opcode streams from blind byte-pattern matches.",
+      "A reproducible tool enumerates valid 0x50 primary and 0x51 secondary map-selection commands with ROM addresses and argument IDs.",
+      "The command catalog is joined to exact CE tileset and CF layout pointers, dimensions, flags and decoder metadata.",
+      "The stable interior's three known 50 07 0F 02 occurrences are represented in the catalog without duplicate false interpretation.",
+      "Derived corpus metadata is committed and the next classification step for towns/world/dungeons is recorded."
+    ],
+    "next_actions": [
+      {
+        "order": 1,
+        "action": "Trace inherited/setup graphics needed by tilesets 5,32 and 58 and rerun strict coverage."
+      },
+      {
+        "order": 2,
+        "action": "Resolve tileset 42's inherited palette/setup context before rendering."
+      },
+      {
+        "order": 3,
+        "action": "Adapt the Mode-7/world renderer for tilesets 2 and 3 mode-0x01 layouts."
+      },
+      {
+        "order": 4,
+        "action": "Return to world-map forest/tree palette and transparent-index handling only after dungeon/special families are closed."
+      }
+    ],
+    "observed_not_yet_promoted": [
+      {
+        "observation": "pack 0x50 / cfg_t04_l008_v2 / CC:1C3F is a forest shrine/village exterior directly connected to the stable save/shrine interior.",
+        "confidence": "confirmed_runtime_join_and_transition",
+        "reason_not_promoted": "The exact in-game human-facing place name has not yet been read from game text."
+      },
+      {
+        "observation": "????? is a strong external-corroboration candidate for pack 0x50: the playlog's ???1????1??100? state matches published opening guides, and published ????? descriptions include a shrine and fields matching the observed exterior.",
+        "confidence": "strong_external_corroboration",
+        "reason_not_promoted": "Keep display_name blank until an in-game text/event/location source independently names the map."
+      },
+      {
+        "observation": "The bridge schema-v2 runtime validation gap is closed on the active emulator core.",
+        "confidence": "confirmed_runtime_validation",
+        "reason_not_promoted": "No further bridge reload task remains; future captures can use embedded map_state directly."
+      },
+      {
+        "observation": "The current Snes9x map captures expose cgram.bin as 512 zero bytes; tileset-4 renders therefore intentionally use 4bpp tile-index grayscale instead of inventing color.",
+        "confidence": "confirmed_capture_limitation",
+        "reason_not_promoted": "Color reconstruction waits for a non-zero CGRAM source or an independently proven palette loader."
+      },
+      {
+        "observation": "For tileset 7 stable interior, 4bpp char_base 0xC000 is a valid-address inference candidate but its map_015 static render does not reproduce the runtime room appearance and is rejected as a canonical render basis.",
+        "confidence": "confirmed_negative_render_test",
+        "reason_not_promoted": "Do not commit tileset-7 renders until the correct CHR source/base is proven."
+      },
+      {
+        "observation": "DA:3800 stream family was visually rechecked and is glyph/font-like, not town/field terrain CHR. CF:0000 is also excluded as a CHR source: for tilesets 4..59 its adjacent spans match one byte per CE metatile in 56/56 tested normal cases.",
+        "confidence": "confirmed_static_exclusion",
+        "reason_not_promoted": "Exact compressed ROM asset source feeding VRAM 0x0000 remains to be connected."
+      }
+    ],
+    "in_progress": [
+      "Resolve inherited or otherwise missing setup resources for tilesets 5,32,42 and 58 without borrowing unrelated runtime CHR/palette.",
+      "Adapt the proven Mode-7 path for tilesets 2 and 3 mode-0x01 layouts.",
+      "Keep the user-reported world-map forest/tree palette and transparency issue for later cleanup after dungeon/special closure."
+    ],
+    "runtime_only_artifacts": [
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790519691664-3fe31160_save_point_interior",
+        "description": "First same-room raw capture used for L1 page stability."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790524923212-b2fd20a4_stable_interior_l1",
+        "description": "Fresh stable-room capture at frame 3253 used for L1 page stability."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790520426924-2a33d5df_field_transition_probe",
+        "description": "Transition control used to prove that pages 0x1000/0x1800 are scene-specific."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790585463777-473bcc2f_map_identity_probe",
+        "description": "Frame-3253 identity probe; manifest is schema v1 because the running emulator still had the previous bridge loaded."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/captures/mem_1790585489237-7b288fd8.json",
+        "description": "Local-only one-byte WRAM capture proving $0305=0x2E at frame 3253."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/captures/mem_1790585492082-e529ace2.json",
+        "description": "Local-only bounded WRAM scalar window proving $126E/$12B4 and $1398..$139F at frame 3253."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586092190-25934fb7_schema_v2_reloadtest",
+        "description": "Fresh schema-v2 frame-3253 capture proving embedded map_state matches the stable-interior scalar identity."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586286976-e56502b3_exit_transition_step150",
+        "description": "Visible pack-0x50 shrine/village exterior capture used for exact runtime occurrence binding."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586206665-a0cf2d8f_exit_probe_down24",
+        "description": "Transition phase: $0305 switched to 0x50 while old selector/interior remained."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586225731-87ee48d9_exit_transition_step30",
+        "description": "Transition phase: pack contexts 0x50 with selector cleared and black screen."
+      },
+      {
+        "path": "%LOCALAPPDATA%/shinmomo-lab/map_captures/1790586245967-3d0e1449_exit_transition_step60",
+        "description": "Transition phase: new 4/8/2 selector installed while screen remained black."
+      }
+    ]
+  },
+  "resume_checkpoint": {
+    "date": "2026-10-09",
+    "handoff": "docs/handoff/HM_261009_analysis_resume.md",
+    "preflight": "scripts/preflight_shinmomo_resume.py",
+    "source_progress_percent": 51.4,
+    "canonical_rom_verified_locally": true,
+    "known_worktree_count": 42,
+    "known_dirty_worktree_count": 11,
+    "event_gap_manifest_count": 11,
+    "event_gap_narrative_count": 10
   }
 }

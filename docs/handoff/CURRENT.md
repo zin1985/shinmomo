@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-09 restart:** Current continuation is the canonical-ROM pack96 arrival frontier. Read progress/current_task.json and docs/handoff/HM_261009_analysis_resume.md first. The historical 2026-09-28 map-world task below is kept as evidence, not the next action.
+
 Updated: 2026-09-28
 
 > Canonical machine-readable state: `progress/current_task.json`.
