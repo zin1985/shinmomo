@@ -100,3 +100,35 @@ For reverse-engineering sessions that do not need to preserve normal progression
 The first profile intentionally prioritizes fast navigation: Momotaro level is set through WRAM $1623, all Hien destinations are enabled through $1931..$1934, and Hien (spell id $33) is inserted into the first empty Momotaro spell slot at $44DA..$44E5. The script verifies every write before saving. Raw savestates remain under the local lab directory and are never committed.
 
 This is an analysis profile, not a claim about canonical story progression. Additional party/items/castle unlocks should be added only after their WRAM/SRAM fields are independently verified.
+
+
+## Background / hidden BizHawk analysis mode
+
+Use the dedicated wrapper to keep the emulator and Lua Console hidden from the Windows desktop while invoking the bridge directly. This was validated on 2026-10-10 using the canonical ROM, an isolated runtime directory, and a running BizHawk 2.11 instance. Command controls and captures do not activate the emulator window.
+
+```powershell
+$bg = ".\tools\remote_lab\shinmomo_background_lab.ps1"
+
+& $bg -Action start
+& $bg -Action status
+& $bg -Action step -Frames 180
+& $bg -Action gamepad -Buttons "A" -Frames 2
+& $bg -Action screenshot
+& $bg -Action capture-memory -Domain WRAM -Start "0x0305" -Length 16
+& $bg -Action map-capture -SceneTag "interior"
+& $bg -Action save-state -StateName "before_event"
+& $bg -Action load-state -StateName "before_event"
+& $bg -Action hide
+# Only when interactive inspection is deliberately requested:
+& $bg -Action show
+# Only stops the dedicated process that matches its PID registration:
+& $bg -Action stop
+```
+
+The dedicated runtime root is `%LOCALAPPDATA%\shinmomo-bg-lab`. The launcher copies the existing BizHawk config to an isolated config path and verifies the canonical ROM size and SHA-256 before startup. The original BizHawk config and other emulator processes are not modified or stopped.
+
+The `game-screen` command uses BizHawk `client.screenshot`, not Windows desktop screenshot. The bridge's `step` / `gamepad` advances exactly the requested frames, and `capture-memory` can inspect memory while BizHawk and the Lua Console remain hidden. Screenshot and raw state files remain local-only and must not be committed.
+
+At the end of the 2026-10-10 test, a dedicated BizHawk instance remained running, with both windows hidden; `step`, `gamepad`, `screenshot`, `capture-memory`, `load-state`, and `save-state` all returned successfully. A captured intro/logo frame contained actual pixels, not just an empty PNG. A fully rendered gameplay view under a disconnected RDP session has not been verified yet.
+
+This is hidden GUI emulation, not a true headless core. It still needs a live Windows user session and may behave differently if the session is logged out, RDP-disconnected, or the graphics device is reset. Do not use generic desktop `screen`, `click`, or `key` for unattended in-game experiments; use deterministic bridge commands. If screenshot becomes black, verify the current emulated frame and `client.screenshot` first before considering any desktop-based fallback.
