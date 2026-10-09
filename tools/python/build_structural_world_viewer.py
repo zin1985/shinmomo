@@ -2,6 +2,8 @@
 import csv, json, subprocess
 from pathlib import Path
 
+from crosslink_transition_sources_from_hotspots import crosslink as crosslink_sources
+
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
 TRANSITIONS = ROOT / "data/maps/transitions"
@@ -212,10 +214,25 @@ def main():
 
     transition_candidates = []
     transition_edges = []
+    source_bindings = {}
     candidate_path = TRANSITIONS / "map_transition_candidates.csv"
     if candidate_path.exists():
-        for n, row in enumerate(csv.DictReader(candidate_path.open(encoding="utf-8-sig"))):
-            source_config_id = row.get("source_config_id") or None
+        with candidate_path.open(encoding="utf-8-sig", newline="") as candidate_stream:
+            candidate_rows = list(csv.DictReader(candidate_stream))
+        # Bind only exact, unique instruction addresses with no contradictory
+        # endpoint evidence. Original candidate catalog remains unchanged.
+        with SOURCE_HOTSPOTS.open(encoding="utf-8-sig", newline="") as hotspot_stream:
+            hotspot_rows = list(csv.DictReader(hotspot_stream))
+        source_bindings = {
+            int(binding["transition_row_index"]): binding
+            for binding in crosslink_sources(candidate_rows, hotspot_rows)
+            if binding["binding_status"] == "new_source_binding"
+        }
+        for n, row in enumerate(candidate_rows):
+            overlay = source_bindings.get(n)
+            if overlay and overlay["trigger_addr"] != (row.get("trigger_addr") or "").strip().upper():
+                raise ValueError(f"Stale hotspot source match at catalog row {n}")
+            source_config_id = row.get("source_config_id") or (overlay["source_config_id"] if overlay else None)
             destination_config_id = row.get("destination_config_id") or None
             confidence = row.get("confidence") or "unknown"
             tier = "tier1_confirmed" if confidence == "confirmed" else (
@@ -233,6 +250,18 @@ def main():
                 "script_entry": row.get("script_entry") or None,
                 "trigger_type": row.get("trigger_type") or None,
                 "trigger_addr": row.get("trigger_addr") or None,
+                "source_hotspot_binding": ({
+                    "hotspot_id": overlay["hotspot_id"],
+                    "source_grid_x": int(overlay["source_grid_x"]),
+                    "source_grid_y": int(overlay["source_grid_y"]),
+                    "source_width": int(overlay["source_width"]),
+                    "source_height": int(overlay["source_height"]),
+                    "shape": overlay["hotspot_type"],
+                    "confidence": overlay["hotspot_confidence"],
+                    "status": "exact_opcode_source_candidate",
+                    "evidence": overlay["evidence"],
+                    "provenance": overlay["provenance"],
+                } if overlay else None),
                 "event_record": row.get("event_record") or None,
                 "vm_context": row.get("vm_context") or None,
                 "event_sources": row.get("event_sources") or None,
@@ -836,6 +865,10 @@ def main():
             "confirmed_count": sum(x["confidence"] == "confirmed" for x in transition_candidates),
             "strong_candidate_count": sum(x["confidence"] == "strong_candidate" for x in transition_candidates),
             "bound_edge_count": len(transition_edges),
+            "hotspot_source_candidate_count": len(source_bindings),
+            "hotspot_bound_edge_candidate_count": sum(
+                bool(transition_candidates[i]["destination_config_id"]) for i in source_bindings
+            ),
             "unbound_count": sum(not x["source_config_id"] for x in transition_candidates),
         },
         "events": events,

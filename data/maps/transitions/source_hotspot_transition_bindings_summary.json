@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "source_hotspot_transition_exact_opcode_binding",
+  "source_catalog_count": 1295,
+  "hotspot_count": 57,
+  "status_counts": {
+    "already_bound_consistent": 1,
+    "new_source_binding": 54,
+    "unmatched_trigger_address": 2
+  },
+  "new_source_binding_count": 54,
+  "new_navigable_edge_count": 49,
+  "new_source_without_destination_count": 5,
+  "non_matching_hotspot_ids": [
+    "hotspot_native_tabidachi_south_exit_x28_y55",
+    "hotspot_native_pack2e_south_exit_candidate"
+  ],
+  "conflicts": [],
+  "policy": "Exact unique trigger_addr + nonconflicting source/destination coordinates. No inferred map from script pack. Retain original confidence (strong_candidate remains nonconfirmed)."
+}

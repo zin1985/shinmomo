@@ -2,17 +2,18 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-09T22:50:00+09:00",
+  "updated_at": "2026-10-10T01:55:00+09:00",
   "status": "active",
-  "workstream": "event-map-arrival-restart",
-  "title": "Reopen canonical-ROM pack 0x96 arrival initializer frontier",
-  "base_main_head_verified": "05c618592f85d66e9518b4e83856a28e893f47ba",
+  "workstream": "map-transition-event-graph",
+  "title": "Complete event-aware world graph using exact source and destination evidence overlays",
+  "base_main_head_verified": "29d255dd6cbd0ce95019f4cc16d0425454746153",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
-  "goal": "Decode pack96 entry02..05 within CC:DBF2..CC:DC5C using verified canonical ROM; preserve prior workstreams.",
+  "goal": "Connect independently proven source and arrival maps with story-gated triggers and NPC events without guessed topology.",
   "definition_of_done": [
-    "Verify canonical ROM SHA256 and size.",
-    "Produce independently reproducible derived evidence for pack96 entries 0x02..0x05 without inventing XY.",
-    "Commit evidence and checkpoint; verify CI."
+    "All world/town/dungeon/special map variants are enumerated.",
+    "Every transition has source, destination, grid arrival, and event condition or explicit unknown evidence.",
+    "Village/interior/dungeon return routes and phase differences are verified with deterministic hidden BizHawk runs.",
+    "Viewer generation is reproducible with traceable confidence, addresses, regression tests."
   ],
   "done": [
     {
@@ -454,23 +455,27 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Run py -3 scripts/preflight_shinmomo_resume.py --remote --ci, then decode CC:DBF2..CC:DC5C in canonical ROM for pack96 entry 02..05."
+      "action": "Integrate 110 native-bounds derived destination configuration resolutions into viewer conservatively. Four newly source-bound candidates can gain destinations; keep CC:1160 phase-dependent."
     },
     {
       "order": 2,
-      "action": "Reconcile trigger gap count: current manifest 11 vs later narrative 10 after CC:0F71."
+      "action": "Distinguish two native boundary hotspots sharing C1:8955 via map and phase context, never address-only."
     },
     {
       "order": 3,
-      "action": "Decode entry02 starts B7 CD:5409, 9E CC:FFF7, AE CD:3639, BD CD:6CBD, B9 CD:5CAA."
+      "action": "Add VM/event flag gating to navigable candidate edges; do not treat candidate transitions as unconditional."
     },
     {
       "order": 4,
-      "action": "Preserve and reconcile uncommitted dialogue, NPC, sprite, transition worktrees before merge."
+      "action": "Check world -> village -> interior -> world round-trip with hidden BizHawk and capture comparisons."
     },
     {
       "order": 5,
-      "action": "Integrate actor/event/dialogue/map; revisit deferred map-dungeon tasks."
+      "action": "Expand source/destination graph to every map/dungeon floor with reachability and return-path audits."
+    },
+    {
+      "order": 6,
+      "action": "Continue pack96 CC:DBF2..CC:DC5C entry02..05 coordinate initializer analysis."
     }
   ],
   "do_not_redo": [
@@ -808,5 +813,54 @@
     "known_dirty_worktree_count": 11,
     "event_gap_manifest_count": 11,
     "event_gap_narrative_count": 10
+  },
+  "deferred_pre_20261010_task": {
+    "workstream": "event-map-arrival-restart",
+    "title": "Reopen canonical-ROM pack 0x96 arrival initializer frontier",
+    "next_actions": [
+      {
+        "order": 1,
+        "action": "Run py -3 scripts/preflight_shinmomo_resume.py --remote --ci, then decode CC:DBF2..CC:DC5C in canonical ROM for pack96 entry 02..05."
+      },
+      {
+        "order": 2,
+        "action": "Reconcile trigger gap count: current manifest 11 vs later narrative 10 after CC:0F71."
+      },
+      {
+        "order": 3,
+        "action": "Decode entry02 starts B7 CD:5409, 9E CC:FFF7, AE CD:3639, BD CD:6CBD, B9 CD:5CAA."
+      },
+      {
+        "order": 4,
+        "action": "Preserve and reconcile uncommitted dialogue, NPC, sprite, transition worktrees before merge."
+      },
+      {
+        "order": 5,
+        "action": "Integrate actor/event/dialogue/map; revisit deferred map-dungeon tasks."
+      }
+    ],
+    "definition_of_done": [
+      "Verify canonical ROM SHA256 and size.",
+      "Produce independently reproducible derived evidence for pack96 entries 0x02..0x05 without inventing XY.",
+      "Commit evidence and checkpoint; verify CI."
+    ],
+    "goal": "Decode pack96 entry02..05 within CC:DBF2..CC:DC5C using verified canonical ROM; preserve prior workstreams."
+  },
+  "last_completed_work_unit": {
+    "date": "2026-10-10",
+    "description": "Exact instruction-address hotspot source-map join",
+    "hotspots": 57,
+    "matched": 55,
+    "new_source_bindings": 54,
+    "new_navigable_candidate_edges": 49,
+    "viewer_bound_edges_total": 52,
+    "runtime_confirmed_edges_total": 3,
+    "evidence": [
+      "docs/analysis/transition_source_hotspot_crosslink_20261010.md",
+      "data/maps/transitions/source_hotspot_transition_bindings.csv",
+      "tools/python/crosslink_transition_sources_from_hotspots.py",
+      "scripts/test_transition_source_bindings.py"
+    ],
+    "official_percent_unchanged": 51.4
   }
 }
