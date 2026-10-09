@@ -5,8 +5,8 @@
   "updated_at": "2026-10-10",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Map graph event predicates and precise native boundary probing",
-  "base_main_head_verified": "0f31c545fe21d55be6684ff80a010142b56dabb0",
+  "title": "Resolve source event owner/caller contexts and story-dependent map navigation",
+  "base_main_head_verified": "5be8bac9e8e20e7e2cc75ff6eea11d058631abb9",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Acquire deterministic hidden-BizHawk interior exit pre-X, confirm actual collision/passability for X=8,9,10,Y=12; 3-cell corridor is not runtime-closed."
+      "action": "Trace event-record ownership, VM caller and active map context for 721 unbound VM opcode 0x56 terminal rows. Do NOT assign source from script_pack equality alone."
     },
     {
       "order": 2,
-      "action": "Recover VM branch story flags and compare player state; implement true tri-state edge predicate evaluation with proven opcode operands."
+      "action": "Decode destination-side phase/state discriminator for CC:1160 pack0xCE entry02, five candidate configurations; no single-config assumption."
     },
     {
       "order": 3,
-      "action": "Identify source map for 1238 source-unbound transitions via event owners, pack context and native-stack context, not shared opcode address."
+      "action": "Hidden BizHawk: prepare and verify world->village->interior->village->world frame/WRAM/screenshot proof without touching the interactive desktop."
     },
     {
       "order": 4,
-      "action": "Verify world-village-interior-world round-trip with return positions, flags, NPC and dialogue changes."
+      "action": "Promote specific VM control-flow and flag predicates to executable tri-state evaluation only when exact ROM operands and live state are proven."
     },
     {
       "order": 5,
-      "action": "Resume pack96 entry02..05 to recover event arrival XY and expand dungeon floor reachability."
+      "action": "Expand event-aware topology to dungeons/floors and instrument missing-source, phase, collision and return-path audits."
     }
   ],
   "do_not_redo": [
@@ -844,24 +844,24 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-10",
-    "description": "Shared native handler context binding, unknown-state gates and graph coverage audit",
-    "native_context_edges": 2,
+    "description": "Tri-state spatial gate, five-way phase destination family, source-unbound ownership triage",
+    "viewer_maps": 149,
+    "transition_candidates": 1295,
     "bound_edges": 56,
-    "runtime_confirmed_edges": 3,
-    "gate_metadata_candidates": 1295,
-    "current_state_executable_edges_confirmed": 0,
-    "maps_with_known_outgoing": 3,
-    "maps_without_bound_outgoing": 146,
-    "weak_components": 100,
-    "new_evidence": [
-      "docs/analysis/native_saved_return_graph_gate_20261010.md",
-      "tools/python/build_native_saved_return_context.py",
-      "tools/python/audit_world_graph_coverage.py",
-      "data/maps/transitions/world_graph_coverage_summary.json",
-      "scripts/test_native_saved_return_context.py",
-      "scripts/test_world_graph_coverage.py"
+    "confirmed_runtime_edges": 3,
+    "spatial_conditions": 54,
+    "phase_destination_ambiguous_families": 1,
+    "source_unbound_candidates": 1238,
+    "unique_pack_context_investigative_leads_not_confirmed": 1028,
+    "priority_vm_0x56_terminal_unbound": 721,
+    "evidence": [
+      "docs/analysis/transition_spatial_phase_source_triage_20261010.md",
+      "data/maps/transitions/source_unbound_investigation_queue.json",
+      "tools/python/transition_gate_predicates.py",
+      "tools/python/triage_unbound_transition_sources.py",
+      "scripts/test_transition_spatial_phase_gates.py"
     ],
-    "official_progress_percent_unchanged": 51.4
+    "official_overall_percent_unchanged": 51.4
   },
   "completed_work_units": [
     {
@@ -895,6 +895,27 @@
         "data/maps/transitions/destination_bounds_viewer_overlay_summary.json",
         "tools/python/crosslink_destination_bounds_for_viewer.py",
         "scripts/test_destination_bounds_overlay.py"
+      ],
+      "official_progress_percent_unchanged": 51.4
+    },
+    {
+      "date": "2026-10-10",
+      "description": "Shared native handler context binding, unknown-state gates and graph coverage audit",
+      "native_context_edges": 2,
+      "bound_edges": 56,
+      "runtime_confirmed_edges": 3,
+      "gate_metadata_candidates": 1295,
+      "current_state_executable_edges_confirmed": 0,
+      "maps_with_known_outgoing": 3,
+      "maps_without_bound_outgoing": 146,
+      "weak_components": 100,
+      "new_evidence": [
+        "docs/analysis/native_saved_return_graph_gate_20261010.md",
+        "tools/python/build_native_saved_return_context.py",
+        "tools/python/audit_world_graph_coverage.py",
+        "data/maps/transitions/world_graph_coverage_summary.json",
+        "scripts/test_native_saved_return_context.py",
+        "scripts/test_world_graph_coverage.py"
       ],
       "official_progress_percent_unchanged": 51.4
     }

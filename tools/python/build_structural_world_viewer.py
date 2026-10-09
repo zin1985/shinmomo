@@ -5,6 +5,7 @@ from pathlib import Path
 from crosslink_transition_sources_from_hotspots import crosslink as crosslink_sources
 from crosslink_destination_bounds_for_viewer import join_destination_bounds
 from build_native_saved_return_context import (match_native_boundaries, edge_activation_gate, rows as read_native_rows)
+from transition_gate_predicates import annotate_edge_gate, phase_ambiguity_for
 
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
@@ -898,8 +899,21 @@ def main():
         transition_candidates = [
             matched_native.get(e["transition_id"], e) for e in transition_candidates
         ]
+    # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
+    # outside the trigger. An in-range point never implies true story activation.
+    # A destination-phase ambiguity is an alternative set, not a new graph edge.
+    phase_doc_path = ROOT / "data/events/transition_CC_1160_phase_candidates.json"
+    phase_doc = json.loads(phase_doc_path.read_text(encoding="utf-8")) if phase_doc_path.exists() else None
+    phase_ambiguous = []
     for e in transition_candidates:
-        e["activation_gate"] = edge_activation_gate(e)
+        e["activation_gate"] = annotate_edge_gate(e, edge_activation_gate(e))
+        if phase_doc is not None:
+            alternatives = phase_ambiguity_for(e, phase_doc)
+            if alternatives:
+                e["phase_destination_ambiguity"] = alternatives
+                phase_ambiguous.append(e["transition_id"])
+    if phase_doc is not None and len(phase_ambiguous) != 1:
+        raise ValueError(f"Expected exactly one unique CC:1160 phase family; found {phase_ambiguous}")
     # Keep edge objects identical to their source candidates after annotation.
     transition_edges = [e for e in transition_candidates if e.get("source_config_id") and e.get("destination_config_id")]
 
@@ -916,12 +930,21 @@ def main():
         "transition_candidates": transition_candidates,
         "transition_edges": transition_edges,
         "native_boundary_context_summary": native_context_summary,
+        "phase_destination_ambiguity_summary": {
+            "candidate_count": len(phase_ambiguous),
+            "transition_ids": phase_ambiguous,
+            "status": "unresolved_no_synthetic_destination_edge"
+        },
         "transition_catalog_summary": {
             "candidate_count": len(transition_candidates),
             "confirmed_count": sum(x["confidence"] == "confirmed" for x in transition_candidates),
             "strong_candidate_count": sum(x["confidence"] == "strong_candidate" for x in transition_candidates),
             "bound_edge_count": len(transition_edges),
             "native_saved_return_context_count": native_context_summary["attached_count"],
+            "spatial_predicate_candidate_count": sum(
+                e["activation_gate"]["spatial_condition"] is not None for e in transition_candidates
+            ),
+            "unresolved_phase_destination_count": len(phase_ambiguous),
             "activation_current_state_unknown_count": sum(
                 e["activation_gate"]["evaluation"] == "unknown" for e in transition_candidates
             ),

@@ -7,6 +7,7 @@ on:
       - 'viewer/**'
       - 'tools/python/build_structural_world_viewer.py'
       - 'tools/python/build_native_saved_return_context.py'
+      - 'tools/python/transition_gate_predicates.py'
       - 'tools/python/crosslink_transition_sources_from_hotspots.py'
       - 'tools/python/crosslink_destination_bounds_for_viewer.py'
       - 'scripts/prepare_public_viewer.py'

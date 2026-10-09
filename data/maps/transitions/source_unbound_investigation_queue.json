@@ -1,0 +1,1685 @@
+{
+  "schema_version": 1,
+  "kind": "source_unbound_transition_triage",
+  "source_unbound_after_overlay": 1238,
+  "raw_catalog_vs_viewer_note": "Canonical candidate CSV may have more source-null rows; viewer includes proven hotspot overlays.",
+  "source_unbound_trigger_type_counts": {
+    "vm_opcode_0x56_terminal": 721,
+    "vm_opcode_0x53_transition_wrapper_terminal": 338,
+    "vm_opcode_0x53_nonterminal_shape": 93,
+    "vm_opcode_0x55_restore_context_terminal": 40,
+    "vm_opcode_0x56_nonterminal_shape": 20,
+    "vm_opcode_0x55_nonterminal_shape": 9,
+    "vm_opcode_0x57_entry_start_route": 8,
+    "vm_opcode_0x57_cfg_reachable_route": 7,
+    "vm_opcode_0x57_native_route_terminal": 2
+  },
+  "pack_context_class_counts": {
+    "multiple_pack_context_candidates": 209,
+    "no_map_context_in_current_index": 1,
+    "one_pack_context_candidate_not_proof": 1028
+  },
+  "group_count": 246,
+  "top_groups": [
+    {
+      "script_pack": "0X4C",
+      "trigger_type": "vm_opcode_0x53_nonterminal_shape",
+      "candidate_count": 56,
+      "context_config_candidates": [
+        "cfg_t01_l001_v1",
+        "cfg_t01_l002_v1"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_1136",
+        "catalog_transition_1137",
+        "catalog_transition_1138",
+        "catalog_transition_1139",
+        "catalog_transition_1140",
+        "catalog_transition_1141",
+        "catalog_transition_1142",
+        "catalog_transition_1143"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X70",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 45,
+      "context_config_candidates": [
+        "cfg_t04_l045_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0943",
+        "catalog_transition_0944",
+        "catalog_transition_0945",
+        "catalog_transition_0946",
+        "catalog_transition_0947",
+        "catalog_transition_0948",
+        "catalog_transition_0949",
+        "catalog_transition_0950"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X4C",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 21,
+      "context_config_candidates": [
+        "cfg_t01_l001_v1",
+        "cfg_t01_l002_v1"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_0748",
+        "catalog_transition_0749",
+        "catalog_transition_0751",
+        "catalog_transition_0758",
+        "catalog_transition_0759",
+        "catalog_transition_0761",
+        "catalog_transition_0763",
+        "catalog_transition_0765"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X7D",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 21,
+      "context_config_candidates": [
+        "cfg_t40_l159_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0087",
+        "catalog_transition_0088",
+        "catalog_transition_0089",
+        "catalog_transition_0090",
+        "catalog_transition_0091",
+        "catalog_transition_0092",
+        "catalog_transition_0093",
+        "catalog_transition_0094"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XA7",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 21,
+      "context_config_candidates": [
+        "cfg_t23_l123_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0281",
+        "catalog_transition_0282",
+        "catalog_transition_0283",
+        "catalog_transition_0284",
+        "catalog_transition_0285",
+        "catalog_transition_0286",
+        "catalog_transition_0287",
+        "catalog_transition_0288"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XAA",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 21,
+      "context_config_candidates": [
+        "cfg_t26_l131_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0323",
+        "catalog_transition_0324",
+        "catalog_transition_0325",
+        "catalog_transition_0326",
+        "catalog_transition_0327",
+        "catalog_transition_0328",
+        "catalog_transition_0329",
+        "catalog_transition_0330"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB1",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 20,
+      "context_config_candidates": [
+        "cfg_t29_l138_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0389",
+        "catalog_transition_0390",
+        "catalog_transition_0391",
+        "catalog_transition_0392",
+        "catalog_transition_0393",
+        "catalog_transition_0394",
+        "catalog_transition_0395",
+        "catalog_transition_0396"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XCF",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 19,
+      "context_config_candidates": [
+        "cfg_t02_l003_v1",
+        "cfg_t02_l004_v1"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_1058",
+        "catalog_transition_1059",
+        "catalog_transition_1060",
+        "catalog_transition_1061",
+        "catalog_transition_1062",
+        "catalog_transition_1063",
+        "catalog_transition_1064",
+        "catalog_transition_1065"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X7E",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 19,
+      "context_config_candidates": [
+        "cfg_t40_l157_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0108",
+        "catalog_transition_0109",
+        "catalog_transition_0110",
+        "catalog_transition_0111",
+        "catalog_transition_0112",
+        "catalog_transition_0113",
+        "catalog_transition_0114",
+        "catalog_transition_0115"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XAE",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 18,
+      "context_config_candidates": [
+        "cfg_t11_l101_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0358",
+        "catalog_transition_0359",
+        "catalog_transition_0360",
+        "catalog_transition_0361",
+        "catalog_transition_0362",
+        "catalog_transition_0363",
+        "catalog_transition_0364",
+        "catalog_transition_0365"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X68",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 17,
+      "context_config_candidates": [
+        "cfg_t06_l037_v2",
+        "cfg_t06_l038_v2"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_0889",
+        "catalog_transition_0890",
+        "catalog_transition_0891",
+        "catalog_transition_0892",
+        "catalog_transition_0893",
+        "catalog_transition_0894",
+        "catalog_transition_0895",
+        "catalog_transition_0896"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XC4",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 17,
+      "context_config_candidates": [
+        "cfg_t17_l111_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0534",
+        "catalog_transition_0535",
+        "catalog_transition_0536",
+        "catalog_transition_0537",
+        "catalog_transition_0538",
+        "catalog_transition_0539",
+        "catalog_transition_0540",
+        "catalog_transition_0541"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XCF",
+      "trigger_type": "vm_opcode_0x53_nonterminal_shape",
+      "candidate_count": 15,
+      "context_config_candidates": [
+        "cfg_t02_l003_v1",
+        "cfg_t02_l004_v1"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_1207",
+        "catalog_transition_1208",
+        "catalog_transition_1209",
+        "catalog_transition_1210",
+        "catalog_transition_1211",
+        "catalog_transition_1212",
+        "catalog_transition_1213",
+        "catalog_transition_1214"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X9A",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 15,
+      "context_config_candidates": [
+        "cfg_t22_l121_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0222",
+        "catalog_transition_0223",
+        "catalog_transition_0224",
+        "catalog_transition_0225",
+        "catalog_transition_0226",
+        "catalog_transition_0227",
+        "catalog_transition_0228",
+        "catalog_transition_0229"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB2",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 14,
+      "context_config_candidates": [
+        "cfg_t29_l138_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0409",
+        "catalog_transition_0410",
+        "catalog_transition_0411",
+        "catalog_transition_0412",
+        "catalog_transition_0413",
+        "catalog_transition_0414",
+        "catalog_transition_0415",
+        "catalog_transition_0416"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE7",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 14,
+      "context_config_candidates": [
+        "cfg_t58_l196_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0663",
+        "catalog_transition_0664",
+        "catalog_transition_0665",
+        "catalog_transition_0666",
+        "catalog_transition_0667",
+        "catalog_transition_0668",
+        "catalog_transition_0669",
+        "catalog_transition_0670"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X60",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 13,
+      "context_config_candidates": [
+        "cfg_t04_l034_v2",
+        "cfg_t04_l035_v2"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_0861",
+        "catalog_transition_0862",
+        "catalog_transition_0863",
+        "catalog_transition_0864",
+        "catalog_transition_0865",
+        "catalog_transition_0866",
+        "catalog_transition_0867",
+        "catalog_transition_0868"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X83",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 13,
+      "context_config_candidates": [
+        "cfg_t04_l070_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1019",
+        "catalog_transition_1020",
+        "catalog_transition_1021",
+        "catalog_transition_1022",
+        "catalog_transition_1023",
+        "catalog_transition_1024",
+        "catalog_transition_1025",
+        "catalog_transition_1026"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XA6",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 13,
+      "context_config_candidates": [
+        "cfg_t23_l123_v1",
+        "cfg_t23_l123_v2"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_0268",
+        "catalog_transition_0269",
+        "catalog_transition_0270",
+        "catalog_transition_0271",
+        "catalog_transition_0272",
+        "catalog_transition_0273",
+        "catalog_transition_0274",
+        "catalog_transition_0275"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XAC",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 13,
+      "context_config_candidates": [
+        "cfg_t49_l176_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0345",
+        "catalog_transition_0346",
+        "catalog_transition_0347",
+        "catalog_transition_0348",
+        "catalog_transition_0349",
+        "catalog_transition_0350",
+        "catalog_transition_0351",
+        "catalog_transition_0352"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XDA",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 13,
+      "context_config_candidates": [
+        "cfg_t51_l180_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0584",
+        "catalog_transition_0585",
+        "catalog_transition_0586",
+        "catalog_transition_0587",
+        "catalog_transition_0588",
+        "catalog_transition_0589",
+        "catalog_transition_0590",
+        "catalog_transition_0591"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X65",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t04_l044_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0874",
+        "catalog_transition_0875",
+        "catalog_transition_0876",
+        "catalog_transition_0877",
+        "catalog_transition_0878",
+        "catalog_transition_0879",
+        "catalog_transition_0880",
+        "catalog_transition_0881"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X6A",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t06_l040_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0906",
+        "catalog_transition_0907",
+        "catalog_transition_0908",
+        "catalog_transition_0909",
+        "catalog_transition_0910",
+        "catalog_transition_0911",
+        "catalog_transition_0912",
+        "catalog_transition_0913"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X6B",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t05_l042_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0918",
+        "catalog_transition_0919",
+        "catalog_transition_0920",
+        "catalog_transition_0921",
+        "catalog_transition_0922",
+        "catalog_transition_0923",
+        "catalog_transition_0924",
+        "catalog_transition_0925"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X53",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t08_l094_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0012",
+        "catalog_transition_0013",
+        "catalog_transition_0014",
+        "catalog_transition_0015",
+        "catalog_transition_0016",
+        "catalog_transition_0017",
+        "catalog_transition_0018",
+        "catalog_transition_0019"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X7C",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t39_l156_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0075",
+        "catalog_transition_0076",
+        "catalog_transition_0077",
+        "catalog_transition_0078",
+        "catalog_transition_0079",
+        "catalog_transition_0080",
+        "catalog_transition_0081",
+        "catalog_transition_0082"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X88",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t45_l168_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0144",
+        "catalog_transition_0145",
+        "catalog_transition_0146",
+        "catalog_transition_0147",
+        "catalog_transition_0148",
+        "catalog_transition_0149",
+        "catalog_transition_0150",
+        "catalog_transition_0151"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XA9",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t26_l131_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0311",
+        "catalog_transition_0312",
+        "catalog_transition_0313",
+        "catalog_transition_0314",
+        "catalog_transition_0315",
+        "catalog_transition_0316",
+        "catalog_transition_0317",
+        "catalog_transition_0318"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XAF",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t11_l101_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0376",
+        "catalog_transition_0377",
+        "catalog_transition_0378",
+        "catalog_transition_0379",
+        "catalog_transition_0380",
+        "catalog_transition_0381",
+        "catalog_transition_0382",
+        "catalog_transition_0383"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB4",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t29_l138_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0433",
+        "catalog_transition_0434",
+        "catalog_transition_0435",
+        "catalog_transition_0436",
+        "catalog_transition_0437",
+        "catalog_transition_0438",
+        "catalog_transition_0439",
+        "catalog_transition_0440"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB9",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 12,
+      "context_config_candidates": [
+        "cfg_t25_l129_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0471",
+        "catalog_transition_0472",
+        "catalog_transition_0473",
+        "catalog_transition_0474",
+        "catalog_transition_0475",
+        "catalog_transition_0476",
+        "catalog_transition_0477",
+        "catalog_transition_0478"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB5",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 11,
+      "context_config_candidates": [
+        "cfg_t29_l138_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0445",
+        "catalog_transition_0446",
+        "catalog_transition_0447",
+        "catalog_transition_0448",
+        "catalog_transition_0449",
+        "catalog_transition_0450",
+        "catalog_transition_0451",
+        "catalog_transition_0452"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XF3",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 10,
+      "context_config_candidates": [
+        "cfg_t04_l070_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1114",
+        "catalog_transition_1115",
+        "catalog_transition_1116",
+        "catalog_transition_1117",
+        "catalog_transition_1118",
+        "catalog_transition_1119",
+        "catalog_transition_1120",
+        "catalog_transition_1121"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XDE",
+      "trigger_type": "vm_opcode_0x55_restore_context_terminal",
+      "candidate_count": 10,
+      "context_config_candidates": [
+        "cfg_t48_l174_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1256",
+        "catalog_transition_1257",
+        "catalog_transition_1258",
+        "catalog_transition_1259",
+        "catalog_transition_1260",
+        "catalog_transition_1261",
+        "catalog_transition_1262",
+        "catalog_transition_1263"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X74",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 10,
+      "context_config_candidates": [
+        "cfg_t33_l146_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0046",
+        "catalog_transition_0047",
+        "catalog_transition_0048",
+        "catalog_transition_0049",
+        "catalog_transition_0050",
+        "catalog_transition_0051",
+        "catalog_transition_0052",
+        "catalog_transition_0053"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X94",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 10,
+      "context_config_candidates": [
+        "cfg_t08_l092_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0183",
+        "catalog_transition_0184",
+        "catalog_transition_0185",
+        "catalog_transition_0186",
+        "catalog_transition_0187",
+        "catalog_transition_0188",
+        "catalog_transition_0189",
+        "catalog_transition_0190"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB3",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 10,
+      "context_config_candidates": [
+        "cfg_t29_l138_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0423",
+        "catalog_transition_0424",
+        "catalog_transition_0425",
+        "catalog_transition_0426",
+        "catalog_transition_0427",
+        "catalog_transition_0428",
+        "catalog_transition_0429",
+        "catalog_transition_0430"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X82",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t04_l059_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1010",
+        "catalog_transition_1011",
+        "catalog_transition_1012",
+        "catalog_transition_1013",
+        "catalog_transition_1014",
+        "catalog_transition_1015",
+        "catalog_transition_1016",
+        "catalog_transition_1017"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XD5",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t53_l184_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1084",
+        "catalog_transition_1085",
+        "catalog_transition_1086",
+        "catalog_transition_1087",
+        "catalog_transition_1088",
+        "catalog_transition_1089",
+        "catalog_transition_1090",
+        "catalog_transition_1091"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X75",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t50_l178_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0056",
+        "catalog_transition_0057",
+        "catalog_transition_0058",
+        "catalog_transition_0059",
+        "catalog_transition_0060",
+        "catalog_transition_0061",
+        "catalog_transition_0062",
+        "catalog_transition_0063"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X89",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t45_l168_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0156",
+        "catalog_transition_0157",
+        "catalog_transition_0158",
+        "catalog_transition_0159",
+        "catalog_transition_0160",
+        "catalog_transition_0161",
+        "catalog_transition_0162",
+        "catalog_transition_0163"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X98",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t09_l097_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0204",
+        "catalog_transition_0205",
+        "catalog_transition_0206",
+        "catalog_transition_0207",
+        "catalog_transition_0208",
+        "catalog_transition_0209",
+        "catalog_transition_0210",
+        "catalog_transition_0211"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X99",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t21_l119_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0213",
+        "catalog_transition_0214",
+        "catalog_transition_0215",
+        "catalog_transition_0216",
+        "catalog_transition_0217",
+        "catalog_transition_0218",
+        "catalog_transition_0219",
+        "catalog_transition_0220"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XA8",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t23_l123_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0302",
+        "catalog_transition_0303",
+        "catalog_transition_0304",
+        "catalog_transition_0305",
+        "catalog_transition_0306",
+        "catalog_transition_0307",
+        "catalog_transition_0308",
+        "catalog_transition_0309"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XB7",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t47_l172_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0461",
+        "catalog_transition_0462",
+        "catalog_transition_0463",
+        "catalog_transition_0464",
+        "catalog_transition_0465",
+        "catalog_transition_0466",
+        "catalog_transition_0467",
+        "catalog_transition_0468"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XBE",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t13_l103_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0509",
+        "catalog_transition_0510",
+        "catalog_transition_0511",
+        "catalog_transition_0512",
+        "catalog_transition_0513",
+        "catalog_transition_0514",
+        "catalog_transition_0515",
+        "catalog_transition_0516"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE2",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 9,
+      "context_config_candidates": [
+        "cfg_t55_l192_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0631",
+        "catalog_transition_0632",
+        "catalog_transition_0633",
+        "catalog_transition_0634",
+        "catalog_transition_0635",
+        "catalog_transition_0636",
+        "catalog_transition_0637",
+        "catalog_transition_0638"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X78",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t46_l170_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0989",
+        "catalog_transition_0990",
+        "catalog_transition_0991",
+        "catalog_transition_0992",
+        "catalog_transition_0993",
+        "catalog_transition_0994",
+        "catalog_transition_0995",
+        "catalog_transition_0996"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X9B",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t22_l121_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0237",
+        "catalog_transition_0238",
+        "catalog_transition_0239",
+        "catalog_transition_0240",
+        "catalog_transition_0241",
+        "catalog_transition_0242",
+        "catalog_transition_0243",
+        "catalog_transition_0244"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XC3",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t14_l105_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0526",
+        "catalog_transition_0527",
+        "catalog_transition_0528",
+        "catalog_transition_0529",
+        "catalog_transition_0530",
+        "catalog_transition_0531",
+        "catalog_transition_0532",
+        "catalog_transition_0533"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XDB",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t51_l180_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0597",
+        "catalog_transition_0598",
+        "catalog_transition_0599",
+        "catalog_transition_0600",
+        "catalog_transition_0601",
+        "catalog_transition_0602",
+        "catalog_transition_0603",
+        "catalog_transition_0604"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XDC",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t51_l180_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0605",
+        "catalog_transition_0606",
+        "catalog_transition_0607",
+        "catalog_transition_0608",
+        "catalog_transition_0609",
+        "catalog_transition_0610",
+        "catalog_transition_0611",
+        "catalog_transition_0612"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE5",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t58_l196_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0648",
+        "catalog_transition_0649",
+        "catalog_transition_0650",
+        "catalog_transition_0651",
+        "catalog_transition_0652",
+        "catalog_transition_0653",
+        "catalog_transition_0654",
+        "catalog_transition_0655"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE9",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t31_l142_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0677",
+        "catalog_transition_0678",
+        "catalog_transition_0679",
+        "catalog_transition_0680",
+        "catalog_transition_0681",
+        "catalog_transition_0682",
+        "catalog_transition_0683",
+        "catalog_transition_0684"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XF5",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 8,
+      "context_config_candidates": [
+        "cfg_t50_l178_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0711",
+        "catalog_transition_0712",
+        "catalog_transition_0713",
+        "catalog_transition_0714",
+        "catalog_transition_0715",
+        "catalog_transition_0716",
+        "catalog_transition_0717",
+        "catalog_transition_0718"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X6E",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t05_l043_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0930",
+        "catalog_transition_0931",
+        "catalog_transition_0932",
+        "catalog_transition_0933",
+        "catalog_transition_0934",
+        "catalog_transition_0935",
+        "catalog_transition_0936"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XD0",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t53_l184_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1077",
+        "catalog_transition_1078",
+        "catalog_transition_1079",
+        "catalog_transition_1080",
+        "catalog_transition_1081",
+        "catalog_transition_1082",
+        "catalog_transition_1083"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XD8",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t53_l184_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1097",
+        "catalog_transition_1098",
+        "catalog_transition_1099",
+        "catalog_transition_1100",
+        "catalog_transition_1101",
+        "catalog_transition_1102",
+        "catalog_transition_1103"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XDF",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t03_l005_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1104",
+        "catalog_transition_1105",
+        "catalog_transition_1106",
+        "catalog_transition_1107",
+        "catalog_transition_1108",
+        "catalog_transition_1109",
+        "catalog_transition_1110"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X76",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t50_l178_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0065",
+        "catalog_transition_0066",
+        "catalog_transition_0067",
+        "catalog_transition_0068",
+        "catalog_transition_0069",
+        "catalog_transition_0070",
+        "catalog_transition_0071"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XBA",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t32_l144_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0483",
+        "catalog_transition_0484",
+        "catalog_transition_0485",
+        "catalog_transition_0486",
+        "catalog_transition_0487",
+        "catalog_transition_0488",
+        "catalog_transition_0489"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XBB",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t32_l144_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0490",
+        "catalog_transition_0491",
+        "catalog_transition_0492",
+        "catalog_transition_0493",
+        "catalog_transition_0494",
+        "catalog_transition_0495",
+        "catalog_transition_0496"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XC6",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t19_l113_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0553",
+        "catalog_transition_0554",
+        "catalog_transition_0555",
+        "catalog_transition_0556",
+        "catalog_transition_0557",
+        "catalog_transition_0558",
+        "catalog_transition_0559"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE0",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t55_l192_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0617",
+        "catalog_transition_0618",
+        "catalog_transition_0619",
+        "catalog_transition_0620",
+        "catalog_transition_0621",
+        "catalog_transition_0622",
+        "catalog_transition_0623"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE1",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t55_l192_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0624",
+        "catalog_transition_0625",
+        "catalog_transition_0626",
+        "catalog_transition_0627",
+        "catalog_transition_0628",
+        "catalog_transition_0629",
+        "catalog_transition_0630"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE4",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t58_l196_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0641",
+        "catalog_transition_0642",
+        "catalog_transition_0643",
+        "catalog_transition_0644",
+        "catalog_transition_0645",
+        "catalog_transition_0646",
+        "catalog_transition_0647"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XE6",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t58_l196_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0656",
+        "catalog_transition_0657",
+        "catalog_transition_0658",
+        "catalog_transition_0659",
+        "catalog_transition_0660",
+        "catalog_transition_0661",
+        "catalog_transition_0662"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XED",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t01_l001_v1",
+        "cfg_t20_l117_v1",
+        "cfg_t51_l180_v2"
+      ],
+      "context_config_total": 3,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_0688",
+        "catalog_transition_0689",
+        "catalog_transition_0690",
+        "catalog_transition_0691",
+        "catalog_transition_0692",
+        "catalog_transition_0693",
+        "catalog_transition_0694"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XF0",
+      "trigger_type": "vm_opcode_0x56_terminal",
+      "candidate_count": 7,
+      "context_config_candidates": [
+        "cfg_t01_l001_v1",
+        "cfg_t01_l002_v1",
+        "cfg_t04_l008_v2",
+        "cfg_t06_l037_v2",
+        "cfg_t55_l192_v2"
+      ],
+      "context_config_total": 5,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_0704",
+        "catalog_transition_0705",
+        "catalog_transition_0706",
+        "catalog_transition_0707",
+        "catalog_transition_0708",
+        "catalog_transition_0709",
+        "catalog_transition_0710"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X70",
+      "trigger_type": "vm_opcode_0x53_nonterminal_shape",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l045_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1195",
+        "catalog_transition_1196",
+        "catalog_transition_1197",
+        "catalog_transition_1198",
+        "catalog_transition_1199",
+        "catalog_transition_1200"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X5A",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l018_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0825",
+        "catalog_transition_0826",
+        "catalog_transition_0827",
+        "catalog_transition_0828",
+        "catalog_transition_0829",
+        "catalog_transition_0830"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X5B",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l018_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0831",
+        "catalog_transition_0832",
+        "catalog_transition_0833",
+        "catalog_transition_0834",
+        "catalog_transition_0835",
+        "catalog_transition_0836"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X5C",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l019_v1"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0837",
+        "catalog_transition_0838",
+        "catalog_transition_0839",
+        "catalog_transition_0840",
+        "catalog_transition_0841",
+        "catalog_transition_0842"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X5D",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l018_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0843",
+        "catalog_transition_0844",
+        "catalog_transition_0845",
+        "catalog_transition_0846",
+        "catalog_transition_0847",
+        "catalog_transition_0848"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X5E",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l018_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0849",
+        "catalog_transition_0850",
+        "catalog_transition_0851",
+        "catalog_transition_0852",
+        "catalog_transition_0853",
+        "catalog_transition_0854"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X5F",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t06_l021_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0855",
+        "catalog_transition_0856",
+        "catalog_transition_0857",
+        "catalog_transition_0858",
+        "catalog_transition_0859",
+        "catalog_transition_0860"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X6F",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l045_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0937",
+        "catalog_transition_0938",
+        "catalog_transition_0939",
+        "catalog_transition_0940",
+        "catalog_transition_0941",
+        "catalog_transition_0942"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X80",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t05_l020_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_0998",
+        "catalog_transition_0999",
+        "catalog_transition_1000",
+        "catalog_transition_1001",
+        "catalog_transition_1002",
+        "catalog_transition_1003"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0X81",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t04_l057_v2",
+        "cfg_t04_l058_v2"
+      ],
+      "context_config_total": 2,
+      "context_class": "multiple_pack_context_candidates",
+      "sample_transition_ids": [
+        "catalog_transition_1004",
+        "catalog_transition_1005",
+        "catalog_transition_1006",
+        "catalog_transition_1007",
+        "catalog_transition_1008",
+        "catalog_transition_1009"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    },
+    {
+      "script_pack": "0XF4",
+      "trigger_type": "vm_opcode_0x53_transition_wrapper_terminal",
+      "candidate_count": 6,
+      "context_config_candidates": [
+        "cfg_t06_l021_v2"
+      ],
+      "context_config_total": 1,
+      "context_class": "one_pack_context_candidate_not_proof",
+      "sample_transition_ids": [
+        "catalog_transition_1124",
+        "catalog_transition_1125",
+        "catalog_transition_1126",
+        "catalog_transition_1127",
+        "catalog_transition_1128",
+        "catalog_transition_1129"
+      ],
+      "next_proof": "Confirm event-record ownership, active pack/scene at trigger, and VM caller context in canonical ROM; never use pack equality alone."
+    }
+  ],
+  "policy": "Diagnostic grouping only; no graph promotion and no source Config ID assignment by script-pack identity.",
+  "next_evidence_focus": "Resolve the high-count VM opcode 0x56 families through event-script owner/caller context and native pack-state stack."
+}

@@ -64,3 +64,18 @@ not a simulation of permitted movement. Native C1:8955 exits are keyed by
 unique source/destination edges plus proven saved return origin, never by
 shared handler address alone. See
 docs/analysis/native_saved_return_graph_gate_20261010.md.
+
+
+## Research-only spatial gates and phase ambiguities
+
+The Viewer displays VM source hotspot coordinate predicates and makes a
+**tri-state distinction** for selected research coordinates: outside a proven
+trigger region is incompatible with that trigger; inside matches its
+coordinate clause but never proves the transition can fire. Current story
+flags, control-flow branches, and actual emulator position remain unresolved.
+The five pack-0xCE destination configuration candidates for CC:1160 are shown
+together without a synthetic graph edge or an invented phase selector.
+
+Source-unbound investigation queue:
+data/maps/transitions/source_unbound_investigation_queue.json
+Evidence memo: docs/analysis/transition_spatial_phase_source_triage_20261010.md.

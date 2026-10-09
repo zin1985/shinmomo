@@ -728,13 +728,38 @@ async function selectMap(m,focus=null,pack=undefined){
     const evidenceHint = document.createElement('small');
     const nb = e.native_boundary_context;
     const boundaryLabel = nb ? (nb.source_region.evidence_status === 'confirmed_exact_cell' ? ' | 出口座標確認済み' : ' | 出口範囲は候補') : '';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel;
+    // selectedFocus is a viewer research coordinate, NOT a live player state.
+    const spatial=e.activation_gate?.spatial_condition;
+    let researchPosition='';
+    if(forward&&spatial&&selectedFocus?.map_config_id===m.config_id&&
+       Number.isInteger(selectedFocus.grid_x)&&Number.isInteger(selectedFocus.grid_y)){
+      const x=selectedFocus.grid_x, y=selectedFocus.grid_y;
+      const inside=x>=spatial.x_min&&x<=spatial.x_max&&y>=spatial.y_min&&y<=spatial.y_max;
+      researchPosition=inside?' | 参照座標は発生範囲内（発火未証明）':' | 参照座標は発生範囲外';
+    }
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};
     edges.append(div);
   }
-  if(!es.length){ const p=document.createElement('div'); p.className='muted'; p.textContent='No bound transition edge for this map yet.'; edges.append(p); }
+  // A phase-ambiguous destination is not an executable edge. Present all
+  // candidates as inspectable evidence without choosing an arbitrary map.
+  const phaseRows=catalogCandidates.filter(e=>e.source_config_id===m.config_id&&e.phase_destination_ambiguity);
+  for(const e of phaseRows){
+    const phase=e.phase_destination_ambiguity;
+    const row=document.createElement('div');
+    row.className='edge strong';
+    const lead=document.createElement('strong');
+    lead.textContent='遷移先が複数候補：'+(e.trigger_addr||e.transition_id);
+    const note=document.createElement('small');
+    note.textContent=phase.candidate_config_ids.join(' / ')+' | 分岐条件未解読、現在の遷移先は未確定';
+    row.append(lead,note);
+    row.title='候補集合を表示します。いずれかへの移動が成立することは証明していません。';
+    row.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};
+    edges.append(row);
+  }
+  if(!es.length&&!phaseRows.length){ const p=document.createElement('div'); p.className='muted'; p.textContent='No bound transition edge for this map yet.'; edges.append(p); }
   const us=catalogCandidates.filter(e=>!e.source_config_id&&e.destination_config_id===m.config_id);
   q('#unboundCount').textContent='('+us.length+')';
   for(const e of us){

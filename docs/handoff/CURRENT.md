@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-10 spatial and phase gate:** 54 independent VM source regions now have conservative research-coordinate predicates, CC:1160 retains a five-config destination ambiguity, and 1,238 source-unbound transitions are triaged (721 opcode0x56 terminal). See docs/analysis/transition_spatial_phase_source_triage_20261010.md and progress/current_task.json; confirmed edges remain 3 of 56.
+
 > **2026-10-10 native return and graph gate:** Two native return contexts attached to existing bound edges; all 1,295 transitions preserve unresolved current-state activation. 56 edges and 3 confirmed unchanged. World graph audit: only 3/149 maps have bound outgoing edges. Read docs/analysis/native_saved_return_graph_gate_20261010.md and progress/current_task.json.
 
 > **2026-10-10 bounds graph update:** Viewer now has 56 edges (3 confirmed + 53 candidate), 110 new uniquely bounded destination configs, 1,173 resolved destination configs total. Resume from native-boundary context and phase-aware VM predicates; see docs/analysis/destination_bounds_viewer_overlay_20261010.md.
