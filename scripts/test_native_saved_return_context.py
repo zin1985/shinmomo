@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"tools/python"))
-from build_native_saved_return_context import rows, match_native_boundaries, edge_activation_gate
+from build_native_saved_return_context import rows, match_native_boundaries, attach_confirmed_return_variants, edge_activation_gate
 
 
 def edge(src="cfg_a",dest="cfg_b",confidence="confirmed",type="runtime_observed_map_transition"):
@@ -77,6 +77,38 @@ class NativeReturnTests(unittest.TestCase):
                 gate=edge_activation_gate(x)
                 self.assertEqual(gate["evaluation"],"unknown")
                 self.assertIs(gate["navigable_now"],False)
+
+    def test_coordinate_variants_preserve_representative_and_non_navigability(self):
+        import json
+        world=json.loads((ROOT/"viewer/data/world.json").read_text(encoding="utf-8"))
+        proof=json.loads((ROOT/"data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json").read_text(encoding="utf-8"))
+        result,summary=attach_confirmed_return_variants(world["transition_edges"],proof)
+        self.assertEqual(summary["confirmed_coordinate_pairs"],2)
+        chosen=[e for e in result if e.get("source_config_id")=="cfg_t04_l008_v2" and e.get("destination_config_id")=="cfg_t01_l001_v1"]
+        self.assertEqual(len(chosen),1)
+        edge=chosen[0]
+        self.assertEqual((edge["destination_x"],edge["destination_y"]),(54,237))
+        context=edge["native_boundary_context"]
+        self.assertEqual([(v["source_cell"]["x"],v["arrival"]["x"]) for v in context["coordinate_variants"]],[(28,54),(29,55)])
+        self.assertFalse(context["general_transform_verified"])
+        self.assertEqual(context["current_state_evaluation"],"unknown_without_saved_state_and_position")
+        self.assertIs(edge_activation_gate(edge)["navigable_now"],False)
+
+    def test_coordinate_variant_out_of_range_fails_closed(self):
+        import json
+        world=json.loads((ROOT/"viewer/data/world.json").read_text(encoding="utf-8"))
+        proof=json.loads((ROOT/"data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json").read_text(encoding="utf-8"))
+        proof["position_dependent_native_return"]["confirmed_coordinate_pairs"][1]["world_arrival"]["x"]=99
+        with self.assertRaisesRegex(ValueError,"Duplicate/invalid"):
+            attach_confirmed_return_variants(world["transition_edges"],proof)
+
+    def test_coordinate_variant_unsupported_formula_rejected(self):
+        import json
+        world=json.loads((ROOT/"viewer/data/world.json").read_text(encoding="utf-8"))
+        proof=json.loads((ROOT/"data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json").read_text(encoding="utf-8"))
+        proof["position_dependent_native_return"]["general_coordinate_transform_proven"]=True
+        with self.assertRaisesRegex(ValueError,"not independently proven"):
+            attach_confirmed_return_variants(world["transition_edges"],proof)
 
     def test_corpus_context_join(self):
         from crosslink_transition_sources_from_hotspots import rows as read_csv

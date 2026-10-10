@@ -714,20 +714,34 @@ async function selectMap(m,focus=null,pack=undefined){
     const forward=e.source_config_id===m.config_id;
     const other=forward?e.destination_config_id:e.source_config_id;
     const otherName=byId.has(other)?mapDisplayName(byId.get(other)):other;
-    const arrival=(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
+    const coordVariants=e.native_boundary_context?.coordinate_variants||[];
+    const arrival=coordVariants.length>1
+      ?' | 座標別：'+coordVariants.map(v=>'('+v.source_cell.x+','+v.source_cell.y+')→('+v.arrival.x+','+v.arrival.y+')').join(' / ')
+      :(e.destination_x!=null&&e.destination_y!=null)?' @ ('+e.destination_x+','+e.destination_y+')':'';
     div.append(document.createTextNode((forward?'遶翫・':'遶翫・')+otherName+' | '+(e.trigger_type||'transition')+arrival+' | '+e.confidence));
     const go=document.createElement('button'); go.className='edgeGo'; go.textContent='inspect map'; go.title='Analysis preview only: story conditions and player state are not verified.';
     go.onclick=ev=>{
       ev.stopPropagation();
       if(byId.has(other)){
-        const focus=forward&&e.destination_x!=null&&e.destination_y!=null?{map_config_id:other,grid_x:e.destination_x,grid_y:e.destination_y}:null;
+        let focus=forward&&e.destination_x!=null&&e.destination_y!=null?{map_config_id:other,grid_x:e.destination_x,grid_y:e.destination_y}:null;
+        if(forward&&coordVariants.length>1){
+          // Dynamic return: never silently select the representative
+          // destination when the investigated source cell is unknown.
+          const matched=selectedFocus?.map_config_id===m.config_id
+            ?coordVariants.find(v=>v.source_cell.x===selectedFocus.grid_x&&v.source_cell.y===selectedFocus.grid_y)
+            :null;
+          focus=matched?{map_config_id:other,grid_x:matched.arrival.x,grid_y:matched.arrival.y}:null;
+        }
         const targetPack=forward?(e.destination_pack||null):(e.source_pack||null);
         selectMap(byId.get(other),focus,targetPack);
       }
     };
     const evidenceHint = document.createElement('small');
     const nb = e.native_boundary_context;
-    const boundaryLabel = nb ? (nb.source_region.evidence_status === 'confirmed_exact_cell' ? ' | 出口座標確認済み' : ' | 出口範囲は候補') : '';
+    const boundaryLabel = nb
+      ? ((nb.source_region.evidence_status === 'confirmed_exact_cell' ? ' | 出口座標確認済み' : ' | 出口範囲は候補')
+        +(coordVariants.length>1?' | 座標別到着先 '+coordVariants.length+'件':''))
+      : '';
     // selectedFocus is a viewer research coordinate, NOT a live player state.
     const spatial=e.activation_gate?.spatial_condition;
     let researchPosition='';

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from crosslink_transition_sources_from_hotspots import crosslink as crosslink_sources
 from crosslink_destination_bounds_for_viewer import join_destination_bounds
-from build_native_saved_return_context import (match_native_boundaries, edge_activation_gate, rows as read_native_rows)
+from build_native_saved_return_context import (match_native_boundaries, attach_confirmed_return_variants, edge_activation_gate, rows as read_native_rows)
 from transition_gate_predicates import annotate_edge_gate, phase_ambiguity_for
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -883,6 +883,12 @@ def main():
         )
         if native_context_summary["rejected"]:
             raise ValueError(f"Unresolved native saved-return join contradictions: {native_context_summary['rejected']}")
+        variant_proof_path = TRANSITIONS / "tabidachi_x29_world_x55_roundtrip_20261011.json"
+        if variant_proof_path.exists():
+            proof = json.loads(variant_proof_path.read_text(encoding="utf-8"))
+            transition_edges, variant_summary = attach_confirmed_return_variants(
+                transition_edges, proof)
+            native_context_summary["position_dependent_coordinate_variants"] = variant_summary
         matched_native = {
             e["transition_id"]: e for e in transition_edges if e.get("native_boundary_context")
         }

@@ -122,6 +122,73 @@ def match_native_boundaries(
                     "attached":attached, "rejected":rejected}
 
 
+
+def attach_confirmed_return_variants(edges: list[dict], proof: dict) -> tuple[list[dict], dict]:
+    """Annotate one native edge with exactly proven coordinate-pair variants.
+
+    This NEVER changes the graph's representative arrival, confidence,
+    or navigable_now. A coordinate offset extrapolation is NOT inferred.
+    """
+    if proof.get("kind") != "verified_coordinate_sensitive_village_world_roundtrip":
+        raise ValueError("Wrong native coordinate variant evidence")
+    src=proof["village_to_world"]["source_config_id"]
+    dst=proof["village_to_world"]["destination_config_id"]
+    variants=proof["position_dependent_native_return"]["confirmed_coordinate_pairs"]
+    if not isinstance(variants,list) or len(variants)<2:
+        raise ValueError("At least two independently proven coordinate pairs required")
+    if proof["position_dependent_native_return"]["general_coordinate_transform_proven"] is not False:
+        raise ValueError("General coordinate transform is not independently proven")
+    targets=[i for i,e in enumerate(edges) if
+             e.get("source_config_id")==src and e.get("destination_config_id")==dst
+             and e.get("native_boundary_context")]
+    if len(targets)!=1:
+        raise ValueError("No unique native saved-return context for coordinate variants")
+    idx=targets[0]
+    original=edges[idx]
+    ctx=original["native_boundary_context"]
+    if (ctx.get("source_region",{}).get("evidence_status")!="confirmed_exact_cell" or
+        ctx.get("current_state_evaluation")!="unknown_without_saved_state_and_position"):
+        raise ValueError("Native return edge source/context not independently proven")
+    bound=ctx["saved_return_source_rectangle"]
+    representative=(ctx["source_region"]["x"],ctx["source_region"]["y"],
+                    original["destination_x"],original["destination_y"])
+    seen_src=set()
+    normalized=[]
+    representative_count=0
+    for variant in variants:
+        spot=variant["source_village_cell"]
+        arrival=variant["world_arrival"]
+        x,y,dx,dy=spot["x"],spot["y"],arrival["x"],arrival["y"]
+        if not all(type(v) is int for v in (x,y,dx,dy)):
+            raise ValueError("Non-integer coordinate in native variant")
+        if (x,y) in seen_src or not (bound["x_min"]<=dx<=bound["x_max"]
+                                  and bound["y_min"]<=dy<=bound["y_max"]):
+            raise ValueError("Duplicate/invalid native source or return coordinate")
+        seen_src.add((x,y))
+        representative_count+=int((x,y,dx,dy)==representative)
+        normalized.append({
+            "source_cell":{"x":x,"y":y},
+            "arrival":{"x":dx,"y":dy},
+            "confidence":"confirmed_runtime_exact_pair",
+            "evidence":variant["evidence"],
+        })
+    if representative_count!=1:
+        raise ValueError("Canonical representative edge is not contained in runtime variant pairs")
+    if not any(v["source_cell"]==proof["village_to_world"]["confirmed_exit_cell"]
+               and v["arrival"]==proof["village_to_world"]["arrival"] for v in normalized):
+        raise ValueError("Newer runtime replay is not represented in native coordinate alternatives")
+    result=[dict(e) for e in edges]
+    new_ctx=dict(ctx)
+    new_ctx["coordinate_variants"]=normalized
+    new_ctx["destination_coordinate_is_source_dependent"]=True
+    new_ctx["coordinate_variant_scope"]="observed_exact_cells_only"
+    new_ctx["general_transform_verified"]=False
+    # An observed historical transition is not necessarily currently navigable.
+    result[idx]["native_boundary_context"]=new_ctx
+    return result,{"variant_edge_count":1,"confirmed_coordinate_pairs":len(normalized),
+                   "source_config_id":src,"destination_config_id":dst}
+
+
 def edge_activation_gate(edge: dict):
     """Tri-state conservative execution metadata; not a fake predicate decoder.
 

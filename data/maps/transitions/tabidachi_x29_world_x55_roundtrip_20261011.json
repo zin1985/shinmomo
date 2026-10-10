@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "kind": "verified_coordinate_sensitive_village_world_roundtrip",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "village_to_world": {
+    "mechanism": "native_out_of_bounds_saved_map_return",
+    "source_config_id": "cfg_t04_l008_v2",
+    "source_pack": "0x50",
+    "confirmed_exit_cell": {
+      "x": 29,
+      "y": 55
+    },
+    "last_inside_frame": 662176,
+    "first_outside_cell": {
+      "x": 29,
+      "y": 56
+    },
+    "first_outside_frame": 662177,
+    "switch_frame": 662186,
+    "destination_config_id": "cfg_t01_l001_v1",
+    "destination_pack": "0x4C",
+    "arrival": {
+      "x": 55,
+      "y": 237
+    },
+    "input_frames": 20,
+    "cpu_handler_execution_observed": false
+  },
+  "world_to_village": {
+    "mechanism": "world_coordinate_VM0x53_candidate_from_static_ROM_not_CPU_proven",
+    "source_config_id": "cfg_t01_l001_v1",
+    "world_entry_point": {
+      "x": 55,
+      "y": 237
+    },
+    "world_entry_first_frame": 663048,
+    "switch_to_pack_0x50_frame": 663064,
+    "destination_config_id": "cfg_t04_l008_v2",
+    "settled_arrival": {
+      "x": 29,
+      "y": 55
+    },
+    "settled_arrival_frame": 663224,
+    "static_candidate_opcode_addr": "CC:0B08",
+    "input_frames": 18,
+    "cpu_vm_opcode_execution_observed": false
+  },
+  "position_dependent_native_return": {
+    "confirmed_coordinate_pairs": [
+      {
+        "source_village_cell": {
+          "x": 28,
+          "y": 55
+        },
+        "world_arrival": {
+          "x": 54,
+          "y": 237
+        },
+        "evidence": "data/maps/transitions/tabidachi_south_boundary_to_world_20260930.json"
+      },
+      {
+        "source_village_cell": {
+          "x": 29,
+          "y": 55
+        },
+        "world_arrival": {
+          "x": 55,
+          "y": 237
+        },
+        "evidence": "data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json"
+      }
+    ],
+    "full_exit_width_proven": false,
+    "general_coordinate_transform_proven": false,
+    "note": "Two adjacent observed pairs support an offset hypothesis, not a full-world mapping formula."
+  },
+  "local_raw_capture_sha256": {
+    "village_to_world": "D1502CF6A41305652029B70CCBB7D8D086F11B6E13C7768D6EF9933B98286427",
+    "world_to_village": "BDC4F7A76CAE130CDCE7A841A7755ADE73B3897092C912BE03228994A3AFD4CC",
+    "settled_arrival": "2973428E2514AB321F496E1EBD69680980207A660DED281EB72E860ED38A00B2"
+  },
+  "raw_capture_committed": false,
+  "cpu_hook_events_observed": 0,
+  "new_graph_edge_promoted": false,
+  "confidence": "two_direction_frame_exact_runtime_state_and_coordinate_proof"
+}

@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Extend frame-exact native and scripted world traversal runtime coverage",
-  "base_main_head_verified": "19252f592ab5a69d93c76498868ad797b4cbf546",
+  "title": "Use frame-exact coordinate-sensitive map transitions to expand village/world/dungeon traversal",
+  "base_main_head_verified": "9d14f862ec4859517fbf0cd35b2fbdb10508c932",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Diagnose BizHawk SNES event.onmemoryexecute/onmemorywrite callbacks: 34 hooks gave zero hits during proven native map0x2E->0x50 switch. Registration not equivalent to functioning instrumentation."
+      "action": "Diagnose unsupported/untriggered BizHawk execution/write hooks: 34 registered, no hit across known native transitions. Add bounded in-bridge framewise WRAM capture fallback for high-fidelity efficient event verification."
     },
     {
       "order": 2,
-      "action": "Add framewise WRAM snapshot fallback within a single hidden vm-trace-gamepad command to capture precise map changes without relying on unverified CPU hooks."
+      "action": "Extend protected run to world->village->interior and village->world return with exact timestamps; obtain actual VM opcode0x53/0x56 execution state where possible."
     },
     {
       "order": 3,
-      "action": "From village pack0x50 navigate to south exit x28,y55, world pack0x4C, with protected state, exact frame and screenshots; work toward world-village-interior-village-world round trip."
+      "action": "Apply coordinate-specific runtime arrival variant support to other villages, buildings, dungeon floors. Do not extrapolate unproven full corridor widths or arrival transformation from two samples."
     },
     {
       "order": 4,
-      "action": "For scripted opcode 0x56, prove actual VM caller, normal mode and source map before any source binding; do not treat native returns as opcode0x56."
+      "action": "Continue unresolved VM56 script event callers and mode/active source-map proof; new x29 native return is distinct from VM56."
     },
     {
       "order": 5,
-      "action": "Continue CC:1160 phase predicate, pack0x96 arrival XY and 712 unframed VM56 owner backlog."
+      "action": "Investigate CC:1160 story-phase-dependent destination variants and pack0x96 missing arrival XY."
     }
   ],
   "do_not_redo": [
@@ -844,42 +844,53 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Confirmed x9/y12 center native exit from Tabidachi interior 0x2E to village 0x50 at exact frame 661546",
-    "source_config_id": "cfg_t07_l015_v2",
-    "source_pack": "0x2E",
-    "source_confirmed_exact_xy": [
-      9,
-      12
-    ],
-    "first_outside_frame": 661536,
-    "first_outside_xy": [
-      9,
-      13
-    ],
-    "switch_frame": 661546,
-    "destination_config_id": "cfg_t04_l008_v2",
-    "destination_pack": "0x50",
-    "destination_xy": [
+    "description": "Verified Tabidachi village/world both ways and integrated two coordinate-specific native return arrivals in Viewer without extra graph edges",
+    "village_to_world_pack": "0x50->0x4C",
+    "village_exit_exact_source": [
       29,
-      17
+      55
     ],
-    "exact_input_frames": 23,
-    "dedicated_emulator_pid": 24324,
-    "native_plus_vm_hooks_registered": 34,
-    "actual_hook_hit_count": 0,
-    "hook_delivery_proven": false,
-    "raw_capture_committed": false,
-    "viewer_native_source_region_exact": true,
+    "world_arrival_exact": [
+      55,
+      237
+    ],
+    "village_exit_world_switch_frame": 662186,
+    "prior_independent_exit_source": [
+      28,
+      55
+    ],
+    "prior_world_arrival": [
+      54,
+      237
+    ],
+    "world_entry_source": [
+      55,
+      237
+    ],
+    "world_to_village_pack": "0x4C->0x50",
+    "world_entry_pack_switch_frame": 663064,
+    "village_settled_arrival": [
+      29,
+      55
+    ],
+    "settled_arrival_frame": 663224,
+    "coordinate_pairs_confirmed": 2,
+    "general_arrival_transform_proven": false,
+    "actual_CPU_VM53_handler_seen": false,
+    "CPU_hooks_registered": 34,
+    "CPU_hook_hits": 0,
     "viewer_map_count": 149,
     "viewer_bound_edge_count": 56,
     "new_graph_edges": 0,
-    "official_project_completion_unchanged": 51.4,
+    "new_source_config_promotions": 0,
+    "official_overall_percent_unchanged": 51.4,
     "evidence": [
-      "data/maps/transitions/pack2e_exact_south_exit_20261011.json",
-      "docs/analysis/native_pack2e_south_exit_frame_exact_20261011.md",
-      "data/maps/transitions/source_transition_hotspots.csv",
-      "tools/python/verify_native_south_exit_replay.py",
-      "scripts/test_native_south_exit_replay.py"
+      "data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json",
+      "docs/analysis/tabidachi_world_coordinate_variants_20261011.md",
+      "scripts/test_tabidachi_world_roundtrip.py",
+      "tools/python/verify_tabidachi_world_roundtrip.py",
+      "tools/python/build_native_saved_return_context.py",
+      "viewer/data/world.json"
     ]
   },
   "completed_work_units": [
@@ -1114,6 +1125,46 @@
         "tools/remote_lab/shinmomo_background_lab.ps1",
         "tools/python/audit_vm_execution_trace.py",
         "scripts/test_vm_execution_trace_audit.py"
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Confirmed x9/y12 center native exit from Tabidachi interior 0x2E to village 0x50 at exact frame 661546",
+      "source_config_id": "cfg_t07_l015_v2",
+      "source_pack": "0x2E",
+      "source_confirmed_exact_xy": [
+        9,
+        12
+      ],
+      "first_outside_frame": 661536,
+      "first_outside_xy": [
+        9,
+        13
+      ],
+      "switch_frame": 661546,
+      "destination_config_id": "cfg_t04_l008_v2",
+      "destination_pack": "0x50",
+      "destination_xy": [
+        29,
+        17
+      ],
+      "exact_input_frames": 23,
+      "dedicated_emulator_pid": 24324,
+      "native_plus_vm_hooks_registered": 34,
+      "actual_hook_hit_count": 0,
+      "hook_delivery_proven": false,
+      "raw_capture_committed": false,
+      "viewer_native_source_region_exact": true,
+      "viewer_map_count": 149,
+      "viewer_bound_edge_count": 56,
+      "new_graph_edges": 0,
+      "official_project_completion_unchanged": 51.4,
+      "evidence": [
+        "data/maps/transitions/pack2e_exact_south_exit_20261011.json",
+        "docs/analysis/native_pack2e_south_exit_frame_exact_20261011.md",
+        "data/maps/transitions/source_transition_hotspots.csv",
+        "tools/python/verify_native_south_exit_replay.py",
+        "scripts/test_native_south_exit_replay.py"
       ]
     }
   ]

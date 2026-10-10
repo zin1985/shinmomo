@@ -79,3 +79,16 @@ together without a synthetic graph edge or an invented phase selector.
 Source-unbound investigation queue:
 data/maps/transitions/source_unbound_investigation_queue.json
 Evidence memo: docs/analysis/transition_spatial_phase_source_triage_20261010.md.
+
+
+## Coordinate-dependent native saved-return arrivals (2026-10-11)
+
+The existing Tabidachi village -> world native saved-return edge now
+carries TWO separately runtime-confirmed exact source/arrival pairs:
+(28,55)->(54,237) and (29,55)->(55,237). They are NOT an
+extrapolated formula or a proven full-width exit corridor. Selecting
+the map without a grounded source coordinate does not arbitrarily
+focus the previous representative arrival (54,237). The edge remains
+a research preview; saved return stack and story state are not
+automatically evaluated. Evidence:
+docs/analysis/tabidachi_world_coordinate_variants_20261011.md.
