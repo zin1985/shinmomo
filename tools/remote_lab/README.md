@@ -203,3 +203,27 @@ WARNING: 34 registered BizHawk VM/native execution and WRAM-write
 hooks logged zero events even during a confirmed native map switch.
 Their callback delivery is not validated on this core. Exact
 per-frame WRAM samples, not zero-hit hooks, prove this return.
+
+
+## Single-command contiguous frame-end WRAM traces (2026-10-11)
+
+Use the isolated, hidden BizHawk for one-command captures:
+
+    & .	oolsemote_lab\shinmomo_background_lab.ps1 -Action vm-frames -Frames 60
+    & .	oolsemote_lab\shinmomo_background_lab.ps1 -Action vm-frames-gamepad -Buttons Down -Player 1 -Frames 23
+
+One to 120 frames each. Per-frame data includes $0305 map pack,
+$035F/$1398 VM mode, pointer $98-$9A, x/y, entry and saved map bytes.
+All raw samples remain in the LOCAL captures directory, not Git.
+Audit with:
+
+    py -3 tools/python/audit_vm_frame_series.py --trace LOCAL_VMFRAMES_JSON
+
+This uses the *working* frame-end hook, not the unverified
+execution/write hooks. 35 registered execution/write hooks still
+captured zero events on a confirmed native map switch. The recorded
+WRAM changes are frame-exact but do NOT prove VM opcode execution.
+
+Details, timing, and reproduction in
+docs/analysis/hidden_frame_series_fallback_20261011.md.
+Restore the originally protected dedicated emulator state after tests.

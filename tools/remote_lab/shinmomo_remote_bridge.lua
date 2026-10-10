@@ -313,6 +313,8 @@ local function vmtrace_baseline_json(label)
     ',"ptr9a_bank":', json_num(bank),
     ',"w1573":', json_num(read8(0x1573, "WRAM")),
     ',"w157d":', json_num(read8(0x157D, "WRAM")),
+    ',"w15cf":', json_num(read8(0x15CF, "WRAM")),
+    ',"w15d0":', json_num(read8(0x15D0, "WRAM")),
     '}'
   })
 end
@@ -837,6 +839,66 @@ local function do_vm_trace(id, frames_s, button_csv, player_s)
   respond(id, "OK", path)
 end
 
+-- Single-command, bounded and frame-complete WRAM journal. Unlike
+-- execution callbacks, the frame-end sampler is known to run on this
+-- BizHawk SNES core. Neither gamepad nor neutral mode touches the desktop.
+local function do_vm_frame_series(id, frames_s, button_csv, player_s)
+  local frames = tonumber(frames_s)
+  if not frames or frames ~= math.floor(frames) or frames < 1 or frames > 120 then
+    respond(id, "ERR", "frame series requires 1..120 exact frames")
+    return
+  end
+  local buttons, player = nil, nil
+  if button_csv ~= nil then
+    local err
+    buttons, err = parse_buttons(button_csv)
+    if not buttons then
+      respond(id, "ERR", "bad isolated controller buttons: " .. tostring(err))
+      return
+    end
+    player = tonumber(player_s)
+    if not player or player ~= math.floor(player) or player < 1 or player > 4 then
+      respond(id, "ERR", "invalid player 1..4")
+      return
+    end
+  end
+  local samples = {}
+  local before = vmtrace_baseline_json("before")
+  -- after_each executes at event.onframeend, rather than a PC hook.
+  local ok_run, result = advance_exact(frames, buttons, player,
+    function(n) samples[#samples+1] = vmtrace_baseline_json("sample") end)
+  local after = vmtrace_baseline_json("after")
+  if not ok_run then
+    respond(id, "ERR", "frame series failed: " .. tostring(result))
+    return
+  end
+  if #samples ~= frames or result ~= frames then
+    respond(id, "ERR", "frame sampling incomplete: " .. tostring(#samples))
+    return
+  end
+  local payload = table.concat({
+    '{"kind":"isolated_vm_frame_series","schema_version":1,',
+    '"requested_frames":', tostring(frames), ",",
+    '"advanced_frames":', tostring(result), ",",
+    '"input_sent":', tostring(buttons~=nil), ",",
+    '"input_device":', json_quote(buttons and "isolated_snes_gamepad" or "none"), ",",
+    '"buttons":', json_quote(button_csv or ""), ",",
+    '"player":', json_num(player), ",",
+    '"sampling_method":"onframeend_WRAM_no_PC_hook",',
+    '"cpu_execution_hook_delivery_proven":false,',
+    '"before":', before, ",",
+    '"after":', after, ",",
+    '"samples":[', table.concat(samples, ","), "]}"
+  })
+  local path = CAPTURES .. SEP .. "vmframes_" .. clean_id(id) .. ".json"
+  local ok_write, err = write_all(path, payload)
+  if not ok_write then
+    respond(id, "ERR", "frame series write failed: " .. tostring(err))
+    return
+  end
+  respond(id, "OK", path)
+end
+
 local function do_write_memory(id, domain, start_s, bytes_s)
   local start = parse_num(start_s)
   if not start or start < 0 then
@@ -997,6 +1059,16 @@ local function process_command()
 
   if cmd == "WRITE_MEMORY" then
     do_write_memory(id, p[3] or "WRAM", p[4] or "0", p[5] or "")
+    return
+  end
+
+  if cmd == "VM_FRAME_SERIES" then
+    do_vm_frame_series(id, p[3] or "1")
+    return
+  end
+
+  if cmd == "VM_FRAME_SERIES_GAMEPAD" then
+    do_vm_frame_series(id, p[3] or "1", p[4] or "", p[5] or "1")
     return
   end
 
@@ -1194,6 +1266,17 @@ if native_pack_write_ok then
 else
   vmtrace_hook_errors[#vmtrace_hook_errors+1] =
     "WRAM:0305:" .. tostring(native_pack_write_error)
+end
+
+-- Diagnostic WRAM-domain write hook: registration is not execution proof.
+local wram_write_ok, wram_write_err = pcall(event.onmemorywrite,
+  function() vmtrace_record("native_pack_0305_write", "WRAM-domain:0305") end,
+  0x0305, "shinmomo_vmtrace_wram_0305_write", "WRAM")
+if wram_write_ok then
+  vmtrace_hook_registered = vmtrace_hook_registered + 1
+else
+  vmtrace_hook_errors[#vmtrace_hook_errors+1] =
+    "WRAM-domain:0305:" .. tostring(wram_write_err)
 end
 
 -- Direct WRAM write watches are the primary Goal13 runtime trigger. The prior

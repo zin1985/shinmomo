@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Use frame-exact coordinate-sensitive map transitions to expand village/world/dungeon traversal",
-  "base_main_head_verified": "9d14f862ec4859517fbf0cd35b2fbdb10508c932",
+  "title": "Apply continuous hidden frame-end WRAM recorder to scripted and dungeon transitions",
+  "base_main_head_verified": "3dfda222a4911cfc28e663240525d41ddf4fa8c7",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Diagnose unsupported/untriggered BizHawk execution/write hooks: 34 registered, no hit across known native transitions. Add bounded in-bridge framewise WRAM capture fallback for high-fidelity efficient event verification."
+      "action": "Trace a known scripted VM 0x53/0x56 event in the isolated lab with continuous onframeend WRAM sampling; correlate source map, $98-$9A pointer, $035F/$1398 VM mode, $0305, saved-state return and actual settled destination without presuming CPU hook delivery."
     },
     {
       "order": 2,
-      "action": "Extend protected run to world->village->interior and village->world return with exact timestamps; obtain actual VM opcode0x53/0x56 execution state where possible."
+      "action": "Investigate BizHawk SNES execute/write callback delivery: 35 registered hooks with zero events during a confirmed native boundary map switch. Consider core-level limitations and register addresses; no invented proof."
     },
     {
       "order": 3,
-      "action": "Apply coordinate-specific runtime arrival variant support to other villages, buildings, dungeon floors. Do not extrapolate unproven full corridor widths or arrival transformation from two samples."
+      "action": "Apply coordinate-specific arrival variant logic to further villages, interiors and dungeon floors with exact source and post-settle target validation."
     },
     {
       "order": 4,
-      "action": "Continue unresolved VM56 script event callers and mode/active source-map proof; new x29 native return is distinct from VM56."
+      "action": "Obtain true runtime callers for 10 framed VM56 targets, including callback C4:9535 and 712 unframed owner backlogs."
     },
     {
       "order": 5,
-      "action": "Investigate CC:1160 story-phase-dependent destination variants and pack0x96 missing arrival XY."
+      "action": "Continue CC:1160 phase-dependent event destination and pack0x96 arrival coordinate resolution."
     }
   ],
   "do_not_redo": [
@@ -844,53 +844,37 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Verified Tabidachi village/world both ways and integrated two coordinate-specific native return arrivals in Viewer without extra graph edges",
-    "village_to_world_pack": "0x50->0x4C",
-    "village_exit_exact_source": [
-      29,
-      55
+    "description": "Implemented single-command frame-end WRAM recorder with proven 23/20/18/120-frame map return replay consistency",
+    "new_commands": [
+      "vm-frames",
+      "vm-frames-gamepad"
     ],
-    "world_arrival_exact": [
-      55,
-      237
+    "bounded_frames_per_request": 120,
+    "exact_frame_series_successful": true,
+    "measured_scenarios": 4,
+    "measured_switch_frames": [
+      661546,
+      662186,
+      663064
     ],
-    "village_exit_world_switch_frame": 662186,
-    "prior_independent_exit_source": [
-      28,
-      55
-    ],
-    "prior_world_arrival": [
-      54,
-      237
-    ],
-    "world_entry_source": [
-      55,
-      237
-    ],
-    "world_to_village_pack": "0x4C->0x50",
-    "world_entry_pack_switch_frame": 663064,
-    "village_settled_arrival": [
-      29,
-      55
-    ],
-    "settled_arrival_frame": 663224,
-    "coordinate_pairs_confirmed": 2,
-    "general_arrival_transform_proven": false,
-    "actual_CPU_VM53_handler_seen": false,
-    "CPU_hooks_registered": 34,
-    "CPU_hook_hits": 0,
-    "viewer_map_count": 149,
-    "viewer_bound_edge_count": 56,
-    "new_graph_edges": 0,
-    "new_source_config_promotions": 0,
-    "official_overall_percent_unchanged": 51.4,
+    "first_settled_village_arrival_frame": 663169,
+    "switch_to_settled_arrival_delay_frames": 105,
+    "hook_registration_count": 35,
+    "hook_events_during_known_native_transition": 0,
+    "execution_hook_delivery_proven": false,
+    "frame_end_sampling_delivery_proven": true,
+    "existing_graph_edges_added": 0,
+    "viewer_map_count_unchanged": 149,
+    "viewer_edges_unchanged": 56,
+    "overall_project_progress_percent_unchanged": 51.4,
     "evidence": [
-      "data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json",
-      "docs/analysis/tabidachi_world_coordinate_variants_20261011.md",
-      "scripts/test_tabidachi_world_roundtrip.py",
-      "tools/python/verify_tabidachi_world_roundtrip.py",
-      "tools/python/build_native_saved_return_context.py",
-      "viewer/data/world.json"
+      "docs/analysis/hidden_frame_series_fallback_20261011.md",
+      "data/maps/transitions/tabidachi_frame_series_replay_20261011.json",
+      "tools/remote_lab/shinmomo_remote_bridge.lua",
+      "tools/python/audit_vm_frame_series.py",
+      "tools/python/verify_vm_frame_series_replays.py",
+      "scripts/test_vm_frame_series_audit.py",
+      "scripts/test_vm_frame_series_replays.py"
     ]
   },
   "completed_work_units": [
@@ -1165,6 +1149,57 @@
         "data/maps/transitions/source_transition_hotspots.csv",
         "tools/python/verify_native_south_exit_replay.py",
         "scripts/test_native_south_exit_replay.py"
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Verified Tabidachi village/world both ways and integrated two coordinate-specific native return arrivals in Viewer without extra graph edges",
+      "village_to_world_pack": "0x50->0x4C",
+      "village_exit_exact_source": [
+        29,
+        55
+      ],
+      "world_arrival_exact": [
+        55,
+        237
+      ],
+      "village_exit_world_switch_frame": 662186,
+      "prior_independent_exit_source": [
+        28,
+        55
+      ],
+      "prior_world_arrival": [
+        54,
+        237
+      ],
+      "world_entry_source": [
+        55,
+        237
+      ],
+      "world_to_village_pack": "0x4C->0x50",
+      "world_entry_pack_switch_frame": 663064,
+      "village_settled_arrival": [
+        29,
+        55
+      ],
+      "settled_arrival_frame": 663224,
+      "coordinate_pairs_confirmed": 2,
+      "general_arrival_transform_proven": false,
+      "actual_CPU_VM53_handler_seen": false,
+      "CPU_hooks_registered": 34,
+      "CPU_hook_hits": 0,
+      "viewer_map_count": 149,
+      "viewer_bound_edge_count": 56,
+      "new_graph_edges": 0,
+      "new_source_config_promotions": 0,
+      "official_overall_percent_unchanged": 51.4,
+      "evidence": [
+        "data/maps/transitions/tabidachi_x29_world_x55_roundtrip_20261011.json",
+        "docs/analysis/tabidachi_world_coordinate_variants_20261011.md",
+        "scripts/test_tabidachi_world_roundtrip.py",
+        "tools/python/verify_tabidachi_world_roundtrip.py",
+        "tools/python/build_native_saved_return_context.py",
+        "viewer/data/world.json"
       ]
     }
   ]

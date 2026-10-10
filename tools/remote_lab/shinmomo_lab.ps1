@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","vm-trace","vm-trace-gamepad","capture-memory","write-memory","save-state","load-state")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","vm-trace","vm-trace-gamepad","vm-frames","vm-frames-gamepad","capture-memory","write-memory","save-state","load-state")]
   [string]$Command,
 
   [int]$X = 0,
@@ -240,6 +240,33 @@ public static class ShinMomoMouse {
     Emit-Result @{ok=$true; command='vm-trace-gamepad'; path=$path; frames=$report.advanced_frames;
       events=@($report.events).Count; hook_registered=$report.hook_registered; hook_errors=$report.hook_errors;
       input_sent=$true; input_device=$report.input_device; buttons=$Buttons; player=$Player}
+  }
+
+  "vm-frames" {
+    if ($Frames -lt 1 -or $Frames -gt 120) {throw "-Frames must be 1..120."}
+    $path=Invoke-Bridge @("VM_FRAME_SERIES", "$Frames")
+    if (!(Test-Path -LiteralPath $path)) {throw "Frame series JSON missing"}
+    $report=Get-Content -LiteralPath $path -Raw -Encoding UTF8|ConvertFrom-Json
+    if ($report.kind -ne "isolated_vm_frame_series" -or $report.input_sent -ne $false -or
+        @($report.samples).Count -ne $Frames) {throw "Frame series validation failed"}
+    Emit-Result @{ok=$true;command="vm-frames";path=$path;frames=$report.advanced_frames;
+       samples=@($report.samples).Count;input_sent=$false}
+  }
+
+  "vm-frames-gamepad" {
+    if ($Frames -lt 1 -or $Frames -gt 120 -or $Player -lt 1 -or $Player -gt 4) {throw "Invalid frame count/player"}
+    if ($Buttons -notmatch '^(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select)(?:[, ]+(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select))*$') {
+      throw "Only isolated SNES buttons are supported"
+    }
+    $path=Invoke-Bridge @("VM_FRAME_SERIES_GAMEPAD", "$Frames", $Buttons, "$Player")
+    if (!(Test-Path -LiteralPath $path)) {throw "Frame series JSON missing"}
+    $report=Get-Content -LiteralPath $path -Raw -Encoding UTF8|ConvertFrom-Json
+    if ($report.kind -ne "isolated_vm_frame_series" -or $report.input_sent -ne $true -or
+        $report.input_device -ne "isolated_snes_gamepad" -or @($report.samples).Count -ne $Frames) {
+      throw "Isolated frame series validation failed"
+    }
+    Emit-Result @{ok=$true;command="vm-frames-gamepad";path=$path;frames=$report.advanced_frames;
+       samples=@($report.samples).Count;input_sent=$true;buttons=$Buttons;player=$Player}
   }
 
   "capture-memory" {

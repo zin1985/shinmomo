@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "kind": "verified_single_command_frame_exact_map_transitions",
+  "new_runtime_source_edges": 0,
+  "canonical_project_progress_unchanged_percent": 51.4,
+  "sampling_method": "isolated_hidden_BizHawk_event.onframeend",
+  "independent_cpu_hook_delivery_proven": false,
+  "corroboration": "Previous 2026-10-11 individually requested 1-frame logs agree for village/interior/world switch frames.",
+  "observed": {
+    "interior_pack2e_to_village_pack50": {
+      "start_frame": 661523,
+      "switch_frame": 661546,
+      "exit_last_outside_xy": [
+        9,
+        13
+      ],
+      "first_destination_xy": [
+        29,
+        17
+      ],
+      "frame_count": 23
+    },
+    "village_pack50_to_world_pack4c": {
+      "start_frame": 662166,
+      "switch_frame": 662186,
+      "exit_last_outside_xy": [
+        29,
+        56
+      ],
+      "first_destination_xy": [
+        55,
+        237
+      ],
+      "frame_count": 20
+    },
+    "world_pack4c_to_village_pack50": {
+      "start_frame": 663046,
+      "switch_frame": 663064,
+      "world_entry_xy": [
+        55,
+        237
+      ],
+      "switch_time_xy": [
+        55,
+        237
+      ],
+      "first_settled_arrival_frame": 663169,
+      "settled_arrival_xy": [
+        29,
+        55
+      ],
+      "switch_to_settled_coordinate_delay_frames": 105,
+      "entry_capture_frames": 18,
+      "neutral_settle_capture_frames": 120
+    }
+  },
+  "source_configuration_proven_independently": true,
+  "exact_CPU_VM_opcode_execution_proven": false,
+  "full_exit_width_proven": false,
+  "all_future_story_states_covered": false,
+  "local_trace_sha256": {
+    "interior_exit": "0494135D5A4FA52ADD5189395EE3C69D161B2BFAB9FF9E3E17B1A18211255272",
+    "village_exit": "B3F4ABC329DA285F389E4281D82D4107FA729056D33BE8B8CEC77275EDC210AB",
+    "world_entry": "C0A688BC0FA2688FFE0AD63BB979DEE9A993B5634635426EE311464F8A169E23",
+    "world_settle": "DF34DA4E383166DB04146D247D2E189FCC1D30A69FE1279D53B34BC4D5242662"
+  },
+  "raw_captures_committed": false
+}

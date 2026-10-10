@@ -1,5 +1,5 @@
 param(
-  [ValidateSet('start','status','hide','show','screenshot','step','gamepad','vm-trace','vm-trace-gamepad','capture-memory','map-capture','save-state','load-state','stop')]
+  [ValidateSet('start','status','hide','show','screenshot','step','gamepad','vm-trace','vm-trace-gamepad','vm-frames','vm-frames-gamepad','capture-memory','map-capture','save-state','load-state','stop')]
   [string]$Action='status',
   [string]$LabDir='', [string]$Rom='', [string]$BizHawkRoot='',
   [int]$Frames=1, [string]$Buttons='A', [int]$Player=1,
@@ -128,6 +128,17 @@ switch($Action) {
       throw 'Only exact SNES buttons are allowed.'
     }
     Out-Json (Call-Lab 'vm-trace-gamepad' @{Frames=$Frames; Buttons=$Buttons; Player=$Player})
+  }
+  'vm-frames' {
+    if($Frames -lt 1 -or $Frames -gt 120){throw 'Frames must be 1..120.'}
+    Out-Json (Call-Lab 'vm-frames' @{Frames=$Frames})
+  }
+  'vm-frames-gamepad' {
+    if($Frames -lt 1 -or $Frames -gt 120 -or $Player -lt 1 -or $Player -gt 4){throw 'Invalid frames/player'}
+    if($Buttons -notmatch '^(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select)(?:[, ]+(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select))*$'){
+      throw 'Only SNES controller buttons allowed'
+    }
+    Out-Json (Call-Lab 'vm-frames-gamepad' @{Frames=$Frames;Buttons=$Buttons;Player=$Player})
   }
   'capture-memory' {
     if($Length -lt 1 -or $Length -gt 4096){throw 'Length must be 1..4096.'}
