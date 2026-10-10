@@ -6,7 +6,7 @@
   "status": "active",
   "workstream": "map-transition-event-graph",
   "title": "Trace ten potential VM56 event paths at runtime, including deferred scheduler",
-  "base_main_head_verified": "6790532b2c6445b89b444c0af391814fa5e4dcc7",
+  "base_main_head_verified": "157e357e78b97fd22348e8cefa7b68f57ec67a61",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,7 +455,7 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Set up read-only hidden BizHawk VM execution trace for real event entry, opcode PC, $1398/$035F mode, active $0305 map pack, entry/story flags, saved-map stack and player coordinates."
+      "action": "Extend dedicated hidden BizHawk Lua bridge with opt-in bounded VM normal-handler execution trace, capture CPU PC + $0305/$035F/$1398 + event frame, and correlate with read-only baseline. No interaction with foreground desktop."
     },
     {
       "order": 2,
@@ -862,7 +862,18 @@
       "tools/python/verify_vm_opcode25_deferred.py",
       "scripts/test_vm_opcode39_40_handlers.py",
       "scripts/test_vm_opcode25_deferred.py"
-    ]
+    ],
+    "read_only_background_context_capture": {
+      "status": "verified_frame_coherent_baseline_only",
+      "frame": 660050,
+      "no_user_input_or_frame_advance": true,
+      "observed_pack_0305": "0xF1",
+      "observed_mode_035F": "0x00",
+      "observed_mode_1398": "0x00",
+      "runtime_vm_opcode_hit_proven": false,
+      "artifact": "docs/analysis/vm_runtime_context_snapshot_20261011.md",
+      "tool": "tools/remote_lab/capture_vm_context_readonly.ps1"
+    }
   },
   "completed_work_units": [
     {

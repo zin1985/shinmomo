@@ -132,3 +132,17 @@ The `game-screen` command uses BizHawk `client.screenshot`, not Windows desktop 
 At the end of the 2026-10-10 test, a dedicated BizHawk instance remained running, with both windows hidden; `step`, `gamepad`, `screenshot`, `capture-memory`, `load-state`, and `save-state` all returned successfully. A captured intro/logo frame contained actual pixels, not just an empty PNG. A fully rendered gameplay view under a disconnected RDP session has not been verified yet.
 
 This is hidden GUI emulation, not a true headless core. It still needs a live Windows user session and may behave differently if the session is logged out, RDP-disconnected, or the graphics device is reset. Do not use generic desktop `screen`, `click`, or `key` for unattended in-game experiments; use deterministic bridge commands. If screenshot becomes black, verify the current emulated frame and `client.screenshot` first before considering any desktop-based fallback.
+
+
+## Read-only VM context capture (2026-10-11)
+
+Run the isolated background lab as usual. While it is running, execute
+tools/remote_lab/capture_vm_context_readonly.ps1 from PowerShell. It only
+requests WRAM captures, checks that all four requests observed the same
+emulator frame and stores a consolidated JSON snapshot in the LOCAL
+background lab captures folder. It NEVER sends input, steps frames or
+brings BizHawk to the foreground. If frame_consistent is false, values
+are not co-temporal and must not be used as one executed event state.
+
+Baseline evidence and caveats:
+docs/analysis/vm_runtime_context_snapshot_20261011.md.

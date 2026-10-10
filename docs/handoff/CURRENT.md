@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-11 isolated VM context baseline:** Added tools/remote_lab/capture_vm_context_readonly.ps1; four WRAM ranges were captured at the same emulator frame 660050 without input. $0305=F1, $035F/$1398=00 are observation only, NOT proof of VM56 execution. Read docs/analysis/vm_runtime_context_snapshot_20261011.md.
+
 > **2026-10-11 VM56 static paths:** 10/10 framed VM56 terminal entries now have possible static CFG paths after proving 0x39 (2 bytes), 0x40 (7 bytes) and 0x25 (2 bytes after deferred callback). CC:F4F9 is explicitly scheduler-dependent and UNPROVEN at runtime. No new source maps or graph edges. Read docs/analysis/vm56_full_static_frontier_20261011.md and progress/current_task.json.
 
 > **2026-10-10 VM02 selector 0x13 closure:** Canonical ROM normal handler C4:89A5 operand 0x13 points to returning 83:BBAB. CE:1303 now statically reachable; 8/10 framed VM56 terminal entries have possible CFG paths. Two unresolved at CC:F4F9 (opcode 0x25) and CC:848E (0x39/0x40). No source map claimed. See docs/analysis/vm56_entry_cfg_frontier_20261010.md.
