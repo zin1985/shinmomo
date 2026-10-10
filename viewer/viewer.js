@@ -751,7 +751,11 @@ async function selectMap(m,focus=null,pack=undefined){
       const inside=x>=spatial.x_min&&x<=spatial.x_max&&y>=spatial.y_min&&y<=spatial.y_max;
       researchPosition=inside?' | 参照座標は発生範囲内（発火未証明）':' | 参照座標は発生範囲外';
     }
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + researchPosition;
+    const measuredPath=e.runtime_spatial_proof;
+    const measuredNote=measuredPath?.runtime_path_confirmed
+      ?' | 実機移動・到着座標を確認（命令PCは未確認）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

@@ -92,3 +92,13 @@ focus the previous representative arrival (54,237). The edge remains
 a research preview; saved return stack and story state are not
 automatically evaluated. Evidence:
 docs/analysis/tabidachi_world_coordinate_variants_20261011.md.
+
+
+## Spatially verified movement on strong static VM candidates
+
+Two existing candidate transition edges now show a separate runtime
+movement evidence hint. Sources: village (29,17) -> interior (9,12),
+and world (52,233) -> another map (17,37). The app does NOT change
+their strong_candidate opcode confidence, or treat a source coordinate
+as a universal story predicate. The CPU instruction PC is unproven.
+See docs/analysis/runtime_spatial_two_entrances_20261011.md.

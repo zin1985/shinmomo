@@ -84,6 +84,28 @@ class TransitionPhasesTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"Invalid stable-window"):
             collect(self.a,self.b,stability_frames=0)
 
+    def test_schema2_selector_delta_is_tracked(self):
+        for doc in (self.a,self.b):
+            doc["schema_version"]=2
+            for row in [doc["before"],*doc["samples"],doc["after"]]:
+                row.update(w0306=2,w126e=0x4C,w12b4=0x4C,w12b5=0)
+        for row in self.a["samples"]:
+            if row["frame"]>=663064:
+                row["w126e"]=0x50
+        self.a["after"]["w126e"]=0x50
+        self.b["before"]["w126e"]=0x50
+        for row in self.b["samples"]:
+            row["w126e"]=0x50
+        self.b["after"]["w126e"]=0x50
+        result=collect(self.a,self.b)
+        self.assertEqual(result["selector_raw_at_switch"]["w126e"],0x50)
+        self.assertTrue(result["selector_changes_near_switch"])
+        self.assertFalse(result["VM_opcode_53_or_56_executed_proven"])
+    def test_mixed_schema_versions_rejected(self):
+        self.a["schema_version"]=2
+        for row in [self.a["before"],*self.a["samples"],self.a["after"]]:
+            row.update(w0306=2,w126e=0x4C,w12b4=0x4C,w12b5=0)
+        with self.assertRaisesRegex(ValueError,"schema differ"):collect(self.a,self.b)
     def test_repository_evidence_explicitly_denies_opcode_proof(self):
         p=ROOT/"data/maps/transitions/tabidachi_world_entry_phase_evidence_20261011.json"
         d=json.loads(p.read_text(encoding="utf-8"))

@@ -68,6 +68,25 @@ class FrameSeriesTests(unittest.TestCase):
     def test_reject_oversized_window(self):
         d=valid();d["requested_frames"]=121;d["advanced_frames"]=121
         with self.assertRaisesRegex(ValueError,"Unbounded"):inspect_series(d)
+    def test_schema2_selector_bytes_observed_without_execution_claim(self):
+        d=valid()
+        d["schema_version"]=2
+        for row in [d["before"],*d["samples"],d["after"]]:
+            row.update(w0306=2,w126e=0x50,w12b4=0x2E,w12b5=0x11)
+        d["samples"][-1]["w126e"]=0x2E
+        d["after"]["w126e"]=0x2E
+        out=inspect_series(d)
+        self.assertTrue(out["selector_bytes_sampled"])
+        self.assertFalse(out["cpu_execution_hook_proven"])
+        self.assertEqual(out["new_graph_edges_added"],0)
+    def test_schema2_missing_selector_rejected(self):
+        d=valid();d["schema_version"]=2
+        for row in [d["before"],*d["samples"],d["after"]]:
+            row.update(w0306=2,w126e=0x50,w12b4=0x2E,w12b5=0x11)
+        d["samples"][0].pop("w126e")
+        with self.assertRaisesRegex(ValueError,"w126e"):inspect_series(d)
+    def test_legacy_schema1_without_selectors_remains_supported(self):
+        self.assertFalse(inspect_series(valid())["selector_bytes_sampled"])
     def test_byte_overflow_rejected(self):
         d=valid();d["samples"][0]["w1398"]=256
         with self.assertRaisesRegex(ValueError,"byte"):inspect_series(d)

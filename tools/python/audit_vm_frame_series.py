@@ -10,8 +10,9 @@ import argparse
 import json
 from pathlib import Path
 
-SAMPLE_KEYS = ("w0305","w035f","w1398","w13b8","ptr98_lo","ptr99_hi",
-               "ptr9a_bank","w1573","w157d","w15cf","w15d0")
+BASE_SAMPLE_KEYS = ("w0305","w035f","w1398","w13b8","ptr98_lo","ptr99_hi",
+                    "ptr9a_bank","w1573","w157d","w15cf","w15d0")
+SELECTOR_SAMPLE_KEYS = ("w0306","w126e","w12b4","w12b5")
 
 
 def _uint8(value, key):
@@ -21,8 +22,10 @@ def _uint8(value, key):
 
 
 def inspect_series(doc:dict)->dict:
-    if doc.get("kind") != "isolated_vm_frame_series" or doc.get("schema_version")!=1:
+    schema=doc.get("schema_version")
+    if doc.get("kind") != "isolated_vm_frame_series" or schema not in (1,2):
         raise ValueError("Unsupported frame series schema")
+    keys=BASE_SAMPLE_KEYS + (SELECTOR_SAMPLE_KEYS if schema==2 else ())
     count=doc.get("requested_frames")
     advanced=doc.get("advanced_frames")
     if (not isinstance(count,int) or isinstance(count,bool) or count<1 or count>120
@@ -58,7 +61,7 @@ def inspect_series(doc:dict)->dict:
     if type(start) is not int or type(stop) is not int or stop-start!=count:
         raise ValueError("Frame series outer boundary mismatch")
     for field in (before,after):
-        for key in SAMPLE_KEYS:_uint8(field.get(key),key)
+        for key in keys:_uint8(field.get(key),key)
     movements=[]
     switches=[]
     frame_rows=[]
@@ -66,18 +69,20 @@ def inspect_series(doc:dict)->dict:
     for i,sample in enumerate(samples,1):
         if not isinstance(sample,dict) or sample.get("frame")!=start+i:
             raise ValueError("Missing, duplicate or shifted per-frame WRAM sample")
-        for key in SAMPLE_KEYS:
+        for key in keys:
             _uint8(sample.get(key),key)
         if sample.get("label")!="sample":
             raise ValueError("Frame-end sample provenance missing")
         changes={}
-        for key in SAMPLE_KEYS:
+        for key in keys:
             if sample[key]!=last[key]:
                 changes[key]={"previous":last[key],"current":sample[key]}
         item={"frame":sample["frame"],"pack":sample["w0305"],
               "x":sample["w1573"],"y":sample["w157d"],
               "vm_mode_035f":sample["w035f"],
               "dispatch_1398":sample["w1398"],
+              "selector_raw":({k:sample[k] for k in SELECTOR_SAMPLE_KEYS}
+                              if schema==2 else None),
               "changes":changes}
         frame_rows.append(item)
         if any(key in changes for key in ("w0305","w1573","w157d")):
@@ -92,10 +97,12 @@ def inspect_series(doc:dict)->dict:
                 "vm_handler_execution_proven":False
             })
         last=sample
-    if any(last.get(k)!=after.get(k) for k in ("frame",)+SAMPLE_KEYS):
+    if any(last.get(k)!=after.get(k) for k in ("frame",)+keys):
         raise ValueError("Last frame sample and final same-frame snapshot disagree")
     return {
-        "schema_version":1,"kind":"audited_isolated_vm_frame_series",
+        "schema_version":schema,"kind":"audited_isolated_vm_frame_series",
+        "selector_bytes_sampled":schema==2,
+        "selector_observations_only":True,
         "initial_frame":start,"final_frame":stop,
         "complete_contiguous_frames":count,
         "input_sent":sent,

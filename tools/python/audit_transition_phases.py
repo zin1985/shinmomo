@@ -25,13 +25,17 @@ def state(row):
 def collect(input_trace, settle_trace, *, stability_frames=8):
     first=inspect_series(input_trace)
     second=inspect_series(settle_trace)
+    if first["schema_version"]!=second["schema_version"]:
+        raise ValueError("Input/settle frame-series schema differ")
+    keys=WATCHED + (("w0306","w126e","w12b4","w12b5")
+                    if first["schema_version"]==2 else ())
     if (not first["input_sent"] or second["input_sent"] or
         first["input_device"]!="isolated_snes_gamepad" or
         second["input_device"]!="none"):
         raise ValueError("Expected bounded isolated controller then neutral settling")
     if first["final_frame"]!=second["initial_frame"]:
         raise ValueError("Input and settling capture frames are not contiguous")
-    if state(input_trace["after"])!=state(settle_trace["before"]):
+    if any(input_trace["after"][k]!=settle_trace["before"][k] for k in keys):
         raise ValueError("State changed between input and neutral captures")
     if not isinstance(stability_frames,int) or not 2<=stability_frames<=120:
         raise ValueError("Invalid stable-window length")
@@ -43,7 +47,7 @@ def collect(input_trace, settle_trace, *, stability_frames=8):
     for row in series:
         changed={
             k:{"before":prev[k],"after":row[k]}
-            for k in WATCHED if prev[k]!=row[k]
+            for k in keys if prev[k]!=row[k]
         }
         if changed:
             state_changes.append({"frame":row["frame"],"changes":changed})
@@ -52,7 +56,7 @@ def collect(input_trace, settle_trace, *, stability_frames=8):
                 "frame":row["frame"],
                 "pack_before":prev["w0305"],"pack_after":row["w0305"],
                 "xy_at_switch":{"x":row["w1573"],"y":row["w157d"]},
-                "state_before":state(prev),"state_at_switch":state(row),
+                "state_before":{k:prev[k] for k in keys},"state_at_switch":{k:row[k] for k in keys},
                 "changed_fields":changed,
             })
         prev=row
@@ -105,6 +109,16 @@ def collect(input_trace, settle_trace, *, stability_frames=8):
             "w15d0":switch["state_at_switch"]["w15d0"],
         },
         "map_state_changes_at_switch":switch["changed_fields"],
+        "frame_series_schema_version":first["schema_version"],
+        "selector_raw_at_switch":({k:switch["state_at_switch"][k]
+                                   for k in ("w0306","w126e","w12b4","w12b5")}
+                                  if first["schema_version"]==2 else None),
+        "selector_changes_near_switch":[
+            {"frame":x["frame"],"changes":{k:v for k,v in x["changes"].items()
+                                             if k in ("w0306","w126e","w12b4","w12b5")}}
+            for x in state_changes
+            if any(k in x["changes"] for k in ("w0306","w126e","w12b4","w12b5"))
+        ],
         "at_switch_coordinate":switch["xy_at_switch"],
         "first_settled_arrival_frame":candidate["frame"],
         "settled_arrival":{"x":candidate["w1573"],"y":candidate["w157d"]},

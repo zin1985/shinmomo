@@ -6,6 +6,7 @@ from crosslink_transition_sources_from_hotspots import crosslink as crosslink_so
 from crosslink_destination_bounds_for_viewer import join_destination_bounds
 from build_native_saved_return_context import (match_native_boundaries, attach_confirmed_return_variants, edge_activation_gate, rows as read_native_rows)
 from transition_gate_predicates import annotate_edge_gate, phase_ambiguity_for
+from apply_runtime_spatial_proofs import apply_runtime_spatial_proofs
 
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
@@ -905,6 +906,23 @@ def main():
         transition_candidates = [
             matched_native.get(e["transition_id"], e) for e in transition_candidates
         ]
+    # Frame-end proof establishes actual coordinate-specific movement and
+    # arrival, not a captured opcode PC or a universally enabled story gate.
+    # Attach to the existing static edge without increasing its confidence tier.
+    spatial_proofs = []
+    for filename in (
+        "tabidachi_shrine_entry_verified_20261011.json",
+        "world_52_233_entry_verified_20261011.json",
+    ):
+        file = TRANSITIONS / filename
+        if file.exists():
+            spatial_proofs.append(json.loads(file.read_text(encoding="utf-8")))
+    if spatial_proofs:
+        transition_candidates, runtime_spatial_summary = apply_runtime_spatial_proofs(
+            transition_candidates, spatial_proofs)
+    else:
+        runtime_spatial_summary = {"attached_count": 0, "attached": [], "new_graph_edges": 0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -926,6 +944,7 @@ def main():
     world = {
         "schema_version": 9,
         "kind": "shinmomo_structural_world",
+        "runtime_spatial_proof_summary": runtime_spatial_summary,
         "project_progress": build_project_progress_snapshot(),
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},

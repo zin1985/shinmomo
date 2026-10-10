@@ -305,6 +305,10 @@ local function vmtrace_baseline_json(label)
     '{"label":', json_quote(label),
     ',"frame":', tostring(framecount()),
     ',"w0305":', json_num(read8(0x0305, "WRAM")),
+    ',"w0306":', json_num(read8(0x0306, "WRAM")),
+    ',"w126e":', json_num(read8(0x126E, "WRAM")),
+    ',"w12b4":', json_num(read8(0x12B4, "WRAM")),
+    ',"w12b5":', json_num(read8(0x12B5, "WRAM")),
     ',"w035f":', json_num(read8(0x035F, "WRAM")),
     ',"w1398":', json_num(read8(0x1398, "WRAM")),
     ',"w13b8":', json_num(read8(0x13B8, "WRAM")),
@@ -877,7 +881,7 @@ local function do_vm_frame_series(id, frames_s, button_csv, player_s)
     return
   end
   local payload = table.concat({
-    '{"kind":"isolated_vm_frame_series","schema_version":1,',
+    '{"kind":"isolated_vm_frame_series","schema_version":2,',
     '"requested_frames":', tostring(frames), ",",
     '"advanced_frames":', tostring(result), ",",
     '"input_sent":', tostring(buttons~=nil), ",",

@@ -252,3 +252,23 @@ The audit is tools/python/audit_transition_phases.py, contract
 tests scripts/test_transition_phases.py. See
 docs/analysis/world_entry_event_phase_capture_20261011.md for
 provenance and opcode/VM-pointer limitations.
+
+
+## Raw selector tracking and verified spatial entrance examples
+
+New hidden-lab vm-frames output uses schema_version=2 and records
+WRAM 0x0306, 0x126E, 0x12B4, 0x12B5 alongside pack, script pointer,
+event entry, player XY and saved pack bytes. Legacy schema1 logs
+remain valid in the Python audit. Selector convergence is distinct
+from pack-change and settled-coordinate frames; neither proves
+CPU opcode address execution.
+
+Proven repeatable examples:
+- Tabidachi village (29,17) -> interior pack0x2E (9,12),
+  pack switch frame 661935, selector frame 661966, stable frame 662010
+- World (52,233) -> pack0x4D (17,37),
+  pack switch frame 663189, selector frame 663218, stable frame 663271
+
+See tools/python/verify_spatial_event_transition.py and
+docs/analysis/runtime_spatial_two_entrances_20261011.md.
+Raw trace files and local savestates stay outside Git.

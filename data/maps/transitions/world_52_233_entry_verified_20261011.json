@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "kind": "verified_spatial_event_map_transition",
+  "source_hotspot_id": "hotspot_CC_0AF9",
+  "existing_viewer_transition_id": "catalog_transition_0746",
+  "existing_static_opcode_address": "CC:0AF9",
+  "static_opcode_cpu_execution_proven": false,
+  "runtime_map_movement_proven": true,
+  "observed_source_config_id": "cfg_t01_l001_v1",
+  "observed_source_pack": 76,
+  "confirmed_source_region": {
+    "x": 52,
+    "y": 233,
+    "width": 1,
+    "height": 1
+  },
+  "first_observed_source_contact_frame": 663173,
+  "last_observed_source_contact_frame": 663178,
+  "pack_switch_frame": 663189,
+  "raw_vm_script_pointer_at_switch": {
+    "bank": 204,
+    "high": 7,
+    "low": 222
+  },
+  "raw_event_entry_at_switch": 2,
+  "saved_pack_bytes_at_switch": {
+    "w15cf": 76,
+    "w15d0": 77
+  },
+  "destination_config_id": "cfg_t04_l006_v2",
+  "destination_pack": 77,
+  "first_selector_pair_convergence_frame": 663218,
+  "first_0306_target_byte_frame": 663262,
+  "first_settled_arrival_frame": 663271,
+  "settled_arrival": {
+    "x": 17,
+    "y": 37
+  },
+  "switch_to_settle_delay_frames": 82,
+  "existing_graph_confidence_unchanged": "strong_candidate",
+  "new_graph_edges_promoted": 0,
+  "unproven": [
+    "CPU opcode callback PC",
+    "all story predicates",
+    "other hotspot cells",
+    "full map reachability",
+    "destination map label"
+  ],
+  "local_raw_trace_sha256": {
+    "input": "5A38E4D2BDE8FB88144C6AEB8773BBA2C6C4EDE2EA7FD97CF40532AC84BD6AD8",
+    "neutral": "D113CCD39B2D210E6EFB000C6008ADD51655F16E558D70F9F941BE75D0442040"
+  },
+  "raw_capture_committed": false
+}
