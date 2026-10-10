@@ -2,11 +2,11 @@
   "schema_version": 1,
   "project": "Shin Momotarou Densetsu reverse engineering",
   "repository": "zin1985/shinmomo",
-  "updated_at": "2026-10-10",
+  "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Eight static VM56 paths: resolve 0x25/0x39/0x40 and active-map runtime provenance",
-  "base_main_head_verified": "3af877dfc550cb03f05138f7ef0838211cb39f44",
+  "title": "Trace ten potential VM56 event paths at runtime, including deferred scheduler",
+  "base_main_head_verified": "6790532b2c6445b89b444c0af391814fa5e4dcc7",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Verify true normal-VM control flow and operand advance for opcode 0x25 at C4:9517 without flattening asynchronous scheduler semantics; resolve CC:F4F9 only if proven."
+      "action": "Set up read-only hidden BizHawk VM execution trace for real event entry, opcode PC, $1398/$035F mode, active $0305 map pack, entry/story flags, saved-map stack and player coordinates."
     },
     {
       "order": 2,
-      "action": "Inspect normal-VM opcode 0x39 C4:9803 and opcode 0x40 C4:8FB3 for exact bounded operand forms, including loops/indirect reads; target CC:848E."
+      "action": "Specifically prove or disprove actual callback C4:9535 execution for opcode0x25 at CC:F47A before treating CC:F4F9 as a true game event route."
     },
     {
       "order": 3,
-      "action": "Recover actual VM caller, normal-mode $035F/$1398 and active $0305 source-map identity for eight statically reachable VM56 entries before source binding."
+      "action": "Trace real event-record owner/VM entry callers for the nine other static possible VM56 paths and prove source-map configurations independently."
     },
     {
       "order": 4,
-      "action": "Perform hidden BizHawk world/village/interior/village/world path capture with WRAM and screenshot evidence; keep local-only."
+      "action": "Verify a full world-village-interior-village-world round trip in hidden BizHawk, with screenshot and before-after memory evidence."
     },
     {
       "order": 5,
-      "action": "Expand remaining VM56 event owner coverage, then pack 0xCE phase predicate and pack 0x96 arrival coordinates."
+      "action": "Broaden the 712 source-unframed VM56 ownership links and continue CC:1160 phase and pack0x96 arrival XY."
     }
   ],
   "do_not_redo": [
@@ -843,22 +843,25 @@
     "goal": "Decode pack96 entry02..05 within CC:DBF2..CC:DC5C using verified canonical ROM; preserve prior workstreams."
   },
   "last_completed_work_unit": {
-    "date": "2026-10-10",
-    "description": "Independently verified normal VM opcode 0x02 operand 0x13 target RTL; CE:1303 static path unblocked",
-    "verified_handler": "C4:89A5",
-    "concrete_selector": "0x13",
-    "selector_target": "83:BBAB",
-    "statically_reachable_vm56_entries": 8,
-    "remaining_blocked_vm56_entries": 2,
-    "rebuilt_candidate_count": 1295,
-    "transition_catalog_byte_identical": true,
-    "new_source_config_promotions": 0,
+    "date": "2026-10-11",
+    "description": "Normal VM 0x39/0x40 and deferred opcode 0x25 evidence, 10/10 possible static CFG paths",
+    "framed_vm56_entry_count": 10,
+    "direct_potential_paths": 9,
+    "deferred_resume_potential_paths": 1,
+    "runtime_confirmed_paths_added": 0,
+    "source_map_bindings_added": 0,
+    "catalog_rebuilt_row_count": 1295,
+    "catalog_rebuilt_byte_identical": true,
     "official_progress_percent_unchanged": 51.4,
     "evidence": [
-      "data/maps/transitions/vm_opcode02_13_proof.json",
+      "docs/analysis/vm56_full_static_frontier_20261011.md",
+      "data/maps/transitions/vm_opcode39_40_proof.json",
+      "data/maps/transitions/vm_opcode25_deferred_proof.json",
       "data/maps/transitions/vm56_entry_cfg_frontier.json",
-      "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
-      "scripts/test_vm_opcode02_13_handler.py"
+      "tools/python/verify_vm_opcode39_40_handlers.py",
+      "tools/python/verify_vm_opcode25_deferred.py",
+      "scripts/test_vm_opcode39_40_handlers.py",
+      "scripts/test_vm_opcode25_deferred.py"
     ]
   },
   "completed_work_units": [
@@ -992,6 +995,25 @@
         "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
         "tools/python/verify_vm_opcode6e_handler.py",
         "scripts/test_vm_opcode6e_handler.py"
+      ]
+    },
+    {
+      "date": "2026-10-10",
+      "description": "Independently verified normal VM opcode 0x02 operand 0x13 target RTL; CE:1303 static path unblocked",
+      "verified_handler": "C4:89A5",
+      "concrete_selector": "0x13",
+      "selector_target": "83:BBAB",
+      "statically_reachable_vm56_entries": 8,
+      "remaining_blocked_vm56_entries": 2,
+      "rebuilt_candidate_count": 1295,
+      "transition_catalog_byte_identical": true,
+      "new_source_config_promotions": 0,
+      "official_progress_percent_unchanged": 51.4,
+      "evidence": [
+        "data/maps/transitions/vm_opcode02_13_proof.json",
+        "data/maps/transitions/vm56_entry_cfg_frontier.json",
+        "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
+        "scripts/test_vm_opcode02_13_handler.py"
       ]
     }
   ]

@@ -42,15 +42,15 @@ equivalent to a proven transition in normal VM mode or proven map source.
 | CC:3DF1 | CC:3DAE..CC:3DF5 | yes | none |
 | CC:3FAF | CC:3F18..CC:3FB3 | yes | none |
 | CC:B67B | CC:B5FC..CC:B67F | yes | none |
-| CC:F4F9 | CC:F413..CC:F4FD | no proof | op:25 |
+| CC:F4F9 | CC:F413..CC:F4FD | possible via deferred callback | opcode 0x25, scheduler state unverified |
 | CC:4A21 | CC:4A02..CC:4A25 | yes | none |
-| CC:848E | CC:8421..CC:8492 | no proof | op:39, op:40 |
+| CC:848E | CC:8421..CC:8492 | yes | normal 0x39/0x40 handler lengths verified |
 | CD:C288 | CD:C25B..CD:C28C | yes | none |
 | CE:126A | CE:1264..CE:126E | yes | none |
 | CE:1303 | CE:12FB..CE:1307 | yes | none (normal VM opcode 0x02 operand 0x13 verified) |
 
 Results: 10/10 exact substream bounds and terminal signatures,
-**8 statically reachable under current proven grammar** and **2 blocked**.
+**10 possible static CFG paths under current proven grammar**, including one deferred-scheduler-dependent path.
 These are not runtime-confirmed edge counts.
 
 **Crucial disambiguation:** for all ten records, **zero** validated
@@ -112,8 +112,8 @@ location after adding opcode 0x6E:2 to the shared CFG grammar. The
 committed CSV.
 
 Next investigate actual VM owner/caller, runtime $0305 map pack,
-$035F/$1398 mode, story flags and saved-map state for the seven
-statically reachable VM56 targets (including CC:AD64).
+$035F/$1398 mode, story flags and saved-map state for the ten
+potentially reachable VM56 targets (one deferred-scheduler-dependent) (including CC:AD64).
 A second concrete normal-VM dispatch was independently verified:
 opcode 0x02 with operand 0x13 uses C4:89A5 and
 C4:9BEE[3*(0x13-1)] -> 83:BBAB. The mirrored ROM target
@@ -131,13 +131,15 @@ The transition catalog was regenerated in an isolated temporary
 directory and the canonical 1,295-row CSV remains byte-for-byte
 identical after adding only this proven operand to the CFG grammar.
 
-The two remaining CFG blockers are CC:F4F9 (normal opcode 0x25
-handler C4:9517) and CC:848E (0x39 handler C4:9803 and
-0x40 handler C4:8FB3). Neither is promoted to an invented
-constant length: inspect scheduler, pointer update, conditional
-paths and mode behavior before further CFG expansion.
+The previously unresolved CC:848E and CC:F4F9 entries now have
+possible paths under independently verified normal-mode handler
+grammar. See the detailed 2026-10-11 continuation:
+docs/analysis/vm56_full_static_frontier_20261011.md.
 
-Then perform an isolated hidden BizHawk runtime traversal test.
+CC:F4F9 depends on asynchronous callback C4:9535 being executed by
+the scheduler; this is NOT an immediate or a runtime-confirmed path.
+For all ten targets, the active VM mode, caller, story predicates,
+source map identity and in-game reachability remain unverified.
 
 Safety: Never commit raw ROM bytes, captures, or savestates; never infer
 current map from script pack, source-selection pointers, or mere static

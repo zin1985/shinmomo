@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "verified_normal_mode_static_opcode_length_and_control_flow",
+  "opcode39": {
+    "normal_handler": "C4:9803",
+    "operand_count": 1,
+    "instruction_length": 2,
+    "vm_pointer_advance": "C4:840F",
+    "external_jsl_return_unproven": "80:BBA4"
+  },
+  "opcode40": {
+    "normal_handler": "C4:8FB3",
+    "fixed_initial_operands": 2,
+    "loop_reads": 4,
+    "loop_target": "C4:8FC4",
+    "branch_merge": "C4:8F9D",
+    "instruction_length": 7,
+    "vm_pointer_advance": "C4:840F",
+    "external_jsl_return_unproven": "81:ADBD"
+  },
+  "normal_vm_mode_required": true,
+  "not_proven": "Player $0305, actual $1398 normal mode, JSL return, story predicates and real runtime visit",
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98"
+}

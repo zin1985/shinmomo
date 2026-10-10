@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-11 VM56 static paths:** 10/10 framed VM56 terminal entries now have possible static CFG paths after proving 0x39 (2 bytes), 0x40 (7 bytes) and 0x25 (2 bytes after deferred callback). CC:F4F9 is explicitly scheduler-dependent and UNPROVEN at runtime. No new source maps or graph edges. Read docs/analysis/vm56_full_static_frontier_20261011.md and progress/current_task.json.
+
 > **2026-10-10 VM02 selector 0x13 closure:** Canonical ROM normal handler C4:89A5 operand 0x13 points to returning 83:BBAB. CE:1303 now statically reachable; 8/10 framed VM56 terminal entries have possible CFG paths. Two unresolved at CC:F4F9 (opcode 0x25) and CC:848E (0x39/0x40). No source map claimed. See docs/analysis/vm56_entry_cfg_frontier_20261010.md.
 
 > **2026-10-10 opcode6E closure:** normal-VM opcode 0x6E handler C4:93A9 verified, length 2. Seven of ten framed VM56 targets are now statically CFG reachable. CC:AD64 three A0 callee bounded return paths passed. Real source map and story phase remain unproven. See docs/analysis/vm56_entry_cfg_frontier_20261010.md and progress/current_task.json.

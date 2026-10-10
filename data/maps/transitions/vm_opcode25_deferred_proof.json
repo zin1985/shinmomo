@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "verified_normal_vm_deferred_callback_continuation",
+  "opcode": "0x25",
+  "normal_handler": "C4:9517",
+  "scheduler": "80:AC1E",
+  "registered_callback": "C4:9535",
+  "callback_pointer_register": "$0F/$10",
+  "callback_task_type": "0x32",
+  "handler_returns_early": true,
+  "callback_advance_routine": "C4:895E",
+  "instruction_length_after_callback": 2,
+  "continuation_class": "deferred_async_potential_not_synchronous",
+  "actual_callback_execution_proven": false,
+  "vm_normal_mode_proven": false,
+  "active_source_map_proven": false,
+  "rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98"
+}

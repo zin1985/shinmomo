@@ -98,6 +98,29 @@ def investigate(rom, audit, xrefs, max_targets=None):
         start,end,_,_,_=matches[0]
         body=rom[start:end]
         reachable,blockers=reach(body,start,off-start)
+        scheduled_resume=None
+        if addr=="CC:F4F9":
+            # Exact opcode 0x25 0x01 is in this parsed entry at CC:F47A.
+            # The normal VM handler C4:9517 queues C4:9535 via 80:AC1E.
+            # Its callback advances two bytes, but scheduler dispatch
+            # at runtime is not guaranteed by static CFG reachability.
+            resume_addr="CC:F47A"
+            site=file_offset(resume_addr)
+            if rom[site:site+2]!=bytes([0x25,0x01]) or not start<=site<off:
+                raise ValueError("Deferred opcode 0x25 proof site changed")
+            before_resume,resume_blockers=reach(body,start,site-start)
+            if not before_resume:
+                raise ValueError(f"Scheduler registration site not CFG reachable: {resume_blockers}")
+            scheduled_resume={
+                "registration_opcode_addr":resume_addr,
+                "normal_vm_handler":"C4:9517",
+                "scheduler":"80:AC1E",
+                "deferred_callback":"C4:9535",
+                "callback_vm_advance":2,
+                "registration_path_cfg_possible":True,
+                "callback_executed_in_runtime":False,
+                "continuation_requires_scheduler":True,
+            }
         # Classify unresolved nested calls against independently parsed entry
         # bounds. A matching entry is a possible research target, never proof
         # that the callee returns.
@@ -160,6 +183,8 @@ def investigate(rom, audit, xrefs, max_targets=None):
             "bounded_entry_bytes":end-start,"target_offset_from_entry":off-start,
             "terminal_pattern_valid":list(rom[off:off+1])==[0x56] and rom[off+3]==0xB0,
             "entry_to_terminal_cfg_reachable":reachable,
+            "static_path_class":"deferred_callback_possible" if scheduled_resume else "normal_vm_candidate_path",
+            "scheduled_resume_evidence":scheduled_resume,
             "cfg_blockers":sorted(blockers),
             "unresolved_nested_callees":unresolved_callees,
             "cfg_interpretation":"Potential CFG path only, not proof runtime state, VM mode, or source map",

@@ -271,10 +271,20 @@ def main() -> None:
     cfg_safe_lengths = {
         0x01: 2, 0x04: 2, 0x06: 1, 0x08: 4, 0x09: 4,
         0x10: 2, 0x11: 2, 0x13: 2, 0x15: 3, 0x16: 3,
+        # 0x25 queues a deferred callback via 80:AC1E; callback C4:9535
+        # advances 2 via C4:895E. Admitting this TWO-BYTE length only
+        # expresses a *possible scheduled resume*, not immediate fallthrough
+        # nor proof the scheduler executes it in a given story state.
+        # See verify_vm_opcode25_deferred.py and audit_vm56_entry_cfg.py.
         0x17: 3, 0x18: 4, 0x19: 4, 0x1B: 4, 0x1C: 3,
         0x1E: 3, 0x1F: 3, 0x20: 3, 0x21: 3, 0x23: 1,
-        0x28: 2, 0x2A: 1, 0x2D: 2, 0x2F: 7, 0x30: 6,
-        0x31: 2, 0x33: 4, 0x41: 3, 0x43: 2, 0x47: 5,
+        0x25: 2, 0x28: 2, 0x2A: 1, 0x2D: 2, 0x2F: 7, 0x30: 6,
+        # Verified normal-mode 0x39 at C4:9803 reads operand 1, increments Y,
+        # then C4:840F advances 2. 0x40 at C4:8FB3 reads two initial
+        # operands and a fixed four-iteration loop, Y=7; BRA -> C4:8F9D
+        # JSR C4:840F advances by 7. Explicit ROM signatures are checked
+        # by verify_vm_opcode39_40_handlers.py; no runtime mode implied.
+        0x31: 2, 0x33: 4, 0x39: 2, 0x40: 7, 0x41: 3, 0x43: 2, 0x47: 5,
         0x49: 6, 0x50: 4, 0x51: 3, 0x53: 3, 0x54: 1,
         0x55: 3, 0x56: 3, 0x57: 2, 0x58: 5, 0x59: 6,
         0x5D: 5, 0x5E: 2, 0x61: 1, 0x63: 5, 0x64: 2,
