@@ -90,7 +90,13 @@ class NativeReturnTests(unittest.TestCase):
         self.assertFalse(audit["rejected"],audit)
         c={e["source_config_id"]:e for e in matched if e.get("native_boundary_context")}
         self.assertEqual(c["cfg_t04_l008_v2"]["native_boundary_context"]["source_region"]["evidence_status"],"confirmed_exact_cell")
-        self.assertEqual(c["cfg_t07_l015_v2"]["native_boundary_context"]["source_region"]["evidence_status"],"candidate_corridor_not_all_cells_verified")
+        ctx=c["cfg_t07_l015_v2"]["native_boundary_context"]
+        self.assertEqual(ctx["source_region"]["evidence_status"],"confirmed_exact_cell")
+        self.assertEqual(ctx["source_region"]["x"],9)
+        self.assertEqual(ctx["source_region"]["y"],12)
+        self.assertEqual(ctx["source_region"]["width"],1)
+        self.assertEqual(ctx["source_region"]["height"],1)
+        self.assertEqual(ctx["current_state_evaluation"],"unknown_without_saved_state_and_position")
 
 
 if __name__=="__main__":

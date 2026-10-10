@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Obtain a real VM handler hit from a known scene using isolated joystick trace",
-  "base_main_head_verified": "7884b5d9b6bdbf93d13c0e16d5b09beddc58345b",
+  "title": "Extend frame-exact native and scripted world traversal runtime coverage",
+  "base_main_head_verified": "19252f592ab5a69d93c76498868ad797b4cbf546",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Identify or create reproducible village-exit savestate in isolated hidden BizHawk; test normal VM56 handler with bounded input and record actual hook hits, ROM script pointer, $0305 and mode. Restore savestate after."
+      "action": "Diagnose BizHawk SNES event.onmemoryexecute/onmemorywrite callbacks: 34 hooks gave zero hits during proven native map0x2E->0x50 switch. Registration not equivalent to functioning instrumentation."
     },
     {
       "order": 2,
-      "action": "On genuine 0x25 scheduler event, capture C4:9517 and later C4:9535 callbacks before promoting CC:F4F9 deferred path."
+      "action": "Add framewise WRAM snapshot fallback within a single hidden vm-trace-gamepad command to capture precise map changes without relying on unverified CPU hooks."
     },
     {
       "order": 3,
-      "action": "Determine actual VM caller, source map configuration, saved-return and story flags for all ten framed VM56 paths. Never auto-bind from script pack/PC alone."
+      "action": "From village pack0x50 navigate to south exit x28,y55, world pack0x4C, with protected state, exact frame and screenshots; work toward world-village-interior-village-world round trip."
     },
     {
       "order": 4,
-      "action": "Verify world-village-interior-village-world traversal with repeatable screenshots, WRAM and VM execution logs."
+      "action": "For scripted opcode 0x56, prove actual VM caller, normal mode and source map before any source binding; do not treat native returns as opcode0x56."
     },
     {
       "order": 5,
-      "action": "Continue 712 unframed VM56 owners, CC:1160 phase selector and pack0x96 missing arrival XY."
+      "action": "Continue CC:1160 phase predicate, pack0x96 arrival XY and 712 unframed VM56 owner backlog."
     }
   ],
   "do_not_redo": [
@@ -844,29 +844,42 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Enabled bounded isolated SNES gamepad during VM execution trace with proven restoration",
-    "target_lab_only": true,
-    "dedicated_emulator_pid": 17656,
-    "state_protected_and_restored": "vmtrace_pre_gamepad_reload_20261011",
-    "tested_frames_from": 660112,
-    "tested_frames_to": 660120,
-    "restored_frame": 660112,
-    "buttons": "Down",
-    "player": 1,
-    "gamepad_frames": 8,
-    "registered_cpu_hooks": 18,
-    "hook_errors": 0,
-    "runtime_opcode_hits": 0,
-    "desktop_input_sent": false,
-    "new_source_map_bindings": 0,
-    "official_progress_percent_unchanged": 51.4,
+    "description": "Confirmed x9/y12 center native exit from Tabidachi interior 0x2E to village 0x50 at exact frame 661546",
+    "source_config_id": "cfg_t07_l015_v2",
+    "source_pack": "0x2E",
+    "source_confirmed_exact_xy": [
+      9,
+      12
+    ],
+    "first_outside_frame": 661536,
+    "first_outside_xy": [
+      9,
+      13
+    ],
+    "switch_frame": 661546,
+    "destination_config_id": "cfg_t04_l008_v2",
+    "destination_pack": "0x50",
+    "destination_xy": [
+      29,
+      17
+    ],
+    "exact_input_frames": 23,
+    "dedicated_emulator_pid": 24324,
+    "native_plus_vm_hooks_registered": 34,
+    "actual_hook_hit_count": 0,
+    "hook_delivery_proven": false,
+    "raw_capture_committed": false,
+    "viewer_native_source_region_exact": true,
+    "viewer_map_count": 149,
+    "viewer_bound_edge_count": 56,
+    "new_graph_edges": 0,
+    "official_project_completion_unchanged": 51.4,
     "evidence": [
-      "docs/analysis/vm_runtime_trace_hooks_20261011.md",
-      "tools/remote_lab/shinmomo_remote_bridge.lua",
-      "tools/remote_lab/shinmomo_lab.ps1",
-      "tools/remote_lab/shinmomo_background_lab.ps1",
-      "tools/python/audit_vm_execution_trace.py",
-      "scripts/test_vm_execution_trace_audit.py"
+      "data/maps/transitions/pack2e_exact_south_exit_20261011.json",
+      "docs/analysis/native_pack2e_south_exit_frame_exact_20261011.md",
+      "data/maps/transitions/source_transition_hotspots.csv",
+      "tools/python/verify_native_south_exit_replay.py",
+      "scripts/test_native_south_exit_replay.py"
     ]
   },
   "completed_work_units": [
@@ -1066,6 +1079,33 @@
       "actual_opcode_hook_firing_proven": false,
       "user_desktop_input_sent": false,
       "source_config_ids_promoted": 0,
+      "official_progress_percent_unchanged": 51.4,
+      "evidence": [
+        "docs/analysis/vm_runtime_trace_hooks_20261011.md",
+        "tools/remote_lab/shinmomo_remote_bridge.lua",
+        "tools/remote_lab/shinmomo_lab.ps1",
+        "tools/remote_lab/shinmomo_background_lab.ps1",
+        "tools/python/audit_vm_execution_trace.py",
+        "scripts/test_vm_execution_trace_audit.py"
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Enabled bounded isolated SNES gamepad during VM execution trace with proven restoration",
+      "target_lab_only": true,
+      "dedicated_emulator_pid": 17656,
+      "state_protected_and_restored": "vmtrace_pre_gamepad_reload_20261011",
+      "tested_frames_from": 660112,
+      "tested_frames_to": 660120,
+      "restored_frame": 660112,
+      "buttons": "Down",
+      "player": 1,
+      "gamepad_frames": 8,
+      "registered_cpu_hooks": 18,
+      "hook_errors": 0,
+      "runtime_opcode_hits": 0,
+      "desktop_input_sent": false,
+      "new_source_map_bindings": 0,
       "official_progress_percent_unchanged": 51.4,
       "evidence": [
         "docs/analysis/vm_runtime_trace_hooks_20261011.md",

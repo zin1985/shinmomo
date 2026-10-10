@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-11 frame-exact native exit:** real save loaded Tabidachi interior cfg_t07_l015_v2. 23 consecutive Down frames show x9,y12 center exit, first outside x9,y13 at frame 661536, and pack2E->50 at frame 661546 arriving x29,y17. Viewer hotspot upgraded from candidate 3-cell to confirmed 1-cell center ONLY; 149 maps/56 edges unchanged. 34 execution/write hooks recorded zero hits despite real transition, so callback delivery remains unproven. See docs/analysis/native_pack2e_south_exit_frame_exact_20261011.md.
+
 > **2026-10-11 controlled VM execution trace:** Added -Action vm-trace-gamepad for bounded SNES input inside the dedicated hidden BizHawk only. Eight Down frames 660112..660120 recorded with 18 hooks, 0 hits, no desktop input; protected state restored to 660112. No executable map edge proven yet. See docs/analysis/vm_runtime_trace_hooks_20261011.md and progress/current_task.json.
 
 > **2026-10-11 hidden BizHawk VM hooks:** isolated emulator restored from protected savestate, 18 opt-in execution hooks registered for VM56/VM25/VM39/VM40. Neutral 2+60 frame probes logged 0 real hits (not a proof of callback firing); no desktop input. Local-only trace files. Audit and contract tests available. See docs/analysis/vm_runtime_trace_hooks_20261011.md and progress/current_task.json.

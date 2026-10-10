@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "kind": "verified_frame_exact_native_south_exit",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "source": {
+    "config_id": "cfg_t07_l015_v2",
+    "pack_id_hex": "0x2E",
+    "confirmed_center_exit_cell": {
+      "x": 9,
+      "y": 12,
+      "width": 1,
+      "height": 1
+    },
+    "first_outside_cell": {
+      "x": 9,
+      "y": 13
+    },
+    "last_observed_inside_frame": 661535,
+    "first_observed_outside_frame": 661536
+  },
+  "destination": {
+    "config_id": "cfg_t04_l008_v2",
+    "pack_id_hex": "0x50",
+    "arrival": {
+      "x": 29,
+      "y": 17
+    }
+  },
+  "replay": {
+    "origin_local_savestate": "vmtrace_tabidachi_pack2e_interior_20261011.State",
+    "start_frame": 661523,
+    "switch_frame": 661546,
+    "number_of_exact_input_frames": 23,
+    "input_device": "isolated_snes_gamepad",
+    "buttons": "Down",
+    "player": 1,
+    "local_raw_capture_sha256": "B273252108AA1153B2CB01AF0B7FEA3ECED56A8A708927F6649E1C0624AF84B2",
+    "local_raw_capture_policy": "not_committed",
+    "observed_positions_at_changes": [
+      {
+        "frame": 661524,
+        "pack": 46,
+        "x": 9,
+        "y": 10
+      },
+      {
+        "frame": 661528,
+        "pack": 46,
+        "x": 9,
+        "y": 11
+      },
+      {
+        "frame": 661532,
+        "pack": 46,
+        "x": 9,
+        "y": 12
+      },
+      {
+        "frame": 661536,
+        "pack": 46,
+        "x": 9,
+        "y": 13
+      },
+      {
+        "frame": 661546,
+        "pack": 80,
+        "x": 29,
+        "y": 17
+      }
+    ],
+    "hook_event_counts": {},
+    "execution_hook_firing_proven": false,
+    "native_transition_proven_by_wram": true,
+    "all_traces_without_input_error_or_overflow": true
+  },
+  "confidence": "confirmed_runtime_source_cell_and_destination",
+  "does_not_prove": [
+    "Exit width beyond x=9",
+    "CPU execution-hook callbacks (none recorded if counts empty)",
+    "Scripted opcode 0x56 firing (this is a native boundary restore)",
+    "All possible game story states"
+  ]
+}

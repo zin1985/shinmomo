@@ -1145,6 +1145,57 @@ for i,t in ipairs(vmtrace_targets) do
   end
 end
 
+-- Native out-of-bounds map restore is DIFFERENT from opcode 0x56.
+-- Instrument the known normal map boundary chain at C1/81. CPU bank 81
+-- and C1 are mirrors for these cart addresses, and a short-PC variant
+-- accommodates BizHawk SNES execute-hook callback conventions.
+local native_map_hook_targets = {
+  {0x8943, "native_bounds_source_coordinates"},
+  {0x8955, "native_bounds_exceeded_branch"},
+  {0x895A, "native_request_saved_return"},
+  {0x8244, "native_restore_saved_map_state"},
+  {0x8255, "native_restore_map_pack"},
+}
+for i,t in ipairs(native_map_hook_targets) do
+  local short, kind = t[1], t[2]
+  for _,bank in ipairs({0x81, 0xC1}) do
+    local full = bank * 65536 + short
+    local label = string.format("%02X:%04X", bank, short)
+    local name = "shinmomo_native_vmtrace_" .. tostring(i) .. "_" .. label
+    local ok, err = pcall(event.onmemoryexecute,
+      function() vmtrace_record(kind, label) end,
+      full, name, MAP_BUS_DOMAIN)
+    if ok then
+      vmtrace_hook_registered = vmtrace_hook_registered + 1
+    else
+      vmtrace_hook_errors[#vmtrace_hook_errors+1] = label .. ":" .. tostring(err)
+    end
+  end
+  local label = string.format("short:%04X", short)
+  local name = "shinmomo_native_vmtrace_short_" .. tostring(i)
+  local ok, err = pcall(event.onmemoryexecute,
+    function() vmtrace_record(kind, label) end,
+    short, name)
+  if ok then
+    vmtrace_hook_registered = vmtrace_hook_registered + 1
+  else
+    vmtrace_hook_errors[#vmtrace_hook_errors+1] = label .. ":" .. tostring(err)
+  end
+end
+-- A memory write to $7E0305 is an observable pack-state change.
+-- It does not by itself determine whether the source was native,
+-- opcode 0x56, or a story-dependent scripted change.
+local native_pack_write_ok, native_pack_write_error =
+  pcall(event.onmemorywrite,
+    function() vmtrace_record("native_pack_0305_write", "WRAM:0305") end,
+    0x7E0305, "shinmomo_vmtrace_pack_0305_write")
+if native_pack_write_ok then
+  vmtrace_hook_registered = vmtrace_hook_registered + 1
+else
+  vmtrace_hook_errors[#vmtrace_hook_errors+1] =
+    "WRAM:0305:" .. tostring(native_pack_write_error)
+end
+
 -- Direct WRAM write watches are the primary Goal13 runtime trigger. The prior
 -- 2026-09-25 field run already showed that the BAxx execution targets are not
 -- guaranteed to run in an arbitrary movement window, while $0799,X itself can

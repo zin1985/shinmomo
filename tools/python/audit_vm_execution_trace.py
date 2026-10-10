@@ -19,7 +19,10 @@ CATALOG = ROOT / "data/maps/transitions/map_transition_candidates.csv"
 ROM_SHA = "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98"
 VM_HOOKS = {
     "vm56_map_transition", "vm25_async_schedule", "vm25_deferred_callback",
-    "vm39_one_arg", "vm40_loop_six_args", "vm_pointer_advance_2"
+    "vm39_one_arg", "vm40_loop_six_args", "vm_pointer_advance_2",
+    "native_bounds_source_coordinates", "native_bounds_exceeded_branch",
+    "native_request_saved_return", "native_restore_saved_map_state",
+    "native_restore_map_pack", "native_pack_0305_write",
 }
 
 
@@ -151,6 +154,10 @@ def inspect_trace(data, candidates, rom=None):
         "hook_counts": dict(sorted(counters.items())),
         "any_vm56_handler_executed": counters.get("vm56_map_transition",0)>0,
         "any_vm25_callback_executed": counters.get("vm25_deferred_callback",0)>0,
+        "any_native_return_handler_observed": any(counters.get(k,0)>0 for k in (
+            "native_bounds_exceeded_branch", "native_request_saved_return",
+            "native_restore_saved_map_state", "native_restore_map_pack")),
+        "any_map_pack_write_observed": counters.get("native_pack_0305_write",0)>0,
         "confirmed_source_map_bindings": 0,
         "classification": "Observed handler execution if present; never auto-promoted to playable graph edges.",
         "events": analyses

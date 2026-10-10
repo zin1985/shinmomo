@@ -40,6 +40,13 @@
       "x": 9,
       "y": 12,
       "basis": "forward village->interior transition CC:1CDA arrives exactly at (9,12), centered in the three-cell rendered opening"
+    },
+    "confirmed_hotspot": {
+      "x": 9,
+      "y": 12,
+      "width": 1,
+      "height": 1,
+      "evidence": "23-frame exact runtime replay 2026-10-11"
     }
   },
   "destination": {
@@ -56,7 +63,19 @@
     "fixture": "data/maps/transitions/stable_interior_to_pack50_shrine_exterior_20260928.json",
     "status": "confirmed_runtime_transition",
     "observation": "Player walked south through the central exit; pack 0x2E changed to pack 0x50 before selector convergence.",
-    "source_coordinate_captured": false
+    "source_coordinate_captured": true,
+    "exact_frame_proof": "data/maps/transitions/pack2e_exact_south_exit_20261011.json",
+    "confirmed_source_cell": {
+      "x": 9,
+      "y": 12
+    },
+    "first_outside_cell": {
+      "x": 9,
+      "y": 13
+    },
+    "first_outside_frame": 661536,
+    "map_switch_frame": 661546,
+    "execution_hook_firing_proven": false
   },
   "native_mechanism": {
     "bounds_writer": "C4:8B16 / opcode 0x52",
@@ -68,7 +87,7 @@
     "pack_restore_write": "C1:8255",
     "execution_pc_observed_for_this_edge": false
   },
-  "confidence": "strong_static_runtime_candidate",
-  "exact_source_cell_closed": false,
-  "interpretation": "The reverse edge is explained by the native out-of-bounds saved-state return mechanism rather than an unresolved VM transition opcode. The source Y boundary is proven at y=12; the rendered central opening is x=8..10 with the forward arrival at center x=9. Exact runtime pre-exit X was not captured, so the corridor remains a candidate region rather than a confirmed hotspot."
+  "confidence": "confirmed_runtime_and_static",
+  "exact_source_cell_closed": true,
+  "interpretation": "Frame-exact isolated BizHawk replay confirms native south exit x=9,y=12, first out-of-bounds at x=9,y=13 frame 661536, pack2E->pack50 at frame 661546 landing x=29,y=17. Only central cell x=9 is runtime-proven; neighbor exit cells x=8 and x=10 remain static candidates. CPU onmemoryexecute/onmemorywrite hooks did not fire; do not treat the native return as a proven opcode 0x56 event."
 }

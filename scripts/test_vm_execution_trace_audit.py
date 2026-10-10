@@ -64,6 +64,27 @@ class VMExecutionTraceAuditTests(unittest.TestCase):
         self.assertFalse(got["any_vm56_handler_executed"])
         self.assertEqual(got["confirmed_source_map_bindings"],0)
 
+    def test_native_return_not_confused_with_vm56(self):
+        d=trace()
+        e=observed_vm56()
+        e["hook"]="native_request_saved_return"
+        d["events"]=[e]
+        out=inspect_trace(d,[])
+        self.assertTrue(out["any_native_return_handler_observed"])
+        self.assertFalse(out["any_vm56_handler_executed"])
+        self.assertFalse(out["any_map_pack_write_observed"])
+        self.assertEqual(out["confirmed_source_map_bindings"],0)
+
+    def test_native_pack_write_not_automatically_a_source_binding(self):
+        d=trace()
+        e=observed_vm56()
+        e["hook"]="native_pack_0305_write"
+        d["events"]=[e]
+        out=inspect_trace(d,[])
+        self.assertTrue(out["any_map_pack_write_observed"])
+        self.assertFalse(out["any_native_return_handler_observed"])
+        self.assertEqual(out["confirmed_source_map_bindings"],0)
+
     def test_non_neutral_capture_rejected(self):
         d=trace();d["input_sent"]=True
         with self.assertRaisesRegex(ValueError,"Input"):inspect_trace(d,[])

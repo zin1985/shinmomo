@@ -186,3 +186,20 @@ capture has input_device=isolated_snes_gamepad and the chosen
 buttons/player, and can be audited with the same Python verifier.
 Revert to the protected savestate afterwards; the trace itself
 does not auto-restore state.
+
+
+### Frame-exact native map-exit replay
+
+The dedicated hidden lab can load the protected interior savestate
+vmtrace_tabidachi_pack2e_interior_20261011.State (LOCAL only)
+and step one Down frame at a time using vm-trace-gamepad.
+The tools/python/verify_native_south_exit_replay.py script validates
+the individual local input traces and produces metadata-only
+data/maps/transitions/pack2e_exact_south_exit_20261011.json.
+See docs/analysis/native_pack2e_south_exit_frame_exact_20261011.md.
+Restore the original protected savestate after every experiment.
+
+WARNING: 34 registered BizHawk VM/native execution and WRAM-write
+hooks logged zero events even during a confirmed native map switch.
+Their callback delivery is not validated on this core. Exact
+per-frame WRAM samples, not zero-hit hooks, prove this return.
