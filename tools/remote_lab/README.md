@@ -209,8 +209,10 @@ per-frame WRAM samples, not zero-hit hooks, prove this return.
 
 Use the isolated, hidden BizHawk for one-command captures:
 
-    & .	oolsemote_lab\shinmomo_background_lab.ps1 -Action vm-frames -Frames 60
-    & .	oolsemote_lab\shinmomo_background_lab.ps1 -Action vm-frames-gamepad -Buttons Down -Player 1 -Frames 23
+    & .	ools
+emote_lab\shinmomo_background_lab.ps1 -Action vm-frames -Frames 60
+    & .	ools
+emote_lab\shinmomo_background_lab.ps1 -Action vm-frames-gamepad -Buttons Down -Player 1 -Frames 23
 
 One to 120 frames each. Per-frame data includes $0305 map pack,
 $035F/$1398 VM mode, pointer $98-$9A, x/y, entry and saved map bytes.
@@ -227,3 +229,26 @@ WRAM changes are frame-exact but do NOT prove VM opcode execution.
 Details, timing, and reproduction in
 docs/analysis/hidden_frame_series_fallback_20261011.md.
 Restore the originally protected dedicated emulator state after tests.
+
+
+## Safe, reusable event-phase map transition probes
+
+A parameterized hidden-lab runner captures input, VM state, map pack,
+raw script pointer and post-load settled arrival as one local event.
+It saves the current emulator state, loads a known source savestate,
+records <=120 input frames and <=120 neutral frames, then **always
+restores** the prior state before returning:
+
+    & .\tools\remote_lab\probe_map_transition.ps1 -StateName vmtrace_world_pack4c_x55_y236_preentry_20261011 -Buttons Down -InputFrames 18 -SettleFrames 120
+
+Verified outcome: world pack4C->village pack50 switch 663064, then
+settled arrival x29,y55 at frame 663169. A negative replay that
+does not produce a proven transition returns ok=false with
+rollback_state_loaded=true. Failures never auto-create map links.
+This only touches the *dedicated hidden* BizHawk and uses the
+isolated SNES joypad; no foreground desktop input.
+
+The audit is tools/python/audit_transition_phases.py, contract
+tests scripts/test_transition_phases.py. See
+docs/analysis/world_entry_event_phase_capture_20261011.md for
+provenance and opcode/VM-pointer limitations.
