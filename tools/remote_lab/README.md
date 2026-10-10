@@ -152,7 +152,8 @@ docs/analysis/vm_runtime_context_snapshot_20261011.md.
 
 The **dedicated hidden** BizHawk lab now accepts:
 
-    & .	oolsemote_lab\shinmomo_background_lab.ps1 -Action vm-trace -Frames 60
+    & .	ools
+emote_lab\shinmomo_background_lab.ps1 -Action vm-trace -Frames 60
 
 It advances 1..120 **neutral, no-input** frames and saves up to 256
 CPU execution hook observations in the local lab captures directory.
@@ -170,3 +171,18 @@ The audit writes a local sibling *_audit.json. It never upgrades a
 source map to a confirmed graph link. Read
 docs/analysis/vm_runtime_trace_hooks_20261011.md for evidence, caveats
 and dedicated-emulator savestate rollback steps.
+
+
+### Optional controlled in-emulator input
+
+After saving a dedicated state for restoration, the isolated bridge
+also accepts:
+
+    & .\tools\remote_lab\shinmomo_background_lab.ps1 -Action vm-trace-gamepad -Buttons Down -Player 1 -Frames 8
+
+This sends exact-frame SNES joypad commands to the hidden dedicated
+emulator only; it does NOT use desktop keyboard/mouse focus. A valid
+capture has input_device=isolated_snes_gamepad and the chosen
+buttons/player, and can be audited with the same Python verifier.
+Revert to the protected savestate afterwards; the trace itself
+does not auto-restore state.

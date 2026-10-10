@@ -10,6 +10,7 @@ import argparse
 import csv
 import hashlib
 import json
+import re
 from collections import Counter
 from pathlib import Path
 
@@ -51,12 +52,27 @@ def record_rom_offset(cpu_value):
 def inspect_trace(data, candidates, rom=None):
     if data.get("kind") != "isolated_vm_execution_trace":
         raise ValueError("Not an isolated VM execution trace")
-    if data.get("input_sent") is not False:
-        raise ValueError("Input must be explicitly recorded as not sent")
-    requested = number(data.get("requested_neutral_frames"))
+    input_sent = data.get("input_sent")
+    if not isinstance(input_sent,bool):
+        raise ValueError("Input must be explicitly true or false")
+    neutral = number(data.get("requested_neutral_frames"))
+    input_frames = number(data.get("requested_input_frames",0))
     advanced = number(data.get("advanced_frames"))
-    if requested is None or not 1 <= requested <= 120 or advanced != requested:
-        raise ValueError("Invalid requested/completed neutral frames")
+    if neutral is None or input_frames is None or neutral<0 or input_frames<0:
+        raise ValueError("Invalid neutral/input frame counters")
+    requested = neutral + input_frames
+    if not 1 <= requested <= 120 or advanced != requested:
+        raise ValueError("Invalid requested/completed frame count")
+    if input_sent:
+        buttons=data.get("buttons")
+        if (data.get("input_device")!="isolated_snes_gamepad"
+            or input_frames!=requested or neutral!=0
+            or not isinstance(buttons,str) or
+            re.fullmatch(r"(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select)(?:[, ]+(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select))*",buttons) is None
+            or number(data.get("player")) not in (1,2,3,4)):
+            raise ValueError("Input is not a bounded, validated isolated SNES gamepad trace")
+    elif input_frames != 0:
+        raise ValueError("Non-neutral frames without declared isolated gamepad input")
     before = data.get("before", {})
     after = data.get("after", {})
     first, last = number(before.get("frame")), number(after.get("frame"))
@@ -123,7 +139,10 @@ def inspect_trace(data, candidates, rom=None):
         "schema_version": 1,
         "kind": "vm_execution_trace_audit",
         "start_frame": first, "end_frame": last,
-        "neutral_frames_advanced": advanced,
+        "neutral_frames_advanced": neutral,
+        "isolated_gamepad_frames_advanced": input_frames,
+        "input_sent": input_sent,
+        "input_device": "isolated_snes_gamepad" if input_sent else "none",
         "hook_registration_count": data["hook_registered"],
         "hook_registration_errors": data.get("hook_errors") or "",
         "event_count": len(events),

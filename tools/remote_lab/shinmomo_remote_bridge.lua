@@ -771,7 +771,7 @@ end
 -- A host-triggered, neutral-frame, bounded observation transaction.
 -- Unlike regular STEP, this returns a consolidated hook log with exact
 -- before/after map and VM state. It does not send a gamepad button.
-local function do_vm_trace(id, frames_s)
+local function do_vm_trace(id, frames_s, button_csv, player_s)
   local frames = tonumber(frames_s)
   if not frames or frames ~= math.floor(frames) or frames < 1 or frames > 120 then
     respond(id, "ERR", "VM trace requires 1..120 neutral frames")
@@ -781,10 +781,27 @@ local function do_vm_trace(id, frames_s)
     respond(id, "ERR", "no VM execution hooks registered")
     return
   end
+  local buttons = nil
+  local player = nil
+  if button_csv ~= nil then
+    local err
+    buttons, err = parse_buttons(button_csv)
+    if not buttons then
+      respond(id, "ERR", "invalid isolated gamepad buttons: " .. tostring(err))
+      return
+    end
+    player = tonumber(player_s)
+    if player == nil or player ~= math.floor(player) or player < 1 or player > 4 then
+      respond(id, "ERR", "player must be 1..4")
+      return
+    end
+  end
   vmtrace_rows, vmtrace_seen, vmtrace_dropped = {}, {}, 0
   local before = vmtrace_baseline_json("before")
   vmtrace_active = true
-  local ok_run, frame_or_error = advance_exact(frames, nil, nil, nil)
+  -- Input is only emulated SNES joypad state inside this process.
+  -- No OS focus, mouse pointer, desktop key or RDP interactions.
+  local ok_run, frame_or_error = advance_exact(frames, buttons, player, nil)
   vmtrace_active = false
   local after = vmtrace_baseline_json("after")
   if not ok_run then
@@ -796,9 +813,13 @@ local function do_vm_trace(id, frames_s)
     "{",
     '"kind":"isolated_vm_execution_trace",',
     '"id":', json_quote(id), ",",
-    '"requested_neutral_frames":', tostring(frames), ",",
+    '"requested_neutral_frames":', tostring(buttons and 0 or frames), ",",
+    '"requested_input_frames":', tostring(buttons and frames or 0), ",",
     '"advanced_frames":', tostring(frame_or_error), ",",
-    '"input_sent":false,',
+    '"input_sent":', tostring(buttons ~= nil), ",",
+    '"input_device":', json_quote(buttons and "isolated_snes_gamepad" or "none"), ",",
+    '"buttons":', json_quote(button_csv or ""), ",",
+    '"player":', json_num(player), ",",
     '"hook_registered":', tostring(vmtrace_hook_registered), ",",
     '"hook_errors":', json_quote(table.concat(vmtrace_hook_errors, " | ")), ",",
     '"event_limit":', tostring(vmtrace_limit), ",",
@@ -981,6 +1002,11 @@ local function process_command()
 
   if cmd == "VM_TRACE" then
     do_vm_trace(id, p[3] or "1")
+    return
+  end
+
+  if cmd == "VM_TRACE_GAMEPAD" then
+    do_vm_trace(id, p[3] or "1", p[4] or "", p[5] or "1")
     return
   end
 

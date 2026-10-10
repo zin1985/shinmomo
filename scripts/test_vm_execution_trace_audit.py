@@ -68,6 +68,40 @@ class VMExecutionTraceAuditTests(unittest.TestCase):
         d=trace();d["input_sent"]=True
         with self.assertRaisesRegex(ValueError,"Input"):inspect_trace(d,[])
 
+    def test_declared_isolated_gamepad_trace(self):
+        d=trace()
+        d.update({
+            "requested_neutral_frames":0,
+            "requested_input_frames":2,
+            "input_sent":True,
+            "input_device":"isolated_snes_gamepad",
+            "buttons":"Down",
+            "player":1,
+        })
+        d["events"]=[observed_vm56()]
+        out=inspect_trace(d,[])
+        self.assertTrue(out["input_sent"])
+        self.assertEqual(out["isolated_gamepad_frames_advanced"],2)
+        self.assertEqual(out["confirmed_source_map_bindings"],0)
+
+    def test_forged_desktop_input_rejected(self):
+        d=trace()
+        d.update({
+            "requested_neutral_frames":0,"requested_input_frames":2,
+            "input_sent":True,"input_device":"desktop_keyboard",
+            "buttons":"Down","player":1
+        })
+        with self.assertRaisesRegex(ValueError,"isolated SNES gamepad"):
+            inspect_trace(d,[])
+
+    def test_overly_large_gamepad_window_rejected(self):
+        d=trace()
+        d.update({"requested_neutral_frames":0,"requested_input_frames":121,
+                  "input_sent":True,"input_device":"isolated_snes_gamepad",
+                  "buttons":"Down","player":1,"advanced_frames":121})
+        with self.assertRaisesRegex(ValueError,"frame count"):
+            inspect_trace(d,[])
+
     def test_mismatched_end_frame_rejected(self):
         d=trace();d["after"]["frame"]=103
         with self.assertRaisesRegex(ValueError,"frame span"):inspect_trace(d,[])

@@ -95,3 +95,37 @@ after C4:9517 before promoting the CC:F4F9 deferred path.
 The graph remains 149 configurations, 56 bound transitions, three
 runtime-confirmed edges and official progress 51.4%. No new source
 map binding was made in this work unit.
+
+
+## Opt-in isolated gamepad VM trace (2026-10-11 continuation)
+
+A second trace command supports a bounded SNES joypad input *inside the
+dedicated hidden BizHawk only*:
+
+    & .\tools\remote_lab\shinmomo_background_lab.ps1 -Action vm-trace-gamepad -Buttons Down -Player 1 -Frames 8
+
+It calls the existing exact-frame Lua joypad API, NOT Windows keyboard
+or mouse APIs. Frames are restricted to 1..120, player to 1..4 and
+buttons to canonical SNES names. The trace marks input_sent=true,
+input_device=isolated_snes_gamepad and records exact buttons/player;
+the independent Python audit validates this controlled provenance
+and rejects mislabeled desktop input.
+
+The original 660112-frame state was saved locally as
+vmtrace_pre_gamepad_reload_20261011.State before restarting only the
+hidden dedicated BizHawk to load the updated Lua bridge. The emulator
+remained hidden, PID 17656. A controlled eight-frame Down trace
+recorded 660112 -> 660120, 18 hooks registered, 0 hook registration
+errors, 0 VM handler hits, 0 dropped events. Map pack remained F1.
+
+The protected state was then restored; a read-only multi-range
+snapshot verified the exact restored frame 660112 and pack F1.
+No original user game state or foreground desktop interaction changed.
+
+**Evidence limitation:** a no-hit result in the current F1 map does
+not establish whether execution-hook notifications will fire when
+the game actually dispatches the monitored VM opcode. The next test
+needs an independently verified scene/savestate where a known map
+transition can be triggered. Do not count a hook as a runtime hit
+until a row is recorded, and do not infer source map from handler
+registration alone.

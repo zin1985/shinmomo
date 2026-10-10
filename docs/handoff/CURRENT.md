@@ -1,5 +1,7 @@
 # CURRENT rolling handoff
 
+> **2026-10-11 controlled VM execution trace:** Added -Action vm-trace-gamepad for bounded SNES input inside the dedicated hidden BizHawk only. Eight Down frames 660112..660120 recorded with 18 hooks, 0 hits, no desktop input; protected state restored to 660112. No executable map edge proven yet. See docs/analysis/vm_runtime_trace_hooks_20261011.md and progress/current_task.json.
+
 > **2026-10-11 hidden BizHawk VM hooks:** isolated emulator restored from protected savestate, 18 opt-in execution hooks registered for VM56/VM25/VM39/VM40. Neutral 2+60 frame probes logged 0 real hits (not a proof of callback firing); no desktop input. Local-only trace files. Audit and contract tests available. See docs/analysis/vm_runtime_trace_hooks_20261011.md and progress/current_task.json.
 
 > **2026-10-11 isolated VM context baseline:** Added tools/remote_lab/capture_vm_context_readonly.ps1; four WRAM ranges were captured at the same emulator frame 660050 without input. $0305=F1, $035F/$1398=00 are observation only, NOT proof of VM56 execution. Read docs/analysis/vm_runtime_context_snapshot_20261011.md.

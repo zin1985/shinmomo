@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","vm-trace","capture-memory","write-memory","save-state","load-state")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","vm-trace","vm-trace-gamepad","capture-memory","write-memory","save-state","load-state")]
   [string]$Command,
 
   [int]$X = 0,
@@ -222,6 +222,24 @@ public static class ShinMomoMouse {
     Emit-Result @{ ok=$true; command='vm-trace'; path=$path; frames=$report.advanced_frames;
       events=@($report.events).Count; hook_registered=$report.hook_registered;
       hook_errors=$report.hook_errors; input_sent=$false }
+  }
+
+  "vm-trace-gamepad" {
+    if ($Frames -lt 1 -or $Frames -gt 120) { throw "-Frames must be 1..120." }
+    if ($Player -lt 1 -or $Player -gt 4) { throw "-Player must be 1..4." }
+    if ($Buttons -notmatch '^(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select)(?:[, ]+(?:A|B|X|Y|L|R|Up|Down|Left|Right|Start|Select))*$') {
+      throw "Only exact SNES buttons are accepted for isolated VM trace."
+    }
+    $path = Invoke-Bridge @("VM_TRACE_GAMEPAD", "$Frames", $Buttons, "$Player")
+    if (!(Test-Path -LiteralPath $path)) { throw "VM input trace artifact missing: $path" }
+    $report=Get-Content -LiteralPath $path -Raw -Encoding UTF8|ConvertFrom-Json
+    if ($report.kind -ne 'isolated_vm_execution_trace' -or
+        $report.input_sent -ne $true -or $report.input_device -ne 'isolated_snes_gamepad') {
+      throw "Invalid isolated gamepad trace result"
+    }
+    Emit-Result @{ok=$true; command='vm-trace-gamepad'; path=$path; frames=$report.advanced_frames;
+      events=@($report.events).Count; hook_registered=$report.hook_registered; hook_errors=$report.hook_errors;
+      input_sent=$true; input_device=$report.input_device; buttons=$Buttons; player=$Player}
   }
 
   "capture-memory" {

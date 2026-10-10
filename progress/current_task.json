@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Prove runtime VM56 opcode hits and active source map with hidden BizHawk",
-  "base_main_head_verified": "35def5712c5693afc5e0d88d885464ca2929eea9",
+  "title": "Obtain a real VM handler hit from a known scene using isolated joystick trace",
+  "base_main_head_verified": "7884b5d9b6bdbf93d13c0e16d5b09beddc58345b",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Use known town/exit savestate in isolated BizHawk to produce an actual C4:8B6A/84:8B6A/short:8B6A execute-hook hit. Record raw script pointer, $0305, VM mode, coordinates and story state before promoting an edge. No desktop input."
+      "action": "Identify or create reproducible village-exit savestate in isolated hidden BizHawk; test normal VM56 handler with bounded input and record actual hook hits, ROM script pointer, $0305 and mode. Restore savestate after."
     },
     {
       "order": 2,
-      "action": "Verify actual callback C4:9535 fires after C4:9517 when normal VM opcode0x25 schedules the continuation at CC:F47A."
+      "action": "On genuine 0x25 scheduler event, capture C4:9517 and later C4:9535 callbacks before promoting CC:F4F9 deferred path."
     },
     {
       "order": 3,
-      "action": "Trace real event entry callers and active map configs for 10 framed VM56 terminal instructions. Preserve the 712 unframed ownership backlog."
+      "action": "Determine actual VM caller, source map configuration, saved-return and story flags for all ten framed VM56 paths. Never auto-bind from script pack/PC alone."
     },
     {
       "order": 4,
-      "action": "Run world->village->interior->village->world round trip with frame/WRAM/CPU-hook/screenshot evidence in the isolated lab."
+      "action": "Verify world-village-interior-village-world traversal with repeatable screenshots, WRAM and VM execution logs."
     },
     {
       "order": 5,
-      "action": "Continue CC:1160 five-way destination phase predicates and pack0x96 missing arrival XY."
+      "action": "Continue 712 unframed VM56 owners, CC:1160 phase selector and pack0x96 missing arrival XY."
     }
   ],
   "do_not_redo": [
@@ -844,16 +844,21 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Installed and live-tested opt-in bounded VM handler execution trace in dedicated hidden BizHawk",
-    "dedicated_emulator_pid_after_reload": 5396,
-    "savestate_backed_up_and_restored": true,
-    "cpu_hook_variants_registered": 18,
-    "cpu_hook_registration_errors": 0,
-    "neutral_trace_frames_tested": 62,
-    "neutral_trace_execution_hits": 0,
-    "actual_opcode_hook_firing_proven": false,
-    "user_desktop_input_sent": false,
-    "source_config_ids_promoted": 0,
+    "description": "Enabled bounded isolated SNES gamepad during VM execution trace with proven restoration",
+    "target_lab_only": true,
+    "dedicated_emulator_pid": 17656,
+    "state_protected_and_restored": "vmtrace_pre_gamepad_reload_20261011",
+    "tested_frames_from": 660112,
+    "tested_frames_to": 660120,
+    "restored_frame": 660112,
+    "buttons": "Down",
+    "player": 1,
+    "gamepad_frames": 8,
+    "registered_cpu_hooks": 18,
+    "hook_errors": 0,
+    "runtime_opcode_hits": 0,
+    "desktop_input_sent": false,
+    "new_source_map_bindings": 0,
     "official_progress_percent_unchanged": 51.4,
     "evidence": [
       "docs/analysis/vm_runtime_trace_hooks_20261011.md",
@@ -1048,6 +1053,28 @@
         "artifact": "docs/analysis/vm_runtime_context_snapshot_20261011.md",
         "tool": "tools/remote_lab/capture_vm_context_readonly.ps1"
       }
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Installed and live-tested opt-in bounded VM handler execution trace in dedicated hidden BizHawk",
+      "dedicated_emulator_pid_after_reload": 5396,
+      "savestate_backed_up_and_restored": true,
+      "cpu_hook_variants_registered": 18,
+      "cpu_hook_registration_errors": 0,
+      "neutral_trace_frames_tested": 62,
+      "neutral_trace_execution_hits": 0,
+      "actual_opcode_hook_firing_proven": false,
+      "user_desktop_input_sent": false,
+      "source_config_ids_promoted": 0,
+      "official_progress_percent_unchanged": 51.4,
+      "evidence": [
+        "docs/analysis/vm_runtime_trace_hooks_20261011.md",
+        "tools/remote_lab/shinmomo_remote_bridge.lua",
+        "tools/remote_lab/shinmomo_lab.ps1",
+        "tools/remote_lab/shinmomo_background_lab.ps1",
+        "tools/python/audit_vm_execution_trace.py",
+        "scripts/test_vm_execution_trace_audit.py"
+      ]
     }
   ]
 }
