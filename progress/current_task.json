@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Trace ten potential VM56 event paths at runtime, including deferred scheduler",
-  "base_main_head_verified": "157e357e78b97fd22348e8cefa7b68f57ec67a61",
+  "title": "Prove runtime VM56 opcode hits and active source map with hidden BizHawk",
+  "base_main_head_verified": "35def5712c5693afc5e0d88d885464ca2929eea9",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Extend dedicated hidden BizHawk Lua bridge with opt-in bounded VM normal-handler execution trace, capture CPU PC + $0305/$035F/$1398 + event frame, and correlate with read-only baseline. No interaction with foreground desktop."
+      "action": "Use known town/exit savestate in isolated BizHawk to produce an actual C4:8B6A/84:8B6A/short:8B6A execute-hook hit. Record raw script pointer, $0305, VM mode, coordinates and story state before promoting an edge. No desktop input."
     },
     {
       "order": 2,
-      "action": "Specifically prove or disprove actual callback C4:9535 execution for opcode0x25 at CC:F47A before treating CC:F4F9 as a true game event route."
+      "action": "Verify actual callback C4:9535 fires after C4:9517 when normal VM opcode0x25 schedules the continuation at CC:F47A."
     },
     {
       "order": 3,
-      "action": "Trace real event-record owner/VM entry callers for the nine other static possible VM56 paths and prove source-map configurations independently."
+      "action": "Trace real event entry callers and active map configs for 10 framed VM56 terminal instructions. Preserve the 712 unframed ownership backlog."
     },
     {
       "order": 4,
-      "action": "Verify a full world-village-interior-village-world round trip in hidden BizHawk, with screenshot and before-after memory evidence."
+      "action": "Run world->village->interior->village->world round trip with frame/WRAM/CPU-hook/screenshot evidence in the isolated lab."
     },
     {
       "order": 5,
-      "action": "Broaden the 712 source-unframed VM56 ownership links and continue CC:1160 phase and pack0x96 arrival XY."
+      "action": "Continue CC:1160 five-way destination phase predicates and pack0x96 missing arrival XY."
     }
   ],
   "do_not_redo": [
@@ -844,36 +844,25 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Normal VM 0x39/0x40 and deferred opcode 0x25 evidence, 10/10 possible static CFG paths",
-    "framed_vm56_entry_count": 10,
-    "direct_potential_paths": 9,
-    "deferred_resume_potential_paths": 1,
-    "runtime_confirmed_paths_added": 0,
-    "source_map_bindings_added": 0,
-    "catalog_rebuilt_row_count": 1295,
-    "catalog_rebuilt_byte_identical": true,
+    "description": "Installed and live-tested opt-in bounded VM handler execution trace in dedicated hidden BizHawk",
+    "dedicated_emulator_pid_after_reload": 5396,
+    "savestate_backed_up_and_restored": true,
+    "cpu_hook_variants_registered": 18,
+    "cpu_hook_registration_errors": 0,
+    "neutral_trace_frames_tested": 62,
+    "neutral_trace_execution_hits": 0,
+    "actual_opcode_hook_firing_proven": false,
+    "user_desktop_input_sent": false,
+    "source_config_ids_promoted": 0,
     "official_progress_percent_unchanged": 51.4,
     "evidence": [
-      "docs/analysis/vm56_full_static_frontier_20261011.md",
-      "data/maps/transitions/vm_opcode39_40_proof.json",
-      "data/maps/transitions/vm_opcode25_deferred_proof.json",
-      "data/maps/transitions/vm56_entry_cfg_frontier.json",
-      "tools/python/verify_vm_opcode39_40_handlers.py",
-      "tools/python/verify_vm_opcode25_deferred.py",
-      "scripts/test_vm_opcode39_40_handlers.py",
-      "scripts/test_vm_opcode25_deferred.py"
-    ],
-    "read_only_background_context_capture": {
-      "status": "verified_frame_coherent_baseline_only",
-      "frame": 660050,
-      "no_user_input_or_frame_advance": true,
-      "observed_pack_0305": "0xF1",
-      "observed_mode_035F": "0x00",
-      "observed_mode_1398": "0x00",
-      "runtime_vm_opcode_hit_proven": false,
-      "artifact": "docs/analysis/vm_runtime_context_snapshot_20261011.md",
-      "tool": "tools/remote_lab/capture_vm_context_readonly.ps1"
-    }
+      "docs/analysis/vm_runtime_trace_hooks_20261011.md",
+      "tools/remote_lab/shinmomo_remote_bridge.lua",
+      "tools/remote_lab/shinmomo_lab.ps1",
+      "tools/remote_lab/shinmomo_background_lab.ps1",
+      "tools/python/audit_vm_execution_trace.py",
+      "scripts/test_vm_execution_trace_audit.py"
+    ]
   },
   "completed_work_units": [
     {
@@ -1026,6 +1015,39 @@
         "docs/analysis/vm56_entry_cfg_frontier_20261010.md",
         "scripts/test_vm_opcode02_13_handler.py"
       ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Normal VM 0x39/0x40 and deferred opcode 0x25 evidence, 10/10 possible static CFG paths",
+      "framed_vm56_entry_count": 10,
+      "direct_potential_paths": 9,
+      "deferred_resume_potential_paths": 1,
+      "runtime_confirmed_paths_added": 0,
+      "source_map_bindings_added": 0,
+      "catalog_rebuilt_row_count": 1295,
+      "catalog_rebuilt_byte_identical": true,
+      "official_progress_percent_unchanged": 51.4,
+      "evidence": [
+        "docs/analysis/vm56_full_static_frontier_20261011.md",
+        "data/maps/transitions/vm_opcode39_40_proof.json",
+        "data/maps/transitions/vm_opcode25_deferred_proof.json",
+        "data/maps/transitions/vm56_entry_cfg_frontier.json",
+        "tools/python/verify_vm_opcode39_40_handlers.py",
+        "tools/python/verify_vm_opcode25_deferred.py",
+        "scripts/test_vm_opcode39_40_handlers.py",
+        "scripts/test_vm_opcode25_deferred.py"
+      ],
+      "read_only_background_context_capture": {
+        "status": "verified_frame_coherent_baseline_only",
+        "frame": 660050,
+        "no_user_input_or_frame_advance": true,
+        "observed_pack_0305": "0xF1",
+        "observed_mode_035F": "0x00",
+        "observed_mode_1398": "0x00",
+        "runtime_vm_opcode_hit_proven": false,
+        "artifact": "docs/analysis/vm_runtime_context_snapshot_20261011.md",
+        "tool": "tools/remote_lab/capture_vm_context_readonly.ps1"
+      }
     }
   ]
 }

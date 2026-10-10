@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory=$true, Position=0)]
-  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","capture-memory","write-memory","save-state","load-state")]
+  [ValidateSet("screen","game-screen","map-capture","click","key","gamepad","step","vm-trace","capture-memory","write-memory","save-state","load-state")]
   [string]$Command,
 
   [int]$X = 0,
@@ -209,6 +209,19 @@ public static class ShinMomoMouse {
     if ($Frames -lt 1 -or $Frames -gt 600) { throw "-Frames must be 1..600." }
     $payload = Invoke-Bridge @("STEP", "$Frames")
     Emit-Result @{ ok=$true; command="step"; frames=$Frames; bridge=$payload }
+  }
+
+  "vm-trace" {
+    if ($Frames -lt 1 -or $Frames -gt 120) { throw "-Frames must be 1..120 for VM trace." }
+    $path = Invoke-Bridge @("VM_TRACE", "$Frames")
+    if (!(Test-Path -LiteralPath $path)) { throw "VM trace artifact missing: $path" }
+    $report = Get-Content -LiteralPath $path -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($report.kind -ne 'isolated_vm_execution_trace' -or $report.input_sent -ne $false) {
+      throw "Invalid or unsafe VM trace result"
+    }
+    Emit-Result @{ ok=$true; command='vm-trace'; path=$path; frames=$report.advanced_frames;
+      events=@($report.events).Count; hook_registered=$report.hook_registered;
+      hook_errors=$report.hook_errors; input_sent=$false }
   }
 
   "capture-memory" {

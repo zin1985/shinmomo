@@ -17,6 +17,15 @@ local goal13_trace_rows = {}
 local goal13_hook_registered = 0
 local goal13_hook_errors = {}
 
+-- Runtime VM-trace facility is opt-in and bounded by the host command.
+-- Hooks are registered once at startup but are inert while trace is off.
+local vmtrace_active = false
+local vmtrace_rows = {}
+local vmtrace_dropped = 0
+local vmtrace_hook_registered = 0
+local vmtrace_hook_errors = {}
+local vmtrace_seen = {}
+
 local function split_tabs(s)
   local out = {}
   for field in (s .. "\t"):gmatch("(.-)\t") do out[#out + 1] = field end
@@ -241,6 +250,71 @@ local function goal13_emit(kind, target, slot_override)
 
   parts[#parts + 1] = "}"
   goal13_trace_rows[#goal13_trace_rows + 1] = table.concat(parts)
+end
+
+-- Do not infer current script address from C4 handler PC: use the
+-- 24-bit direct-page script pointer $98-$9A as a separate observation.
+-- All snapshots here are made inside the CPU execution hook callback.
+local vmtrace_limit = 256
+local function vmtrace_record(kind, source_address)
+  if not vmtrace_active then return end
+  local frame = framecount()
+  local pc, bank = reg("PC"), reg("PBR")
+  -- Do not deduplicate by PC/frame: multiple executions of the same
+  -- handler within a frame are meaningful. Duplicated bus/short hooks
+  -- retain distinct source_address and can be reconciled offline.
+  if #vmtrace_rows >= vmtrace_limit then
+    vmtrace_dropped = vmtrace_dropped + 1
+    return
+  end
+  local ptrlo = read8(0x0098, "WRAM")
+  local ptrhi = read8(0x0099, "WRAM")
+  local ptrbank = read8(0x009A, "WRAM")
+  local parts = {
+    "{",
+    '"frame":' .. tostring(frame) .. ",",
+    '"hook":' .. json_quote(kind) .. ",",
+    '"source_address":' .. json_quote(source_address) .. ",",
+    '"cpu_pc":' .. json_num(pc) .. ",",
+    '"cpu_pbr":' .. json_num(bank) .. ",",
+    '"cpu_a":' .. json_num(reg("A")) .. ",",
+    '"cpu_x":' .. json_num(reg("X")) .. ",",
+    '"cpu_y":' .. json_num(reg("Y")) .. ",",
+    '"vm_script_ptr_lo":' .. json_num(ptrlo) .. ",",
+    '"vm_script_ptr_hi":' .. json_num(ptrhi) .. ",",
+    '"vm_script_ptr_bank":' .. json_num(ptrbank) .. ",",
+    '"vm_script_ptr_cpu":' ..
+      ((ptrlo and ptrhi and ptrbank) and tostring(ptrbank * 65536 + ptrhi * 256 + ptrlo) or "null") .. ",",
+    '"w0305_map_pack":' .. json_num(read8(0x0305, "WRAM")) .. ",",
+    '"w035f_vm_mode":' .. json_num(read8(0x035F, "WRAM")) .. ",",
+    '"w1398_dispatch_mode":' .. json_num(read8(0x1398, "WRAM")) .. ",",
+    '"w13b8_entry":' .. json_num(read8(0x13B8, "WRAM")) .. ",",
+    '"w1573_x_raw":' .. json_num(read8(0x1573, "WRAM")) .. ",",
+    '"w157d_y_raw":' .. json_num(read8(0x157D, "WRAM")) .. ",",
+    '"w15cf_return_pack":' .. json_num(read8(0x15CF, "WRAM")) .. ",",
+    '"w15d0_target_pack":' .. json_num(read8(0x15D0, "WRAM")),
+    "}"
+  }
+  vmtrace_rows[#vmtrace_rows + 1] = table.concat(parts)
+end
+
+local function vmtrace_baseline_json(label)
+  local lo, hi, bank =
+    read8(0x0098, "WRAM"), read8(0x0099, "WRAM"), read8(0x009A, "WRAM")
+  return table.concat({
+    '{"label":', json_quote(label),
+    ',"frame":', tostring(framecount()),
+    ',"w0305":', json_num(read8(0x0305, "WRAM")),
+    ',"w035f":', json_num(read8(0x035F, "WRAM")),
+    ',"w1398":', json_num(read8(0x1398, "WRAM")),
+    ',"w13b8":', json_num(read8(0x13B8, "WRAM")),
+    ',"ptr98_lo":', json_num(lo),
+    ',"ptr99_hi":', json_num(hi),
+    ',"ptr9a_bank":', json_num(bank),
+    ',"w1573":', json_num(read8(0x1573, "WRAM")),
+    ',"w157d":', json_num(read8(0x157D, "WRAM")),
+    '}'
+  })
 end
 
 local function read_range(start, length, domain)
@@ -694,6 +768,54 @@ local function do_atomic_gamepad_capture(id, player_s, button_csv, frames_s,
   respond(id, "OK", path)
 end
 
+-- A host-triggered, neutral-frame, bounded observation transaction.
+-- Unlike regular STEP, this returns a consolidated hook log with exact
+-- before/after map and VM state. It does not send a gamepad button.
+local function do_vm_trace(id, frames_s)
+  local frames = tonumber(frames_s)
+  if not frames or frames ~= math.floor(frames) or frames < 1 or frames > 120 then
+    respond(id, "ERR", "VM trace requires 1..120 neutral frames")
+    return
+  end
+  if vmtrace_hook_registered < 1 then
+    respond(id, "ERR", "no VM execution hooks registered")
+    return
+  end
+  vmtrace_rows, vmtrace_seen, vmtrace_dropped = {}, {}, 0
+  local before = vmtrace_baseline_json("before")
+  vmtrace_active = true
+  local ok_run, frame_or_error = advance_exact(frames, nil, nil, nil)
+  vmtrace_active = false
+  local after = vmtrace_baseline_json("after")
+  if not ok_run then
+    respond(id, "ERR", "neutral VM trace failed: " .. tostring(frame_or_error))
+    return
+  end
+  local path = CAPTURES .. SEP .. "vmtrace_" .. clean_id(id) .. ".json"
+  local payload = table.concat({
+    "{",
+    '"kind":"isolated_vm_execution_trace",',
+    '"id":', json_quote(id), ",",
+    '"requested_neutral_frames":', tostring(frames), ",",
+    '"advanced_frames":', tostring(frame_or_error), ",",
+    '"input_sent":false,',
+    '"hook_registered":', tostring(vmtrace_hook_registered), ",",
+    '"hook_errors":', json_quote(table.concat(vmtrace_hook_errors, " | ")), ",",
+    '"event_limit":', tostring(vmtrace_limit), ",",
+    '"dropped_events":', tostring(vmtrace_dropped), ",",
+    '"before":', before, ",",
+    '"after":', after, ",",
+    '"events":[', table.concat(vmtrace_rows, ","), "]",
+    "}"
+  })
+  local ok_write, err = write_all(path, payload)
+  if not ok_write then
+    respond(id, "ERR", "VM trace output failed: " .. tostring(err))
+    return
+  end
+  respond(id, "OK", path)
+end
+
 local function do_write_memory(id, domain, start_s, bytes_s)
   local start = parse_num(start_s)
   if not start or start < 0 then
@@ -857,6 +979,11 @@ local function process_command()
     return
   end
 
+  if cmd == "VM_TRACE" then
+    do_vm_trace(id, p[3] or "1")
+    return
+  end
+
   if cmd == "SAVE_STATE" then
     do_save_state(id, p[3] or "mole_remote")
     return
@@ -948,6 +1075,46 @@ for i,t in ipairs(goal13_short_targets) do
     goal13_hook_registered = goal13_hook_registered + 1
   else
     goal13_hook_errors[#goal13_hook_errors + 1] =
+      label .. ":" .. tostring(err)
+  end
+end
+
+-- Execute hooks are active only during explicit VM_TRACE host requests.
+-- Register both 24-bit System Bus and 16-bit short-PC variants because
+-- BizHawk SNES cores use different callback address conventions.
+local vmtrace_targets = {
+  {0x8B6A, "vm56_map_transition"},
+  {0x9517, "vm25_async_schedule"},
+  {0x9535, "vm25_deferred_callback"},
+  {0x9803, "vm39_one_arg"},
+  {0x8FB3, "vm40_loop_six_args"},
+  {0x895E, "vm_pointer_advance_2"},
+}
+for i,t in ipairs(vmtrace_targets) do
+  local short, kind = t[1], t[2]
+  for _,bank in ipairs({0x84, 0xC4}) do
+    local full = bank * 65536 + short
+    local label = string.format("%02X:%04X", bank, short)
+    local name = "shinmomo_vmtrace_" .. tostring(i) .. "_" .. label
+    local ok, err = pcall(event.onmemoryexecute,
+       function() vmtrace_record(kind, label) end,
+       full, name, MAP_BUS_DOMAIN)
+    if ok then
+      vmtrace_hook_registered = vmtrace_hook_registered + 1
+    else
+      vmtrace_hook_errors[#vmtrace_hook_errors+1] =
+        label .. ":" .. tostring(err)
+    end
+  end
+  local short_name = "shinmomo_vmtrace_short_" .. tostring(i)
+  local label = string.format("short:%04X", short)
+  local ok, err = pcall(event.onmemoryexecute,
+    function() vmtrace_record(kind, label) end,
+    short, short_name)
+  if ok then
+    vmtrace_hook_registered = vmtrace_hook_registered + 1
+  else
+    vmtrace_hook_errors[#vmtrace_hook_errors+1] =
       label .. ":" .. tostring(err)
   end
 end

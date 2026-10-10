@@ -146,3 +146,27 @@ are not co-temporal and must not be used as one executed event state.
 
 Baseline evidence and caveats:
 docs/analysis/vm_runtime_context_snapshot_20261011.md.
+
+
+## Bounded VM execution trace (2026-10-11)
+
+The **dedicated hidden** BizHawk lab now accepts:
+
+    & .	oolsemote_lab\shinmomo_background_lab.ps1 -Action vm-trace -Frames 60
+
+It advances 1..120 **neutral, no-input** frames and saves up to 256
+CPU execution hook observations in the local lab captures directory.
+Supported hooks: VM56 C4:8B6A, VM25 C4:9517/C4:9535,
+VM39 C4:9803, VM40 C4:8FB3, pointer C4:895E.
+System Bus 84/C4 and short-PC variants are registered. CPU hits
+record script pointer, $0305 pack and $035F/$1398 mode. No hook is
+considered proven to fire from registration alone.
+
+Audit any local trace with:
+
+    py -3 tools/python/audit_vm_execution_trace.py --trace LOCAL_JSON --rom CANONICAL_ROM
+
+The audit writes a local sibling *_audit.json. It never upgrades a
+source map to a confirmed graph link. Read
+docs/analysis/vm_runtime_trace_hooks_20261011.md for evidence, caveats
+and dedicated-emulator savestate rollback steps.

@@ -1,5 +1,5 @@
 param(
-  [ValidateSet('start','status','hide','show','screenshot','step','gamepad','capture-memory','map-capture','save-state','load-state','stop')]
+  [ValidateSet('start','status','hide','show','screenshot','step','gamepad','vm-trace','capture-memory','map-capture','save-state','load-state','stop')]
   [string]$Action='status',
   [string]$LabDir='', [string]$Rom='', [string]$BizHawkRoot='',
   [int]$Frames=1, [string]$Buttons='A', [int]$Player=1,
@@ -117,6 +117,10 @@ switch($Action) {
     if($Frames -lt 1 -or $Frames -gt 600 -or $Player -lt 1 -or $Player -gt 4){throw 'Frames 1..600 and player 1..4 required.'}
     if($Buttons -notmatch '^[A-Za-z0-9,+ -]+$'){throw 'Invalid buttons.'}
     Out-Json (Call-Lab 'gamepad' @{ Buttons = $Buttons; Frames = $Frames; Player = $Player })
+  }
+  'vm-trace' {
+    if($Frames -lt 1 -or $Frames -gt 120){throw 'VM trace frames must be 1..120.'}
+    Out-Json (Call-Lab 'vm-trace' @{Frames=$Frames})
   }
   'capture-memory' {
     if($Length -lt 1 -or $Length -gt 4096){throw 'Length must be 1..4096.'}
