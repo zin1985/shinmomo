@@ -769,7 +769,10 @@ async function selectMap(m,focus=null,pack=undefined){
     const dungeonFloorNote=e.runtime_floor_transition_proof?.source_movement_confirmed
       ?' | 縦穴を降りて別区画へ実機移動（起点は解析ワープ・命令PC未確認）'
       :'';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote + savedReturnNote + dungeonFloorNote + researchPosition;
+    const reverseStairNote=e.runtime_reverse_stair_proof?.returned_via_real_gamepad
+      ?' | 階段から前区画へ戻る実機イベント（元の世界入場は座標ワープ）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote + dungeonFloorNote + reverseStairNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

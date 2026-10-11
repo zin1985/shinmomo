@@ -155,3 +155,20 @@ catalog_transition_0171 is given a runtime-confirmed source
 cfg_t08_l092_v2; CC:D377 remains a *candidate*, never a captured PC.
 Viewer now includes 149 maps, 59 bound edges, 1297 candidates.
 See docs/analysis/omusubi_cave_return_hole_and_pack95_20261011.md.
+
+
+## Pack0x95 reverse stair back to cave pack0x91
+
+Real gamepad Down from pack95(22,8) to(22,9), then Up onto the
+original arrival stair tile (22,8), causes pack95->pack91 switch at
+664110 and stable return to cave (71,26) at 664196, followed by 152
+stable observation frames. The unique existing ROM candidate
+catalog_transition_0194 is now bound to runtime source
+cfg_t08_l096_v2, destination cfg_t08_l092_v2 and return XY (71,26).
+ROM opcode CC:DA1A has NOT been directly observed as executed PC.
+Source world entry was originally cheat-positioned; do not claim
+universal story activation. Another ladder tile (22,31) did not
+trigger a switch in two locally-cheated up/down gamepad probes, but
+absence of a trigger in all story phases is NOT established.
+Graph: 149 maps, 60 bound edges, 1297 candidates. See
+docs/analysis/pack95_reverse_stair_and_second_ladder_20261011.md.

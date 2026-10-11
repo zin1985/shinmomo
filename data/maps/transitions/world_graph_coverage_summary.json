@@ -3,12 +3,12 @@
   "kind": "event_aware_map_graph_coverage_audit",
   "map_count": 149,
   "catalog_candidate_count": 1297,
-  "bound_edge_count": 59,
+  "bound_edge_count": 60,
   "confirmed_runtime_edge_count": 5,
-  "candidate_bound_edge_count": 54,
+  "candidate_bound_edge_count": 55,
   "native_boundary_context_count": 3,
-  "edges_with_unknown_current_activation": 59,
-  "maps_with_at_least_one_outgoing": 5,
+  "edges_with_unknown_current_activation": 60,
+  "maps_with_at_least_one_outgoing": 6,
   "maps_with_at_least_one_incoming": 51,
   "maps_with_no_bound_outgoing": [
     "cfg_t01_l002_v1",
@@ -96,7 +96,6 @@
     "cfg_t07_l084_v2",
     "cfg_t07_l090_v2",
     "cfg_t08_l094_v2",
-    "cfg_t08_l096_v2",
     "cfg_t09_l097_v2",
     "cfg_t09_l098_v2",
     "cfg_t11_l101_v2",
@@ -539,13 +538,9 @@
     {
       "source": "cfg_t04_l008_v2",
       "destination": "cfg_t07_l047_v2"
-    },
-    {
-      "source": "cfg_t08_l092_v2",
-      "destination": "cfg_t08_l096_v2"
     }
   ],
-  "one_way_pair_count": 46,
+  "one_way_pair_count": 45,
   "top_unbound_destination_configs": [
     {
       "config_id": "cfg_t29_l138_v2",
@@ -585,7 +580,7 @@
     },
     {
       "config_id": "cfg_t08_l092_v2",
-      "unbound_candidate_count": 27
+      "unbound_candidate_count": 26
     },
     {
       "config_id": "cfg_t55_l192_v2",
@@ -628,7 +623,7 @@
       "unbound_candidate_count": 15
     }
   ],
-  "unknown_source_candidates": 1237,
+  "unknown_source_candidates": 1236,
   "unknown_destination_candidates": 122,
   "interpretation": "Incomplete connectivity is a research backlog; one-way links are not proven bugs. Current story-state gate unknown means preview-only, not executable navigation."
 }

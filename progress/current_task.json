@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Explore real pack0x95 dungeon room and distinguish exits/floor gates from cave saved-map return",
-  "base_main_head_verified": "4936d7536939b7ef6c8081e71ae45bb85ebd9769",
+  "title": "Trace actual pack0x95 exits to pack0x94 and solve fighting/menu interruption while preserving cheat origin provenance",
+  "base_main_head_verified": "639436e519976bc66d002557bd9b3039e7c55cb2",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Resume the protected pack0x95 arrival save analysis_pack95_arrival_22_8_20261011.State, identify runtime in-pack shaft/stairs, true map/floor returns and destination XY; keep cheat-induced prior world context explicit."
+      "action": "Explore pack0x95 cfg_t08_l096_v2 lower maze and locate event transition(s) to script/pack0x94 from ROM candidate family CC:D901-CC:D95C. Existing catalog_transition_0183 identifies pack0x95(22,31) as candidate destination, NOT independently proven source exit; this exact tile produced no switch in up/down probes."
     },
     {
       "order": 2,
-      "action": "Identify static VM caller owners of CC:D377 for pack0x95; existing candidate source is runtime bound but precise opcode PC and story flags not proven."
+      "action": "Work around dungeon random battle interruptions when examining walking reachability; only use scoped, verified emulator analytical states and never confuse battle-locked input with collision."
     },
     {
       "order": 3,
-      "action": "Extract actual Hien destination village-name menu and compare village pack/coordinate mappings; flags are FF, spell0x33 enabled but the menu could not be opened on current world probe; Hien actual cast and unlimited MP unproven."
+      "action": "Recover actual Hien destination village-name menu and map scene linkage. Hien spell0x33 and four FF destination bytes are installed, but Hien spell casting, entire menu and infinite MP are not yet proven."
     },
     {
       "order": 4,
-      "action": "Use create_hidden_scene_warp_state.ps1 only with exact expected scene pack and unique state names to place player next to suspected trigger cells; classify coordinate-warps and actual controller-triggered events separately."
+      "action": "Prove actual SNES CPU opcode PC to distinguish catalog_transition_0194 CC:DA1A direct execution from unique ROM candidate corroboration."
     },
     {
       "order": 5,
-      "action": "Continue unknown pack0x96 arrival XY / phase-ambiguous CC:1160 / the remaining source-unbound VM56 records."
+      "action": "Continue phase-ambiguous CC:1160, other pack0x96 arrival XY and remaining unbound VM56 sources."
     }
   ],
   "do_not_redo": [
@@ -844,123 +844,65 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Confirmed Omusubi cave conditional saved-origin return, discovered the hole-triggered automatic shaft drop and first downstream pack0x95 transfer; added two source+destination edges without asserting CPU opcode PC",
-    "existing_cave_source_cfg": "cfg_t08_l092_v2",
-    "existing_cave_pack": "0x91",
-    "world_saved_return": {
-      "original_world_origin_cheat_positioned": true,
-      "source_exit_cell": [
-        71,
-        59
-      ],
-      "world_return_pack": "0x4C",
-      "world_saved_origin_arrival": [
-        47,
-        199
-      ],
-      "switch_frame": 663417,
-      "selector_convergence_frame": 663451,
-      "arrival_settled_frame": 663532,
-      "post_arrival_stability_frames": 126,
-      "conditional_context_only": true,
-      "new_candidate_added": 1
-    },
-    "intra_pack_shaft": {
-      "starting_hole_approach_is_analysis_cheat": true,
-      "hole_id30_cell": [
-        75,
-        53
-      ],
-      "hole_entry_frame": 663353,
-      "event_jump_frame": 663453,
-      "jump_target": [
-        70,
-        8
-      ],
-      "uninput_downward_shaft_stop_frame": 663647,
-      "shaft_stop_xy": [
-        70,
-        26
-      ],
-      "uninput_stable_through_frame": 663856
-    },
-    "next_cave_pack_transition": {
-      "source_config_id": "cfg_t08_l092_v2",
-      "source_pack": "0x91",
-      "source_movement_cell": [
-        71,
-        26
-      ],
-      "source_contact_frame": 663918,
-      "pack_switch_frame": 663933,
-      "selector_frame": 663967,
-      "destination_config_id": "cfg_t08_l096_v2",
-      "destination_pack": "0x95",
-      "destination_xy": [
+    "description": "Verified reverse real-controller stair transfer pack0x95 (22,8)->pack0x91 (71,26), bound unique ROM candidate 0194 and disproved unconditional switch at second ladder in two local phase-specific probes",
+    "analysis_source_save": "analysis_pack95_arrival_22_8_20261011.State",
+    "original_world_to_cave_origin_cheat_positioned": true,
+    "source_config_id": "cfg_t08_l096_v2",
+    "destination_config_id": "cfg_t08_l092_v2",
+    "source_pack": "0x95",
+    "destination_pack": "0x91",
+    "source_controller_action": [
+      "Down",
+      "Up"
+    ],
+    "stair_recontact_frame": 664095,
+    "map_switch_frame": 664110,
+    "selector_convergence_frame": 664145,
+    "settled_arrival_frame": 664196,
+    "destination_arrival_xy": [
+      71,
+      26
+    ],
+    "stable_end_frame": 664347,
+    "stable_observed_frames": 152,
+    "matched_unique_static_candidate": "catalog_transition_0194",
+    "matched_static_terminal_opcode": "CC:DA1A",
+    "actual_terminal_cpu_PC_observed": false,
+    "normal_world_to_dungeon_route_verified": false,
+    "universal_story_activation_verified": false,
+    "other_ladder_probe": {
+      "tile31_xy": [
         22,
-        8
+        31
       ],
-      "arrival_settled_frame": 664018,
-      "matched_preexisting_candidate": "catalog_transition_0171",
-      "static_opcode_candidate": "CC:D377",
-      "static_opcode_CPU_executed_proven": false,
-      "new_candidate_added": false,
-      "new_source_bound_edge_count": 1
+      "from_south_up": [
+        22,
+        32
+      ],
+      "from_north_down": [
+        22,
+        30
+      ],
+      "both_actual_controller_moves_entered_ladder_cell": true,
+      "both_neutral_120_frames_remained_in_pack95": true,
+      "all_story_states_excluded": false,
+      "ROM_catalog_transition_0183_is_destination_at_tile31": true
     },
-    "pack91_static_stair_like_tile32_cells": [
-      [
-        56,
-        38
-      ],
-      [
-        88,
-        38
-      ],
-      [
-        71,
-        42
-      ],
-      [
-        55,
-        58
-      ],
-      [
-        71,
-        59
-      ]
-    ],
-    "pack91_static_black_hole_tile30_cells": [
-      [
-        75,
-        53
-      ],
-      [
-        87,
-        56
-      ]
-    ],
-    "other_stair_tile_probes_warped": true,
-    "hien_destination_menu_names_observed": false,
-    "hien_infinite_mp_proven": false,
-    "normal_world_walk_to_cave_proven": false,
-    "new_graph_candidates": 1,
-    "new_graph_bound_edges": 2,
+    "new_transition_candidates_added": 0,
+    "new_bound_edges": 1,
     "viewer_map_count": 149,
-    "viewer_bound_edges": 59,
-    "viewer_transition_candidates": 1297,
-    "official_progress_percent_unchanged": 51.4,
+    "viewer_bound_edge_count": 60,
+    "viewer_transition_candidate_count": 1297,
+    "official_project_completion_percent_unchanged": 51.4,
+    "raw_screenshots_traces_states_committed": false,
     "original_hidden_emulator_restored": true,
     "evidence": [
-      "docs/analysis/omusubi_cave_return_hole_and_pack95_20261011.md",
-      "data/maps/transitions/omusubi_cave_world_return_verified_20261011.json",
-      "data/maps/transitions/omusubi_hole_shaft_verified_20261011.json",
-      "data/maps/transitions/omusubi_pack91_to_pack95_verified_20261011.json",
-      "tools/python/audit_transition_phases.py",
-      "tools/python/verify_pack91_world_return.py",
-      "tools/python/verify_omusubi_hole_to_pack95.py",
-      "scripts/test_pack91_world_return.py",
-      "scripts/test_omusubi_hole_to_pack95.py",
-      "tools/remote_lab/create_hidden_scene_warp_state.ps1"
+      "docs/analysis/pack95_reverse_stair_and_second_ladder_20261011.md",
+      "data/maps/transitions/omusubi_pack95_reverse_stair_verified_20261011.json",
+      "data/maps/transitions/pack95_ladder22_31_no_switch_probe_20261011.json",
+      "tools/python/verify_pack95_reverse_stair.py",
+      "tools/python/attach_pack95_reverse_stair.py",
+      "scripts/test_pack95_reverse_stair.py"
     ]
   },
   "completed_work_units": [
@@ -1564,6 +1506,127 @@
         "tools/remote_lab/create_hidden_hien_warp_state.ps1",
         "tools/python/verify_cheat_warp_dungeon_entry.py",
         "scripts/test_cheat_warp_dungeon_entry.py"
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Confirmed Omusubi cave conditional saved-origin return, discovered the hole-triggered automatic shaft drop and first downstream pack0x95 transfer; added two source+destination edges without asserting CPU opcode PC",
+      "existing_cave_source_cfg": "cfg_t08_l092_v2",
+      "existing_cave_pack": "0x91",
+      "world_saved_return": {
+        "original_world_origin_cheat_positioned": true,
+        "source_exit_cell": [
+          71,
+          59
+        ],
+        "world_return_pack": "0x4C",
+        "world_saved_origin_arrival": [
+          47,
+          199
+        ],
+        "switch_frame": 663417,
+        "selector_convergence_frame": 663451,
+        "arrival_settled_frame": 663532,
+        "post_arrival_stability_frames": 126,
+        "conditional_context_only": true,
+        "new_candidate_added": 1
+      },
+      "intra_pack_shaft": {
+        "starting_hole_approach_is_analysis_cheat": true,
+        "hole_id30_cell": [
+          75,
+          53
+        ],
+        "hole_entry_frame": 663353,
+        "event_jump_frame": 663453,
+        "jump_target": [
+          70,
+          8
+        ],
+        "uninput_downward_shaft_stop_frame": 663647,
+        "shaft_stop_xy": [
+          70,
+          26
+        ],
+        "uninput_stable_through_frame": 663856
+      },
+      "next_cave_pack_transition": {
+        "source_config_id": "cfg_t08_l092_v2",
+        "source_pack": "0x91",
+        "source_movement_cell": [
+          71,
+          26
+        ],
+        "source_contact_frame": 663918,
+        "pack_switch_frame": 663933,
+        "selector_frame": 663967,
+        "destination_config_id": "cfg_t08_l096_v2",
+        "destination_pack": "0x95",
+        "destination_xy": [
+          22,
+          8
+        ],
+        "arrival_settled_frame": 664018,
+        "matched_preexisting_candidate": "catalog_transition_0171",
+        "static_opcode_candidate": "CC:D377",
+        "static_opcode_CPU_executed_proven": false,
+        "new_candidate_added": false,
+        "new_source_bound_edge_count": 1
+      },
+      "pack91_static_stair_like_tile32_cells": [
+        [
+          56,
+          38
+        ],
+        [
+          88,
+          38
+        ],
+        [
+          71,
+          42
+        ],
+        [
+          55,
+          58
+        ],
+        [
+          71,
+          59
+        ]
+      ],
+      "pack91_static_black_hole_tile30_cells": [
+        [
+          75,
+          53
+        ],
+        [
+          87,
+          56
+        ]
+      ],
+      "other_stair_tile_probes_warped": true,
+      "hien_destination_menu_names_observed": false,
+      "hien_infinite_mp_proven": false,
+      "normal_world_walk_to_cave_proven": false,
+      "new_graph_candidates": 1,
+      "new_graph_bound_edges": 2,
+      "viewer_map_count": 149,
+      "viewer_bound_edges": 59,
+      "viewer_transition_candidates": 1297,
+      "official_progress_percent_unchanged": 51.4,
+      "original_hidden_emulator_restored": true,
+      "evidence": [
+        "docs/analysis/omusubi_cave_return_hole_and_pack95_20261011.md",
+        "data/maps/transitions/omusubi_cave_world_return_verified_20261011.json",
+        "data/maps/transitions/omusubi_hole_shaft_verified_20261011.json",
+        "data/maps/transitions/omusubi_pack91_to_pack95_verified_20261011.json",
+        "tools/python/audit_transition_phases.py",
+        "tools/python/verify_pack91_world_return.py",
+        "tools/python/verify_omusubi_hole_to_pack95.py",
+        "scripts/test_pack91_world_return.py",
+        "scripts/test_omusubi_hole_to_pack95.py",
+        "tools/remote_lab/create_hidden_scene_warp_state.ps1"
       ]
     }
   ]

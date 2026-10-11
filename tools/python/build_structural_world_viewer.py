@@ -10,6 +10,7 @@ from apply_runtime_spatial_proofs import apply_runtime_spatial_proofs
 from apply_cheat_positioned_dungeon_proof import attach as attach_cheat_dungeon_entry
 from add_runtime_cave_world_return_edge import inject as inject_cave_world_saved_return
 from attach_omusubi_pack95_source import attach as attach_omusubi_floor_source
+from attach_pack95_reverse_stair import attach as attach_pack95_reverse_stair
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1013,6 +1014,17 @@ def main():
     else:
         pack95_source_summary = {"new_candidate_count":0,"new_bound_edge_count":0}
 
+    # The genuine pack0x95 first landing tile also serves as a return to
+    # pack0x91. Preserve original cheat-origin provenance and unknown
+    # story gate/ROM instruction PC. Do not generalize to the other stair.
+    reverse_stair_path = TRANSITIONS / "omusubi_pack95_reverse_stair_verified_20261011.json"
+    if reverse_stair_path.exists():
+        transition_candidates, reverse_stair_summary = attach_pack95_reverse_stair(
+            transition_candidates,
+            json.loads(reverse_stair_path.read_text(encoding="utf-8")))
+    else:
+        reverse_stair_summary = {"existing_candidate_source_and_arrival_bound_count":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1038,6 +1050,7 @@ def main():
         "runtime_cheat_dungeon_entry_summary": cheat_dungeon_summary,
         "runtime_cave_saved_origin_return_summary": cave_saved_return_summary,
         "runtime_pack95_floor_source_summary": pack95_source_summary,
+        "runtime_pack95_reverse_stair_summary": reverse_stair_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

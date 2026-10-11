@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "kind": "negative_pack95_second_ladder_window_probe",
+  "config_id": "cfg_t08_l096_v2",
+  "pack_id": "0x95",
+  "ladder_tile_xy": [
+    22,
+    31
+  ],
+  "ladder_metatile_id": 31,
+  "ROM_catalog_transition_0183_destination_xy": [
+    22,
+    31
+  ],
+  "ROM_catalog_transition_0183_is_source_exit_proven": false,
+  "only_two_local_direction_and_state_probes": true,
+  "all_story_phases_excluded": false,
+  "universal_trigger_absence_proven": false,
+  "contrasts_real_reverse_exit_at": [
+    22,
+    8
+  ],
+  "actual_reverse_exit_proof": "data/maps/transitions/omusubi_pack95_reverse_stair_verified_20261011.json",
+  "raw_frames_committed": false,
+  "probes": [
+    {
+      "direction": "from_south_up",
+      "controller_input": "Up",
+      "source_world_route_to_pack95_cheat_seeded": true,
+      "source_scene_cheat_positioned": true,
+      "source_xy": [
+        22,
+        32
+      ],
+      "tile31_contact_xy": [
+        22,
+        31
+      ],
+      "tile31_contact_frame": 664090,
+      "final_xy_after_120_neutral": [
+        22,
+        30
+      ],
+      "pack_before": "0x95",
+      "pack_after": "0x95",
+      "no_map_switch_within_observed_window": true,
+      "source_walkable_path_without_cheat_proven": false,
+      "local_input_capture_sha256": "3FF5F8C85126BECA3C0FAFE1ECC168CC23FB00A7CFBC0697FD37B24597715FF1",
+      "local_neutral_capture_sha256": "60260B87196EEC8797D74E96572EAC2C8BDE2756524DFCC8214AC37C2CC1EF45",
+      "input_frame_from": 664088,
+      "input_frame_to": 664115,
+      "neutral_frame_to": 664235
+    },
+    {
+      "direction": "from_north_down",
+      "controller_input": "Down",
+      "source_world_route_to_pack95_cheat_seeded": true,
+      "source_scene_cheat_positioned": true,
+      "source_xy": [
+        22,
+        30
+      ],
+      "tile31_contact_xy": [
+        22,
+        31
+      ],
+      "tile31_contact_frame": 664090,
+      "final_xy_after_120_neutral": [
+        22,
+        32
+      ],
+      "pack_before": "0x95",
+      "pack_after": "0x95",
+      "no_map_switch_within_observed_window": true,
+      "source_walkable_path_without_cheat_proven": false,
+      "local_input_capture_sha256": "933A17DF6F7B9CC1C147FD43A36D44BAD90982175D95987FEF2124F07A47E36C",
+      "local_neutral_capture_sha256": "D4D9BD83203818943100E7CC51197D030D65DE5C82399DE806D5686549895A9C",
+      "input_frame_from": 664088,
+      "input_frame_to": 664117,
+      "neutral_frame_to": 664237
+    }
+  ]
+}

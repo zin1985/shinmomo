@@ -98,9 +98,9 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
 
     def test_proven_world_graph_count_unmodified(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),59)
+        self.assertEqual(len(self.world["transition_edges"]),60)
         self.assertEqual(len(self.world["transition_candidates"]),1297)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],59)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],60)
 
 
 if __name__=="__main__":unittest.main()

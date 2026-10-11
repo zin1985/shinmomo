@@ -329,3 +329,17 @@ jump (70,8), automatic no-input shaft descent to (70,26), real Right
 in this specific saved origin, requiring a second 120-frame neutral
 window to prove settled coordinates. Full documentation:
 docs/analysis/omusubi_cave_return_hole_and_pack95_20261011.md.
+
+
+## Reverse cave stair pack95->pack91 (2026-10-11)
+
+From the protected local analysis pack95 arrival at (22,8), execute
+11 frames of actual SNES Down followed by 20 frames actual Up,
+then two 120-frame neutral windows. Expected pack switch from 0x95
+to 0x91 at frame664110 and stable cave(71,26) after frame664196.
+Use tools/python/verify_pack95_reverse_stair.py against the raw,
+continuous local frame captures to validate. The original world
+entrance was prepared with a cheat, but no WRAM coordinate edits
+were performed during this reverse controller event.
+The second ladder tile (22,31) had no switch under both local
+direction probes and is NOT universally ruled out as a trigger.

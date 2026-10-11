@@ -137,7 +137,7 @@ class Pack91WorldReturnTests(unittest.TestCase):
         self.assertEqual(self.proof["observed_stable_through_frame"],663657)
         self.assertEqual(len(self.proof["local_raw_trace_sha256"]),4)
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),59)
+        self.assertEqual(len(self.world["transition_edges"]),60)
         self.assertEqual(len(self.world["transition_candidates"]),1297)
         edges=[e for e in self.world["transition_edges"] if e["transition_id"]==ID]
         self.assertEqual(len(edges),1)

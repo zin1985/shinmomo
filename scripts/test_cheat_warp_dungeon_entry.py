@@ -122,7 +122,7 @@ class CheatPositionedDungeonTests(unittest.TestCase):
         self.assertEqual(edge["activation_gate"]["evaluation"],"unknown")
         self.assertEqual(edge["runtime_cheat_entry_proof"]["on_screen_destination_title"],"おむすびころりん")
         self.assertEqual(self.world["runtime_cheat_dungeon_entry_summary"]["attached_count"],1)
-        self.assertEqual(len(self.world["transition_edges"]),59)
+        self.assertEqual(len(self.world["transition_edges"]),60)
         self.assertEqual(len(self.world["maps"]),149)
         self.assertEqual(self.world["runtime_location_title_attached_count"],2)
         dest=next(m for m in self.world["maps"] if m["config_id"]=="cfg_t08_l092_v2")

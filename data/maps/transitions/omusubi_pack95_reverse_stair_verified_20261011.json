@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "verified_pack95_reverse_stair_return",
+  "source_config_id": "cfg_t08_l096_v2",
+  "source_pack": "0x95",
+  "prior_arrival_stair_xy": {
+    "x": 22,
+    "y": 8
+  },
+  "real_down_cell": {
+    "x": 22,
+    "y": 9
+  },
+  "return_contact_cell": {
+    "x": 22,
+    "y": 8
+  },
+  "return_contact_frame": 664095,
+  "source_real_gamepad_buttons": [
+    "Down",
+    "Up"
+  ],
+  "source_reached_via_cheat_origin_cave_route": true,
+  "normal_world_walk_to_cave_proven": false,
+  "pack_switch_frame": 664110,
+  "selector_convergence_frame": 664145,
+  "destination_config_id": "cfg_t08_l092_v2",
+  "destination_pack": "0x91",
+  "settled_arrival_xy": {
+    "x": 71,
+    "y": 26
+  },
+  "first_settled_arrival_frame": 664196,
+  "stable_observed_through_frame": 664347,
+  "stable_frames": 152,
+  "existing_static_reverse_candidate": "catalog_transition_0194",
+  "static_candidate_opcode_address": "CC:DA1A",
+  "actual_opcode_CPU_PC_observed": false,
+  "source_config_runtime_verified": true,
+  "story_condition_verified": false,
+  "pack95_stair_at_22_31_proven_as_exit": false,
+  "new_transition_candidate_count": 0,
+  "new_bound_edge_count": 1,
+  "all_raw_traces_local_only": true,
+  "local_trace_sha256": {
+    "down": "E433AF8872BACEEBCC0A8B09F73E07FA17FE1235B066BF84B41BB2F3A502421E",
+    "up": "ED2ACCEC870A785E88301310F63F24F51179B7A46F409AEB75DDCF5CA612AFCE",
+    "neutral1": "3D17A471AD2DF0A37988F6FF71C8D7A5F1D8241A7BD4AF4008F84523919FD163",
+    "neutral2": "F41048BC9FA9EFF53BA0575AD901403BAAC027E0D3E4BFBACA3C510A410B3576"
+  }
+}
