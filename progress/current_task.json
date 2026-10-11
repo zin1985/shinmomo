@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Continue six unresolved scene exits, dungeon floor triggers and village NPC behavior",
-  "base_main_head_verified": "15adb3a00e488e0ad4fb70b0e83e4eff8987ddb6",
+  "title": "Decode pack0x96 down-drift cause and inspect horizontal dungeon exits",
+  "base_main_head_verified": "7e4028a1a29f3f53ece420e1dcaf297450ee6800",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Try reverse Up, Right and Left from the six unconfirmed source pack states 0x96,0xBD,0xB9,0xAB,0x82,0x60; differentiate collision, forced movement, battles, and story conditions."
+      "action": "From pack0x96 (39,24) test left/right and event state; distinguish forced down movement from controller handling and identify exact native 9-frame movement scheduler."
     },
     {
       "order": 2,
-      "action": "Investigate pack0x96 actual dungeon interior from (39,17) and lower tile (39,24), locate actual exits and floor transitions."
+      "action": "Inspect alternative routes and floor stairs for 0xBD,0xB9,0xAB; none switched packs during bounded Up/Down tests."
     },
     {
       "order": 3,
-      "action": "Add exact CPU opcode PC tracing and saved world state comparators to distinguish static terminal candidate from actual handler execution."
+      "action": "Check battle/cutscene/controller lock for 0x82 and 0x60 whose XY did not move in both direction tests."
     },
     {
       "order": 4,
-      "action": "Continue interiors/NPC events in 25 screenshot-named villages and dungeons, preserving runtime pack-specific name identity."
+      "action": "Expand in-map NPC and event dialogue analysis for previously named 25 places."
     },
     {
       "order": 5,
-      "action": "Collect actual Hien list and verify cast/MP unlimited. Current world research uses coordinate cheat, not Hien cast."
+      "action": "Extract actual Hien destinations/cast and verify MP unlimited behavior; currently untested."
     }
   ],
   "do_not_redo": [
@@ -843,26 +843,53 @@
     "goal": "Decode pack96 entry02..05 within CC:DBF2..CC:DC5C using verified canonical ROM; preserve prior workstreams."
   },
   "last_completed_work_unit": {
-    "description": "Replayed 20 actual Down controller exit probes from isolated scene arrival saves; 14 scene->world map changes with stable saved-context return XY, six local nonreturns; strict SHA256 frame data audit and Viewer integration without universal route claims.",
     "date": "2026-10-11",
-    "attempted_reverse_scene_exits": 20,
-    "confirmed_real_scene_to_world_returns": 14,
-    "not_confirmed_this_direction": 6,
-    "real_controller_input": "Down",
-    "controller_frames_each": 72,
-    "world_entrance_initial_cheat_positioned": true,
-    "reverse_exit_test_coordinate_cheat": false,
-    "CPU_opcode_pc_captured": false,
-    "return_coordinates_for_other_saves_known": false,
-    "normal_world_walkability_proven": false,
-    "source_last_observed_before_switch_not_exact_trigger": true,
-    "new_runtime_edge_count": 14,
+    "description": "Six actual Up-direction saved-scene controller probes, no pack switch in local trial, and exact 204/204 frame position equality with opposite Down input in pack0x96; seven automatic one-cell Y steps every nine frames.",
+    "six_up_trials": 6,
+    "six_pack_switches": 0,
+    "scene_packs": [
+      "0x96",
+      "0xBD",
+      "0xB9",
+      "0xAB",
+      "0x82",
+      "0x60"
+    ],
+    "original_world_entry_was_cheat_seeded": true,
+    "no_XY_Wram_coordinate_cheat_during_Up_or_Down": true,
+    "source_scene_pack96": "0x96",
+    "pack96_start_xy": [
+      39,
+      17
+    ],
+    "pack96_end_xy": [
+      39,
+      24
+    ],
+    "pack96_actual_buttons_compared": [
+      "Down",
+      "Up"
+    ],
+    "pack96_frame_position_identity_count": 204,
+    "pack96_step_frames": [
+      663333,
+      663342,
+      663351,
+      663360,
+      663369,
+      663378,
+      663387
+    ],
+    "pack96_script_or_physics_mechanism_proven": false,
+    "universal_exit_absence_proven": false,
+    "CPU_opcode_PC_observed": false,
+    "new_graph_edges": 0,
     "viewer_maps": 149,
     "viewer_bound_edges": 74,
-    "viewer_transition_candidates": 1311,
-    "all_three_batches_restored": true,
-    "official_completion_percent_unchanged": 51.4,
-    "evidence": "docs/analysis/world_scene_14_reverse_exits_20261011.md"
+    "viewer_candidates": 1311,
+    "official_percent_unchanged": 51.4,
+    "all_six_batches_emulator_restored": true,
+    "evidence": "docs/analysis/pack96_opposing_direction_forced_motion_and_six_up_probes_20261011.md"
   },
   "completed_work_units": [
     {
@@ -1673,6 +1700,28 @@
       "official_project_percent_unchanged": 51.4,
       "all_six_batches_restored": true,
       "evidence": "docs/analysis/world_37_entries_25_visible_places_20261011.md"
+    },
+    {
+      "description": "Replayed 20 actual Down controller exit probes from isolated scene arrival saves; 14 scene->world map changes with stable saved-context return XY, six local nonreturns; strict SHA256 frame data audit and Viewer integration without universal route claims.",
+      "date": "2026-10-11",
+      "attempted_reverse_scene_exits": 20,
+      "confirmed_real_scene_to_world_returns": 14,
+      "not_confirmed_this_direction": 6,
+      "real_controller_input": "Down",
+      "controller_frames_each": 72,
+      "world_entrance_initial_cheat_positioned": true,
+      "reverse_exit_test_coordinate_cheat": false,
+      "CPU_opcode_pc_captured": false,
+      "return_coordinates_for_other_saves_known": false,
+      "normal_world_walkability_proven": false,
+      "source_last_observed_before_switch_not_exact_trigger": true,
+      "new_runtime_edge_count": 14,
+      "viewer_maps": 149,
+      "viewer_bound_edges": 74,
+      "viewer_transition_candidates": 1311,
+      "all_three_batches_restored": true,
+      "official_completion_percent_unchanged": 51.4,
+      "evidence": "docs/analysis/world_scene_14_reverse_exits_20261011.md"
     }
   ]
 }

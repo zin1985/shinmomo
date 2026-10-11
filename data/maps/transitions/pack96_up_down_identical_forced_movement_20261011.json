@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "kind": "pack96_input_direction_independent_downward_movement_local_state",
+  "source_config_id": "cfg_t09_l098_v2",
+  "pack": "0x96",
+  "real_world_scene_arrival_xy": {
+    "x": 39,
+    "y": 17
+  },
+  "source_world_entrance_originally_coordinate_cheated": true,
+  "controller_path_no_xy_cheat": true,
+  "compared_actual_buttons": [
+    "Down",
+    "Up"
+  ],
+  "neutral_before_frames": 12,
+  "actual_button_held_frames": 72,
+  "neutral_after_frames": 120,
+  "same_game_frame_range": [
+    663329,
+    663532
+  ],
+  "both_direction_position_series_identical_frame_count": 204,
+  "same_pack_during_entire_span": true,
+  "observed_positions": [
+    {
+      "frame": 663333,
+      "x": 39,
+      "y": 18
+    },
+    {
+      "frame": 663342,
+      "x": 39,
+      "y": 19
+    },
+    {
+      "frame": 663351,
+      "x": 39,
+      "y": 20
+    },
+    {
+      "frame": 663360,
+      "x": 39,
+      "y": 21
+    },
+    {
+      "frame": 663369,
+      "x": 39,
+      "y": 22
+    },
+    {
+      "frame": 663378,
+      "x": 39,
+      "y": 23
+    },
+    {
+      "frame": 663387,
+      "x": 39,
+      "y": 24
+    }
+  ],
+  "downward_every_nine_frames": true,
+  "last_xy": {
+    "x": 39,
+    "y": 24
+  },
+  "actual_CPU_opcode_PC_proven": false,
+  "proven_mechanism": "reproducible_direction_independent_movement",
+  "root_cause_interpretation": "scripted_forced_walk_or_physics_unresolved",
+  "generalizes_to_other_savestates": false,
+  "normal_world_route_walkability_proven": false,
+  "raw_frame_traces_committed": false,
+  "down_trace_sha256": [
+    "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+    "6F00B08A85C9ABBDE700B8BD09B1AE36E6A24F744E690A3B797AACBB5DBDF02F",
+    "1397E66F346DC2C3E4C852C3C5E9A776E6710A485C0263334D93E5A8BB2D9773"
+  ],
+  "up_trace_sha256": [
+    "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+    "4E742C62C0B46BB4FFFE8980900252A054267FBA094C4187D39E803777900FEB",
+    "1397E66F346DC2C3E4C852C3C5E9A776E6710A485C0263334D93E5A8BB2D9773"
+  ]
+}

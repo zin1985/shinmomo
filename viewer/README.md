@@ -206,3 +206,20 @@ Fourteen context-specific runtime transitions were added, giving
 149 map configs, 74 bound edges and 1311 candidates. VM CPU PC,
 normal world walking access and all story flags remain unproven.
 See docs/analysis/world_scene_14_reverse_exits_20261011.md.
+
+
+## Pack0x96 scripted/forced downward motion, independent of Up/Down input
+
+Six scene packs whose initial Down72+neutral test never exited were
+replayed again with actual SNES Up72+neutral, each source protected.
+All six remained on the same pack in the tested current state.
+This is NOT universal proof that they lack a return route.
+
+For cave pack0x96 at (39,17), the opposite Up and Down button inputs
+produced the exact same 204-frame pack/X/Y trace. Seven steps moved
+Y=17 to Y=24 at 9-frame intervals. The native script or physics
+mechanism and CPU handler PC are not yet identified.
+Six scene+pack scoped directional observations are attached to
+map metadata, with an extra 204-frame consistency proof on cfg_t09_l098_v2.
+Graph unchanged at 149 maps, 74 bound edges, 1311 candidates.
+See docs/analysis/pack96_opposing_direction_forced_motion_and_six_up_probes_20261011.md.

@@ -13,6 +13,7 @@ from attach_omusubi_pack95_source import attach as attach_omusubi_floor_source
 from attach_pack95_reverse_stair import attach as attach_pack95_reverse_stair
 from attach_world_37_scene_entrance_batch import attach as attach_world_batch
 from add_14_scene_saved_world_returns import inject as inject_14_scene_returns
+from attach_six_scene_directional_probes import attach as attach_six_directional_probes
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1090,6 +1091,25 @@ def main():
     else:
         returns14_summary = {"new_confirmed_contextual_saved_world_edges":0}
 
+    # Unresolved six source packs were additionally tested with normal
+    # SNES Up. There was no pack switch in either local Up or Down
+    # window. Pack0x96 showed EXACTLY the same 204 position samples
+    # despite opposite controller directions. Keep these *map+pack*
+    # context observations, never synthetic graph exits.
+    six_up_path = TRANSITIONS / "six_scene_up_no_pack_switch_20261011.json"
+    pack96_motion_path = TRANSITIONS / "pack96_up_down_identical_forced_movement_20261011.json"
+    if six_up_path.exists() or pack96_motion_path.exists():
+        if not (six_up_path.exists() and pack96_motion_path.exists() and returns14_path.exists()):
+            raise ValueError("Directional scene evidence requires both Up, Down and force-movement files")
+        scoped_maps, six_up_summary = attach_six_directional_probes(
+            list(maps.values()),
+            json.loads(six_up_path.read_text(encoding="utf-8")),
+            json.loads(returns14_path.read_text(encoding="utf-8")),
+            json.loads(pack96_motion_path.read_text(encoding="utf-8")))
+        maps = {m["config_id"]: m for m in scoped_maps}
+    else:
+        six_up_summary = {"up_local_trials_without_switch":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1118,6 +1138,7 @@ def main():
         "runtime_pack95_reverse_stair_summary": reverse_stair_summary,
         "runtime_world_entrance_37_batch_summary": world_scene_batch_summary,
         "runtime_scene_reverse_world_14_summary": returns14_summary,
+        "runtime_scene_directional_six_up_summary": six_up_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

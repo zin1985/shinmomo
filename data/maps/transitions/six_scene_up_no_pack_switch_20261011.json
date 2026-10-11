@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "kind": "six_protected_up_direction_dungeon_and_village_no_switch_observations",
+  "previous_down_trial_proof": "data/maps/transitions/world_14_reverse_returns_after_cheat_arrivals_20261011.json",
+  "six_exact_scopes": [
+    "0x96",
+    "0xBD",
+    "0xB9",
+    "0xAB",
+    "0x82",
+    "0x60"
+  ],
+  "all_original_hidden_emulator_states_restored": true,
+  "original_world_to_scene_entry_cheat_positioned": true,
+  "Up_trial_no_coordinate_cheat": true,
+  "each_trial_duration_input_plus_neutral_frames": 192,
+  "six_observed_no_scene_switch": true,
+  "universal_no_exit_claim": false,
+  "raw_samples_ROM_states_screens_not_committed": true,
+  "probes": [
+    {
+      "source_pack": "0x96",
+      "source_config_id": "cfg_t09_l098_v2",
+      "original_world_transition_id": "catalog_transition_0756",
+      "source_scene_original_arrival_xy": [
+        39,
+        17
+      ],
+      "source_original_world_approach_cheat": true,
+      "reverse_experiment_controller_has_no_cheat": true,
+      "controller": "Up",
+      "controller_frames": 72,
+      "neutral_frames": 120,
+      "no_pack_switch_in_observation": true,
+      "other_direction_or_story_state_exits_proven_absent": false,
+      "scene_final_xy_after_neutral": {
+        "x": 39,
+        "y": 24
+      },
+      "first_input_frame": 663340,
+      "end_neutral_frame": 663532,
+      "observed_xy_changes": [
+        {
+          "frame": 663333,
+          "x": 39,
+          "y": 18
+        },
+        {
+          "frame": 663342,
+          "x": 39,
+          "y": 19
+        },
+        {
+          "frame": 663351,
+          "x": 39,
+          "y": 20
+        },
+        {
+          "frame": 663360,
+          "x": 39,
+          "y": 21
+        },
+        {
+          "frame": 663369,
+          "x": 39,
+          "y": 22
+        },
+        {
+          "frame": 663378,
+          "x": 39,
+          "y": 23
+        },
+        {
+          "frame": 663387,
+          "x": 39,
+          "y": 24
+        }
+      ],
+      "trace_sha256": [
+        "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+        "4E742C62C0B46BB4FFFE8980900252A054267FBA094C4187D39E803777900FEB",
+        "1397E66F346DC2C3E4C852C3C5E9A776E6710A485C0263334D93E5A8BB2D9773"
+      ],
+      "raw_frame_capture_committed": false,
+      "up_input_did_not_prevent_downward_drift_in_this_state": true,
+      "autonomous_motion_or_script_pending": "cause_unresolved"
+    },
+    {
+      "source_pack": "0xBD",
+      "source_config_id": "cfg_t36_l150_v2",
+      "original_world_transition_id": "catalog_transition_0802",
+      "source_scene_original_arrival_xy": [
+        15,
+        37
+      ],
+      "source_original_world_approach_cheat": true,
+      "reverse_experiment_controller_has_no_cheat": true,
+      "controller": "Up",
+      "controller_frames": 72,
+      "neutral_frames": 120,
+      "no_pack_switch_in_observation": true,
+      "other_direction_or_story_state_exits_proven_absent": false,
+      "scene_final_xy_after_neutral": {
+        "x": 15,
+        "y": 32
+      },
+      "first_input_frame": 663340,
+      "end_neutral_frame": 663532,
+      "observed_xy_changes": [
+        {
+          "frame": 663345,
+          "x": 15,
+          "y": 36
+        },
+        {
+          "frame": 663362,
+          "x": 15,
+          "y": 35
+        },
+        {
+          "frame": 663379,
+          "x": 15,
+          "y": 34
+        },
+        {
+          "frame": 663396,
+          "x": 15,
+          "y": 33
+        },
+        {
+          "frame": 663413,
+          "x": 15,
+          "y": 32
+        }
+      ],
+      "trace_sha256": [
+        "D531B0995E8E842A0FE3E76D45B58DD19EB1DD6485E6D49A4D96E7DA23E6188E",
+        "5A7F60C2094159D16B25B060A2720550FA733FDC30CF209426A114164E5CA031",
+        "AF27EEEA14AD0F5CA3A0D184AFB16EBA6F60C3C9ED6CFDA7AD18400B4BCB9864"
+      ],
+      "raw_frame_capture_committed": false
+    },
+    {
+      "source_pack": "0xB9",
+      "source_config_id": "cfg_t25_l129_v2",
+      "original_world_transition_id": "catalog_transition_0803",
+      "source_scene_original_arrival_xy": [
+        68,
+        25
+      ],
+      "source_original_world_approach_cheat": true,
+      "reverse_experiment_controller_has_no_cheat": true,
+      "controller": "Up",
+      "controller_frames": 72,
+      "neutral_frames": 120,
+      "no_pack_switch_in_observation": true,
+      "other_direction_or_story_state_exits_proven_absent": false,
+      "scene_final_xy_after_neutral": {
+        "x": 68,
+        "y": 23
+      },
+      "first_input_frame": 663340,
+      "end_neutral_frame": 663532,
+      "observed_xy_changes": [
+        {
+          "frame": 663345,
+          "x": 68,
+          "y": 24
+        },
+        {
+          "frame": 663361,
+          "x": 68,
+          "y": 23
+        }
+      ],
+      "trace_sha256": [
+        "7089054259003DBBE2D559997659A8C92A270C6A9625B89DDAE04B779F6CC250",
+        "7E85610BCBDA80645E696DAA6A1B06C93B2173AE44696C1FE8026B76924FB7CB",
+        "F6DBB9D840E05E7EE861A7C44B0D91852A220F7BBE380612208436A140F12FC4"
+      ],
+      "raw_frame_capture_committed": false
+    },
+    {
+      "source_pack": "0xAB",
+      "source_config_id": "cfg_t49_l176_v2",
+      "original_world_transition_id": "catalog_transition_0774",
+      "source_scene_original_arrival_xy": [
+        22,
+        5
+      ],
+      "source_original_world_approach_cheat": true,
+      "reverse_experiment_controller_has_no_cheat": true,
+      "controller": "Up",
+      "controller_frames": 72,
+      "neutral_frames": 120,
+      "no_pack_switch_in_observation": true,
+      "other_direction_or_story_state_exits_proven_absent": false,
+      "scene_final_xy_after_neutral": {
+        "x": 22,
+        "y": 3
+      },
+      "first_input_frame": 663340,
+      "end_neutral_frame": 663532,
+      "observed_xy_changes": [
+        {
+          "frame": 663345,
+          "x": 22,
+          "y": 4
+        },
+        {
+          "frame": 663361,
+          "x": 22,
+          "y": 3
+        }
+      ],
+      "trace_sha256": [
+        "6DA5D2B135F2F9A192107947AD2BFA7AF5BB3F6201A302CC45404250AF5AFF43",
+        "9DB605D22503DA9D29DE2A3518A4D86A90FD738A2BE1D3CB7B209872F12FEFBC",
+        "20EA672F3FFCBB5DF0022F70547BE96BE7B3BD8D42CFB5C9221A2967F5D34EC9"
+      ],
+      "raw_frame_capture_committed": false
+    },
+    {
+      "source_pack": "0x82",
+      "source_config_id": "cfg_t04_l059_v2",
+      "original_world_transition_id": "catalog_transition_0791",
+      "source_scene_original_arrival_xy": [
+        40,
+        59
+      ],
+      "source_original_world_approach_cheat": true,
+      "reverse_experiment_controller_has_no_cheat": true,
+      "controller": "Up",
+      "controller_frames": 72,
+      "neutral_frames": 120,
+      "no_pack_switch_in_observation": true,
+      "other_direction_or_story_state_exits_proven_absent": false,
+      "scene_final_xy_after_neutral": {
+        "x": 40,
+        "y": 59
+      },
+      "first_input_frame": 663340,
+      "end_neutral_frame": 663532,
+      "observed_xy_changes": [],
+      "trace_sha256": [
+        "2467CAE18CAE181EF5F7B77BEA2EEBB09B1BF1AB0210ECBAC960010A978434B4",
+        "79238062054498824ED9917619BA240DF579793212B57D90373991D7C9862E9E",
+        "A56222530B641587BD5647D59407D07056AAC180BBD473896E27CCA85E1725E9"
+      ],
+      "raw_frame_capture_committed": false
+    },
+    {
+      "source_pack": "0x60",
+      "source_config_id": "cfg_t04_l035_v2",
+      "original_world_transition_id": "catalog_transition_0755",
+      "source_scene_original_arrival_xy": [
+        37,
+        56
+      ],
+      "source_original_world_approach_cheat": true,
+      "reverse_experiment_controller_has_no_cheat": true,
+      "controller": "Up",
+      "controller_frames": 72,
+      "neutral_frames": 120,
+      "no_pack_switch_in_observation": true,
+      "other_direction_or_story_state_exits_proven_absent": false,
+      "scene_final_xy_after_neutral": {
+        "x": 37,
+        "y": 56
+      },
+      "first_input_frame": 663340,
+      "end_neutral_frame": 663532,
+      "observed_xy_changes": [],
+      "trace_sha256": [
+        "52366DCB114AFF37E3CED5297131E69CC3032DF32B75B3EA81F7A0D0154CD757",
+        "30B7FA1DCAA9FAF7F4C7DB208DEE00DA231CEBB57211F3CF201AE9CDA3E50F93",
+        "9817B9ABFFA61BC490C7A0ADDC19C66642BDA042A35F97DEC3B92C4B3F20889E"
+      ],
+      "raw_frame_capture_committed": false
+    }
+  ]
+}

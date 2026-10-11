@@ -380,3 +380,17 @@ Raw frame logs, screenshots and savestates stay private/local.
 Run tools/python/audit_scene_14_world_returns.py on the local
 capture set to reconstruct exact SHA256-linked metadata, and
 scripts/test_scene_14_world_returns.py for committed regression tests.
+
+
+## Test unresolved pack returns with opposite SNES input
+
+After the Down scene exit batch, the helper
+tools/remote_lab/probe_six_unconfirmed_reverse_up.ps1 sequentially
+rechecks the six pack states 0x96, 0xBD, 0xB9, 0xAB, 0x82, 0x60
+using original analysis save states and normal SNES Up controls.
+Each run saves and restores the prior isolated emulator state.
+No WRAM XY writes occur during the reverse scene experiments.
+The source's earlier world entrance was originally cheat-positioned.
+Use tools/python/audit_six_scene_up_probes.py and
+tools/python/verify_pack96_forced_motion.py to audit local raw frame
+captures by SHA256. No original frame images or savestates are committed.
