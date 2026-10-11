@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "kind": "pack96_five_way_no_input_and_modal_unlocked_world_escape",
+  "source_world_transition_id": "catalog_transition_0756",
+  "source_config_id": "cfg_t09_l098_v2",
+  "source_pack": "0x96",
+  "source_world_entry_was_cheat_seeded": true,
+  "scene_controller_probe_wram_xy_cheat_used": false,
+  "location_title_onscreen": "音無しの洞窟",
+  "display_title_at_blocked_state_screenshot_sha256": "7BBEABEEE411E44B184CA64B89D28FE42774FAA149B5E60E6786D37337674C82",
+  "display_title_cleared_post_A_screenshot_sha256": "7E51D71F560B09DF1AB19678CEA7018CEB839E39E98D6B1EB2A37A8E16E609AF",
+  "actual_world_screenshot_sha256": "33C9DF73C69381E28A99ECBD6B819BAC0298459584BBA49BD47100BB682AB0C5",
+  "conditions": [
+    "Down",
+    "Up",
+    "Left",
+    "Right",
+    "None"
+  ],
+  "five_conditions_full_204_frame_position_identity": true,
+  "identical_frame_count_each": 204,
+  "same_frame_range": [
+    663329,
+    663532
+  ],
+  "real_left_right_gamepad_presses_observed": true,
+  "neutral_no_buttons_test_observed": true,
+  "descent_steps": [
+    {
+      "frame": 663333,
+      "x": 39,
+      "y": 18
+    },
+    {
+      "frame": 663342,
+      "x": 39,
+      "y": 19
+    },
+    {
+      "frame": 663351,
+      "x": 39,
+      "y": 20
+    },
+    {
+      "frame": 663360,
+      "x": 39,
+      "y": 21
+    },
+    {
+      "frame": 663369,
+      "x": 39,
+      "y": 22
+    },
+    {
+      "frame": 663378,
+      "x": 39,
+      "y": 23
+    },
+    {
+      "frame": 663387,
+      "x": 39,
+      "y": 24
+    }
+  ],
+  "end_of_automatic_descent_xy": {
+    "x": 39,
+    "y": 24
+  },
+  "title_modal_blocked_directional_movement": true,
+  "no_button_then_right_72_blocked_verified": true,
+  "A_then_right_72_walkable_verified": true,
+  "no_button_right_traces_sha256": [
+    "42DE1F36AE21EE094C607638196C69D689E592025F5265D3A30AEE670A282FCC",
+    "9F4C9621B099C773D7AD2D81802A32726CAB847F8969CD6D04B47040C91E6750"
+  ],
+  "A_then_right_traces_sha256": [
+    "48B71D48336D1521599F7DAD30B97DA46F179887388A330738CE6067EEE70048",
+    "B817458679178297442007FBE24611704501DB268605A71AA7821CB8351D27DE",
+    "0E99533E34C282D6F4E278B954DAFADAD308D96FE94D5E5E4D2F6684F77586AE"
+  ],
+  "A_press_then_Up_world_return_observed": true,
+  "post_title_A_frames": 8,
+  "post_title_neutral_frames": 64,
+  "world_return_actual_gamepad_direction": "Up",
+  "world_return_actual_gamepad_frames": 96,
+  "pack_switch_frame": 663807,
+  "temporary_world_pack_xy": {
+    "x": 39,
+    "y": 7
+  },
+  "world_arrival_first_stable_frame": 663897,
+  "world_arrival_xy": {
+    "x": 50,
+    "y": 129
+  },
+  "world_pack": "0x4C",
+  "world_config_id": "cfg_t01_l001_v1",
+  "world_stable_through_frame": 664216,
+  "world_raw_selector_converged": true,
+  "world_arrival_for_other_savestates_proven": false,
+  "all_story_phases_verified": false,
+  "exact_CPU_instruction_PC_observed": false,
+  "natural_world_entry_walkability_proven": false,
+  "modal_causal_code_handler_proven": false,
+  "source_exit_exact_hotspot_tile_proven": false,
+  "raw_traces_screens_ROM_or_states_committed": false,
+  "five_way_trace_sha256": {
+    "Down": [
+      "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+      "6F00B08A85C9ABBDE700B8BD09B1AE36E6A24F744E690A3B797AACBB5DBDF02F",
+      "1397E66F346DC2C3E4C852C3C5E9A776E6710A485C0263334D93E5A8BB2D9773"
+    ],
+    "Up": [
+      "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+      "4E742C62C0B46BB4FFFE8980900252A054267FBA094C4187D39E803777900FEB",
+      "1397E66F346DC2C3E4C852C3C5E9A776E6710A485C0263334D93E5A8BB2D9773"
+    ],
+    "Left": [
+      "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+      "3FE3D6B0569C9A1002CFFAB91767269E709CBCB16B544E74D18808BC590C60D7",
+      "B7B92E819A4CA941AC04709A44AEC05F5DAB92F5B6BC12137E39CE2E8A77D094"
+    ],
+    "Right": [
+      "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+      "18AF1827B80463E645340727FBDA31C4298101A2A9B008B2B5D775BECF13FC4F",
+      "B7B92E819A4CA941AC04709A44AEC05F5DAB92F5B6BC12137E39CE2E8A77D094"
+    ],
+    "None": [
+      "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+      "438811D598C2EB4078D3F8D9AFDA263EBDD14DC7219FB31E1D9E3394D4AEC99A",
+      "46167D1D44D045E32C204D2ECD19B31F0FDEB5D4EC7B19512B8AC8BFA740668B"
+    ]
+  },
+  "modal_escape_full_trace_sha256": [
+    "48B71D48336D1521599F7DAD30B97DA46F179887388A330738CE6067EEE70048",
+    "B817458679178297442007FBE24611704501DB268605A71AA7821CB8351D27DE",
+    "F832B3F028F214AB19BF5D6F2B455D93D9F7E639FBB748C9E828F8D0D59844F8",
+    "4DE6F2D1F25579BCED23F7FE63A75191857A6A577B20CDD2D4777475BD5D9587",
+    "8E1372C39A62306DD3F7769EC8D0F0344994826FE1253BDADD7316E3C1794C7A",
+    "CF6880A6D7342EB86111ACBDB608DC2BFE5A5B6AAFE291138DF642A92A476787",
+    "FEE349F3F3B2E1C65FCA6132662925F5F0BA09E9D0DC8EBBE67F18CA980B046F"
+  ]
+}

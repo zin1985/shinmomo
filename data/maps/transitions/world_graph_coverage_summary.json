@@ -2,13 +2,13 @@
   "schema_version": 1,
   "kind": "event_aware_map_graph_coverage_audit",
   "map_count": 149,
-  "catalog_candidate_count": 1311,
-  "bound_edge_count": 74,
-  "confirmed_runtime_edge_count": 19,
+  "catalog_candidate_count": 1312,
+  "bound_edge_count": 75,
+  "confirmed_runtime_edge_count": 20,
   "candidate_bound_edge_count": 55,
   "native_boundary_context_count": 3,
-  "edges_with_unknown_current_activation": 74,
-  "maps_with_at_least_one_outgoing": 20,
+  "edges_with_unknown_current_activation": 75,
+  "maps_with_at_least_one_outgoing": 21,
   "maps_with_at_least_one_incoming": 51,
   "maps_with_no_bound_outgoing": [
     "cfg_t01_l002_v1",
@@ -88,7 +88,6 @@
     "cfg_t07_l084_v2",
     "cfg_t07_l090_v2",
     "cfg_t08_l094_v2",
-    "cfg_t09_l098_v2",
     "cfg_t11_l101_v2",
     "cfg_t13_l103_v2",
     "cfg_t14_l105_v2",
@@ -383,10 +382,6 @@
     },
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t09_l098_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t11_l101_v2"
     },
     {
@@ -470,7 +465,7 @@
       "destination": "cfg_t07_l047_v2"
     }
   ],
-  "one_way_pair_count": 31,
+  "one_way_pair_count": 30,
   "top_unbound_destination_configs": [
     {
       "config_id": "cfg_t29_l138_v2",

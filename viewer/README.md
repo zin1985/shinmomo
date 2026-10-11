@@ -223,3 +223,21 @@ Six scene+pack scoped directional observations are attached to
 map metadata, with an extra 204-frame consistency proof on cfg_t09_l098_v2.
 Graph unchanged at 149 maps, 74 bound edges, 1311 candidates.
 See docs/analysis/pack96_opposing_direction_forced_motion_and_six_up_probes_20261011.md.
+
+
+## Pack0x96 title-modal dismissal and world return (2026-10-11)
+
+The same saved cave arrival pack0x96 (39,17) was replayed with genuine
+SNES Down, Up, Left, Right and no-button controls. All five 204-frame
+pack/XY series matched exactly and automatically descended to (39,24).
+An in-game title modal reads 音無しの洞窟, also the name of a distinct
+pack0x98 scene. Neutral72+Right72 could not move the player while the
+modal remained, but actual A8+neutral64+Right72 moved to (42,24).
+After A dismissal, real Up movement from pack0x96 yielded world
+pack0x4C switch at frame663807; (39,7) was only temporary post-switch
+XY, while (50,129) at frame663897 was stable through frame664216.
+One context-specific return edge was added: 149 maps, 75 edges, 1312
+candidate transitions; the new exact-pack0x96 onscreen title brings
+the attached scene-pack label contexts to 26. All-world walkability,
+other saves/story states and exact CPU PC remain unknown.
+docs/analysis/pack96_fiveway_modal_escape_world_return_20261011.md

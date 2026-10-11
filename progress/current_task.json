@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Decode pack0x96 down-drift cause and inspect horizontal dungeon exits",
-  "base_main_head_verified": "7e4028a1a29f3f53ece420e1dcaf297450ee6800",
+  "title": "Trace the precise CPU modal/forced walk handler; explore other scene titles and blocked returns",
+  "base_main_head_verified": "898141d077e8a3fab89a5bae1673572513522adc",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,19 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "From pack0x96 (39,24) test left/right and event state; distinguish forced down movement from controller handling and identify exact native 9-frame movement scheduler."
+      "action": "Check modal/title/cutscene dismissal in pack0xBD,0xB9,0xAB,0x82,0x60 saved arrival stages before retrying horizontal exits."
     },
     {
       "order": 2,
-      "action": "Inspect alternative routes and floor stairs for 0xBD,0xB9,0xAB; none switched packs during bounded Up/Down tests."
+      "action": "ROM/native CPU trace actual pack96 entrance forced 9-frame descent, title input lock, and delayed saved-world-return coordinate correction."
     },
     {
       "order": 3,
-      "action": "Check battle/cutscene/controller lock for 0x82 and 0x60 whose XY did not move in both direction tests."
+      "action": "Expand multiple village interiors and NPC conditional dialogues with actual frame observations; world entry alone is not full map completion."
     },
     {
       "order": 4,
-      "action": "Expand in-map NPC and event dialogue analysis for previously named 25 places."
-    },
-    {
-      "order": 5,
-      "action": "Extract actual Hien destinations/cast and verify MP unlimited behavior; currently untested."
+      "action": "Verify Hien menu names/destinations, real cast, and unlimited MP; world entrance research so far used adjacent-coordinate cheats."
     }
   ],
   "do_not_redo": [
@@ -844,52 +840,51 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Six actual Up-direction saved-scene controller probes, no pack switch in local trial, and exact 204/204 frame position equality with opposite Down input in pack0x96; seven automatic one-cell Y steps every nine frames.",
-    "six_up_trials": 6,
-    "six_pack_switches": 0,
-    "scene_packs": [
-      "0x96",
-      "0xBD",
-      "0xB9",
-      "0xAB",
-      "0x82",
-      "0x60"
+    "description": "Pack96 five-way exact 204-frame auto-down match including no-key control; revealed title modal blocking; verified real A unlock then Up return to world with delayed final XY(50,129) and named exact pack96 scene 音無しの洞窟.",
+    "five_control_conditions": [
+      "Down",
+      "Up",
+      "Left",
+      "Right",
+      "None"
     ],
-    "original_world_entry_was_cheat_seeded": true,
-    "no_XY_Wram_coordinate_cheat_during_Up_or_Down": true,
-    "source_scene_pack96": "0x96",
-    "pack96_start_xy": [
+    "identical_frame_count_per_condition": 204,
+    "automatic_descent_from": [
       39,
       17
     ],
-    "pack96_end_xy": [
+    "automatic_descent_to": [
       39,
       24
     ],
-    "pack96_actual_buttons_compared": [
-      "Down",
-      "Up"
+    "descending_one_cell_every_nine_frames": true,
+    "post_descent_no_button_right72_blocked": true,
+    "post_descent_real_A_button_right72_walkable": true,
+    "post_modal_up_real_controller_map_switch_frame": 663807,
+    "temporary_invalid_world_xy": [
+      39,
+      7
     ],
-    "pack96_frame_position_identity_count": 204,
-    "pack96_step_frames": [
-      663333,
-      663342,
-      663351,
-      663360,
-      663369,
-      663378,
-      663387
+    "final_settled_world_xy": [
+      50,
+      129
     ],
-    "pack96_script_or_physics_mechanism_proven": false,
-    "universal_exit_absence_proven": false,
-    "CPU_opcode_PC_observed": false,
-    "new_graph_edges": 0,
+    "world_arrival_frame": 663897,
+    "stable_through_frame": 664216,
+    "pack96_onscreen_title": "音無しの洞窟",
+    "extra_exact_pack_location_title_count": 1,
+    "world_original_entry_cheat_positioned": true,
+    "normal_world_walking_route_proven": false,
+    "CPU_opcode_PC_direct_observed": false,
+    "all_story_activation_proven": false,
+    "new_verified_runtime_edge_count": 1,
     "viewer_maps": 149,
-    "viewer_bound_edges": 74,
-    "viewer_candidates": 1311,
-    "official_percent_unchanged": 51.4,
-    "all_six_batches_emulator_restored": true,
-    "evidence": "docs/analysis/pack96_opposing_direction_forced_motion_and_six_up_probes_20261011.md"
+    "viewer_bound_edges": 75,
+    "viewer_transition_candidates": 1312,
+    "viewer_exact_pack_scoped_onscreen_title_count": 26,
+    "official_project_completion_percent_unchanged": 51.4,
+    "raw_ROM_screenshots_frame_samples_savestates_committed": false,
+    "evidence": "docs/analysis/pack96_fiveway_modal_escape_world_return_20261011.md"
   },
   "completed_work_units": [
     {
@@ -1722,6 +1717,55 @@
       "all_three_batches_restored": true,
       "official_completion_percent_unchanged": 51.4,
       "evidence": "docs/analysis/world_scene_14_reverse_exits_20261011.md"
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Six actual Up-direction saved-scene controller probes, no pack switch in local trial, and exact 204/204 frame position equality with opposite Down input in pack0x96; seven automatic one-cell Y steps every nine frames.",
+      "six_up_trials": 6,
+      "six_pack_switches": 0,
+      "scene_packs": [
+        "0x96",
+        "0xBD",
+        "0xB9",
+        "0xAB",
+        "0x82",
+        "0x60"
+      ],
+      "original_world_entry_was_cheat_seeded": true,
+      "no_XY_Wram_coordinate_cheat_during_Up_or_Down": true,
+      "source_scene_pack96": "0x96",
+      "pack96_start_xy": [
+        39,
+        17
+      ],
+      "pack96_end_xy": [
+        39,
+        24
+      ],
+      "pack96_actual_buttons_compared": [
+        "Down",
+        "Up"
+      ],
+      "pack96_frame_position_identity_count": 204,
+      "pack96_step_frames": [
+        663333,
+        663342,
+        663351,
+        663360,
+        663369,
+        663378,
+        663387
+      ],
+      "pack96_script_or_physics_mechanism_proven": false,
+      "universal_exit_absence_proven": false,
+      "CPU_opcode_PC_observed": false,
+      "new_graph_edges": 0,
+      "viewer_maps": 149,
+      "viewer_bound_edges": 74,
+      "viewer_candidates": 1311,
+      "official_percent_unchanged": 51.4,
+      "all_six_batches_emulator_restored": true,
+      "evidence": "docs/analysis/pack96_opposing_direction_forced_motion_and_six_up_probes_20261011.md"
     }
   ]
 }

@@ -778,7 +778,10 @@ async function selectMap(m,focus=null,pack=undefined){
     const sceneWorldReturnNote=e.runtime_scene_saved_world_return_proof?.observed_runtime_map_switch
       ?' | 出発場面から世界へ通常操作で帰還（帰還先は元の保存マップ情報に依存）'
       :'';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote  + dungeonFloorNote + reverseStairNote + worldBatchNote + sceneWorldReturnNote + researchPosition;
+    const pack96ModalReturnNote=e.runtime_pack96_modal_world_return_proof?.title_modal_A_button_cleared
+      ?' | 音無しの洞窟：地名表示A解除後Upで世界へ実機帰還（初期座標39,7は一時値）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote  + dungeonFloorNote + reverseStairNote + worldBatchNote + sceneWorldReturnNote + pack96ModalReturnNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

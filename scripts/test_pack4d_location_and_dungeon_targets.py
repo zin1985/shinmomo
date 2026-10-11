@@ -28,9 +28,9 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
 
     def test_location_csv_has_unique_pack_scoped_evidence(self):
         candidates=[r for r in self.rows if r["candidate_status"]=="confirmed_onscreen_pack_context"]
-        self.assertEqual(len(candidates),25)
+        self.assertEqual(len(candidates),26)
         by_pack={c["pack_id_hex"]:c for c in candidates}
-        self.assertEqual(len(by_pack),25)
+        self.assertEqual(len(by_pack),26)
         self.assertEqual(by_pack["0x4D"]["config_id"],"cfg_t04_l006_v2")
         self.assertEqual(by_pack["0x4D"]["candidate_label"],"桃太郎の生家")
         self.assertEqual(by_pack["0x91"]["config_id"],"cfg_t08_l092_v2")
@@ -45,13 +45,13 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
         self.assertEqual(c[0]["pack_id_hex"],"0x4D")
         self.assertEqual(c[0]["label"],"桃太郎の生家")
         self.assertEqual(c[0]["scope"],"exact_config_and_runtime_pack_only")
-        self.assertEqual(self.world["runtime_location_title_attached_count"],25)
+        self.assertEqual(self.world["runtime_location_title_attached_count"],26)
         actual={(m["config_id"],context["pack_id_hex"],context["label"])
                 for m in maps for context in m.get("runtime_pack_location_contexts",[])}
         expected={(c["config_id"],c["pack_id_hex"],c["candidate_label"])
                   for c in self.rows if c["candidate_status"]=="confirmed_onscreen_pack_context"}
         self.assertEqual(actual,expected)
-        self.assertEqual(len(actual),25)
+        self.assertEqual(len(actual),26)
         for m in maps:
             self.assertNotIn(m.get("display_name"), ("すずめのお宿1","すずめのお宿2",
                                                   "すずめのお宿5","すずめのお宿6"))
@@ -105,9 +105,9 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
 
     def test_proven_world_graph_count_unmodified(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),74)
-        self.assertEqual(len(self.world["transition_candidates"]),1311)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],74)
+        self.assertEqual(len(self.world["transition_edges"]),75)
+        self.assertEqual(len(self.world["transition_candidates"]),1312)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],75)
 
 
 if __name__=="__main__":unittest.main()

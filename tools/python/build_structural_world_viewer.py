@@ -14,6 +14,7 @@ from attach_pack95_reverse_stair import attach as attach_pack95_reverse_stair
 from attach_world_37_scene_entrance_batch import attach as attach_world_batch
 from add_14_scene_saved_world_returns import inject as inject_14_scene_returns
 from attach_six_scene_directional_probes import attach as attach_six_directional_probes
+from attach_pack96_modal_world_return import inject as inject_pack96_modal_exit
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -710,12 +711,29 @@ def main():
     proof_paths = [
         ROOT / "data/maps/context/pack4d_runtime_location_title_20261011.json",
         ROOT / "data/maps/context/pack91_runtime_location_title_20261011.json",
+        ROOT / "data/maps/context/pack96_runtime_location_title_20261011.json",
     ]
     by_scene_pack = {}
     for candidate_path in proof_paths:
         if not candidate_path.exists():
             continue
         loaded = json.loads(candidate_path.read_text(encoding="utf-8"))
+        if candidate_path.name == "pack96_runtime_location_title_20261011.json":
+            packed = TRANSITIONS / "pack96_5way_modal_and_world_return_20261011.json"
+            if not packed.exists():
+                raise ValueError("Pack96 title requires its audited real modal and exit proof")
+            base = json.loads(packed.read_text(encoding="utf-8"))
+            if (loaded.get("schema_version") != 1 or
+                loaded.get("source_evidence") != str(packed.relative_to(ROOT)).replace("\\", "/") or
+                loaded.get("source_world_entry_originally_coordinate_cheated") is not None or
+                loaded.get("world_entered_after_cheat_adjacent_original_entrance") is not True or
+                loaded.get("map_config_id") != "cfg_t09_l098_v2" or
+                loaded.get("runtime_pack_id_hex") != "0x96" or
+                loaded.get("onscreen_title") != "音無しの洞窟" or
+                loaded.get("screenshot_sha256") != base.get("display_title_at_blocked_state_screenshot_sha256") or
+                base.get("five_conditions_full_204_frame_position_identity") is not True or
+                base.get("A_press_then_Up_world_return_observed") is not True):
+                raise ValueError("Pack96 scene name is not linked to its screenshot and controller evidence")
         key = (loaded.get("map_config_id"), loaded.get("runtime_pack_id_hex"))
         if key in by_scene_pack:
             raise ValueError("Duplicate runtime map-pack identity evidence")
@@ -1110,6 +1128,19 @@ def main():
     else:
         six_up_summary = {"up_local_trials_without_switch":0}
 
+    # Once the pack0x96 location-title modal is cleared by a real A
+    # press, genuine Up returns to the original saved world entrance.
+    # The first post-switch XY (39,7) is transient. Stable XY (50,129)
+    # must be observed in later frame windows; never promote it globally.
+    pack96_return_path = TRANSITIONS / "pack96_5way_modal_and_world_return_20261011.json"
+    if pack96_return_path.exists():
+        transition_candidates, pack96_return_summary = inject_pack96_modal_exit(
+            transition_candidates,
+            json.loads(pack96_return_path.read_text(encoding="utf-8")),
+            list(maps.values()))
+    else:
+        pack96_return_summary = {"new_verified_modal_world_return_edge_count":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1139,6 +1170,7 @@ def main():
         "runtime_world_entrance_37_batch_summary": world_scene_batch_summary,
         "runtime_scene_reverse_world_14_summary": returns14_summary,
         "runtime_scene_directional_six_up_summary": six_up_summary,
+        "runtime_pack96_modal_world_return_summary": pack96_return_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

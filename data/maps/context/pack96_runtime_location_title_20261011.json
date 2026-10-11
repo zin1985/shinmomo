@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_onscreen_location_title_proof",
+  "map_config_id": "cfg_t09_l098_v2",
+  "runtime_pack_id_hex": "0x96",
+  "onscreen_title": "音無しの洞窟",
+  "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+  "onscreen_title_source": "actual_BizHawk_pack96_modal_screenshot_after_world_gamepad_entry",
+  "source_evidence": "data/maps/transitions/pack96_5way_modal_and_world_return_20261011.json",
+  "screenshot_sha256": "7BBEABEEE411E44B184CA64B89D28FE42774FAA149B5E60E6786D37337674C82",
+  "screenshot_committed": false,
+  "applies_to_all_configs_sharing_tileset_layout": false,
+  "all_story_phases_location_identity_proven": false,
+  "world_entered_after_cheat_adjacent_original_entrance": true
+}

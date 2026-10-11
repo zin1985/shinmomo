@@ -137,13 +137,15 @@ class WorldSceneBatchTests(unittest.TestCase):
         self.assertEqual(len(r["all_25_onscreen_title_contexts"]),25)
         self.assertEqual(len(r["new_title_proofs"]),23)
         self.assertEqual(r["existing_two_individual_title_proofs_not_duplicated"],["0x4D","0x91"])
-        self.assertEqual(self.world["runtime_location_title_attached_count"],25)
+        self.assertEqual(self.world["runtime_location_title_attached_count"],26)
         records={(e["map_config_id"],e["runtime_pack_id_hex"],e["onscreen_title"])
                  for e in r["all_25_onscreen_title_contexts"]}
         mapped={(m["config_id"],c["pack_id_hex"],c["label"])
                 for m in self.world["maps"] for c in m.get("runtime_pack_location_contexts",[])}
-        self.assertEqual(mapped,records)
-        self.assertEqual(len(mapped),25)
+        # World batch retains its 25 screenshot names; pack96's extra
+        # title is from a later independent post-descent modal screenshot.
+        self.assertEqual(mapped,records|{("cfg_t09_l098_v2","0x96","音無しの洞窟")})
+        self.assertEqual(len(mapped),26)
 
     def test_onscreen_places_contain_more_than_ten_independent_named_places(self):
         names={e["onscreen_title"] for e in self.registry["all_25_onscreen_title_contexts"]}
@@ -167,15 +169,15 @@ class WorldSceneBatchTests(unittest.TestCase):
 
     def test_csv_exact_pack_rows_no_duplicates(self):
         rows=[r for r in self.csv_rows if r["candidate_status"]=="confirmed_onscreen_pack_context"]
-        self.assertEqual(len(rows),25)
-        self.assertEqual(len({(r["config_id"],r["pack_id_hex"]) for r in rows}),25)
+        self.assertEqual(len(rows),26)
+        self.assertEqual(len({(r["config_id"],r["pack_id_hex"]) for r in rows}),26)
         self.assertTrue(all(r["candidate_label"] for r in rows))
 
     def test_graph_not_inflated_by_observation_only(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),74)
-        self.assertEqual(len(self.world["transition_candidates"]),1311)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],74)
+        self.assertEqual(len(self.world["transition_edges"]),75)
+        self.assertEqual(len(self.world["transition_candidates"]),1312)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],75)
         self.assertEqual(self.world["runtime_world_entrance_37_batch_summary"]["new_graph_edges"],0)
 
 if __name__=="__main__":unittest.main()

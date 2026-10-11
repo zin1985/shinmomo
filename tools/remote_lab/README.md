@@ -394,3 +394,20 @@ The source's earlier world entrance was originally cheat-positioned.
 Use tools/python/audit_six_scene_up_probes.py and
 tools/python/verify_pack96_forced_motion.py to audit local raw frame
 captures by SHA256. No original frame images or savestates are committed.
+
+
+## Pack0x96 auto-descent, blocked title modal and verified escape
+
+From the preserved arrival at (39,17) run the local only
+tools/remote_lab/verify_pack96_neutral_no_buttons.ps1 to record neutral
+204 frame control. The earlier saved Down/Up captures and Left/Right
+probes agree frame by frame. After descending to (39,24), a game
+location title modal blocks directional movement until a normal SNES
+A/B/Start button dismisses it. The strict evidence uses A8+neutral64,
+then real Up96 plus four consecutive neutral120 windows. Pack switches
+0x96->0x4C at663807, first world XY(39,7) is transient, then
+saved world(50,129) at663897 remains stable through664216.
+The reproducible source fixtures, screenshots and raw frames are
+local/private and restored to original hidden emulator state.
+Commit only the derived SHA256-bearing JSON created by
+tools/python/verify_pack96_fiveway_world_return.py.
