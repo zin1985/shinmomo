@@ -12,6 +12,7 @@ from add_runtime_cave_world_return_edge import inject as inject_cave_world_saved
 from attach_omusubi_pack95_source import attach as attach_omusubi_floor_source
 from attach_pack95_reverse_stair import attach as attach_pack95_reverse_stair
 from attach_world_37_scene_entrance_batch import attach as attach_world_batch
+from add_14_scene_saved_world_returns import inject as inject_14_scene_returns
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1077,6 +1078,18 @@ def main():
         world_scene_batch_summary = {"attempted_world_entrances":0,
                                      "actual_gamepad_matched_destination_pack":0}
 
+    # 14 distinct real-controller reverse scene->world events, context-bound
+    # to the saved world from which the scene was entered via a cheat.
+    # No universal destination, story conditions or executed CPU PC is inferred.
+    returns14_path = TRANSITIONS / "world_14_reverse_returns_after_cheat_arrivals_20261011.json"
+    if returns14_path.exists():
+        transition_candidates, returns14_summary = inject_14_scene_returns(
+            transition_candidates,
+            json.loads(returns14_path.read_text(encoding="utf-8")),
+            list(maps.values()))
+    else:
+        returns14_summary = {"new_confirmed_contextual_saved_world_edges":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1104,6 +1117,7 @@ def main():
         "runtime_pack95_floor_source_summary": pack95_source_summary,
         "runtime_pack95_reverse_stair_summary": reverse_stair_summary,
         "runtime_world_entrance_37_batch_summary": world_scene_batch_summary,
+        "runtime_scene_reverse_world_14_summary": returns14_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

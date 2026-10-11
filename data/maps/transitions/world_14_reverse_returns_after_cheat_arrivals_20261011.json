@@ -1,0 +1,755 @@
+{
+  "schema_version": 1,
+  "kind": "fourteen_verified_original_scene_return_events_from_real_controller",
+  "source_entrance_ledger": "data/maps/transitions/world_37_gamepad_entrances_after_cheat_20261011.json",
+  "research_isolated_hidden_emulator": true,
+  "all_batches_original_emulator_restored": true,
+  "source_original_world_entrances_cheat_seeded": true,
+  "reverse_scene_controller_path_Wram_XY_cheat_used": false,
+  "normal_walkable_world_access_all_scenes_proven": false,
+  "story_condition_gate_universal": false,
+  "actual_native_or_VM_CPU_instruction_PC_observed": false,
+  "attempts": 20,
+  "confirmed_world_returns": 14,
+  "local_nonreturns": 6,
+  "verified_reverse_returns": [
+    {
+      "source_world_transition_id": "catalog_transition_0757",
+      "source_config_id": "cfg_t09_l097_v2",
+      "source_scene_pack": "0x98",
+      "scene_spawn_xy": {
+        "x": 183,
+        "y": 29
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "7942A2D906177948E667858D993B7C55DB7A8D17AF5E0FE50444C1782E63E720",
+        "E646D71F619350EFAACA684562465A6234DA60076E5FF51CC2A971276FC77F18",
+        "17877A85985CA4F9D4186415AF410A7E1D3BEF2792ED3297CE0143A7D2C75078",
+        "47EA927241BF0521C759E210BB04A8662CD255F6232F41C814B747230923D09D"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663363,
+      "last_observed_source_xy_before_switch": {
+        "x": 183,
+        "y": 30
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 51,
+        "y": 122
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 144,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0766",
+      "source_config_id": "cfg_t24_l125_v2",
+      "source_scene_pack": "0x9E",
+      "scene_spawn_xy": {
+        "x": 7,
+        "y": 26
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "B00B4359FD8E2981F2FE975EC278E31749D5FAEFD3B3355EC9FF71E9C1CD4C69",
+        "E8B22CBD2810173C6AEE9C4AB41251D5B034C3D8EB47268FCA23F86E75B20ED9",
+        "5C90E691A5312BB89EE168388F5C28F7B3442E657B01E50F0D9045EF3FB162C2",
+        "473F57FA41CD01A47C3D1CC53A7FEC2E8D9E2892C5D8101F117D16A0585C27FB"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663360,
+      "last_observed_source_xy_before_switch": {
+        "x": 7,
+        "y": 27
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 124,
+        "y": 64
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 170,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "FF2D3BA38C8432F3D97661AED633F1B5FE8E0DFEB74CEF8C6DAE04C78E9ECD3C",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0782",
+      "source_config_id": "cfg_t34_l148_v1",
+      "source_scene_pack": "0xAD",
+      "scene_spawn_xy": {
+        "x": 7,
+        "y": 30
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "E555B34EC61E54937E080FFB6542D6779FB9D5D14EE45E1348E4D2B09E89BEF3",
+        "51A4D43E9FC747683946C26C19C19F9756B0D8058F369C8C22076893A371D222",
+        "CBD048B628C075B90CC7E5C28DD62AB931DC0C2BEA0665F15642AD3A2C145B91",
+        "5FB95CF17C067A4FAC938A5C36DF4E2EABC1440096CFC975027378613EBF424E"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663368,
+      "last_observed_source_xy_before_switch": {
+        "x": 7,
+        "y": 31
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 237,
+        "y": 37
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 285,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "E6B785DB062C31B8AAADA75F155C3FC93EC28B50FF2FA46D169615B185685B86",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0770",
+      "source_config_id": "cfg_t26_l131_v1",
+      "source_scene_pack": "0xA9",
+      "scene_spawn_xy": {
+        "x": 184,
+        "y": 23
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "E4E07325CE7DD4152D3B0C2324CD5089AFC5B35DE8F19847052DF75A1DCB0620",
+        "96CE19571F6D6340FF1AA0183130BC24404F1B0421D941BDCA25C5FCBA0BEA22",
+        "2DFDF62F6EF5ADCFB36ED7FBFD62EB281391A822127DC06383650D2161CBDD90",
+        "AA5C94E2A5AE70956023070408B9E03E4097C3744612AFD0511FBEF6EEF6A748"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663370,
+      "last_observed_source_xy_before_switch": {
+        "x": 184,
+        "y": 24
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 39,
+        "y": 34
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 283,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "8D962EC1C9319DB677E9FA16C08B020EEBC95512B931141C62B44FCB00CD9131",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0773",
+      "source_config_id": "cfg_t04_l044_v2",
+      "source_scene_pack": "0x65",
+      "scene_spawn_xy": {
+        "x": 58,
+        "y": 55
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "CBC0799DDD497630A383FA533F271295580DC2FB154BD90C5697F23471339D2E",
+        "FD3F9B0E693B5A0649D1EF8FDA0CAE42AD1E45819DFE749B0D77BFCE4579C895",
+        "668BCEF232B88AD2192EF92D95EA882C022CEABD246DAA23FC94FAF3EF34855F",
+        "42A665AEF7358334F7D1EDB9539BF287D415C25AC7761453A4D3BFC39009CF0B"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 58,
+        "y": 56
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 195,
+        "y": 60
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "1EA4F0DCC379A555E31B6969AFA239F7730DD53FB1CE381FB51432635B208FF2",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0797",
+      "source_config_id": "cfg_t04_l070_v2",
+      "source_scene_pack": "0x83",
+      "scene_spawn_xy": {
+        "x": 33,
+        "y": 55
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "4B100E61385AA0F2F578F5DA53AC76000182888E70B79666FF44FA458E26191D",
+        "77D0FF16E60685B12BF5C76160024C949B3BD6A05A5CD4532B520B09DAA97A0F",
+        "7C97D2ACB5E6CA535CA2B43319D9170E659EBEB9253BE415F9A17CB057DB6F31",
+        "A718757CFBC03AEC6A550213EE0C59987012FC871DAB5B0A04505F8B2EA277D3"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 33,
+        "y": 56
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 127,
+        "y": 195
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "2E3CF6AA79D5F55F2EF01B2AB213A80BE086B52B5EE0886397EC4FC24990F030",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0801",
+      "source_config_id": "cfg_t04_l060_v1",
+      "source_scene_pack": "0x8E",
+      "scene_spawn_xy": {
+        "x": 31,
+        "y": 69
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "99E62A1B3C41ADF385F8AE0E9EE3859328DA3791E9FB95921EC9B289CAAD1799",
+        "24B0CB9AC087DB23A55B256C7CE4F506ADF65AF3B00A85FCD99441D80B919D76",
+        "0DBE0939D3B9D5D4BE9803517A55CCA14505063C20A629279C75E29DC21FA4E5",
+        "551BD8706C80329894B663A0DE19CF40B73DB92908690EBE03D683BC979B6D8C"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 31,
+        "y": 70
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 160,
+        "y": 4
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "735C5746E1BE7377361B4B6CB6F207FDAAEC1A742B46830DED50F97932FBAD70",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0771",
+      "source_config_id": "cfg_t05_l042_v2",
+      "source_scene_pack": "0x6B",
+      "scene_spawn_xy": {
+        "x": 24,
+        "y": 72
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "1D5236B811CC86034E2EB72D42B5F60234FADB6D41BC62B64B7664278CBD51A8",
+        "1D70FEC6B00DDB4C5896F954A79AE4911433EC04E207FE201D3875B74CFF18D5",
+        "091CE3751A3B46099766AE6769A9777D354C2E5419A77C572E7D3DE105D50D94",
+        "7C31CE18428A865235C7186B3A6B66671156D1D8F0B373F888754564C9677EF9"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 24,
+        "y": 73
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 140,
+        "y": 34
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 207,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "EE71343404ABDDD8E2C0297F47DAF6A18F1461594569C32160D08C6B16C15EBD",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0792",
+      "source_config_id": "cfg_t04_l062_v2",
+      "source_scene_pack": "0x8C",
+      "scene_spawn_xy": {
+        "x": 31,
+        "y": 48
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "244FE8937E0A38C73C6D00B0C2851567CF39C8CBAB75176B05BAB5DFE3AFEE7C",
+        "5545F8D7BFA3EBFFC24B367078E73A6791EC37F8F41E97F5EEF757E404D34562",
+        "6841ACB16F9FCC9DC25F9421BBF7A94E1660F429BB8872900A7BDE1E38C0D92B",
+        "C828048BFC161E9308C665B2F5CEE843F6D4B75534C312485F84EF110E55021E"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 31,
+        "y": 49
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 199,
+        "y": 225
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "780DE2FDECB67BAB0B1E8AB0536438736F2611A77DE7F2DA46FF0A464B9F2D46",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0752",
+      "source_config_id": "cfg_t04_l018_v2",
+      "source_scene_pack": "0x5A",
+      "scene_spawn_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "4F75B8ECF6062EB60C3E657E9B54F6B7E4C10EF3A0A48BAABB0CB44434911286",
+        "2225322AA7B16EFE65F0B71D0D7A9AF3879AE4FE371D34868D7E45428D431DEB",
+        "7A6064442EEBE1B224DE53F0BA797735742655ECA4C954D5F0739BAF7C18757F",
+        "80BB9297D7C64809E316CD5B23C7C1BFE1069A76BACC7F2C79365A740B107F28"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 24,
+        "y": 41
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 43,
+        "y": 162
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "D34EF444FD44EA2135D3FC75C448C92172C53F5C63AFC020AC3122BDD0A59E66",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0796",
+      "source_config_id": "cfg_t06_l021_v2",
+      "source_scene_pack": "0x5F",
+      "scene_spawn_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "B315C7A1C6411EE751BA2364E62E47ECF4EA3F5AB8FDAD229FB609439B4EEB00",
+        "D1FEBB58B83748338C96FE5AE5DD43410BA1C0AF43B9A1EE6B83D4A22755CE30",
+        "0B395B55B0767947237BED61559F11994DDC5F1C9D6C10EDABE0DE3501936AE3",
+        "00BDE4F380EFCD36AEB5853D8D2A2B2F35B6376AB3A0203C4EA2CA33F9E545AE"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 24,
+        "y": 41
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 144,
+        "y": 184
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "8E3FE1BC06F0462C56F8FA1F37B9D4976FC75A74C62837E6B9D16F48C0A39D83",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0777",
+      "source_config_id": "cfg_t44_l167_v1",
+      "source_scene_pack": "0x87",
+      "scene_spawn_xy": {
+        "x": 30,
+        "y": 53
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "7C88FC73732BC41B09D39AB71CD08B8E95414AF625684C813F11C38CC06689A6",
+        "A549E024C6FA55A9EEECB5B4946B66E121BA94A0A58AA8D9276992F46AC99B90",
+        "7E0AAEA265412E318B4FD5D68736CF2DDE74147F1E23485DAE14D53B0A013C0F",
+        "735EE1A3A9F44AE11C1C1906C4C8C2C925DEBCEBED65E6FBA9183B4E1EDA127D"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663351,
+      "last_observed_source_xy_before_switch": {
+        "x": 30,
+        "y": 54
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 217,
+        "y": 35
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 302,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "B8AB0ED35FA7F53B17EACE5B5580BD360116171DFC23487B2227F48DC9248CA3",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0789",
+      "source_config_id": "cfg_t29_l138_v2",
+      "source_scene_pack": "0xB1",
+      "scene_spawn_xy": {
+        "x": 224,
+        "y": 40
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "3ECC9A62DFE87A8DD891F0921838619C987A15F291929AB1FACC132E332DCF95",
+        "6CA09A3ECC4930B8CFDE7ADF5A9CBDFB017BF7697259C5FCC30E8716B270F594",
+        "35BEF92F730F6E7FA02E9BF022CAAEBEBA17E6F7D1011F2748DB0A1F3AE8F99E",
+        "ED9F3E0B58DFDEB73F82237237FA921D4319FA396E7A7B13F7D4E63BD73B9103"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663360,
+      "last_observed_source_xy_before_switch": {
+        "x": 224,
+        "y": 41
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 206,
+        "y": 181
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 165,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "EC1EEB4D105208B1788AC53A2606B4B33BC65FD57BD90112516D1FE40A43DF5C",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0768",
+      "source_config_id": "cfg_t05_l041_v2",
+      "source_scene_pack": "0x7A",
+      "scene_spawn_xy": {
+        "x": 15,
+        "y": 39
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "A859C7AF6E408673A5B5014153DFF6DA00DCA3FA66F529623109F6CA16D8F842",
+        "DADEF0754BAAB863BFAD22D9A7CB0D8021849C11F66C617A9637187D5A3FA792",
+        "9307873B7F31C7F71A6449B9E916BAB044E1A4C4F5A5EB049793C3A23E72555E",
+        "1C0686627B64744D90AB1EEE97F294F0E63FA05EF6FAF0B384F99FAEE538AD63"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "observed_direct_return_from_destination_scene_to_saved_world",
+      "first_world_pack_switch_frame": 663349,
+      "last_observed_source_xy_before_switch": {
+        "x": 15,
+        "y": 40
+      },
+      "world_arrival_xy_in_this_saved_origin_context": {
+        "x": 92,
+        "y": 48
+      },
+      "world_destination_pack": "0x4C",
+      "world_destination_config_id": "cfg_t01_l001_v1",
+      "world_stable_observed_frames": 304,
+      "world_stable_through_frame": 663652,
+      "screenshot_sha256": "549D9F298834BF956152DC767644B2EFE8B37BB091C0F93273667FE7B4D09B54",
+      "requires_saved_world_origin_context": true,
+      "world_arrival_same_for_other_saves_proven": false
+    }
+  ],
+  "unconfirmed_local_direction_returns": [
+    {
+      "source_world_transition_id": "catalog_transition_0756",
+      "source_config_id": "cfg_t09_l098_v2",
+      "source_scene_pack": "0x96",
+      "scene_spawn_xy": {
+        "x": 39,
+        "y": 17
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "52EBA7F7B8D9AC34BF0FC80631C47B3EFEAEA71510D7DBADA3A74864A498D922",
+        "6F00B08A85C9ABBDE700B8BD09B1AE36E6A24F744E690A3B797AACBB5DBDF02F",
+        "1397E66F346DC2C3E4C852C3C5E9A776E6710A485C0263334D93E5A8BB2D9773"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "no_map_change_under_72_frame_down_then_120_neutral",
+      "source_after_probe_xy": {
+        "x": 39,
+        "y": 24
+      },
+      "absence_of_exit_globally_proven": false,
+      "other_directions_not_checked": true
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0802",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "scene_spawn_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "D531B0995E8E842A0FE3E76D45B58DD19EB1DD6485E6D49A4D96E7DA23E6188E",
+        "E238FB43BD2149CCCAD5247ADF0C053A0A09757BF3C9F6223CB11672CD6AC2D7",
+        "1B369EBBA944D45BF3272829B1B86592ABD6F011576F0AF5F01F606B1865EC9F"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "no_map_change_under_72_frame_down_then_120_neutral",
+      "source_after_probe_xy": {
+        "x": 15,
+        "y": 39
+      },
+      "absence_of_exit_globally_proven": false,
+      "other_directions_not_checked": true
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0803",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "scene_spawn_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "7089054259003DBBE2D559997659A8C92A270C6A9625B89DDAE04B779F6CC250",
+        "7544B2E83433F3FB62468D643DFBA59445B0B54E4809F97F1284D25AB97B05A8",
+        "DFE78DC9B68DBACD36A9A4198BCE1106591BEE9AC94E35DAFC19FDCF8B8C4DA3"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "no_map_change_under_72_frame_down_then_120_neutral",
+      "source_after_probe_xy": {
+        "x": 68,
+        "y": 30
+      },
+      "absence_of_exit_globally_proven": false,
+      "other_directions_not_checked": true
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0774",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "scene_spawn_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "6DA5D2B135F2F9A192107947AD2BFA7AF5BB3F6201A302CC45404250AF5AFF43",
+        "BBB315E8970C1983E7A60077225F85CEA0F1348BFABFB8058894038CA14FCAE1",
+        "4AF3049C0B43B97379EEDA10F992E8E976D00031225E2551818F6FA7B4453904"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "no_map_change_under_72_frame_down_then_120_neutral",
+      "source_after_probe_xy": {
+        "x": 22,
+        "y": 10
+      },
+      "absence_of_exit_globally_proven": false,
+      "other_directions_not_checked": true
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0791",
+      "source_config_id": "cfg_t04_l059_v2",
+      "source_scene_pack": "0x82",
+      "scene_spawn_xy": {
+        "x": 40,
+        "y": 59
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "2467CAE18CAE181EF5F7B77BEA2EEBB09B1BF1AB0210ECBAC960010A978434B4",
+        "55465AEED0D3705861607ACA6EF721E89C8B486E73F627FB837A6E7A4D0F0598",
+        "A56222530B641587BD5647D59407D07056AAC180BBD473896E27CCA85E1725E9"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "no_map_change_under_72_frame_down_then_120_neutral",
+      "source_after_probe_xy": {
+        "x": 40,
+        "y": 59
+      },
+      "absence_of_exit_globally_proven": false,
+      "other_directions_not_checked": true
+    },
+    {
+      "source_world_transition_id": "catalog_transition_0755",
+      "source_config_id": "cfg_t04_l035_v2",
+      "source_scene_pack": "0x60",
+      "scene_spawn_xy": {
+        "x": 37,
+        "y": 56
+      },
+      "input": "Down",
+      "input_frames": 72,
+      "source_world_entrance_cheat_positioned": true,
+      "return_route_did_not_cheat_coordinates": true,
+      "normal_world_route_to_original_entrance_proven": false,
+      "universal_story_gate_proven": false,
+      "CPU_handler_PC_observed": false,
+      "underlying_source_file_digest": [
+        "52366DCB114AFF37E3CED5297131E69CC3032DF32B75B3EA81F7A0D0154CD757",
+        "EFAB6FB9AC1BDB138772E341FD99852463BE211B77B1C6FE0B63B75EC54EA9A6",
+        "9817B9ABFFA61BC490C7A0ADDC19C66642BDA042A35F97DEC3B92C4B3F20889E"
+      ],
+      "frame_capture_raw_not_committed": true,
+      "verified_reverse_result": "no_map_change_under_72_frame_down_then_120_neutral",
+      "source_after_probe_xy": {
+        "x": 37,
+        "y": 56
+      },
+      "absence_of_exit_globally_proven": false,
+      "other_directions_not_checked": true
+    }
+  ],
+  "raw_frame_screenshots_states_or_ROM_committed": false,
+  "new_graph_edges_to_add": 14
+}

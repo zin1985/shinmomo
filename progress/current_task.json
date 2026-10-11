@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Continue NPC and floor analysis after 37 real world entrances and 25 observed names",
-  "base_main_head_verified": "14bffce2ef677397ef67d28a0a00619581c6502c",
+  "title": "Continue six unresolved scene exits, dungeon floor triggers and village NPC behavior",
+  "base_main_head_verified": "15adb3a00e488e0ad4fb70b0e83e4eff8987ddb6",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,19 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Inspect interiors and NPC dialogues for screenshot-named villages and dungeons; do not count entrance-only evidence as comprehensive content completion."
+      "action": "Try reverse Up, Right and Left from the six unconfirmed source pack states 0x96,0xBD,0xB9,0xAB,0x82,0x60; differentiate collision, forced movement, battles, and story conditions."
     },
     {
       "order": 2,
-      "action": "Trace pack0x96 dungeon from observed (39,17), plus pack0x98,0x9E,0xBD,0xB9,0xAD,0xAB floor events."
+      "action": "Investigate pack0x96 actual dungeon interior from (39,17) and lower tile (39,24), locate actual exits and floor transitions."
     },
     {
       "order": 3,
-      "action": "Retry 0x77,0x86 and 0xC9 failed southern entrances from other approaches."
+      "action": "Add exact CPU opcode PC tracing and saved world state comparators to distinguish static terminal candidate from actual handler execution."
     },
     {
       "order": 4,
-      "action": "Extract actual Hien destinations and verify real casting and unlimited MP."
+      "action": "Continue interiors/NPC events in 25 screenshot-named villages and dungeons, preserving runtime pack-specific name identity."
+    },
+    {
+      "order": 5,
+      "action": "Collect actual Hien list and verify cast/MP unlimited. Current world research uses coordinate cheat, not Hien cast."
     }
   ],
   "do_not_redo": [
@@ -839,27 +843,26 @@
     "goal": "Decode pack96 entry02..05 within CC:DBF2..CC:DC5C using verified canonical ROM; preserve prior workstreams."
   },
   "last_completed_work_unit": {
-    "description": "40 cheat-adjacent world hotspot experiments: 37 controller-triggered matching pack entries, 36 scene packs, 32 configs, 25 exact-pack on-screen place titles, five newly identified destination XY including 0x96 (39,17); 3 local no-switch experiments",
+    "description": "Replayed 20 actual Down controller exit probes from isolated scene arrival saves; 14 scene->world map changes with stable saved-context return XY, six local nonreturns; strict SHA256 frame data audit and Viewer integration without universal route claims.",
     "date": "2026-10-11",
-    "attempted": 40,
-    "successful_world_entries": 37,
-    "distinct_packs": 36,
-    "distinct_map_configs": 32,
-    "onscreen_title_count": 25,
-    "new_pack_scoped_names": 23,
-    "resolved_destination_coordinates": 5,
-    "world_cheat_origin_used": true,
-    "normal_world_routes_proven": false,
-    "Hien_spell_cast_proven": false,
-    "VM_opcode_PC_executed_proven": false,
-    "all_story_states_reachable_proven": false,
-    "new_graph_edges": 0,
+    "attempted_reverse_scene_exits": 20,
+    "confirmed_real_scene_to_world_returns": 14,
+    "not_confirmed_this_direction": 6,
+    "real_controller_input": "Down",
+    "controller_frames_each": 72,
+    "world_entrance_initial_cheat_positioned": true,
+    "reverse_exit_test_coordinate_cheat": false,
+    "CPU_opcode_pc_captured": false,
+    "return_coordinates_for_other_saves_known": false,
+    "normal_world_walkability_proven": false,
+    "source_last_observed_before_switch_not_exact_trigger": true,
+    "new_runtime_edge_count": 14,
     "viewer_maps": 149,
-    "viewer_bound_edges": 60,
-    "viewer_candidates": 1297,
-    "official_project_percent_unchanged": 51.4,
-    "all_six_batches_restored": true,
-    "evidence": "docs/analysis/world_37_entries_25_visible_places_20261011.md"
+    "viewer_bound_edges": 74,
+    "viewer_transition_candidates": 1311,
+    "all_three_batches_restored": true,
+    "official_completion_percent_unchanged": 51.4,
+    "evidence": "docs/analysis/world_scene_14_reverse_exits_20261011.md"
   },
   "completed_work_units": [
     {
@@ -1647,6 +1650,29 @@
         "tools/python/attach_pack95_reverse_stair.py",
         "scripts/test_pack95_reverse_stair.py"
       ]
+    },
+    {
+      "description": "40 cheat-adjacent world hotspot experiments: 37 controller-triggered matching pack entries, 36 scene packs, 32 configs, 25 exact-pack on-screen place titles, five newly identified destination XY including 0x96 (39,17); 3 local no-switch experiments",
+      "date": "2026-10-11",
+      "attempted": 40,
+      "successful_world_entries": 37,
+      "distinct_packs": 36,
+      "distinct_map_configs": 32,
+      "onscreen_title_count": 25,
+      "new_pack_scoped_names": 23,
+      "resolved_destination_coordinates": 5,
+      "world_cheat_origin_used": true,
+      "normal_world_routes_proven": false,
+      "Hien_spell_cast_proven": false,
+      "VM_opcode_PC_executed_proven": false,
+      "all_story_states_reachable_proven": false,
+      "new_graph_edges": 0,
+      "viewer_maps": 149,
+      "viewer_bound_edges": 60,
+      "viewer_candidates": 1297,
+      "official_project_percent_unchanged": 51.4,
+      "all_six_batches_restored": true,
+      "evidence": "docs/analysis/world_37_entries_25_visible_places_20261011.md"
     }
   ]
 }

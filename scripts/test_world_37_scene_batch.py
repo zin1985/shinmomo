@@ -173,9 +173,9 @@ class WorldSceneBatchTests(unittest.TestCase):
 
     def test_graph_not_inflated_by_observation_only(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),60)
-        self.assertEqual(len(self.world["transition_candidates"]),1297)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],60)
+        self.assertEqual(len(self.world["transition_edges"]),74)
+        self.assertEqual(len(self.world["transition_candidates"]),1311)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],74)
         self.assertEqual(self.world["runtime_world_entrance_37_batch_summary"]["new_graph_edges"],0)
 
 if __name__=="__main__":unittest.main()

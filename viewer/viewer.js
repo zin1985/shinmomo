@@ -775,7 +775,10 @@ async function selectMap(m,focus=null,pack=undefined){
     const worldBatchNote=e.runtime_world_entry_batch_probe?.actual_SNES_gamepad_triggered_event
       ?' | 世界の入口直前から実機入場を確認（手前までは解析用座標ワープ）'
       :'';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote  + dungeonFloorNote + reverseStairNote + worldBatchNote + researchPosition;
+    const sceneWorldReturnNote=e.runtime_scene_saved_world_return_proof?.observed_runtime_map_switch
+      ?' | 出発場面から世界へ通常操作で帰還（帰還先は元の保存マップ情報に依存）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote  + dungeonFloorNote + reverseStairNote + worldBatchNote + sceneWorldReturnNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

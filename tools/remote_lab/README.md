@@ -363,3 +363,20 @@ It restores the original save on normal exit. If a host process is
 killed forcibly, manually restore the newest
 world_hotspot_bulk_protect_*.State before any other interaction.
 37/40 expected pack switches were observed in six restored batches.
+
+
+## Recheck scene arrivals for actual reverse map switches (2026-10-11)
+
+The protected batch script tools/remote_lab/batch_scene_reverse_exits.ps1
+loads the exact prior local world-entry arrival state for each pack,
+observes 12 neutral frames, presses actual SNES Down for 72 frames,
+then records neutral windows. It never writes WRAM XY inside
+the reverse test. Source world entry originally required an analysis
+coordinate cheat. Resume only one isolated hidden instance at a time.
+
+Three batches of 20 scenes yielded 14 world-return switches and
+six inconclusive trials, with original dedicated emulator restored.
+Raw frame logs, screenshots and savestates stay private/local.
+Run tools/python/audit_scene_14_world_returns.py on the local
+capture set to reconstruct exact SHA256-linked metadata, and
+scripts/test_scene_14_world_returns.py for committed regression tests.

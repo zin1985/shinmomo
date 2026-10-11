@@ -2,20 +2,19 @@
   "schema_version": 1,
   "kind": "event_aware_map_graph_coverage_audit",
   "map_count": 149,
-  "catalog_candidate_count": 1297,
-  "bound_edge_count": 60,
-  "confirmed_runtime_edge_count": 5,
+  "catalog_candidate_count": 1311,
+  "bound_edge_count": 74,
+  "confirmed_runtime_edge_count": 19,
   "candidate_bound_edge_count": 55,
   "native_boundary_context_count": 3,
-  "edges_with_unknown_current_activation": 60,
-  "maps_with_at_least_one_outgoing": 6,
+  "edges_with_unknown_current_activation": 74,
+  "maps_with_at_least_one_outgoing": 20,
   "maps_with_at_least_one_incoming": 51,
   "maps_with_no_bound_outgoing": [
     "cfg_t01_l002_v1",
     "cfg_t02_l003_v1",
     "cfg_t02_l004_v1",
     "cfg_t03_l005_v1",
-    "cfg_t04_l018_v2",
     "cfg_t04_l019_v1",
     "cfg_t04_l028_v2",
     "cfg_t04_l029_v2",
@@ -24,15 +23,11 @@
     "cfg_t04_l034_v2",
     "cfg_t04_l035_v2",
     "cfg_t04_l039_v2",
-    "cfg_t04_l044_v2",
     "cfg_t04_l045_v2",
     "cfg_t04_l057_v2",
     "cfg_t04_l058_v2",
     "cfg_t04_l059_v2",
-    "cfg_t04_l060_v1",
     "cfg_t04_l061_v2",
-    "cfg_t04_l062_v2",
-    "cfg_t04_l070_v2",
     "cfg_t04_l073_v2",
     "cfg_t04_l074_v2",
     "cfg_t04_l081_v2",
@@ -44,13 +39,10 @@
     "cfg_t04_l091_v1",
     "cfg_t05_l020_v2",
     "cfg_t05_l032_v2",
-    "cfg_t05_l041_v2",
-    "cfg_t05_l042_v2",
     "cfg_t05_l043_v2",
     "cfg_t05_l077_v2",
     "cfg_t05_l083_v2",
     "cfg_t05_l087_v2",
-    "cfg_t06_l021_v2",
     "cfg_t06_l037_v2",
     "cfg_t06_l038_v2",
     "cfg_t06_l040_v2",
@@ -96,7 +88,6 @@
     "cfg_t07_l084_v2",
     "cfg_t07_l090_v2",
     "cfg_t08_l094_v2",
-    "cfg_t09_l097_v2",
     "cfg_t09_l098_v2",
     "cfg_t11_l101_v2",
     "cfg_t13_l103_v2",
@@ -112,19 +103,15 @@
     "cfg_t22_l121_v2",
     "cfg_t23_l123_v1",
     "cfg_t23_l123_v2",
-    "cfg_t24_l125_v2",
     "cfg_t24_l127_v2",
     "cfg_t25_l129_v2",
-    "cfg_t26_l131_v1",
     "cfg_t27_l132_v2",
     "cfg_t27_l134_v2",
     "cfg_t28_l136_v2",
-    "cfg_t29_l138_v2",
     "cfg_t30_l140_v2",
     "cfg_t31_l142_v2",
     "cfg_t32_l144_v1",
     "cfg_t33_l146_v1",
-    "cfg_t34_l148_v1",
     "cfg_t35_l149_v2",
     "cfg_t36_l150_v2",
     "cfg_t37_l152_v2",
@@ -134,7 +121,6 @@
     "cfg_t40_l159_v2",
     "cfg_t42_l163_v1",
     "cfg_t43_l165_v2",
-    "cfg_t44_l167_v1",
     "cfg_t45_l168_v2",
     "cfg_t46_l170_v2",
     "cfg_t47_l172_v2",
@@ -361,19 +347,11 @@
   "one_way_map_pair_candidates": [
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t04_l018_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t04_l028_v2"
     },
     {
       "source": "cfg_t01_l001_v1",
       "destination": "cfg_t04_l035_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t04_l044_v2"
     },
     {
       "source": "cfg_t01_l001_v1",
@@ -385,18 +363,6 @@
     },
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t04_l060_v1"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t04_l062_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t04_l070_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t04_l081_v2"
     },
     {
@@ -405,19 +371,7 @@
     },
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t05_l041_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t05_l042_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t05_l043_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t06_l021_v2"
     },
     {
       "source": "cfg_t01_l001_v1",
@@ -426,10 +380,6 @@
     {
       "source": "cfg_t01_l001_v1",
       "destination": "cfg_t06_l040_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t09_l097_v2"
     },
     {
       "source": "cfg_t01_l001_v1",
@@ -445,23 +395,11 @@
     },
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t24_l125_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t25_l129_v2"
     },
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t26_l131_v1"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t28_l136_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t29_l138_v2"
     },
     {
       "source": "cfg_t01_l001_v1",
@@ -470,10 +408,6 @@
     {
       "source": "cfg_t01_l001_v1",
       "destination": "cfg_t32_l144_v1"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t34_l148_v1"
     },
     {
       "source": "cfg_t01_l001_v1",
@@ -486,10 +420,6 @@
     {
       "source": "cfg_t01_l001_v1",
       "destination": "cfg_t43_l165_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t44_l167_v1"
     },
     {
       "source": "cfg_t01_l001_v1",
@@ -540,7 +470,7 @@
       "destination": "cfg_t07_l047_v2"
     }
   ],
-  "one_way_pair_count": 45,
+  "one_way_pair_count": 31,
   "top_unbound_destination_configs": [
     {
       "config_id": "cfg_t29_l138_v2",

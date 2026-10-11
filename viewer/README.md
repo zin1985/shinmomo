@@ -191,3 +191,18 @@ casting was established.
 
 Full table and scope:
 docs/analysis/world_37_entries_25_visible_places_20261011.md
+
+
+## 14 additional live reverse scene exits to the saved world (2026-10-11)
+
+Twenty real SNES Down gamepad return probes from saved world-entered
+scene arrivals yielded 14 confirmed scene-pack-to-world-pack switches
+to world pack0x4C. The world XY values come from each original
+saved-origin context and may not generalize across saves.
+No WRAM coordinates were edited during scene reverse input.
+Six other locations did not change packs in the local Down72+neutral120
+trial, which does NOT rule out alternate exits or flags.
+Fourteen context-specific runtime transitions were added, giving
+149 map configs, 74 bound edges and 1311 candidates. VM CPU PC,
+normal world walking access and all story flags remain unproven.
+See docs/analysis/world_scene_14_reverse_exits_20261011.md.
