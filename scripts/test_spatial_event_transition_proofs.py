@@ -124,7 +124,7 @@ class SpatialEventTests(unittest.TestCase):
 
     def test_viewer_retains_56_edges_with_two_runtime_proofs(self):
         w=json.loads((ROOT/"viewer/data/world.json").read_text(encoding="utf-8"))
-        self.assertEqual(len(w["transition_edges"]),76)
+        self.assertEqual(len(w["transition_edges"]),77)
         self.assertEqual(len(w["maps"]),149)
         self.assertEqual(w["runtime_spatial_proof_summary"]["attached_count"],2)
         self.assertEqual(sum(bool(e.get("runtime_spatial_proof")) for e in w["transition_edges"]),2)

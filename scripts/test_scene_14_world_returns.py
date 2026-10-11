@@ -86,7 +86,7 @@ class ReverseScene14Tests(unittest.TestCase):
         self.assertEqual(summary["new_confirmed_contextual_saved_world_edges"],14)
         self.assertEqual(summary["local_direction_nonreturns"],6)
         self.assertEqual(len(self.world["transition_candidates"]),len(result))
-        self.assertEqual(len(self.world["transition_edges"]),76)
+        self.assertEqual(len(self.world["transition_edges"]),77)
     def test_double_injection_rejected(self):
         with self.assertRaisesRegex(ValueError,"Duplicate injected"):
             inject(self.world["transition_candidates"],self.proof,self.world["maps"])
@@ -116,9 +116,9 @@ class ReverseScene14Tests(unittest.TestCase):
             self.assertTrue(r["requires_saved_world_origin_context"])
     def test_graph_counts(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),76)
-        self.assertEqual(len(self.world["transition_candidates"]),1313)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],76)
+        self.assertEqual(len(self.world["transition_edges"]),77)
+        self.assertEqual(len(self.world["transition_candidates"]),1314)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],77)
         self.assertEqual(len(self.new),14)
         self.assertEqual(self.world["runtime_scene_reverse_world_14_summary"]["new_confirmed_contextual_saved_world_edges"],14)
 

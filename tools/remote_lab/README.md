@@ -426,3 +426,17 @@ tools/remote_lab/verify_pack82_dialogue_world_return.ps1 checks a
 further 360 stable world frames. All original save/screens/ROM/traces
 stay local. Strict compiler:
 tools/python/compile_five_scene_A_and_pack82_return.py.
+
+
+## Pack0x60 long NPC sequence and transformed village
+Load the research fixture village_dialogue_60_after_12_A_20261011
+on the dedicated hidden BizHawk instance. The protected script
+tools/remote_lab/probe_pack60_more_dialogue.ps1 executes a further
+24 genuine A8+neutral20 cycles, records frame and screenshot SHA256
+and four directional probes. Black cutscene, then a brown/withered
+village were witnessed. Down96 from preserved after-A36 state
+returns to world0x4C (59,155). Verify at least 360 stable neutral
+frames via tools/remote_lab/verify_pack60_event_return_stability.ps1
+and strict local forensic compiler
+tools/python/audit_pack60_dialogue_event_return.py.
+Never commit original ROM, raw captures, screenshots or savestates.

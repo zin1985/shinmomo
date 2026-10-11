@@ -126,9 +126,9 @@ class Pack96ModalReturnTests(unittest.TestCase):
             inject(self.without_new_edge(),f,self.world["maps"])
     def test_graph_cardinality_and_title_count(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),76)
-        self.assertEqual(len(self.world["transition_candidates"]),1313)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],76)
+        self.assertEqual(len(self.world["transition_edges"]),77)
+        self.assertEqual(len(self.world["transition_candidates"]),1314)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],77)
         self.assertEqual(self.world["runtime_pack96_modal_world_return_summary"]["new_verified_modal_world_return_edge_count"],1)
         self.assertEqual(self.world["project_progress"]["overall_percent"],51.4)
 

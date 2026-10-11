@@ -257,3 +257,19 @@ unresolved. One contextual real return edge is added, with all
 original-world-entry cheat and story/CPU ambiguity preserved:
 149 maps, 76 bound edges, 1313 transitions, 26 exact-pack titles.
 See docs/analysis/five_scene_A_pack82_return_20261011.md.
+
+
+## Pack0x60 phase-dependent village appearance and verified world return
+
+Earlier real controller inputs could not move the village player at (37,56)
+because a long NPC/event dialogue was still underway after 12 A presses.
+An additional 24 A8+neutral20 frames per press (36 total) replayed the
+black cutscene and altered village from pink blossom trees to brown
+withered vegetation. Afterward, actual Down96 returned from pack0x60
+to world0x4C XY(59,155), stable for 360 further neutral frames.
+This is one protected saved-world-context proof, not an all-story-gates
+assertion; its initial world entrance was cheat-positioned. Exact
+minimum press count, executable CPU handler PC, and other saves unknown.
+One real return edge and pack+config-scoped visual event proof added.
+149 maps, 77 edges, 1314 candidates; 26 exact pack-scoped named scenes.
+Full audit: docs/analysis/pack60_dialogue_phase_world_return_20261011.md.

@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Resolve pack0x60 village dialogue/event lock and verify 3 cave navigation branches",
-  "base_main_head_verified": "217f950a7174384388c042410d95d42aa2d05b62",
+  "title": "Trace pack60 village event/flag and map three dungeon floor routes",
+  "base_main_head_verified": "b6dc2db0af6c418b6ad50ca996e5ebacb9526cca",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,19 +455,19 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Understand village pack0x60 locked XY despite 12 sequential A presses, inspect actual interactive menus/NPC/cutscene flags and scene screenshot evolution."
+      "action": "Decode event conditions/VM native handlers causing pack60 landscape from cherry blossom to brown and how story phase chooses map graphic variant; keep pack+phase identity."
     },
     {
       "order": 2,
-      "action": "Use 0xBD/0xB9/0xAB established traversable corridors as seeds for mapping dungeon floors and true stairs/exits."
+      "action": "From traversable packs 0xBD,0xB9,0xAB map stairs/door triggers/floor progression with real input and verified saved context."
     },
     {
       "order": 3,
-      "action": "Trace pack0x82 multi-message event VM/handler and exact trigger conditions, including whether 12 A count is state-dependent."
+      "action": "Compare dialogue sequencing and exact flags in packs0x82 and0x60, minimize needed A presses without assuming universality."
     },
     {
       "order": 4,
-      "action": "Verify Hien real destination menu and spell execution / MP unlimited; previous research used coordinate cheat."
+      "action": "Check Hien actual named destination list and real casting plus MP unlimited; current scene entry initially cheat-positioned."
     }
   ],
   "do_not_redo": [
@@ -840,41 +840,32 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Five further scene A8+neutral64 and true Up/Down/Left/Right 96-frame movement probes (20 total) plus real 12-A village dialogue progression in 0x82 and 0x60; pack82 then real Down96 returned to saved world 0x4C XY (175,189) stable for 360 neutral frames. Other 4 scene exits not promoted.",
-    "five_runtime_scene_pack_contexts": [
-      "0xBD",
-      "0xB9",
-      "0xAB",
-      "0x82",
-      "0x60"
+    "description": "After twelve A8 dialog presses, additional 24 real A8+neutral20 presses progressed pack0x60 village cutscene through black screen to visibly altered brown/dried landscape; real Down96 returned to world pack0x4C (59,155), independently stable 360 frames.",
+    "exact_scene_pack": "0x60",
+    "scene_config_id": "cfg_t04_l035_v2",
+    "original_source_world_transition": "catalog_transition_0755",
+    "original_entry_approach_cheat_seeded": true,
+    "inside_scene_Wram_coordinate_cheated": false,
+    "A_presses_before_scene_exit_in_this_study": 36,
+    "minimum_A_presses_to_trigger_unknown": true,
+    "observed_screen_graphic_transformation": "pink_flowered_to_brown_withered_village",
+    "original_story_event_handler_PC_observed": false,
+    "actual_world_switch_frame": 664366,
+    "world_saved_arrival_xy": [
+      59,
+      155
     ],
-    "real_SNES_direction_probe_count": 20,
-    "A_button_dialogue_presses_per_village": 12,
-    "three_dungeon_packs_walked": [
-      "0xBD",
-      "0xB9",
-      "0xAB"
-    ],
-    "pack82_coming_from_world_transition": "catalog_transition_0791",
-    "pack82_runtime_return_world_xy": [
-      175,
-      189
-    ],
-    "pack82_actual_return_switch_frame": 663683,
-    "pack82_world_stable_neutral_frames": 360,
-    "pack60_return_still_unproven": true,
-    "world_to_scene_source_was_cheat_positioned": true,
-    "scene_controller_probe_xy_cheat_used": false,
-    "other_saves_or_story_gates_proven": false,
-    "CPU_exact_executed_PC_observed": false,
-    "new_graph_edges": 1,
-    "viewer_map_count": 149,
-    "viewer_bound_edges": 76,
-    "viewer_transition_candidates": 1313,
-    "original_onscreen_exact_pack_title_count": 26,
-    "official_project_completion_percent_unchanged": 51.4,
-    "protected_emulator_restored": true,
-    "evidence": "docs/analysis/five_scene_A_pack82_return_20261011.md"
+    "stable_neutral_frames": 360,
+    "other_story_gates_universality_proven": false,
+    "new_confirmed_runtime_edge_count": 1,
+    "viewer_maps": 149,
+    "viewer_edges": 77,
+    "viewer_candidates": 1314,
+    "onscreen_location_contexts": 26,
+    "official_top_goal_percent_unchanged": 51.4,
+    "hidden_emulator_restored": true,
+    "raw_ROM_images_frames_savestates_not_committed": true,
+    "evidence": "docs/analysis/pack60_dialogue_phase_world_return_20261011.md"
   },
   "completed_work_units": [
     {
@@ -1804,6 +1795,44 @@
       "official_project_completion_percent_unchanged": 51.4,
       "raw_ROM_screenshots_frame_samples_savestates_committed": false,
       "evidence": "docs/analysis/pack96_fiveway_modal_escape_world_return_20261011.md"
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Five further scene A8+neutral64 and true Up/Down/Left/Right 96-frame movement probes (20 total) plus real 12-A village dialogue progression in 0x82 and 0x60; pack82 then real Down96 returned to saved world 0x4C XY (175,189) stable for 360 neutral frames. Other 4 scene exits not promoted.",
+      "five_runtime_scene_pack_contexts": [
+        "0xBD",
+        "0xB9",
+        "0xAB",
+        "0x82",
+        "0x60"
+      ],
+      "real_SNES_direction_probe_count": 20,
+      "A_button_dialogue_presses_per_village": 12,
+      "three_dungeon_packs_walked": [
+        "0xBD",
+        "0xB9",
+        "0xAB"
+      ],
+      "pack82_coming_from_world_transition": "catalog_transition_0791",
+      "pack82_runtime_return_world_xy": [
+        175,
+        189
+      ],
+      "pack82_actual_return_switch_frame": 663683,
+      "pack82_world_stable_neutral_frames": 360,
+      "pack60_return_still_unproven": true,
+      "world_to_scene_source_was_cheat_positioned": true,
+      "scene_controller_probe_xy_cheat_used": false,
+      "other_saves_or_story_gates_proven": false,
+      "CPU_exact_executed_PC_observed": false,
+      "new_graph_edges": 1,
+      "viewer_map_count": 149,
+      "viewer_bound_edges": 76,
+      "viewer_transition_candidates": 1313,
+      "original_onscreen_exact_pack_title_count": 26,
+      "official_project_completion_percent_unchanged": 51.4,
+      "protected_emulator_restored": true,
+      "evidence": "docs/analysis/five_scene_A_pack82_return_20261011.md"
     }
   ]
 }

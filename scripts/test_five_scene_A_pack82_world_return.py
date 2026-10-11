@@ -129,9 +129,9 @@ class FiveScenesAndPack82Tests(unittest.TestCase):
             attach(self.base_maps(),self.base_candidates(),x)
     def test_graph_counts_and_unmodified_named_locations(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),76)
-        self.assertEqual(len(self.world["transition_candidates"]),1313)
-        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],76)
+        self.assertEqual(len(self.world["transition_edges"]),77)
+        self.assertEqual(len(self.world["transition_candidates"]),1314)
+        self.assertEqual(self.world["transition_catalog_summary"]["bound_edge_count"],77)
         self.assertEqual(self.world["runtime_location_title_attached_count"],26)
         self.assertEqual(self.world["runtime_five_scene_A_pack82_world_return_summary"]["new_verified_pack82_world_return_edges"],1)
         self.assertEqual(self.world["project_progress"]["overall_percent"],51.4)

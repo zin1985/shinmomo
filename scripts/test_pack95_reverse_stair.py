@@ -154,8 +154,8 @@ class Pack95ReverseStairTests(unittest.TestCase):
 
     def test_viewer_has_exact_reverse_edge_and_unknown_gate(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),76)
-        self.assertEqual(len(self.world["transition_candidates"]),1313)
+        self.assertEqual(len(self.world["transition_edges"]),77)
+        self.assertEqual(len(self.world["transition_candidates"]),1314)
         edges=[e for e in self.world["transition_edges"] if e["transition_id"]==TARGET]
         self.assertEqual(len(edges),1)
         self.assertFalse(edges[0]["activation_gate"]["navigable_now"])

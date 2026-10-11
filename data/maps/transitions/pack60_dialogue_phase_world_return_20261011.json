@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "kind": "pack60_36_dialogue_A_scene_visual_change_then_real_world_return",
+  "source_world_transition_id": "catalog_transition_0755",
+  "source_config_id": "cfg_t04_l035_v2",
+  "source_pack": "0x60",
+  "source_arrival_xy": {
+    "x": 37,
+    "y": 56
+  },
+  "original_world_entry_cheat_seeded": true,
+  "scene_controller_XY_coordinate_cheat_used": false,
+  "exact_story_gates_proven": false,
+  "dialogue_event_cpu_handler_pc_observed": false,
+  "A_presses_in_initial_village_study": 12,
+  "additional_A_presses_in_extension": 24,
+  "all_real_SNES_A_presses": 36,
+  "A_held_frames_each": 8,
+  "A_neutral_frames_each": 20,
+  "recorded_A_screen_phases": [
+    {
+      "sequence_A_after_previous_twelve": 1,
+      "absolute_ordinal_A": 13,
+      "frame": 663716,
+      "screenshot_sha256": "E6FED8CB90662E4F9F4CACE9D5855497F345A34D74BBEF122447EC05AF9521E2",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "9CFDE55DCB09C5F1001A78A3E7A36A20728B2D2459F46885677BE24C1414D0E8",
+      "neutral_trace_sha256": "B53A1C7C387CDA2C619D09CD7673310DA581EC914F18EA082A3182D925738815"
+    },
+    {
+      "sequence_A_after_previous_twelve": 2,
+      "absolute_ordinal_A": 14,
+      "frame": 663744,
+      "screenshot_sha256": "4FE1292A32BAAD6F02207B0061FC28B77EB41120A35CE45D9EC8A2D3A8014188",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "DD3C6B53B23CB3948ECA047F770AF916E52A5FC8934B0A9BBE21153C02D7F891",
+      "neutral_trace_sha256": "CF29C5760A3F809FCE7B1D52501568E2D71D0492DF2292859A47F692F8D906D8"
+    },
+    {
+      "sequence_A_after_previous_twelve": 3,
+      "absolute_ordinal_A": 15,
+      "frame": 663772,
+      "screenshot_sha256": "50AB50F04BC4BD9C8793B0BF00AC69F2BD0089DDB05EDBB8051DB896A65713A4",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "EAC018A8F7C35F46A778A334FF51D62E1B1F967BD65573F8B7F32480CB76A33C",
+      "neutral_trace_sha256": "043B50501D2A22D934397B3C2B6F83F8B78B3961943126FA475DAF3C1F494DD6"
+    },
+    {
+      "sequence_A_after_previous_twelve": 4,
+      "absolute_ordinal_A": 16,
+      "frame": 663800,
+      "screenshot_sha256": "93E6424C556B6785A90D3DCF6E751435694EEEB71D27CA3B2A61C873AEE321B3",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "B527B884FFF3832E871C2358EAE21838B5AEAD5CB3A1985F05BE9DB8656E7E97",
+      "neutral_trace_sha256": "7F32AAE8F229B6A0988C9724DF936502571A7DFF8419DD255F2C0618D012666D"
+    },
+    {
+      "sequence_A_after_previous_twelve": 5,
+      "absolute_ordinal_A": 17,
+      "frame": 663828,
+      "screenshot_sha256": "17C3C6CFABCD6E1091C477DF9F59FAF16129D74FCE99C65AA47286A32FD235B9",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "7AA132C9E33631082E2E4A242BEE19FFA3D7C7F6BEB2DB65916857CAB09DF69B",
+      "neutral_trace_sha256": "5AB0880CA778C1152F1B3011EEBDB4C7AA66EDC64ACDA99BEB6B4221D6B73142"
+    },
+    {
+      "sequence_A_after_previous_twelve": 6,
+      "absolute_ordinal_A": 18,
+      "frame": 663856,
+      "screenshot_sha256": "E84E4B558D72ABEF842F424FC2FD294D64F3E3FC1F05FA25396E3F44DAE1BF80",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "08384D7A8CE2C045C42DD1085AB6FDB55795AAD039FAAF9981C81B9848C34F95",
+      "neutral_trace_sha256": "08788871284D75D274970DC6DDB83CAE101FCD3203813E1306CBD2D22A0F6F67"
+    },
+    {
+      "sequence_A_after_previous_twelve": 7,
+      "absolute_ordinal_A": 19,
+      "frame": 663884,
+      "screenshot_sha256": "6451800E5C730BC2EF7E864AAB42F081536942BAA2330A97713F4D0163D35359",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "B0F17E07F7237EEEA0FA7B165747591D572F8B1E6A44ABB2F47C87B5FD4534DC",
+      "neutral_trace_sha256": "DE5FA739659DEE99385B6A532A4BF3064BF23CAA14F51CCEF5250C959289F637"
+    },
+    {
+      "sequence_A_after_previous_twelve": 8,
+      "absolute_ordinal_A": 20,
+      "frame": 663912,
+      "screenshot_sha256": "2F1DDC3FA175951CEBA673D90015E74CC37CF9381B073C9C5F471DAC7D5CDE05",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "77E3611868701AF6FC82C9F84B81BC7ADDF7811563CBF0CDBDB823BB778AF8CB",
+      "neutral_trace_sha256": "C9470FCD01A03FB4DDE303088DF230A91FBFE2CEE5D671A96E356C0080C49E53"
+    },
+    {
+      "sequence_A_after_previous_twelve": 9,
+      "absolute_ordinal_A": 21,
+      "frame": 663940,
+      "screenshot_sha256": "C37C62AEC55C2810C9D3E0C87F478B017BEDDC8C78771F3B7B1C1E46DAFC319A",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "0012174C2511C80A4110425743349724D3DDB5064D811BBE50871DF1CDFD70A4",
+      "neutral_trace_sha256": "C27086654CC8758FBF7FAB0531DA77CDAB1D875115908AD16D60A92E50E64532"
+    },
+    {
+      "sequence_A_after_previous_twelve": 10,
+      "absolute_ordinal_A": 22,
+      "frame": 663968,
+      "screenshot_sha256": "B8DC9C4498A9818C0332C36ADD4E40DAAD6D57CF01133F3F31850B6AEE480788",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "4775164D3E5953988BEFB9E8FADF3971843D86288DFE85CA16EDB1A14C9417C0",
+      "neutral_trace_sha256": "324A84D1429713E59D126ED167BEB50AB6E36A12F3F8745CA6507A0A22B8513E"
+    },
+    {
+      "sequence_A_after_previous_twelve": 11,
+      "absolute_ordinal_A": 23,
+      "frame": 663996,
+      "screenshot_sha256": "D99F053F62839A3AA8AADC97FC13797ECB211EF3B8D88B8582299EBC79DD799B",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "1D039E5698F20139FA25D66EA59C0699FBCE1CDEF11F95E4AD7D61DE75A75DEE",
+      "neutral_trace_sha256": "CF9454FA80EBF6B99CC482B3F62204A1E296844374069C8FE9ADE3671BB71628"
+    },
+    {
+      "sequence_A_after_previous_twelve": 12,
+      "absolute_ordinal_A": 24,
+      "frame": 664024,
+      "screenshot_sha256": "C39DD469EE9ED2097C35995E865BE07F15F6C332E57EE35BE6468706612E0C8A",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "61FE2AA8B75FE021D75C47AB17D53F0C26E748B20607928437B25A4D01DA2F88",
+      "neutral_trace_sha256": "907C8986AC244817DAF4EB7B25F8630957C802179061B2F385F08B0A1EED4500"
+    },
+    {
+      "sequence_A_after_previous_twelve": 13,
+      "absolute_ordinal_A": 25,
+      "frame": 664052,
+      "screenshot_sha256": "26E86C38CEEC96E190379E39C8E46BB9893BF48FDFF505259D60575E714D7ED3",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "9A92991978CEC14EFDA860E3A02168C6CD5D8ECF472335661197423C2DC221CA",
+      "neutral_trace_sha256": "36C5B07D7B9684016724185996DD2452197BEC935B037EDF8199B26063E8C4EA"
+    },
+    {
+      "sequence_A_after_previous_twelve": 14,
+      "absolute_ordinal_A": 26,
+      "frame": 664080,
+      "screenshot_sha256": "90647CA634B2C928A273093601C9996DEF31BC4BECE5CBB01A8A721FE4931760",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "A4D82DA911F737A558B4678C91AD515D5EEC971E9C8B54DBEE691382ABE592CD",
+      "neutral_trace_sha256": "CF397A77254A54E195090BB98A192779D0C3D5FE6AF698F7B6A9D1F9A6FB44F8"
+    },
+    {
+      "sequence_A_after_previous_twelve": 15,
+      "absolute_ordinal_A": 27,
+      "frame": 664108,
+      "screenshot_sha256": "97B1E5308B45A4CD4C216D4FBFF07C63FB4EC74B6E5769B9844EE7D439F8DC48",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "054971196951030AC12F8AF9EEB57115FEEF796A025BD9E434A72DEB545C5C41",
+      "neutral_trace_sha256": "BF30EC6AC23622D558AB98B3599162B8D3BB7582E558DE16C2B7CF7BE3415D45"
+    },
+    {
+      "sequence_A_after_previous_twelve": 16,
+      "absolute_ordinal_A": 28,
+      "frame": 664136,
+      "screenshot_sha256": "0881ED27200D7DA419AB3B4987249B3C569E90AB877BC067AA6C5B48591D9CAF",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "FF860ADEF59B4E419005A5082596AB37B0B18A2CC914BED3BD0D69999169A7E1",
+      "neutral_trace_sha256": "FC12D5893E4173E6837B59AE21DE2438785096925A3F04319DC83873B96C9F72"
+    },
+    {
+      "sequence_A_after_previous_twelve": 17,
+      "absolute_ordinal_A": 29,
+      "frame": 664164,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "523FA5EA59F606E209C7127D09F067821E0A8829383F42931FB69524CE674332",
+      "neutral_trace_sha256": "B265241D9CD1023F012F7895F644DC4E970CB1276C255161185DE99D40A2E5A6"
+    },
+    {
+      "sequence_A_after_previous_twelve": 18,
+      "absolute_ordinal_A": 30,
+      "frame": 664192,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "4DB3DFD663DAAA1DC4755D0BBDA438835AB7D43C32B848A250CD02E70871405A",
+      "neutral_trace_sha256": "F662D2DBFC2A31A6AE047F2BB7F00FEB07443026FDEF102782BABC86808CA86C"
+    },
+    {
+      "sequence_A_after_previous_twelve": 19,
+      "absolute_ordinal_A": 31,
+      "frame": 664220,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "C9FDF0041BEB9DC0B57E4AA1531640334E55CB170B4279149D7A25501C68C4B1",
+      "neutral_trace_sha256": "7743DE9D524DDF3F43E5E9DE2EC5769E45EACA6CF4E3CB978340F50A7D37B45A"
+    },
+    {
+      "sequence_A_after_previous_twelve": 20,
+      "absolute_ordinal_A": 32,
+      "frame": 664248,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "17EE5ED17A32E7677D686E76B97F319B0F1933A62E49F26BDCDAFE5C3D3C845A",
+      "neutral_trace_sha256": "E39F8259D28386BCCD6BF9A537F1F0B9E7C39D53EBD760D6D1BFDBE1CC4545DC"
+    },
+    {
+      "sequence_A_after_previous_twelve": 21,
+      "absolute_ordinal_A": 33,
+      "frame": 664276,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "F8099D675B95202BA04CAAE5FCA4A827A47737F1B1D5EAF27C414AC671512105",
+      "neutral_trace_sha256": "C28C1716483E904D60E10B826EEC07277BD47DF7397E51CFCCF5560B7085EED5"
+    },
+    {
+      "sequence_A_after_previous_twelve": 22,
+      "absolute_ordinal_A": 34,
+      "frame": 664304,
+      "screenshot_sha256": "C8D9B49C3E5E7739AF5CA0253193B11654988D2886AE31B3FA5AA7ED06E96290",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "76E9637AA3FC243F2C8DCBAF21BBFF743C046D5017E6C2A4A941EA53AFD29046",
+      "neutral_trace_sha256": "60A79661FDF7E4C8839B431BF6AE744AB5C50B26C7D2590E6CC57BE2C9CDEDF3"
+    },
+    {
+      "sequence_A_after_previous_twelve": 23,
+      "absolute_ordinal_A": 35,
+      "frame": 664332,
+      "screenshot_sha256": "CCC24E0E50038EF4BAEB62E8877AE771CEF014B1AE60C4F674F1263DA41B412C",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "0D81B74880DEFFC02C58C7DAB8AA520306BDB6FF39516C21045FD21D5AD17DF1",
+      "neutral_trace_sha256": "CA6A60C9DF93509270EFCD920BDC9BF48A04E021FED5206C85D9C20BAAB0FD08"
+    },
+    {
+      "sequence_A_after_previous_twelve": 24,
+      "absolute_ordinal_A": 36,
+      "frame": 664360,
+      "screenshot_sha256": "B2F1D1EEDB517D43B91D52D2A45C2A9FBCEF66BB574FBA13C15421F30C9D2709",
+      "pack": "0x60",
+      "xy": {
+        "x": 37,
+        "y": 56
+      },
+      "gamepad_trace_sha256": "C708182DEBF927B1F36188BD047434F5946395EE58A848B3734C7C39D76637A9",
+      "neutral_trace_sha256": "A37A257BA4D4877515E83C6B7AB6A36603EADCCC04742AAFB505E0AFBF03ECC1"
+    }
+  ],
+  "A17_to_A21_additional_black_screenshot_identical": true,
+  "black_screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+  "original_pre_event_screenshot_sha256": "BB64ACED1B3CA16AFECD364B32D367722C1C632BA4C582572AEC354AB31DAED3",
+  "dialogue_at_initial_A12_screenshot_sha256": "333C265EDBBC84B89B17A954C03527C8CFBEA958897813FD251215772BDA1EA9",
+  "transformed_village_onscreen_sha256": "B2F1D1EEDB517D43B91D52D2A45C2A9FBCEF66BB574FBA13C15421F30C9D2709",
+  "visual_transformation_described_from_local_screenshots": "pink_flowery_village_to_brown_withered_vegetation",
+  "exact_visual_event_trigger_A_count_proven": false,
+  "after_A36_four_direction_real_controller_results": {
+    "Down": {
+      "scene_pack_after": "0x4C",
+      "xy": [
+        59,
+        155
+      ],
+      "controller_sha256": "30B69887053377425A27FA1C9C38CACB79CAFF3A07171E3BE45896A17F1F5824",
+      "neutral_sha256": "09EC09B4C9C6F8FC1575F0412E2590E6407A3AD995CDE39C6A6BB0C623019E7B"
+    },
+    "Up": {
+      "scene_pack_after": "0x60",
+      "xy": [
+        37,
+        40
+      ],
+      "controller_sha256": "85621029103B3CA8F6FC320C13554DDCB4336030026AC1345580F3E871ED8E19",
+      "neutral_sha256": "8999B11EC89CE8D8194B1201AF3AB6EF17F12A41107B434C06A6228085A6ED50"
+    },
+    "Left": {
+      "scene_pack_after": "0x60",
+      "xy": [
+        36,
+        56
+      ],
+      "controller_sha256": "715305EB87FB0FBDEECCBAF3EE1B0EE8C0D40099D13D5FA9BCD228F8BB312C6A",
+      "neutral_sha256": "CDBCDEB8ACEEC19839C3FF098B33569443B32D4B0633CCD5B69073E5C3852DAF"
+    },
+    "Right": {
+      "scene_pack_after": "0x60",
+      "xy": [
+        38,
+        56
+      ],
+      "controller_sha256": "C4F66CEBBCBDCAD712FA819D1D03C9F72F3A321B8B0F9B9E7ECCAF59018CC69F",
+      "neutral_sha256": "B047BB70FC7A6598171F53D8D68E0F8A7EB2A5EE13ED58C7C891BBCA74006431"
+    }
+  },
+  "return_after_A36_controller": "Down",
+  "return_after_A36_controller_frames": 96,
+  "return_world_pack": "0x4C",
+  "return_world_config_id": "cfg_t01_l001_v1",
+  "return_world_xy_this_saved_context": {
+    "x": 59,
+    "y": 155
+  },
+  "world_scene_switch_frame": 664366,
+  "last_world_frame": 664816,
+  "world_stable_neutral_frames": 360,
+  "return_destination_for_other_saves_proven": false,
+  "source_exact_return_trigger_cell_proven": false,
+  "original_world_access_without_cheat_proven": false,
+  "runtime_source_emulator_restored_after_probes": true,
+  "raw_ROM_screenshots_traces_savestates_committed": false,
+  "long_return_frame_sha256": [
+    "30B69887053377425A27FA1C9C38CACB79CAFF3A07171E3BE45896A17F1F5824",
+    "09EC09B4C9C6F8FC1575F0412E2590E6407A3AD995CDE39C6A6BB0C623019E7B",
+    "B22E0989D3029F7138529034B9CE428B72B495E2875947C14C35518D4473F938",
+    "A367B91CAADFC2ACE7659735ABF6F4CADB0B71AD70C200FCAECFFFEA597D378E"
+  ],
+  "long_return_screen_sha256": [
+    "C948BD32AF370B25336FEB68C310A3ED48F1508E1BDCD75843CED06C98328406",
+    "C948BD32AF370B25336FEB68C310A3ED48F1508E1BDCD75843CED06C98328406",
+    "C948BD32AF370B25336FEB68C310A3ED48F1508E1BDCD75843CED06C98328406",
+    "C948BD32AF370B25336FEB68C310A3ED48F1508E1BDCD75843CED06C98328406"
+  ]
+}

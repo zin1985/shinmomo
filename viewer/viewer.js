@@ -784,7 +784,10 @@ async function selectMap(m,focus=null,pack=undefined){
     const pack82DialogueReturnNote=e.runtime_pack82_dialogue_saved_world_return_proof?.observed_runtime_map_switch
       ?' | 村の会話をAで進めた後、Downで保存済み世界に実機帰還（別の進行状態は未検証）'
       :'';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote  + dungeonFloorNote + reverseStairNote + worldBatchNote + sceneWorldReturnNote + pack96ModalReturnNote + pack82DialogueReturnNote + researchPosition;
+    const pack60EventReturnNote=e.runtime_pack60_village_phase_world_return_proof?.observed_runtime_map_switch
+      ?' | 村の会話・景観変化の後に実機で世界へ帰還（物語の状態に依存）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote  + savedReturnNote  + dungeonFloorNote + reverseStairNote + worldBatchNote + sceneWorldReturnNote + pack96ModalReturnNote + pack82DialogueReturnNote + pack60EventReturnNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

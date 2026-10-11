@@ -86,7 +86,7 @@ class SpatialGateTests(unittest.TestCase):
         self.assertEqual(len(candidates),1)
         self.assertIsNone(candidates[0]["destination_config_id"])
         self.assertEqual(world["transition_catalog_summary"]["spatial_predicate_candidate_count"],54)
-        self.assertEqual(world["transition_catalog_summary"]["bound_edge_count"],76)
+        self.assertEqual(world["transition_catalog_summary"]["bound_edge_count"],77)
 
     def test_unbound_queue_does_not_change_candidate_source(self):
         data={
