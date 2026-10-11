@@ -309,3 +309,23 @@ pack0x91 dungeon おむすびころりん, arrival (71,59) after loader.
 The original Hien destination name menu and actual spell casting
 are still not verified even though the flags are unlocked.
 See docs/analysis/hien_cheat_warp_omusubi_kororin_20261011.md.
+
+
+## Reusable hidden scene warp and Omusubi cave floor transitions
+
+Use the protected helper to inspect a known *loaded map* scene
+without changing ROM/normal saves or the visible desktop:
+
+    & .\tools\remote_lab\create_hidden_scene_warp_state.ps1 -BaseState analysis_pack91_arrival_71_59_20261011 -OutputState unique_scene_analysis_state -ExpectedPack 145 -X 75 -Y 54 -NeutralFrames 16
+
+It checks the exact map-pack and hidden BizHawk, changes only
+WRAM $1573/$157D, verifies the readback and restores the previously
+loaded emulator state. The new local analysis save is never overwritten.
+DO NOT mistake the cheat positioning for proof of walkable source route.
+
+Verified route: Up from pack91 (75,54) -> hole (75,53), scripted
+jump (70,8), automatic no-input shaft descent to (70,26), real Right
+-> pack95 (22,8). Pack91 stair (71,59) also returns to world (47,199)
+in this specific saved origin, requiring a second 120-frame neutral
+window to prove settled coordinates. Full documentation:
+docs/analysis/omusubi_cave_return_hole_and_pack95_20261011.md.

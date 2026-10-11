@@ -114,8 +114,8 @@ class Native4DReturnTests(unittest.TestCase):
         e=[a for a in w["transition_edges"] if a["transition_id"]==EDGE_ID]
         self.assertEqual(len(e),1)
         self.assertEqual(len(w["maps"]),149)
-        self.assertEqual(len(w["transition_edges"]),57)
-        self.assertEqual(len(w["transition_candidates"]),1296)
+        self.assertEqual(len(w["transition_edges"]),59)
+        self.assertEqual(len(w["transition_candidates"]),1297)
         self.assertEqual(e[0]["activation_gate"]["evaluation"],"unknown")
         self.assertFalse(e[0]["activation_gate"]["navigable_now"])
         self.assertIsNone(e[0]["trigger_addr"])

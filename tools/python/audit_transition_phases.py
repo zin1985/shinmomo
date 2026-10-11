@@ -22,7 +22,7 @@ WATCHED = (
 def state(row):
     return {k:row[k] for k in WATCHED}
 
-def collect(input_trace, settle_trace, *, stability_frames=8):
+def collect(input_trace, settle_trace, *, stability_frames=8, extra_neutral_trace=None):
     first=inspect_series(input_trace)
     second=inspect_series(settle_trace)
     if first["schema_version"]!=second["schema_version"]:
@@ -39,8 +39,18 @@ def collect(input_trace, settle_trace, *, stability_frames=8):
         raise ValueError("State changed between input and neutral captures")
     if not isinstance(stability_frames,int) or not 2<=stability_frames<=120:
         raise ValueError("Invalid stable-window length")
+    third=None
+    if extra_neutral_trace is not None:
+        third=inspect_series(extra_neutral_trace)
+        if (third["schema_version"]!=first["schema_version"] or
+            third["input_sent"] or third["input_device"]!="none" or
+            third["initial_frame"]!=second["final_frame"] or
+            any(settle_trace["after"][k]!=extra_neutral_trace["before"][k]
+                for k in ("frame",)+keys)):
+            raise ValueError("Additional neutral frame capture is not exactly contiguous")
     before=input_trace["before"]
-    series=input_trace["samples"]+settle_trace["samples"]
+    series=input_trace["samples"]+settle_trace["samples"]+(
+        extra_neutral_trace["samples"] if third is not None else [])
     prev=before
     pack_switches=[]
     state_changes=[]
@@ -97,7 +107,9 @@ def collect(input_trace, settle_trace, *, stability_frames=8):
         "input_window":{"from_frame":first["initial_frame"],
                         "to_frame":first["final_frame"]},
         "neutral_window":{"from_frame":second["initial_frame"],
-                          "to_frame":second["final_frame"]},
+                          "to_frame":(third["final_frame"] if third else second["final_frame"])},
+        "neutral_capture_chunk_count":2 if third else 1,
+        "extended_neutral_capture_verified":third is not None,
         "raw_script_pointer_at_switch":{
             "bank":switch["state_at_switch"]["ptr9a_bank"],
             "high":switch["state_at_switch"]["ptr99_hi"],
@@ -136,17 +148,24 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--input-trace",type=Path,required=True)
     ap.add_argument("--settle-trace",type=Path,required=True)
+    ap.add_argument("--extra-neutral-trace",type=Path)
     ap.add_argument("--stable-frames",type=int,default=8)
     ap.add_argument("--output",type=Path)
     args=ap.parse_args()
     raw_a=args.input_trace.read_bytes()
     raw_b=args.settle_trace.read_bytes()
+    raw_extra=(args.extra_neutral_trace.read_bytes()
+               if args.extra_neutral_trace else None)
     report=collect(json.loads(raw_a),json.loads(raw_b),
-                   stability_frames=args.stable_frames)
+                   stability_frames=args.stable_frames,
+                   extra_neutral_trace=(json.loads(raw_extra)
+                                        if raw_extra is not None else None))
     report["local_capture_sha256"]={
         "input":hashlib.sha256(raw_a).hexdigest().upper(),
         "settle":hashlib.sha256(raw_b).hexdigest().upper()
     }
+    if raw_extra is not None:
+        report["local_capture_sha256"]["extra_neutral"]=hashlib.sha256(raw_extra).hexdigest().upper()
     output=args.output or args.input_trace.with_name(
         args.input_trace.stem+"_transition_phases.json")
     output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

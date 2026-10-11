@@ -8,6 +8,8 @@ from build_native_saved_return_context import (match_native_boundaries, attach_c
 from transition_gate_predicates import annotate_edge_gate, phase_ambiguity_for
 from apply_runtime_spatial_proofs import apply_runtime_spatial_proofs
 from apply_cheat_positioned_dungeon_proof import attach as attach_cheat_dungeon_entry
+from add_runtime_cave_world_return_edge import inject as inject_cave_world_saved_return
+from attach_omusubi_pack95_source import attach as attach_omusubi_floor_source
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -989,6 +991,28 @@ def main():
             json.loads(cheat_dungeon_path.read_text(encoding="utf-8")))
     else:
         cheat_dungeon_summary = {"attached_count":0,"new_graph_edges":0}
+    # Cave entrance tile return is independently triggered from real
+    # gamepad controls. Its world destination is specific to the previously
+    # cheat-positioned SAVED origin, not a universal cave exit coordinate.
+    cave_return_path = TRANSITIONS / "omusubi_cave_world_return_verified_20261011.json"
+    if cave_return_path.exists():
+        transition_candidates, cave_saved_return_summary = inject_cave_world_saved_return(
+            transition_candidates,
+            json.loads(cave_return_path.read_text(encoding="utf-8")))
+    else:
+        cave_saved_return_summary = {"new_runtime_cave_saved_return_edge_count":0}
+
+    # The hole at (75,53) performs an automatic in-pack shaft drop.
+    # From its settled landing at (70,26), normal controller movement
+    # reaches pack0x95 at (22,8). Bind the source of the already existing
+    # ROM destination candidate; do NOT claim the static opcode PC ran.
+    pack95_file = TRANSITIONS / "omusubi_pack91_to_pack95_verified_20261011.json"
+    if pack95_file.exists():
+        transition_candidates, pack95_source_summary = attach_omusubi_floor_source(
+            transition_candidates, json.loads(pack95_file.read_text(encoding="utf-8")))
+    else:
+        pack95_source_summary = {"new_candidate_count":0,"new_bound_edge_count":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1012,6 +1036,8 @@ def main():
         "kind": "shinmomo_structural_world",
         "runtime_spatial_proof_summary": runtime_spatial_summary,
         "runtime_cheat_dungeon_entry_summary": cheat_dungeon_summary,
+        "runtime_cave_saved_origin_return_summary": cave_saved_return_summary,
+        "runtime_pack95_floor_source_summary": pack95_source_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

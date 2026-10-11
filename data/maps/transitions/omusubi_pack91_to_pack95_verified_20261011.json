@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "verified_cave_source_bound_pack95_transfer",
+  "prior_hole_shaft_proof": "data/maps/transitions/omusubi_hole_shaft_verified_20261011.json",
+  "source_config_id": "cfg_t08_l092_v2",
+  "source_pack": "0x91",
+  "source_shafts_final_xy": {
+    "x": 70,
+    "y": 26
+  },
+  "source_real_input_contact_cell": {
+    "x": 71,
+    "y": 26
+  },
+  "source_contact_frame": 663918,
+  "destination_config_id": "cfg_t08_l096_v2",
+  "destination_pack": "0x95",
+  "destination_xy": {
+    "x": 22,
+    "y": 8
+  },
+  "switch_frame": 663933,
+  "selector_convergence_frame": 663967,
+  "arrival_stable_frame": 664018,
+  "destination_stable_through_frame": 664076,
+  "existing_rom_candidate_id": "catalog_transition_0171",
+  "existing_rom_candidate_opcode_PC": "CC:D377",
+  "static_candidate_was_source_unbound": true,
+  "ROM_candidate_opcode_executed_PC_proven": false,
+  "runtime_source_map_config_proven": true,
+  "source_reached_from_cheat_origin_cave_path": true,
+  "normal_world_walkable_route_proven": false,
+  "universal_story_gate_proven": false,
+  "new_candidate_count": 0,
+  "new_source_bound_edge_count": 1,
+  "new_dungeon_floor_or_map_pack_observed": true,
+  "local_trace_sha256": {
+    "pre_right": "81DB90904C9FFB5EFC7916DA108152ED79AECED1BD46D1248CB25CCD13EA1A21",
+    "right_input": "4BD707549B7B2009912C95DFF545AB57E47AFCC2DA437D2B2B5EFA5C4CDBEE7F",
+    "right_neutral": "D536AC7A613F12AB4FDB0FE41C4A8CEB777E09D51D3BFC2F645585654B633E1E"
+  }
+}

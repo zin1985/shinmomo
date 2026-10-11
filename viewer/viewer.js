@@ -763,7 +763,13 @@ async function selectMap(m,focus=null,pack=undefined){
     const cheatNote=e.runtime_cheat_entry_proof?.observed_in_game_transition
       ?' | 解析用座標ワープ後に入口を実機確認（徒歩経路は未確認）'
       :'';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote + researchPosition;
+    const savedReturnNote=e.runtime_saved_origin_context?.source_stepped_by_real_controller
+      ?' | 洞窟出口を実機確認（世界の帰還座標はセーブ状態依存）'
+      :'';
+    const dungeonFloorNote=e.runtime_floor_transition_proof?.source_movement_confirmed
+      ?' | 縦穴を降りて別区画へ実機移動（起点は解析ワープ・命令PC未確認）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote + savedReturnNote + dungeonFloorNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "verified_cheat_origin_cave_hole_shaft_sequence",
+  "source_map_config_id": "cfg_t08_l092_v2",
+  "pack_unchanged_hex": "0x91",
+  "original_world_entry_positioned_by_cheat": true,
+  "hole_approach_positioned_by_cheat": true,
+  "normal_world_route_to_hole_proven": false,
+  "source_hole_tile": {
+    "x": 75,
+    "y": 53,
+    "metatile_id": 30
+  },
+  "real_input_started_at": {
+    "x": 75,
+    "y": 54
+  },
+  "real_up_entry_frame": 663353,
+  "unmodified_event_jump_frame": 663453,
+  "unmodified_event_jump_target": {
+    "x": 70,
+    "y": 8
+  },
+  "automatic_descending_shaft": true,
+  "automatic_descent_has_no_gamepad_input": true,
+  "final_shaft_landing_first_frame": 663647,
+  "final_shaft_landing": {
+    "x": 70,
+    "y": 26
+  },
+  "stable_neutral_end_frame": 663856,
+  "floor_index_or_story_flag_proven": false,
+  "CPU_opcode_PC_observed": false,
+  "runtime_sequence_local_only": true,
+  "local_trace_sha256": {
+    "hole_input": "60CC4B5803B54EC891C60B76BFF7FCF41FF5C3FDE18288E9942E1FD7902C108D",
+    "hole_idle1": "95C839610D71AFDF80807BEFC9CEA79E63F6ACAD1E442BB995CBA8B54A1DAD0D",
+    "hole_idle2": "1EF52C901906899FD0AC31E38952B5C381DC369AD75960215D7CF5B9E3C5E4F4",
+    "hole_idle3": "78A146E0CA219C4C84CBDE1C21C1251E47D812842CC7E37B3CEDB3820769FA7A",
+    "hole_idle4": "6EB1C405BAF8C4C7FDFDA33D09B775B226155EE8E25BF125D299863CA518AB64"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "verified_conditional_cave_saved_origin_return",
+  "existing_cave_entry_proof": "data/maps/transitions/omusubi_kororin_cheat_entry_verified_20261011.json",
+  "entry_origin_supplied_by_analysis_coordinate_cheat": true,
+  "normal_world_walk_to_cave_proven": false,
+  "cave_source_map_config_id": "cfg_t08_l092_v2",
+  "cave_source_pack": "0x91",
+  "source_inside_cave_xy": {
+    "x": 71,
+    "y": 61
+  },
+  "return_tile_entered_with_gamepad": {
+    "x": 71,
+    "y": 59
+  },
+  "return_tile_metatile_id": 32,
+  "contact_frame": 663402,
+  "return_map_switch_frame": 663417,
+  "return_context_selector_frame": 663451,
+  "world_destination_map_config_id": "cfg_t01_l001_v1",
+  "world_destination_pack": "0x4C",
+  "world_arrival_xy_in_this_saved_context": {
+    "x": 47,
+    "y": 199
+  },
+  "first_settled_arrival_frame": 663532,
+  "observed_stable_through_frame": 663657,
+  "stable_observed_frames": 126,
+  "return_requires_original_saved_map_context": true,
+  "return_world_xy_for_other_saves_verified": false,
+  "floor_to_floor_transition_verified": false,
+  "CPU_handler_PC_observed": false,
+  "VM_opcode_56_executed_proven": false,
+  "new_source_map_binding_promoted": false,
+  "normal_input_buttons": [
+    "Down",
+    "Up"
+  ],
+  "neutral_capture_count": 2,
+  "trace_data_committed": false,
+  "new_graph_edge_count": 1,
+  "proposed_edge_id": "runtime_pack91_world_saved_origin_return_20261011",
+  "result": "confirmed_runtime_saved_origin_return_one_exact_context",
+  "local_raw_trace_sha256": {
+    "approach": "91D50B0215D342E2DEA3B985A1E8746BB8F4D439CA5C19A3848022B152BFA0E6",
+    "input": "95E84FB4315E1C47D4844AC34B27C66A21747442BD8514C07AA7384C5212EC9A",
+    "neutral1": "39E3B7ECF9ED9020323680C36FC17F3E58393427CB32B74B6A17C70C842D1EF2",
+    "neutral2": "66DDAF791EE3A4AF77EB6701BFF42AC7A7DA7ACD8728F98CCED3A1DF2BEDDA29"
+  }
+}

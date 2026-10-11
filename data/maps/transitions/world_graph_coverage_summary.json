@@ -2,14 +2,14 @@
   "schema_version": 1,
   "kind": "event_aware_map_graph_coverage_audit",
   "map_count": 149,
-  "catalog_candidate_count": 1296,
-  "bound_edge_count": 57,
-  "confirmed_runtime_edge_count": 4,
-  "candidate_bound_edge_count": 53,
+  "catalog_candidate_count": 1297,
+  "bound_edge_count": 59,
+  "confirmed_runtime_edge_count": 5,
+  "candidate_bound_edge_count": 54,
   "native_boundary_context_count": 3,
-  "edges_with_unknown_current_activation": 57,
-  "maps_with_at_least_one_outgoing": 4,
-  "maps_with_at_least_one_incoming": 50,
+  "edges_with_unknown_current_activation": 59,
+  "maps_with_at_least_one_outgoing": 5,
+  "maps_with_at_least_one_incoming": 51,
   "maps_with_no_bound_outgoing": [
     "cfg_t01_l002_v1",
     "cfg_t02_l003_v1",
@@ -95,7 +95,6 @@
     "cfg_t07_l080_v2",
     "cfg_t07_l084_v2",
     "cfg_t07_l090_v2",
-    "cfg_t08_l092_v2",
     "cfg_t08_l094_v2",
     "cfg_t08_l096_v2",
     "cfg_t09_l097_v2",
@@ -218,7 +217,6 @@
     "cfg_t07_l084_v2",
     "cfg_t07_l090_v2",
     "cfg_t08_l094_v2",
-    "cfg_t08_l096_v2",
     "cfg_t13_l103_v2",
     "cfg_t14_l105_v2",
     "cfg_t15_l107_v2",
@@ -258,11 +256,10 @@
     "cfg_t58_l198_v1",
     "cfg_t60_l203_v1"
   ],
-  "weak_component_count": 100,
-  "largest_weak_component_map_count": 50,
+  "weak_component_count": 99,
+  "largest_weak_component_map_count": 51,
   "weak_component_sizes": [
-    50,
-    1,
+    51,
     1,
     1,
     1,
@@ -433,10 +430,6 @@
     },
     {
       "source": "cfg_t01_l001_v1",
-      "destination": "cfg_t08_l092_v2"
-    },
-    {
-      "source": "cfg_t01_l001_v1",
       "destination": "cfg_t09_l097_v2"
     },
     {
@@ -546,6 +539,10 @@
     {
       "source": "cfg_t04_l008_v2",
       "destination": "cfg_t07_l047_v2"
+    },
+    {
+      "source": "cfg_t08_l092_v2",
+      "destination": "cfg_t08_l096_v2"
     }
   ],
   "one_way_pair_count": 46,
@@ -631,7 +628,7 @@
       "unbound_candidate_count": 15
     }
   ],
-  "unknown_source_candidates": 1238,
+  "unknown_source_candidates": 1237,
   "unknown_destination_candidates": 122,
   "interpretation": "Incomplete connectivity is a research backlog; one-way links are not proven bugs. Current story-state gate unknown means preview-only, not executable navigation."
 }

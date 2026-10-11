@@ -138,3 +138,20 @@ The existing catalog_transition_0750 now carries this exact landing
 and a prominent cheat-origin annotation, NOT normal world walkability
 or story activation. No new edge or confidence promotion.
 Data: data/maps/transitions/omusubi_kororin_cheat_entry_verified_20261011.json.
+
+
+## Cave Omusubi-kororin hole, shaft and pack0x95 transition
+
+Two additional bound connections are now represented by event-specific
+and saved-map-context-specific evidence, not universal story predicates.
+From cave pack91 (71,61), the gamepad Up enters (71,59), returning to
+the prior cheated world saved-map origin (47,199) in pack4C.
+A second research cheat positions within pack91 at (75,54), directly
+south of a black hole tile. Real gamepad Up triggers the hole (75,53),
+transports the player to (70,8), automatically descends to (70,26)
+without input, then real Right switches pack91->pack95, arriving
+(22,8). The preexisting ROM destination candidate
+catalog_transition_0171 is given a runtime-confirmed source
+cfg_t08_l092_v2; CC:D377 remains a *candidate*, never a captured PC.
+Viewer now includes 149 maps, 59 bound edges, 1297 candidates.
+See docs/analysis/omusubi_cave_return_hole_and_pack95_20261011.md.
