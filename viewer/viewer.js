@@ -760,7 +760,10 @@ async function selectMap(m,focus=null,pack=undefined){
     const measuredNote=measuredPath?.runtime_path_confirmed
       ?' | 実機移動・到着座標を確認（命令PCは未確認）'
       :'';
-    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + researchPosition;
+    const cheatNote=e.runtime_cheat_entry_proof?.observed_in_game_transition
+      ?' | 解析用座標ワープ後に入口を実機確認（徒歩経路は未確認）'
+      :'';
+    evidenceHint.textContent = (e.activation_gate?.evaluation === 'unknown' ? '実行条件未確定' : '条件検証済み') + boundaryLabel + measuredNote + cheatNote + researchPosition;
     div.append(evidenceHint);
     div.append(go);
     div.onclick=()=>{detail.textContent=JSON.stringify(e,null,2);};

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_onscreen_location_title_proof",
+  "map_config_id": "cfg_t08_l092_v2",
+  "runtime_pack_id_hex": "0x91",
+  "onscreen_title": "おむすびころりん",
+  "presentation_kind": "actual_cave_dungeon_entry_scene",
+  "source_fixture_local_only": "analysis_pack91_arrival_71_59_20261011.State",
+  "source_pack_byte": 145,
+  "source_position": {
+    "x": 71,
+    "y": 59
+  },
+  "screenshot_sha256": "403BE0D1A45A98A513EA034F4CF7E501DE97DCD7F5A84254CF629D292EEE3825",
+  "screenshot_committed": false,
+  "source_transition_proof": "data/maps/transitions/omusubi_kororin_cheat_entry_verified_20261011.json",
+  "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+  "applies_to_all_configs_sharing_tileset_layout": false,
+  "dungeon_or_staircase_evidence": true,
+  "actor_story_phase_verified": false,
+  "notes": "Onscreen destination title after gamepad-triggered world->cave transition from explicit cheat-positioned source x47,y200; no normal walkable world route inferred."
+}

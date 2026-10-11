@@ -25,6 +25,12 @@ def catalog_targets(world:dict,origin_xy=(55,236)):
         distance=min(abs(origin_xy[0]-x)+abs(origin_xy[1]-y)
                      for x in range(spot[0],spot[0]+spot[2])
                      for y in range(spot[1],spot[1]+spot[3]))
+        cheat_probe=e.get("runtime_cheat_entry_proof") or {}
+        runtime_observed=(
+            cheat_probe.get("observed_in_game_transition") is True
+            and cheat_probe.get("source_position_supplied_by_analysis_cheat") is True
+            and cheat_probe.get("normal_walkable_world_route_proven") is False
+        )
         result.append({
             "transition_id":e["transition_id"],
             "source_config_id":WORLD_ID,
@@ -36,10 +42,17 @@ def catalog_targets(world:dict,origin_xy=(55,236)):
             "static_opcode_candidate":e.get("trigger_addr"),
             "distance_lower_bound_world_grid_cells":distance,
             "distance_is_walkable_route":False,
-            "observed_runtime_transition":False,
-            "destination_arrival_xy_confirmed":False,
+            "observed_runtime_transition":runtime_observed,
+            "runtime_origin_positioned_by_cheat":runtime_observed,
+            "destination_arrival_xy_confirmed":runtime_observed and
+                e.get("destination_x") is not None and e.get("destination_y") is not None,
+            "destination_arrival_xy":([e["destination_x"],e["destination_y"]]
+                                      if runtime_observed else None),
+            "normal_world_route_walkable_proven":False,
             "active_story_gate_evaluated":False,
-            "evidence_status":"rom_dungeon_family_and_exact_world_source_rectangle_only",
+            "evidence_status":("rom_hotspot_and_cheat_positioned_gamepad_event_verified"
+                               if runtime_observed
+                               else "rom_dungeon_family_and_exact_world_source_rectangle_only"),
         })
     result.sort(key=lambda x:(x["distance_lower_bound_world_grid_cells"],x["transition_id"]))
     return {"schema_version":1,

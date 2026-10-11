@@ -287,3 +287,25 @@ tools/python/verify_native_pack4d_world_return.py.
 
 No ROM, screenshots, SaveRAM, savestates or raw trace JSONs are
 uploaded to Git. Restore the protected hidden emulator savestate.
+
+
+## Hien-enabled hidden world coordinate warp to known dungeon entrance
+
+The existing analysis cheat profile unlocks Hien spell 0x33,
+all four destination flags FF, and Momotaro LV60. To apply this
+profile to an actual playable world save and shift the in-game
+coordinates WITHOUT changing the desktop:
+
+    & .\tools\remote_lab\create_hidden_hien_warp_state.ps1 -BaseState vmtrace_world_pack4c_x55_y236_preentry_20261011 -OutputState my_unique_world_warp_state -X 47 -Y 200 -Level 60 -NeutralFrames 16
+
+The command checks it is using the hidden dedicated emulator,
+backs up the original savestate, writes only a verified bounded
+set of WRAM gameplay fields, checks readback, saves a new uniquely
+named local cheat state and always restores the prior session.
+Normal walking route to the coordinate is not proven by the warp.
+
+From world (47,200) the actual controller Up crosses (47,199) to
+pack0x91 dungeon おむすびころりん, arrival (71,59) after loader.
+The original Hien destination name menu and actual spell casting
+are still not verified even though the flags are unlocked.
+See docs/analysis/hien_cheat_warp_omusubi_kororin_20261011.md.

@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Trace confirmed dungeon-family tileset8 world hotspot and reachability without forced movement",
-  "base_main_head_verified": "5270a1571c132dc71c35f2817911209cf83cd7fb",
+  "title": "Explore Omusubi-kororin interior/floor transitions using isolated Hien and coordinate-warp analysis saves",
+  "base_main_head_verified": "d7e62da4409df1ccfc58b15ef430118af9310bff",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Find reachable legitimate world navigation route or protected playable save to world hotspot x47..48,y199 (static CC:0B7F, destination pack0x91/config cfg_t08_l092_v2). The direct north x55,y233 and tested nearby detours stall; do not force WRAM player coordinates."
+      "action": "Use protected pack91 arrival local savestate at x71,y59 to explore the first interior fork, dungeon floor exits and room transitions with continuous WRAM. Confirm actual floor-to-floor origin and settled destination using normal controller input; avoid unnecessary global story assumptions."
     },
     {
       "order": 2,
-      "action": "Prove a real pack0x91 dungeon entry and floor-to-floor transition with hidden onframeend schema2 source contact, pack switch, selector convergence and settled XY. Only then annotate runtime proof."
+      "action": "Recover actual Hien spell destination menu village names, destination flags and their coordinates, and crosslink to the correct pack/config. Hien flags and spell ID are enabled but menu/list and MP-unlimited behavior are NOT yet tested."
     },
     {
       "order": 3,
-      "action": "Add context-scoped map names for other places only after confirmed in-game title or independent ROM/dialogue evidence, preserving shared map-layout identity."
+      "action": "Generate and store safe hidden coordinate-warp analysis saves for future dungeon entrance experiments, but always identify warp-versus-normal gameplay provenance separately and preserve the prior emulator state."
     },
     {
       "order": 4,
-      "action": "Diagnose 35 registered but non-firing SNES CPU/memory hooks for exact event opcode proof."
+      "action": "Investigate SNES memory execution/write hooks; 35 registered with zero delivered hits; CC:0B7F remains a static instruction candidate, NOT executed PC proof."
     },
     {
       "order": 5,
-      "action": "Continue CC:1160 phase-dependent destinations, pack0x96 arrival XY and remaining unknown VM56 source bindings."
+      "action": "Continue unresolved phase transitions CC:1160 and pack0x96 arrival/VM56 source ownership work."
     }
   ],
   "do_not_redo": [
@@ -844,54 +844,49 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Identified pack4D scene as 桃太郎の生家 by observed in-game title and made the Viewer pack-scoped; shortlisted true ROM dungeon-family world entry for future runtime verification",
-    "pack4d_map_config": "cfg_t04_l006_v2",
-    "exact_scene_pack": "0x4D",
-    "verified_in_game_location_title": "桃太郎の生家",
-    "local_screenshot_sha256": "336AEC83F907E31F16C10528C1F53E6999859104DA3E87CB892B8F3535CBE7E6",
+    "description": "Verified Hien unlock in existing and playable world saves, created safe hidden coordinate-warp helper and confirmed Omusubi-kororin cave via actual gamepad event from cheated adjacent world position",
+    "previous_advanced_hien_state_verified": true,
+    "analysis_hien_spell_id": "0x33",
+    "destination_flag_bytes": "FF FF FF FF",
+    "hien_destination_name_list_observed": false,
+    "hien_spell_activated_to_travel": false,
+    "infinite_mp_verified": false,
+    "method": "cheat world XY to (47,200), then real Up to source rectangle (47..48,199)",
+    "raw_cheat_wram_addresses": [
+      "0x1573",
+      "0x157D"
+    ],
+    "source_cfg": "cfg_t01_l001_v1",
+    "source_pack": "0x4C",
+    "entrance_static_pc_candidate": "CC:0B7F",
+    "cpu_opcode_pc_observed": false,
+    "hotspot_contact_frame": 663064,
+    "pack_switch_frame": 663079,
+    "selector_convergence_frame": 663116,
+    "first_settled_dungeon_arrival_frame": 663203,
+    "destination_cfg": "cfg_t08_l092_v2",
+    "destination_pack": "0x91",
+    "arrival_xy": [
+      71,
+      59
+    ],
+    "actual_screen_title": "おむすびころりん",
+    "screenshot_sha256": "403BE0D1A45A98A513EA034F4CF7E501DE97DCD7F5A84254CF629D292EEE3825",
     "screenshot_raw_committed": false,
-    "applies_to_other_configs": false,
-    "pack4d_story_flags_verified": false,
-    "pack4d_is_dungeon_verified": false,
-    "dungeon_candidate": {
-      "source_world_hotspot_xy_rectangle": [
-        47,
-        199,
-        2,
-        1
-      ],
-      "static_candidate_pc": "CC:0B7F",
-      "destination_config_id": "cfg_t08_l092_v2",
-      "destination_pack": "0x91",
-      "destination_family": "ROM-derived tileset8/layout92 dungeon graphics",
-      "origin_world_xy": [
-        55,
-        236
-      ],
-      "manhattan_lower_bound": 44,
-      "runtime_entrance_proven": false,
-      "runtime_arrival_xy_proven": false
-    },
-    "world_walk_probe": {
-      "northward_stalled_at": [
-        55,
-        233
-      ],
-      "tested_east_west_short_detours": true,
-      "all_possible_routes_blocked_proven": false,
-      "state_protected_and_restored": true
-    },
-    "new_graph_edges_added": 0,
-    "viewer_map_count_unchanged": 149,
-    "viewer_bound_edges_unchanged": 57,
-    "viewer_transition_candidates_unchanged": 1296,
-    "official_progress_percent_unchanged": 51.4,
+    "original_hidden_emulator_restored": true,
+    "regular_world_route_accessible_proven": false,
+    "new_graph_edges": 0,
+    "viewer_map_count": 149,
+    "viewer_bound_edges": 57,
+    "viewer_transition_candidates": 1296,
+    "official_completion_percent_unchanged": 51.4,
     "evidence": [
-      "data/maps/context/pack4d_runtime_location_title_20261011.json",
-      "data/maps/context/map_location_identity_candidates_20260930.csv",
-      "data/maps/transitions/world_dungeon_family_targets_20261011.json",
-      "docs/analysis/pack4d_title_and_dungeon_frontier_20261011.md",
-      "scripts/test_pack4d_location_and_dungeon_targets.py"
+      "docs/analysis/hien_cheat_warp_omusubi_kororin_20261011.md",
+      "data/maps/transitions/omusubi_kororin_cheat_entry_verified_20261011.json",
+      "data/maps/context/pack91_runtime_location_title_20261011.json",
+      "tools/remote_lab/create_hidden_hien_warp_state.ps1",
+      "tools/python/verify_cheat_warp_dungeon_entry.py",
+      "scripts/test_cheat_warp_dungeon_entry.py"
     ]
   },
   "completed_work_units": [
@@ -1396,6 +1391,58 @@
         "tools/python/verify_native_pack4d_world_return.py",
         "tools/python/add_runtime_native_return_edge.py",
         "scripts/test_native_pack4d_world_return.py"
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Identified pack4D scene as 桃太郎の生家 by observed in-game title and made the Viewer pack-scoped; shortlisted true ROM dungeon-family world entry for future runtime verification",
+      "pack4d_map_config": "cfg_t04_l006_v2",
+      "exact_scene_pack": "0x4D",
+      "verified_in_game_location_title": "桃太郎の生家",
+      "local_screenshot_sha256": "336AEC83F907E31F16C10528C1F53E6999859104DA3E87CB892B8F3535CBE7E6",
+      "screenshot_raw_committed": false,
+      "applies_to_other_configs": false,
+      "pack4d_story_flags_verified": false,
+      "pack4d_is_dungeon_verified": false,
+      "dungeon_candidate": {
+        "source_world_hotspot_xy_rectangle": [
+          47,
+          199,
+          2,
+          1
+        ],
+        "static_candidate_pc": "CC:0B7F",
+        "destination_config_id": "cfg_t08_l092_v2",
+        "destination_pack": "0x91",
+        "destination_family": "ROM-derived tileset8/layout92 dungeon graphics",
+        "origin_world_xy": [
+          55,
+          236
+        ],
+        "manhattan_lower_bound": 44,
+        "runtime_entrance_proven": false,
+        "runtime_arrival_xy_proven": false
+      },
+      "world_walk_probe": {
+        "northward_stalled_at": [
+          55,
+          233
+        ],
+        "tested_east_west_short_detours": true,
+        "all_possible_routes_blocked_proven": false,
+        "state_protected_and_restored": true
+      },
+      "new_graph_edges_added": 0,
+      "viewer_map_count_unchanged": 149,
+      "viewer_bound_edges_unchanged": 57,
+      "viewer_transition_candidates_unchanged": 1296,
+      "official_progress_percent_unchanged": 51.4,
+      "evidence": [
+        "data/maps/context/pack4d_runtime_location_title_20261011.json",
+        "data/maps/context/map_location_identity_candidates_20260930.csv",
+        "data/maps/transitions/world_dungeon_family_targets_20261011.json",
+        "docs/analysis/pack4d_title_and_dungeon_frontier_20261011.md",
+        "scripts/test_pack4d_location_and_dungeon_targets.py"
       ]
     }
   ]

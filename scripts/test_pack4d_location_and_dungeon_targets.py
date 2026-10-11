@@ -28,10 +28,12 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
 
     def test_location_csv_has_unique_pack_scoped_evidence(self):
         candidates=[r for r in self.rows if r["candidate_status"]=="confirmed_onscreen_pack_context"]
-        self.assertEqual(len(candidates),1)
-        self.assertEqual(candidates[0]["config_id"],"cfg_t04_l006_v2")
-        self.assertEqual(candidates[0]["pack_id_hex"],"0x4D")
-        self.assertEqual(candidates[0]["candidate_label"],"桃太郎の生家")
+        self.assertEqual(len(candidates),2)
+        by_pack={c["pack_id_hex"]:c for c in candidates}
+        self.assertEqual(by_pack["0x4D"]["config_id"],"cfg_t04_l006_v2")
+        self.assertEqual(by_pack["0x4D"]["candidate_label"],"桃太郎の生家")
+        self.assertEqual(by_pack["0x91"]["config_id"],"cfg_t08_l092_v2")
+        self.assertEqual(by_pack["0x91"]["candidate_label"],"おむすびころりん")
 
     def test_viewer_propagates_title_only_in_exact_context(self):
         maps=self.world["maps"]
@@ -42,9 +44,9 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
         self.assertEqual(c[0]["pack_id_hex"],"0x4D")
         self.assertEqual(c[0]["label"],"桃太郎の生家")
         self.assertEqual(c[0]["scope"],"exact_config_and_runtime_pack_only")
-        self.assertEqual(self.world["runtime_location_title_attached_count"],1)
+        self.assertEqual(self.world["runtime_location_title_attached_count"],2)
         for m in maps:
-            if m["config_id"] != "cfg_t04_l006_v2":
+            if m["config_id"] not in ("cfg_t04_l006_v2","cfg_t08_l092_v2"):
                 self.assertFalse(m.get("runtime_pack_location_contexts"))
         self.assertNotEqual(chosen[0].get("display_name"),"桃太郎の生家")
 
@@ -65,8 +67,11 @@ class MapIdentityAndDungeonQueueTests(unittest.TestCase):
         self.assertEqual(target["static_opcode_candidate"],"CC:0B7F")
         self.assertEqual(target["distance_lower_bound_world_grid_cells"],44)
         self.assertFalse(target["distance_is_walkable_route"])
-        self.assertFalse(target["observed_runtime_transition"])
-        self.assertFalse(target["destination_arrival_xy_confirmed"])
+        self.assertTrue(target["observed_runtime_transition"])
+        self.assertTrue(target["runtime_origin_positioned_by_cheat"])
+        self.assertFalse(target["normal_world_route_walkable_proven"])
+        self.assertTrue(target["destination_arrival_xy_confirmed"])
+        self.assertEqual(target["destination_arrival_xy"],[71,59])
 
     def test_closest_candidate_does_not_claim_route(self):
         doc=json.loads((ROOT/"data/maps/transitions/world_dungeon_family_targets_20261011.json").read_text(encoding="utf-8"))

@@ -7,6 +7,7 @@ from crosslink_destination_bounds_for_viewer import join_destination_bounds
 from build_native_saved_return_context import (match_native_boundaries, attach_confirmed_return_variants, edge_activation_gate, rows as read_native_rows)
 from transition_gate_predicates import annotate_edge_gate, phase_ambiguity_for
 from apply_runtime_spatial_proofs import apply_runtime_spatial_proofs
+from apply_cheat_positioned_dungeon_proof import attach as attach_cheat_dungeon_entry
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -700,18 +701,27 @@ def main():
 
     # Runtime location titles are a scene-pack identity, NEVER a property
     # of the shared tileset/layout. Fail closed on duplicate or unproven rows.
-    runtime_location_proof_path = ROOT / "data/maps/context/pack4d_runtime_location_title_20261011.json"
-    runtime_location_proof = (
-        json.loads(runtime_location_proof_path.read_text(encoding="utf-8"))
-        if runtime_location_proof_path.exists() else None
-    )
+    proof_paths = [
+        ROOT / "data/maps/context/pack4d_runtime_location_title_20261011.json",
+        ROOT / "data/maps/context/pack91_runtime_location_title_20261011.json",
+    ]
+    by_scene_pack = {}
+    for candidate_path in proof_paths:
+        if not candidate_path.exists():
+            continue
+        loaded = json.loads(candidate_path.read_text(encoding="utf-8"))
+        key = (loaded.get("map_config_id"), loaded.get("runtime_pack_id_hex"))
+        if key in by_scene_pack:
+            raise ValueError("Duplicate runtime map-pack identity evidence")
+        by_scene_pack[key] = (candidate_path, loaded)
     runtime_identity_attached = 0
     for (config_id, pack_id), candidates in location_candidates_by_context.items():
         confirmed = [x for x in candidates if x["status"] == "confirmed_onscreen_pack_context"]
         if not confirmed:
             continue
-        if len(confirmed) != 1 or not runtime_location_proof:
+        if len(confirmed) != 1 or (config_id,pack_id) not in by_scene_pack:
             raise ValueError("Missing or ambiguous on-screen map-pack identity proof")
+        runtime_location_proof_path, runtime_location_proof = by_scene_pack[(config_id,pack_id)]
         identity = confirmed[0]
         if (runtime_location_proof.get("kind") != "runtime_onscreen_location_title_proof" or
             runtime_location_proof.get("map_config_id") != config_id or
@@ -972,6 +982,13 @@ def main():
     else:
         new_native_summary = {"new_runtime_native_bound_edge_count": 0}
 
+    cheat_dungeon_path = TRANSITIONS / "omusubi_kororin_cheat_entry_verified_20261011.json"
+    if cheat_dungeon_path.exists():
+        transition_candidates, cheat_dungeon_summary = attach_cheat_dungeon_entry(
+            transition_candidates,
+            json.loads(cheat_dungeon_path.read_text(encoding="utf-8")))
+    else:
+        cheat_dungeon_summary = {"attached_count":0,"new_graph_edges":0}
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -994,6 +1011,7 @@ def main():
         "schema_version": 9,
         "kind": "shinmomo_structural_world",
         "runtime_spatial_proof_summary": runtime_spatial_summary,
+        "runtime_cheat_dungeon_entry_summary": cheat_dungeon_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

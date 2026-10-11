@@ -40,10 +40,16 @@
       "static_opcode_candidate": "CC:0B7F",
       "distance_lower_bound_world_grid_cells": 44,
       "distance_is_walkable_route": false,
-      "observed_runtime_transition": false,
-      "destination_arrival_xy_confirmed": false,
+      "observed_runtime_transition": true,
+      "runtime_origin_positioned_by_cheat": true,
+      "destination_arrival_xy_confirmed": true,
+      "destination_arrival_xy": [
+        71,
+        59
+      ],
+      "normal_world_route_walkable_proven": false,
       "active_story_gate_evaluated": false,
-      "evidence_status": "rom_dungeon_family_and_exact_world_source_rectangle_only"
+      "evidence_status": "rom_hotspot_and_cheat_positioned_gamepad_event_verified"
     }
   ],
   "no_edges_promoted": true

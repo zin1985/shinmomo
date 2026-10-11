@@ -125,3 +125,16 @@ other configurations sharing tileset or layout are NOT renamed.
 Raw screenshot is local-only; provenance SHA256 is in
 data/maps/context/pack4d_runtime_location_title_20261011.json.
 See docs/analysis/pack4d_title_and_dungeon_frontier_20261011.md.
+
+
+## Dungeon おむすびころりん, source cheat explicitly disclosed
+
+World pack4C x47,y200 was reached with a local analysis-only
+WRAM coordinate cheat, then actual SNES Up entered the independently
+cataloged world hotspot (47..48,199) to pack0x91. Frame-end WRAM
+proves switch at 663079 and stable cave arrival (71,59) at 663203.
+A later screenshot shows the in-game title おむすびころりん.
+The existing catalog_transition_0750 now carries this exact landing
+and a prominent cheat-origin annotation, NOT normal world walkability
+or story activation. No new edge or confidence promotion.
+Data: data/maps/transitions/omusubi_kororin_cheat_entry_verified_20261011.json.
