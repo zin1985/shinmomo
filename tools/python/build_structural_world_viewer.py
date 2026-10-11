@@ -7,6 +7,7 @@ from crosslink_destination_bounds_for_viewer import join_destination_bounds
 from build_native_saved_return_context import (match_native_boundaries, attach_confirmed_return_variants, edge_activation_gate, rows as read_native_rows)
 from transition_gate_predicates import annotate_edge_gate, phase_ambiguity_for
 from apply_runtime_spatial_proofs import apply_runtime_spatial_proofs
+from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = ROOT / "data/maps/rendered/catalog/map_render_catalog.csv"
@@ -923,6 +924,17 @@ def main():
     else:
         runtime_spatial_summary = {"attached_count": 0, "attached": [], "new_graph_edges": 0}
 
+    # Native out-of-bounds return is not an ordinary VM 0x56 candidate.
+    # Add precisely one new edge only after the raw frame-series and ROM
+    # bounds independently verify source cell and settled destination.
+    native_new_proof_file = TRANSITIONS / "pack4d_south_native_return_20261011.json"
+    if native_new_proof_file.exists():
+        transition_candidates, new_native_summary = inject_runtime_native_return(
+            transition_candidates,
+            json.loads(native_new_proof_file.read_text(encoding="utf-8")))
+    else:
+        new_native_summary = {"new_runtime_native_bound_edge_count": 0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -945,6 +957,7 @@ def main():
         "schema_version": 9,
         "kind": "shinmomo_structural_world",
         "runtime_spatial_proof_summary": runtime_spatial_summary,
+        "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),
         "asset_profiles": {
             "canonical": {"visibility": "local_only", "fallback": False},

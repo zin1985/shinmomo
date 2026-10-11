@@ -102,3 +102,15 @@ and world (52,233) -> another map (17,37). The app does NOT change
 their strong_candidate opcode confidence, or treat a source coordinate
 as a universal story predicate. The CPU instruction PC is unproven.
 See docs/analysis/runtime_spatial_two_entrances_20261011.md.
+
+
+## Runtime native return from pack 0x4D to world (2026-10-11)
+
+A new, independent 57th Viewer edge now represents the actually
+observed south-boundary saved-map return from cfg_t04_l006_v2
+(17,37) to world cfg_t01_l001_v1 (52,233). The source native bounds
+are x1..46/y1..37; crossing at x17,y38 and the return at emulator
+frame 663387 were verified by frame-end WRAM. This is NOT a
+captured VM0x56 execution event and story predicates remain unknown.
+Do not generalize the one confirmed exit cell to the entire corridor.
+See docs/analysis/pack4d_world_native_return_20261011.md.

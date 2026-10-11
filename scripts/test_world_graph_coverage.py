@@ -48,7 +48,7 @@ class WorldGraphAuditTests(unittest.TestCase):
         world=json.loads((ROOT/"viewer/data/world.json").read_text(encoding="utf-8"))
         d=audit(world)
         self.assertEqual(d["bound_edge_count"],len(world["transition_edges"]))
-        self.assertEqual(d["native_boundary_context_count"],2)
+        self.assertEqual(d["native_boundary_context_count"],3)
         self.assertEqual(d["edges_with_unknown_current_activation"],d["bound_edge_count"])
         self.assertEqual(d["map_count"],len(world["maps"]))
 

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "kind": "verified_native_boundary_return_new_edge",
+  "canonical_rom_sha256": "F6A345E2F07F0CBC4EFF7D4FF06AE88A814A98FDF100C7BF7351168C73916A98",
+  "source_config_id": "cfg_t04_l006_v2",
+  "source_pack": "0x4D",
+  "confirmed_source_inside_cell": {
+    "x": 17,
+    "y": 37
+  },
+  "first_outside_cell": {
+    "x": 17,
+    "y": 38
+  },
+  "first_outside_frame": 663382,
+  "native_bounds_opcode_address": "CC:18AB",
+  "native_bounds": {
+    "x_min": 1,
+    "x_max": 46,
+    "y_min": 1,
+    "y_max": 37
+  },
+  "native_bounds_confidence": "confirmed_static_opcode52_bounds",
+  "destination_config_id": "cfg_t01_l001_v1",
+  "destination_pack": "0x4C",
+  "settled_arrival": {
+    "x": 52,
+    "y": 233
+  },
+  "switch_frame": 663387,
+  "selector_convergence_frame": 663414,
+  "stable_observed_until_frame": 663523,
+  "input_frames": 25,
+  "neutral_frames": 120,
+  "source_context_from_independent_world_entry_proof": "data/maps/transitions/world_52_233_entry_verified_20261011.json",
+  "return_mechanism": "native_bounds_saved_map_restore_runtime_consistent",
+  "CPU_handler_PC_observed": false,
+  "VM_opcode_56_executed_proven": false,
+  "full_south_exit_width_proven": false,
+  "all_story_states_navigable_proven": false,
+  "raw_w0306_converged_to_destination": false,
+  "new_edge_runtime_source_unique": true,
+  "confidence": "confirmed_runtime_2way_position",
+  "local_raw_capture_sha256": {
+    "input": "FD3087EC167CEF87405684E722FC8B283A8306DA1825D94199BF0DA01C07FFB4",
+    "neutral": "E2F93B27EFFD84014D3941CF1D45AB8322477E6A18FD542A4934A11A54D4A819"
+  },
+  "raw_traces_committed": false
+}

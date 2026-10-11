@@ -272,3 +272,18 @@ Proven repeatable examples:
 See tools/python/verify_spatial_event_transition.py and
 docs/analysis/runtime_spatial_two_entrances_20261011.md.
 Raw trace files and local savestates stay outside Git.
+
+
+## Pack4D native return verified in the hidden lab
+
+Save state: vmtrace_pack4d_south_ready_x17_y37_20261011.State
+(LOCAL-only after waiting until game input is accepted). Execute
+25 frames Down, then 120 frames neutral with frame-series v2.
+At frame 663382 the character steps outside the ROM-confirmed
+native bound y37 into y38; frame 663387 switches pack4D to world
+pack4C at (52,233); context converges at 663414.
+Verify LOCAL captures with:
+tools/python/verify_native_pack4d_world_return.py.
+
+No ROM, screenshots, SaveRAM, savestates or raw trace JSONs are
+uploaded to Git. Restore the protected hidden emulator savestate.
