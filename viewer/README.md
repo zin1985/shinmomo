@@ -172,3 +172,22 @@ trigger a switch in two locally-cheated up/down gamepad probes, but
 absence of a trigger in all story phases is NOT established.
 Graph: 149 maps, 60 bound edges, 1297 candidates. See
 docs/analysis/pack95_reverse_stair_and_second_ladder_20261011.md.
+
+
+## 37 verified gamepad entrances and 25 on-screen place names
+
+ROM world hotspot probes tested 40 entries using a disclosed analysis
+coordinate cheat to reach the adjacent world cell, followed by a real
+SNES Up controller step onto the source trigger. 37 destination pack
+switches matched the ROM catalog; 36 distinct packs and 32 configs.
+Twenty-five exact config+pack-specific Japanese location names are
+proven by local screenshot hashes; 23 were newly attached here.
+Five formerly unknown destination coordinates were filled on existing
+candidates, including cave pack0x96 at (39,17).
+There are still 149 maps, 60 edges, 1297 candidates. Three failed
+local trials are NOT general proof of no trigger. No natural world
+path, all-story-state access, exact opcode execution PC or Hien
+casting was established.
+
+Full table and scope:
+docs/analysis/world_37_entries_25_visible_places_20261011.md

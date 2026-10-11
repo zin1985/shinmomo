@@ -1,0 +1,975 @@
+{
+  "schema_version": 1,
+  "kind": "world_gamepad_entrances_visible_title_pack_scoped",
+  "source_world_entrance_ledger": "data/maps/transitions/world_37_gamepad_entrances_after_cheat_20261011.json",
+  "existing_two_individual_title_proofs_not_duplicated": [
+    "0x4D",
+    "0x91"
+  ],
+  "all_25_onscreen_title_contexts": [
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l006_v2",
+      "runtime_pack_id_hex": "0x4D",
+      "onscreen_title": "桃太郎の生家",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0746",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 17,
+        "y": 37
+      },
+      "screenshot_sha256": "336AEC83F907E31F16C10528C1F53E6999859104DA3E87CB892B8F3535CBE7E6",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5A",
+      "onscreen_title": "すずめのお宿1",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0752",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "6CC8AE14B90DDD8E1587326C7E452AE78A809E2C77DA08A6D9F568FDE2C84895",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5B",
+      "onscreen_title": "すずめのお宿2",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0762",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "3B19FEB130E077E699B20BE6360BE17676ED6DB87E155C6775BA4327C6070398",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5D",
+      "onscreen_title": "すずめのお宿5",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0786",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "539693B74753D4BAAD034CF3E7D0A184A4C39CBA0265B4F836DA76ED5DD74413",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5E",
+      "onscreen_title": "すずめのお宿6",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0795",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "826CABE45899654B1481C4E3FDDE75CBE462D323CC6A3236B20839EB6A92E7E8",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t06_l021_v2",
+      "runtime_pack_id_hex": "0x5F",
+      "onscreen_title": "すずめのお宿7",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0796",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "95D225AB27A0A52D88B78FFFC4606127E7AE28C9240AD0A43F0793A994DC7F68",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l044_v2",
+      "runtime_pack_id_hex": "0x65",
+      "onscreen_title": "ほほえみの村",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0773",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 58,
+        "y": 55
+      },
+      "screenshot_sha256": "5ECAA1DF5348341FA57F83F572B826AC006486778C711F4F2E54DBEF8CD8318C",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t05_l042_v2",
+      "runtime_pack_id_hex": "0x6B",
+      "onscreen_title": "寝太郎の村",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0771",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 72
+      },
+      "screenshot_sha256": "0216FC089997DC89099CE8D2827242F185D6BF8A612BE51E3E32EE5DF120315A",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t05_l041_v2",
+      "runtime_pack_id_hex": "0x7A",
+      "onscreen_title": "でか太郎の庵",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0768",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 15,
+        "y": 39
+      },
+      "screenshot_sha256": "C07BAFE7AD4944CA425A384DB57BE6EF5A5F1B278955BD49E0FBD5D73F04B8F5",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t39_l156_v1",
+      "runtime_pack_id_hex": "0x7C",
+      "onscreen_title": "桃葉山",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0753",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 78
+      },
+      "screenshot_sha256": "8E8DB785419C8068B58D85582CAE328BA1A41ABC84AC62ACCFB52BD3180EFA9D",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t05_l020_v2",
+      "runtime_pack_id_hex": "0x80",
+      "onscreen_title": "すずめのお宿4",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0781",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "E50882E267EBCE435913DA5B0A41BEF79D910DDB0C558422A6EA7688F9FE695D",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l070_v2",
+      "runtime_pack_id_hex": "0x83",
+      "onscreen_title": "竹取の村",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0797",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 33,
+        "y": 55
+      },
+      "screenshot_sha256": "98BB99CCAD520F329DDC3355C963709ADD5145DAE246265D4F6490B10799A301",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t44_l167_v1",
+      "runtime_pack_id_hex": "0x87",
+      "onscreen_title": "神々の里",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0777",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 30,
+        "y": 53
+      },
+      "screenshot_sha256": "9410875802B10EC2119078D96BE3E71BCF67D1018576BF4ADF933D156CD384C7",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t56_l194_v1",
+      "runtime_pack_id_hex": "0x8A",
+      "onscreen_title": "びろーんの森",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0776",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 30,
+        "y": 56
+      },
+      "screenshot_sha256": "CAE261415C9CB72180840C94205FF622C78F15DD382B80947AED7107FA624A0C",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l062_v2",
+      "runtime_pack_id_hex": "0x8C",
+      "onscreen_title": "はらだしの里",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0792",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 31,
+        "y": 48
+      },
+      "screenshot_sha256": "41FB9A8B83D21C00156154E8C0300873BDD75E5D338197C9A61320AB5FE14164",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l060_v1",
+      "runtime_pack_id_hex": "0x8E",
+      "onscreen_title": "神仙郷",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0801",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 31,
+        "y": 69
+      },
+      "screenshot_sha256": "BFAEA8AE8C5D38658342F44D2607151936356CBE94BE7AEB9658F528C7BF8779",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t08_l092_v2",
+      "runtime_pack_id_hex": "0x91",
+      "onscreen_title": "おむすびころりん",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0750",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 71,
+        "y": 59
+      },
+      "screenshot_sha256": "403BE0D1A45A98A513EA034F4CF7E501DE97DCD7F5A84254CF629D292EEE3825",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t09_l097_v2",
+      "runtime_pack_id_hex": "0x98",
+      "onscreen_title": "音無しの洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0757",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 183,
+        "y": 29
+      },
+      "screenshot_sha256": "AC4914CA73CFACBE2CA685D08BA551DF35263285D725014C3B650514D81E0427",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t24_l125_v2",
+      "runtime_pack_id_hex": "0x9E",
+      "onscreen_title": "大江山",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0766",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 7,
+        "y": 26
+      },
+      "screenshot_sha256": "55EB6619C2ADD3A410E86E80860AC4E58E6814EDCD1311000B9CA1A7862D5F89",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t26_l131_v1",
+      "runtime_pack_id_hex": "0xA9",
+      "onscreen_title": "氷の塔",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0770",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 184,
+        "y": 23
+      },
+      "screenshot_sha256": "E201A214EB9F2C9F7C80D4B419A13027C40990CAB9B95C146424D80F5662C8DB",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t49_l176_v2",
+      "runtime_pack_id_hex": "0xAB",
+      "onscreen_title": "怨みの洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0774",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 22,
+        "y": 5
+      },
+      "screenshot_sha256": "D2A6B916164CEC7D4C35BB1162878E8DBC4880270A13F0DD1770EE4CD4D9DD36",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t34_l148_v1",
+      "runtime_pack_id_hex": "0xAD",
+      "onscreen_title": "伏龍の洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0782",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 7,
+        "y": 30
+      },
+      "screenshot_sha256": "D5515AA831046AC7A9DC3E8E4FB13A631D082B5F9355EF6F35F5B6838324EC11",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t29_l138_v2",
+      "runtime_pack_id_hex": "0xB1",
+      "onscreen_title": "鬼の牢獄",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0789",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 224,
+        "y": 40
+      },
+      "screenshot_sha256": "C035A1BCCD513DF2F25A81FBABE58C4287DE2750D7FA01800E748F555E1B5460",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t25_l129_v2",
+      "runtime_pack_id_hex": "0xB9",
+      "onscreen_title": "虹の洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0803",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 68,
+        "y": 25
+      },
+      "screenshot_sha256": "D36A91AD9FEA4FC2DF89F46300AEC6EF76B53FD1AD44E6D8A296AF704F2E146C",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t36_l150_v2",
+      "runtime_pack_id_hex": "0xBD",
+      "onscreen_title": "鬼が島",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0802",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 15,
+        "y": 37
+      },
+      "screenshot_sha256": "D8038AB31C437706F0B330E9DA4EBA769B9E798F9CD313618B47C29BA179AF27",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    }
+  ],
+  "new_title_proofs": [
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5A",
+      "onscreen_title": "すずめのお宿1",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0752",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "6CC8AE14B90DDD8E1587326C7E452AE78A809E2C77DA08A6D9F568FDE2C84895",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5B",
+      "onscreen_title": "すずめのお宿2",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0762",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "3B19FEB130E077E699B20BE6360BE17676ED6DB87E155C6775BA4327C6070398",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5D",
+      "onscreen_title": "すずめのお宿5",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0786",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "539693B74753D4BAAD034CF3E7D0A184A4C39CBA0265B4F836DA76ED5DD74413",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l018_v2",
+      "runtime_pack_id_hex": "0x5E",
+      "onscreen_title": "すずめのお宿6",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0795",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "826CABE45899654B1481C4E3FDDE75CBE462D323CC6A3236B20839EB6A92E7E8",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t06_l021_v2",
+      "runtime_pack_id_hex": "0x5F",
+      "onscreen_title": "すずめのお宿7",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0796",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "95D225AB27A0A52D88B78FFFC4606127E7AE28C9240AD0A43F0793A994DC7F68",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l044_v2",
+      "runtime_pack_id_hex": "0x65",
+      "onscreen_title": "ほほえみの村",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0773",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 58,
+        "y": 55
+      },
+      "screenshot_sha256": "5ECAA1DF5348341FA57F83F572B826AC006486778C711F4F2E54DBEF8CD8318C",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t05_l042_v2",
+      "runtime_pack_id_hex": "0x6B",
+      "onscreen_title": "寝太郎の村",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0771",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 72
+      },
+      "screenshot_sha256": "0216FC089997DC89099CE8D2827242F185D6BF8A612BE51E3E32EE5DF120315A",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t05_l041_v2",
+      "runtime_pack_id_hex": "0x7A",
+      "onscreen_title": "でか太郎の庵",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0768",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 15,
+        "y": 39
+      },
+      "screenshot_sha256": "C07BAFE7AD4944CA425A384DB57BE6EF5A5F1B278955BD49E0FBD5D73F04B8F5",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t39_l156_v1",
+      "runtime_pack_id_hex": "0x7C",
+      "onscreen_title": "桃葉山",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0753",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 78
+      },
+      "screenshot_sha256": "8E8DB785419C8068B58D85582CAE328BA1A41ABC84AC62ACCFB52BD3180EFA9D",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t05_l020_v2",
+      "runtime_pack_id_hex": "0x80",
+      "onscreen_title": "すずめのお宿4",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0781",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 24,
+        "y": 40
+      },
+      "screenshot_sha256": "E50882E267EBCE435913DA5B0A41BEF79D910DDB0C558422A6EA7688F9FE695D",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l070_v2",
+      "runtime_pack_id_hex": "0x83",
+      "onscreen_title": "竹取の村",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0797",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 33,
+        "y": 55
+      },
+      "screenshot_sha256": "98BB99CCAD520F329DDC3355C963709ADD5145DAE246265D4F6490B10799A301",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t44_l167_v1",
+      "runtime_pack_id_hex": "0x87",
+      "onscreen_title": "神々の里",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0777",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 30,
+        "y": 53
+      },
+      "screenshot_sha256": "9410875802B10EC2119078D96BE3E71BCF67D1018576BF4ADF933D156CD384C7",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t56_l194_v1",
+      "runtime_pack_id_hex": "0x8A",
+      "onscreen_title": "びろーんの森",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0776",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 30,
+        "y": 56
+      },
+      "screenshot_sha256": "CAE261415C9CB72180840C94205FF622C78F15DD382B80947AED7107FA624A0C",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l062_v2",
+      "runtime_pack_id_hex": "0x8C",
+      "onscreen_title": "はらだしの里",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0792",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 31,
+        "y": 48
+      },
+      "screenshot_sha256": "41FB9A8B83D21C00156154E8C0300873BDD75E5D338197C9A61320AB5FE14164",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t04_l060_v1",
+      "runtime_pack_id_hex": "0x8E",
+      "onscreen_title": "神仙郷",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0801",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 31,
+        "y": 69
+      },
+      "screenshot_sha256": "BFAEA8AE8C5D38658342F44D2607151936356CBE94BE7AEB9658F528C7BF8779",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t09_l097_v2",
+      "runtime_pack_id_hex": "0x98",
+      "onscreen_title": "音無しの洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0757",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 183,
+        "y": 29
+      },
+      "screenshot_sha256": "AC4914CA73CFACBE2CA685D08BA551DF35263285D725014C3B650514D81E0427",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t24_l125_v2",
+      "runtime_pack_id_hex": "0x9E",
+      "onscreen_title": "大江山",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0766",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 7,
+        "y": 26
+      },
+      "screenshot_sha256": "55EB6619C2ADD3A410E86E80860AC4E58E6814EDCD1311000B9CA1A7862D5F89",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t26_l131_v1",
+      "runtime_pack_id_hex": "0xA9",
+      "onscreen_title": "氷の塔",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0770",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 184,
+        "y": 23
+      },
+      "screenshot_sha256": "E201A214EB9F2C9F7C80D4B419A13027C40990CAB9B95C146424D80F5662C8DB",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t49_l176_v2",
+      "runtime_pack_id_hex": "0xAB",
+      "onscreen_title": "怨みの洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0774",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 22,
+        "y": 5
+      },
+      "screenshot_sha256": "D2A6B916164CEC7D4C35BB1162878E8DBC4880270A13F0DD1770EE4CD4D9DD36",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t34_l148_v1",
+      "runtime_pack_id_hex": "0xAD",
+      "onscreen_title": "伏龍の洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0782",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 7,
+        "y": 30
+      },
+      "screenshot_sha256": "D5515AA831046AC7A9DC3E8E4FB13A631D082B5F9355EF6F35F5B6838324EC11",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t29_l138_v2",
+      "runtime_pack_id_hex": "0xB1",
+      "onscreen_title": "鬼の牢獄",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0789",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 224,
+        "y": 40
+      },
+      "screenshot_sha256": "C035A1BCCD513DF2F25A81FBABE58C4287DE2750D7FA01800E748F555E1B5460",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t25_l129_v2",
+      "runtime_pack_id_hex": "0xB9",
+      "onscreen_title": "虹の洞窟",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0803",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 68,
+        "y": 25
+      },
+      "screenshot_sha256": "D36A91AD9FEA4FC2DF89F46300AEC6EF76B53FD1AD44E6D8A296AF704F2E146C",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    },
+    {
+      "kind": "runtime_onscreen_location_title_proof",
+      "map_config_id": "cfg_t36_l150_v2",
+      "runtime_pack_id_hex": "0xBD",
+      "onscreen_title": "鬼が島",
+      "presentation_kind": "in_game_location_overlay_after_controller_entrance",
+      "source_transition_id": "catalog_transition_0802",
+      "source_world_cheat_positioned": true,
+      "gamepad_event_to_destination_observed": true,
+      "source_position": {
+        "x": 15,
+        "y": 37
+      },
+      "screenshot_sha256": "D8038AB31C437706F0B330E9DA4EBA769B9E798F9CD313618B47C29BA179AF27",
+      "screenshot_committed": false,
+      "applies_to_all_configs_sharing_tileset_layout": false,
+      "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+      "all_story_phases_location_identity_proven": false,
+      "normal_world_route_proven": false
+    }
+  ],
+  "raw_screenshots_committed": false,
+  "never_infer_from_equal_tilemap_layout": true
+}

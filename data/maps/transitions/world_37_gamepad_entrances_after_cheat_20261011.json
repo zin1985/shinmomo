@@ -1,0 +1,1407 @@
+{
+  "schema_version": 1,
+  "kind": "strict_37_world_scene_entrance_batch_replay_20261011",
+  "source_map_config_id": "cfg_t01_l001_v1",
+  "world_pack": "0x4C",
+  "base_analysis_state": "analysis_world_lv60_hien_20261011.State",
+  "world_hien_spell_unlocked": true,
+  "Hien_spell_cast_for_these_entries": false,
+  "source_world_xy_cheat_positioned": true,
+  "map_switch_triggered_by_real_controller": true,
+  "normal_world_walking_routes_proven": false,
+  "SNES_CPU_opcode_pc_observed": false,
+  "all_story_states_accessible_proven": false,
+  "total_attempted_hotspots": 40,
+  "successful_gamepad_world_to_ROM_pack": 37,
+  "failed_to_switch_this_local_attempt": 3,
+  "unique_runtime_scene_packs": 36,
+  "unique_runtime_map_configs": 32,
+  "distinct_onscreen_named_pack_contexts": 25,
+  "new_onscreen_named_pack_contexts_for_viewer": 23,
+  "no_raw_image_savestate_ROM_or_frame_json_committed": true,
+  "underlying_emulator_restored_after_each_of_6_batches": true,
+  "entries": [
+    {
+      "transition_id": "catalog_transition_0746",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 52,
+        "y": 233,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 52,
+        "y": 234
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663079,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l006_v2",
+      "destination_pack": "0x4D",
+      "settled_arrival_xy": {
+        "x": 17,
+        "y": 37
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "336AEC83F907E31F16C10528C1F53E6999859104DA3E87CB892B8F3535CBE7E6",
+      "local_raw_input_sha256": "FB63B2017BB301D5E7ACDFBFE69CA040E403ED2E5A86EBD3841729D2CF2806D0",
+      "local_raw_neutral_sha256": "5C70C10256185CA0B1CA63A06027941C0E30581F6C703E95AE8758651224B6EC",
+      "local_raw_second_neutral_sha256": "7D318F40B555988C7CBA9084C586A966E25B598FAE484551452ECDE8F615C0A5",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "桃太郎の生家"
+    },
+    {
+      "transition_id": "catalog_transition_0750",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 47,
+        "y": 199,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 47,
+        "y": 200
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663079,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t08_l092_v2",
+      "destination_pack": "0x91",
+      "settled_arrival_xy": {
+        "x": 71,
+        "y": 59
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "403BE0D1A45A98A513EA034F4CF7E501DE97DCD7F5A84254CF629D292EEE3825",
+      "local_raw_input_sha256": "9B43224B3FAAFD3DDA78C1786F6D3953B12E2E2EC8E647C9C9F1B535BC69CA6A",
+      "local_raw_neutral_sha256": "B9970E4C272B27C0A285878ABBC9702033DAD5548DBF85B35D50A9842E40BD8C",
+      "local_raw_second_neutral_sha256": "095A1EA04E59773B64916E22E8E8403A845B488C1B68DEFAA304A11A5F636A64",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "おむすびころりん"
+    },
+    {
+      "transition_id": "catalog_transition_0773",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 195,
+        "y": 60,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 195,
+        "y": 61
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l044_v2",
+      "destination_pack": "0x65",
+      "settled_arrival_xy": {
+        "x": 58,
+        "y": 55
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "5ECAA1DF5348341FA57F83F572B826AC006486778C711F4F2E54DBEF8CD8318C",
+      "local_raw_input_sha256": "14841E421021F8D81CA98638BCE2BE2B05C7A7D6CB04763D14C9EB39B18E5810",
+      "local_raw_neutral_sha256": "455772B61B6048C0D77B2381FAE109E40206ED52C070A5C29EF9D6930BDE8C5D",
+      "local_raw_second_neutral_sha256": "9D259B2F3713DAAFAEE23B9D518F01B5A691C520C1B27042D6A60A2F800B7077",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "ほほえみの村"
+    },
+    {
+      "transition_id": "catalog_transition_0755",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 59,
+        "y": 155,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 59,
+        "y": 156
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663080,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l035_v2",
+      "destination_pack": "0x60",
+      "settled_arrival_xy": {
+        "x": 37,
+        "y": 56
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "BB64ACED1B3CA16AFECD364B32D367722C1C632BA4C582572AEC354AB31DAED3",
+      "local_raw_input_sha256": "8E3492A0374BFF9B8C4FF877FC377B453C59CEFD60B65A6941854F7E3851C33F",
+      "local_raw_neutral_sha256": "6ACA5391E86319D90CBCFAC8A793C237999A0A7B34C26F017D74E565C96F1A67",
+      "local_raw_second_neutral_sha256": "9A3885F50A3DAF7678118EC6331822CCBA55DFCA3E7333321966481D9C1E5E41",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0791",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 175,
+        "y": 189,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 175,
+        "y": 190
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663083,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l059_v2",
+      "destination_pack": "0x82",
+      "settled_arrival_xy": {
+        "x": 40,
+        "y": 59
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "B6C680035C2169852542772EB629E3B7AAB8170C7E3DFC3E11B691024887FC6E",
+      "local_raw_input_sha256": "B4F3D755AEEE6D765F270D08DE559FCE9B2D10625165EBB9DDFCEC5BA734BFAD",
+      "local_raw_neutral_sha256": "03C9A9E6A386059A118DC0A0250D6A75B7C60099AD3E33DD3ED3E3998B86EE81",
+      "local_raw_second_neutral_sha256": "AC4560508F2C5AD70EB206D39594797AB0952D9FAB054ECBD5FB50817B8A1B2A",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0797",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 127,
+        "y": 195,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 127,
+        "y": 196
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l070_v2",
+      "destination_pack": "0x83",
+      "settled_arrival_xy": {
+        "x": 33,
+        "y": 55
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "98BB99CCAD520F329DDC3355C963709ADD5145DAE246265D4F6490B10799A301",
+      "local_raw_input_sha256": "786B7338A94694CD94D332634CFCC536BA678112625A77560D7A78EB62CEF0AA",
+      "local_raw_neutral_sha256": "FDB133C2B74BC28C91346E45F2AD1581F3474499E6E597C94EC95EA3F01DCB70",
+      "local_raw_second_neutral_sha256": "3B68A255778EC26DD0834BD581B88B0016E67FC461820D62EC069498DA237974",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "竹取の村"
+    },
+    {
+      "transition_id": "catalog_transition_0801",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 160,
+        "y": 4,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 160,
+        "y": 5
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l060_v1",
+      "destination_pack": "0x8E",
+      "settled_arrival_xy": {
+        "x": 31,
+        "y": 69
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "BFAEA8AE8C5D38658342F44D2607151936356CBE94BE7AEB9658F528C7BF8779",
+      "local_raw_input_sha256": "478186F77237A798BA5C07A323E46ADE5BC9B7EB9A068AD95D096BF2328E03A7",
+      "local_raw_neutral_sha256": "04A849A31040049960A803A10F781ABE719C30D24C1DAF76FB0E0C08F7988087",
+      "local_raw_second_neutral_sha256": "D142996819598FD1C57797526DF83DDB105BE0D54FAC4251F9D527BD3D411CB8",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "神仙郷"
+    },
+    {
+      "transition_id": "catalog_transition_0752",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 43,
+        "y": 162,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 43,
+        "y": 163
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663079,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l018_v2",
+      "destination_pack": "0x5A",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "6CC8AE14B90DDD8E1587326C7E452AE78A809E2C77DA08A6D9F568FDE2C84895",
+      "local_raw_input_sha256": "E60F41D67DC6FF5497803FD9396ADA359EAA1BD67B48F7D446FD9A59572BF332",
+      "local_raw_neutral_sha256": "776FD1557AA9C8DAA954B6831C133F0A567F9041207379106666ACEFBD5F1A99",
+      "local_raw_second_neutral_sha256": "81426405590D523A7517A78A2EB832C04A3D62493BEABCBFE3FDDFD7A874216F",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "すずめのお宿1"
+    },
+    {
+      "transition_id": "catalog_transition_0762",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 94,
+        "y": 131,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 94,
+        "y": 132
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663080,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l018_v2",
+      "destination_pack": "0x5B",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "3B19FEB130E077E699B20BE6360BE17676ED6DB87E155C6775BA4327C6070398",
+      "local_raw_input_sha256": "A4488DC2301D6E82233F86C8CA60CC5C7DF8E3F029F6B1D10899BEE1E810254B",
+      "local_raw_neutral_sha256": "D7AA0F92EDB745C2DBCD0A419AC37287F6A80975FBC2D0C32C9E71DB5596BE22",
+      "local_raw_second_neutral_sha256": "7FFC017D835F7CC42A20CD36839AA0E6F55FAEDA99BB696E98E4E3F9E69D1E4D",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "すずめのお宿2"
+    },
+    {
+      "transition_id": "catalog_transition_0786",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 209,
+        "y": 119,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 209,
+        "y": 120
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663083,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l018_v2",
+      "destination_pack": "0x5D",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "539693B74753D4BAAD034CF3E7D0A184A4C39CBA0265B4F836DA76ED5DD74413",
+      "local_raw_input_sha256": "6EA57E41F7323845F2556D9B6C7B1EA1944E8F730F2979F3CA8917AD9FFE4FE7",
+      "local_raw_neutral_sha256": "8CC937F3A665806FD499FE8335A8A4AA4836E951B8E72F2F8C82C5BF68920C4D",
+      "local_raw_second_neutral_sha256": "F89958093364FC7E261AC19DCC68BB24094A7B3F9CCC5105438A1F2D01AD4CFB",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "すずめのお宿5"
+    },
+    {
+      "transition_id": "catalog_transition_0795",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 174,
+        "y": 172,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 174,
+        "y": 173
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663083,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l018_v2",
+      "destination_pack": "0x5E",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "826CABE45899654B1481C4E3FDDE75CBE462D323CC6A3236B20839EB6A92E7E8",
+      "local_raw_input_sha256": "9A6ACC4C296E4141BE5CC475FB133F525B491CA214DBC6320B07CAF27E6A4D3F",
+      "local_raw_neutral_sha256": "E8C625C2E9476B00833FB4A38A10F8978E639695BC5897F397B022ABF26BA224",
+      "local_raw_second_neutral_sha256": "4C47706A94FE45DE6907646BA49805EB4CA7077C7739761541C7437BC1A7E1DB",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "すずめのお宿6"
+    },
+    {
+      "transition_id": "catalog_transition_0796",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 144,
+        "y": 184,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 144,
+        "y": 185
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t06_l021_v2",
+      "destination_pack": "0x5F",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "95D225AB27A0A52D88B78FFFC4606127E7AE28C9240AD0A43F0793A994DC7F68",
+      "local_raw_input_sha256": "8059F579B0A3E0F642789A165294674FAF6858B47DECA9845F12AAB092D25629",
+      "local_raw_neutral_sha256": "6CCC75A6A732F049EE6E78201B86EB4C01D55A91FEA8E1BF482178F9F05D8AB4",
+      "local_raw_second_neutral_sha256": "EDB4222B1AC5507553D192B8069AE51B084A05FB69B9B2089AE38C7C5C30AD96",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "すずめのお宿7"
+    },
+    {
+      "transition_id": "catalog_transition_0760",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 44,
+        "y": 115,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 44,
+        "y": 116
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663080,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t06_l038_v2",
+      "destination_pack": "0x68",
+      "settled_arrival_xy": {
+        "x": 36,
+        "y": 72
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "118A8FD49E97B6EFA57BF06C7B6F2A54ACC534D42331EAB17D335B077C70A595",
+      "local_raw_input_sha256": "1CDA793BA74EE31C448731E8EC649B2197BEE6100A08037C3A4332FFC42B15BA",
+      "local_raw_neutral_sha256": "9F9468402E8227CC8468C9CBCFCD34CAD862F35B4F16DE57851E569554A06405",
+      "local_raw_second_neutral_sha256": "298941F9CC3A66052CE1654327D6035640405C428F3AF68F0DD66D10A7893B18",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0764",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 79,
+        "y": 187,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 79,
+        "y": 188
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663080,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t06_l040_v2",
+      "destination_pack": "0x6A",
+      "settled_arrival_xy": {
+        "x": 41,
+        "y": 72
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "7EE9007E9916173C58FA07E8A07370A181CED75FE17F641188B9FB8FB2FB66B9",
+      "local_raw_input_sha256": "1EDDB7FF437D9FBD8D6A4D75BAE8D4144501EA6AFD8A3226770D2ED14E0B9DF3",
+      "local_raw_neutral_sha256": "920CECF727F5A11BF32A13EA5E96C53822EE6E4F0B84AFBA4009BCA83350B085",
+      "local_raw_second_neutral_sha256": "A17E1209419ACE9557C09E1074813200B0B9BD1BCCD7201FD23C5B319E4D297B",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0771",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 140,
+        "y": 33,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 140,
+        "y": 34
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t05_l042_v2",
+      "destination_pack": "0x6B",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 72
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "0216FC089997DC89099CE8D2827242F185D6BF8A612BE51E3E32EE5DF120315A",
+      "local_raw_input_sha256": "9B0AE81BC9359BB7DDA5998E725038C054D8D9954E101B9A05D296DC372AC254",
+      "local_raw_neutral_sha256": "6808340BA9094E061848692ECC1955B8E36E49A639936772B33F34F9F7BE6CEC",
+      "local_raw_second_neutral_sha256": "41971084170F99ED74DEC94C61BC9ECF4BB817837A76D767098A44E3DD751B78",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "寝太郎の村"
+    },
+    {
+      "transition_id": "catalog_transition_0772",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 144,
+        "y": 33,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 144,
+        "y": 34
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t05_l043_v2",
+      "destination_pack": "0x6E",
+      "settled_arrival_xy": {
+        "x": 58,
+        "y": 55
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "E3E2E81790BB1A5398B429D19D3A8836D9396EB709512E8DB7C274027EDEE42F",
+      "local_raw_input_sha256": "4248A8EDBC486DDE143C8F9DFBCEF98243B84D3E6683ABDCFF3DD2F344F9341F",
+      "local_raw_neutral_sha256": "1BA09C9CFB2D7E421470D078B850A7C3EA1B0A027EA9BB0274E08F804EBC28FE",
+      "local_raw_second_neutral_sha256": "99F24E1A01938A9A47B35A3D86A07A4B4A63CCEC7FA0B7979BC1D8A66954CD12",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0781",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 231,
+        "y": 31,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 231,
+        "y": 32
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663082,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t05_l020_v2",
+      "destination_pack": "0x80",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "E50882E267EBCE435913DA5B0A41BEF79D910DDB0C558422A6EA7688F9FE695D",
+      "local_raw_input_sha256": "FB16B46E0AEDD9E2884692DA7C577A9E36816E27144C943F136BD864E2C7F34F",
+      "local_raw_neutral_sha256": "6CBD9E48CED17A7C8E9A660CE93546D1F7B6F8184A27BA310A4B442FEE90A661",
+      "local_raw_second_neutral_sha256": "7ACED094F39D228C8D45FF8E3B0FDF1F15FEAFC2A5DD4101A143B633E65BA6D6",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "すずめのお宿4"
+    },
+    {
+      "transition_id": "catalog_transition_0788",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 192,
+        "y": 176,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 192,
+        "y": 177
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663083,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l058_v2",
+      "destination_pack": "0x81",
+      "settled_arrival_xy": {
+        "x": 37,
+        "y": 15
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "28E6C4B1D3053A6E4249E97044FB4767D8A5ED10521F318BF8BB03B3151E5FD2",
+      "local_raw_input_sha256": "4C33407FF36D36BB2EFEC8860440210FCC13628DC9617DC44E6D8ECE3D3DEF68",
+      "local_raw_neutral_sha256": "8567D22E131F10533561996577A8D4343AF6323553CC6AC719686345F7C47615",
+      "local_raw_second_neutral_sha256": "A2F733B77F9DB32AA15BC68389FDDF6F6702FDE85EC4646DB17B62185A4E5EA3",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0792",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 199,
+        "y": 225,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 199,
+        "y": 226
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663083,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l062_v2",
+      "destination_pack": "0x8C",
+      "settled_arrival_xy": {
+        "x": 31,
+        "y": 48
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "41FB9A8B83D21C00156154E8C0300873BDD75E5D338197C9A61320AB5FE14164",
+      "local_raw_input_sha256": "D7DC71AE00B91CE6EF7FE145531E2573ACEEDA137ACC086A6285FCC6783A9BE0",
+      "local_raw_neutral_sha256": "FDFB37CB203E4696406B8C26D1E483C23CC29F02C94F8AAE6291B5338AC64B04",
+      "local_raw_second_neutral_sha256": "7188EE84475332D13BBC035D8E50635EB351D54AFC295B86786F2F74A1FBB1E2",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "はらだしの里"
+    },
+    {
+      "transition_id": "catalog_transition_0799",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 241,
+        "y": 244,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 241,
+        "y": 245
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l081_v2",
+      "destination_pack": "0x90",
+      "settled_arrival_xy": {
+        "x": 23,
+        "y": 39
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "70317A5E066920E9A05265F64E5B50C90B2D2BCC63A6741F209241A155A0E5C0",
+      "local_raw_input_sha256": "BBE16377F9268270A87816FDE05810B8667FB6B09A384DE528BAFFA8458F2FF9",
+      "local_raw_neutral_sha256": "3D1AD385348FF570A67AF9A72DAD837520D7A0B46CD9EC796D8B9E611F113CE5",
+      "local_raw_second_neutral_sha256": "A7CFE51ACBCC98F5C47AB13E35CBA844C326452A5E9D010BB588F78AA77F2A1F",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0757",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 51,
+        "y": 122,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 51,
+        "y": 123
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663080,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t09_l097_v2",
+      "destination_pack": "0x98",
+      "settled_arrival_xy": {
+        "x": 183,
+        "y": 29
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "AC4914CA73CFACBE2CA685D08BA551DF35263285D725014C3B650514D81E0427",
+      "local_raw_input_sha256": "B4AD5F4635F87B29CD96C9EABB2E411EA9EACA4EE12BA7C42FB0042373D6F846",
+      "local_raw_neutral_sha256": "37BBD1821D03639471242ACF7AC7F110053464ADE576405C4E50D72D4EC0F74D",
+      "local_raw_second_neutral_sha256": "17266476B75D404D13A81349B6DC5753D10BDEEE00753595D73FDFCC36C6380A",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "音無しの洞窟"
+    },
+    {
+      "transition_id": "catalog_transition_0768",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 92,
+        "y": 48,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 92,
+        "y": 49
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t05_l041_v2",
+      "destination_pack": "0x7A",
+      "settled_arrival_xy": {
+        "x": 15,
+        "y": 39
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "C07BAFE7AD4944CA425A384DB57BE6EF5A5F1B278955BD49E0FBD5D73F04B8F5",
+      "local_raw_input_sha256": "7489A83E530C73A8B7D7B00DA83BB54F6E1CC0366CDCA6789F97783D39816A9F",
+      "local_raw_neutral_sha256": "32634E181A45A9A9951735338DF1467B2054F891BCCB5EFA2A0F64022206C63A",
+      "local_raw_second_neutral_sha256": "8F13377F09455F3EAF2DD3B01CDBC25C1FA77FB022FDC1B59CA12E6DD1661301",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "でか太郎の庵"
+    },
+    {
+      "transition_id": "catalog_transition_0777",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 217,
+        "y": 35,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 217,
+        "y": 36
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663082,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t44_l167_v1",
+      "destination_pack": "0x87",
+      "settled_arrival_xy": {
+        "x": 30,
+        "y": 53
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "9410875802B10EC2119078D96BE3E71BCF67D1018576BF4ADF933D156CD384C7",
+      "local_raw_input_sha256": "99481CE3BAC25BB7FD177461E8EA8BE0E1419129465AA0B238FB2D872102AB82",
+      "local_raw_neutral_sha256": "D99521D8A849BDFD258ED51ACFF521425C900F0B2C43837731FF27FF88562805",
+      "local_raw_second_neutral_sha256": "30CF7778BF02AAA37363D97AD91E4EEC88115F3C438F8C5ED598284FF60EE3C8",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "神々の里"
+    },
+    {
+      "transition_id": "catalog_transition_0776",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 209,
+        "y": 49,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 209,
+        "y": 50
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663082,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t56_l194_v1",
+      "destination_pack": "0x8A",
+      "settled_arrival_xy": {
+        "x": 30,
+        "y": 56
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "CAE261415C9CB72180840C94205FF622C78F15DD382B80947AED7107FA624A0C",
+      "local_raw_input_sha256": "519B42EE039C55D18B496B057AA1CEB589DAFEC445E71FCA05948D86EACD29C0",
+      "local_raw_neutral_sha256": "0A53E4EDB86C6944966BE9C34D43C94E17E62AAEE1D7C23A2AC3F484E8D17734",
+      "local_raw_second_neutral_sha256": "BF96B0812EC428A871E02297A767F6FFE4793CC6E5EA2712C00CF926CAB0CC0A",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "びろーんの森"
+    },
+    {
+      "transition_id": "catalog_transition_0756",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 50,
+        "y": 129,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 50,
+        "y": 130
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663080,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t09_l098_v2",
+      "destination_pack": "0x96",
+      "settled_arrival_xy": {
+        "x": 39,
+        "y": 17
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "C912C8C8A49FEFF861BDF820768AE9AF958BB2191D860EBB238970DC65207EC6",
+      "local_raw_input_sha256": "5F9847EE99DBD83CC8C64A6308A027E2C4F8FA214AC4747BBC86402D8935A464",
+      "local_raw_neutral_sha256": "CF8C74218263B011526EAF2BE5AF3F839725B360DD756C991E358EE2C59DF076",
+      "local_raw_second_neutral_sha256": "02888905B5E4943768602051B18D6CFC7E8838FA765B8ECE2CE76479545DA924",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0753",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 31,
+        "y": 147,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 31,
+        "y": 148
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663079,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t39_l156_v1",
+      "destination_pack": "0x7C",
+      "settled_arrival_xy": {
+        "x": 24,
+        "y": 78
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "8E8DB785419C8068B58D85582CAE328BA1A41ABC84AC62ACCFB52BD3180EFA9D",
+      "local_raw_input_sha256": "9D0D56BE1032680DCB263B1AEA76E62A1808BBB60441FE5F3511E3A780B8A057",
+      "local_raw_neutral_sha256": "D62D8861CA4A8DF17AF09FD0B93E253BB6B018D27B9B39821BB0BEFABF259E06",
+      "local_raw_second_neutral_sha256": "D1E4FC43DCB2708ACF665C0DA939E18CC3D75E7B619C5AB10B9091F21B7CE268",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "桃葉山"
+    },
+    {
+      "transition_id": "catalog_transition_0754",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 31,
+        "y": 142,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 31,
+        "y": 143
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663079,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t39_l156_v1",
+      "destination_pack": "0x7C",
+      "settled_arrival_xy": {
+        "x": 100,
+        "y": 70
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "9D5ECB9F77E1078822C5F44B58E8A7CA3C0FD3944815DA55A9792275E4C74C82",
+      "local_raw_input_sha256": "7ED30457114F3FF052A1C3CD904F4D5006C56F15D9C19E200A31412E89B2DCF6",
+      "local_raw_neutral_sha256": "8CC58FF333096C7B5284998255D18570E8F9663B4B2DF3B4F2C7FB867D0E8ADA",
+      "local_raw_second_neutral_sha256": "43942FA1040F6D99B41DB244CA90B35E55F6B5FB07C80FE3EAEBE9430D6571EC",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "桃葉山"
+    },
+    {
+      "transition_id": "catalog_transition_0766",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 123,
+        "y": 64,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 123,
+        "y": 65
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t24_l125_v2",
+      "destination_pack": "0x9E",
+      "settled_arrival_xy": {
+        "x": 7,
+        "y": 26
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "55EB6619C2ADD3A410E86E80860AC4E58E6814EDCD1311000B9CA1A7862D5F89",
+      "local_raw_input_sha256": "6F3624139B58AE58B9AD6F5CE69EA0E8C5D4AB5C0EEDC3D453B141BA009F0A8D",
+      "local_raw_neutral_sha256": "F344B325EF64F4F25FFB1E861770014CFDCD8D0C1A1BA6D42E390DEB3587BAB0",
+      "local_raw_second_neutral_sha256": "75A56F822E3A779DC3AF88FD47F62FFAA273CBEC949433A7C8E6566C539D46EA",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "大江山"
+    },
+    {
+      "transition_id": "catalog_transition_0804",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 25,
+        "y": 98,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 25,
+        "y": 99
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t04_l028_v2",
+      "destination_pack": "0xCA",
+      "settled_arrival_xy": {
+        "x": 16,
+        "y": 24
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "EF90920764955CA61E762135F51690CA25AECF7991416F62DDD068C108BE538D",
+      "local_raw_input_sha256": "783A484D5A70753B2923186CA1AC02F89EDC0CD22031B7ED5F367B254B9DA1A5",
+      "local_raw_neutral_sha256": "3896F02FFF720143B7996AD10EDDE06FB6EE329F2A72CB15CE1D389F56F5B829",
+      "local_raw_second_neutral_sha256": "64EB3BA4BC72AEF0345A367D9C289DED29E0F6F5E751468A92172CAD39E700B3",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0802",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 123,
+        "y": 119,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 123,
+        "y": 120
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t36_l150_v2",
+      "destination_pack": "0xBD",
+      "settled_arrival_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "D8038AB31C437706F0B330E9DA4EBA769B9E798F9CD313618B47C29BA179AF27",
+      "local_raw_input_sha256": "14686B045EFDB53DA4F9B954260909E13BF5105760B13A42DAB710F439EA83B6",
+      "local_raw_neutral_sha256": "0718FDDEAA5442B5B44D743382F756CC1220F002348FE0148EDB22E33946978A",
+      "local_raw_second_neutral_sha256": "584324FC15C007CABF9A5CF9E664923FB18C6462618557AB3E8EBFE1A24A8DBF",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "鬼が島"
+    },
+    {
+      "transition_id": "catalog_transition_0784",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 233,
+        "y": 73,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 233,
+        "y": 74
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663082,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t11_l101_v2",
+      "destination_pack": "0xB0",
+      "settled_arrival_xy": {
+        "x": 61,
+        "y": 38
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "A3733625F786F91E13E4CFA8D19E58257DAB329AA699674FA9970288EE95AF5B",
+      "local_raw_input_sha256": "F95E0CC8B2AB6F7B0A3AF0D4396A4C4BA97D746441116BB8EC4E41A46A02B33F",
+      "local_raw_neutral_sha256": "12E9894911736D70B82088EC05F9283B450F88FF025B9E2D67CC35B527F7C18A",
+      "local_raw_second_neutral_sha256": "ECBADE27F021162D50A4A48561AE7AF9D600DCCF26D41271ACFE27A0364E0E44",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0789",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 206,
+        "y": 182,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 206,
+        "y": 183
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663083,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t29_l138_v2",
+      "destination_pack": "0xB1",
+      "settled_arrival_xy": {
+        "x": 224,
+        "y": 40
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "C035A1BCCD513DF2F25A81FBABE58C4287DE2750D7FA01800E748F555E1B5460",
+      "local_raw_input_sha256": "CE0DFD8F4ACE13BBA261EA62B09A66C9499EBA0089EDD9D1B503A3ACEC71A417",
+      "local_raw_neutral_sha256": "FC158F7B90AC7095BC197A01520BBEAE93B73A9FBF8DF82D37B449DA04B4B91A",
+      "local_raw_second_neutral_sha256": "32FEE3F5B8CD1C9F993110979AE1D817C6277BFF0F95761CCA14839846117B62",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "鬼の牢獄"
+    },
+    {
+      "transition_id": "catalog_transition_0770",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 39,
+        "y": 34,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 39,
+        "y": 35
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t26_l131_v1",
+      "destination_pack": "0xA9",
+      "settled_arrival_xy": {
+        "x": 184,
+        "y": 23
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "E201A214EB9F2C9F7C80D4B419A13027C40990CAB9B95C146424D80F5662C8DB",
+      "local_raw_input_sha256": "059A86B03177DE3FBDB9D2E250C7370DB99CD73C91C0831476F00DA766AFADF6",
+      "local_raw_neutral_sha256": "B8E98A2ADE8070EE9BC87C5812BE381B592C56D1392B240D05FAB73370BD8532",
+      "local_raw_second_neutral_sha256": "DF1DECB540FC9CE4FC624EE4C91732F3A7243E9AF8B09606F1F59E9AC34F6A01",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "氷の塔"
+    },
+    {
+      "transition_id": "catalog_transition_0783",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 230,
+        "y": 70,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 230,
+        "y": 71
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663082,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t11_l101_v2",
+      "destination_pack": "0xAE",
+      "settled_arrival_xy": {
+        "x": 6,
+        "y": 11
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0",
+      "local_raw_input_sha256": "0ED715F1085C9B422D305106DC5D12EEF8A56C0F184FC376BD6078CA31D4C277",
+      "local_raw_neutral_sha256": "65A6B04B81382E89F8602C973E89DFDB5A6FF8E4AAE1FB1ED4A3CAAEB79737CC",
+      "local_raw_second_neutral_sha256": "8518485D549A247A0F0692410AD1F48F8A949CDB04961E2A9D5B1F7CAFF0DBB3",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": null
+    },
+    {
+      "transition_id": "catalog_transition_0803",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 74,
+        "y": 141,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 74,
+        "y": 142
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663084,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t25_l129_v2",
+      "destination_pack": "0xB9",
+      "settled_arrival_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "D36A91AD9FEA4FC2DF89F46300AEC6EF76B53FD1AD44E6D8A296AF704F2E146C",
+      "local_raw_input_sha256": "104CEAB2B55B2A9338FA9C8B699EC18532BC6157DE38DB9494636F833DA09B8E",
+      "local_raw_neutral_sha256": "995C654E720FA0AD904A94103E964A79B647EDACE61D8AD0109C39E3073692A4",
+      "local_raw_second_neutral_sha256": "1C5434560149CE48C472D68CBD4708811D948B3080FB2C9E3F43B84C187973C2",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "虹の洞窟"
+    },
+    {
+      "transition_id": "catalog_transition_0782",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 237,
+        "y": 37,
+        "width": 2,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 237,
+        "y": 38
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663082,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t34_l148_v1",
+      "destination_pack": "0xAD",
+      "settled_arrival_xy": {
+        "x": 7,
+        "y": 30
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "D5515AA831046AC7A9DC3E8E4FB13A631D082B5F9355EF6F35F5B6838324EC11",
+      "local_raw_input_sha256": "5574F7628BDACAA9F209A43D20BA62B9ADB20D12167EDCE972E18C2D318C1E24",
+      "local_raw_neutral_sha256": "9ABB2D09BEDD2EFCA724E673C9832FC8F9786EA4F7A2D66A4B312F455EF5ADF9",
+      "local_raw_second_neutral_sha256": "4467B8D208CC98DC388F7AE9DDE7B597075713C0780AAC61E482B293016FF21C",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "伏龍の洞窟"
+    },
+    {
+      "transition_id": "catalog_transition_0774",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_world_pack": "0x4C",
+      "source_hotspot_xy": {
+        "x": 215,
+        "y": 72,
+        "width": 1,
+        "height": 1
+      },
+      "cheat_positioned_approach_xy": {
+        "x": 215,
+        "y": 73
+      },
+      "source_position_supplied_by_analysis_cheat": true,
+      "normal_world_walking_route_to_source_proven": false,
+      "source_hotspot_contact_frame": 663064,
+      "map_switch_frame": 663081,
+      "real_snes_gamepad_input": "Up",
+      "destination_config_id": "cfg_t49_l176_v2",
+      "destination_pack": "0xAB",
+      "settled_arrival_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "scene_pack_matches_rom_candidate": true,
+      "cpu_rom_opcode_PC_observed": false,
+      "all_story_states_accessible_proven": false,
+      "screenshot_sha256": "D2A6B916164CEC7D4C35BB1162878E8DBC4880270A13F0DD1770EE4CD4D9DD36",
+      "local_raw_input_sha256": "F282511A0EECAF8EAE67E3E508034146AC2A458319810801CACD7EE44355645E",
+      "local_raw_neutral_sha256": "24EB2DA46C6E93EDF7E20EB7DF1F2D68A4D95E76D1403FC06B2F7BF6FB2C41A6",
+      "local_raw_second_neutral_sha256": "FB4A622ECFB189E2B8C0B59DFA37B0EC54A88376D0D346FC7453888D1D49A512",
+      "screenshot_raw_committed": false,
+      "local_savestate_raw_committed": false,
+      "inferred_onscreen_title": "怨みの洞窟"
+    }
+  ],
+  "local_no_switch_observations": [
+    {
+      "transition_id": "catalog_transition_0787",
+      "source_world_hotspot": [
+        156,
+        144
+      ],
+      "source_hotspot_contact_observed": false,
+      "observed_final_world_xy": [
+        156,
+        145
+      ],
+      "test_approach": "south_with_Up",
+      "did_not_switch_this_local_state": true,
+      "all_story_states_blocked_proven": false,
+      "ROM_candidate_still_valid": true
+    },
+    {
+      "transition_id": "catalog_transition_0779",
+      "source_world_hotspot": [
+        199,
+        38
+      ],
+      "source_hotspot_contact_observed": true,
+      "observed_final_world_xy": [
+        199,
+        37
+      ],
+      "test_approach": "south_with_Up",
+      "did_not_switch_this_local_state": true,
+      "all_story_states_blocked_proven": false,
+      "ROM_candidate_still_valid": true
+    },
+    {
+      "transition_id": "catalog_transition_0006",
+      "source_world_hotspot": [
+        142,
+        34
+      ],
+      "source_hotspot_contact_observed": false,
+      "observed_final_world_xy": [
+        142,
+        35
+      ],
+      "test_approach": "south_with_Up",
+      "did_not_switch_this_local_state": true,
+      "all_story_states_blocked_proven": false,
+      "ROM_candidate_still_valid": true
+    }
+  ]
+}

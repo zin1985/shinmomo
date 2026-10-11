@@ -343,3 +343,23 @@ entrance was prepared with a cheat, but no WRAM coordinate edits
 were performed during this reverse controller event.
 The second ladder tile (22,31) had no switch under both local
 direction probes and is NOT universally ruled out as a trigger.
+
+
+## Multi-world-hotspot hidden-lab probe
+
+Use the ROM-derived target plan:
+data/maps/transitions/world_hotspot_30scene_probe_plan_20261011.json
+
+For isolated, bounded groups, run:
+
+    & .\tools\remote_lab\batch_world_hotspot_probe.ps1 -Start 0 -Count 4 -Approach south
+
+Only one process may control the hidden emulator at a time. The script
+backs up the old state, reloads a playable world state per ROM hotspot,
+cheat-positions the player one step south and uses real SNES Up.
+Local records contain map-switch observations, destination XY and SHA
+hashes of the original traces/screenshots, which remain local.
+It restores the original save on normal exit. If a host process is
+killed forcibly, manually restore the newest
+world_hotspot_bulk_protect_*.State before any other interaction.
+37/40 expected pack switches were observed in six restored batches.

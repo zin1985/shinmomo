@@ -11,6 +11,7 @@ from apply_cheat_positioned_dungeon_proof import attach as attach_cheat_dungeon_
 from add_runtime_cave_world_return_edge import inject as inject_cave_world_saved_return
 from attach_omusubi_pack95_source import attach as attach_omusubi_floor_source
 from attach_pack95_reverse_stair import attach as attach_pack95_reverse_stair
+from attach_world_37_scene_entrance_batch import attach as attach_world_batch
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -717,6 +718,45 @@ def main():
         if key in by_scene_pack:
             raise ValueError("Duplicate runtime map-pack identity evidence")
         by_scene_pack[key] = (candidate_path, loaded)
+    # Twenty-three further on-screen titles are tied to actual world
+    # entrance controller captures, never globally to a reused tilemap.
+    batch_title_path = ROOT / "data/maps/context/world_batch_verified_onscreen_titles_20261011.json"
+    world_scene_entry_path = ROOT / "data/maps/transitions/world_37_gamepad_entrances_after_cheat_20261011.json"
+    if batch_title_path.exists():
+        if not world_scene_entry_path.exists():
+            raise ValueError("On-screen title catalog requires actual world-entry batch ledger")
+        catalog = json.loads(batch_title_path.read_text(encoding="utf-8"))
+        ledger_for_names = json.loads(world_scene_entry_path.read_text(encoding="utf-8"))
+        additions = catalog.get("new_title_proofs", [])
+        originals = catalog.get("existing_two_individual_title_proofs_not_duplicated")
+        if (catalog.get("schema_version") != 1 or
+            catalog.get("kind") != "world_gamepad_entrances_visible_title_pack_scoped" or
+            originals != ["0x4D","0x91"] or
+            len(additions) != 23 or
+            len(catalog.get("all_25_onscreen_title_contexts",[])) != 25 or
+            len(ledger_for_names.get("entries",[])) != 37):
+            raise ValueError("Incomplete set of exact-pack screenshot place names")
+        entries_by_id = {e["transition_id"]: e for e in ledger_for_names["entries"]}
+        seen_title_packs=set()
+        for name_proof in additions:
+            config_id = name_proof.get("map_config_id")
+            pack_id = name_proof.get("runtime_pack_id_hex")
+            transition_id = name_proof.get("source_transition_id")
+            entry = entries_by_id.get(transition_id)
+            key = (config_id, pack_id)
+            if (key in by_scene_pack or key in seen_title_packs or
+                not entry or entry.get("destination_config_id") != config_id or
+                entry.get("destination_pack") != pack_id or
+                entry.get("screenshot_sha256") != name_proof.get("screenshot_sha256") or
+                entry.get("inferred_onscreen_title") != name_proof.get("onscreen_title") or
+                name_proof.get("source_world_cheat_positioned") is not True or
+                name_proof.get("gamepad_event_to_destination_observed") is not True or
+                name_proof.get("all_story_phases_location_identity_proven") is not False or
+                name_proof.get("normal_world_route_proven") is not False):
+                raise ValueError("World pack name is not supported by a unique on-screen screenshot")
+            seen_title_packs.add(key)
+            by_scene_pack[key]=(batch_title_path, name_proof)
+
     runtime_identity_attached = 0
     for (config_id, pack_id), candidates in location_candidates_by_context.items():
         confirmed = [x for x in candidates if x["status"] == "confirmed_onscreen_pack_context"]
@@ -1025,6 +1065,18 @@ def main():
     else:
         reverse_stair_summary = {"existing_candidate_source_and_arrival_bound_count":0}
 
+    # A complete set of 40 local experiment approaches yielded 37
+    # real SNES controller-tripped world entrances into 36 distinct
+    # scene packs (32 layouts). Source coordinates were cheat-positioned.
+    world_scene_batch_path = TRANSITIONS / "world_37_gamepad_entrances_after_cheat_20261011.json"
+    if world_scene_batch_path.exists():
+        transition_candidates, world_scene_batch_summary = attach_world_batch(
+            transition_candidates,
+            json.loads(world_scene_batch_path.read_text(encoding="utf-8")))
+    else:
+        world_scene_batch_summary = {"attempted_world_entrances":0,
+                                     "actual_gamepad_matched_destination_pack":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1051,6 +1103,7 @@ def main():
         "runtime_cave_saved_origin_return_summary": cave_saved_return_summary,
         "runtime_pack95_floor_source_summary": pack95_source_summary,
         "runtime_pack95_reverse_stair_summary": reverse_stair_summary,
+        "runtime_world_entrance_37_batch_summary": world_scene_batch_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),
