@@ -32,9 +32,11 @@ const list=q('#maps'), edges=q('#edges'), unbound=q('#unbound'), detail=q('#deta
 const stage=q('#mapStage'), sizer=q('#mapSizer'), mapImage=q('#mapImage'), viewport=q('#mapViewport');
 const actorLayer=q('#actorLayer'), arrivalLayer=q('#arrivalLayer'), hotspotLayer=q('#hotspotLayer');
 const focusLayer=q('#focusLayer'), dialogueLayer=q('#dialogueLayer'), gridLayer=q('#gridLayer');
+const routeLayer=q('#routeLayer'), routePanel=q('#routePanel'), routeList=q('#routeList');
 let selectedMap=null;
 let selectedFocus=null;
 let selectedPack=null;
+let selectedRouteId=null;
 
 const staticActors=world.entities.filter(e=>e.entity_type==='static_actor_candidate');
 const catalogEdges=world.transition_edges||[];
@@ -155,6 +157,71 @@ function renderLocationDialogues(m){
     };
     host.append(item);
   }
+}
+
+function realControllerRoutes(m){
+  const groups=m.runtime_controller_route_contexts||[];
+  const scoped=selectedPack
+    ?groups.filter(g=>g.scene_pack===selectedPack)
+    :(groups.length===1?groups:[]);
+  return scoped.flatMap(g=>g.routes||[]);
+}
+function renderControllerTrail(m){
+  if(!routeLayer)return;
+  routeLayer.replaceChildren();
+  if(!q('#routesToggle')?.checked)return;
+  const route=realControllerRoutes(m).find(r=>r.id===selectedRouteId);
+  if(!route)return;
+  const ns='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 '+m.pixel_width+' '+m.pixel_height);
+  svg.setAttribute('width',String(m.pixel_width));
+  svg.setAttribute('height',String(m.pixel_height));
+  svg.setAttribute('aria-label','実機で確認した通行経路');
+  const points=(route.observed_position_trace_grid||[])
+    .map(p=>(p.x*m.grid_cell_px_x)+','+(p.y*m.grid_cell_px_y)).join(' ');
+  const line=document.createElementNS(ns,'polyline');
+  line.setAttribute('points',points);
+  line.setAttribute('class','routeTrail');
+  svg.append(line);
+  for(const p of [route.source_original_scene_xy,route.arrived_at_grid]){
+    const circle=document.createElementNS(ns,'circle');
+    circle.setAttribute('cx',String(p.x*m.grid_cell_px_x));
+    circle.setAttribute('cy',String(p.y*m.grid_cell_px_y));
+    circle.setAttribute('r','5');
+    circle.setAttribute('class','routePin');
+    svg.append(circle);
+  }
+  routeLayer.append(svg);
+}
+function renderControllerRoutes(m){
+  if(!routePanel||!routeList)return;
+  const routes=realControllerRoutes(m);
+  routePanel.hidden=!routes.length;
+  routeList.replaceChildren();
+  if(!routes.length){selectedRouteId=null;renderControllerTrail(m);return;}
+  if(!routes.some(r=>r.id===selectedRouteId))selectedRouteId=routes[0].id;
+  for(const r of routes){
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='nativeRouteRow'+(r.id===selectedRouteId?' active':'');
+    button.textContent=r.held_button_sequence.join(' → ')+
+      ' | ('+r.source_original_scene_xy.x+','+r.source_original_scene_xy.y+
+      ') → ('+r.arrived_at_grid.x+','+r.arrived_at_grid.y+')';
+    const note=document.createElement('small');
+    note.textContent='実機72フレーム×3＋無入力120 | 通過'+
+      r.observed_position_trace_grid.length+'座標 | マップ切替なし';
+    button.append(note);
+    button.onclick=()=>{
+      selectedRouteId=r.id;
+      selectedFocus={map_config_id:m.config_id,grid_x:r.arrived_at_grid.x,grid_y:r.arrived_at_grid.y};
+      renderControllerRoutes(m);
+      renderFocus(m);
+      detail.textContent=JSON.stringify(r,null,2);
+    };
+    routeList.append(button);
+  }
+  renderControllerTrail(m);
 }
 
 function mapActorPacks(m){
@@ -671,16 +738,18 @@ function renderMap(m){
     mapImage.hidden=true; mapImage.removeAttribute('src');
     q('#assetStatus').textContent='canonical assets disabled for this profile';
   }
-  renderHotspots(m); renderArrivals(m); renderActors(m); renderFocus(m); applyZoom();
+  renderHotspots(m); renderArrivals(m); renderActors(m); renderControllerTrail(m); renderFocus(m); applyZoom();
 }
 
 function renderAnalysisEvidence(m){ const actors=sceneActorCandidates(m), visible=sceneActors(m), dialogues=visible.flatMap(e=>(e.dialogue_refs||[]).map(id=>dialogueById.get(id)).filter(Boolean)), unresolved=dialogues.filter(d=>d.condition_status==="predicate_unresolved_static"||d.branch_selection_policy==="preserve_all_candidates_until_state_resolved"), conditional=actors.filter(e=>(e.spawn_condition||{}).visibility_when_state_unknown==="candidate"), hotspots=mapHotspots(m), arrivals=mapArrivals(m), related=catalogEdges.filter(e=>e.source_config_id===m.config_id||e.destination_config_id===m.config_id); const cards=[["Scene / pack",selectedPack||"unresolved",mapActorPacks(m).length+" actor pack(s)",selectedPack?"confidenceConfirmed":"confidenceUnresolved"],["NPC actors",String(visible.length),conditional.length+" conditional/unresolved",conditional.length?"confidenceCandidate":"confidenceConfirmed"],["Dialogue",String(dialogues.length),unresolved.length+" unresolved branch(es)",unresolved.length?"confidenceUnresolved":"confidenceConfirmed"],["Transitions",String(related.length),hotspots.length+" hotspots / "+arrivals.length+" arrivals",related.length?"confidenceConfirmed":"confidenceCandidate"]]; const host=q("#analysisSummary"); host.replaceChildren(); for(const [title,value,note,cls] of cards){const d=document.createElement("div"),st=document.createElement("strong"),sm=document.createElement("small");d.className="analysisCard "+cls;st.textContent=title+": "+value;sm.textContent=note;d.append(st,sm);host.append(d);} q("#analysisDetail").textContent=JSON.stringify({map_config_id:m.config_id,active_scene_pack:selectedPack,available_actor_packs:mapActorPacks(m),evidence:{opcode59_coordinate_binding:"statically confirmed for opcode 0x59 actor renderer",actor_seed_position_audit:audit,active_actor_count:visible.length,conditional_actor_candidates:conditional.map(e=>({record_id:e.record_id,selector_hex:e.selector_hex,spawn_condition:e.spawn_condition})),dialogue_branch_count:dialogues.length,unresolved_dialogue_branches:unresolved.map(d=>({id:d.dialogue_sequence_id,condition_status:d.condition_status,policy:d.branch_selection_policy,event_source:d.event_source})),source_transition_hotspots:hotspots,transition_arrivals:arrivals,bound_transition_edges:related},interpretation_rule:"confirmed evidence and unresolved candidates are displayed separately; unresolved state is never promoted to current game state"},null,2); }
 
 async function selectMap(m,focus=null,pack=undefined){
   const packs=mapActorPacks(m);
+  const lastMapAndPack=(selectedMap?.config_id||'')+'@'+(selectedPack||'');
   selectedMap=m;
   selectedFocus=focus;
   selectedPack=(pack!==undefined&&pack!==null&&pack!=='') ? pack : (packs.length===1?packs[0]:null);
+  if(lastMapAndPack!==m.config_id+'@'+(selectedPack||''))selectedRouteId=null;
   populateScenePack(m,selectedPack);
   populateStateControls(m,selectedPack);
   clearDialogue();
@@ -689,6 +758,7 @@ async function selectMap(m,focus=null,pack=undefined){
   renderMap(m);
   renderAnalysisEvidence(m);
   renderLocationDialogues(m);
+  renderControllerRoutes(m);
   detail.textContent='loading structural layers...';
   detail.textContent=JSON.stringify({
     ...m,
@@ -827,13 +897,14 @@ for(const m of world.maps){
   const actors=(m.entities||[]).map(id=>entityById.get(id)).filter(e=>e?.entity_type==='static_actor_candidate');
   const count=actors.length;
   const dialogueCount=actors.reduce((n,e)=>n+(e.dialogue_refs||[]).length,0);
+  const routeCount=(m.runtime_controller_route_contexts||[]).reduce((sum,g)=>sum+(g.route_count||0),0);
   const arrivals=(m.transition_arrivals||[]).length;
   const hotspots=(m.source_transition_hotspots||[]).length;
   const locationDialogueCount=(m.location_dialogues||[]).length;
-  b.textContent=mapDisplayName(m)+(count?` [A:${count}]`:'')+(dialogueCount?` [D:${dialogueCount}]`:'')+(locationDialogueCount?` [L:${locationDialogueCount}]`:'')+(hotspots?` [H:${hotspots}]`:'')+(arrivals?` [T:${arrivals}]`:'');
+  b.textContent=mapDisplayName(m)+(count?` [A:${count}]`:'')+(dialogueCount?` [D:${dialogueCount}]`:'')+(locationDialogueCount?` [L:${locationDialogueCount}]`:'')+(hotspots?` [H:${hotspots}]`:'')+(arrivals?` [T:${arrivals}]`:'')+(routeCount?` [R:${routeCount}]`:'');
   b.onclick=()=>selectMap(m); list.append(b);
 }
-for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsToggle','gridToggle','profile']){
+for(const id of ['transitionsToggle','actorsToggle','arrivalsToggle','labelsToggle','gridToggle','routesToggle','profile']){
   q('#'+id).addEventListener('change',()=>selectedMap&&(id==='transitionsToggle'?selectMap(selectedMap,selectedFocus,selectedPack):renderMap(selectedMap)));
 }
 q('#scenePack').addEventListener('change',()=>{

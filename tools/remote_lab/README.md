@@ -440,3 +440,18 @@ frames via tools/remote_lab/verify_pack60_event_return_stability.ps1
 and strict local forensic compiler
 tools/python/audit_pack60_dialogue_event_return.py.
 Never commit original ROM, raw captures, screenshots or savestates.
+
+
+## Branching real gamepad dungeon routes
+
+The safe bounded script tools/remote_lab/probe_three_dungeon_branch_routes.ps1
+starts each of 24 routes from one of three independently validated
+post-A scene savestates (BD/B9/AB), protects and restores the original
+hidden emulator state, presses three real SNES directions 72 frames
+each, then records 120 neutral frames and an actual screenshot. Raw
+frame captures and snapshots remain local. After a successful run,
+tools/python/audit_dungeon_three_pack_controller_routes.py rechecks
+the exact raw SHA256, source packs, continuous WRAM samples, real
+gamepad buttons, intermediate tile continuity and screenshot hashes.
+This only proves traversed local corridors; none of those 24
+experiments transitioned to a different scene pack.

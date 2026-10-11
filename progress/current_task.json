@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Trace pack60 village event/flag and map three dungeon floor routes",
-  "base_main_head_verified": "b6dc2db0af6c418b6ad50ca996e5ebacb9526cca",
+  "title": "Extend three dungeons to verified staircase and cross-map exits",
+  "base_main_head_verified": "f50de56a28f3ea5b32bbd290a41663dd73a01485",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,19 +455,19 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Decode event conditions/VM native handlers causing pack60 landscape from cherry blossom to brown and how story phase chooses map graphic variant; keep pack+phase identity."
+      "action": "From verified 24 route ends branch into additional dungeon corridors and stair tiles; promote only actual different-pack transitions to Viewer edges."
     },
     {
       "order": 2,
-      "action": "From traversable packs 0xBD,0xB9,0xAB map stairs/door triggers/floor progression with real input and verified saved context."
+      "action": "Map known VM terminal destination/source uncertainty for packs BD/B9/AB and inspect corresponding runtime trigger positions and phase state."
     },
     {
       "order": 3,
-      "action": "Compare dialogue sequencing and exact flags in packs0x82 and0x60, minimize needed A presses without assuming universality."
+      "action": "Link proven dungeon routes to story-phase context separately from NPC/event conditional dialogue, never equate source tileset config with active pack."
     },
     {
       "order": 4,
-      "action": "Check Hien actual named destination list and real casting plus MP unlimited; current scene entry initially cheat-positioned."
+      "action": "Continue real Hien destination list, spell use and unlimited MP verification, not yet evidenced by world-coordinate research."
     }
   ],
   "do_not_redo": [
@@ -840,32 +840,38 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "After twelve A8 dialog presses, additional 24 real A8+neutral20 presses progressed pack0x60 village cutscene through black screen to visibly altered brown/dried landscape; real Down96 returned to world pack0x4C (59,155), independently stable 360 frames.",
-    "exact_scene_pack": "0x60",
-    "scene_config_id": "cfg_t04_l035_v2",
-    "original_source_world_transition": "catalog_transition_0755",
-    "original_entry_approach_cheat_seeded": true,
-    "inside_scene_Wram_coordinate_cheated": false,
-    "A_presses_before_scene_exit_in_this_study": 36,
-    "minimum_A_presses_to_trigger_unknown": true,
-    "observed_screen_graphic_transformation": "pink_flowered_to_brown_withered_village",
-    "original_story_event_handler_PC_observed": false,
-    "actual_world_switch_frame": 664366,
-    "world_saved_arrival_xy": [
-      59,
-      155
+    "description": "Replayed eight independent real three-turn gamepad routes in each of pack0xBD, pack0xB9 and pack0xAB, 24 routes / 72 directional 72-frame segments. Verified continuous WRAM frames and screenshots against local SHA256, compiled each observed tile route, integrated clickable Viewer route traces (no cross-map transitions falsely added).",
+    "packs_tested": [
+      "0xBD",
+      "0xB9",
+      "0xAB"
     ],
-    "stable_neutral_frames": 360,
-    "other_story_gates_universality_proven": false,
-    "new_confirmed_runtime_edge_count": 1,
+    "source_maps": [
+      "cfg_t36_l150_v2",
+      "cfg_t25_l129_v2",
+      "cfg_t49_l176_v2"
+    ],
+    "real_controller_multiturn_routes": 24,
+    "72frame_directional_segments": 72,
+    "distinct_observed_tiles_by_pack": {
+      "0xBD": 35,
+      "0xB9": 57,
+      "0xAB": 57
+    },
+    "new_map_transition_edges": 0,
+    "all_other_exits_absent_proven": false,
+    "on_map_XY_Wram_cheat_used": false,
+    "world_to_original_scene_arrival_cheat_seeded": true,
+    "all_stories_traversable_proven": false,
+    "CPU_handler_PC_proven": false,
+    "viewer_route_panel_and_overlay": true,
     "viewer_maps": 149,
-    "viewer_edges": 77,
-    "viewer_candidates": 1314,
-    "onscreen_location_contexts": 26,
-    "official_top_goal_percent_unchanged": 51.4,
-    "hidden_emulator_restored": true,
-    "raw_ROM_images_frames_savestates_not_committed": true,
-    "evidence": "docs/analysis/pack60_dialogue_phase_world_return_20261011.md"
+    "viewer_bound_edges": 77,
+    "viewer_transition_candidates": 1314,
+    "project_percent_unchanged": 51.4,
+    "local_raw_ROM_screenshots_frame_traces_committed": false,
+    "all_dedicated_hidden_emulator_states_restored": true,
+    "evidence": "docs/analysis/dungeon_three_pack_24_verified_routes_20261011.md"
   },
   "completed_work_units": [
     {
@@ -1833,6 +1839,35 @@
       "official_project_completion_percent_unchanged": 51.4,
       "protected_emulator_restored": true,
       "evidence": "docs/analysis/five_scene_A_pack82_return_20261011.md"
+    },
+    {
+      "date": "2026-10-11",
+      "description": "After twelve A8 dialog presses, additional 24 real A8+neutral20 presses progressed pack0x60 village cutscene through black screen to visibly altered brown/dried landscape; real Down96 returned to world pack0x4C (59,155), independently stable 360 frames.",
+      "exact_scene_pack": "0x60",
+      "scene_config_id": "cfg_t04_l035_v2",
+      "original_source_world_transition": "catalog_transition_0755",
+      "original_entry_approach_cheat_seeded": true,
+      "inside_scene_Wram_coordinate_cheated": false,
+      "A_presses_before_scene_exit_in_this_study": 36,
+      "minimum_A_presses_to_trigger_unknown": true,
+      "observed_screen_graphic_transformation": "pink_flowered_to_brown_withered_village",
+      "original_story_event_handler_PC_observed": false,
+      "actual_world_switch_frame": 664366,
+      "world_saved_arrival_xy": [
+        59,
+        155
+      ],
+      "stable_neutral_frames": 360,
+      "other_story_gates_universality_proven": false,
+      "new_confirmed_runtime_edge_count": 1,
+      "viewer_maps": 149,
+      "viewer_edges": 77,
+      "viewer_candidates": 1314,
+      "onscreen_location_contexts": 26,
+      "official_top_goal_percent_unchanged": 51.4,
+      "hidden_emulator_restored": true,
+      "raw_ROM_images_frames_savestates_not_committed": true,
+      "evidence": "docs/analysis/pack60_dialogue_phase_world_return_20261011.md"
     }
   ]
 }

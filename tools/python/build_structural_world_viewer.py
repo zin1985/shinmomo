@@ -17,6 +17,7 @@ from attach_six_scene_directional_probes import attach as attach_six_directional
 from attach_pack96_modal_world_return import inject as inject_pack96_modal_exit
 from attach_five_scene_A_pack82_return import attach as attach_five_modal_scenes
 from attach_pack60_village_event_return import attach as attach_pack60_event_return
+from attach_dungeon_controller_routes import attach as attach_dungeon_controller_routes
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1169,6 +1170,18 @@ def main():
     else:
         pack60_event_summary = {"new_verified_pack60_saved_world_return":0}
 
+    # Genuine SNES-controlled dungeon traces are source/config-scoped
+    # traversable routes, NOT transitions to other map configurations.
+    local_routes = TRANSITIONS / "dungeon_three_pack_24_controller_turn_routes_20261011.json"
+    if local_routes.exists():
+        scoped_maps, dungeon_route_summary = attach_dungeon_controller_routes(
+            list(maps.values()),
+            json.loads(local_routes.read_text(encoding="utf-8")),
+            transition_candidates)
+        maps = {m["config_id"]:m for m in scoped_maps}
+    else:
+        dungeon_route_summary = {"verified_controller_route_count":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1201,6 +1214,7 @@ def main():
         "runtime_pack96_modal_world_return_summary": pack96_return_summary,
         "runtime_five_scene_A_pack82_world_return_summary": five_modal_summary,
         "runtime_pack60_village_event_world_return_summary": pack60_event_summary,
+        "runtime_dungeon_turn_route_summary": dungeon_route_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),

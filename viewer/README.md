@@ -273,3 +273,25 @@ minimum press count, executable CPU handler PC, and other saves unknown.
 One real return edge and pack+config-scoped visual event proof added.
 149 maps, 77 edges, 1314 candidates; 26 exact pack-scoped named scenes.
 Full audit: docs/analysis/pack60_dialogue_phase_world_return_20261011.md.
+
+
+## Three-dungeon actual controller paths (2026-10-11)
+
+Genuine SNES input verified 24 multi-turn routes (8 each) in
+Onigashima 0xBD, Rainbow Cave 0xB9 and Grudge Cave 0xAB. These are
+72 separate 72-frame directional segments with full WRAM frame
+continuity, screenshot SHA256 and post-run neutral120 samples.
+35 / 57 / 57 unique physical grid cells were seen in each pack.
+Every route remained on its original map pack. These are observed
+traversal paths, NOT new cross-map transition edges or universal
+proof that the dungeons lack exits.
+
+Viewer now displays [R:8] on these map list items. Selecting
+a route in the Japanese real-controller routes panel overlays
+the exact observed one-tile step path on the map, shows the saved
+pack context, and focuses the route endpoint. Use the toggle to
+hide/show the overlay. Original world entrance savestates were
+analysis-cheat seeded; none of the on-dungeon controller probes
+changed WRAM XY. Original hidden BizHawk state restored and no
+ROM/screenshots/frame traces/savestates committed.
+docs/analysis/dungeon_three_pack_24_verified_routes_20261011.md.

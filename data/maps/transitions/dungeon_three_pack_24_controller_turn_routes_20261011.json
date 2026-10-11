@@ -1,0 +1,2311 @@
+{
+  "schema_version": 1,
+  "kind": "three_dungeons_24_real_gamepad_turning_routes_without_pack_switch",
+  "created_from_hidden_lab_original_state_restored": true,
+  "initial_world_entrance_cheat_seeded": true,
+  "genuine_onscene_controller_XY_coordinate_cheat": false,
+  "pack_scoped_routes": {
+    "0xBD": 8,
+    "0xB9": 8,
+    "0xAB": 8
+  },
+  "three_dungeons": 3,
+  "true_multiturn_controller_routes": 24,
+  "total_directional_gamepad_segments": 72,
+  "real_controller_frames_per_segment": 72,
+  "neutral_frames_after_each_route": 120,
+  "added_cross_map_transition_edges": 0,
+  "other_map_exits_universally_excluded": false,
+  "raw_ROM_screenshots_savestates_frames_not_committed": true,
+  "source_previous_verified_scene_trials": "data/maps/transitions/five_scene_modal_tests_and_pack82_world_return_20261011.json",
+  "routes": [
+    {
+      "id": "runtime_turn_path_BD_00",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 0,
+      "held_button_sequence": [
+        "Up",
+        "Left",
+        "Up"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 36
+        },
+        {
+          "x": 13,
+          "y": 36
+        },
+        {
+          "x": 13,
+          "y": 31
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 36
+        },
+        {
+          "x": 14,
+          "y": 36
+        },
+        {
+          "x": 13,
+          "y": 36
+        },
+        {
+          "x": 13,
+          "y": 35
+        },
+        {
+          "x": 13,
+          "y": 34
+        },
+        {
+          "x": 13,
+          "y": 33
+        },
+        {
+          "x": 13,
+          "y": 32
+        },
+        {
+          "x": 13,
+          "y": 31
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 13,
+        "y": 31
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "86DC6BC6FDF0C0E2FFB0D16199FF8FFCEE0ECC1A94BE73EA490B75EBDBC84D98",
+        "CF2037D99313872D66E2B3A22361299DFF49CECA8835D6DFC0C34382C1E5B45D",
+        "2FD5249FF78F82B64AB2010980106A83EA1AFEE28C95463236DA561A301066D8"
+      ],
+      "neutral_frame_sha256": "67FCF245D31E3A97B924BC733399985DD5C3EAF7D4D3D589F6A912A57F2B80F6",
+      "final_onscreen_screenshot_sha256": "01099EFCCEE54474BF90D3D217AB8F2A035C45FC3C8EF24B9DFF256206C4EB64"
+    },
+    {
+      "id": "runtime_turn_path_BD_01",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 1,
+      "held_button_sequence": [
+        "Up",
+        "Right",
+        "Up"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 36
+        },
+        {
+          "x": 17,
+          "y": 36
+        },
+        {
+          "x": 17,
+          "y": 31
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 36
+        },
+        {
+          "x": 16,
+          "y": 36
+        },
+        {
+          "x": 17,
+          "y": 36
+        },
+        {
+          "x": 17,
+          "y": 35
+        },
+        {
+          "x": 17,
+          "y": 34
+        },
+        {
+          "x": 17,
+          "y": 33
+        },
+        {
+          "x": 17,
+          "y": 32
+        },
+        {
+          "x": 17,
+          "y": 31
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 17,
+        "y": 31
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "86DC6BC6FDF0C0E2FFB0D16199FF8FFCEE0ECC1A94BE73EA490B75EBDBC84D98",
+        "C9C9FAF6C39912E33708D48B3A301F5F80DD9FB360EEF90217DB76AAACFDD5E8",
+        "673EA7591D081B3037C90D106BE467392BA857ABB565294936EB4A28A90B4C2B"
+      ],
+      "neutral_frame_sha256": "077F0280C884D42B2162043B23D739252879E93406F463DFC6E68B1D25B2DB97",
+      "final_onscreen_screenshot_sha256": "E81C66593331A99FC5287B3C0159439F68F590A1EE9E03AA713AC4346D1756E1"
+    },
+    {
+      "id": "runtime_turn_path_BD_02",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 2,
+      "held_button_sequence": [
+        "Down",
+        "Left",
+        "Down"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 38
+        },
+        {
+          "x": 13,
+          "y": 38
+        },
+        {
+          "x": 13,
+          "y": 39
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 38
+        },
+        {
+          "x": 14,
+          "y": 38
+        },
+        {
+          "x": 13,
+          "y": 38
+        },
+        {
+          "x": 13,
+          "y": 39
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 13,
+        "y": 39
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "E3C9AC87F5652AA798CCE4675ABFB15C74030D1DC0484B8E6A892C9376187B8A",
+        "176C44FEDDB6D6239F5926BF02479A445EADE56C13D03ABD752C922087A7A862",
+        "E22933217EC11EB1C1D510171F7529668CED9EA9A8FDEDFAB8AAD73ED84BD7CA"
+      ],
+      "neutral_frame_sha256": "CBDF048AA4B3E4CFE548BD97305BC1B73C9F7F630D81292F89ABBC79FC236584",
+      "final_onscreen_screenshot_sha256": "3BE4F1ED5AE9FAF7791EAB93B5E81D5DDD4D475C59229A6D8C8061171A09032C"
+    },
+    {
+      "id": "runtime_turn_path_BD_03",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 3,
+      "held_button_sequence": [
+        "Down",
+        "Right",
+        "Down"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 38
+        },
+        {
+          "x": 17,
+          "y": 38
+        },
+        {
+          "x": 17,
+          "y": 39
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 15,
+          "y": 38
+        },
+        {
+          "x": 16,
+          "y": 38
+        },
+        {
+          "x": 17,
+          "y": 38
+        },
+        {
+          "x": 17,
+          "y": 39
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 17,
+        "y": 39
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "E3C9AC87F5652AA798CCE4675ABFB15C74030D1DC0484B8E6A892C9376187B8A",
+        "6583500B5A8BC72C5894955198F7525684F5BB708FE210D98112E89785E1802F",
+        "85724AA12478085F3D6CD73AA2FB3CC084E002C270B5D3C715281FF443CA4CD0"
+      ],
+      "neutral_frame_sha256": "F7928CB237B1820AED6CAA996E4BA6533B4949D735CFE6781C88B515F4580015",
+      "final_onscreen_screenshot_sha256": "296641B8F3EE8842FF3162761AAB2CD519B9E8F7DC82BB3534F0F33EEDFDB65F"
+    },
+    {
+      "id": "runtime_turn_path_BD_04",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 4,
+      "held_button_sequence": [
+        "Left",
+        "Down",
+        "Left"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 39
+        },
+        {
+          "x": 13,
+          "y": 39
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 38
+        },
+        {
+          "x": 14,
+          "y": 39
+        },
+        {
+          "x": 13,
+          "y": 39
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 13,
+        "y": 39
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "3F3E2B8A8A80CCA32DEF301405D5AF501E375FFC6DD90505338A3F449212DC0B",
+        "1AA6A1565C53FC881B6623FB17C4F9DC9E8B3A8BA7AB2B5F149AD5C21B1F084D",
+        "E9F38A09813D5A61C566A01B4B1381B4C5B33721E7957771E4063E53F5ABBFBA"
+      ],
+      "neutral_frame_sha256": "CBDF048AA4B3E4CFE548BD97305BC1B73C9F7F630D81292F89ABBC79FC236584",
+      "final_onscreen_screenshot_sha256": "B9890C158D0FE09B0A1E14CBF1D1880F89DA3513CDA2929D94740720D3C0D5C3"
+    },
+    {
+      "id": "runtime_turn_path_BD_05",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 5,
+      "held_button_sequence": [
+        "Right",
+        "Down",
+        "Right"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 39
+        },
+        {
+          "x": 17,
+          "y": 39
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 38
+        },
+        {
+          "x": 16,
+          "y": 39
+        },
+        {
+          "x": 17,
+          "y": 39
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 17,
+        "y": 39
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "87AB96DC3303C19C57E250DFBCD6798D8826F65E9AA78C341401DA1B3D8538D7",
+        "69AA4091B59C7D77D2AC30AE6788ABD5A5C6148C25441B0AA3D8C09E115EDEFA",
+        "635B29D7C82FD0DE20717C759DB887E20942A868DE4D179A97737B862BA81CC3"
+      ],
+      "neutral_frame_sha256": "F7928CB237B1820AED6CAA996E4BA6533B4949D735CFE6781C88B515F4580015",
+      "final_onscreen_screenshot_sha256": "6EC459F03A736F530F5B672CA98039C3A934E8331AB07B581519EF2EB8E2C24B"
+    },
+    {
+      "id": "runtime_turn_path_BD_06",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 6,
+      "held_button_sequence": [
+        "Left",
+        "Up",
+        "Left"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 32
+        },
+        {
+          "x": 13,
+          "y": 32
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 37
+        },
+        {
+          "x": 14,
+          "y": 36
+        },
+        {
+          "x": 14,
+          "y": 35
+        },
+        {
+          "x": 14,
+          "y": 34
+        },
+        {
+          "x": 14,
+          "y": 33
+        },
+        {
+          "x": 14,
+          "y": 32
+        },
+        {
+          "x": 13,
+          "y": 32
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 13,
+        "y": 32
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "3F3E2B8A8A80CCA32DEF301405D5AF501E375FFC6DD90505338A3F449212DC0B",
+        "5B7A43E67ABFDF471F95762CA820AB051BCFA4D89C2DA03D3D6DD5862D6AC377",
+        "C441B09415889EADEE00A0472B09D81AA4CC78929F7F80B246369277E0B0F6A6"
+      ],
+      "neutral_frame_sha256": "F19FD725BEFC7964754256ED7966F6D468527332EEECBF947991DBC969867247",
+      "final_onscreen_screenshot_sha256": "48A5727F41D3F338818ABA9954923BA19C0C0DD1A0E0B208DBD48F37EBC8FF55"
+    },
+    {
+      "id": "runtime_turn_path_BD_07",
+      "source_config_id": "cfg_t36_l150_v2",
+      "source_scene_pack": "0xBD",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 15,
+        "y": 37
+      },
+      "route_index": 7,
+      "held_button_sequence": [
+        "Right",
+        "Up",
+        "Right"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 32
+        },
+        {
+          "x": 17,
+          "y": 32
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 15,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 37
+        },
+        {
+          "x": 16,
+          "y": 36
+        },
+        {
+          "x": 16,
+          "y": 35
+        },
+        {
+          "x": 16,
+          "y": 34
+        },
+        {
+          "x": 16,
+          "y": 33
+        },
+        {
+          "x": 16,
+          "y": 32
+        },
+        {
+          "x": 17,
+          "y": 32
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 17,
+        "y": 32
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "87AB96DC3303C19C57E250DFBCD6798D8826F65E9AA78C341401DA1B3D8538D7",
+        "3B46C8962A38DBDCF72B9906FE51D1E5C722F1E400DEB70D149D97E00524D12D",
+        "BD862944C3913CF6C4817A8AE657695B3B828BA8BBB0A14D79173FF421073C66"
+      ],
+      "neutral_frame_sha256": "AF69E5E0E330E69AB61878BAE567EC552B3F74FECCD0964F184E03565DC2A32A",
+      "final_onscreen_screenshot_sha256": "2B342A5EFB065913B850D4CEB0D950BCE897991C29716DB85851ADD14F23BE84"
+    },
+    {
+      "id": "runtime_turn_path_B9_00",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 0,
+      "held_button_sequence": [
+        "Up",
+        "Left",
+        "Up"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 23
+        },
+        {
+          "x": 63,
+          "y": 23
+        },
+        {
+          "x": 63,
+          "y": 23
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 24
+        },
+        {
+          "x": 68,
+          "y": 23
+        },
+        {
+          "x": 67,
+          "y": 23
+        },
+        {
+          "x": 66,
+          "y": 23
+        },
+        {
+          "x": 65,
+          "y": 23
+        },
+        {
+          "x": 64,
+          "y": 23
+        },
+        {
+          "x": 63,
+          "y": 23
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 63,
+        "y": 23
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "86A8DDA162948952B1CE49432C4FAF8DB83893A58D74AE7226918ED670300CA2",
+        "4568AFFDC28182A95896C33920F53B64EDEBCC2D539E34BECE006A127C6973DF",
+        "3491FEEF04F1460F14A37AEC2ECB09DEDAE1684164473E5271DCEF36EC0F9DCC"
+      ],
+      "neutral_frame_sha256": "F6373F52ED88545BAA3112E7FC457BDD9416FC05BC363191E216F7BB1758E444",
+      "final_onscreen_screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0"
+    },
+    {
+      "id": "runtime_turn_path_B9_01",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 1,
+      "held_button_sequence": [
+        "Up",
+        "Right",
+        "Up"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 23
+        },
+        {
+          "x": 73,
+          "y": 23
+        },
+        {
+          "x": 73,
+          "y": 23
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 24
+        },
+        {
+          "x": 68,
+          "y": 23
+        },
+        {
+          "x": 69,
+          "y": 23
+        },
+        {
+          "x": 70,
+          "y": 23
+        },
+        {
+          "x": 71,
+          "y": 23
+        },
+        {
+          "x": 72,
+          "y": 23
+        },
+        {
+          "x": 73,
+          "y": 23
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 73,
+        "y": 23
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "86A8DDA162948952B1CE49432C4FAF8DB83893A58D74AE7226918ED670300CA2",
+        "74805E176DAF5EAA82929D92B84F35F3E23EDCCB9E2A5F2758687A18B3C053CE",
+        "F0D7E4A458096F5F99BC22F561AA0A18759A690CA41CABA6B5EAF0B4926C49A6"
+      ],
+      "neutral_frame_sha256": "41581A6AF578C0A5545AAD7EACB42397DE77D4675A297E0BB4302115ABD51D7F",
+      "final_onscreen_screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0"
+    },
+    {
+      "id": "runtime_turn_path_B9_02",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 2,
+      "held_button_sequence": [
+        "Down",
+        "Left",
+        "Down"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 30
+        },
+        {
+          "x": 66,
+          "y": 30
+        },
+        {
+          "x": 66,
+          "y": 33
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 26
+        },
+        {
+          "x": 68,
+          "y": 27
+        },
+        {
+          "x": 68,
+          "y": 28
+        },
+        {
+          "x": 68,
+          "y": 29
+        },
+        {
+          "x": 68,
+          "y": 30
+        },
+        {
+          "x": 67,
+          "y": 30
+        },
+        {
+          "x": 66,
+          "y": 30
+        },
+        {
+          "x": 66,
+          "y": 31
+        },
+        {
+          "x": 66,
+          "y": 32
+        },
+        {
+          "x": 66,
+          "y": 33
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 66,
+        "y": 33
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "B91C1C32B5B378FC40B4AABBE4B49416930D0F8C4150B5C99AFA16D8C83E0E22",
+        "AD41188D1C9040340ABD50E9EED21F5950B391917106F57ED5845478AB29AC6B",
+        "CDF4DDA2FC21BFBDC9E8FD216CDFE82DB908EE7200CA4C44DB4822C78B8AB228"
+      ],
+      "neutral_frame_sha256": "CD45553FAC49144D1733836E80EADB69DB1AB0C72ED10A1FA8FFAFBA09C3508A",
+      "final_onscreen_screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0"
+    },
+    {
+      "id": "runtime_turn_path_B9_03",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 3,
+      "held_button_sequence": [
+        "Down",
+        "Right",
+        "Down"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 30
+        },
+        {
+          "x": 71,
+          "y": 30
+        },
+        {
+          "x": 71,
+          "y": 35
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 68,
+          "y": 26
+        },
+        {
+          "x": 68,
+          "y": 27
+        },
+        {
+          "x": 68,
+          "y": 28
+        },
+        {
+          "x": 68,
+          "y": 29
+        },
+        {
+          "x": 68,
+          "y": 30
+        },
+        {
+          "x": 69,
+          "y": 30
+        },
+        {
+          "x": 70,
+          "y": 30
+        },
+        {
+          "x": 71,
+          "y": 30
+        },
+        {
+          "x": 71,
+          "y": 31
+        },
+        {
+          "x": 71,
+          "y": 32
+        },
+        {
+          "x": 71,
+          "y": 33
+        },
+        {
+          "x": 71,
+          "y": 34
+        },
+        {
+          "x": 71,
+          "y": 35
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 71,
+        "y": 35
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "B91C1C32B5B378FC40B4AABBE4B49416930D0F8C4150B5C99AFA16D8C83E0E22",
+        "EA3F59452901BA0EE455A7CAD7047E8D03C845AC2E93C228B696BE796E235510",
+        "CED956B4FFE88B377D608973FB8468A3906356947E6D854AF1A79C2DEC57832B"
+      ],
+      "neutral_frame_sha256": "31EA625E4B9728C4B990FBA2D22011F3DF9BBAFEF3F9D7FE084D47EC0E81727A",
+      "final_onscreen_screenshot_sha256": "59734F1DFE842E1FCC4D506A46A2E3322859BC1AAB5E5CB7B8D18FE2741F4536"
+    },
+    {
+      "id": "runtime_turn_path_B9_04",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 4,
+      "held_button_sequence": [
+        "Left",
+        "Down",
+        "Left"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 28
+        },
+        {
+          "x": 58,
+          "y": 28
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 67,
+          "y": 25
+        },
+        {
+          "x": 66,
+          "y": 25
+        },
+        {
+          "x": 65,
+          "y": 25
+        },
+        {
+          "x": 64,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 26
+        },
+        {
+          "x": 63,
+          "y": 27
+        },
+        {
+          "x": 63,
+          "y": 28
+        },
+        {
+          "x": 62,
+          "y": 28
+        },
+        {
+          "x": 61,
+          "y": 28
+        },
+        {
+          "x": 60,
+          "y": 28
+        },
+        {
+          "x": 59,
+          "y": 28
+        },
+        {
+          "x": 58,
+          "y": 28
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 58,
+        "y": 28
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "5DCF8BF254AE368C6BA5CDD29BBD6231B8901E96DAEE52B65D81C2EC76867593",
+        "16845E2374E72DDFA177767707BD8E8CB1096F47C86FAE2704142803B0476ED2",
+        "8D91928D51F78DBD4447437C5439DCF668B3FB38245E90DAB4D8AA863180CAD6"
+      ],
+      "neutral_frame_sha256": "D04898169C2015C6E50E27CFA7040B88728EEE8E770E0AAD95E2F8FCF5A8BB8A",
+      "final_onscreen_screenshot_sha256": "9268ABCBF2AEFFA6506896446D6328CCC28E7164222E59723CCA42E04C4207E1"
+    },
+    {
+      "id": "runtime_turn_path_B9_05",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 5,
+      "held_button_sequence": [
+        "Right",
+        "Down",
+        "Right"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 27
+        },
+        {
+          "x": 73,
+          "y": 27
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 69,
+          "y": 25
+        },
+        {
+          "x": 70,
+          "y": 25
+        },
+        {
+          "x": 71,
+          "y": 25
+        },
+        {
+          "x": 72,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 26
+        },
+        {
+          "x": 73,
+          "y": 27
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 73,
+        "y": 27
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "3109F3BA8D67E9F11B94A3F994A1C7F76E63AC338936C87B19027EFB3F79EF29",
+        "5380CC761C6531C53A30119935A88F91758BF62AFAE6DFADB600AA2A13E4B2F0",
+        "2DC34C5BA0375CF0621627F2C07DDEEAB062A55B4F656653C2ECCBF919592B11"
+      ],
+      "neutral_frame_sha256": "E9E762A36B458E60C7C0F81224F8F1CD7CD8126BA7B876AFF57A87216DE3D455",
+      "final_onscreen_screenshot_sha256": "DD2E450A1883E94CEDB857C8AD4A71128D363E8001B9DB1164C965312191E9A6"
+    },
+    {
+      "id": "runtime_turn_path_B9_06",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 6,
+      "held_button_sequence": [
+        "Left",
+        "Up",
+        "Left"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 22
+        },
+        {
+          "x": 63,
+          "y": 22
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 67,
+          "y": 25
+        },
+        {
+          "x": 66,
+          "y": 25
+        },
+        {
+          "x": 65,
+          "y": 25
+        },
+        {
+          "x": 64,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 25
+        },
+        {
+          "x": 63,
+          "y": 24
+        },
+        {
+          "x": 63,
+          "y": 23
+        },
+        {
+          "x": 63,
+          "y": 22
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 63,
+        "y": 22
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "5DCF8BF254AE368C6BA5CDD29BBD6231B8901E96DAEE52B65D81C2EC76867593",
+        "6593C5D14B4BA191BF97C9DFF3AC64CB64A92C0BD81F87535D51E610FE8B7C51",
+        "CE7B0B5B538159FF24484829B2A1C6BB7C1D83B5BFF56179AD4C4A3BF16E3AD3"
+      ],
+      "neutral_frame_sha256": "469E83010DB42075E1EF197CF88D17FE164AAD0A7EF758609315F1438D2244EB",
+      "final_onscreen_screenshot_sha256": "729F414FE6802F3B93EAE6F1F5ADF5CAF66C08C278DEAF80EC7BE7613AADC978"
+    },
+    {
+      "id": "runtime_turn_path_B9_07",
+      "source_config_id": "cfg_t25_l129_v2",
+      "source_scene_pack": "0xB9",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 68,
+        "y": 25
+      },
+      "route_index": 7,
+      "held_button_sequence": [
+        "Right",
+        "Up",
+        "Right"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 21
+        },
+        {
+          "x": 74,
+          "y": 21
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 68,
+          "y": 25
+        },
+        {
+          "x": 69,
+          "y": 25
+        },
+        {
+          "x": 70,
+          "y": 25
+        },
+        {
+          "x": 71,
+          "y": 25
+        },
+        {
+          "x": 72,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 25
+        },
+        {
+          "x": 73,
+          "y": 24
+        },
+        {
+          "x": 73,
+          "y": 23
+        },
+        {
+          "x": 73,
+          "y": 22
+        },
+        {
+          "x": 73,
+          "y": 21
+        },
+        {
+          "x": 74,
+          "y": 21
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 74,
+        "y": 21
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "3109F3BA8D67E9F11B94A3F994A1C7F76E63AC338936C87B19027EFB3F79EF29",
+        "F37AF6BD06BBA563B46B20C74C5A71E14073B3459B54CD13FA56A8C44C54F940",
+        "0DE0BED4D3908DFA611C95685ECC5A620DC935B2E04A3641D811F64CB0A90B11"
+      ],
+      "neutral_frame_sha256": "0E4A4A05E19047D8B36A4F1E0A8BDF46FE4F9480097FAAE6937B7A04DA349817",
+      "final_onscreen_screenshot_sha256": "6BE1250C4F701AA84D921C77F05D8F95753B441F06F39E55D233D4DE0EE9FBC0"
+    },
+    {
+      "id": "runtime_turn_path_AB_00",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 0,
+      "held_button_sequence": [
+        "Up",
+        "Left",
+        "Up"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 3
+        },
+        {
+          "x": 20,
+          "y": 3
+        },
+        {
+          "x": 20,
+          "y": 3
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 4
+        },
+        {
+          "x": 22,
+          "y": 3
+        },
+        {
+          "x": 21,
+          "y": 3
+        },
+        {
+          "x": 20,
+          "y": 3
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 20,
+        "y": 3
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "1EB12B1F6A213BCCCC110362FD3E3A4DE79E869B021D55738B48AD17D4780271",
+        "F50735415C87AF91594E08A1326D7BEB88D5B079D1D8E1DE85B044CC18CCEF3B",
+        "12CABCA8394307BE92BF3E798CE3031AC0A45A965BAEA75F285361538518F181"
+      ],
+      "neutral_frame_sha256": "0C59CBAAF72FF7DEC5F336DEF33177CA8309B88FA6C99BE782D921112E751722",
+      "final_onscreen_screenshot_sha256": "F8AEF35525C59217DD215DCA28ADC9223288236B9669AEA69DF6669704AA2C28"
+    },
+    {
+      "id": "runtime_turn_path_AB_01",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 1,
+      "held_button_sequence": [
+        "Up",
+        "Right",
+        "Up"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 3
+        },
+        {
+          "x": 23,
+          "y": 3
+        },
+        {
+          "x": 23,
+          "y": 3
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 4
+        },
+        {
+          "x": 22,
+          "y": 3
+        },
+        {
+          "x": 23,
+          "y": 3
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 23,
+        "y": 3
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "1EB12B1F6A213BCCCC110362FD3E3A4DE79E869B021D55738B48AD17D4780271",
+        "BB2D895A093CEF5DB1B68E9CE75A2AA9CEEF95F03B6FFA8634A6ACF2CD55FFE7",
+        "33C082B8B699E3284D9567D3A3BB424D7C561EDF7D928F520EEEF2308FDBACFD"
+      ],
+      "neutral_frame_sha256": "A96FE46EFD077D0941D2901021CB1FF00B60F79B3D51CF73FA2E816F72283E6A",
+      "final_onscreen_screenshot_sha256": "0DAAE57264EC6F4C5F0617391BDBFDEC1AEA98628AA64FDF2D557E7511157F61"
+    },
+    {
+      "id": "runtime_turn_path_AB_02",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 2,
+      "held_button_sequence": [
+        "Down",
+        "Left",
+        "Down"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 10
+        },
+        {
+          "x": 18,
+          "y": 10
+        },
+        {
+          "x": 18,
+          "y": 15
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 6
+        },
+        {
+          "x": 22,
+          "y": 7
+        },
+        {
+          "x": 22,
+          "y": 8
+        },
+        {
+          "x": 22,
+          "y": 9
+        },
+        {
+          "x": 22,
+          "y": 10
+        },
+        {
+          "x": 21,
+          "y": 10
+        },
+        {
+          "x": 20,
+          "y": 10
+        },
+        {
+          "x": 19,
+          "y": 10
+        },
+        {
+          "x": 18,
+          "y": 10
+        },
+        {
+          "x": 18,
+          "y": 11
+        },
+        {
+          "x": 18,
+          "y": 12
+        },
+        {
+          "x": 18,
+          "y": 13
+        },
+        {
+          "x": 18,
+          "y": 14
+        },
+        {
+          "x": 18,
+          "y": 15
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 18,
+        "y": 15
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "89F9B3DFC97DA8EE7168619AA0865667A22C1F630F93A8A080A7B1EC7A659C48",
+        "FFB594D35FFF4C6FAFA160D6CC08FFDF4EB0BA22F5F372B2678C269E403552EF",
+        "CC573F65E94B4DF97EEE465F97D72F821F4459AA4CA1B945D15445C67462EBA4"
+      ],
+      "neutral_frame_sha256": "ADF93C84CE7711CCBA59E0AB81E70E564168F7D77BA85E7FD2483D3609312238",
+      "final_onscreen_screenshot_sha256": "883D96E18EB6599ACA963B892E1679325AAB5D49C5A2582AAFE063FC8FD6844E"
+    },
+    {
+      "id": "runtime_turn_path_AB_03",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 3,
+      "held_button_sequence": [
+        "Down",
+        "Right",
+        "Down"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 10
+        },
+        {
+          "x": 26,
+          "y": 10
+        },
+        {
+          "x": 26,
+          "y": 15
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 22,
+          "y": 6
+        },
+        {
+          "x": 22,
+          "y": 7
+        },
+        {
+          "x": 22,
+          "y": 8
+        },
+        {
+          "x": 22,
+          "y": 9
+        },
+        {
+          "x": 22,
+          "y": 10
+        },
+        {
+          "x": 23,
+          "y": 10
+        },
+        {
+          "x": 24,
+          "y": 10
+        },
+        {
+          "x": 25,
+          "y": 10
+        },
+        {
+          "x": 26,
+          "y": 10
+        },
+        {
+          "x": 26,
+          "y": 11
+        },
+        {
+          "x": 26,
+          "y": 12
+        },
+        {
+          "x": 26,
+          "y": 13
+        },
+        {
+          "x": 26,
+          "y": 14
+        },
+        {
+          "x": 26,
+          "y": 15
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 26,
+        "y": 15
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "89F9B3DFC97DA8EE7168619AA0865667A22C1F630F93A8A080A7B1EC7A659C48",
+        "50ADDAF056F22E784D9354463F8829237F2BDFC92566E9FF00B4C98A3D2669AC",
+        "F0F7F9E1AB223BDFCA3CA2F2E6E12E7F267042CE40580FFF5784F94016CBA927"
+      ],
+      "neutral_frame_sha256": "8246CA3E6F8164A4D11EB6AD09EDB8625950FC9E06A5D3AA222AB8786ABA30DC",
+      "final_onscreen_screenshot_sha256": "4F0318C97DF6D1C9926B0499142BDF2DB7254AEDC40D83A308294396392B6D44"
+    },
+    {
+      "id": "runtime_turn_path_AB_04",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 4,
+      "held_button_sequence": [
+        "Left",
+        "Down",
+        "Left"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 9
+        },
+        {
+          "x": 12,
+          "y": 9
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 21,
+          "y": 5
+        },
+        {
+          "x": 20,
+          "y": 5
+        },
+        {
+          "x": 19,
+          "y": 5
+        },
+        {
+          "x": 18,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 6
+        },
+        {
+          "x": 17,
+          "y": 7
+        },
+        {
+          "x": 17,
+          "y": 8
+        },
+        {
+          "x": 17,
+          "y": 9
+        },
+        {
+          "x": 16,
+          "y": 9
+        },
+        {
+          "x": 15,
+          "y": 9
+        },
+        {
+          "x": 14,
+          "y": 9
+        },
+        {
+          "x": 13,
+          "y": 9
+        },
+        {
+          "x": 12,
+          "y": 9
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 12,
+        "y": 9
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "9879267A7A9874AE1EEB9FDF7621CB600C6D5B9AE9865F83DD388EC5C6B21B5C",
+        "A1B9359BBE25357826497DBD3B9D46A25B48B3D2590B91288118AE0057A53F6C",
+        "E5F2666BB99B0527B0CD3284214ED8256B2E752A6739E62FAF222FB2C08BBE67"
+      ],
+      "neutral_frame_sha256": "8EB4677B1FAA8AFDB63DD5EF25640ED9EF18D686EDE7CA2AEE3CBF5A4F65E97A",
+      "final_onscreen_screenshot_sha256": "29048903DEC1E11BD8A390FD72007DED9F6BAB8930665F8AE8AA3BAE3EE6D82F"
+    },
+    {
+      "id": "runtime_turn_path_AB_05",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 5,
+      "held_button_sequence": [
+        "Right",
+        "Down",
+        "Right"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 10
+        },
+        {
+          "x": 27,
+          "y": 10
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 23,
+          "y": 5
+        },
+        {
+          "x": 24,
+          "y": 5
+        },
+        {
+          "x": 25,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 6
+        },
+        {
+          "x": 26,
+          "y": 7
+        },
+        {
+          "x": 26,
+          "y": 8
+        },
+        {
+          "x": 26,
+          "y": 9
+        },
+        {
+          "x": 26,
+          "y": 10
+        },
+        {
+          "x": 27,
+          "y": 10
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 27,
+        "y": 10
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "C11EA46F595BE9B393A23537C4BDEDE5E354A720E04CCBA95EA3808B5875F21E",
+        "0DE18D9C0E3C01146ACB8E0BE4148A9B86A283FA4A0AC6308216C31071CCFB4B",
+        "13BA28B9A72DD3F3EF511362049C7ED34086AF48AB57E34D0B62AE95F0535766"
+      ],
+      "neutral_frame_sha256": "E7B84841C04DB898B0B8589EA8A0E2C64D223779DD6D31BD2D27AC4C3970C87B",
+      "final_onscreen_screenshot_sha256": "0B23D20C53FCE628EF2B979134181FBD9A7B0192DAE97535B461809EF59A171D"
+    },
+    {
+      "id": "runtime_turn_path_AB_06",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 6,
+      "held_button_sequence": [
+        "Left",
+        "Up",
+        "Left"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 3
+        },
+        {
+          "x": 14,
+          "y": 3
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 21,
+          "y": 5
+        },
+        {
+          "x": 20,
+          "y": 5
+        },
+        {
+          "x": 19,
+          "y": 5
+        },
+        {
+          "x": 18,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 5
+        },
+        {
+          "x": 17,
+          "y": 4
+        },
+        {
+          "x": 17,
+          "y": 3
+        },
+        {
+          "x": 16,
+          "y": 3
+        },
+        {
+          "x": 15,
+          "y": 3
+        },
+        {
+          "x": 14,
+          "y": 3
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 14,
+        "y": 3
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "9879267A7A9874AE1EEB9FDF7621CB600C6D5B9AE9865F83DD388EC5C6B21B5C",
+        "4276A857D34CC5142FB560C6081FB9FB31F7561B2127C6C9D1F8F5A85C196FC5",
+        "359E650AD9E681B474954057FF7719DEC7A3E211233A3105D941325A803C2BBE"
+      ],
+      "neutral_frame_sha256": "B27B255AE9AB803E40EB761B7CA9380BC02BE3B0C8E2BDA789CE667CA6927821",
+      "final_onscreen_screenshot_sha256": "360FB2397AB772B91EE1894E8516F784FCC859DA5639E991285CFF5FF0E81D2D"
+    },
+    {
+      "id": "runtime_turn_path_AB_07",
+      "source_config_id": "cfg_t49_l176_v2",
+      "source_scene_pack": "0xAB",
+      "from_world_entrance_cheat_adjacent": true,
+      "no_scene_xy_cheat_during_controller_path": true,
+      "actual_SNES_gamepad_path": true,
+      "source_original_scene_xy": {
+        "x": 22,
+        "y": 5
+      },
+      "route_index": 7,
+      "held_button_sequence": [
+        "Right",
+        "Up",
+        "Right"
+      ],
+      "held_frames_per_step": 72,
+      "neutral_frames_after_path": 120,
+      "turn_endpoints_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 5
+        }
+      ],
+      "observed_position_trace_grid": [
+        {
+          "x": 22,
+          "y": 5
+        },
+        {
+          "x": 23,
+          "y": 5
+        },
+        {
+          "x": 24,
+          "y": 5
+        },
+        {
+          "x": 25,
+          "y": 5
+        },
+        {
+          "x": 26,
+          "y": 5
+        }
+      ],
+      "arrived_at_grid": {
+        "x": 26,
+        "y": 5
+      },
+      "source_pack_unchanged_in_all_observed_frames": true,
+      "no_new_map_transition_verified_this_route": true,
+      "other_story_phase_or_turn_routes_excluded": false,
+      "exact_collision_OR_wall_cause_proven": false,
+      "actual_CPU_handler_PC_observed": false,
+      "raw_ROM_screenshot_and_frame_data_committed": false,
+      "first_observed_frame": 663412,
+      "last_observed_frame": 663748,
+      "gamepad_frame_sha256": [
+        "C11EA46F595BE9B393A23537C4BDEDE5E354A720E04CCBA95EA3808B5875F21E",
+        "BE139AFA964521F0C4789156D9B6F42D44C9B39DE69A8B2EBFDDBABAD72374D8",
+        "92B1F3B4003D6F94D839694DD4B83059BB9042D8F85BCFD2E06F17941A325F78"
+      ],
+      "neutral_frame_sha256": "B7443F438AA11D0346C9C7A2F110490C187DFE37567BF514FEE4DA90D66E82F8",
+      "final_onscreen_screenshot_sha256": "886969B2A154F6E7086DD6A41FF27FCAAE0E8148DAEB1CB148D1B83B296BF0B9"
+    }
+  ]
+}

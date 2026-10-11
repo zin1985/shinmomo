@@ -11,8 +11,9 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
 #mapViewport{overflow:auto;max-height:68vh;border:1px solid #777;background:#222;min-height:240px}
 #mapSizer{position:relative}.mapStage{position:absolute;left:0;top:0;transform-origin:0 0;background:#333}
 #mapImage{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;image-rendering:pixelated}
-#gridLayer,#hotspotLayer,#arrivalLayer,#actorLayer,#focusLayer,#dialogueLayer{position:absolute;inset:0;pointer-events:none}
+#gridLayer,#routeLayer,#hotspotLayer,#arrivalLayer,#actorLayer,#focusLayer,#dialogueLayer{position:absolute;inset:0;pointer-events:none}
 #gridLayer.on{background-image:linear-gradient(to right,#ffffff33 1px,transparent 1px),linear-gradient(to bottom,#ffffff33 1px,transparent 1px)}
+.routeTrail{fill:none;stroke:#38ddfa;stroke-width:4;stroke-linejoin:round;stroke-linecap:round;opacity:.92;filter:drop-shadow(0 1px 2px #001f32)}.routePin{fill:#fff;stroke:#01607b;stroke-width:2}.nativeRouteRow{display:block;width:100%;margin:5px 0;padding:8px;border-radius:5px;border:1px solid #688;background:transparent;color:inherit;text-align:left;cursor:pointer}.nativeRouteRow:hover,.nativeRouteRow.active{border-color:#38ddfa;background:#166b8a30}.nativeRouteRow small{display:block;opacity:.8;margin-top:3px}.nativeRouteNotice{font-size:12px;opacity:.85;line-height:1.5}
 .hotspot{position:absolute;pointer-events:auto;cursor:pointer;padding:0;border:1px dashed #f6d365;background:#ffd54f28;box-shadow:inset 0 0 0 1px #0008}
 .hotspot:hover{background:#ffd54f66;border-style:solid}.hotspot.confirmed{border:2px solid #7fffb2;background:#30d97835}
 .focusMarker{position:absolute;pointer-events:none;width:24px;height:24px;border:3px solid #fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px #20d6ff88,0 0 14px #20d6ff;animation:focusPulse .9s ease-in-out infinite alternate}
@@ -62,6 +63,7 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
     <label><input id="arrivalsToggle" type="checkbox">arrival points</label>
     <label><input id="labelsToggle" type="checkbox">labels</label>
     <label><input id="gridToggle" type="checkbox">map grid</label>
+    <label><input id="routesToggle" type="checkbox" checked>実機通行経路</label>
     <label>zoom <input id="zoom" type="range" min="0.25" max="2" step="0.05" value="0.75"><span id="zoomValue">75%</span></label>
   </div>
   <div id="statePanel" class="statePanel">
@@ -71,9 +73,10 @@ button{display:block;width:100%;text-align:left}.mapButton.active{font-weight:70
     <div id="stateControls"></div>
   </div>
   <div id="assetStatus"></div>
-  <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="hotspotLayer"></div><div id="arrivalLayer"></div><div id="focusLayer"></div><div id="actorLayer"></div><div id="dialogueLayer"></div></div></div></div>
+  <div id="mapViewport"><div id="mapSizer"><div id="mapStage" class="mapStage"><img id="mapImage"><div id="gridLayer"></div><div id="routeLayer"></div><div id="hotspotLayer"></div><div id="arrivalLayer"></div><div id="focusLayer"></div><div id="actorLayer"></div><div id="dialogueLayer"></div></div></div></div>
   <div id="positionNotice" class="notice"></div><section id="analysisPanel" class="analysisPanel"><h3>Analysis evidence</h3><div id="analysisSummary" class="analysisGrid"></div><details><summary>Evidence / unresolved details</summary><pre id="analysisDetail"></pre></details></section>
   <section id="locationDialoguePanel" class="analysisPanel" hidden><h3>場所会話 / 時期別アーカイブ</h3><div id="locationDialogue"></div></section>
+  <section id="routePanel" class="analysisPanel" hidden><h3>実機で通れた経路</h3><p class="nativeRouteNotice">ゲームパッドで確認した通行経路です。別マップの出口や、全ストーリー状態での通行を証明するものではありません。選ぶとマップ上に経路を描きます。</p><div id="routeList"></div></section>
   <h3>Transitions</h3><div id="edges"></div>
   <details open><summary>Unbound transitions <span id="unboundCount"></span></summary><div id="unbound"></div></details>
   <h3>Selection / structure</h3><pre id="detail"></pre>
