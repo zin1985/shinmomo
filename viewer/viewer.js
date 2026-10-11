@@ -158,11 +158,12 @@ function renderLocationDialogues(m){
 }
 
 function mapActorPacks(m){
-  return [...new Set(
-    mapEntities(m)
+  return [...new Set([
+    ...mapEntities(m)
       .filter(e=>e.entity_type==='static_actor_candidate'&&e.pack_id_hex)
-      .map(e=>e.pack_id_hex)
-  )].sort();
+      .map(e=>e.pack_id_hex),
+    ...(m.runtime_pack_location_contexts||[]).map(c=>c.pack_id_hex).filter(Boolean)
+  ])].sort();
 }
 
 function sceneIdFor(m=selectedMap,pack=selectedPack){
@@ -244,7 +245,8 @@ function populateScenePack(m,requestedPack=null){
     const o=document.createElement('option');
     o.value=pack;
     const count=mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate'&&e.pack_id_hex===pack).length;
-    o.textContent=pack+(count?' ('+count+' actors)':' (no mapped actor set)');
+    const named=(m.runtime_pack_location_contexts||[]).find(c=>c.pack_id_hex===pack);
+    o.textContent=pack+(named?' | '+named.label:count?' ('+count+' actors)':' (no mapped actor set)');
     sel.append(o);
   }
   sel.value=requestedPack||'';
@@ -298,6 +300,9 @@ function populateStateControls(m,pack=selectedPack){
 }
 
 function mapDisplayName(m,pack=null){
+  const titles=(m.runtime_pack_location_contexts||[])
+    .filter(c=>c.pack_id_hex===pack&&c.identity_status==='confirmed_onscreen_title_runtime_scene');
+  if(titles.length===1)return titles[0].label+' ('+m.config_id+')';
   const actors=pack
     ? mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate'&&e.pack_id_hex===pack)
     : mapEntities(m).filter(e=>e.entity_type==='static_actor_candidate');

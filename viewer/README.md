@@ -114,3 +114,14 @@ frame 663387 were verified by frame-end WRAM. This is NOT a
 captured VM0x56 execution event and story predicates remain unknown.
 Do not generalize the one confirmed exit cell to the entire corridor.
 See docs/analysis/pack4d_world_native_return_20261011.md.
+
+
+## Confirmed in-game title for pack 0x4D (2026-10-11)
+
+A hidden BizHawk screenshot, with WRAM pack 0x4D at (17,37),
+shows the actual place title 桃太郎の生家. Viewer auto-selects
+pack 0x4D on cfg_t04_l006_v2 and displays the pack-scoped title;
+other configurations sharing tileset or layout are NOT renamed.
+Raw screenshot is local-only; provenance SHA256 is in
+data/maps/context/pack4d_runtime_location_title_20261011.json.
+See docs/analysis/pack4d_title_and_dungeon_frontier_20261011.md.

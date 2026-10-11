@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Locate confirmed dungeon floor transitions; refine map 0x4D semantic identity",
-  "base_main_head_verified": "8183e5b2e8d9c0d91eea57b5b40931c789bd92a9",
+  "title": "Trace confirmed dungeon-family tileset8 world hotspot and reachability without forced movement",
+  "base_main_head_verified": "5270a1571c132dc71c35f2817911209cf83cd7fb",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,23 +455,23 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Identify cfg_t04_l006_v2 pack4D map name and village/inn/dungeon classification using dialogue and map content; no label unless independently evidenced. New confirmed native return 0x4D->world is now a 57th Viewer edge."
+      "action": "Find reachable legitimate world navigation route or protected playable save to world hotspot x47..48,y199 (static CC:0B7F, destination pack0x91/config cfg_t08_l092_v2). The direct north x55,y233 and tested nearby detours stall; do not force WRAM player coordinates."
     },
     {
       "order": 2,
-      "action": "Find actual playable dungeon/staircase or multi-floor save, protected hidden BizHawk only, verify source config, target pack, selector and settled coordinate by v2 continuous WRAM capture."
+      "action": "Prove a real pack0x91 dungeon entry and floor-to-floor transition with hidden onframeend schema2 source contact, pack switch, selector convergence and settled XY. Only then annotate runtime proof."
     },
     {
       "order": 3,
-      "action": "Broaden native return capture using independently proven source cells; do not extrapolate other exit columns, universal current-state reachability or VM0x56 opcode hits."
+      "action": "Add context-scoped map names for other places only after confirmed in-game title or independent ROM/dialogue evidence, preserving shared map-layout identity."
     },
     {
       "order": 4,
-      "action": "Investigate SNES execution/write callback delivery (35 hooks registered, zero actual hits in known transitions). VM opcode PC and story conditions remain unverified."
+      "action": "Diagnose 35 registered but non-firing SNES CPU/memory hooks for exact event opcode proof."
     },
     {
       "order": 5,
-      "action": "Advance the CC:1160 phase-dependent destination and pack0x96 arrival XY plus unresolved source bindings."
+      "action": "Continue CC:1160 phase-dependent destinations, pack0x96 arrival XY and remaining unknown VM56 source bindings."
     }
   ],
   "do_not_redo": [
@@ -844,43 +844,54 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Reproduced previously missing pack0x4D south native return to world and added single evidence-backed Viewer edge",
-    "source_config": "cfg_t04_l006_v2",
-    "source_pack": "0x4D",
-    "source_inside_xy": [
-      17,
-      37
-    ],
-    "first_outside_xy": [
-      17,
-      38
-    ],
-    "first_outside_frame": 663382,
-    "world_switch_frame": 663387,
-    "destination_config": "cfg_t01_l001_v1",
-    "destination_pack": "0x4C",
-    "destination_xy": [
-      52,
-      233
-    ],
-    "selector_convergence_frame": 663414,
-    "world_stable_until_frame": 663523,
-    "static_native_bounds_opcode": "CC:18AB",
-    "native_saved_return_cpu_pc_verified": false,
-    "all_story_conditions_verified": false,
-    "map_0x4D_is_dungeon_verified": false,
-    "new_viewer_edge_count": 1,
-    "viewer_bound_edge_count": 57,
-    "viewer_candidate_count": 1296,
-    "viewer_map_count": 149,
-    "official_project_completion_percent_unchanged": 51.4,
-    "raw_screens_rom_or_savestates_uploaded": false,
+    "description": "Identified pack4D scene as 桃太郎の生家 by observed in-game title and made the Viewer pack-scoped; shortlisted true ROM dungeon-family world entry for future runtime verification",
+    "pack4d_map_config": "cfg_t04_l006_v2",
+    "exact_scene_pack": "0x4D",
+    "verified_in_game_location_title": "桃太郎の生家",
+    "local_screenshot_sha256": "336AEC83F907E31F16C10528C1F53E6999859104DA3E87CB892B8F3535CBE7E6",
+    "screenshot_raw_committed": false,
+    "applies_to_other_configs": false,
+    "pack4d_story_flags_verified": false,
+    "pack4d_is_dungeon_verified": false,
+    "dungeon_candidate": {
+      "source_world_hotspot_xy_rectangle": [
+        47,
+        199,
+        2,
+        1
+      ],
+      "static_candidate_pc": "CC:0B7F",
+      "destination_config_id": "cfg_t08_l092_v2",
+      "destination_pack": "0x91",
+      "destination_family": "ROM-derived tileset8/layout92 dungeon graphics",
+      "origin_world_xy": [
+        55,
+        236
+      ],
+      "manhattan_lower_bound": 44,
+      "runtime_entrance_proven": false,
+      "runtime_arrival_xy_proven": false
+    },
+    "world_walk_probe": {
+      "northward_stalled_at": [
+        55,
+        233
+      ],
+      "tested_east_west_short_detours": true,
+      "all_possible_routes_blocked_proven": false,
+      "state_protected_and_restored": true
+    },
+    "new_graph_edges_added": 0,
+    "viewer_map_count_unchanged": 149,
+    "viewer_bound_edges_unchanged": 57,
+    "viewer_transition_candidates_unchanged": 1296,
+    "official_progress_percent_unchanged": 51.4,
     "evidence": [
-      "data/maps/transitions/pack4d_south_native_return_20261011.json",
-      "docs/analysis/pack4d_world_native_return_20261011.md",
-      "tools/python/verify_native_pack4d_world_return.py",
-      "tools/python/add_runtime_native_return_edge.py",
-      "scripts/test_native_pack4d_world_return.py"
+      "data/maps/context/pack4d_runtime_location_title_20261011.json",
+      "data/maps/context/map_location_identity_candidates_20260930.csv",
+      "data/maps/transitions/world_dungeon_family_targets_20261011.json",
+      "docs/analysis/pack4d_title_and_dungeon_frontier_20261011.md",
+      "scripts/test_pack4d_location_and_dungeon_targets.py"
     ]
   },
   "completed_work_units": [
@@ -1344,6 +1355,47 @@
         "tools/python/verify_spatial_event_transition.py",
         "tools/python/apply_runtime_spatial_proofs.py",
         "scripts/test_spatial_event_transition_proofs.py"
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Reproduced previously missing pack0x4D south native return to world and added single evidence-backed Viewer edge",
+      "source_config": "cfg_t04_l006_v2",
+      "source_pack": "0x4D",
+      "source_inside_xy": [
+        17,
+        37
+      ],
+      "first_outside_xy": [
+        17,
+        38
+      ],
+      "first_outside_frame": 663382,
+      "world_switch_frame": 663387,
+      "destination_config": "cfg_t01_l001_v1",
+      "destination_pack": "0x4C",
+      "destination_xy": [
+        52,
+        233
+      ],
+      "selector_convergence_frame": 663414,
+      "world_stable_until_frame": 663523,
+      "static_native_bounds_opcode": "CC:18AB",
+      "native_saved_return_cpu_pc_verified": false,
+      "all_story_conditions_verified": false,
+      "map_0x4D_is_dungeon_verified": false,
+      "new_viewer_edge_count": 1,
+      "viewer_bound_edge_count": 57,
+      "viewer_candidate_count": 1296,
+      "viewer_map_count": 149,
+      "official_project_completion_percent_unchanged": 51.4,
+      "raw_screens_rom_or_savestates_uploaded": false,
+      "evidence": [
+        "data/maps/transitions/pack4d_south_native_return_20261011.json",
+        "docs/analysis/pack4d_world_native_return_20261011.md",
+        "tools/python/verify_native_pack4d_world_return.py",
+        "tools/python/add_runtime_native_return_edge.py",
+        "scripts/test_native_pack4d_world_return.py"
       ]
     }
   ]

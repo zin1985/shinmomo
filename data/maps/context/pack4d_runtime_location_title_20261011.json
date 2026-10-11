@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "runtime_onscreen_location_title_proof",
+  "map_config_id": "cfg_t04_l006_v2",
+  "runtime_pack_id_hex": "0x4D",
+  "onscreen_title": "桃太郎の生家",
+  "presentation_kind": "outdoor_forest_path",
+  "source_fixture_local_only": "vmtrace_pack4d_south_ready_x17_y37_20261011.State",
+  "source_pack_byte": 77,
+  "source_position": {
+    "x": 17,
+    "y": 37
+  },
+  "screenshot_sha256": "336AEC83F907E31F16C10528C1F53E6999859104DA3E87CB892B8F3535CBE7E6",
+  "screenshot_committed": false,
+  "source_transition_proof": "data/maps/transitions/world_52_233_entry_verified_20261011.json",
+  "native_exit_proof": "data/maps/transitions/pack4d_south_native_return_20261011.json",
+  "location_identity_confidence": "confirmed_onscreen_title_for_runtime_pack_context",
+  "applies_to_all_configs_sharing_tileset_layout": false,
+  "dungeon_or_staircase_evidence": false,
+  "actor_story_phase_verified": false,
+  "notes": "An actual gameplay screenshot shows the place-name overlay while current WRAM pack is 0x4D at x17,y37. The shared map render catalog is not globally renamed. No dungeon identity inferred."
+}

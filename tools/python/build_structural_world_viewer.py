@@ -698,6 +698,43 @@ def main():
                 "provenance": row.get("provenance") or str(LOCATION_CANDIDATES.relative_to(ROOT)).replace("\\", "/"),
             })
 
+    # Runtime location titles are a scene-pack identity, NEVER a property
+    # of the shared tileset/layout. Fail closed on duplicate or unproven rows.
+    runtime_location_proof_path = ROOT / "data/maps/context/pack4d_runtime_location_title_20261011.json"
+    runtime_location_proof = (
+        json.loads(runtime_location_proof_path.read_text(encoding="utf-8"))
+        if runtime_location_proof_path.exists() else None
+    )
+    runtime_identity_attached = 0
+    for (config_id, pack_id), candidates in location_candidates_by_context.items():
+        confirmed = [x for x in candidates if x["status"] == "confirmed_onscreen_pack_context"]
+        if not confirmed:
+            continue
+        if len(confirmed) != 1 or not runtime_location_proof:
+            raise ValueError("Missing or ambiguous on-screen map-pack identity proof")
+        identity = confirmed[0]
+        if (runtime_location_proof.get("kind") != "runtime_onscreen_location_title_proof" or
+            runtime_location_proof.get("map_config_id") != config_id or
+            runtime_location_proof.get("runtime_pack_id_hex") != pack_id or
+            runtime_location_proof.get("onscreen_title") != identity["candidate_label"] or
+            runtime_location_proof.get("location_identity_confidence") != "confirmed_onscreen_title_for_runtime_pack_context" or
+            runtime_location_proof.get("screenshot_committed") is not False or
+            runtime_location_proof.get("applies_to_all_configs_sharing_tileset_layout") is not False or
+            len(runtime_location_proof.get("screenshot_sha256", "")) != 64 or
+            config_id not in maps):
+            raise ValueError("Unverifiable or globally scoped on-screen map identity")
+        maps[config_id].setdefault("runtime_pack_location_contexts", []).append({
+            "pack_id_hex":pack_id,
+            "label":identity["candidate_label"],
+            "identity_status":"confirmed_onscreen_title_runtime_scene",
+            "scope":"exact_config_and_runtime_pack_only",
+            "provenance":str(runtime_location_proof_path.relative_to(ROOT)).replace("\\","/"),
+            "screenshot_sha256":runtime_location_proof["screenshot_sha256"],
+            "story_phase_flag_binding_proven":False,
+            "dungeon_type_proven":False,
+        })
+        runtime_identity_attached += 1
+
     spawn_predicate_terms_by_actor = {}
     if ACTOR_SPAWN_PREDICATE_TERMS.exists():
         for row in csv.DictReader(ACTOR_SPAWN_PREDICATE_TERMS.open(encoding="utf-8-sig", newline="")):
@@ -957,6 +994,7 @@ def main():
         "schema_version": 9,
         "kind": "shinmomo_structural_world",
         "runtime_spatial_proof_summary": runtime_spatial_summary,
+        "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),
         "asset_profiles": {

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "kind": "prioritized_rom_dungeon_family_world_hotspot_targets",
+  "origin_config_id": "cfg_t01_l001_v1",
+  "origin_observed_xy": [
+    55,
+    236
+  ],
+  "dungeon_family_criteria": "ROM setup tileset8 layouts92/94/96; not a named dungeon or actual floor transition",
+  "candidate_count": 1,
+  "accessible_from_origin_current_story_proven": false,
+  "recorded_navigation_probe": {
+    "source_world_xy": [
+      55,
+      236
+    ],
+    "direct_north_result_xy": [
+      55,
+      233
+    ],
+    "north_stalled_from_this_route": true,
+    "alternate_east_west_probes_did_not_find_a_walk_route": true,
+    "entire_region_or_all_possible_routes_blocked_proven": false,
+    "result": "route_unresolved_no_teleport_or_WRAM_edit"
+  },
+  "targets": [
+    {
+      "transition_id": "catalog_transition_0750",
+      "source_config_id": "cfg_t01_l001_v1",
+      "source_region": {
+        "x": 47,
+        "y": 199,
+        "width": 2,
+        "height": 1
+      },
+      "destination_config_id": "cfg_t08_l092_v2",
+      "destination_pack": "0x91",
+      "destination_tileset": 8,
+      "destination_layout": 92,
+      "static_opcode_candidate": "CC:0B7F",
+      "distance_lower_bound_world_grid_cells": 44,
+      "distance_is_walkable_route": false,
+      "observed_runtime_transition": false,
+      "destination_arrival_xy_confirmed": false,
+      "active_story_gate_evaluated": false,
+      "evidence_status": "rom_dungeon_family_and_exact_world_source_rectangle_only"
+    }
+  ],
+  "no_edges_promoted": true
+}
