@@ -1,0 +1,881 @@
+{
+  "schema_version": 1,
+  "kind": "five_original_world_entered_scene_A_interactions_and_pack82_saved_world_return",
+  "five_scene_pack_contexts": [
+    "0xBD",
+    "0xB9",
+    "0xAB",
+    "0x82",
+    "0x60"
+  ],
+  "five_scene_actual_A8_plus_four_direction_tests": 5,
+  "total_real_direction_probes": 20,
+  "dungeon_scene_packs_with_observed_local_movement": [
+    "0xBD",
+    "0xB9",
+    "0xAB"
+  ],
+  "two_village_scene_packs_still_stationary_after_one_A": [
+    "0x82",
+    "0x60"
+  ],
+  "village_twelve_A_dialogue_trials": [
+    "0x82",
+    "0x60"
+  ],
+  "village_pack82_saved_world_return_reproduced": true,
+  "village_pack60_world_return_observed": false,
+  "original_world_entry_cheat_positioned": true,
+  "actual_scene_input_XY_coordinate_cheat_used": false,
+  "actual_emulator_restored_after_all_local_trials": true,
+  "no_globally_valid_story_route_or_exit_missing_claim": true,
+  "raw_ROM_images_Wram_frames_savestates_committed": false,
+  "new_contextual_saved_world_return_edges": 1,
+  "scene_trials": [
+    {
+      "source_scene_pack": "0xBD",
+      "source_scene_config_id": "cfg_t36_l150_v2",
+      "original_world_transition_id": "catalog_transition_0802",
+      "source_scene_arrival_xy": [
+        15,
+        37
+      ],
+      "source_world_entrance_cheat_seeded": true,
+      "actual_scene_probe_wram_xy_cheat_used": false,
+      "real_A8_followed_by_neutral64": true,
+      "prior_world_entry_proven": true,
+      "scene_A_interaction_cause_of_walking_proven": false,
+      "before_A_screenshot_sha256": "D8038AB31C437706F0B330E9DA4EBA769B9E798F9CD313618B47C29BA179AF27",
+      "after_A_screenshot_sha256": "376AFDFC81D07049F1817F04F2690AF296DFC666865CA8DFF9F81045932B9C3D",
+      "actual_A_trace_sha256": "ED05C5E3C0D5013ACCA9B9117F7403A810ACB87E8F9C46EC0069CA33B2B5C27C",
+      "after_A_neutral_trace_sha256": "A9A1161C695F1D633AE093D07BFBCCAD2EA542B7D018533B4503262CEE338DEC",
+      "directions": [
+        {
+          "direction": "Down",
+          "after_gamepad_xy": [
+            15,
+            38
+          ],
+          "after_neutral_xy": [
+            15,
+            38
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "598ACB29F3F69013CFB063F894260B1A5ED54D37807B5EF9200128F2EBA25866",
+          "neutral_trace_sha256": "BD49EA324A66A866CF58BB40FAF35453BE245003DC2336444D4E0A374BD6891D",
+          "screenshot_sha256": "71CFFC30764A36892545BF100D5C7F795129E562AB2A9DBD52440852298A88CD",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Up",
+          "after_gamepad_xy": [
+            15,
+            36
+          ],
+          "after_neutral_xy": [
+            15,
+            36
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "BC4329E41EE8786BBF0E16EA449CAE54CB8C8DB3AF096EDFD93DFD6CC261ED43",
+          "neutral_trace_sha256": "095CC6EAD45D851CF70C64D6291446C5E26456347CEA59B793787656DF106231",
+          "screenshot_sha256": "A1184EB4592F529838F2A38C15E1A02E8341B8CEE3FCDDFE4C65F60C7B566FE3",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Left",
+          "after_gamepad_xy": [
+            14,
+            37
+          ],
+          "after_neutral_xy": [
+            14,
+            37
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "47A9F83ADAAA6B53DA28FD9BF387C1A61ACADEC0B1DE77D37BA793895518A5E3",
+          "neutral_trace_sha256": "EC4065EB1115D7F7E635FC799654C0E652C214C6CD80695ECC33231C3A76A255",
+          "screenshot_sha256": "9736635D4541DE6E1E21F4F3B460CCE6DA08DA1C899D76CBD545B9F26B40354C",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Right",
+          "after_gamepad_xy": [
+            16,
+            37
+          ],
+          "after_neutral_xy": [
+            16,
+            37
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "61B81682FBCD48DC24B8F4B57814D5D929A7BE00A655F683AD246B9298F5274C",
+          "neutral_trace_sha256": "6E6DDF99377B44404519989D1CEABE319FB9133D0898B24594C839FCB2317851",
+          "screenshot_sha256": "E9239D6FB671A3E36A2BB7E5CEECA83A1683C89B885F42F00D0D3491DE3D1026",
+          "did_not_switch_pack_in_this_probe": true
+        }
+      ],
+      "all_story_states_reachable_proven": false,
+      "no_exit_other_stories_or_directions_proven": false,
+      "raw_images_traces_ROM_savestates_committed": false
+    },
+    {
+      "source_scene_pack": "0xB9",
+      "source_scene_config_id": "cfg_t25_l129_v2",
+      "original_world_transition_id": "catalog_transition_0803",
+      "source_scene_arrival_xy": [
+        68,
+        25
+      ],
+      "source_world_entrance_cheat_seeded": true,
+      "actual_scene_probe_wram_xy_cheat_used": false,
+      "real_A8_followed_by_neutral64": true,
+      "prior_world_entry_proven": true,
+      "scene_A_interaction_cause_of_walking_proven": false,
+      "before_A_screenshot_sha256": "2A595799B5FD1121699B6D6259A510FD2D70FA9FDB352DFE92DC7776645B9116",
+      "after_A_screenshot_sha256": "029230B147EBB39828FC3777A743AB2DEB40061BC4442F739714C31B025BE579",
+      "actual_A_trace_sha256": "E81DDC578AEB968D1D6892745DEA0EAB4BB6A80AB165D217C0FBBFCB42150F7C",
+      "after_A_neutral_trace_sha256": "347CDD02D80EEDE5F5ECB7EE51A94CE60A868799217BD1D0ED5629AB003B38FF",
+      "directions": [
+        {
+          "direction": "Down",
+          "after_gamepad_xy": [
+            68,
+            31
+          ],
+          "after_neutral_xy": [
+            68,
+            31
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "DEBAD7B81671174D814220A35AE219EF26F6EA134FC61B9B5953B2786D6CAD97",
+          "neutral_trace_sha256": "427A9C0E0A02B31CFB1447DE2FB1F18D3C7D9EACA335D513D72A630052906209",
+          "screenshot_sha256": "3B125651DCCC84FB424604D23337784F3AEB454480A5187873F86CB008BED0F1",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Up",
+          "after_gamepad_xy": [
+            68,
+            23
+          ],
+          "after_neutral_xy": [
+            68,
+            23
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "998C4F41ABE487077535920AA19532638B769CD332C09AAE799503ED8427675F",
+          "neutral_trace_sha256": "5BA3C191FAF62B84677249BE1CE006965F2D07AF3EDA2302CC91DBAB7C5BB76A",
+          "screenshot_sha256": "6F9784F8775C465FAF2D47F071AE5634AB6B829C3DC44E6E0344ABB3BD5782C9",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Left",
+          "after_gamepad_xy": [
+            62,
+            25
+          ],
+          "after_neutral_xy": [
+            62,
+            25
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "B76D602D2EC4CB52117C7CA109E4172C3C73FB69E099F7703EAC1A7AC47CDB0F",
+          "neutral_trace_sha256": "1C4AFB06F9E7DBA4BFFAF5DC02CC2B0C6086791A239800CF345384F9EE569969",
+          "screenshot_sha256": "56AC5BEA047E45A84CEB85DE293738A8095DBBE29F9F233B7434CD1EA6B3FDA2",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Right",
+          "after_gamepad_xy": [
+            74,
+            25
+          ],
+          "after_neutral_xy": [
+            74,
+            25
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "0BE058212C8E296FFCD56955C1E6B014577B86711E5789A537E97FAA8F04732F",
+          "neutral_trace_sha256": "6ED25EFB632796787B0EBC4013D08049B069E2A0BDB455DA75A8788B7D2FCCB9",
+          "screenshot_sha256": "02308C899355C17F5355304E4975DE6D7BF8ACE3EFCA4F5DCCF991D1548AF4A7",
+          "did_not_switch_pack_in_this_probe": true
+        }
+      ],
+      "all_story_states_reachable_proven": false,
+      "no_exit_other_stories_or_directions_proven": false,
+      "raw_images_traces_ROM_savestates_committed": false
+    },
+    {
+      "source_scene_pack": "0xAB",
+      "source_scene_config_id": "cfg_t49_l176_v2",
+      "original_world_transition_id": "catalog_transition_0774",
+      "source_scene_arrival_xy": [
+        22,
+        5
+      ],
+      "source_world_entrance_cheat_seeded": true,
+      "actual_scene_probe_wram_xy_cheat_used": false,
+      "real_A8_followed_by_neutral64": true,
+      "prior_world_entry_proven": true,
+      "scene_A_interaction_cause_of_walking_proven": false,
+      "before_A_screenshot_sha256": "D2A6B916164CEC7D4C35BB1162878E8DBC4880270A13F0DD1770EE4CD4D9DD36",
+      "after_A_screenshot_sha256": "D3235F3223C371280B664FB739DEF264E0DF948666F6A5DD59B4401040768BD5",
+      "actual_A_trace_sha256": "D1D37740366E108CE9D8224D7E47502009961B33FCAD1FC15CF55A7356066DD6",
+      "after_A_neutral_trace_sha256": "B86E6F6374B0C7DDA33D6A6A9417C2D3CB2DE2EFBA8325744B028B7C07503146",
+      "directions": [
+        {
+          "direction": "Down",
+          "after_gamepad_xy": [
+            22,
+            11
+          ],
+          "after_neutral_xy": [
+            22,
+            11
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "B5CA9B43691DD943F06E9B90B2E953EC8CDA682101386567FCB2E29CE66A8839",
+          "neutral_trace_sha256": "4C523AF83A9161B97C7404E532FF1FC4601D1E01D65353FA0A02B25179376F47",
+          "screenshot_sha256": "EB3C65E4D04D6680EB0F434C8A8DFC9441C4E2298177F2CC9B86B01D063DBE2B",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Up",
+          "after_gamepad_xy": [
+            22,
+            3
+          ],
+          "after_neutral_xy": [
+            22,
+            3
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "1E28E066BC27926E9BE0EC83CEB00CDE4DAA33BC3B5713E9D75AB8B9BE77A72F",
+          "neutral_trace_sha256": "0D3910B5848EA6C0EB0DA72099D7407DF5DC2D8A9FC2CA0FC9A18E835D40213B",
+          "screenshot_sha256": "E1CA9CF15552A8CC09DF9280862618D1458FA2E4E1F7CA0078BD0936E3B170DE",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Left",
+          "after_gamepad_xy": [
+            16,
+            5
+          ],
+          "after_neutral_xy": [
+            16,
+            5
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "644521C5F79248082FAB07FB1AAC4F5FEBE4EC4B72CC4BEA2AB3568D16A3F638",
+          "neutral_trace_sha256": "49AC76A132DCE6DBA358A6336C30D8AC4F575D68092B1FC13A69BB91835E9EFB",
+          "screenshot_sha256": "7C782960FCF84C2E7306A175F8C9D7FB183E7D3922A7D173420C5CFFE2847454",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Right",
+          "after_gamepad_xy": [
+            26,
+            5
+          ],
+          "after_neutral_xy": [
+            26,
+            5
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "BAA26714D8BA227C0F54647322EB1B80302838268BEA035D3332740FD3623739",
+          "neutral_trace_sha256": "2350D1E03FF7EB4B9BC4BDF1ACE0DE29EDAE8F6C622FE19CC31CCB8BBF42ABC8",
+          "screenshot_sha256": "30822C1A63E3822C5B4BE818E7403AA50C7875EB972C2280802ECB9F602A5748",
+          "did_not_switch_pack_in_this_probe": true
+        }
+      ],
+      "all_story_states_reachable_proven": false,
+      "no_exit_other_stories_or_directions_proven": false,
+      "raw_images_traces_ROM_savestates_committed": false
+    },
+    {
+      "source_scene_pack": "0x82",
+      "source_scene_config_id": "cfg_t04_l059_v2",
+      "original_world_transition_id": "catalog_transition_0791",
+      "source_scene_arrival_xy": [
+        40,
+        59
+      ],
+      "source_world_entrance_cheat_seeded": true,
+      "actual_scene_probe_wram_xy_cheat_used": false,
+      "real_A8_followed_by_neutral64": true,
+      "prior_world_entry_proven": true,
+      "scene_A_interaction_cause_of_walking_proven": false,
+      "before_A_screenshot_sha256": "66BB83F0D1C969894568D83DB488D4B4C21A014C412E4FBA63AC56A46DEA8B3E",
+      "after_A_screenshot_sha256": "7F58175E6C4A266A2E692B415AC23AE151F7DD9A31CCC972D73D78B35B6B57F7",
+      "actual_A_trace_sha256": "D2EA1600AD28F6B33F1773C6B1B96D97BD0ABE4E5C406612A674D09F9C3869E1",
+      "after_A_neutral_trace_sha256": "6EF12F6AF9239A0ED9043DD928104FA64378610085207B47E4FC6BD4A232F5A7",
+      "directions": [
+        {
+          "direction": "Down",
+          "after_gamepad_xy": [
+            40,
+            59
+          ],
+          "after_neutral_xy": [
+            40,
+            59
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "41A54F5264BCC28B951CC28691F5CCEA5D6A5950FBE199CF8087948A39682C96",
+          "neutral_trace_sha256": "5CD26279CD5EF5C998C3B72254BD501043F98C4D807B2A6C5B241BCDA65347BD",
+          "screenshot_sha256": "5451D69C5ADDAE4F391097DDAE5596C5779EDABF99611E8F732E503DD65CAB85",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Up",
+          "after_gamepad_xy": [
+            40,
+            59
+          ],
+          "after_neutral_xy": [
+            40,
+            59
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "8DF31A937A762A5DFDFECE9BC08890277642A2FBC0AC47B48A139E923A728611",
+          "neutral_trace_sha256": "5CD26279CD5EF5C998C3B72254BD501043F98C4D807B2A6C5B241BCDA65347BD",
+          "screenshot_sha256": "5451D69C5ADDAE4F391097DDAE5596C5779EDABF99611E8F732E503DD65CAB85",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Left",
+          "after_gamepad_xy": [
+            40,
+            59
+          ],
+          "after_neutral_xy": [
+            40,
+            59
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "5F63850F47B45C61899C13E7C9A1395256B655F8AFE016D82D1B5BF6D46B36F9",
+          "neutral_trace_sha256": "5CD26279CD5EF5C998C3B72254BD501043F98C4D807B2A6C5B241BCDA65347BD",
+          "screenshot_sha256": "5451D69C5ADDAE4F391097DDAE5596C5779EDABF99611E8F732E503DD65CAB85",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Right",
+          "after_gamepad_xy": [
+            40,
+            59
+          ],
+          "after_neutral_xy": [
+            40,
+            59
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "89844A8FB15B9D80BBD157253DC2F7444D4E50D832214EFBC5F66A5FD6E8A875",
+          "neutral_trace_sha256": "5CD26279CD5EF5C998C3B72254BD501043F98C4D807B2A6C5B241BCDA65347BD",
+          "screenshot_sha256": "5451D69C5ADDAE4F391097DDAE5596C5779EDABF99611E8F732E503DD65CAB85",
+          "did_not_switch_pack_in_this_probe": true
+        }
+      ],
+      "all_story_states_reachable_proven": false,
+      "no_exit_other_stories_or_directions_proven": false,
+      "raw_images_traces_ROM_savestates_committed": false
+    },
+    {
+      "source_scene_pack": "0x60",
+      "source_scene_config_id": "cfg_t04_l035_v2",
+      "original_world_transition_id": "catalog_transition_0755",
+      "source_scene_arrival_xy": [
+        37,
+        56
+      ],
+      "source_world_entrance_cheat_seeded": true,
+      "actual_scene_probe_wram_xy_cheat_used": false,
+      "real_A8_followed_by_neutral64": true,
+      "prior_world_entry_proven": true,
+      "scene_A_interaction_cause_of_walking_proven": false,
+      "before_A_screenshot_sha256": "BB64ACED1B3CA16AFECD364B32D367722C1C632BA4C582572AEC354AB31DAED3",
+      "after_A_screenshot_sha256": "B40FECAF55ED52C7A09DDA75AE472E4DDF3902C1C229838AA2811A07F9B0C0E2",
+      "actual_A_trace_sha256": "89191E738C0DD9514E2456A982C691FBC9EE7020190D6731B0ABCF963624C13D",
+      "after_A_neutral_trace_sha256": "DD6F7F2AC24BF1F8E6326A65219595D8BDA0258B24FA808572AB7F8614D8C039",
+      "directions": [
+        {
+          "direction": "Down",
+          "after_gamepad_xy": [
+            37,
+            56
+          ],
+          "after_neutral_xy": [
+            37,
+            56
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "1DA24A15D715449E549BBCF3376F47121479790294B74CEE0A53EB8ABBE6C4EA",
+          "neutral_trace_sha256": "1F90B3A2009E4C6F26503A0339789A1137CF7D1CA35FB28F2A651AF5A80F90EC",
+          "screenshot_sha256": "1C16CB5E006102C99B4BC4CD0CD6795644A599FB6AD8B21D6D19DB9C898F20CA",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Up",
+          "after_gamepad_xy": [
+            37,
+            56
+          ],
+          "after_neutral_xy": [
+            37,
+            56
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "3D52E6E6FA40701DA0721A1B571CCEE30B7031A795844494D371B4670951D7B3",
+          "neutral_trace_sha256": "1F90B3A2009E4C6F26503A0339789A1137CF7D1CA35FB28F2A651AF5A80F90EC",
+          "screenshot_sha256": "1C16CB5E006102C99B4BC4CD0CD6795644A599FB6AD8B21D6D19DB9C898F20CA",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Left",
+          "after_gamepad_xy": [
+            37,
+            56
+          ],
+          "after_neutral_xy": [
+            37,
+            56
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "822A0476A9A0FC81CE94D7909FA7ABF3151B606DCE15688873ECE32AA4BFA549",
+          "neutral_trace_sha256": "1F90B3A2009E4C6F26503A0339789A1137CF7D1CA35FB28F2A651AF5A80F90EC",
+          "screenshot_sha256": "1C16CB5E006102C99B4BC4CD0CD6795644A599FB6AD8B21D6D19DB9C898F20CA",
+          "did_not_switch_pack_in_this_probe": true
+        },
+        {
+          "direction": "Right",
+          "after_gamepad_xy": [
+            37,
+            56
+          ],
+          "after_neutral_xy": [
+            37,
+            56
+          ],
+          "input_frames": 96,
+          "neutral_frames": 120,
+          "real_gamepad_trace_sha256": "F835F4B488049D896A31A52FB7301204F3B41DEC6C6CFF7CBC25120CC9BAE469",
+          "neutral_trace_sha256": "1F90B3A2009E4C6F26503A0339789A1137CF7D1CA35FB28F2A651AF5A80F90EC",
+          "screenshot_sha256": "1C16CB5E006102C99B4BC4CD0CD6795644A599FB6AD8B21D6D19DB9C898F20CA",
+          "did_not_switch_pack_in_this_probe": true
+        }
+      ],
+      "all_story_states_reachable_proven": false,
+      "no_exit_other_stories_or_directions_proven": false,
+      "raw_images_traces_ROM_savestates_committed": false
+    }
+  ],
+  "dialogue_sequences": [
+    {
+      "pack": "0x82",
+      "source_world_transition_id": "catalog_transition_0791",
+      "actual_A_button_presses": 12,
+      "per_press_held_frames": 8,
+      "neutral_frames_between_presses": 20,
+      "scene_xy_unchanged_during_all_twelve_A_presses": true,
+      "screenshot_digests_distinct_during_dialogue": 12,
+      "followup_controller": "Down",
+      "followup_frames": 96,
+      "followup_neutral_frames": 120,
+      "followup_destination_pack": "0x4C",
+      "followup_destination_xy": [
+        175,
+        189
+      ],
+      "normal_world_entry_walkability_proven": false,
+      "universal_story_state_proven": false,
+      "per_step": [
+        {
+          "index": 0,
+          "input": "None",
+          "frame": 663340,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "66BB83F0D1C969894568D83DB488D4B4C21A014C412E4FBA63AC56A46DEA8B3E"
+        },
+        {
+          "index": 1,
+          "input": "A8 neutral20",
+          "frame": 663368,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "B1D0A9409A5B7C361CDB5B6566A5F69AA76EA465AA9F82658B746372535D6AFD"
+        },
+        {
+          "index": 2,
+          "input": "A8 neutral20",
+          "frame": 663396,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "6DCFCF171FC35D8890F11382B3FF393A00B10A52C9AD3A8199D998DF98021E51"
+        },
+        {
+          "index": 3,
+          "input": "A8 neutral20",
+          "frame": 663424,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "35FD615D16C810FB7FFC5633F2833A0016B3050BDCE90247148F595A39837ABA"
+        },
+        {
+          "index": 4,
+          "input": "A8 neutral20",
+          "frame": 663452,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "3F33DA11DC9D0DAA546C9AE0BACF34D54376E91AE4486F760A84A18F57952730"
+        },
+        {
+          "index": 5,
+          "input": "A8 neutral20",
+          "frame": 663480,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "687E741BDCB238DC5814F5E876B6A2EAD1963469447918A4B79503341D3A40ED"
+        },
+        {
+          "index": 6,
+          "input": "A8 neutral20",
+          "frame": 663508,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "BD71ADA3A7C05F54F295F686F4FEC694BD0B22F20ADAAD66BF97E317F51BFF2B"
+        },
+        {
+          "index": 7,
+          "input": "A8 neutral20",
+          "frame": 663536,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "CDC15D7E3DC373F2432B4374F37C6534A3B90DDF655B9F923A303083BC067125"
+        },
+        {
+          "index": 8,
+          "input": "A8 neutral20",
+          "frame": 663564,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "24AA853A5FD830992B755162DEB0C60D1D4A840AA86602BE7BDA50E7FA34B348"
+        },
+        {
+          "index": 9,
+          "input": "A8 neutral20",
+          "frame": 663592,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "32318B3A7B6789EB7C17EC8D07C955B6F57A464EB169B013F129CCF866CBE0BC"
+        },
+        {
+          "index": 10,
+          "input": "A8 neutral20",
+          "frame": 663620,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "0D38CFC1F4D1A94EFE7738CDB38FF6B2C2BE873CCBFAB33091A88699F67FAAE2"
+        },
+        {
+          "index": 11,
+          "input": "A8 neutral20",
+          "frame": 663648,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "BD71ADA3A7C05F54F295F686F4FEC694BD0B22F20ADAAD66BF97E317F51BFF2B"
+        },
+        {
+          "index": 12,
+          "input": "A8 neutral20",
+          "frame": 663676,
+          "scene_pack_after": "0x82",
+          "xy": [
+            40,
+            59
+          ],
+          "screenshot_sha256": "1599174A94F45FCF5C0E42CBA3146BCA6B0F8F50EFE1B0196E69A5B2BD8ED565"
+        },
+        {
+          "index": 13,
+          "input": "Down96 neutral120",
+          "frame": 663892,
+          "scene_pack_after": "0x4C",
+          "xy": [
+            175,
+            189
+          ],
+          "screenshot_sha256": null
+        }
+      ]
+    },
+    {
+      "pack": "0x60",
+      "source_world_transition_id": "catalog_transition_0755",
+      "actual_A_button_presses": 12,
+      "per_press_held_frames": 8,
+      "neutral_frames_between_presses": 20,
+      "scene_xy_unchanged_during_all_twelve_A_presses": true,
+      "screenshot_digests_distinct_during_dialogue": 13,
+      "followup_controller": "Down",
+      "followup_frames": 96,
+      "followup_neutral_frames": 120,
+      "followup_destination_pack": "0x60",
+      "followup_destination_xy": [
+        37,
+        56
+      ],
+      "normal_world_entry_walkability_proven": false,
+      "universal_story_state_proven": false,
+      "per_step": [
+        {
+          "index": 0,
+          "input": "None",
+          "frame": 663340,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "BB64ACED1B3CA16AFECD364B32D367722C1C632BA4C582572AEC354AB31DAED3"
+        },
+        {
+          "index": 1,
+          "input": "A8 neutral20",
+          "frame": 663368,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "D97A9E8885368F1AC56CD06F320877FB37C924F8073A2D7A48AABB265C75E502"
+        },
+        {
+          "index": 2,
+          "input": "A8 neutral20",
+          "frame": 663396,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "0EAEEF4FBD04157D9731910BC2139AC85C66ED5D273B5A492ECD657EA45B8082"
+        },
+        {
+          "index": 3,
+          "input": "A8 neutral20",
+          "frame": 663424,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "E2518726F2E3F35606EBBC85751448C187CEF50DDF08F72470309D24E25AA0E2"
+        },
+        {
+          "index": 4,
+          "input": "A8 neutral20",
+          "frame": 663452,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "FBA01C70CBB945B521855AD3F3075FEF40037656723C6CA21DF9DBC7A8CF57AE"
+        },
+        {
+          "index": 5,
+          "input": "A8 neutral20",
+          "frame": 663480,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "A15CBC362EFCA47DC971E2FB29569D4732263242A631BE557B15E160227EB08F"
+        },
+        {
+          "index": 6,
+          "input": "A8 neutral20",
+          "frame": 663508,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "8421AEFD58215DCDCCEB8C3D050676EBDBAE92FBB25014140C1A874ADF804E12"
+        },
+        {
+          "index": 7,
+          "input": "A8 neutral20",
+          "frame": 663536,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "E54331C7E188BCCFE1328D186EB5FBC5DF5B9B22245011C946F6C0227B0C61D0"
+        },
+        {
+          "index": 8,
+          "input": "A8 neutral20",
+          "frame": 663564,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "C375FC8C5CEAFB71C4EDA8D43897D2747CD8F8EDCFF7476D53E95B5DAA85D45E"
+        },
+        {
+          "index": 9,
+          "input": "A8 neutral20",
+          "frame": 663592,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "46E6872DB0BF81B9211FDB7EEB0304E6E1A19721635F80F3CE63EF9E7FD63712"
+        },
+        {
+          "index": 10,
+          "input": "A8 neutral20",
+          "frame": 663620,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "EADD2623633646EF02048E173761B7D9009EF7D5D7D268FF46F62B515F590AB5"
+        },
+        {
+          "index": 11,
+          "input": "A8 neutral20",
+          "frame": 663648,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "8B78F4D63A717FD0C8DDC8C22E7DC76C60ACC092CD11CA38ADC017BDE2B01916"
+        },
+        {
+          "index": 12,
+          "input": "A8 neutral20",
+          "frame": 663676,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": "333C265EDBBC84B89B17A954C03527C8CFBEA958897813FD251215772BDA1EA9"
+        },
+        {
+          "index": 13,
+          "input": "Down96 neutral120",
+          "frame": 663892,
+          "scene_pack_after": "0x60",
+          "xy": [
+            37,
+            56
+          ],
+          "screenshot_sha256": null
+        }
+      ]
+    }
+  ],
+  "pack82_confirmed_world_return": {
+    "source_pack": "0x82",
+    "source_config_id": "cfg_t04_l059_v2",
+    "source_world_transition_id": "catalog_transition_0791",
+    "original_scene_spawn_xy": {
+      "x": 40,
+      "y": 59
+    },
+    "dialogue_A_presses_before_exit": 12,
+    "actual_world_return_input": "Down",
+    "world_switch_frame": 663683,
+    "world_destination_pack": "0x4C",
+    "world_destination_config_id": "cfg_t01_l001_v1",
+    "world_destination_xy_for_original_saved_world_context": {
+      "x": 175,
+      "y": 189
+    },
+    "world_arrival_stable_neutral_frames": 360,
+    "last_observed_world_frame": 664132,
+    "native_handler_CPU_PC_proven": false,
+    "world_destination_other_saves_universal": false,
+    "source_exact_exit_hotspot_proven": false,
+    "source_entrance_originally_cheat_seeded": true,
+    "return_gamepad_xy_coordinate_cheated": false,
+    "raw_screenshots_frames_states_or_ROM_committed": false,
+    "raw_frame_sha256": [
+      "A9D92C49BDA1FD403BA2586E81C8EC580D8BF1F1B4620E631DD47B2A79676790",
+      "E29265744721483F8709CF319C6B50BF708A3642EC4C79F09B540EEB1B4ADFBF",
+      "BE8C39E64C20FA9161A5481A057390F029DB8A1D4EB42030FDEABD775FD602B5",
+      "2662D94F9EB2EA4572C3F6582BD02D36B1CFD3C20C715BADA907409BE7A5A837"
+    ],
+    "screenshot_sha256": [
+      "921E818FD2D61234804B55555FBDB1DCE528F6B13229FD0D7422F9F9B50742FF",
+      "921E818FD2D61234804B55555FBDB1DCE528F6B13229FD0D7422F9F9B50742FF",
+      "921E818FD2D61234804B55555FBDB1DCE528F6B13229FD0D7422F9F9B50742FF",
+      "921E818FD2D61234804B55555FBDB1DCE528F6B13229FD0D7422F9F9B50742FF"
+    ]
+  }
+}

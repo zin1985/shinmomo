@@ -153,8 +153,8 @@ class OmusubiHoleAndFloorTests(unittest.TestCase):
 
     def test_complete_graph_has_two_new_bindings_no_extra_candidate(self):
         self.assertEqual(len(self.world["maps"]),149)
-        self.assertEqual(len(self.world["transition_edges"]),75)
-        self.assertEqual(len(self.world["transition_candidates"]),1312)
+        self.assertEqual(len(self.world["transition_edges"]),76)
+        self.assertEqual(len(self.world["transition_candidates"]),1313)
         self.assertEqual(self.world["runtime_pack95_floor_source_summary"]["new_bound_edge_count"],1)
         self.assertEqual(self.world["runtime_cave_saved_origin_return_summary"]["new_graph_edge_count"],1)
         edge=next(e for e in self.world["transition_edges"] if e["transition_id"]==TARGET)

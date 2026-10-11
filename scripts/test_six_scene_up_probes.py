@@ -81,8 +81,8 @@ class SceneSixUpTests(unittest.TestCase):
         self.assertEqual(summary["world_transition_edges_created"],0)
         self.assertEqual(summary["up_local_trials_without_switch"],6)
         self.assertEqual(summary["pack96_identical_directional_motion_frames"],204)
-        self.assertEqual(len(self.world["transition_edges"]),75)
-        self.assertEqual(len(self.world["transition_candidates"]),1312)
+        self.assertEqual(len(self.world["transition_edges"]),76)
+        self.assertEqual(len(self.world["transition_candidates"]),1313)
     def test_forged_general_no_exit_claim_rejected(self):
         bad=copy.deepcopy(self.up)
         bad["universal_no_exit_claim"]=True

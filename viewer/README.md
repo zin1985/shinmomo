@@ -241,3 +241,19 @@ candidate transitions; the new exact-pack0x96 onscreen title brings
 the attached scene-pack label contexts to 26. All-world walkability,
 other saves/story states and exact CPU PC remain unknown.
 docs/analysis/pack96_fiveway_modal_escape_world_return_20261011.md
+
+
+## Five more scene controls and pack0x82 verified saved-world return
+
+Five real scene arrivals (0xBD,0xB9,0xAB,0x82,0x60) were tested with
+SNES A8, neutral64, then separate Down/Up/Left/Right96 real controller
+inputs (20 total). BD/B9/AB walked around in their local scenes without
+exiting this limited window. 82/60 remained stationary from only one
+A. Separate 12 sequential A8+neutral20 actions progressed scene
+displays. After those twelve A presses, pack82 (40,59) returned with
+actual Down96 to world0x4C saved-origin coordinate (175,189),
+remaining stable for an extra 360 frames. Pack60 (37,56) remained
+unresolved. One contextual real return edge is added, with all
+original-world-entry cheat and story/CPU ambiguity preserved:
+149 maps, 76 bound edges, 1313 transitions, 26 exact-pack titles.
+See docs/analysis/five_scene_A_pack82_return_20261011.md.

@@ -411,3 +411,18 @@ The reproducible source fixtures, screenshots and raw frames are
 local/private and restored to original hidden emulator state.
 Commit only the derived SHA256-bearing JSON created by
 tools/python/verify_pack96_fiveway_world_return.py.
+
+
+## Five-scene modal / dialogue exploration
+
+Run tools/remote_lab/probe_five_scene_modal_unlock_exits.ps1 in
+bounded, nonoverlapping groups. It protects the original dedicated
+emulator state, loads saved world-entered scene packs BD/B9/AB/82/60,
+sends a genuine SNES A press and then each direction, recording raw
+frame SHA256. tools/remote_lab/probe_village_dialogue_modal_A.ps1
+replays multiple real A presses for packs82/60; pack82's verified
+saved-world return requires twelve A interactions then Down96.
+tools/remote_lab/verify_pack82_dialogue_world_return.ps1 checks a
+further 360 stable world frames. All original save/screens/ROM/traces
+stay local. Strict compiler:
+tools/python/compile_five_scene_A_and_pack82_return.py.

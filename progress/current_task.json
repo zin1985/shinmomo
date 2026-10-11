@@ -5,8 +5,8 @@
   "updated_at": "2026-10-11",
   "status": "active",
   "workstream": "map-transition-event-graph",
-  "title": "Trace the precise CPU modal/forced walk handler; explore other scene titles and blocked returns",
-  "base_main_head_verified": "898141d077e8a3fab89a5bae1673572513522adc",
+  "title": "Resolve pack0x60 village dialogue/event lock and verify 3 cave navigation branches",
+  "base_main_head_verified": "217f950a7174384388c042410d95d42aa2d05b62",
   "protocol": "docs/project/ROLLING_WORK_PROTOCOL.md",
   "goal": "Verify story-dependent map traversal and source-map ownership for all world, village and dungeon configurations, using canonical ROM/runtime evidence only.",
   "definition_of_done": [
@@ -455,19 +455,19 @@
   "next_actions": [
     {
       "order": 1,
-      "action": "Check modal/title/cutscene dismissal in pack0xBD,0xB9,0xAB,0x82,0x60 saved arrival stages before retrying horizontal exits."
+      "action": "Understand village pack0x60 locked XY despite 12 sequential A presses, inspect actual interactive menus/NPC/cutscene flags and scene screenshot evolution."
     },
     {
       "order": 2,
-      "action": "ROM/native CPU trace actual pack96 entrance forced 9-frame descent, title input lock, and delayed saved-world-return coordinate correction."
+      "action": "Use 0xBD/0xB9/0xAB established traversable corridors as seeds for mapping dungeon floors and true stairs/exits."
     },
     {
       "order": 3,
-      "action": "Expand multiple village interiors and NPC conditional dialogues with actual frame observations; world entry alone is not full map completion."
+      "action": "Trace pack0x82 multi-message event VM/handler and exact trigger conditions, including whether 12 A count is state-dependent."
     },
     {
       "order": 4,
-      "action": "Verify Hien menu names/destinations, real cast, and unlimited MP; world entrance research so far used adjacent-coordinate cheats."
+      "action": "Verify Hien real destination menu and spell execution / MP unlimited; previous research used coordinate cheat."
     }
   ],
   "do_not_redo": [
@@ -840,51 +840,41 @@
   },
   "last_completed_work_unit": {
     "date": "2026-10-11",
-    "description": "Pack96 five-way exact 204-frame auto-down match including no-key control; revealed title modal blocking; verified real A unlock then Up return to world with delayed final XY(50,129) and named exact pack96 scene 音無しの洞窟.",
-    "five_control_conditions": [
-      "Down",
-      "Up",
-      "Left",
-      "Right",
-      "None"
+    "description": "Five further scene A8+neutral64 and true Up/Down/Left/Right 96-frame movement probes (20 total) plus real 12-A village dialogue progression in 0x82 and 0x60; pack82 then real Down96 returned to saved world 0x4C XY (175,189) stable for 360 neutral frames. Other 4 scene exits not promoted.",
+    "five_runtime_scene_pack_contexts": [
+      "0xBD",
+      "0xB9",
+      "0xAB",
+      "0x82",
+      "0x60"
     ],
-    "identical_frame_count_per_condition": 204,
-    "automatic_descent_from": [
-      39,
-      17
+    "real_SNES_direction_probe_count": 20,
+    "A_button_dialogue_presses_per_village": 12,
+    "three_dungeon_packs_walked": [
+      "0xBD",
+      "0xB9",
+      "0xAB"
     ],
-    "automatic_descent_to": [
-      39,
-      24
+    "pack82_coming_from_world_transition": "catalog_transition_0791",
+    "pack82_runtime_return_world_xy": [
+      175,
+      189
     ],
-    "descending_one_cell_every_nine_frames": true,
-    "post_descent_no_button_right72_blocked": true,
-    "post_descent_real_A_button_right72_walkable": true,
-    "post_modal_up_real_controller_map_switch_frame": 663807,
-    "temporary_invalid_world_xy": [
-      39,
-      7
-    ],
-    "final_settled_world_xy": [
-      50,
-      129
-    ],
-    "world_arrival_frame": 663897,
-    "stable_through_frame": 664216,
-    "pack96_onscreen_title": "音無しの洞窟",
-    "extra_exact_pack_location_title_count": 1,
-    "world_original_entry_cheat_positioned": true,
-    "normal_world_walking_route_proven": false,
-    "CPU_opcode_PC_direct_observed": false,
-    "all_story_activation_proven": false,
-    "new_verified_runtime_edge_count": 1,
-    "viewer_maps": 149,
-    "viewer_bound_edges": 75,
-    "viewer_transition_candidates": 1312,
-    "viewer_exact_pack_scoped_onscreen_title_count": 26,
+    "pack82_actual_return_switch_frame": 663683,
+    "pack82_world_stable_neutral_frames": 360,
+    "pack60_return_still_unproven": true,
+    "world_to_scene_source_was_cheat_positioned": true,
+    "scene_controller_probe_xy_cheat_used": false,
+    "other_saves_or_story_gates_proven": false,
+    "CPU_exact_executed_PC_observed": false,
+    "new_graph_edges": 1,
+    "viewer_map_count": 149,
+    "viewer_bound_edges": 76,
+    "viewer_transition_candidates": 1313,
+    "original_onscreen_exact_pack_title_count": 26,
     "official_project_completion_percent_unchanged": 51.4,
-    "raw_ROM_screenshots_frame_samples_savestates_committed": false,
-    "evidence": "docs/analysis/pack96_fiveway_modal_escape_world_return_20261011.md"
+    "protected_emulator_restored": true,
+    "evidence": "docs/analysis/five_scene_A_pack82_return_20261011.md"
   },
   "completed_work_units": [
     {
@@ -1766,6 +1756,54 @@
       "official_percent_unchanged": 51.4,
       "all_six_batches_emulator_restored": true,
       "evidence": "docs/analysis/pack96_opposing_direction_forced_motion_and_six_up_probes_20261011.md"
+    },
+    {
+      "date": "2026-10-11",
+      "description": "Pack96 five-way exact 204-frame auto-down match including no-key control; revealed title modal blocking; verified real A unlock then Up return to world with delayed final XY(50,129) and named exact pack96 scene 音無しの洞窟.",
+      "five_control_conditions": [
+        "Down",
+        "Up",
+        "Left",
+        "Right",
+        "None"
+      ],
+      "identical_frame_count_per_condition": 204,
+      "automatic_descent_from": [
+        39,
+        17
+      ],
+      "automatic_descent_to": [
+        39,
+        24
+      ],
+      "descending_one_cell_every_nine_frames": true,
+      "post_descent_no_button_right72_blocked": true,
+      "post_descent_real_A_button_right72_walkable": true,
+      "post_modal_up_real_controller_map_switch_frame": 663807,
+      "temporary_invalid_world_xy": [
+        39,
+        7
+      ],
+      "final_settled_world_xy": [
+        50,
+        129
+      ],
+      "world_arrival_frame": 663897,
+      "stable_through_frame": 664216,
+      "pack96_onscreen_title": "音無しの洞窟",
+      "extra_exact_pack_location_title_count": 1,
+      "world_original_entry_cheat_positioned": true,
+      "normal_world_walking_route_proven": false,
+      "CPU_opcode_PC_direct_observed": false,
+      "all_story_activation_proven": false,
+      "new_verified_runtime_edge_count": 1,
+      "viewer_maps": 149,
+      "viewer_bound_edges": 75,
+      "viewer_transition_candidates": 1312,
+      "viewer_exact_pack_scoped_onscreen_title_count": 26,
+      "official_project_completion_percent_unchanged": 51.4,
+      "raw_ROM_screenshots_frame_samples_savestates_committed": false,
+      "evidence": "docs/analysis/pack96_fiveway_modal_escape_world_return_20261011.md"
     }
   ]
 }

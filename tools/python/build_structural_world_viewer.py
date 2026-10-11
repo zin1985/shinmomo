@@ -15,6 +15,7 @@ from attach_world_37_scene_entrance_batch import attach as attach_world_batch
 from add_14_scene_saved_world_returns import inject as inject_14_scene_returns
 from attach_six_scene_directional_probes import attach as attach_six_directional_probes
 from attach_pack96_modal_world_return import inject as inject_pack96_modal_exit
+from attach_five_scene_A_pack82_return import attach as attach_five_modal_scenes
 from add_runtime_native_return_edge import inject as inject_runtime_native_return
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1141,6 +1142,19 @@ def main():
     else:
         pack96_return_summary = {"new_verified_modal_world_return_edge_count":0}
 
+    # Replay five further scene-pack contexts after a real A8 press.
+    # Only pack0x82 has a confirmed new saved-world return after
+    # 12 actual dialogue A presses and Down96; never promote movement-only
+    # observations for dungeon packs to invented exit edges.
+    five_scenes_path = TRANSITIONS / "five_scene_modal_tests_and_pack82_world_return_20261011.json"
+    if five_scenes_path.exists():
+        scoped_maps, transition_candidates, five_modal_summary = attach_five_modal_scenes(
+            list(maps.values()), transition_candidates,
+            json.loads(five_scenes_path.read_text(encoding="utf-8")))
+        maps = {m["config_id"]:m for m in scoped_maps}
+    else:
+        five_modal_summary = {"new_verified_pack82_world_return_edges":0}
+
     # The VM 0x5D / 0x69 source rectangle can reject a research coordinate
     # outside the trigger. An in-range point never implies true story activation.
     # A destination-phase ambiguity is an alternative set, not a new graph edge.
@@ -1171,6 +1185,7 @@ def main():
         "runtime_scene_reverse_world_14_summary": returns14_summary,
         "runtime_scene_directional_six_up_summary": six_up_summary,
         "runtime_pack96_modal_world_return_summary": pack96_return_summary,
+        "runtime_five_scene_A_pack82_world_return_summary": five_modal_summary,
         "runtime_location_title_attached_count": runtime_identity_attached,
         "new_runtime_native_return_summary": new_native_summary,
         "project_progress": build_project_progress_snapshot(),
